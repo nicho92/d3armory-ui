@@ -1,8 +1,7 @@
 package org.armory.d3.services;
 
-import java.util.List;
-
 import org.armory.d3.beans.Hero;
+import org.armory.d3.beans.Item;
 import org.armory.d3.beans.Profile;
 
 import com.sdfteam.d3armory.service.configuration.Configuration;
@@ -81,12 +80,28 @@ public class D3ArmoryControler {
 		
 	}
 	
-	public Hero getSelectedHero(boolean loading) throws D3ServerCommunicationException
+	public Hero getSelectedHero(boolean reloading) throws D3ServerCommunicationException
 	{
-		if(loading)
+		if(reloading)
 			selected = getHeroDetails(selected.getId().longValue());
 		
 		return selected;
+	}
+	
+	
+	public Item getItemDetails(Item i)
+	{
+		if(i==null)
+			return null;
+		
+		
+		RemoteService<Item> itemService = new SpringRemoteService(Item.class);
+		conf.setItemId(i.getItemID());
+		try {
+			return itemService.receiveEntity(conf);
+		} catch (D3ServerCommunicationException e) {
+			return null;
+		}
 	}
 	
 }

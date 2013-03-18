@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Paint;
 import java.net.URL;
 
@@ -16,7 +17,6 @@ import javax.swing.border.LineBorder;
 import org.armory.d3.beans.Item;
 
 public class PaintedLabel extends JLabel {
-
 	
     Item item;
 
@@ -29,19 +29,40 @@ public class PaintedLabel extends JLabel {
 	}
 
 	
-	public Icon getIcon() {
-		setHorizontalAlignment(JLabel.CENTER);
+	public Image getImage(){
 		if(item != null)
-		try {
-			URL url = new URL("http://media.blizzard.com/d3/icons/items/large/"+item.getIcon()+".png");
-			return new ImageIcon(url);
-		} catch (Exception e1) {
-			e1.printStackTrace();
-			return new ImageIcon();
-		}
-		return super.getIcon();
+			try {
+				URL url = new URL("http://media.blizzard.com/d3/icons/items/large/"+item.getIcon()+".png");
+				return new ImageIcon(url).getImage();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				return new ImageIcon().getImage();
+			}
+			return null;
 	}
+	
+//	public Icon getIcon() {
+//		setHorizontalAlignment(JLabel.CENTER);
+//		if(item != null)
+//		try {
+//			URL url = new URL("http://media.blizzard.com/d3/icons/items/large/"+item.getIcon()+".png");
+//			return new ImageIcon(url);
+//		} catch (Exception e1) {
+//			e1.printStackTrace();
+//			return new ImageIcon();
+//		}
+//		return super.getIcon();
+//	}
 
+//	public Icon getIcon()
+//	{
+//		if(item!=null)
+//			if(item.hasSockets()>0)
+//				return new ImageIcon("D:\\programmation\\d3rest\\src\\org\\armory\\d3\\ui\\resources\\empty-socket.png");
+//		return null;
+//	}
+	
+	
 	public Border getBorder() {
 		if(item != null)
 		{
@@ -72,12 +93,18 @@ public class PaintedLabel extends JLabel {
 			    	g2d.setPaint( paint );
 			    	g2d.fillRect( 0, 0, width, height );
 			    	g2d.setPaint( oldPaint );
+			    	//Image socket = new ImageIcon("D:\\programmation\\d3rest\\src\\org\\armory\\d3\\ui\\resources\\empty-socket.png").getImage();
+			    	//g2d.drawImage(getImage(), 0, 0, null);
 	  	}
 	    super.paint( g );
 	  }
     
 	  public Color toColor(String s)
 	  {
+		  if(s==null)
+			  return Color.white;
+		  
+		  
 			switch (s) {
 			case "orange":return new Color(210,105,30);
 			case "yellow":return new Color(255,215,0);
