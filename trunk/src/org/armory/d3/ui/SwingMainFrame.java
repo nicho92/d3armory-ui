@@ -118,15 +118,17 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				{
 					jSplitPane2 = new JSplitPane();
 					jSplitPane1.add(getJSplitPane2(), JSplitPane.RIGHT);
+					jSplitPane2.setPreferredSize(new java.awt.Dimension(0, 0));
 					{
 						scrollHeros = new JScrollPane();
 						jSplitPane2.add(scrollHeros, JSplitPane.LEFT);
+						scrollHeros.setPreferredSize(new java.awt.Dimension(104, 788));
 						{
 							listeHerosModel = new ListeHeroModel(); 
 							listeHeros = new JList();
 							scrollHeros.setViewportView(getListeHeros());
 							listeHeros.setModel(listeHerosModel);
-							
+						
 							listeHeros.addMouseListener(new MouseAdapter() {
 								public void mouseClicked(MouseEvent evt) {
 									try {
@@ -206,6 +208,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				{
 					scrollTags = new JScrollPane();
 					jSplitPane1.add(getScrollTags(), JSplitPane.LEFT);
+					scrollTags.setPreferredSize(new java.awt.Dimension(141, 790));
 					{
 						ListModel listeTagsModel = 
 								new DefaultComboBoxModel(
@@ -222,7 +225,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					}
 				}
 			}
-			this.setSize(1407, 858);
+			this.setSize(1279, 858);
 			{
 				jMenuBar1 = new JMenuBar();
 				setJMenuBar(jMenuBar1);
@@ -310,30 +313,30 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lblInformationClasseNiveau.setText(hero.getClazz() +" de niveau " + hero.getLevel());
 		lblParangonLevel.setText("("+hero.getParagonLevel()+")");
 		lblParangonLevel.setBounds(749, 20, 51, 16);
-		lblHead.setItem(hero.getItems().getHead());
-		lblGants.setItem(hero.getItems().getHands());
-		lblShoulders.setItem(hero.getItems().getShoulders());
-		lblNeck.setItem(hero.getItems().getNeck());
-		lblBracers.setItem(hero.getItems().getBracers());
-		lblTorso.setItem(hero.getItems().getTorso());
-		lblRingRight.setItem(hero.getItems().getRightFinger());
-		lblRingLeft.setItem(hero.getItems().getLeftFinger());
-		lblbelt.setItem(hero.getItems().getWaist());
-		lblLegs.setItem(hero.getItems().getLegs());
-		lblFoot.setItem(hero.getItems().getFeet());
-		lblMainHand.setItem(hero.getItems().getMainHand());
 		
-		D3ArmoryControler.getInstance().getConf().setItemId(hero.getItems().getMainHand().getItemID());
-		RemoteService<Item> itemService = new SpringRemoteService(Item.class);
-		Item mainHand = itemService.receiveEntity(D3ArmoryControler.getInstance().getConf());
+		lblHead.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHead()));
+		lblGants.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHands()));
+		lblShoulders.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getShoulders()));
+		lblNeck.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getNeck()));
+		lblBracers.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getBracers()));
+		lblTorso.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getTorso()));
+		lblRingRight.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getRightFinger()));
+		lblRingLeft.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLeftFinger()));
+		lblbelt.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getWaist()));
+		lblLegs.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLegs()));
+		lblFoot.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getFeet()));
+		Item mainHand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getMainHand());
+		lblMainHand.setItem(mainHand);
 		
 		if(mainHand.getType().getTwoHanded()&&hero.getItems().getOffHand()==null)
 			lblOffHand.setItem(hero.getItems().getMainHand());
 		else	
 			lblOffHand.setItem(hero.getItems().getOffHand());
 			
+		
+		
 		if(hero.isHardcore())
-			lblHarcore.setText("Extrême");
+			lblHarcore.setText("Hardcore");
 		else
 			lblHarcore.setText("");
 		
@@ -457,7 +460,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private PaintedLabel getLblHead() {
 		if(lblHead == null) {
 			lblHead = new PaintedLabel();
-			lblHead.setBounds(594, 146, 67, 77);
+			lblHead.setBounds(594, 148, 67, 77);
 		}
 		return lblHead;
 	}
