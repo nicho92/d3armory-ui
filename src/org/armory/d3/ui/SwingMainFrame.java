@@ -326,34 +326,33 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		
 		Item head = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHead());
 		lblHead.setItem(head);
-		lblSocketHead.setItem(head);
+		lblSocketHead.setItem(head,0);
 		
 		Item foot = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getFeet());
 		lblFoot.setItem(foot);
-		lblSocketBoot.setItem(foot);
+		lblSocketBoot.setItem(foot,0);
 		
 		Item gants = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHands());
 		lblGants.setItem(gants);
-		lblSocketGants.setItem(gants);
+		lblSocketGants.setItem(gants,0);
 		
 		
 		Item neck = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getNeck());
 		lblNeck.setItem(neck);
-		lblSocketNeck.setItem(neck);
+		lblSocketNeck.setItem(neck,0);
 		
-
 		Item ringright = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLeftFinger());
 		lblRingRight.setItem(ringright);
-		lblSocketRightRing.setItem(ringright);
+		lblSocketRightRing.setItem(ringright,0);
 		
 		Item ringleft = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getRightFinger());
 		lblRingLeft.setItem(ringleft);
-		lblSocketLeftRing.setItem(ringleft);
+		lblSocketLeftRing.setItem(ringleft,0);
 		
 
 		Item mainHand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getMainHand());
 		lblMainHand.setItem(mainHand);
-		lblSocketMainHand.setItem(mainHand);
+		lblSocketMainHand.setItem(mainHand,0);
 		
 		if(mainHand.getType().getTwoHanded() && hero.getItems().getOffHand()==null)
 		{
@@ -363,21 +362,25 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		{	
 			Item offhand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getOffHand());
 			lblOffHand.setItem(offhand);
-			lblSocketOffHand.setItem(offhand);
+			lblSocketOffHand.setItem(offhand,0);
 		}
 			
 
 		//TODO gerer les multiples socket
 		Item torso = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getTorso());
 		lblTorso.setItem(torso);
-		lblSocketTorso1.setItem(torso,0);
-		lblSocketTorso2.setItem(torso,1);
-		lblSocketTorso3.setItem(torso,2);
+		
+		if(torso.nbSockets()>0)
+			lblSocketTorso1.setItem(torso,0);
+		
+		if(torso.nbSockets()>1)
+			lblSocketTorso2.setItem(torso,1);
+		
+		if(torso.nbSockets()>=2)
+			lblSocketTorso3.setItem(torso,2);
+		
 		
 		lblLegs.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLegs()));
-	
-		
-		
 		
 		lblShoulders.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getShoulders()));
 		lblBracers.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getBracers()));
