@@ -58,9 +58,9 @@ public class Main {
 	 						System.out.println(item.getAttributes()[i]);
 	 					}
 				 		
-				 		System.out.println("Socket " + item.hasSockets());
+				 		System.out.println("Socket " + item.nbSockets());
 				 		
-				 		if(item.hasGems())
+				 		if(item.nbGems()>0)
 				 		{
 				 			for(int i=0;i<item.getGems().length;i++)
 		 					{

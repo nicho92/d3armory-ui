@@ -121,7 +121,6 @@ public class D3ArmoryControler {
 					BufferedReader br=new BufferedReader(ipsr);
 					String ligne;
 					while ((ligne=br.readLine())!=null){
-						System.out.println(ligne);
 						liste.add(ligne);
 					}
 					br.close(); 

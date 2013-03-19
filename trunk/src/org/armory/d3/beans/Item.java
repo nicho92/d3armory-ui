@@ -41,19 +41,18 @@ public class Item  extends RemoteEntity {
 	private LegendarySet set;
 	private Number itemLevel;
 	
-	public int hasSockets(){
+	public int nbSockets(){
 		if(attributesRaw.get("Sockets")==null)
 			return 0;
 		else
 			return attributesRaw.get("Sockets").getMax().intValue();
 	}
 	
-	public boolean hasGems(){
-		if (gems!=null);
-			if(gems.length>0)
-				return true;
+	public int nbGems(){
+		if (gems!=null)
+			return gems.length;
 			
-			return false;
+		return 0;
 	}
 	
 	public boolean isSetObjects()
