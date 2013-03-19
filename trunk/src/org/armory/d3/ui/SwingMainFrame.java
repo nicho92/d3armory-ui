@@ -221,8 +221,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					scrollTags.setPreferredSize(new java.awt.Dimension(141, 790));
 					{
 						ListModel listeTagsModel = 
-								new DefaultComboBoxModel(
-										new String[] { "nicho92#2603#eu" });
+								new DefaultComboBoxModel(D3ArmoryControler.getInstance().getListTags().toArray());
 						listeTags = new JList();
 						scrollTags.setViewportView(listeTags);
 						listeTags.setModel(listeTagsModel);
@@ -355,7 +354,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		Item mainHand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getMainHand());
 		lblMainHand.setItem(mainHand);
 		lblSocketMainHand.setItem(mainHand);
-		if(mainHand.getType().getTwoHanded()&&hero.getItems().getOffHand()==null)
+		
+		if(mainHand.getType().getTwoHanded() && hero.getItems().getOffHand()==null)
 		{
 			lblOffHand.setItem(hero.getItems().getMainHand());
 		}

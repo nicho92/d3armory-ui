@@ -1,5 +1,12 @@
 package org.armory.d3.services;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.Item;
 import org.armory.d3.beans.Profile;
@@ -103,5 +110,32 @@ public class D3ArmoryControler {
 			return null;
 		}
 	}
+	
+	public List<String> getListTags()
+	{
+		//lecture du fichier texte	
+		List<String> liste = new ArrayList<>();
+				try{
+					InputStream ips=new FileInputStream("conf/tags.d3armory"); 
+					InputStreamReader ipsr=new InputStreamReader(ips);
+					BufferedReader br=new BufferedReader(ipsr);
+					String ligne;
+					while ((ligne=br.readLine())!=null){
+						System.out.println(ligne);
+						liste.add(ligne);
+					}
+					br.close(); 
+				}		
+				catch (Exception e){
+					System.out.println(e.toString());
+				}
+				return liste;
+	}
+	
+	public void addTags(String code,String server)
+	{
+		
+	}
+	
 	
 }
