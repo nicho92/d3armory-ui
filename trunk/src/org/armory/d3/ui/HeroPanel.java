@@ -49,7 +49,7 @@ public class HeroPanel extends JPanel {
 		}
 		else
 		{
-			Image bg = new ImageIcon("E:\\programmation\\d3rest\\src\\org\\armory\\d3\\ui\\resources\\barbarian-male.jpg").getImage();
+			Image bg = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/barbarian-male.jpg")).getImage();
 			g.drawImage(bg,0,0,null);
 		}
 		
