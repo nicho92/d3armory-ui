@@ -55,23 +55,24 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JList listeHeros;
 	private JScrollPane scrollHeros;
 	private JSplitPane jSplitPane2;
-	private PaintedLabel lblTorso;
-	private PaintedLabel lblHarcore;
-	private PaintedLabel lblHead;
-	private PaintedLabel lblOffHand;
-	private PaintedLabel lblMainHand;
-	private PaintedLabel lblFoot;
-	private PaintedLabel lblLegs;
-	private PaintedLabel lblbelt;
-	private PaintedLabel lblRingLeft;
-	private PaintedLabel lblRingRight;
-	private PaintedLabel lblBracers;
-	private PaintedLabel lblNeck;
-	private PaintedLabel lblGants;
-	private PaintedLabel lblShoulders;
-	private PaintedLabel lblParangonLevel;
-	private PaintedLabel lblInformationClasseNiveau;
-	private PaintedLabel lblNom;
+	private ItemLabel lblTorso;
+	private SocketLabel lblSocketHead;
+	private ItemLabel lblHarcore;
+	private ItemLabel lblHead;
+	private ItemLabel lblOffHand;
+	private ItemLabel lblMainHand;
+	private ItemLabel lblFoot;
+	private ItemLabel lblLegs;
+	private ItemLabel lblbelt;
+	private ItemLabel lblRingLeft;
+	private ItemLabel lblRingRight;
+	private ItemLabel lblBracers;
+	private ItemLabel lblNeck;
+	private ItemLabel lblGants;
+	private ItemLabel lblShoulders;
+	private ItemLabel lblParangonLevel;
+	private ItemLabel lblInformationClasseNiveau;
+	private ItemLabel lblNom;
 
 	private JList listeTags;
 	private JScrollPane scrollTags;
@@ -169,21 +170,21 @@ public class SwingMainFrame extends javax.swing.JFrame {
 								panneauDessinHero.add(getLblMainHand());
 								panneauDessinHero.add(getLblOffHand());
 								{
-									lblNom = new PaintedLabel();
+									lblNom = new ItemLabel();
 									panneauDessinHero.add(lblNom);
 									lblNom.setBounds(466, 80, 314, 43);
 									lblNom.setName("lblNom");
 									lblNom.setHorizontalAlignment(JLabel.CENTER);
 								}
 								{
-									lblInformationClasseNiveau = new PaintedLabel();
+									lblInformationClasseNiveau = new ItemLabel();
 									panneauDessinHero.add(lblInformationClasseNiveau);
 									lblInformationClasseNiveau.setBounds(521, 20, 222, 16);
 									lblInformationClasseNiveau.setName("lblInformationClasseNiveau");
 									lblInformationClasseNiveau.setHorizontalAlignment(JLabel.HORIZONTAL);
 								}
 								{
-									lblParangonLevel = new PaintedLabel();
+									lblParangonLevel = new ItemLabel();
 									panneauDessinHero.add(lblParangonLevel);
 									panneauDessinHero.add(getLblHarcore());
 									lblParangonLevel.setBounds(692, 20, 51, 16);
@@ -314,7 +315,21 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lblParangonLevel.setText("("+hero.getParagonLevel()+")");
 		lblParangonLevel.setBounds(749, 20, 51, 16);
 		
-		lblHead.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHead()));
+		Item head = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHead());
+		lblHead.setItem(head);
+		
+		if(head.hasSockets()>0)
+			lblSocketHead.setHasSocket(true);
+		else
+			lblSocketHead.setHasSocket(false);
+			
+			
+		if(head.hasGems())
+			lblSocketHead.setSocket(head.getGems()[0]);
+		else
+			lblSocketHead.setSocket(null);
+		
+		
 		lblGants.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHands()));
 		lblShoulders.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getShoulders()));
 		lblNeck.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getNeck()));
@@ -325,6 +340,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lblbelt.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getWaist()));
 		lblLegs.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLegs()));
 		lblFoot.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getFeet()));
+		
 		Item mainHand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getMainHand());
 		lblMainHand.setItem(mainHand);
 		
@@ -361,118 +377,128 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		}
 	}
 	
-	private PaintedLabel getLblShoulders() {
+	private ItemLabel getLblShoulders() {
 		if(lblShoulders == null) {
-			lblShoulders = new PaintedLabel();
+			lblShoulders = new ItemLabel();
 			lblShoulders.setBounds(502, 179, 75, 89);
 		}
 		return lblShoulders;
 	}
 	
-	private PaintedLabel getLblGants() {
+	private ItemLabel getLblGants() {
 		if(lblGants == null) {
-			lblGants = new PaintedLabel();
+			lblGants = new ItemLabel();
 			lblGants.setBounds(490, 274, 61, 98);
 		}
 		return lblGants;
 	}
 	
-	private PaintedLabel getLblNeck() {
+	private ItemLabel getLblNeck() {
 		if(lblNeck == null) {
-			lblNeck = new PaintedLabel();
+			lblNeck = new ItemLabel();
 			lblNeck.setBounds(679, 206, 56, 50);
 		}
 		return lblNeck;
 	}
 	
-	private PaintedLabel getLblBracers() {
+	private ItemLabel getLblBracers() {
 		if(lblBracers == null) {
-			lblBracers = new PaintedLabel();
+			lblBracers = new ItemLabel();
 			lblBracers.setBounds(702, 282, 66, 90);
 		}
 		return lblBracers;
 	}
 	
-	private PaintedLabel getLblTorso() {
+	private ItemLabel getLblTorso() {
 		if(lblTorso == null) {
-			lblTorso = new PaintedLabel();
+			lblTorso = new ItemLabel();
 			lblTorso.setBounds(589, 229, 78, 113);
 		}
 		return lblTorso;
 	}
 	
-	private PaintedLabel getLblRingRight() {
+	private ItemLabel getLblRingRight() {
 		if(lblRingRight == null) {
-			lblRingRight = new PaintedLabel();
+			lblRingRight = new ItemLabel();
 			lblRingRight.setBounds(502, 385, 37, 43);
 		}
 		return lblRingRight;
 	}
 	
-	private PaintedLabel getLblRingLeft() {
+	private ItemLabel getLblRingLeft() {
 		if(lblRingLeft == null) {
-			lblRingLeft = new PaintedLabel();
+			lblRingLeft = new ItemLabel();
 			lblRingLeft.setBounds(719, 381, 38, 41);
 		}
 		return lblRingLeft;
 	}
 	
-	private PaintedLabel getLblbelt() {
+	private ItemLabel getLblbelt() {
 		if(lblbelt == null) {
-			lblbelt = new PaintedLabel();
+			lblbelt = new ItemLabel();
 			lblbelt.setBounds(589, 347, 78, 32);
 		}
 		return lblbelt;
 	}
 	
-	private PaintedLabel getLblLegs() {
+	private ItemLabel getLblLegs() {
 		if(lblLegs == null) {
-			lblLegs = new PaintedLabel();
+			lblLegs = new ItemLabel();
 			lblLegs.setBounds(589, 391, 78, 84);
 		}
 		return lblLegs;
 	}
 	
-	private PaintedLabel getLblFoot() {
+	private ItemLabel getLblFoot() {
 		if(lblFoot == null) {
-			lblFoot = new PaintedLabel();
+			lblFoot = new ItemLabel();
 			lblFoot.setBounds(589, 481, 78, 89);
 		}
 		return lblFoot;
 	}
 	
-	private PaintedLabel getLblMainHand() {
+	private ItemLabel getLblMainHand() {
 		if(lblMainHand == null) {
-			lblMainHand = new PaintedLabel();
+			lblMainHand = new ItemLabel();
 			lblMainHand.setBounds(490, 434, 67, 136);
 		}
 		return lblMainHand;
 	}
 	
-	private PaintedLabel getLblOffHand() {
+	private ItemLabel getLblOffHand() {
 		if(lblOffHand == null) {
-			lblOffHand = new PaintedLabel();
+			lblOffHand = new ItemLabel();
 			lblOffHand.setBounds(702, 434, 73, 133);
 		}
 		return lblOffHand;
 	}
 	
-	private PaintedLabel getLblHead() {
+	private ItemLabel getLblHead() {
 		if(lblHead == null) {
-			lblHead = new PaintedLabel();
+			lblHead = new ItemLabel();
 			lblHead.setBounds(594, 148, 67, 77);
+			lblHead.add(getLblSocketHead());
 		}
 		return lblHead;
 	}
 	
-	private PaintedLabel getLblHarcore() {
+	private ItemLabel getLblHarcore() {
 		if(lblHarcore == null) {
-			lblHarcore = new PaintedLabel();
+			lblHarcore = new ItemLabel();
 			lblHarcore.setText("");
 			lblHarcore.setBounds(539, 42, 180, 18);
 			lblHarcore.setName("lblHarcore");
 		}
 		return lblHarcore;
+	}
+	
+	private SocketLabel getLblSocketHead() {
+		if(lblSocketHead == null) {
+			lblSocketHead = new SocketLabel();
+			lblSocketHead.setBounds(18, 30, 39, 36);
+			lblSocketHead.setName("lblSocketHead");
+		}
+		return lblSocketHead;
 	}
 
 }

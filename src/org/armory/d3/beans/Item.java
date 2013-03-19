@@ -49,7 +49,11 @@ public class Item  extends RemoteEntity {
 	}
 	
 	public boolean hasGems(){
-		return gems!=null;
+		if (gems!=null);
+			if(gems.length>0)
+				return true;
+			
+			return false;
 	}
 	
 	public boolean isSetObjects()
