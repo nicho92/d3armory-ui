@@ -56,6 +56,13 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JScrollPane scrollHeros;
 	private JSplitPane jSplitPane2;
 	private ItemLabel lblTorso;
+	private SocketLabel lblSocketMainHand;
+	private SocketLabel lblSocketOffHand;
+	private SocketLabel lblSocketRightRing;
+	private SocketLabel lblSocketLeftRing;
+	private SocketLabel lblSocketNeck;
+	private SocketLabel lblSocketGants;
+	private SocketLabel lblSocketBoot;
 	private SocketLabel lblSocketHead;
 	private ItemLabel lblHarcore;
 	private ItemLabel lblHead;
@@ -315,40 +322,64 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lblParangonLevel.setText("("+hero.getParagonLevel()+")");
 		lblParangonLevel.setBounds(749, 20, 51, 16);
 		
+		
+		
+		
 		Item head = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHead());
 		lblHead.setItem(head);
+		lblSocketHead.setItem(head);
 		
-		if(head.hasSockets()>0)
-			lblSocketHead.setHasSocket(true);
-		else
-			lblSocketHead.setHasSocket(false);
-			
-			
-		if(head.hasGems())
-			lblSocketHead.setSocket(head.getGems()[0]);
-		else
-			lblSocketHead.setSocket(null);
+		Item foot = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getFeet());
+		lblFoot.setItem(foot);
+		lblSocketBoot.setItem(foot);
+		
+		Item gants = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHands());
+		lblGants.setItem(gants);
+		lblSocketGants.setItem(gants);
 		
 		
-		lblGants.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHands()));
-		lblShoulders.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getShoulders()));
-		lblNeck.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getNeck()));
-		lblBracers.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getBracers()));
-		lblTorso.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getTorso()));
-		lblRingRight.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getRightFinger()));
-		lblRingLeft.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLeftFinger()));
-		lblbelt.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getWaist()));
-		lblLegs.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLegs()));
-		lblFoot.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getFeet()));
+		Item neck = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getNeck());
+		lblNeck.setItem(neck);
+		lblSocketNeck.setItem(neck);
 		
+
+		Item ringright = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLeftFinger());
+		lblRingRight.setItem(ringright);
+		lblSocketRightRing.setItem(ringright);
+		
+		Item ringleft = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getRightFinger());
+		lblRingLeft.setItem(ringleft);
+		lblSocketLeftRing.setItem(ringleft);
+		
+
 		Item mainHand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getMainHand());
 		lblMainHand.setItem(mainHand);
-		
+		lblSocketMainHand.setItem(mainHand);
 		if(mainHand.getType().getTwoHanded()&&hero.getItems().getOffHand()==null)
+		{
 			lblOffHand.setItem(hero.getItems().getMainHand());
-		else	
-			lblOffHand.setItem(hero.getItems().getOffHand());
+		}
+		else
+		{	
+			Item offhand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getOffHand());
+			lblOffHand.setItem(offhand);
+			lblSocketOffHand.setItem(offhand);
+		}
 			
+
+		//TODO gerer les multiples socket
+		lblTorso.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getTorso()));
+		lblLegs.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLegs()));
+	
+		
+		
+		
+		lblShoulders.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getShoulders()));
+		lblBracers.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getBracers()));
+		lblbelt.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getWaist()));
+		
+	
+		
 		
 		
 		if(hero.isHardcore())
@@ -389,6 +420,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(lblGants == null) {
 			lblGants = new ItemLabel();
 			lblGants.setBounds(490, 274, 61, 98);
+			lblGants.add(getLblSocketGants());
 		}
 		return lblGants;
 	}
@@ -397,6 +429,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(lblNeck == null) {
 			lblNeck = new ItemLabel();
 			lblNeck.setBounds(679, 206, 56, 50);
+			lblNeck.add(getLblSocketNeck());
 		}
 		return lblNeck;
 	}
@@ -420,7 +453,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private ItemLabel getLblRingRight() {
 		if(lblRingRight == null) {
 			lblRingRight = new ItemLabel();
-			lblRingRight.setBounds(502, 385, 37, 43);
+			lblRingRight.setBounds(502, 385, 37, 37);
+			lblRingRight.add(getLblSocketRightRing());
 		}
 		return lblRingRight;
 	}
@@ -429,6 +463,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(lblRingLeft == null) {
 			lblRingLeft = new ItemLabel();
 			lblRingLeft.setBounds(719, 381, 38, 41);
+			lblRingLeft.add(getLblSocketLeftRing());
 		}
 		return lblRingLeft;
 	}
@@ -453,6 +488,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(lblFoot == null) {
 			lblFoot = new ItemLabel();
 			lblFoot.setBounds(589, 481, 78, 89);
+			lblFoot.add(getLblSocketBoot());
 		}
 		return lblFoot;
 	}
@@ -461,6 +497,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(lblMainHand == null) {
 			lblMainHand = new ItemLabel();
 			lblMainHand.setBounds(490, 434, 67, 136);
+			lblMainHand.add(getLblSocketMainHand());
 		}
 		return lblMainHand;
 	}
@@ -469,6 +506,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(lblOffHand == null) {
 			lblOffHand = new ItemLabel();
 			lblOffHand.setBounds(702, 434, 73, 133);
+			lblOffHand.add(getLblSocketOffHand());
 		}
 		return lblOffHand;
 	}
@@ -495,10 +533,67 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SocketLabel getLblSocketHead() {
 		if(lblSocketHead == null) {
 			lblSocketHead = new SocketLabel();
-			lblSocketHead.setBounds(18, 30, 39, 36);
+			lblSocketHead.setBounds(0, 0, getLblHead().getWidth(), getLblHead().getHeight());
 			lblSocketHead.setName("lblSocketHead");
 		}
 		return lblSocketHead;
+	}
+	
+	private SocketLabel getLblSocketBoot() {
+		if(lblSocketBoot == null) {
+			lblSocketBoot = new SocketLabel();
+			lblSocketBoot.setBounds(0, 0, getLblFoot().getWidth(), getLblFoot().getHeight());
+			lblSocketBoot.setName("lblSocketBoot");
+		}
+		return lblSocketBoot;
+	}
+	
+	private SocketLabel getLblSocketGants() {
+		if(lblSocketGants == null) {
+			lblSocketGants = new SocketLabel();
+			lblSocketGants.setBounds(0, 0, getLblGants().getWidth(), getLblGants().getHeight());
+		}
+		return lblSocketGants;
+	}
+	
+	private SocketLabel getLblSocketNeck() {
+		if(lblSocketNeck == null) {
+			lblSocketNeck = new SocketLabel();
+			lblSocketNeck.setBounds(0, 0,  getLblNeck().getWidth(), getLblNeck().getHeight());
+		}
+		return lblSocketNeck;
+	}
+	
+	private SocketLabel getLblSocketLeftRing() {
+		if(lblSocketLeftRing == null) {
+			lblSocketLeftRing = new SocketLabel();
+			lblSocketLeftRing.setBounds(0, 0,  getLblRingLeft().getWidth(), getLblRingLeft().getHeight());
+		}
+		return lblSocketLeftRing;
+	}
+	
+	private SocketLabel getLblSocketRightRing() {
+		if(lblSocketRightRing == null) {
+			lblSocketRightRing = new SocketLabel();
+			lblSocketRightRing.setBounds(0,0,  getLblRingRight().getWidth(), getLblRingRight().getHeight());
+		}
+		return lblSocketRightRing;
+	}
+	
+	private SocketLabel getLblSocketMainHand() {
+		if(lblSocketMainHand == null) {
+			lblSocketMainHand = new SocketLabel();
+			lblSocketMainHand.setBounds(0, 0, getLblMainHand().getWidth(), getLblMainHand().getHeight());
+		}
+		return lblSocketMainHand;
+	}
+	
+	private SocketLabel getLblSocketOffHand() {
+		if(lblSocketOffHand == null) {
+			lblSocketOffHand = new SocketLabel();
+			lblSocketOffHand.setBounds(0, 0, getLblOffHand().getWidth(), getLblOffHand().getHeight());
+		}
+		return lblSocketOffHand;
 	}
 
 }
