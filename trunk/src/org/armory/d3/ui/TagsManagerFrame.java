@@ -4,6 +4,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -14,6 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import javax.swing.WindowConstants;
+
+import org.armory.d3.services.D3ArmoryControler;
 import org.jdesktop.application.Application;
 import javax.swing.SwingUtilities;
 
@@ -101,11 +105,21 @@ public class TagsManagerFrame extends javax.swing.JFrame {
 					btnSave = new JButton();
 					panneauBas.add(btnSave);
 					btnSave.setName("btnSave");
+					btnSave.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							btnSaveActionPerformed(evt);
+						}
+					});
 				}
 				{
 					btnCancel = new JButton();
 					panneauBas.add(btnCancel);
 					btnCancel.setName("btnCancel");
+					btnCancel.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) {
+							btnCancelActionPerformed(evt);
+						}
+					});
 				}
 			}
 			pack();
@@ -116,6 +130,17 @@ public class TagsManagerFrame extends javax.swing.JFrame {
 		    //add your error handling code here
 			e.printStackTrace();
 		}
+	}
+	
+	private void btnSaveActionPerformed(ActionEvent evt)
+	{
+		D3ArmoryControler.getInstance().addTags(txtTag.getText(), cboListServer.getSelectedItem().toString());
+		this.dispose();
+	}
+	
+	
+	private void btnCancelActionPerformed(ActionEvent evt) {
+		this.dispose();
 	}
 
 }

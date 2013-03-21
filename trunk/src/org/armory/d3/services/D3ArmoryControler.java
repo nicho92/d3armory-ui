@@ -2,6 +2,8 @@ package org.armory.d3.services;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -18,6 +20,8 @@ import com.sdfteam.d3armory.service.remote.exception.D3ServerCommunicationExcept
 
 public class D3ArmoryControler {
 
+	private static String CONF_FILE="conf/tags.d3armory";
+	
 	private static D3ArmoryControler instance;
 	public Configuration conf;
 	RemoteService<Profile> profileService ;
@@ -116,7 +120,7 @@ public class D3ArmoryControler {
 		//lecture du fichier texte	
 		List<String> liste = new ArrayList<>();
 				try{
-					InputStream ips=new FileInputStream("conf/tags.d3armory"); 
+					InputStream ips=new FileInputStream(CONF_FILE); 
 					InputStreamReader ipsr=new InputStreamReader(ips);
 					BufferedReader br=new BufferedReader(ipsr);
 					String ligne;
@@ -126,13 +130,20 @@ public class D3ArmoryControler {
 					br.close(); 
 				}		
 				catch (Exception e){
-					System.out.println(e.toString());
+					e.printStackTrace();
 				}
 				return liste;
 	}
 	
 	public void addTags(String code,String server)
 	{
+		try {
+			FileWriter fw= new FileWriter(CONF_FILE,true);
+			fw.write(code+"#"+server);
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
