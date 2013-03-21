@@ -92,7 +92,7 @@ public class TagsManagerFrame extends javax.swing.JFrame {
 				{
 					ComboBoxModel cboListServerModel = 
 							new DefaultComboBoxModel(
-									new String[] { "us", "eu","ch" });
+									new String[] { "us", "eu","ch","kr","tw" });
 					cboListServer = new JComboBox();
 					panelContenu.add(cboListServer);
 					cboListServer.setModel(cboListServerModel);
