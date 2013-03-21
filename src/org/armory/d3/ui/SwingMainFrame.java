@@ -31,6 +31,8 @@ import com.sdfteam.d3armory.service.configuration.Configuration;
 import com.sdfteam.d3armory.service.remote.RemoteService;
 import com.sdfteam.d3armory.service.remote.SpringRemoteService;
 import com.sdfteam.d3armory.service.remote.exception.D3ServerCommunicationException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -91,7 +93,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JSplitPane jSplitPane1;
 	private JMenuItem exitMenuItem;
 	private JSeparator jSeparator2;
-	private JMenuItem saveMenuItem;
 	private JMenuItem newFileMenuItem;
 	private JMenu jMenu3;
 	private JMenuBar jMenuBar1;
@@ -248,11 +249,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						newFileMenuItem = new JMenuItem();
 						jMenu3.add(newFileMenuItem);
 						newFileMenuItem.setText("New");
-					}
-					{
-						saveMenuItem = new JMenuItem();
-						jMenu3.add(saveMenuItem);
-						saveMenuItem.setText("Save");
+						newFileMenuItem.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								newFileMenuItemActionPerformed(evt);
+							}
+						});
 					}
 					{
 						jSeparator2 = new JSeparator();
@@ -353,50 +354,99 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		
 
 		Item mainHand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getMainHand());
+		Item offhand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getOffHand());
 		lblMainHand.setItem(mainHand);
 		lblSocketMainHand.setItem(mainHand,0);
 		
-		if(mainHand.getType().getTwoHanded() && hero.getItems().getOffHand()==null)
+		if(mainHand!=null)
 		{
-			lblOffHand.setItem(hero.getItems().getMainHand());
-		}
-		else
-		{	
-			Item offhand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getOffHand());
+			if(mainHand.getType().getTwoHanded() && hero.getItems().getOffHand()==null)
+			{
+				lblOffHand.setItem(hero.getItems().getMainHand());
+			}
+			else
+			{	
+				lblOffHand.setItem(offhand);
+				lblSocketOffHand.setItem(offhand,0);
+			}
+		}	
+		
+		if(offhand!=null)
+		{
 			lblOffHand.setItem(offhand);
 			lblSocketOffHand.setItem(offhand,0);
 		}
-			
 
-		//TODO gerer les multiples socket
 		Item torso = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getTorso());
 		lblTorso.setItem(torso);
-		
-		if(torso.nbSockets()>0)
-			lblSocketTorso1.setItem(torso,0);
-		
-		if(torso.nbSockets()>1)
-			lblSocketTorso2.setItem(torso,1);
-		
-		if(torso.nbSockets()>=2)
-			lblSocketTorso3.setItem(torso,2);
-		
-		
+		if(torso!=null)
+		{
+			if(torso.nbSockets()==0)
+			{
+				lblSocketTorso1.setItem(torso,0);
+				lblSocketTorso2.setItem(torso,0);
+				lblSocketTorso3.setItem(torso,0);
+			}
+			
+			if(torso.nbSockets()==1)
+			{
+				lblSocketTorso1.setItem(torso,0);
+				lblSocketTorso2.setItem(null,0);
+				lblSocketTorso3.setItem(null,0);
+			}
+			
+			
+			if(torso.nbSockets()==2)
+			{
+				lblSocketTorso1.setItem(torso,0);
+				lblSocketTorso2.setItem(torso,1);
+				lblSocketTorso3.setItem(null,0);
+			}
+			
+			if(torso.nbSockets()>2)
+			{
+				lblSocketTorso1.setItem(torso,0);
+				lblSocketTorso2.setItem(torso,1);
+				lblSocketTorso3.setItem(torso,2);
+			}
+		}
+		else
+		{
+			lblSocketTorso1.setItem(null,0);
+			lblSocketTorso2.setItem(null,0);
+			lblSocketTorso3.setItem(null,0);
+		}
 		Item legs = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLegs());
 		lblLegs.setItem(legs);
-		if(legs.nbSockets()>0)
-			lblSocketLegs1.setItem(legs,0);
-		if(legs.nbSockets()>1)
-			lblSocketLegs2.setItem(legs,1);
 		
+		if(legs!=null)
+		{
+			if(legs.nbSockets()==0)
+			{
+				lblSocketLegs1.setItem(legs,0);
+				lblSocketLegs2.setItem(legs,0);
+			}
+			if(legs.nbSockets()==1)
+			{
+				lblSocketLegs1.setItem(legs,0);
+				lblSocketLegs2.setItem(null,0);
+			}
+			
+			if(legs.nbSockets()==2)
+			{
+				lblSocketLegs1.setItem(legs,0);
+				lblSocketLegs2.setItem(legs,1);
+			}
+		}
+		else
+		{
+			lblSocketLegs1.setItem(null,0);
+			lblSocketLegs2.setItem(null,0);
+		}
 		
 		lblShoulders.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getShoulders()));
 		lblBracers.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getBracers()));
 		lblbelt.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getWaist()));
-		
-	
-		
-		
 		
 		if(hero.isHardcore())
 			lblHarcore.setText("Hardcore");
@@ -656,6 +706,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			lblSocketLegs2.setBounds(0, 45, getLblLegs().getWidth(), 28);
 		}
 		return lblSocketLegs2;
+	}
+	
+	private void newFileMenuItemActionPerformed(ActionEvent evt) {
+		TagsManagerFrame f = new TagsManagerFrame();
+		f.setVisible(true);
 	}
 
 }

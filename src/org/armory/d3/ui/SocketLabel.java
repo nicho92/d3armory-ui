@@ -20,7 +20,7 @@ public class SocketLabel extends JLabel {
 
 	private Item item;
 	private boolean hasSocket;
-	private int socketNum=0;
+	
 	private Gem gem;
 	
 	@Override
@@ -28,7 +28,7 @@ public class SocketLabel extends JLabel {
 		setHorizontalAlignment(JLabel.CENTER);
 		setVerticalAlignment(JLabel.CENTER);
 
-		if(gem != null)
+		if(gem != null && hasSocket)
 			try {
 				URL url = new URL("http://media.blizzard.com/d3/icons/items/small/"+gem.getItem().getIcon()+".png");
 				Image i = new ImageIcon(url).getImage();
@@ -42,6 +42,10 @@ public class SocketLabel extends JLabel {
 
 	public void paint( Graphics g )
 	  {
+		if(item!=null)
+				System.out.println(item + "  " + hasSocket +" "+ item.nbSockets());
+		
+		
 		if(hasSocket)
 		{	
 			try {
@@ -77,6 +81,10 @@ public class SocketLabel extends JLabel {
 				setSocket(item.getGems()[i]);
 			else
 				setSocket(null);
+		}
+		else
+		{
+			hasSocket=false;
 		}
 	}
 	
