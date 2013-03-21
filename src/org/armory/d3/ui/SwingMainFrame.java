@@ -57,6 +57,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JSplitPane jSplitPane2;
 	private ItemLabel lblTorso;
 	private SocketLabel lblSocketMainHand;
+	private SocketLabel lblSocketLegs2;
+	private SocketLabel lblSocketLegs1;
 	private SocketLabel lblSocketTorso3;
 	private SocketLabel lblSocketTorso2;
 	private SocketLabel lblSocketTorso1;
@@ -380,7 +382,13 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			lblSocketTorso3.setItem(torso,2);
 		
 		
-		lblLegs.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLegs()));
+		Item legs = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLegs());
+		lblLegs.setItem(legs);
+		if(legs.nbSockets()>0)
+			lblSocketLegs1.setItem(legs,0);
+		if(legs.nbSockets()>1)
+			lblSocketLegs2.setItem(legs,1);
+		
 		
 		lblShoulders.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getShoulders()));
 		lblBracers.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getBracers()));
@@ -491,6 +499,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(lblLegs == null) {
 			lblLegs = new ItemLabel();
 			lblLegs.setBounds(589, 391, 78, 84);
+			lblLegs.add(getLblSocketLegs1());
+			lblLegs.add(getLblSocketLegs2());
 		}
 		return lblLegs;
 	}
@@ -629,6 +639,23 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			lblSocketTorso3.setBounds(0, 74, getLblTorso().getWidth(), 38);
 		}
 		return lblSocketTorso3;
+	}
+	
+	private SocketLabel getLblSocketLegs1() {
+		if(lblSocketLegs1 == null) {
+			lblSocketLegs1 = new SocketLabel();
+			lblSocketLegs1.setBounds(0, 10, getLblLegs().getWidth(), 35);
+
+		}
+		return lblSocketLegs1;
+	}
+	
+	private SocketLabel getLblSocketLegs2() {
+		if(lblSocketLegs2 == null) {
+			lblSocketLegs2 = new SocketLabel();
+			lblSocketLegs2.setBounds(0, 45, getLblLegs().getWidth(), 28);
+		}
+		return lblSocketLegs2;
 	}
 
 }
