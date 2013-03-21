@@ -139,7 +139,7 @@ public class D3ArmoryControler {
 	{
 		try {
 			FileWriter fw= new FileWriter(CONF_FILE,true);
-			fw.write(code+"#"+server);
+			fw.write(code+"#"+server+"\n");
 			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();

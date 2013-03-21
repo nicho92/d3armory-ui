@@ -42,10 +42,6 @@ public class SocketLabel extends JLabel {
 
 	public void paint( Graphics g )
 	  {
-		if(item!=null)
-				System.out.println(item + "  " + hasSocket +" "+ item.nbSockets());
-		
-		
 		if(hasSocket)
 		{	
 			try {
@@ -66,7 +62,6 @@ public class SocketLabel extends JLabel {
 		this.gem=gem2;
 	}
 
-	//TODO bug avec les socket lors des changements de personnages
 	public void setItem(Item item, int i) {
 		this.item = item;
 		
