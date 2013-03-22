@@ -142,7 +142,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 							listeHeros = new JList();
 							scrollHeros.setViewportView(getListeHeros());
 							listeHeros.setModel(listeHerosModel);
-						
+							HeroCellRenderer renderer = new HeroCellRenderer();
+						    listeHeros.setCellRenderer(renderer);
 							listeHeros.addMouseListener(new MouseAdapter() {
 								public void mouseClicked(MouseEvent evt) {
 									try {
