@@ -132,11 +132,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				{
 					jSplitPane2 = new JSplitPane();
 					jSplitPane1.add(getJSplitPane2(), JSplitPane.RIGHT);
-					jSplitPane2.setPreferredSize(new java.awt.Dimension(0, 0));
 					{
 						scrollHeros = new JScrollPane();
 						jSplitPane2.add(scrollHeros, JSplitPane.LEFT);
-						scrollHeros.setPreferredSize(new java.awt.Dimension(104, 788));
 						{
 							listeHerosModel = new ListeHeroModel(); 
 							listeHeros = new JList();
@@ -166,9 +164,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 								panneauDessinHero = new HeroPanel();
 								scrollDetailHero.add(panneauDessinHero, JSplitPane.LEFT);
 
-								panneauDessinHero.setPreferredSize(new java.awt.Dimension(989, 590));
 								panneauDessinHero.setLayout(null);
 								panneauDessinHero.setSize(994, 645);
+								panneauDessinHero.setPreferredSize(new java.awt.Dimension(916, 661));
 								panneauDessinHero.add(getLblHead());
 								panneauDessinHero.add(getLblShoulders());
 								panneauDessinHero.add(getLblNeck());
@@ -214,7 +212,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 								tableauDetailHeros = new JTable();
 								scrollDetailHero.add(tableauDetailHeros, JSplitPane.BOTTOM);
 								tableauDetailHeros.setModel(tableauDetailHerosModel);
-								
+
 							}
 						}
 					}
@@ -222,7 +220,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				{
 					scrollTags = new JScrollPane();
 					jSplitPane1.add(getScrollTags(), JSplitPane.LEFT);
-					scrollTags.setPreferredSize(new java.awt.Dimension(141, 790));
 					{
 						ListModel listeTagsModel = 
 								new DefaultComboBoxModel(D3ArmoryControler.getInstance().getListTags().toArray());
@@ -238,7 +235,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					}
 				}
 			}
-			this.setSize(1279, 858);
+			this.setSize(1400, 858);
 			{
 				jMenuBar1 = new JMenuBar();
 				setJMenuBar(jMenuBar1);
