@@ -2,6 +2,7 @@ package org.armory.d3.ui;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -18,7 +19,7 @@ public class HeroCellRenderer implements ListCellRenderer
 	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 		JLabel lab = new JLabel();
 		Hero hero = (Hero)value;
-		lab.setText(hero.getName());
+		lab.setText(hero.getName() + " ("+hero.getLevel() +") - " + hero.getParagonLevel());
 		lab.setOpaque(true);
 		lab.setBackground(Color.black);
 		lab.setForeground(Color.white);
@@ -31,7 +32,9 @@ public class HeroCellRenderer implements ListCellRenderer
 		{
 			lab.setBackground(Color.DARK_GRAY);
 		}
-		lab.setIcon(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/"+hero.getClazz()+"-"+hero.getSexe()+".png")));
+		Image i =new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/"+hero.getClazz()+"-"+hero.getSexe()+".png")).getImage();
+		Image newimg = i.getScaledInstance(i.getWidth(null)/2, i.getHeight(null)/2,  java.awt.Image.SCALE_SMOOTH); 
+		lab.setIcon(new ImageIcon(newimg));
 		return lab;
 	}
 

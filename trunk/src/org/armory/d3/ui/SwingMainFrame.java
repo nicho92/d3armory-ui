@@ -59,6 +59,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JSplitPane jSplitPane2;
 	private ItemLabel lblTorso;
 	private SocketLabel lblSocketMainHand;
+	private SocketLabel lblSocketMainHand2;
 	private SocketLabel lblSocketLegs2;
 	private SocketLabel lblSocketLegs1;
 	private SocketLabel lblSocketTorso3;
@@ -166,7 +167,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 
 								panneauDessinHero.setLayout(null);
 								panneauDessinHero.setSize(994, 645);
-								panneauDessinHero.setPreferredSize(new java.awt.Dimension(916, 661));
+								panneauDessinHero.setPreferredSize(new java.awt.Dimension(843, 654));
+
 								panneauDessinHero.add(getLblHead());
 								panneauDessinHero.add(getLblShoulders());
 								panneauDessinHero.add(getLblNeck());
@@ -212,6 +214,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 								tableauDetailHeros = new JTable();
 								scrollDetailHero.add(tableauDetailHeros, JSplitPane.BOTTOM);
 								tableauDetailHeros.setModel(tableauDetailHerosModel);
+								
 
 							}
 						}
@@ -355,6 +358,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		Item offhand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getOffHand());
 		lblMainHand.setItem(mainHand);
 		lblSocketMainHand.setItem(mainHand,0);
+		
+		if(mainHand.nbSockets()==2)
+			lblSocketMainHand2.setItem(mainHand,1);
+		else
+			lblSocketMainHand2.setItem(null,1);
 		
 		if(mainHand!=null)
 		{
@@ -567,6 +575,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			lblMainHand = new ItemLabel();
 			lblMainHand.setBounds(490, 434, 67, 136);
 			lblMainHand.add(getLblSocketMainHand());
+			lblMainHand.add(getLblSocketMainHand2());
 		}
 		return lblMainHand;
 	}
@@ -652,11 +661,18 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SocketLabel getLblSocketMainHand() {
 		if(lblSocketMainHand == null) {
 			lblSocketMainHand = new SocketLabel();
-			lblSocketMainHand.setBounds(0, 0, getLblMainHand().getWidth(), getLblMainHand().getHeight());
+			lblSocketMainHand.setBounds(0, 40, getLblMainHand().getWidth(), 38);
 		}
 		return lblSocketMainHand;
 	}
 	
+	private SocketLabel getLblSocketMainHand2() {
+		if(lblSocketMainHand2 == null) {
+			lblSocketMainHand2 = new SocketLabel();
+			lblSocketMainHand2.setBounds(0, 80, getLblMainHand().getWidth(), 38);
+		}
+		return lblSocketMainHand2;
+	}
 	private SocketLabel getLblSocketOffHand() {
 		if(lblSocketOffHand == null) {
 			lblSocketOffHand = new SocketLabel();
@@ -710,5 +726,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		TagsManagerFrame f = new TagsManagerFrame();
 		f.setVisible(true);
 	}
+	
+	
 
 }

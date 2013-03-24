@@ -23,7 +23,6 @@ public class HeroPanel extends JPanel {
 		try {
 			hero = D3ArmoryControler.getInstance().getSelectedHero(false);
 		} catch (D3ServerCommunicationException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		if(hero!=null){
@@ -43,9 +42,6 @@ public class HeroPanel extends JPanel {
 			 	{
 			 	     System.err.println(e);
 			 	}
-			 	Graphics2D g2d = (Graphics2D)g;
-				g2d.drawString(hero.getName() ,50, 20);
-
 		}
 		else
 		{
