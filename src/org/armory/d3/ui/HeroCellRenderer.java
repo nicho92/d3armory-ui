@@ -19,16 +19,17 @@ public class HeroCellRenderer implements ListCellRenderer
 		JLabel lab = new JLabel();
 		Hero hero = (Hero)value;
 		lab.setText(hero.getName());
+		lab.setOpaque(true);
 		lab.setBackground(Color.black);
-		//lab.setForeground(Color.white);
+		lab.setForeground(Color.white);
 		if(hero.isHardcore())
 			lab.setForeground(Color.red);
 		
 		lab.setBorder(new LineBorder(Color.gray));
 		
-		if(cellHasFocus)
+		if(isSelected)
 		{
-			lab.setBackground(Color.gray);
+			lab.setBackground(Color.DARK_GRAY);
 		}
 		lab.setIcon(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/"+hero.getClazz()+"-"+hero.getSexe()+".png")));
 		return lab;

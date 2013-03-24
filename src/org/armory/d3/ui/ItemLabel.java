@@ -6,7 +6,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Paint;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.net.URL;
+import java.util.Iterator;
+import java.util.Set;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -16,10 +20,16 @@ import javax.swing.border.LineBorder;
 
 import org.armory.d3.beans.Item;
 
-public class ItemLabel extends JLabel {
+public class ItemLabel extends JLabel implements MouseListener {
 	
     Item item;
 
+    public ItemLabel()
+    {
+    	addMouseListener(this);
+    }
+    
+    
 	public Item getItem() {
 		return item;
 	}
@@ -114,5 +124,39 @@ public class ItemLabel extends JLabel {
 	  }
 	 	
 }
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		Set<String> keys = item.getAttributesRaw().keySet();
+		Iterator<String> it = keys.iterator();
+		System.out.println(item);	
+		while(it.hasNext())
+				System.out.println(item.getAttributesRaw().get(it));
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 	 	
 }
