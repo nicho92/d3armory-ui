@@ -57,6 +57,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JSplitPane jSplitPane2;
 	private ItemLabel lblTorso;
 	private SocketLabel lblSocketMainHand;
+	private JLabel lblNomItem;
 	private ItemPanelDetails panelItemDetails;
 	private JSplitPane splitTagsHeroes;
 	private SocketLabel lblSocketMainHand2;
@@ -134,14 +135,15 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					jSplitPane2 = new JSplitPane();
 					jSplitPane1.add(getSplitTagsHeroes(), JSplitPane.LEFT);
 					jSplitPane1.add(getJSplitPane2(), JSplitPane.RIGHT);
+					jSplitPane2.setPreferredSize(new java.awt.Dimension(312, 790));
 					{
 						panneauDessinHero = new HeroPanel();
 						jSplitPane2.add(panneauDessinHero, JSplitPane.LEFT);
 
 						panneauDessinHero.setLayout(null);
 						panneauDessinHero.setSize(994, 645);
-						panneauDessinHero.setPreferredSize(new java.awt.Dimension(843, 654));
 						panneauDessinHero.setName("panneauDessinHero");
+						panneauDessinHero.setPreferredSize(new java.awt.Dimension(633, 788));
 
 						panneauDessinHero.add(getLblHead());
 						panneauDessinHero.add(getLblShoulders());
@@ -182,11 +184,12 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					{
 						scrollFicheHeros = new JScrollPane();
 						jSplitPane2.add(getScrollFicheHeros(), JSplitPane.RIGHT);
+						scrollFicheHeros.setSize(250, 815);
 						scrollFicheHeros.setViewportView(getPanelItemDetails());
 					}
 				}
 			}
-			this.setSize(1400, 858);
+			this.setSize(1514, 858);
 			{
 				jMenuBar1 = new JMenuBar();
 				setJMenuBar(jMenuBar1);
@@ -672,15 +675,18 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JSplitPane getSplitTagsHeroes() {
 		if(splitTagsHeroes == null) {
 			splitTagsHeroes = new JSplitPane();
+			splitTagsHeroes.setPreferredSize(new java.awt.Dimension(482, 790));
 			{
 				scrollTags = new JScrollPane();
 				splitTagsHeroes.add(scrollTags, JSplitPane.LEFT);
+				scrollTags.setSize(300, 788);
 				{
 					ListModel listeTagsModel = 
 							new DefaultComboBoxModel(D3ArmoryControler.getInstance().getListTags().toArray());
 					listeTags = new JList();
 					scrollTags.setViewportView(listeTags);
 					listeTags.setModel(listeTagsModel);
+					listeTags.setPreferredSize(new java.awt.Dimension(116, 785));
 					listeTags.addMouseListener(new MouseAdapter() {
 						public void mouseClicked(MouseEvent evt) {
 							listeTagMouseClicked(evt);
@@ -700,6 +706,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					HeroCellRenderer renderer = new HeroCellRenderer();
 					listeHeros.setCellRenderer(renderer);
 					listeHeros.setName("listeHeros");
+					listeHeros.setPreferredSize(new java.awt.Dimension(189, 785));
+					listeHeros.setSize(200, 812);
 					listeHeros.addMouseListener(new MouseAdapter() {
 						public void mouseClicked(MouseEvent evt) {
 							try {
@@ -719,8 +727,22 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(panelItemDetails == null) {
 			panelItemDetails = new ItemPanelDetails();
 			panelItemDetails.setName("panelItemDetails");
+			panelItemDetails.setSize(250, 812);
+			panelItemDetails.setPreferredSize(new java.awt.Dimension(260, 785));
+			panelItemDetails.setLayout(null);
+			panelItemDetails.add(getLblNomItem());
+
 		}
 		return panelItemDetails;
+	}
+	
+	private JLabel getLblNomItem() {
+		if(lblNomItem == null) {
+			lblNomItem = new JLabel();
+			lblNomItem.setBounds(27, 12, 290, 30);
+			lblNomItem.setName("lblNomItem");
+		}
+		return lblNomItem;
 	}
 
 }
