@@ -50,15 +50,15 @@ public class SwingMainFrame extends javax.swing.JFrame {
 
 	private JMenuItem helpMenuItem;
 	private JMenu jMenu5;
-	private JTable tableauDetailHeros;
 	private HeroPanel panneauDessinHero;
-	private JSplitPane scrollDetailHero;
 	private JScrollPane scrollFicheHeros;
 	private JList listeHeros;
 	private JScrollPane scrollHeros;
 	private JSplitPane jSplitPane2;
 	private ItemLabel lblTorso;
 	private SocketLabel lblSocketMainHand;
+	private ItemPanelDetails panelItemDetails;
+	private JSplitPane splitTagsHeroes;
 	private SocketLabel lblSocketMainHand2;
 	private SocketLabel lblSocketLegs2;
 	private SocketLabel lblSocketLegs1;
@@ -132,109 +132,57 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				getContentPane().add(jSplitPane1);
 				{
 					jSplitPane2 = new JSplitPane();
+					jSplitPane1.add(getSplitTagsHeroes(), JSplitPane.LEFT);
 					jSplitPane1.add(getJSplitPane2(), JSplitPane.RIGHT);
 					{
-						scrollHeros = new JScrollPane();
-						jSplitPane2.add(scrollHeros, JSplitPane.LEFT);
+						panneauDessinHero = new HeroPanel();
+						jSplitPane2.add(panneauDessinHero, JSplitPane.LEFT);
+
+						panneauDessinHero.setLayout(null);
+						panneauDessinHero.setSize(994, 645);
+						panneauDessinHero.setPreferredSize(new java.awt.Dimension(843, 654));
+						panneauDessinHero.setName("panneauDessinHero");
+
+						panneauDessinHero.add(getLblHead());
+						panneauDessinHero.add(getLblShoulders());
+						panneauDessinHero.add(getLblNeck());
+						panneauDessinHero.add(getLblGants());
+						panneauDessinHero.add(getLblTorso());
+						panneauDessinHero.add(getLblBracers());
+						panneauDessinHero.add(getLblbelt());
+						panneauDessinHero.add(getLblLegs());
+						panneauDessinHero.add(getLblFoot());
+						panneauDessinHero.add(getLblRingLeft());
+						panneauDessinHero.add(getLblRingRight());
+						panneauDessinHero.add(getLblMainHand());
+						panneauDessinHero.add(getLblOffHand());
 						{
-							listeHerosModel = new ListeHeroModel(); 
-							listeHeros = new JList();
-							scrollHeros.setViewportView(getListeHeros());
-							listeHeros.setModel(listeHerosModel);
-							HeroCellRenderer renderer = new HeroCellRenderer();
-						    listeHeros.setCellRenderer(renderer);
-							listeHeros.addMouseListener(new MouseAdapter() {
-								public void mouseClicked(MouseEvent evt) {
-									try {
-										listeHerosMouseClicked(evt);
-									} catch (D3ServerCommunicationException e) {
-										e.printStackTrace();
-									}
-								}
-							});
+							lblNom = new ItemLabel();
+							panneauDessinHero.add(lblNom);
+							lblNom.setBounds(466, 80, 314, 43);
+							lblNom.setName("lblNom");
+							lblNom.setHorizontalAlignment(JLabel.CENTER);
 						}
+						{
+							lblInformationClasseNiveau = new ItemLabel();
+							panneauDessinHero.add(lblInformationClasseNiveau);
+							lblInformationClasseNiveau.setBounds(521, 20, 222, 16);
+							lblInformationClasseNiveau.setName("lblInformationClasseNiveau");
+							lblInformationClasseNiveau.setHorizontalAlignment(JLabel.HORIZONTAL);
+						}
+						{
+							lblParangonLevel = new ItemLabel();
+							panneauDessinHero.add(lblParangonLevel);
+							panneauDessinHero.add(getLblHarcore());
+							lblParangonLevel.setBounds(692, 20, 51, 16);
+							lblParangonLevel.setName("lblParangonLevel");
+						}
+						
 					}
 					{
 						scrollFicheHeros = new JScrollPane();
 						jSplitPane2.add(getScrollFicheHeros(), JSplitPane.RIGHT);
-						{
-							scrollDetailHero = new JSplitPane();
-							scrollDetailHero.setOrientation(JSplitPane.VERTICAL_SPLIT);
-							scrollFicheHeros.setViewportView(getScrollDetailHero());
-							{
-								panneauDessinHero = new HeroPanel();
-								scrollDetailHero.add(panneauDessinHero, JSplitPane.LEFT);
-
-								panneauDessinHero.setLayout(null);
-								panneauDessinHero.setSize(994, 645);
-								panneauDessinHero.setPreferredSize(new java.awt.Dimension(843, 654));
-
-								panneauDessinHero.add(getLblHead());
-								panneauDessinHero.add(getLblShoulders());
-								panneauDessinHero.add(getLblNeck());
-								panneauDessinHero.add(getLblGants());
-								panneauDessinHero.add(getLblTorso());
-								panneauDessinHero.add(getLblBracers());
-								panneauDessinHero.add(getLblbelt());
-								panneauDessinHero.add(getLblLegs());
-								panneauDessinHero.add(getLblFoot());
-								panneauDessinHero.add(getLblRingLeft());
-								panneauDessinHero.add(getLblRingRight());
-								panneauDessinHero.add(getLblMainHand());
-								panneauDessinHero.add(getLblOffHand());
-								{
-									lblNom = new ItemLabel();
-									panneauDessinHero.add(lblNom);
-									lblNom.setBounds(466, 80, 314, 43);
-									lblNom.setName("lblNom");
-									lblNom.setHorizontalAlignment(JLabel.CENTER);
-								}
-								{
-									lblInformationClasseNiveau = new ItemLabel();
-									panneauDessinHero.add(lblInformationClasseNiveau);
-									lblInformationClasseNiveau.setBounds(521, 20, 222, 16);
-									lblInformationClasseNiveau.setName("lblInformationClasseNiveau");
-									lblInformationClasseNiveau.setHorizontalAlignment(JLabel.HORIZONTAL);
-								}
-								{
-									lblParangonLevel = new ItemLabel();
-									panneauDessinHero.add(lblParangonLevel);
-									panneauDessinHero.add(getLblHarcore());
-									lblParangonLevel.setBounds(692, 20, 51, 16);
-									lblParangonLevel.setName("lblParangonLevel");
-								}
-								
-							}
-							
-							{
-								TableModel tableauDetailHerosModel = 
-										new DefaultTableModel(
-												new String[][] { { "One", "Two" }, { "Three", "Four" } },
-												new String[] { "Column 1", "Column 2" });
-								tableauDetailHeros = new JTable();
-								scrollDetailHero.add(tableauDetailHeros, JSplitPane.BOTTOM);
-								tableauDetailHeros.setModel(tableauDetailHerosModel);
-								
-
-							}
-						}
-					}
-				}
-				{
-					scrollTags = new JScrollPane();
-					jSplitPane1.add(getScrollTags(), JSplitPane.LEFT);
-					{
-						ListModel listeTagsModel = 
-								new DefaultComboBoxModel(D3ArmoryControler.getInstance().getListTags().toArray());
-						listeTags = new JList();
-						scrollTags.setViewportView(listeTags);
-						listeTags.setModel(listeTagsModel);
-						listeTags.addMouseListener(new MouseAdapter() {
-							public void mouseClicked(MouseEvent evt) {
-								listeTagMouseClicked(evt);
-							}
-						});
-
+						scrollFicheHeros.setViewportView(getPanelItemDetails());
 					}
 				}
 			}
@@ -310,13 +258,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		return scrollFicheHeros;
 	}
 	
-	public JSplitPane getScrollDetailHero() {
-		return scrollDetailHero;
-	}
 	
-	public JTable getTableauDetailHeros() {
-		return tableauDetailHeros;
-	}
 	
 	private void listeHerosMouseClicked(MouseEvent evt) throws D3ServerCommunicationException {
 		Hero hero = (Hero)((JList) evt.getSource()).getSelectedValue();
@@ -727,6 +669,58 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		f.setVisible(true);
 	}
 	
+	private JSplitPane getSplitTagsHeroes() {
+		if(splitTagsHeroes == null) {
+			splitTagsHeroes = new JSplitPane();
+			{
+				scrollTags = new JScrollPane();
+				splitTagsHeroes.add(scrollTags, JSplitPane.LEFT);
+				{
+					ListModel listeTagsModel = 
+							new DefaultComboBoxModel(D3ArmoryControler.getInstance().getListTags().toArray());
+					listeTags = new JList();
+					scrollTags.setViewportView(listeTags);
+					listeTags.setModel(listeTagsModel);
+					listeTags.addMouseListener(new MouseAdapter() {
+						public void mouseClicked(MouseEvent evt) {
+							listeTagMouseClicked(evt);
+						}
+					});
+					
+				}
+			}
+			{
+				scrollHeros = new JScrollPane();
+				splitTagsHeroes.add(scrollHeros, JSplitPane.RIGHT);
+				{
+					listeHerosModel = new ListeHeroModel(); 
+					listeHeros = new JList();
+					scrollHeros.setViewportView(getListeHeros());
+					listeHeros.setModel(listeHerosModel);
+					HeroCellRenderer renderer = new HeroCellRenderer();
+					listeHeros.setCellRenderer(renderer);
+					listeHeros.setName("listeHeros");
+					listeHeros.addMouseListener(new MouseAdapter() {
+						public void mouseClicked(MouseEvent evt) {
+							try {
+								listeHerosMouseClicked(evt);
+							} catch (D3ServerCommunicationException e) {
+								e.printStackTrace();
+							}
+						}
+					});
+				}
+			}
+		}
+		return splitTagsHeroes;
+	}
 	
+	private ItemPanelDetails getPanelItemDetails() {
+		if(panelItemDetails == null) {
+			panelItemDetails = new ItemPanelDetails();
+			panelItemDetails.setName("panelItemDetails");
+		}
+		return panelItemDetails;
+	}
 
 }
