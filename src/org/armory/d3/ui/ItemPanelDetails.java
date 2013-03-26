@@ -50,7 +50,7 @@ public class ItemPanelDetails extends JPanel {
 	
 	 public void paint( Graphics g )
 	  {
-		 super.paint( g );
+		 	super.paint( g );
 		 try {
 			 Graphics2D g2d = ( Graphics2D )g;
 			 Image i = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/itemBackground.png")).getImage();
