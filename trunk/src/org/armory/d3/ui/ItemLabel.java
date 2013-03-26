@@ -33,8 +33,7 @@ public class ItemLabel extends JLabel implements MouseListener {
     	addMouseListener(this);
     }
     
-    
-	public Item getItem() {
+ 	public Item getItem() {
 		return item;
 	}
 
@@ -131,16 +130,14 @@ public class ItemLabel extends JLabel implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		details.showItem(item);
 		
-		details.setItem(item);
-		details.repaint();
- 		
-		
-	}
+ 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+		details.showItem(item);
+		details.repaint();
 		
 	}
 

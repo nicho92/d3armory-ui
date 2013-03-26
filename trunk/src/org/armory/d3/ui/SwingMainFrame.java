@@ -143,7 +143,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						panneauDessinHero.setLayout(null);
 						panneauDessinHero.setSize(994, 645);
 						panneauDessinHero.setName("panneauDessinHero");
-						panneauDessinHero.setPreferredSize(new java.awt.Dimension(633, 788));
+						panneauDessinHero.setPreferredSize(new java.awt.Dimension(761, 789));
 
 						panneauDessinHero.add(getLblHead());
 						panneauDessinHero.add(getLblShoulders());
@@ -185,11 +185,12 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						scrollFicheHeros = new JScrollPane();
 						jSplitPane2.add(getScrollFicheHeros(), JSplitPane.RIGHT);
 						scrollFicheHeros.setSize(250, 815);
+						scrollFicheHeros.setPreferredSize(new java.awt.Dimension(339, 789));
 						scrollFicheHeros.setViewportView(getPanelItemDetails());
 					}
 				}
 			}
-			this.setSize(1514, 858);
+			this.setSize(1667, 858);
 			{
 				jMenuBar1 = new JMenuBar();
 				setJMenuBar(jMenuBar1);
@@ -706,7 +707,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					HeroCellRenderer renderer = new HeroCellRenderer();
 					listeHeros.setCellRenderer(renderer);
 					listeHeros.setName("listeHeros");
-					listeHeros.setPreferredSize(new java.awt.Dimension(189, 785));
+					listeHeros.setPreferredSize(new java.awt.Dimension(291, 786));
 					listeHeros.setSize(200, 812);
 					listeHeros.addMouseListener(new MouseAdapter() {
 						public void mouseClicked(MouseEvent evt) {
@@ -730,6 +731,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			panelItemDetails.setSize(250, 812);
 			//panelItemDetails.setPreferredSize(new java.awt.Dimension(260, 785));
 			panelItemDetails.setLayout(null);
+			panelItemDetails.setPreferredSize(new java.awt.Dimension(429, 786));
 		}
 		return panelItemDetails;
 	}
