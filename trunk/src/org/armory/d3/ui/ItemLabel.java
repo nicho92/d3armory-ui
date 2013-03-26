@@ -25,9 +25,11 @@ import org.armory.d3.beans.LegendarySetItem;
 public class ItemLabel extends JLabel implements MouseListener {
 	
     Item item;
-
-    public ItemLabel()
+    ItemPanelDetails details;
+    
+    public ItemLabel(ItemPanelDetails pan)
     {
+    	this.details=pan;
     	addMouseListener(this);
     }
     
@@ -109,7 +111,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 	    super.paint( g );
 	  }
     
-	  public Color toColor(String s)
+	  public static Color toColor(String s)
 	  {
 		  if(s==null)
 			  return Color.white;
@@ -130,37 +132,8 @@ public class ItemLabel extends JLabel implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
- 		System.out.println(item.getName() + " ( "+ item.getTypeName() + ")");
- 		System.out.println("Niveau nécessaire " + item.getRequiredLevel());
- 		System.out.println("Niveau objet " + item.getItemLevel());
- 		
- 		if(item.isArmor())
- 			System.out.println("Armor " + item.getArmor());
- 		
- 		if(item.isWeapon()){
- 			System.out.println("DPS " + item.getDps());
- 			System.out.println("AttakSpeed " + item.getAttacksPerSecond());
- 			System.out.println("Min/Max damage " + item.getMinDamage().getMoyenne() + " " + item.getMaxDamage().getMoyenne());
- 		}
- 		for(int i=0;i<item.getAttributes().length;i++)
-			{
-				System.out.println(item.getAttributes()[i]);
-			}
- 		
- 		System.out.println("Socket " + item.nbSockets());
- 		
- 		if(item.nbGems()>0)
- 		{
- 			for(int i=0;i<item.getGems().length;i++)
-				{
-					Gem gem = item.getGems()[i];
- 				System.out.print(gem.getItem().getName() + " ");
- 				for(int j=0;j<gem.getAttributes().length;j++)
-					{
-						System.out.println(gem.getAttributes()[j]);
-					}
-				}
- 		}
+		details.setItem(item);
+		details.repaint();
  		
 		
 	}
