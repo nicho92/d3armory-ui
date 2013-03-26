@@ -57,7 +57,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JSplitPane jSplitPane2;
 	private ItemLabel lblTorso;
 	private SocketLabel lblSocketMainHand;
-	private JLabel lblNomItem;
+	
 	private ItemPanelDetails panelItemDetails;
 	private JSplitPane splitTagsHeroes;
 	private SocketLabel lblSocketMainHand2;
@@ -159,21 +159,21 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						panneauDessinHero.add(getLblMainHand());
 						panneauDessinHero.add(getLblOffHand());
 						{
-							lblNom = new ItemLabel();
+							lblNom = new ItemLabel(getPanelItemDetails());
 							panneauDessinHero.add(lblNom);
 							lblNom.setBounds(466, 80, 314, 43);
 							lblNom.setName("lblNom");
 							lblNom.setHorizontalAlignment(JLabel.CENTER);
 						}
 						{
-							lblInformationClasseNiveau = new ItemLabel();
+							lblInformationClasseNiveau = new ItemLabel(getPanelItemDetails());
 							panneauDessinHero.add(lblInformationClasseNiveau);
 							lblInformationClasseNiveau.setBounds(521, 20, 222, 16);
 							lblInformationClasseNiveau.setName("lblInformationClasseNiveau");
 							lblInformationClasseNiveau.setHorizontalAlignment(JLabel.HORIZONTAL);
 						}
 						{
-							lblParangonLevel = new ItemLabel();
+							lblParangonLevel = new ItemLabel(getPanelItemDetails());
 							panneauDessinHero.add(lblParangonLevel);
 							panneauDessinHero.add(getLblHarcore());
 							lblParangonLevel.setBounds(692, 20, 51, 16);
@@ -427,7 +427,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblShoulders() {
 		if(lblShoulders == null) {
-			lblShoulders = new ItemLabel();
+			lblShoulders = new ItemLabel(getPanelItemDetails());
 			lblShoulders.setBounds(502, 179, 75, 89);
 		}
 		return lblShoulders;
@@ -435,7 +435,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblGants() {
 		if(lblGants == null) {
-			lblGants = new ItemLabel();
+			lblGants = new ItemLabel(getPanelItemDetails());
 			lblGants.setBounds(490, 274, 61, 98);
 			lblGants.add(getLblSocketGants());
 		}
@@ -444,7 +444,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblNeck() {
 		if(lblNeck == null) {
-			lblNeck = new ItemLabel();
+			lblNeck = new ItemLabel(getPanelItemDetails());
 			lblNeck.setBounds(679, 206, 56, 50);
 			lblNeck.add(getLblSocketNeck());
 		}
@@ -453,7 +453,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblBracers() {
 		if(lblBracers == null) {
-			lblBracers = new ItemLabel();
+			lblBracers = new ItemLabel(getPanelItemDetails());
 			lblBracers.setBounds(702, 282, 66, 90);
 		}
 		return lblBracers;
@@ -461,7 +461,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblTorso() {
 		if(lblTorso == null) {
-			lblTorso = new ItemLabel();
+			lblTorso = new ItemLabel(getPanelItemDetails());
 			lblTorso.setBounds(589, 229, 78, 113);
 			lblTorso.add(getLblSocketTorso1());
 			lblTorso.add(getLblSocketTorso2());
@@ -472,7 +472,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblRingRight() {
 		if(lblRingRight == null) {
-			lblRingRight = new ItemLabel();
+			lblRingRight = new ItemLabel(getPanelItemDetails());
 			lblRingRight.setBounds(502, 385, 37, 37);
 			lblRingRight.add(getLblSocketRightRing());
 		}
@@ -481,7 +481,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblRingLeft() {
 		if(lblRingLeft == null) {
-			lblRingLeft = new ItemLabel();
+			lblRingLeft = new ItemLabel(getPanelItemDetails());
 			lblRingLeft.setBounds(719, 381, 38, 41);
 			lblRingLeft.add(getLblSocketLeftRing());
 		}
@@ -490,7 +490,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblbelt() {
 		if(lblbelt == null) {
-			lblbelt = new ItemLabel();
+			lblbelt = new ItemLabel(getPanelItemDetails());
 			lblbelt.setBounds(589, 347, 78, 32);
 		}
 		return lblbelt;
@@ -498,7 +498,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblLegs() {
 		if(lblLegs == null) {
-			lblLegs = new ItemLabel();
+			lblLegs = new ItemLabel(getPanelItemDetails());
 			lblLegs.setBounds(589, 391, 78, 84);
 			lblLegs.add(getLblSocketLegs1());
 			lblLegs.add(getLblSocketLegs2());
@@ -508,7 +508,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblFoot() {
 		if(lblFoot == null) {
-			lblFoot = new ItemLabel();
+			lblFoot = new ItemLabel(getPanelItemDetails());
 			lblFoot.setBounds(589, 481, 78, 89);
 			lblFoot.add(getLblSocketBoot());
 		}
@@ -517,7 +517,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblMainHand() {
 		if(lblMainHand == null) {
-			lblMainHand = new ItemLabel();
+			lblMainHand = new ItemLabel(getPanelItemDetails());
 			lblMainHand.setBounds(490, 434, 67, 136);
 			lblMainHand.add(getLblSocketMainHand());
 			lblMainHand.add(getLblSocketMainHand2());
@@ -527,7 +527,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblOffHand() {
 		if(lblOffHand == null) {
-			lblOffHand = new ItemLabel();
+			lblOffHand = new ItemLabel(getPanelItemDetails());
 			lblOffHand.setBounds(702, 434, 73, 133);
 			lblOffHand.add(getLblSocketOffHand());
 		}
@@ -536,7 +536,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblHead() {
 		if(lblHead == null) {
-			lblHead = new ItemLabel();
+			lblHead = new ItemLabel(getPanelItemDetails());
 			lblHead.setBounds(594, 148, 67, 77);
 			lblHead.add(getLblSocketHead());
 		}
@@ -545,7 +545,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblHarcore() {
 		if(lblHarcore == null) {
-			lblHarcore = new ItemLabel();
+			lblHarcore = new ItemLabel(getPanelItemDetails());
 			lblHarcore.setText("");
 			lblHarcore.setBounds(539, 42, 180, 18);
 			lblHarcore.setName("lblHarcore");
@@ -728,21 +728,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			panelItemDetails = new ItemPanelDetails();
 			panelItemDetails.setName("panelItemDetails");
 			panelItemDetails.setSize(250, 812);
-			panelItemDetails.setPreferredSize(new java.awt.Dimension(260, 785));
+			//panelItemDetails.setPreferredSize(new java.awt.Dimension(260, 785));
 			panelItemDetails.setLayout(null);
-			panelItemDetails.add(getLblNomItem());
-
 		}
 		return panelItemDetails;
 	}
 	
-	private JLabel getLblNomItem() {
-		if(lblNomItem == null) {
-			lblNomItem = new JLabel();
-			lblNomItem.setBounds(27, 12, 290, 30);
-			lblNomItem.setName("lblNomItem");
-		}
-		return lblNomItem;
-	}
 
 }
