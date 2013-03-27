@@ -49,7 +49,7 @@ public class HeroPanel extends JPanel {
 			g.drawImage(bg,0,0,null);
 		}
 		
-		  g.drawImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/inventory-lines.png")).getImage(),462,170,null);
+		  g.drawImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/inventory-lines.png")).getImage(),462,167,null);
 	}
 
 	private String imagePath;
