@@ -2,6 +2,7 @@ package org.armory.d3.services;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,12 +22,15 @@ import com.sdfteam.d3armory.service.remote.exception.D3ServerCommunicationExcept
 public class D3ArmoryControler {
 
 	private static String CONF_FILE="conf/tags.d3armory";
+	private static String LOCALE_FILE="conf/local.d3armory";
 	
 	private static D3ArmoryControler instance;
 	public Configuration conf;
 	RemoteService<Profile> profileService ;
 	Profile profil ;
 	Hero selected;
+
+	private String local;
 	
 	public static D3ArmoryControler getInstance()
 	{
@@ -53,13 +57,15 @@ public class D3ArmoryControler {
 
 
 
-	public Profile getProfil(String host, String tagName,Long tagID,String local) throws D3ServerCommunicationException
+	public Profile getProfil(String host, String tagName,Long tagID) throws D3ServerCommunicationException
 	{
 		  conf = new Configuration();
 		  conf.setBattleTag(tagName);
 		  conf.setBattleTagCode(tagID);
 		  conf.setHost(host);
 		  conf.setLocal(local);
+		  if(local==null)
+			  conf.setLocal("en_US");
 		  profileService = new SpringRemoteService(Profile.class);
 		  profil = profileService.receiveEntity(conf);
 		  return profil;
@@ -105,7 +111,6 @@ public class D3ArmoryControler {
 		if(i==null)
 			return null;
 		
-		
 		RemoteService<Item> itemService = new SpringRemoteService(Item.class);
 		conf.setItemId(i.getItemID());
 		try {
@@ -139,13 +144,26 @@ public class D3ArmoryControler {
 	{
 		try {
 			FileWriter fw= new FileWriter(CONF_FILE,true);
-			fw.write(code+"#"+server+"\n");
+			fw.write("\n"+code+"#"+server+"\n");
 			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 	}
-	
+
+	public String loadLocal()
+	{
+		try {
+			InputStream ips=new FileInputStream(LOCALE_FILE); 
+			InputStreamReader ipsr=new InputStreamReader(ips);
+			BufferedReader br=new BufferedReader(ipsr);
+			local = br.readLine().trim();
+			return local;
+		} catch (IOException e) {
+			return "en_US";
+		}
+	}
+
 	
 }

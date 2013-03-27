@@ -10,30 +10,32 @@ public class FormatedJLabel extends JLabel {
 	Color textColor;
 	StringBuffer temp ;
 	String texte;
+	boolean puces;
 	
-	public FormatedJLabel(String text,Color numColor, Color textColor)
-	{
-		this.texte=text;
-		chiffreColor=numColor;
-		this.textColor=textColor;
-	}
+	
 	
 	public FormatedJLabel()
 	{
+		this.setVerticalAlignment(JLabel.TOP);
 		chiffreColor=Color.WHITE;
 		textColor=Color.GRAY;
-		this.texte=new String("");
+		
 	}
+
+	public void setPuces(boolean bool)
+	{
+		this.puces=bool;
+	}
+	
+	
 	
 	public void setHtmlText(String string,String textColor, String numColor)  {
 		this.texte=string;
-		
-		
 		temp = new StringBuffer();
 		temp.append("<html>");
 		
 		String[] detail = texte.split(" ");
-		
+		boolean spec=false;
 		for(int i=0;i<detail.length;i++)
 		{
 			if(detail[i].startsWith("+") || detail[i].endsWith("%")){
@@ -51,7 +53,20 @@ public class FormatedJLabel extends JLabel {
 							}
 							catch(NumberFormatException e)
 							{
-								temp.append(" <font color='"+textColor+"'>").append(detail[i]).append("</font>");	
+								if(detail[i].startsWith("("))
+								{
+									spec=true;
+								}
+								
+								if(spec)
+									temp.append(" <font color='red'>").append(detail[i]).append("</font>");
+								else
+									temp.append(" <font color='"+textColor+"'>").append(detail[i]).append("</font>");
+								
+								if(detail[i].endsWith(")"))
+								{
+									spec=false;
+								}
 							}
 						}
 					}

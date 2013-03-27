@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Paint;
+import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 
 import javax.swing.Icon;
@@ -65,20 +66,26 @@ public class ItemPanelDetails extends JPanel {
 	public void paintComponent(Graphics g)
 	{
 		 super.paintComponent(g);
-		 Graphics2D g2d = ( Graphics2D )g;
-		 Image i = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/itemBackground.png")).getImage();
-		 g2d.drawImage(i, 0, 0, null);
+		 Graphics2D g2d = (Graphics2D) g;
 		 
 		 if(item!=null)
+		 {
+
+			 Image i = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/item-"+item.getDisplayColor()+".png")).getImage();
+			 g2d.drawImage(i, 0, 7, null);
+			
+			
 			 if(item.isArmor())
+		 
 			 {
 				 g2d.drawImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/armor.jpg")).getImage(), 100, 85, null);
 			 }
 			 else
 			 {
 				 if(!item.getEnchantedWeapon().equals(""))
-					 g2d.drawImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/"+item.getEnchantedWeapon()+".jpg")).getImage(), 100, 85, null);
+					 g2d.drawImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/"+item.getEnchantedWeapon()+".jpg")).getImage(), 40, 85, null);
 			 }
+		 }
 	}
 	
 	public void showItem(Item item) {
@@ -126,10 +133,9 @@ public class ItemPanelDetails extends JPanel {
 		
 		StringBuffer temp = new StringBuffer();
 		for(int i=0;i<item.getAttributes().length;i++)
-			{
-				temp.append(item.getAttributes()[i]+" <br/> ");
-			}
-	 		
+		{
+			temp.append(item.getAttributes()[i]+" <br/> ");
+		}
 		
 		getLblDetailItem().setHtmlText(temp.toString(),"#5869D7","#BDA6CD");
 		
@@ -294,7 +300,7 @@ public class ItemPanelDetails extends JPanel {
 	private FormatedJLabel getLblDetailItem() {
 		if(lblDetailItem == null) {
 			lblDetailItem = new FormatedJLabel();
-			lblDetailItem.setBounds(12, 238, 300, 176);
+			lblDetailItem.setBounds(12, 238, 325, 240);
 			lblDetailItem.setName("lblDetailItem");
 		}
 		return lblDetailItem;

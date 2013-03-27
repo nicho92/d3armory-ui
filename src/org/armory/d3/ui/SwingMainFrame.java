@@ -5,20 +5,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
-import javax.swing.ListModel;
 import javax.swing.SwingUtilities;
 
 import org.armory.d3.beans.Hero;
@@ -185,7 +186,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					}
 				}
 			}
-			this.setSize(1667, 858);
+			this.setSize(1800, 700);
 			{
 				jMenuBar1 = new JMenuBar();
 				setJMenuBar(jMenuBar1);
@@ -409,7 +410,15 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		String selected_row = ((JList) evt.getSource()).getSelectedValue().toString();
 		String[] parser = selected_row.split("#");
 		try {
-			Profile p = D3ArmoryControler.getInstance().getProfil(parser[2]+".battle.net", parser[0], Long.parseLong(parser[1]), "fr_FR");
+			//TODO code pour la gestion locale
+			/*Locale list[] = SimpleDateFormat.getAvailableLocales();
+			for(int i=0;i<list.length;i++)
+			{
+				System.out.println(list[i] + " " + list[i].getDisplayName());
+			}
+			*/
+			D3ArmoryControler.getInstance().loadLocal();
+			Profile p = D3ArmoryControler.getInstance().getProfil(parser[2]+".battle.net", parser[0], Long.parseLong(parser[1]));
 			
 			getListeHeros().removeAll();
 			for(Hero h : p.getHeroes())
