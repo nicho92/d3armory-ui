@@ -30,7 +30,7 @@ public class Main {
 		Profile profile = profileService.receiveEntity(conf);
 		
 			
-			Hero hero = profile.getHeroes().get(1);
+			Hero hero = profile.getHeroes().get(0);
 				 conf.setHeroId(hero.getId());
 				 hero = heroService.receiveEntity(conf);
 				 
@@ -38,7 +38,7 @@ public class Main {
 				 System.out.println("f:" + hero.getStats().getStrength() + " v:" + hero.getStats().getVitality() + " d:" + hero.getStats().getDexterity() +" i:" + hero.getStats().getIntelligence());
 				 System.out.println("DPS:" + hero.getStats().getDamage());
 				 System.out.println("============================================================================================");
-				 		conf.setItemId(hero.getItems().getOffHand().getItemID());
+				 		conf.setItemId(hero.getItems().getMainHand().getItemID());
 				 		
 				 		Item item = itemService.receiveEntity(conf);
 				 		System.out.println(item.getName() + " ( "+ item.getTypeName() + ")");

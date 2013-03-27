@@ -7,12 +7,14 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Paint;
-import java.net.URL;
+import java.text.DecimalFormat;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextPane;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
@@ -36,61 +38,97 @@ public class ItemPanelDetails extends JPanel {
 	private Item item;
 	private JLabel lblIcon;
 	private JLabel lblNomItem;
-	
-	
-	private JLabel getLblNomItem() {
-		if(lblNomItem == null) {
-			lblNomItem = new JLabel();
-			lblNomItem.setHorizontalAlignment(JLabel.CENTER);
-			lblNomItem.setBounds(46, 10, 274, 39);
-			lblNomItem.setName("lblNomItem");
-		}
-		return lblNomItem;
-	}
+	private JTextPane lblTextItem;
+	private JLabel lblStatArmorDPS;
+	private JLabel lblTypeItemAD;
+	private JLabel lblTypeItem;
+	private FormatedJLabel lblDetailWeapon;
+	private FormatedJLabel lblDetailItem;
 
 	public ItemPanelDetails()
 	{
 		this.setLayout(null);
-		this.setPreferredSize(new java.awt.Dimension(338, 624));
 		this.add(getLblNomItem());
 		this.add(getLblIcon());
+		this.add(getLblTextItem());
+		this.add(getLblTypeItem());
+		this.add(getLblStatArmorDPS());
+		this.add(getLblTypeItemAD());
+		this.add(getLblDetailWeapon());
+		this.add(getLblDetailItem());
+
+		this.setBackground(Color.BLACK);
+
 		Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 	}
 	
 	public void paintComponent(Graphics g)
 	{
+		 super.paintComponent(g);
 		 Graphics2D g2d = ( Graphics2D )g;
 		 Image i = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/itemBackground.png")).getImage();
 		 g2d.drawImage(i, 0, 0, null);
 	}
-
+	
 	public void showItem(Item item) {
-		this.item=item;
+		try{
+			this.item=item;
+		
 		getLblNomItem().setText(item.getName());
 		getLblNomItem().setForeground(ItemLabel.toColor(item.getDisplayColor()));
 		getLblNomItem().setFont(new Font("Palatino Linotype", Font.BOLD, 18));
+		resizeFont(getLblNomItem(),Font.BOLD);
+		
+		getLblTextItem().setForeground(new Color(138,75,8));
+		getLblTextItem().setBorder(new LineBorder(new Color(138,75,8)));
+		getLblTextItem().setFont(new Font("Palatino Linotype", Font.ITALIC, 16));
+		getLblTextItem().setBounds(0, this.getHeight()-100, getLblTextItem().getParent().getWidth() , 100);
+		getLblTextItem().setText(item.getFlavorText());
+		
+		getLblTypeItem().setForeground(ItemLabel.toColor(item.getDisplayColor()));
+		getLblTypeItem().setFont(new Font("Palatino Linotype", Font.PLAIN, 16));
+		getLblTypeItem().setText(item.getTypeName());
+		
+		getLblStatArmorDPS().setForeground(Color.WHITE);
+		getLblStatArmorDPS().setFont(new Font("Palatino Linotype", Font.PLAIN, 40));
+		
+		getLblTypeItemAD().setForeground(Color.GRAY);
+		
+		if(item.isArmor()){
+			getLblStatArmorDPS().setText(new DecimalFormat("#0").format(item.getArmor().getMoyenne()));
+			getLblTypeItemAD().setText("Armor");
+			getLblDetailWeapon().setText("");
+			
+		}
+		else if(item.isWeapon()){
+			getLblStatArmorDPS().setText(new DecimalFormat("#0.0").format(item.getDps().getMoyenne()));
+			getLblTypeItemAD().setText("Damage Per Second");
+			getLblDetailWeapon().setHtmlText(new DecimalFormat("#0").format(item.getMinDamage().getMoyenne())+" - "+new DecimalFormat("#0").format(item.getMaxDamage().getMoyenne())+" points de degats<br/> "+new DecimalFormat("#0.00").format(item.getAttacksPerSecond().getMoyenne())+" vitesse d'attaque","gray","white");
+		}
+		else
+		{
+			getLblStatArmorDPS().setText("");
+			getLblTypeItemAD().setText("");
+			getLblDetailWeapon().setText("");
+			getLblDetailWeapon().setHtmlText("","","");
+		}
+		
+		StringBuffer temp = new StringBuffer();
+		for(int i=0;i<item.getAttributes().length;i++)
+			{
+				temp.append(item.getAttributes()[i]+" <br/> ");
+			}
+	 		
+		
+		getLblDetailItem().setHtmlText(temp.toString(),"#5869D7","#BDA6CD");
 		
 		
 		
-		
-		
-//		System.out.println(item.getName() + " ( "+ item.getTypeName() + ")");
+//		
+//		
 // 		System.out.println("Niveau nécessaire " + item.getRequiredLevel());
 // 		System.out.println("Niveau objet " + item.getItemLevel());
-// 		
-// 		if(item.isArmor())
-// 			System.out.println("Armor " + item.getArmor());
-// 		
-// 		if(item.isWeapon()){
-// 			System.out.println("DPS " + item.getDps());
-// 			System.out.println("AttakSpeed " + item.getAttacksPerSecond());
-// 			System.out.println("Min/Max damage " + item.getMinDamage().getMoyenne() + " " + item.getMaxDamage().getMoyenne());
-// 		}
-// 		for(int i=0;i<item.getAttributes().length;i++)
-//			{
-//				System.out.println(item.getAttributes()[i]);
-//			}
-// 		
+// 		System.out.println("------------"+item.getFlavorText());
 // 		System.out.println("Socket " + item.nbSockets());
 // 		
 // 		if(item.nbGems()>0)
@@ -105,9 +143,26 @@ public class ItemPanelDetails extends JPanel {
 //					}
 //				}
 // 		}
+		}
+		catch(NullPointerException e){}
 		
 	}
-	
+	private void resizeFont(JLabel lbl,int type) {
+		Font labelFont =lbl.getFont();
+		String labelText = lbl.getText();
+		int stringWidth = lbl.getFontMetrics(labelFont).stringWidth(labelText);
+		int componentWidth = lbl.getWidth();
+		double widthRatio = (double)componentWidth / (double)stringWidth;
+		int newFontSize = (int)(labelFont.getSize() * widthRatio);
+		int componentHeight = lbl.getHeight();
+		int fontSizeToUse = Math.min(newFontSize, componentHeight);
+		if(fontSizeToUse>18) //taille max
+			fontSizeToUse=18;
+		
+		lbl.setFont(new Font(labelFont.getName(), type, fontSizeToUse));
+		
+	}
+
 	public JLabel getLblIcon() {
 		if(lblIcon == null) {
 			lblIcon = new JLabel() {
@@ -166,6 +221,72 @@ public class ItemPanelDetails extends JPanel {
 			lblIcon.setName("lblIcon");
 		}
 		return lblIcon;
+	}
+
+	public JLabel getLblNomItem() {
+		if(lblNomItem == null) {
+			lblNomItem = new JLabel();
+			lblNomItem.setHorizontalAlignment(JLabel.CENTER);
+			lblNomItem.setBounds(46, 10, 274, 39);
+			lblNomItem.setName("lblNomItem");
+		}
+		return lblNomItem;
+	}
+
+	public JLabel getLblTypeItem() {
+		if(lblTypeItem == null) {
+			lblTypeItem = new JLabel();
+			lblTypeItem.setHorizontalAlignment(JLabel.LEFT);
+			lblTypeItem.setBounds(112, 61, 200, 20);
+			lblTypeItem.setName("lblTypeItem");
+		}
+		return lblTypeItem;
+	}
+
+	
+	
+	public JTextPane getLblTextItem() {
+		if(lblTextItem == null) {
+			lblTextItem = new JTextPane();
+			lblTextItem.setEditable(false);
+			lblTextItem.setBackground(Color.BLACK);
+			lblTextItem.setName("lblTextItem");
+		}
+		return lblTextItem;
+	}
+	
+	private JLabel getLblStatArmorDPS() {
+		if(lblStatArmorDPS == null) {
+			lblStatArmorDPS = new JLabel();
+			lblStatArmorDPS.setBounds(112, 93, 200, 61);
+			lblStatArmorDPS.setName("lblStatArmorDPS");
+		}
+		return lblStatArmorDPS;
+	}
+	
+	private JLabel getLblTypeItemAD() {
+		if(lblTypeItemAD == null) {
+			lblTypeItemAD = new JLabel();
+			lblTypeItemAD.setBounds(112, 140, 144, 15);
+		}
+		return lblTypeItemAD;
+	}
+
+	private FormatedJLabel getLblDetailWeapon(){
+		if(lblDetailWeapon==null){
+			lblDetailWeapon=new FormatedJLabel();
+			lblDetailWeapon.setBounds(112, 161, 267, 65);
+		}
+		return lblDetailWeapon;
+	}
+	
+	private FormatedJLabel getLblDetailItem() {
+		if(lblDetailItem == null) {
+			lblDetailItem = new FormatedJLabel();
+			lblDetailItem.setBounds(12, 238, 300, 176);
+			lblDetailItem.setName("lblDetailItem");
+		}
+		return lblDetailItem;
 	}
 
 }

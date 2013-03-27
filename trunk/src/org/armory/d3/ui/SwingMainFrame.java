@@ -1,5 +1,8 @@
 package org.armory.d3.ui;
 
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -14,11 +17,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
-import javax.swing.JTable;
 import javax.swing.ListModel;
 import javax.swing.SwingUtilities;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.Item;
@@ -27,12 +27,7 @@ import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.model.ListeHeroModel;
 import org.jdesktop.application.Application;
 
-import com.sdfteam.d3armory.service.configuration.Configuration;
-import com.sdfteam.d3armory.service.remote.RemoteService;
-import com.sdfteam.d3armory.service.remote.SpringRemoteService;
 import com.sdfteam.d3armory.service.remote.exception.D3ServerCommunicationException;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -135,16 +130,14 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					jSplitPane2 = new JSplitPane();
 					jSplitPane1.add(getSplitTagsHeroes(), JSplitPane.LEFT);
 					jSplitPane1.add(getJSplitPane2(), JSplitPane.RIGHT);
-					jSplitPane2.setPreferredSize(new java.awt.Dimension(312, 790));
 					{
 						panneauDessinHero = new HeroPanel();
 						jSplitPane2.add(panneauDessinHero, JSplitPane.LEFT);
 
 						panneauDessinHero.setLayout(null);
 						panneauDessinHero.setSize(994, 645);
+						panneauDessinHero.setPreferredSize(new Dimension(994, 645));
 						panneauDessinHero.setName("panneauDessinHero");
-						panneauDessinHero.setPreferredSize(new java.awt.Dimension(761, 789));
-
 						panneauDessinHero.add(getLblHead());
 						panneauDessinHero.add(getLblShoulders());
 						panneauDessinHero.add(getLblNeck());
@@ -185,8 +178,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						scrollFicheHeros = new JScrollPane();
 						jSplitPane2.add(getScrollFicheHeros(), JSplitPane.RIGHT);
 						scrollFicheHeros.setSize(250, 815);
-						scrollFicheHeros.setPreferredSize(new java.awt.Dimension(339, 789));
-						scrollFicheHeros.setViewportView(getPanelItemDetails());
+					scrollFicheHeros.setViewportView(getPanelItemDetails());
 					}
 				}
 			}
@@ -676,18 +668,15 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JSplitPane getSplitTagsHeroes() {
 		if(splitTagsHeroes == null) {
 			splitTagsHeroes = new JSplitPane();
-			splitTagsHeroes.setPreferredSize(new java.awt.Dimension(482, 790));
 			{
 				scrollTags = new JScrollPane();
 				splitTagsHeroes.add(scrollTags, JSplitPane.LEFT);
-				scrollTags.setSize(300, 788);
+				scrollTags.setSize(250, 788);
 				{
-					ListModel listeTagsModel = 
-							new DefaultComboBoxModel(D3ArmoryControler.getInstance().getListTags().toArray());
+					ListModel listeTagsModel = new DefaultComboBoxModel(D3ArmoryControler.getInstance().getListTags().toArray());
 					listeTags = new JList();
 					scrollTags.setViewportView(listeTags);
 					listeTags.setModel(listeTagsModel);
-					listeTags.setPreferredSize(new java.awt.Dimension(116, 785));
 					listeTags.addMouseListener(new MouseAdapter() {
 						public void mouseClicked(MouseEvent evt) {
 							listeTagMouseClicked(evt);
@@ -704,11 +693,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					listeHeros = new JList();
 					scrollHeros.setViewportView(getListeHeros());
 					listeHeros.setModel(listeHerosModel);
-					HeroCellRenderer renderer = new HeroCellRenderer();
-					listeHeros.setCellRenderer(renderer);
+					
+					listeHeros.setCellRenderer(new HeroCellRenderer());
 					listeHeros.setName("listeHeros");
-					listeHeros.setPreferredSize(new java.awt.Dimension(291, 786));
-					listeHeros.setSize(200, 812);
+					listeHeros.setSize(150, 812);
+					listeHeros.setPreferredSize(new Dimension(150,812));
 					listeHeros.addMouseListener(new MouseAdapter() {
 						public void mouseClicked(MouseEvent evt) {
 							try {
@@ -728,10 +717,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(panelItemDetails == null) {
 			panelItemDetails = new ItemPanelDetails();
 			panelItemDetails.setName("panelItemDetails");
-			panelItemDetails.setSize(250, 812);
-			//panelItemDetails.setPreferredSize(new java.awt.Dimension(260, 785));
+			panelItemDetails.setSize(360, 812);
 			panelItemDetails.setLayout(null);
-			panelItemDetails.setPreferredSize(new java.awt.Dimension(429, 786));
 		}
 		return panelItemDetails;
 	}
