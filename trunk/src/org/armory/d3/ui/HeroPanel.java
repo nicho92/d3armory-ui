@@ -36,7 +36,7 @@ public class HeroPanel extends JPanel {
 			 	    URL url = new URL(imagePath);
 			 	    image = ImageIO.read(url);
 			 	    g.drawImage(image, 0, 0, null);
-			 	    
+			 	  
 			 	} 
 			 	catch (IOException e) 
 			 	{
@@ -49,7 +49,7 @@ public class HeroPanel extends JPanel {
 			g.drawImage(bg,0,0,null);
 		}
 		
-		
+		  g.drawImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/inventory-lines.png")).getImage(),462,170,null);
 	}
 
 	private String imagePath;

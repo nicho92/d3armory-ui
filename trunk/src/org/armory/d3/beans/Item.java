@@ -1,5 +1,6 @@
 package org.armory.d3.beans;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +48,33 @@ public class Item  extends RemoteEntity {
 		else
 			return attributesRaw.get("Sockets").getMax().intValue();
 	}
+	
+	public String getEnchantedWeapon()
+	{
+		if(!isWeapon())
+			return "";
+		
+		Iterator<String> attributes = attributesRaw.keySet().iterator();
+		while(attributes.hasNext())
+		{
+			String att= attributes.next();
+			if(att.contains("Poison"))
+				return "poison";
+			if(att.contains("Arcane"))
+				return "arcane";
+			if(att.contains("Fire"))
+				return "fire";
+			if(att.contains("Lightning"))
+				return "lightning";
+			if(att.contains("Holy"))
+				return "holy";
+			if(att.contains("Cold"))
+				return "cold";
+		}
+		return "";
+			
+	}
+	
 	
 	public int nbGems(){
 		if (gems!=null)

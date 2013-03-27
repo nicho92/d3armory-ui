@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -94,6 +95,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JMenu jMenu3;
 	private JMenuBar jMenuBar1;
 
+	DefaultComboBoxModel listeTagsModel;
+	
 	
 	private ListeHeroModel listeHerosModel; 
 	
@@ -297,13 +300,14 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lblMainHand.setItem(mainHand);
 		lblSocketMainHand.setItem(mainHand,0);
 		
-		if(mainHand.nbSockets()==2)
-			lblSocketMainHand2.setItem(mainHand,1);
-		else
-			lblSocketMainHand2.setItem(null,1);
 		
 		if(mainHand!=null)
 		{
+			if(mainHand.nbSockets()==2)
+				lblSocketMainHand2.setItem(mainHand,1);
+			else
+				lblSocketMainHand2.setItem(null,1);
+			
 			if(mainHand.getType().getTwoHanded() && hero.getItems().getOffHand()==null)
 			{
 				lblOffHand.setItem(hero.getItems().getMainHand());
@@ -661,7 +665,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	}
 	
 	private void newFileMenuItemActionPerformed(ActionEvent evt) {
-		TagsManagerFrame f = new TagsManagerFrame();
+		TagsManagerFrame f = new TagsManagerFrame(listeTagsModel);
 		f.setVisible(true);
 	}
 	
@@ -673,7 +677,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				splitTagsHeroes.add(scrollTags, JSplitPane.LEFT);
 				scrollTags.setSize(250, 788);
 				{
-					ListModel listeTagsModel = new DefaultComboBoxModel(D3ArmoryControler.getInstance().getListTags().toArray());
+					listeTagsModel = new DefaultComboBoxModel(D3ArmoryControler.getInstance().getListTags().toArray());
 					listeTags = new JList();
 					scrollTags.setViewportView(listeTags);
 					listeTags.setModel(listeTagsModel);
