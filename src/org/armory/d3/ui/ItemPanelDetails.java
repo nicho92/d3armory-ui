@@ -68,6 +68,17 @@ public class ItemPanelDetails extends JPanel {
 		 Graphics2D g2d = ( Graphics2D )g;
 		 Image i = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/itemBackground.png")).getImage();
 		 g2d.drawImage(i, 0, 0, null);
+		 
+		 if(item!=null)
+			 if(item.isArmor())
+			 {
+				 g2d.drawImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/armor.jpg")).getImage(), 100, 85, null);
+			 }
+			 else
+			 {
+				 if(!item.getEnchantedWeapon().equals(""))
+					 g2d.drawImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/"+item.getEnchantedWeapon()+".jpg")).getImage(), 100, 85, null);
+			 }
 	}
 	
 	public void showItem(Item item) {

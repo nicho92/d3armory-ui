@@ -1,7 +1,5 @@
 package org.armory.d3;
 
-import java.util.List;
-
 import org.armory.d3.beans.Gem;
 import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.Item;
@@ -30,7 +28,7 @@ public class Main {
 		Profile profile = profileService.receiveEntity(conf);
 		
 			
-			Hero hero = profile.getHeroes().get(0);
+			Hero hero = profile.getHeroes().get(1);
 				 conf.setHeroId(hero.getId());
 				 hero = heroService.receiveEntity(conf);
 				 
@@ -44,6 +42,10 @@ public class Main {
 				 		System.out.println(item.getName() + " ( "+ item.getTypeName() + ")");
 				 		System.out.println("Niveau nécessaire " + item.getRequiredLevel());
 				 		System.out.println("Niveau objet " + item.getItemLevel());
+				 		System.out.println("BonusAffixe " + item.getBonusAffixes());
+				 		
+				 		System.out.println("Echanté " + item.getEnchantedWeapon());
+				 		
 				 		
 				 		if(item.isArmor())
 				 			System.out.println("Armor " + item.getArmor());

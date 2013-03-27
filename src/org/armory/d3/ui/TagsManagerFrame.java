@@ -1,25 +1,22 @@
 package org.armory.d3.ui;
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import javax.swing.WindowConstants;
 
 import org.armory.d3.services.D3ArmoryControler;
 import org.jdesktop.application.Application;
-import javax.swing.SwingUtilities;
 
 
 /**
@@ -43,23 +40,12 @@ public class TagsManagerFrame extends javax.swing.JFrame {
 	private JLabel lblbattleTag;
 	private JButton btnSave;
 	private JPanel panneauBas;
-
-	/**
-	* Auto-generated main method to display this JFrame
-	*/
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				TagsManagerFrame inst = new TagsManagerFrame();
-				inst.setLocationRelativeTo(null);
-				inst.setVisible(true);
-			}
-		});
-	}
+	private DefaultComboBoxModel tagsList;
 	
-	public TagsManagerFrame() {
+	public TagsManagerFrame(DefaultComboBoxModel listeTagsModel) {
 		super();
 		initGUI();
+		tagsList = listeTagsModel;
 	}
 	
 	private void initGUI() {
@@ -135,6 +121,7 @@ public class TagsManagerFrame extends javax.swing.JFrame {
 	private void btnSaveActionPerformed(ActionEvent evt)
 	{
 		D3ArmoryControler.getInstance().addTags(txtTag.getText(), cboListServer.getSelectedItem().toString());
+		tagsList.addElement(txtTag.getText()+"#"+cboListServer.getSelectedItem().toString());
 		this.dispose();
 	}
 	
