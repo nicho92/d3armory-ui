@@ -12,7 +12,17 @@ public class Skill {
 	private Number level;
 	private String categorySlug;
 	private String tooltipUrl;
+	private String flavor;
 	
+	
+	public String getFlavor() {
+		return flavor;
+	}
+
+	public void setFlavor(String flavor) {
+		this.flavor = flavor;
+	}
+
 	public String getTooltipUrl() {
 		return tooltipUrl;
 	}
@@ -92,4 +102,10 @@ public class Skill {
 	public void setTooltipParams(String tooltipParams) {
 		this.tooltipParams = tooltipParams;
 	}
+	
+	public String toString()
+	{
+		return getName();
+	}
+
 }

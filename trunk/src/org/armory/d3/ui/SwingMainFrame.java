@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import javax.swing.BoxLayout;
@@ -393,9 +395,29 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			lblSocketLegs2.setItem(null,0);
 		}
 		
-		lblShoulders.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getShoulders()));
-		lblBracers.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getBracers()));
-		lblbelt.setItem(D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getWaist()));
+		Item shoulders= D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getShoulders());
+		lblShoulders.setItem(shoulders);
+		Item bracers = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getBracers());
+		lblBracers.setItem(bracers);
+		Item belt = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getWaist());
+		lblbelt.setItem(belt);
+		
+		List<Item> stuffs= new ArrayList<Item>();
+					stuffs.add(head);
+					stuffs.add(shoulders);
+					stuffs.add(neck);
+					stuffs.add(torso);
+					stuffs.add(gants);
+					stuffs.add(bracers);
+					stuffs.add(belt);
+					stuffs.add(legs);
+					stuffs.add(ringright);
+					stuffs.add(ringleft);
+					stuffs.add(mainHand);
+					stuffs.add(offhand);
+					stuffs.add(foot);
+		
+		D3ArmoryControler.getInstance().getInstance().setStuff(stuffs);
 		
 		if(hero.isHardcore())
 			lblHarcore.setText("Hardcore");

@@ -49,6 +49,10 @@ public class Item  extends RemoteEntity {
 			return attributesRaw.get("Sockets").getMax().intValue();
 	}
 	
+	public boolean equals(Object item) {
+		return this.getId().equals(((Item)item).getId());
+	}
+
 	public String getEnchantedWeapon()
 	{
 		if(!isWeapon())

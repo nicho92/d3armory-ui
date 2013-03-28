@@ -20,7 +20,7 @@ import javax.swing.border.LineBorder;
 
 import org.armory.d3.beans.Gem;
 import org.armory.d3.beans.Item;
-import org.armory.d3.beans.LegendarySetItem;
+import org.armory.d3.beans.Ranks;
 
 public class ItemLabel extends JLabel implements MouseListener {
 	
@@ -143,7 +143,6 @@ public class ItemLabel extends JLabel implements MouseListener {
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
