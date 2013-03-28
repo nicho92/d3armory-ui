@@ -31,6 +31,7 @@ public class D3ArmoryControler {
 	Hero selected;
 
 	private String local;
+	private List<Item> stuff;
 	
 	public static D3ArmoryControler getInstance()
 	{
@@ -108,6 +109,7 @@ public class D3ArmoryControler {
 	
 	public Item getItemDetails(Item i)
 	{
+		
 		if(i==null)
 			return null;
 		
@@ -163,6 +165,14 @@ public class D3ArmoryControler {
 		} catch (IOException e) {
 			return "en_US";
 		}
+	}
+
+
+
+
+	public void setStuff(List<Item> stuffs) {
+		this.stuff=stuffs;
+		
 	}
 
 	

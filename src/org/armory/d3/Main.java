@@ -1,13 +1,13 @@
 package org.armory.d3;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.armory.d3.beans.Gem;
 import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.Item;
-import org.armory.d3.beans.LegendarySetItem;
 import org.armory.d3.beans.Profile;
-import org.armory.d3.beans.SkillRune;
+import org.armory.d3.services.D3ArmoryControler;
+import org.armory.d3.services.StuffCalculator;
 
 import com.sdfteam.d3armory.service.configuration.Configuration;
 import com.sdfteam.d3armory.service.remote.RemoteService;
@@ -31,76 +31,50 @@ public class Main {
 		Profile profile = profileService.receiveEntity(conf);
 		
 			
-			Hero hero = profile.getHeroes().get(0);
+			Hero hero = profile.getHeroes().get(1);
 				 conf.setHeroId(hero.getId());
+				 D3ArmoryControler.getInstance().getInstance().setConf(conf);
+				 
 				 hero = heroService.receiveEntity(conf);
 				 System.out.println(hero.getName() + " "+ hero.getClazz() + " pg:"+ hero.getParagonLevel());
 				 System.out.println("f:" + hero.getStats().getStrength() + " v:" + hero.getStats().getVitality() + " d:" + hero.getStats().getDexterity() +" i:" + hero.getStats().getIntelligence());
 				 System.out.println("DPS:" + hero.getStats().getDamage());
-				 System.out.println("SKILL PASSIF: ");
-				 List<SkillRune> actives = hero.getSkills().getActive();
-				 for(SkillRune sr : actives)
-				 {
-					 System.out.println(sr.getSkill().getName() +" " + sr.getRune().getName());
-				 }
-				 
-				 
+				 System.out.println("Augmentation des degats " + hero.getStats().getDamageIncrease());
+				 System.out.println("A/S " + hero.getStats().getAttackSpeed());
 				 
 				 System.out.println("============================================================================================");
-				 		conf.setItemId(hero.getItems().getMainHand().getItemID());
-				 		
-				 		Item item = itemService.receiveEntity(conf);
-				 		System.out.println(item.getName() + " ( "+ item.getTypeName() + ")");
-				 		System.out.println("Niveau nécessaire " + item.getRequiredLevel());
-				 		System.out.println("Niveau objet " + item.getItemLevel());
-				 		System.out.println("BonusAffixe " + item.getBonusAffixes());
-				 		
-				 		System.out.println("Echanté " + item.getEnchantedWeapon());
-				 		
-				 		
-				 		if(item.isArmor())
-				 			System.out.println("Armor " + item.getArmor());
-				 		
-				 		if(item.isWeapon()){
-				 			System.out.println("DPS " + item.getDps());
-				 			System.out.println("AttakSpeed " + item.getAttacksPerSecond());
-				 			System.out.println("Min/Max damage " + item.getMinDamage().getMoyenne() + " " + item.getMaxDamage().getMoyenne());
-				 		}
-				 		for(int i=0;i<item.getAttributes().length;i++)
-	 					{
-	 						System.out.println(item.getAttributes()[i]);
-	 					}
-				 		
-				 		System.out.println("Socket " + item.nbSockets());
-				 		
-				 		if(item.nbGems()>0)
-				 		{
-				 			for(int i=0;i<item.getGems().length;i++)
-		 					{
-		 						Gem gem = item.getGems()[i];
-				 				System.out.print(gem.getItem().getName() + " ");
-				 				for(int j=0;j<gem.getAttributes().length;j++)
-			 					{
-			 						System.out.println(gem.getAttributes()[j]);
-			 					}
-		 					}
-				 		}
-				 		
-				 		if(item.isSetObjects()){
-				 			System.out.println("====== "+item.getSet().getName()+" ====== ");
-				 			
-				 			for(Item i : item.getSet().getItems())
-				 				System.out.println(i.getName());
-				 			
-				 			for(LegendarySetItem li : item.getSet().getRanks()){
-				 					System.out.println(li.getRequire() +" =============");
-				 					for(int i=0;i<li.getAttributes().length;i++)
-				 					{
-				 						System.out.println(li.getAttributes()[i]);
-				 					}
-				 			}
-				 		}
-				 		
+					Item head = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHead());
+					Item foot = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getFeet());
+					Item shoulders = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getShoulders());
+					Item gants = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHands());
+					Item bracers = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getBracers());
+					Item legs = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLegs());
+					Item neck = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getNeck());
+					Item belt = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getWaist());
+					Item ringright = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLeftFinger());
+					Item ringleft = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getRightFinger());
+					Item mainHand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getMainHand());
+					Item offhand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getOffHand());
+					Item torso = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getTorso());
+					
+					List<Item> stuffs= new ArrayList<Item>();
+						stuffs.add(head);
+						stuffs.add(shoulders);
+						stuffs.add(neck);
+						stuffs.add(torso);
+						stuffs.add(gants);
+						stuffs.add(bracers);
+						stuffs.add(belt);
+						stuffs.add(legs);
+						stuffs.add(ringright);
+						stuffs.add(ringleft);
+						stuffs.add(mainHand);
+						stuffs.add(offhand);
+						stuffs.add(foot);
+						
+					StuffCalculator calculator = new StuffCalculator(stuffs,hero.getSkills());
+						
+					System.out.println(calculator.getStat("Damage_Weapon","Poison"));
 				 		
 		}
 }

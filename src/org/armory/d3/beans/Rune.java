@@ -65,6 +65,10 @@ public class Rune {
 		this.order = order;
 	}
 	
+	public String toString()
+	{
+		return getName();
+	}
 
 
 
