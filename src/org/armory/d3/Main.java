@@ -31,7 +31,7 @@ public class Main {
 		Profile profile = profileService.receiveEntity(conf);
 		
 			
-			Hero hero = profile.getHeroes().get(1);
+			Hero hero = profile.getHeroes().get(6);
 				 conf.setHeroId(hero.getId());
 				 D3ArmoryControler.getInstance().getInstance().setConf(conf);
 				 
@@ -74,7 +74,7 @@ public class Main {
 						
 					StuffCalculator calculator = new StuffCalculator(stuffs,hero.getSkills());
 						
-					System.out.println(calculator.getStat("Damage_Weapon","Poison"));
+					System.out.println(calculator.getStat("",null));
 				 		
 		}
 }

@@ -1,5 +1,6 @@
 package org.armory.d3.services;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -10,7 +11,6 @@ import org.armory.d3.beans.HeroSkillContainer;
 import org.armory.d3.beans.Item;
 import org.armory.d3.beans.LegendarySet;
 import org.armory.d3.beans.MinMaxBonus;
-import org.armory.d3.beans.Ranks;
 
 public class StuffCalculator {
 
@@ -22,9 +22,11 @@ public class StuffCalculator {
 	public StuffCalculator(List<Item> stuff, HeroSkillContainer skill) {
 		this.stuffs=stuff;
 		this.skills=skill;
-		stuffs.remove(null);
+		while(stuffs.remove(null));
 		bonusItem = new HashMap<>();
 		init();
+	
+
 	}
 
 
