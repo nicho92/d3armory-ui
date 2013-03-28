@@ -3,22 +3,22 @@ package org.armory.d3.beans;
 import java.util.List;
 
 public class HeroSkillContainer {
-	private List<Skill> active;
-	private List<Skill> passive;
+	private List<SkillRune> active;
+	private List<SkillRune> passive;
 
-	public List<Skill> getActive() {
+	public List<SkillRune> getActive() {
 		return active;
 	}
 
-	public void setActive(List<Skill> active) {
+	public void setActive(List<SkillRune> active) {
 		this.active = active;
 	}
 
-	public List<Skill> getPassive() {
+	public List<SkillRune> getPassive() {
 		return passive;
 	}
 
-	public void setPassive(List<Skill> passive) {
+	public void setPassive(List<SkillRune> passive) {
 		this.passive = passive;
 	}
 
