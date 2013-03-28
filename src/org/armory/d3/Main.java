@@ -1,10 +1,13 @@
 package org.armory.d3;
 
+import java.util.List;
+
 import org.armory.d3.beans.Gem;
 import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.Item;
 import org.armory.d3.beans.LegendarySetItem;
 import org.armory.d3.beans.Profile;
+import org.armory.d3.beans.SkillRune;
 
 import com.sdfteam.d3armory.service.configuration.Configuration;
 import com.sdfteam.d3armory.service.remote.RemoteService;
@@ -28,13 +31,21 @@ public class Main {
 		Profile profile = profileService.receiveEntity(conf);
 		
 			
-			Hero hero = profile.getHeroes().get(1);
+			Hero hero = profile.getHeroes().get(0);
 				 conf.setHeroId(hero.getId());
 				 hero = heroService.receiveEntity(conf);
-				 
 				 System.out.println(hero.getName() + " "+ hero.getClazz() + " pg:"+ hero.getParagonLevel());
 				 System.out.println("f:" + hero.getStats().getStrength() + " v:" + hero.getStats().getVitality() + " d:" + hero.getStats().getDexterity() +" i:" + hero.getStats().getIntelligence());
 				 System.out.println("DPS:" + hero.getStats().getDamage());
+				 System.out.println("SKILL PASSIF: ");
+				 List<SkillRune> actives = hero.getSkills().getActive();
+				 for(SkillRune sr : actives)
+				 {
+					 System.out.println(sr.getSkill().getName() +" " + sr.getRune().getName());
+				 }
+				 
+				 
+				 
 				 System.out.println("============================================================================================");
 				 		conf.setItemId(hero.getItems().getMainHand().getItemID());
 				 		

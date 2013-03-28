@@ -1,6 +1,7 @@
 package org.armory.d3.beans;
 
 public class Skill {
+	
 	private String description;
 	private String icon;
 	private String name;
@@ -8,6 +9,33 @@ public class Skill {
 	private String slug;
 	private String tooltipParams;
 	private String skillCalcId;
+	private Number level;
+	private String categorySlug;
+	private String tooltipUrl;
+	
+	public String getTooltipUrl() {
+		return tooltipUrl;
+	}
+
+	public void setTooltipUrl(String tooltipUrl) {
+		this.tooltipUrl = tooltipUrl;
+	}
+
+	public String getCategorySlug() {
+		return categorySlug;
+	}
+
+	public void setCategorySlug(String categorySlug) {
+		this.categorySlug = categorySlug;
+	}
+
+	public Number getLevel() {
+		return level;
+	}
+
+	public void setLevel(Number level) {
+		this.level = level;
+	}
 
 	public String getSkillCalcId() {
 		return skillCalcId;
