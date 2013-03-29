@@ -24,6 +24,24 @@ public class Hero extends RemoteEntity {
 	private Stats stats;
 	private Long paragonLevel;
 	
+	public String getPrimaryStat()
+	{
+		switch (getClazz()) 
+		{
+			case "demon-hunter":return "Dexterity"; 
+			case "barbarian":return "Strength"; 
+			case "monk":return "Dexterity"; 
+			case "wizard":return "Intelligence"; 
+			case "witch-doctor":return "Intelligence"; 
+		}
+		return "";
+	}
+	
+	
+	public double getBaseStatPrimary()
+	{
+		return (7+(this.getLevel().intValue()+this.getParagonLevel().intValue())*3);
+	}
 	
 	public Long getParagonLevel() {
 		return paragonLevel;

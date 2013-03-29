@@ -31,16 +31,14 @@ public class Main {
 		Profile profile = profileService.receiveEntity(conf);
 		
 			
-			Hero hero = profile.getHeroes().get(6);
+			Hero hero = profile.getHeroes().get(0);
 				 conf.setHeroId(hero.getId());
 				 D3ArmoryControler.getInstance().getInstance().setConf(conf);
 				 
 				 hero = heroService.receiveEntity(conf);
 				 System.out.println(hero.getName() + " "+ hero.getClazz() + " pg:"+ hero.getParagonLevel());
 				 System.out.println("f:" + hero.getStats().getStrength() + " v:" + hero.getStats().getVitality() + " d:" + hero.getStats().getDexterity() +" i:" + hero.getStats().getIntelligence());
-				 System.out.println("DPS:" + hero.getStats().getDamage());
-				 System.out.println("Augmentation des degats " + hero.getStats().getDamageIncrease());
-				 System.out.println("A/S " + hero.getStats().getAttackSpeed());
+				 System.out.println("DPS Theoric :" + hero.getStats().getDamage());
 				 
 				 System.out.println("============================================================================================");
 					Item head = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHead());
@@ -72,9 +70,8 @@ public class Main {
 						stuffs.add(offhand);
 						stuffs.add(foot);
 						
-					StuffCalculator calculator = new StuffCalculator(stuffs,hero.getSkills());
-						
-					System.out.println(calculator.getStat("",null));
+					StuffCalculator calculator = new StuffCalculator(stuffs,hero);
+									calculator.calculateUnbuffedDPS();
 				 		
 		}
 }
