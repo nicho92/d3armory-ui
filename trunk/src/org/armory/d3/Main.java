@@ -71,7 +71,7 @@ public class Main {
 						stuffs.add(foot);
 						
 					StuffCalculator calculator = new StuffCalculator(stuffs,hero);
-									calculator.calculateUnbuffedDPS();
+									calculator.getStat("Damage", "Fureur", true);
 				 		
 		}
 }

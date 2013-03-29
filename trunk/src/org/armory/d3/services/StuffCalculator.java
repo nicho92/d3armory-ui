@@ -65,7 +65,8 @@ public class StuffCalculator {
 			{
 				String cle = keys.next();
 				compteur++;
-				bonusItem.put(cle+"_"+compteur, i.getAttributesRaw().get(cle));
+				System.out.println(cle + "#"+i.getName()+" "+i.getAttributesRaw().get(cle));
+				bonusItem.put(cle+"_"+i.getName().replaceAll(" ", "_")+"_"+compteur, i.getAttributesRaw().get(cle));
 			}
 			
 		}//fin de boucle sur les items
@@ -104,12 +105,12 @@ public class StuffCalculator {
 		while(keyIt.hasNext())
 		{
 			String k = keyIt.next();
+			
 			if(k.startsWith(stat)||stat.equals(""))
 			{
 				if(elementfilter!=null && k.contains("#"))
 				{
-					String[] el = k.split("#");
-					if(el[1].startsWith(elementfilter))
+					if(k.contains(elementfilter))
 					{
 						if(debug)
 							System.out.println(k + " " + bonusItem.get(k).getMoyenne());
@@ -136,9 +137,6 @@ public class StuffCalculator {
 	public double calculateUnbuffedDPS()
 	{
 		
-		System.out.println(getStat("Damage_Weapon", null,true));
-		
-		
 		double eff_comp_psv=0;
 
 		double bonus_min_arme=0;
@@ -161,7 +159,7 @@ public class StuffCalculator {
 		System.out.println("stat Base :" + stat_base);
 		double dps = (1 + eff_comp_psv) * (degat_moy_arme + (bonus_min_arme + bonus_max_arme) / 2) * vit_attaque * ( 1+(chance_cc * degat_cc)) * (1 + stat_base / 100);
 		
-		System.out.println(dps);
+		System.out.println("FINAL DPS :" + dps);
 		return dps;
 	}
 
