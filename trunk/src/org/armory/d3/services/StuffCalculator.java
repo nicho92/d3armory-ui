@@ -55,7 +55,7 @@ public class StuffCalculator {
 					Iterator<String> keysg = gems[g].getAttributesRaw().keySet().iterator();
 					String cleg = keysg.next();
 					compteur++;
-					bonusItem.put(cleg +"_gem"+compteur, gems[g].getAttributesRaw().get(cleg));
+					bonusItem.put(cleg +"_Gem_"+i.getName().replaceAll(" ", "-"), gems[g].getAttributesRaw().get(cleg));
 				}
 			}
 			//fin des gems
@@ -65,8 +65,14 @@ public class StuffCalculator {
 			{
 				String cle = keys.next();
 				compteur++;
-				System.out.println(cle + "#"+i.getName()+" "+i.getAttributesRaw().get(cle));
-				bonusItem.put(cle+"_"+i.getName().replaceAll(" ", "_")+"_"+compteur, i.getAttributesRaw().get(cle));
+				bonusItem.put(cle+"_"+i.getName().replaceAll(" ", "-"), i.getAttributesRaw().get(cle));
+				
+				if(i.isWeapon())
+				{
+					bonusItem.put("Damage_Weapon_min_"+i.getName().replaceAll(" ", "-"), i.getMinDamage());
+					bonusItem.put("Damage_Weapon_max_"+i.getName().replaceAll(" ", "-"), i.getMaxDamage());
+					bonusItem.put("Damage_Weapon_as_"+i.getName().replaceAll(" ", "-"), i.getAttacksPerSecond());
+				}
 			}
 			
 		}//fin de boucle sur les items
@@ -108,16 +114,6 @@ public class StuffCalculator {
 			
 			if(k.startsWith(stat)||stat.equals(""))
 			{
-				if(elementfilter!=null && k.contains("#"))
-				{
-					if(k.contains(elementfilter))
-					{
-						if(debug)
-							System.out.println(k + " " + bonusItem.get(k).getMoyenne());
-						
-						total=total+ bonusItem.get(k).getMoyenne();
-					}
-				}
 				
 				if(elementfilter==null)
 				{
@@ -126,6 +122,15 @@ public class StuffCalculator {
 					
 					total=total+ bonusItem.get(k).getMoyenne();
 				}
+				else 
+				if(k.contains(elementfilter))
+				{
+					if(debug)
+						System.out.println(k + " " + bonusItem.get(k).getMoyenne());
+					
+					total=total+ bonusItem.get(k).getMoyenne();
+				}
+				
 				
 			}
 		}

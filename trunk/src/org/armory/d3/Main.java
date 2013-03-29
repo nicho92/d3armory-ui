@@ -71,7 +71,7 @@ public class Main {
 						stuffs.add(foot);
 						
 					StuffCalculator calculator = new StuffCalculator(stuffs,hero);
-									calculator.getStat("Damage", "Fureur", true);
+									calculator.getStat("Damage","Weapon", true);
 				 		
 		}
 }
