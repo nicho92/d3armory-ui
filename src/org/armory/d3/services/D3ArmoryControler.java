@@ -26,12 +26,11 @@ public class D3ArmoryControler {
 	
 	private static D3ArmoryControler instance;
 	public Configuration conf;
-	RemoteService<Profile> profileService ;
-	Profile profil ;
-	Hero selected;
-
+	private RemoteService<Profile> profileService ;
+	private Profile profil ;
+	private Hero selected;
+	private StuffCalculator calculator;
 	private String local;
-	private List<Item> stuff;
 	
 	public static D3ArmoryControler getInstance()
 	{
@@ -41,22 +40,13 @@ public class D3ArmoryControler {
 		return instance;
 	}
 	
-	
-	
-	
 	public Configuration getConf() {
 		return conf;
 	}
 
-
-
-
 	public void setConf(Configuration conf) {
 		this.conf = conf;
 	}
-
-
-
 
 	public Profile getProfil(String host, String tagName,Long tagID) throws D3ServerCommunicationException
 	{
@@ -105,7 +95,6 @@ public class D3ArmoryControler {
 		
 		return selected;
 	}
-	
 	
 	public Item getItemDetails(Item i)
 	{
@@ -170,10 +159,27 @@ public class D3ArmoryControler {
 
 
 
-	public void setStuff(List<Item> stuffs) {
-		this.stuff=stuffs;
+	
+	
+	public boolean initCalculator(List<Item> stuffs) {
+		try {
+			calculator = new StuffCalculator(stuffs, getSelectedHero(false));
+			return true;
+		} catch (D3ServerCommunicationException e) {
+			e.printStackTrace();
+			return false;
+		}
 		
 	}
 
+
+
+
+	
+	public StuffCalculator getCalculator() {
+		return calculator;
+	}
+
+	
 	
 }

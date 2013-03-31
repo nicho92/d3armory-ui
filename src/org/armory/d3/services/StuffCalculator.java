@@ -11,11 +11,21 @@ import org.armory.d3.beans.HeroSkillContainer;
 import org.armory.d3.beans.Item;
 import org.armory.d3.beans.LegendarySet;
 import org.armory.d3.beans.MinMaxBonus;
+import org.armory.d3.beans.Ranks;
 
 public class StuffCalculator {
 
 	
 	private List<Item> stuffs;
+	public List<Item> getStuffs() {
+		return stuffs;
+	}
+
+	public void setStuffs(List<Item> stuffs) {
+		this.stuffs = stuffs;
+	}
+
+
 	private HeroSkillContainer skills;
 	private Map<String, MinMaxBonus> bonusItem;
 	private Hero hero;
@@ -43,7 +53,7 @@ public class StuffCalculator {
 			
 			if(i.isSetObjects())
 			{
-				piecesbyset.put(i.getSet(),LegendarySet.getNbItemSet(stuffs, i.getSet()));
+				piecesbyset.put(i.getSet(),LegendarySet.getStuffSetsNbPieces(stuffs, i.getSet()));
 			}
 			
 			//bonus de gems
@@ -55,7 +65,7 @@ public class StuffCalculator {
 					Iterator<String> keysg = gems[g].getAttributesRaw().keySet().iterator();
 					String cleg = keysg.next();
 					compteur++;
-					bonusItem.put(cleg +"_Gem_"+i.getName().replaceAll(" ", "-"), gems[g].getAttributesRaw().get(cleg));
+					bonusItem.put(cleg +"_GEM_"+i.getName().replaceAll(" ", "-"), gems[g].getAttributesRaw().get(cleg));
 				}
 			}
 			//fin des gems
@@ -69,9 +79,9 @@ public class StuffCalculator {
 				
 				if(i.isWeapon())
 				{
-					bonusItem.put("Damage_Weapon_min_"+i.getName().replaceAll(" ", "-"), i.getMinDamage());
-					bonusItem.put("Damage_Weapon_max_"+i.getName().replaceAll(" ", "-"), i.getMaxDamage());
-					bonusItem.put("Damage_Weapon_as_"+i.getName().replaceAll(" ", "-"), i.getAttacksPerSecond());
+					bonusItem.put("Damage_DPS_Min_"+i.getName().replaceAll(" ", "-"), i.getMinDamage());
+					bonusItem.put("Damage_DPS_Max_"+i.getName().replaceAll(" ", "-"), i.getMaxDamage());
+					bonusItem.put("Damage_DPS_AttackSpeed_"+i.getName().replaceAll(" ", "-"), i.getAttacksPerSecond());
 				}
 			}
 			
@@ -83,17 +93,21 @@ public class StuffCalculator {
 		{
 			LegendarySet set = it.next();
 			int nbpiece = piecesbyset.get(set);
-			for(int i=0;i<nbpiece-1;i++)
+			List<Ranks> actifsRanks = set.getRanksByPiece(nbpiece);
+			for(Ranks r:actifsRanks)//pour chaque nbre piece du set (-1 car la premiere est inutile)
 			{
-				Iterator<String> keys = set.getRanks().get(i).getAttributesRaw().keySet().iterator();
-				String k = keys.next();
-				compteur++;
-				bonusItem.put(k+"_set"+compteur, set.getRanks().get(i).getAttributesRaw().get(k));
+				Iterator<String> keys = r.getAttributesRaw().keySet().iterator();
+				while(keys.hasNext())
+				{
+					String k = keys.next();
+					compteur++;
+					bonusItem.put(k+"_SET_"+compteur, r.getAttributesRaw().get(k));
+				}
 			}
 		}
 		//fin des bonus de set
 	}
-
+	
 	private double getStat(String stat,String elementfilter) {
 		return getStat(stat, elementfilter,false);
 	}
@@ -141,11 +155,10 @@ public class StuffCalculator {
 	
 	public double calculateUnbuffedDPS()
 	{
-		
 		double eff_comp_psv=0;
 
-		double bonus_min_arme=0;
-		double bonus_max_arme=0;
+		double bonus_min_arme=getStat("Damage_Weapon_Min", "Bonus");
+		double bonus_max_arme=getStat("Damage_Weapon_Min", "Bonus")+getStat("Damage_Weapon_Delta", "Bonus");
 		
 		double vit_attaque=getStat("Attacks_Per_Second",null);
 		double degat_moy_arme= (((getStat("Damage_Weapon_Min", null)+getStat("Damage_Weapon_Delta", null)))/2)*(15/100)/vit_attaque;
@@ -163,8 +176,6 @@ public class StuffCalculator {
 		System.out.println("degat_cc " + degat_cc*100);
 		System.out.println("stat Base :" + stat_base);
 		double dps = (1 + eff_comp_psv) * (degat_moy_arme + (bonus_min_arme + bonus_max_arme) / 2) * vit_attaque * ( 1+(chance_cc * degat_cc)) * (1 + stat_base / 100);
-		
-		System.out.println("FINAL DPS :" + dps);
 		return dps;
 	}
 

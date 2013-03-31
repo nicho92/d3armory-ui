@@ -1,5 +1,6 @@
 package org.armory.d3.beans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LegendarySet {
@@ -10,7 +11,7 @@ public class LegendarySet {
 	private List<Item> items;
 	
 	
-	public static int getNbItemSet(List<Item> stuff,LegendarySet set)
+	public static int getStuffSetsNbPieces(List<Item> stuff,LegendarySet set)
 	{
 		int nbPiece=0;
 		for(Item z : stuff)
@@ -25,7 +26,30 @@ public class LegendarySet {
 		
 		return nbPiece;
 	}
+	
+	public List<Ranks> getRanksByPiece(int nbPiece)
+	{
+		nbPiece = nbPiece-1; //1st piece indeed.
+		if(nbPiece>=ranks.size())
+			nbPiece=ranks.size();
+			
+		return ranks.subList(0, nbPiece);
+	}
+	
 
+	public int getMaxRequired()
+	{
+		int max=0;
+		for(Ranks r:ranks)
+		{
+			if(Integer.parseInt(r.getRequired())>max)
+				max=Integer.parseInt(r.getRequired());
+		}
+		return max;
+	}
+	
+	
+	
 	public String getSlug() {
 		return slug;
 	}
