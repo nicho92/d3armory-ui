@@ -51,6 +51,12 @@ public class D3ArmoryControler {
 		this.conf = conf;
 	}
 
+	public Profile getProfil(String profile) throws D3ServerCommunicationException
+	{
+		String[] val = profile.split("#");
+		return getProfil(val[2], val[0], Long.parseLong(val[1]));
+	}
+	
 	public Profile getProfil(String host, String tagName,Long tagID) throws D3ServerCommunicationException
 	{
 		  conf = new Configuration();

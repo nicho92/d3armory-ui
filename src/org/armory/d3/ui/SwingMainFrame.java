@@ -1,6 +1,9 @@
 package org.armory.d3.ui;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.SplashScreen;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -25,6 +28,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.table.TableRowSorter;
 
 import org.armory.d3.beans.Hero;
@@ -119,8 +123,27 @@ public class SwingMainFrame extends javax.swing.JFrame {
 
 	
 	public static void main(String[] args) {
+		
+		 final SplashScreen splash = SplashScreen.getSplashScreen();
+	        if (splash == null) {
+	            System.out.println("SplashScreen.getSplashScreen() returned null");
+	            return;
+	        }
+	        Graphics2D g = splash.createGraphics();
+	        if (g == null) {
+	            System.out.println("g is null");
+	            return;
+	        }
+	        try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+	        splash.close();
+		
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
+				
 				SwingMainFrame inst = new SwingMainFrame();
 				inst.setLocationRelativeTo(null);
 				inst.setVisible(true);
@@ -136,6 +159,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private void initGUI() {
 		try {
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			this.setTitle("Diablo III Profile");
+			UIManager.put("Table.alternateRowColor", Color.decode("#E1E4F2"));
 			BoxLayout thisLayout = new BoxLayout(getContentPane(), javax.swing.BoxLayout.X_AXIS);
 			getContentPane().setLayout(thisLayout);
 			{
@@ -792,6 +817,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(scrollTableau == null) {
 			scrollTableau = new JScrollPane();
 			scrollTableau.setPreferredSize(new java.awt.Dimension(977, 202));
+			scrollTableau.setName("scrollTableau");
 			scrollTableau.setViewportView(getTableauDetails());
 		}
 		return scrollTableau;
@@ -803,6 +829,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			sorter = new TableRowSorter(getTableauDetailsModel());
 			tableauDetails.setRowSorter(sorter);
 			tableauDetails.setModel(getTableauDetailsModel());
+			//tableauDetails.setDefaultRenderer(String.class, new TableauDetailsCellRenderer());
+			tableauDetails.setOpaque(true);
 		}
 		return tableauDetails;
 	}
@@ -815,6 +843,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		}
 		return tableaudetailModel;
 	}
+	
+	
 	
 	private JPanel getPanneauTableau() {
 		if(panneauTableau == null) {
@@ -831,8 +861,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(txtFiltrage == null) {
 			txtFiltrage = new JTextField();
 			txtFiltrage.setName("txtFiltrage");
-			 
-			
+			txtFiltrage.setPreferredSize(new java.awt.Dimension(993, 22));
+
 			txtFiltrage.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent evt) {
 					txtFiltrage.setText("");
