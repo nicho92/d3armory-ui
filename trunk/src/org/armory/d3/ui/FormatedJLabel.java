@@ -42,7 +42,7 @@ public class FormatedJLabel extends JLabel {
 				temp.append(" <font color='"+numColor+"'>").append(detail[i]).append("</font>");
 			}
 			else{
-					if(detail[i].contains(","))
+					if(detail[i].contains(",") || detail[i].contains("."))
 					{
 						temp.append(" <font color='"+numColor+"'>").append(detail[i]).append("</font>");
 					}

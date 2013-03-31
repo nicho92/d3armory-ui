@@ -21,6 +21,7 @@ import javax.swing.border.LineBorder;
 import org.armory.d3.beans.Gem;
 import org.armory.d3.beans.Item;
 import org.armory.d3.beans.Ranks;
+import org.armory.d3.services.D3ArmoryControler;
 
 public class ItemLabel extends JLabel implements MouseListener {
 	
@@ -131,14 +132,16 @@ public class ItemLabel extends JLabel implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		details.showItem(item);
-		
- 	}
+		}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		details.showItem(item);
 		details.getLblIcon().setIcon(this.getIcon());
 		details.repaint();
+		if(item!=null)
+			D3ArmoryControler.getInstance().getCalculator().getStat("", item.getName().replaceAll(" ", "-"), true);
+		 
 	}
 
 	@Override

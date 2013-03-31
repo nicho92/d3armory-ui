@@ -1,5 +1,6 @@
 package org.armory.d3.ui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -417,15 +418,24 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					stuffs.add(offhand);
 					stuffs.add(foot);
 		
-		D3ArmoryControler.getInstance().getInstance().setStuff(stuffs);
+		D3ArmoryControler.getInstance().getInstance().initCalculator(stuffs);
 		
 		if(hero.isHardcore())
 			lblHarcore.setText("Hardcore");
 		else
 			lblHarcore.setText("");
 		
-		panneauDessinHero.repaint();		
-
+		panneauDessinHero.repaint();	
+		StringBuffer temp = new StringBuffer();
+		temp.append("Strength : " + hero.getStats().getStrength() +" <br/>");
+		temp.append("Intel : " + hero.getStats().getIntelligence() +" <br/>");
+		temp.append("Dex : " + hero.getStats().getDexterity() +" <br/>");
+		temp.append("Vita : " + hero.getStats().getVitality() +" <br/>");
+		temp.append("Armor : " + hero.getStats().getArmor() +" <br/>");
+		temp.append("DPS theoric : " + hero.getStats().getDamage() +" <br/>");
+		
+		
+		panneauDessinHero.getLblInfoHero().setHtmlText(temp.toString(), "#5869D7","#BDA6CD");
 	}
 	
 	private void listeTagMouseClicked(MouseEvent evt) {
