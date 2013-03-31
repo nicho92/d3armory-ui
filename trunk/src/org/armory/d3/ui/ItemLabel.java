@@ -9,17 +9,23 @@ import java.awt.Paint;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
+import java.util.List;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JTable;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.Item;
+import org.armory.d3.beans.Profile;
 import org.armory.d3.services.D3ArmoryControler;
-import org.armory.d3.ui.model.TableauDetailsModel;
+
+import com.sdfteam.d3armory.service.remote.exception.D3ServerCommunicationException;
 
 public class ItemLabel extends JLabel implements MouseListener {
 	
@@ -151,7 +157,27 @@ public class ItemLabel extends JLabel implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if(SwingUtilities.isRightMouseButton(e))
+		{
+			JPopupMenu menu = new JPopupMenu();
+			
+			
+			  JMenuItem menuIt1 = new JMenuItem("Compare Item");
+			  	List<String> listeTag= D3ArmoryControler.getInstance().getListTags();
+			  	for(String tag: listeTag)			
+				{
+			  		
+			  		//TODO bug avec les nom chinois
+						JMenuItem it = new JMenuItem(tag);
+						menuIt1.add(new JMenuItem(tag));
+						
+				}
+				
+				menu.add(menuIt1);
+				menu.show(this, e.getX(), e.getY());
+			
+			
+		}
 		
 	}
 
