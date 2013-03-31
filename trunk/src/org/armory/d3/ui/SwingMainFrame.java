@@ -1,32 +1,31 @@
 package org.armory.d3.ui;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultRowSorter;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.Item;
@@ -61,6 +60,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JSplitPane splitPanneauFicheHero;
 	private ItemLabel lblTorso;
 	private SocketLabel lblSocketMainHand;
+	private JTextField txtFiltrage;
+	private JPanel panneauTableau;
 	private JTable tableauDetails;
 	private JScrollPane scrollTableau;
 	private JSplitPane splitPanneauTableauHero;
@@ -106,8 +107,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JMenu jMenu3;
 	private JMenuBar jMenuBar1;
 
-	DefaultComboBoxModel listeTagsModel;
-	
+	private DefaultComboBoxModel listeTagsModel;
+	DefaultRowSorter sorter;
 	
 	private ListeHeroModel listeHerosModel;
 	private TableauDetailsModel tableaudetailModel; 
@@ -740,12 +741,12 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			{
 				panneauDessinHero = new HeroPanel();
 				splitPanneauTableauHero.setOrientation(JSplitPane.VERTICAL_SPLIT);
+				splitPanneauTableauHero.add(getPanneauTableau(), JSplitPane.BOTTOM);
 				splitPanneauTableauHero.add(panneauDessinHero, JSplitPane.TOP);
-				splitPanneauTableauHero.add(getScrollTableau(), JSplitPane.BOTTOM);
 
 				panneauDessinHero.setLayout(null);
 				panneauDessinHero.setSize(994, 645);
-				panneauDessinHero.setPreferredSize(new java.awt.Dimension(993, 634));
+				panneauDessinHero.setPreferredSize(new java.awt.Dimension(993, 600));
 				panneauDessinHero.setName("panneauDessinHero");
 				panneauDessinHero.add(getLblHead());
 				panneauDessinHero.add(getLblShoulders());
@@ -799,6 +800,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JTable getTableauDetails() {
 		if(tableauDetails == null) {
 			tableauDetails = new JTable();
+			sorter = new TableRowSorter(getTableauDetailsModel());
+			tableauDetails.setRowSorter(sorter);
 			tableauDetails.setModel(getTableauDetailsModel());
 		}
 		return tableauDetails;
@@ -811,6 +814,44 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			tableaudetailModel= new TableauDetailsModel();
 		}
 		return tableaudetailModel;
+	}
+	
+	private JPanel getPanneauTableau() {
+		if(panneauTableau == null) {
+			panneauTableau = new JPanel();
+			BoxLayout panneauTableauLayout = new BoxLayout(panneauTableau, javax.swing.BoxLayout.Y_AXIS);
+			panneauTableau.setLayout(panneauTableauLayout);
+			panneauTableau.add(getTxtFiltrage());
+			panneauTableau.add(getScrollTableau());
+		}
+		return panneauTableau;
+	}
+	
+	private JTextField getTxtFiltrage() {
+		if(txtFiltrage == null) {
+			txtFiltrage = new JTextField();
+			txtFiltrage.setName("txtFiltrage");
+			 
+			
+			txtFiltrage.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent evt) {
+					txtFiltrage.setText("");
+				}
+			});
+			
+			txtFiltrage.addActionListener(new ActionListener() {
+			      public void actionPerformed(ActionEvent e) {
+			          String text = txtFiltrage.getText();
+			          if (text.length() == 0) {
+			            sorter.setRowFilter(null);
+			          } else {
+			            sorter.setRowFilter(RowFilter.regexFilter(text));
+			          }
+			        }
+			      });
+			
+		}
+		return txtFiltrage;
 	}
 
 }
