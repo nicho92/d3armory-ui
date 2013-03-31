@@ -23,13 +23,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
+import javax.swing.JTable;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.Item;
 import org.armory.d3.beans.Profile;
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.model.ListeHeroModel;
+import org.armory.d3.ui.model.TableauDetailsModel;
 import org.jdesktop.application.Application;
 
 import com.sdfteam.d3armory.service.remote.exception.D3ServerCommunicationException;
@@ -54,10 +58,13 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JScrollPane scrollFicheHeros;
 	private JList listeHeros;
 	private JScrollPane scrollHeros;
-	private JSplitPane jSplitPane2;
+	private JSplitPane splitPanneauFicheHero;
 	private ItemLabel lblTorso;
 	private SocketLabel lblSocketMainHand;
-	
+	private JTable tableauDetails;
+	private JScrollPane scrollTableau;
+	private JSplitPane splitPanneauTableauHero;
+
 	private ItemPanelDetails panelItemDetails;
 	private JSplitPane splitTagsHeroes;
 	private SocketLabel lblSocketMainHand2;
@@ -102,7 +109,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	DefaultComboBoxModel listeTagsModel;
 	
 	
-	private ListeHeroModel listeHerosModel; 
+	private ListeHeroModel listeHerosModel;
+	private TableauDetailsModel tableaudetailModel; 
 	
 	public ListeHeroModel getListeHerosModel() {
 		return listeHerosModel;
@@ -134,62 +142,19 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				jSplitPane1 = new JSplitPane();
 				getContentPane().add(jSplitPane1);
 				{
-					jSplitPane2 = new JSplitPane();
+					splitPanneauFicheHero = new JSplitPane();
 					jSplitPane1.add(getSplitTagsHeroes(), JSplitPane.LEFT);
 					jSplitPane1.add(getJSplitPane2(), JSplitPane.RIGHT);
 					{
-						panneauDessinHero = new HeroPanel();
-						jSplitPane2.add(panneauDessinHero, JSplitPane.LEFT);
-
-						panneauDessinHero.setLayout(null);
-						panneauDessinHero.setSize(994, 645);
-						panneauDessinHero.setPreferredSize(new Dimension(994, 645));
-						panneauDessinHero.setName("panneauDessinHero");
-						panneauDessinHero.add(getLblHead());
-						panneauDessinHero.add(getLblShoulders());
-						panneauDessinHero.add(getLblNeck());
-						panneauDessinHero.add(getLblGants());
-						panneauDessinHero.add(getLblTorso());
-						panneauDessinHero.add(getLblBracers());
-						panneauDessinHero.add(getLblbelt());
-						panneauDessinHero.add(getLblLegs());
-						panneauDessinHero.add(getLblFoot());
-						panneauDessinHero.add(getLblRingLeft());
-						panneauDessinHero.add(getLblRingRight());
-						panneauDessinHero.add(getLblMainHand());
-						panneauDessinHero.add(getLblOffHand());
-						{
-							lblNom = new ItemLabel(getPanelItemDetails());
-							panneauDessinHero.add(lblNom);
-							lblNom.setBounds(466, 80, 314, 43);
-							lblNom.setName("lblNom");
-							lblNom.setHorizontalAlignment(JLabel.CENTER);
-						}
-						{
-							lblInformationClasseNiveau = new ItemLabel(getPanelItemDetails());
-							panneauDessinHero.add(lblInformationClasseNiveau);
-							lblInformationClasseNiveau.setBounds(521, 20, 222, 16);
-							lblInformationClasseNiveau.setName("lblInformationClasseNiveau");
-							lblInformationClasseNiveau.setHorizontalAlignment(JLabel.HORIZONTAL);
-						}
-						{
-							lblParangonLevel = new ItemLabel(getPanelItemDetails());
-							panneauDessinHero.add(lblParangonLevel);
-							panneauDessinHero.add(getLblHarcore());
-							lblParangonLevel.setBounds(692, 20, 51, 16);
-							lblParangonLevel.setName("lblParangonLevel");
-						}
-						
-					}
-					{
 						scrollFicheHeros = new JScrollPane();
-						jSplitPane2.add(getScrollFicheHeros(), JSplitPane.RIGHT);
+						splitPanneauFicheHero.add(scrollFicheHeros, JSplitPane.RIGHT);
+						splitPanneauFicheHero.add(getSplitPanneauTableauHero(), JSplitPane.LEFT);
 						scrollFicheHeros.setSize(250, 815);
-					scrollFicheHeros.setViewportView(getPanelItemDetails());
+						scrollFicheHeros.setViewportView(getPanelItemDetails());
 					}
 				}
 			}
-			this.setSize(1800, 700);
+			this.setSize(1800, 915);
 			{
 				jMenuBar1 = new JMenuBar();
 				setJMenuBar(jMenuBar1);
@@ -246,7 +211,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	}
 	
 	public JSplitPane getJSplitPane2() {
-		return jSplitPane2;
+		return splitPanneauFicheHero;
 	}
 	
 	public JScrollPane getScrollHeros() {
@@ -419,6 +384,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					stuffs.add(foot);
 		
 		D3ArmoryControler.getInstance().getInstance().initCalculator(stuffs);
+		((TableauDetailsModel)getTableauDetails().getModel()).fireTableDataChanged();
 		
 		if(hero.isHardcore())
 			lblHarcore.setText("Hardcore");
@@ -432,7 +398,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		temp.append("Dex : " + hero.getStats().getDexterity() +" <br/>");
 		temp.append("Vita : " + hero.getStats().getVitality() +" <br/>");
 		temp.append("Armor : " + hero.getStats().getArmor() +" <br/>");
-		temp.append("DPS theoric : " + hero.getStats().getDamage() +" <br/>");
+		temp.append("DPS : " + hero.getStats().getDamage() +" <br/>");
 		
 		
 		panneauDessinHero.getLblInfoHero().setHtmlText(temp.toString(), "#5869D7","#BDA6CD");
@@ -768,5 +734,83 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		return panelItemDetails;
 	}
 	
+	private JSplitPane getSplitPanneauTableauHero() {
+		if(splitPanneauTableauHero == null) {
+			splitPanneauTableauHero = new JSplitPane();
+			{
+				panneauDessinHero = new HeroPanel();
+				splitPanneauTableauHero.setOrientation(JSplitPane.VERTICAL_SPLIT);
+				splitPanneauTableauHero.add(panneauDessinHero, JSplitPane.TOP);
+				splitPanneauTableauHero.add(getScrollTableau(), JSplitPane.BOTTOM);
+
+				panneauDessinHero.setLayout(null);
+				panneauDessinHero.setSize(994, 645);
+				panneauDessinHero.setPreferredSize(new java.awt.Dimension(993, 634));
+				panneauDessinHero.setName("panneauDessinHero");
+				panneauDessinHero.add(getLblHead());
+				panneauDessinHero.add(getLblShoulders());
+				panneauDessinHero.add(getLblNeck());
+				panneauDessinHero.add(getLblGants());
+				panneauDessinHero.add(getLblTorso());
+				panneauDessinHero.add(getLblBracers());
+				panneauDessinHero.add(getLblbelt());
+				panneauDessinHero.add(getLblLegs());
+				panneauDessinHero.add(getLblFoot());
+				panneauDessinHero.add(getLblRingLeft());
+				panneauDessinHero.add(getLblRingRight());
+				panneauDessinHero.add(getLblMainHand());
+				panneauDessinHero.add(getLblOffHand());
+				{
+					lblNom = new ItemLabel(getPanelItemDetails());
+					panneauDessinHero.add(lblNom);
+					lblNom.setBounds(466, 80, 314, 43);
+					lblNom.setName("lblNom");
+					lblNom.setHorizontalAlignment(JLabel.CENTER);
+				}
+				{
+					lblInformationClasseNiveau = new ItemLabel(getPanelItemDetails());
+					panneauDessinHero.add(lblInformationClasseNiveau);
+					lblInformationClasseNiveau.setBounds(521, 20, 222, 16);
+					lblInformationClasseNiveau.setName("lblInformationClasseNiveau");
+					lblInformationClasseNiveau.setHorizontalAlignment(JLabel.HORIZONTAL);
+				}
+				{
+					lblParangonLevel = new ItemLabel(getPanelItemDetails());
+					panneauDessinHero.add(lblParangonLevel);
+					panneauDessinHero.add(getLblHarcore());
+					lblParangonLevel.setBounds(692, 20, 51, 16);
+					lblParangonLevel.setName("lblParangonLevel");
+				}
+				
+			}
+		}
+		return splitPanneauTableauHero;
+	}
+	
+	private JScrollPane getScrollTableau() {
+		if(scrollTableau == null) {
+			scrollTableau = new JScrollPane();
+			scrollTableau.setPreferredSize(new java.awt.Dimension(977, 202));
+			scrollTableau.setViewportView(getTableauDetails());
+		}
+		return scrollTableau;
+	}
+	
+	private JTable getTableauDetails() {
+		if(tableauDetails == null) {
+			tableauDetails = new JTable();
+			tableauDetails.setModel(getTableauDetailsModel());
+		}
+		return tableauDetails;
+	}
+
+
+	private TableauDetailsModel getTableauDetailsModel() {
+		if(tableaudetailModel==null)
+		{
+			tableaudetailModel= new TableauDetailsModel();
+		}
+		return tableaudetailModel;
+	}
 
 }

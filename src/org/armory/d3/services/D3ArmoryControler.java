@@ -9,9 +9,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.Item;
+import org.armory.d3.beans.MinMaxBonus;
 import org.armory.d3.beans.Profile;
 
 import com.sdfteam.d3armory.service.configuration.Configuration;
@@ -31,6 +33,7 @@ public class D3ArmoryControler {
 	private Hero selected;
 	private StuffCalculator calculator;
 	private String local;
+	private Item selectedItem;
 	
 	public static D3ArmoryControler getInstance()
 	{
@@ -176,8 +179,17 @@ public class D3ArmoryControler {
 
 
 	
+	public Item getSelectedItem() {
+		return selectedItem;
+	}
+
 	public StuffCalculator getCalculator() {
 		return calculator;
+	}
+
+	public void setSelectedItem(Item item) {
+		this.selectedItem =item;
+		
 	}
 
 	

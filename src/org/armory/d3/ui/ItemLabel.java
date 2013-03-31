@@ -9,24 +9,23 @@ import java.awt.Paint;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
-import java.util.Iterator;
-import java.util.Set;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
-import org.armory.d3.beans.Gem;
 import org.armory.d3.beans.Item;
-import org.armory.d3.beans.Ranks;
 import org.armory.d3.services.D3ArmoryControler;
+import org.armory.d3.ui.model.TableauDetailsModel;
 
 public class ItemLabel extends JLabel implements MouseListener {
 	
     Item item;
     ItemPanelDetails details;
+    
     
     public ItemLabel(ItemPanelDetails pan)
     {
@@ -139,8 +138,9 @@ public class ItemLabel extends JLabel implements MouseListener {
 		details.showItem(item);
 		details.getLblIcon().setIcon(this.getIcon());
 		details.repaint();
+		
 		if(item!=null)
-			D3ArmoryControler.getInstance().getCalculator().getStat("", item.getName().replaceAll(" ", "-"), true);
+			D3ArmoryControler.getInstance().setSelectedItem(item);
 		 
 	}
 
