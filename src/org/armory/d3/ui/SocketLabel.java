@@ -1,6 +1,5 @@
 package org.armory.d3.ui;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -9,8 +8,6 @@ import java.net.URL;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 
 import org.armory.d3.beans.Gem;
 import org.armory.d3.beans.Item;
@@ -22,10 +19,26 @@ public class SocketLabel extends JLabel {
 	private boolean hasSocket;
 	
 	private Gem gem;
+	private int position;
+	
+	public SocketLabel()
+	{
+		super();
+		this.position=0;
+	}
+	
+	
+	public SocketLabel(int position)
+	{
+		super();
+		this.position=position;
+	}
+	
 	
 	@Override
 	public Icon getIcon() {
-		setHorizontalAlignment(JLabel.CENTER);
+		
+		setHorizontalAlignment(position);
 		setVerticalAlignment(JLabel.CENTER);
 
 		if(gem != null && hasSocket)
@@ -49,7 +62,12 @@ public class SocketLabel extends JLabel {
 				 Image i = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/socket.png")).getImage();
 				 int x = (this.getWidth() - i.getWidth(null)) / 2;
 				 int y = (this.getHeight() - i.getHeight(null)) / 2;
-				 g2d.drawImage(i, x, y, null);
+				 
+				 if(position==JLabel.LEFT)
+					 g2d.drawImage(i, 0, 0, null);//TODO Position du socket
+				 else
+					 g2d.drawImage(i, x, y, null);
+				 
 				} 
 				catch (Exception e1) {
 					e1.printStackTrace();
@@ -82,6 +100,7 @@ public class SocketLabel extends JLabel {
 			hasSocket=false;
 		}
 	}
+	
 	
 
 }

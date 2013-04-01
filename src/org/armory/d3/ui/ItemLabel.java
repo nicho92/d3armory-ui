@@ -152,7 +152,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		
+		//details.removeAll();
 	}
 
 	@Override

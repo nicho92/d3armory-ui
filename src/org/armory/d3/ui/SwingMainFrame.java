@@ -756,6 +756,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			panelItemDetails.setName("panelItemDetails");
 			panelItemDetails.setSize(360, 812);
 			panelItemDetails.setLayout(null);
+			panelItemDetails.setPreferredSize(new java.awt.Dimension(0, 0));
 		}
 		return panelItemDetails;
 	}

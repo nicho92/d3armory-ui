@@ -1,18 +1,18 @@
 package org.armory.d3.ui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Paint;
-import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
+import java.util.List;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
@@ -44,7 +44,11 @@ public class ItemPanelDetails extends JPanel {
 	private JLabel lblTypeItemAD;
 	private JLabel lblTypeItem;
 	private FormatedJLabel lblDetailWeapon;
+	private FormatedJLabel lblDetailSet;
 	private FormatedJLabel lblDetailItem;
+	private SocketLabel lblSock1;
+	private SocketLabel lblSock2;
+	private SocketLabel lblSock3;
 
 	public ItemPanelDetails()
 	{
@@ -57,11 +61,16 @@ public class ItemPanelDetails extends JPanel {
 		this.add(getLblTypeItemAD());
 		this.add(getLblDetailWeapon());
 		this.add(getLblDetailItem());
-
+		this.add(getLblSock1());
+		this.add(getLblSock2());
+		this.add(getLblSock3());
+	
 		this.setBackground(Color.BLACK);
+	//	this.setPreferredSize(new java.awt.Dimension(407, 729));
 
 		Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 	}
+	
 	
 	public void paintComponent(Graphics g)
 	{
@@ -138,32 +147,28 @@ public class ItemPanelDetails extends JPanel {
 		}
 		
 		getLblDetailItem().setHtmlText(temp.toString(),"#5869D7","#BDA6CD");
-		
-		
-		
-//		
-//		
-// 		System.out.println("Niveau nécessaire " + item.getRequiredLevel());
-// 		System.out.println("Niveau objet " + item.getItemLevel());
-// 		System.out.println("------------"+item.getFlavorText());
-// 		System.out.println("Socket " + item.nbSockets());
-// 		
-// 		if(item.nbGems()>0)
-// 		{
-// 			for(int i=0;i<item.getGems().length;i++)
-//				{
-//					Gem gem = item.getGems()[i];
-// 				System.out.print(gem.getItem().getName() + " ");
-// 				for(int j=0;j<gem.getAttributes().length;j++)
-//					{
-//						System.out.println(gem.getAttributes()[j]);
-//					}
-//				}
-// 		}
+		updateSocketLabel();
+
 		}
 		catch(NullPointerException e){}
 		
 	}
+	private void updateSocketLabel() {
+//		lblSock1.setItem(item,0);
+//		if(item.getGems()[0]!=null)
+//			lblSock1.setText(item.getGems()[0].getAttributes()[0]);
+//			
+//		lblSock2.setItem(item,1);
+//		if(item.getGems()[1]!=null)
+//			lblSock2.setText(item.getGems()[1].getAttributes()[0]);
+//		
+//		lblSock3.setItem(item,2);
+//		if(item.getGems()[2]!=null)
+//			lblSock2.setText(item.getGems()[2].getAttributes()[0]);
+		
+	}
+
+
 	private void resizeFont(JLabel lbl,int type) {
 		Font labelFont =lbl.getFont();
 		String labelText = lbl.getText();
@@ -259,8 +264,6 @@ public class ItemPanelDetails extends JPanel {
 		}
 		return lblTypeItem;
 	}
-
-	
 	
 	public JTextPane getLblTextItem() {
 		if(lblTextItem == null) {
@@ -300,10 +303,43 @@ public class ItemPanelDetails extends JPanel {
 	private FormatedJLabel getLblDetailItem() {
 		if(lblDetailItem == null) {
 			lblDetailItem = new FormatedJLabel();
-			lblDetailItem.setBounds(12, 238, 325, 240);
+			lblDetailItem.setBounds(12, 238, 325, 200);
 			lblDetailItem.setName("lblDetailItem");
 		}
 		return lblDetailItem;
 	}
+	
+	private SocketLabel getLblSock1() {
+		if(lblSock1==null) 
+		{
+			lblSock1 = new SocketLabel(JLabel.LEFT);
+			lblSock1.setBounds(12, 350+30, 300, 30);
+		}
+		
+		return lblSock1;
+	}
+	
+	private SocketLabel getLblSock2() {
+		if(lblSock2==null) 
+		{
+			lblSock2 = new SocketLabel(JLabel.LEFT);
+			lblSock2.setBounds(12, 350+60, 300, 30);
+		}
+		
+		return lblSock2;
+	}
+
+	
+	private SocketLabel getLblSock3() {
+		if(lblSock3==null) 
+		{
+			lblSock3 = new SocketLabel(JLabel.LEFT);
+			lblSock3.setBounds(12, 350+90, 300, 30);
+		}
+		
+		return lblSock3;
+
+	}
+
 
 }
