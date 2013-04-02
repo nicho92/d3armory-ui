@@ -8,9 +8,11 @@ import java.awt.Image;
 import java.awt.Paint;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.List;
 
+import javax.swing.GrayFilter;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -20,17 +22,14 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
-import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.Item;
-import org.armory.d3.beans.Profile;
 import org.armory.d3.services.D3ArmoryControler;
-
-import com.sdfteam.d3armory.service.remote.exception.D3ServerCommunicationException;
 
 public class ItemLabel extends JLabel implements MouseListener {
 	
     Item item;
     ItemPanelDetails details;
+	private boolean disabled;
     
     
     public ItemLabel(ItemPanelDetails pan)
@@ -59,21 +58,39 @@ public class ItemLabel extends JLabel implements MouseListener {
 			}
 			return null;
 	}
-	
-	public Icon getIcon() {
+	public Icon getIcon(boolean off) {
 		setHorizontalAlignment(JLabel.CENTER);
 		setVerticalAlignment(JLabel.CENTER);
 
 		if(item != null)
 		try {
 			URL url = new URL("http://media.blizzard.com/d3/icons/items/large/"+item.getIcon()+".png");
-			return new ImageIcon(url);
+			ImageIcon i = new ImageIcon(url);
+			if(off==false)
+				return i;
+			else
+				return new ImageIcon(GrayFilter.createDisabledImage((i).getImage()));
+			
+			
 		} catch (Exception e1) {
 			return new ImageIcon();
 		}
 		return super.getIcon();
 	}
 	
+	
+	public Icon getIcon() {
+		return getIcon(disabled);
+	}
+	
+	public boolean isDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
+	}
+
 	public Border getBorder() {
 		
 		try{
