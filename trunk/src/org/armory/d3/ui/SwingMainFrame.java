@@ -125,22 +125,18 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	public static void main(String[] args) {
 		
 		 final SplashScreen splash = SplashScreen.getSplashScreen();
-	        if (splash == null) {
+	        if (splash != null) {
 	            System.out.println("SplashScreen.getSplashScreen() returned null");
-	            return;
-	        }
+	         
+	       
 	        Graphics2D g = splash.createGraphics();
-	        if (g == null) {
-	            System.out.println("g is null");
-	            return;
-	        }
 	        try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 	        splash.close();
-		
+	        }
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				
@@ -295,7 +291,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lblMainHand.setItem(mainHand);
 		lblSocketMainHand.setItem(mainHand,0);
 		
-		
+		lblOffHand.setDisabled(false);
 		if(mainHand!=null)
 		{
 			if(mainHand.nbSockets()==2)
@@ -306,6 +302,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			if(mainHand.getType().getTwoHanded() && hero.getItems().getOffHand()==null)
 			{
 				lblOffHand.setItem(hero.getItems().getMainHand());
+				lblOffHand.setDisabled(true);
 			}
 			else
 			{	

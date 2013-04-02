@@ -154,18 +154,48 @@ public class ItemPanelDetails extends JPanel {
 		
 	}
 	private void updateSocketLabel() {
-//		lblSock1.setItem(item,0);
-//		if(item.getGems()[0]!=null)
-//			lblSock1.setText(item.getGems()[0].getAttributes()[0]);
-//			
-//		lblSock2.setItem(item,1);
-//		if(item.getGems()[1]!=null)
-//			lblSock2.setText(item.getGems()[1].getAttributes()[0]);
-//		
-//		lblSock3.setItem(item,2);
-//		if(item.getGems()[2]!=null)
-//			lblSock2.setText(item.getGems()[2].getAttributes()[0]);
+		if(item.nbSockets()>0)
+		{
+			lblSock1.setVisible(true);
+			
+			lblSock1.setItem(item,0);
+			if(item.nbGems()>0)
+				lblSock1.setText(item.getGems()[0].getAttributes()[0]);
+			else
+				lblSock1.setText("            vide");
+		}
+		else
+		{
+			lblSock1.setVisible(false);
+		}
 		
+		if(item.nbSockets()>1)
+		{
+			lblSock2.setVisible(true);
+			lblSock2.setItem(item,1);
+			if(item.nbGems()>1)
+				lblSock2.setText(item.getGems()[1].getAttributes()[0]);
+			else
+				lblSock2.setText("            vide");
+		}
+		else
+		{
+			lblSock2.setVisible(false);
+		}
+		
+		if(item.nbSockets()>2)
+		{
+			lblSock3.setVisible(true);
+			lblSock3.setItem(item,2);
+			if(item.nbGems()>2)
+				lblSock3.setText(item.getGems()[2].getAttributes()[0]);
+			else
+				lblSock3.setText("            vide");
+		}
+		else
+		{
+			lblSock3.setVisible(false);
+		}
 	}
 
 
@@ -314,6 +344,7 @@ public class ItemPanelDetails extends JPanel {
 		{
 			lblSock1 = new SocketLabel(JLabel.LEFT);
 			lblSock1.setBounds(12, 350+30, 300, 30);
+			lblSock1.setForeground(Color.white);
 		}
 		
 		return lblSock1;
@@ -324,6 +355,7 @@ public class ItemPanelDetails extends JPanel {
 		{
 			lblSock2 = new SocketLabel(JLabel.LEFT);
 			lblSock2.setBounds(12, 350+60, 300, 30);
+			lblSock2.setForeground(Color.white);
 		}
 		
 		return lblSock2;
@@ -335,6 +367,7 @@ public class ItemPanelDetails extends JPanel {
 		{
 			lblSock3 = new SocketLabel(JLabel.LEFT);
 			lblSock3.setBounds(12, 350+90, 300, 30);
+			lblSock3.setForeground(Color.white);
 		}
 		
 		return lblSock3;

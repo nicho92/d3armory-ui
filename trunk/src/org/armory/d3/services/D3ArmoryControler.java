@@ -165,10 +165,16 @@ public class D3ArmoryControler {
 		}
 	}
 
-
-
-
-	
+	public void setLocal(String local)
+	{
+		try {
+			FileWriter fw= new FileWriter(LOCALE_FILE);
+			fw.write(local);
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public boolean initCalculator(List<Item> stuffs) {
 		try {
