@@ -1,7 +1,6 @@
 package org.armory.d3.ui;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -20,6 +19,9 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 import org.armory.d3.beans.Item;
+import org.armory.d3.beans.LegendarySet;
+import org.armory.d3.beans.Ranks;
+import org.armory.d3.services.D3ArmoryControler;
 import org.jdesktop.application.Application;
 
 /**
@@ -44,7 +46,7 @@ public class ItemPanelDetails extends JPanel {
 	private JLabel lblTypeItemAD;
 	private JLabel lblTypeItem;
 	private FormatedJLabel lblDetailWeapon;
-	private FormatedJLabel lblDetailSet;
+	private JLabel lblDetailSet;
 	private FormatedJLabel lblDetailItem;
 	private SocketLabel lblSock1;
 	private SocketLabel lblSock2;
@@ -64,9 +66,8 @@ public class ItemPanelDetails extends JPanel {
 		this.add(getLblSock1());
 		this.add(getLblSock2());
 		this.add(getLblSock3());
-	
+		this.add(getLblDetailSet());
 		this.setBackground(Color.BLACK);
-	//	this.setPreferredSize(new java.awt.Dimension(407, 729));
 
 		Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 	}
@@ -148,6 +149,50 @@ public class ItemPanelDetails extends JPanel {
 		
 		getLblDetailItem().setHtmlText(temp.toString(),"#5869D7","#BDA6CD");
 		updateSocketLabel();
+		
+		if(item.isSetObjects())
+		{
+			StringBuffer tempset = new StringBuffer();
+			tempset.append("<html><font color='#02FF00'>"+item.getSet().getName()+"</font><br/>");
+			
+			List<Item> sets = item.getSet().getItems();
+			for(Item i:sets)
+			{
+				if(D3ArmoryControler.getInstance().getCalculator().getStuffs().contains(i))
+					tempset.append("&nbsp;&nbsp;&nbsp;<font color='#02FF00'>" + i.getName()+"</font><br/>");
+				else
+					tempset.append("&nbsp;&nbsp;&nbsp;" + i.getName()+"<br/>");
+			}
+			int nbstuff= LegendarySet.getStuffSetsNbPieces(D3ArmoryControler.getInstance().getCalculator().getStuffs(),item.getSet());
+			
+			for(int z=0;z<item.getSet().getRanks().size();z++ )
+			{
+					Ranks r = item.getSet().getRanks().get(z);
+					
+					if(nbstuff>=Integer.parseInt(r.getRequired()))
+						tempset.append("<font color='#02FF00'>");
+					else
+						tempset.append("<font color='white'>");
+					
+					tempset.append("set ("+r.getRequired()+")<br/>");
+					for(int att=0;att<r.getAttributes().length;att++)
+					{
+						tempset.append("&nbsp;&nbsp;"+r.getAttributes()[att]+"<br/>");
+					}
+					
+					tempset.append("</font>");
+					
+			}
+			
+			tempset.append("</html>");	
+			getLblDetailSet().setText(tempset.toString());
+			
+		}
+		else
+		{
+			getLblDetailSet().setText("");
+		}
+		
 
 		}
 		catch(NullPointerException e){}
@@ -360,7 +405,6 @@ public class ItemPanelDetails extends JPanel {
 		
 		return lblSock2;
 	}
-
 	
 	private SocketLabel getLblSock3() {
 		if(lblSock3==null) 
@@ -369,10 +413,20 @@ public class ItemPanelDetails extends JPanel {
 			lblSock3.setBounds(12, 350+90, 300, 30);
 			lblSock3.setForeground(Color.white);
 		}
-		
 		return lblSock3;
 
 	}
 
+	private JLabel getLblDetailSet()
+	{
+		if(lblDetailSet==null)
+		{
+			lblDetailSet = new FormatedJLabel();
+			lblDetailSet.setBounds(12, 480, 360,300);
+			lblDetailSet.setForeground(Color.WHITE);
+		}
+		
+		return lblDetailSet;
+	}
 
 }
