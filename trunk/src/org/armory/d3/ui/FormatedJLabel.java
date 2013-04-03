@@ -12,7 +12,13 @@ public class FormatedJLabel extends JLabel {
 	String texte;
 	boolean puces;
 	
-	
+	public FormatedJLabel(String text, int pos)
+	{
+		super(text,pos);
+		this.setVerticalAlignment(JLabel.TOP);
+		chiffreColor=Color.WHITE;
+		textColor=Color.GRAY;
+	}
 	
 	public FormatedJLabel()
 	{
