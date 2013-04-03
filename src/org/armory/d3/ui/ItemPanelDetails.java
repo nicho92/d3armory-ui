@@ -12,9 +12,11 @@ import java.util.List;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
@@ -46,6 +48,7 @@ public class ItemPanelDetails extends JPanel {
 	private JLabel lblTypeItemAD;
 	private JLabel lblTypeItem;
 	private FormatedJLabel lblDetailWeapon;
+	private FormatedJLabel lblItemLevel;
 	private JLabel lblDetailSet;
 	private FormatedJLabel lblDetailItem;
 	private SocketLabel lblSock1;
@@ -67,8 +70,9 @@ public class ItemPanelDetails extends JPanel {
 		this.add(getLblSock2());
 		this.add(getLblSock3());
 		this.add(getLblDetailSet());
+		this.add(getLblItemLevel());
 		this.setBackground(Color.BLACK);
-
+		
 		Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 	}
 	
@@ -116,6 +120,10 @@ public class ItemPanelDetails extends JPanel {
 		getLblTypeItem().setForeground(ItemLabel.toColor(item.getDisplayColor()));
 		getLblTypeItem().setFont(new Font("Palatino Linotype", Font.PLAIN, 16));
 		getLblTypeItem().setText(item.getTypeName());
+		resizeFont(getLblTypeItem(), Font.PLAIN);
+		
+		String levelItem = "Level: "+item.getItemLevel()+" <br/>Level Min: "+item.getRequiredLevel();
+		getLblItemLevel().setHtmlText(levelItem, "#BAB348", "white");
 		
 		getLblStatArmorDPS().setForeground(Color.WHITE);
 		getLblStatArmorDPS().setFont(new Font("Palatino Linotype", Font.PLAIN, 40));
@@ -148,8 +156,12 @@ public class ItemPanelDetails extends JPanel {
 		}
 		
 		getLblDetailItem().setHtmlText(temp.toString(),"#5869D7","#BDA6CD");
+		
+		//Affichage des sockets
 		updateSocketLabel();
 		
+		
+		//Affichage panneau set legendaire
 		if(item.isSetObjects())
 		{
 			StringBuffer tempset = new StringBuffer();
@@ -427,6 +439,15 @@ public class ItemPanelDetails extends JPanel {
 		}
 		
 		return lblDetailSet;
+	}
+	
+	private FormatedJLabel getLblItemLevel() {
+		if(lblItemLevel == null) {
+			lblItemLevel = new FormatedJLabel("",SwingConstants.RIGHT);
+			lblItemLevel.setBounds(260, 75, 100,80);
+			
+		}
+		return lblItemLevel;
 	}
 
 }

@@ -18,18 +18,7 @@ import org.jdesktop.application.Application;
 import com.sdfteam.d3armory.service.remote.exception.D3ServerCommunicationException;
 
 
-/**
-* This code was edited or generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
-* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
-* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
-*/
+
 public class HeroPanel extends JPanel {
 
 	protected void paintComponent(Graphics g) {
@@ -64,7 +53,7 @@ public class HeroPanel extends JPanel {
 			g.drawImage(bg,0,0,null);
 		}
 		
-		 // g.drawImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/inventory-lines.png")).getImage(),462,167,null);
+		// g.drawImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/inventory-lines.png")).getImage(),462,167,null);
 	}
 	
 	public FormatedJLabel getLblInfoHero() {

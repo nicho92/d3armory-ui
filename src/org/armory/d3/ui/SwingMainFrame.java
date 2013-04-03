@@ -30,6 +30,7 @@ import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.TableRowSorter;
 
 import org.armory.d3.beans.Hero;
@@ -113,10 +114,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JMenuBar jMenuBar1;
 
 	private DefaultComboBoxModel listeTagsModel;
-	DefaultRowSorter sorter;
+	private DefaultRowSorter sorter;
 	
 	private ListeHeroModel listeHerosModel;
-	private TableauDetailsModel tableaudetailModel; 
+	private TableauDetailsModel tableaudetailModel;
+	private JMenuItem jmiLocal; 
 	
 	public ListeHeroModel getListeHerosModel() {
 		return listeHerosModel;
@@ -140,8 +142,15 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	        }
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				
 				SwingMainFrame inst = new SwingMainFrame();
+				try {
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				SwingUtilities.updateComponentTreeUI(inst);
+
 				inst.setLocationRelativeTo(null);
 				inst.setVisible(true);
 			}
@@ -177,23 +186,33 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					}
 				}
 			}
-			this.setSize(1800, 915);
+			this.setSize(1820, 915);
 			{
 				jMenuBar1 = new JMenuBar();
 				setJMenuBar(jMenuBar1);
 				{
 					jMenu3 = new JMenu();
 					jMenuBar1.add(jMenu3);
-					jMenu3.setText("File");
+					jMenu3.setText("Application");
 					{
 						newFileMenuItem = new JMenuItem();
 						jMenu3.add(newFileMenuItem);
-						newFileMenuItem.setText("New");
+						newFileMenuItem.setText("Tags");
 						newFileMenuItem.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								newFileMenuItemActionPerformed(evt);
 							}
 						});
+						
+						jmiLocal = new JMenuItem();
+						jMenu3.add(jmiLocal);
+						jmiLocal.setText("Local");
+						jmiLocal.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								newLocalActionPerformed(evt);
+							}
+						});
+						
 					}
 					{
 						jSeparator2 = new JSeparator();
@@ -203,6 +222,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						exitMenuItem = new JMenuItem();
 						jMenu3.add(exitMenuItem);
 						exitMenuItem.setText("Exit");
+						exitMenuItem.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								System.exit(0);
+							}
+						});
 					}
 				}
 				{
@@ -432,13 +456,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		String selected_row = ((JList) evt.getSource()).getSelectedValue().toString();
 		String[] parser = selected_row.split("#");
 		try {
-			//TODO code pour la gestion locale
-			/*Locale list[] = SimpleDateFormat.getAvailableLocales();
-			for(int i=0;i<list.length;i++)
-			{
-				System.out.println(list[i] + " " + list[i].getDisplayName());
-			}
-			*/
+			
 			D3ArmoryControler.getInstance().loadLocal();
 			Profile p = D3ArmoryControler.getInstance().getProfil(parser[2]+".battle.net", parser[0], Long.parseLong(parser[1]));
 			
@@ -700,6 +718,13 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		f.setVisible(true);
 	}
 	
+	private void newLocalActionPerformed(ActionEvent evt) {
+		LocaleManagerFrame f = new LocaleManagerFrame();
+		f.setVisible(true);
+	}
+
+	
+	
 	private JSplitPane getSplitTagsHeroes() {
 		if(splitTagsHeroes == null) {
 			splitTagsHeroes = new JSplitPane();
@@ -731,7 +756,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					
 					listeHeros.setCellRenderer(new HeroCellRenderer());
 					listeHeros.setName("listeHeros");
-					listeHeros.setSize(150, 812);
+					listeHeros.setSize(130, 812);
 					listeHeros.setPreferredSize(new Dimension(150,812));
 					listeHeros.addMouseListener(new MouseAdapter() {
 						public void mouseClicked(MouseEvent evt) {
@@ -828,7 +853,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			sorter = new TableRowSorter(getTableauDetailsModel());
 			tableauDetails.setRowSorter(sorter);
 			tableauDetails.setModel(getTableauDetailsModel());
-			//tableauDetails.setDefaultRenderer(String.class, new TableauDetailsCellRenderer());
 			tableauDetails.setOpaque(true);
 		}
 		return tableauDetails;
