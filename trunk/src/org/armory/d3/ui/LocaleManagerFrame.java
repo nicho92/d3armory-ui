@@ -29,6 +29,7 @@ import org.jdesktop.application.Application;
 */
 public class LocaleManagerFrame extends javax.swing.JFrame {
 	private JLabel lblLibelle;
+	private JLabel lblMessage;
 	private JButton btnValider;
 	private JComboBox cboListeLocal;
 
@@ -73,8 +74,13 @@ public class LocaleManagerFrame extends javax.swing.JFrame {
 					}
 				});
 			}
+			{
+				lblMessage = new JLabel();
+				getContentPane().add(lblMessage);
+				lblMessage.setName("lblMessage");
+			}
 			pack();
-			this.setSize(432, 82);
+			this.setSize(432, 112);
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
 		} catch (Exception e) {
 		    e.printStackTrace();

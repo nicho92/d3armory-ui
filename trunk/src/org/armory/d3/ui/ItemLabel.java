@@ -8,7 +8,6 @@ import java.awt.Image;
 import java.awt.Paint;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.List;
 
@@ -16,8 +15,10 @@ import javax.swing.GrayFilter;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.JSeparator;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -176,27 +177,24 @@ public class ItemLabel extends JLabel implements MouseListener {
 	public void mousePressed(MouseEvent e) {
 		if(SwingUtilities.isRightMouseButton(e))
 		{
-			JPopupMenu menu = new JPopupMenu();
-			
-			
-			  JMenuItem menuIt1 = new JMenuItem("Compare Item");
-			  	List<String> listeTag= D3ArmoryControler.getInstance().getListTags();
-			  	for(String tag: listeTag)			
-				{
-			  		
-			  		//TODO bug avec les nom chinois
-						JMenuItem it = new JMenuItem(tag);
-						menuIt1.add(new JMenuItem(tag));
-						
-				}
-				
-				menu.add(menuIt1);
-				menu.show(this, e.getX(), e.getY());
-			
-			
+			List<String> listeTag= D3ArmoryControler.getInstance().getListTags();
+			JPopupMenu popupMenu = new JPopupMenu();
+				popupMenu.add(new JMenuItem("COMPARE"));
+				popupMenu.add(new JSeparator());
+			JMenuItem itNewItem = new JMenuItem("New Item");
+			  popupMenu.add(itNewItem);
+			  popupMenu.add(createMenu(listeTag));
+			  popupMenu.show(e.getComponent(),e.getX(), e.getY());
 		}
 		
 	}
+	public JMenu createMenu(List<String> listeTag){
+		  JMenu m = new JMenu("Profile");
+		  for(String tag:listeTag)
+		  	  m.add(new JMenuItem(tag));
+		  
+		  return m;
+		  }
 
 	@Override
 	public void mouseReleased(MouseEvent e) {

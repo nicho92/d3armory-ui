@@ -1,6 +1,7 @@
 package org.armory.d3.ui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
@@ -15,6 +16,7 @@ import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultRowSorter;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -31,6 +33,7 @@ import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.border.LineBorder;
 import javax.swing.table.TableRowSorter;
 
 import org.armory.d3.beans.Hero;
@@ -42,6 +45,7 @@ import org.armory.d3.ui.model.TableauDetailsModel;
 import org.jdesktop.application.Application;
 
 import com.sdfteam.d3armory.service.remote.exception.D3ServerCommunicationException;
+import java.awt.BorderLayout;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -118,7 +122,16 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ListeHeroModel listeHerosModel;
 	private TableauDetailsModel tableaudetailModel;
-	private JMenuItem jmiLocal; 
+	private JMenuItem jmiLocal;
+	private SkillLabel labSkilL1;
+	private SkillLabel labSkilL2;
+	private SkillLabel labSkilL3;
+	private SkillLabel labSkilL4;
+	private SkillLabel labSkilL5;
+	private SkillLabel labSkilL6;
+	private SkillLabel labSkilL7;
+	private SkillLabel labSkilL8;
+	private SkillLabel labSkilL9; 
 	
 	public ListeHeroModel getListeHerosModel() {
 		return listeHerosModel;
@@ -129,10 +142,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		
 		 final SplashScreen splash = SplashScreen.getSplashScreen();
 	        if (splash != null) {
-	            System.out.println("SplashScreen.getSplashScreen() returned null");
-	         
-	       
-	        Graphics2D g = splash.createGraphics();
+	             Graphics2D g = splash.createGraphics();
 	        try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -166,6 +176,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		try {
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.setTitle("Diablo III Profile");
+			this.setIconImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/icone.jpg")).getImage());
 			UIManager.put("Table.alternateRowColor", Color.decode("#E1E4F2"));
 			BoxLayout thisLayout = new BoxLayout(getContentPane(), javax.swing.BoxLayout.X_AXIS);
 			getContentPane().setLayout(thisLayout);
@@ -283,6 +294,17 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lblInformationClasseNiveau.setText(hero.getClazz() +" de niveau " + hero.getLevel());
 		lblParangonLevel.setText("("+hero.getParagonLevel()+")");
 		lblParangonLevel.setBounds(749, 20, 51, 16);
+		getLblSkill1().setSkillRune(hero.getSkills().getActive().get(0));
+		getLblSkill2().setSkillRune(hero.getSkills().getActive().get(1));
+				
+		getLblSkill3().setSkillRune(hero.getSkills().getActive().get(2));
+		getLblSkill4().setSkillRune(hero.getSkills().getActive().get(3));
+		getLblSkill5().setSkillRune(hero.getSkills().getActive().get(4));
+		getLblSkill6().setSkillRune(hero.getSkills().getActive().get(5));
+		
+		getLblSkill7().setSkillRune(hero.getSkills().getPassive().get(0));
+		getLblSkill8().setSkillRune(hero.getSkills().getPassive().get(1));
+		getLblSkill9().setSkillRune(hero.getSkills().getPassive().get(2));
 		
 		
 		Item head = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHead());
@@ -439,17 +461,21 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		else
 			lblHarcore.setText("");
 		
+		
+		
 		panneauDessinHero.repaint();	
 		StringBuffer temp = new StringBuffer();
-		temp.append("Strength : " + hero.getStats().getStrength() +" <br/>");
-		temp.append("Intel : " + hero.getStats().getIntelligence() +" <br/>");
-		temp.append("Dex : " + hero.getStats().getDexterity() +" <br/>");
-		temp.append("Vita : " + hero.getStats().getVitality() +" <br/>");
-		temp.append("Armor : " + hero.getStats().getArmor() +" <br/>");
-		temp.append("DPS : " + hero.getStats().getDamage() +" <br/>");
-		
-		
+						temp.append("DPS : " + hero.getStats().getDamage() +" <br/>");				
+						temp.append("Strength : " + hero.getStats().getStrength() +" <br/>");
+						temp.append("Intel : " + hero.getStats().getIntelligence() +" <br/>");
+						temp.append("Dex : " + hero.getStats().getDexterity() +" <br/>");
+						temp.append("Vita : " + hero.getStats().getVitality() +" <br/>");
+						temp.append("Armor : " + hero.getStats().getArmor() +" <br/>");
+						
 		panneauDessinHero.getLblInfoHero().setHtmlText(temp.toString(), "#5869D7","#BDA6CD");
+
+		
+		
 	}
 	
 	private void listeTagMouseClicked(MouseEvent evt) {
@@ -470,6 +496,82 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			e.printStackTrace();
 		}
 	}
+	
+	private SkillLabel getLblSkill1()
+	{
+		if(labSkilL1==null){
+			labSkilL1 = new SkillLabel();
+			labSkilL1.setBounds(42, 395, 64, 64);
+		}
+		return labSkilL1;
+	}
+	
+	private SkillLabel getLblSkill2()
+	{
+		if(labSkilL2==null){
+			labSkilL2 = new SkillLabel();
+			labSkilL2.setBounds(108, 395, 64, 64);
+		}
+		return labSkilL2;
+	}
+	private SkillLabel getLblSkill3()
+	{
+		if(labSkilL3==null){
+			labSkilL3 = new SkillLabel();
+			labSkilL3.setBounds(42, 462, 64, 64);
+		}
+		return labSkilL3;
+	}
+	private SkillLabel getLblSkill4()
+	{
+		if(labSkilL4==null){
+			labSkilL4 = new SkillLabel();
+			labSkilL4.setBounds(108, 462, 64, 64);
+		}
+		return labSkilL4;
+	}
+	private SkillLabel getLblSkill5()
+	{
+		if(labSkilL5==null){
+			labSkilL5 = new SkillLabel();
+			labSkilL5.setBounds(174, 462, 64, 64);
+		}
+		return labSkilL5;
+	}
+	private SkillLabel getLblSkill6()
+	{
+		if(labSkilL6==null){
+			labSkilL6 = new SkillLabel();
+			labSkilL6.setBounds(240, 462, 64, 64);
+		}
+		return labSkilL6;
+	}
+	
+	private SkillLabel getLblSkill7()
+	{
+		if(labSkilL7==null){
+			labSkilL7 = new SkillLabel();
+			labSkilL7.setBounds(42, 528, 64, 64);
+		}
+		return labSkilL7;
+	}
+	private SkillLabel getLblSkill8()
+	{
+		if(labSkilL8==null){
+			labSkilL8 = new SkillLabel();
+			labSkilL8.setBounds(108, 528, 64, 64);
+		}
+		return labSkilL8;
+	}
+	private SkillLabel getLblSkill9()
+	{
+		if(labSkilL9==null){
+			labSkilL9 = new SkillLabel();
+			labSkilL9.setBounds(174, 528, 64, 64);
+		}
+		return labSkilL9;
+	}
+	
 	
 	private ItemLabel getLblShoulders() {
 		if(lblShoulders == null) {
@@ -810,6 +912,25 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				panneauDessinHero.add(getLblRingRight());
 				panneauDessinHero.add(getLblMainHand());
 				panneauDessinHero.add(getLblOffHand());
+				//click
+				panneauDessinHero.add(getLblSkill1());
+				panneauDessinHero.add(getLblSkill2());
+				
+				//actif
+				panneauDessinHero.add(getLblSkill3());
+				panneauDessinHero.add(getLblSkill4());
+				panneauDessinHero.add(getLblSkill5());
+				panneauDessinHero.add(getLblSkill6());
+				
+				
+				//actif
+				panneauDessinHero.add(getLblSkill7());
+				panneauDessinHero.add(getLblSkill8());
+				panneauDessinHero.add(getLblSkill9());
+				
+
+				
+				
 				{
 					lblNom = new ItemLabel(getPanelItemDetails());
 					panneauDessinHero.add(lblNom);
@@ -872,10 +993,10 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JPanel getPanneauTableau() {
 		if(panneauTableau == null) {
 			panneauTableau = new JPanel();
-			BoxLayout panneauTableauLayout = new BoxLayout(panneauTableau, javax.swing.BoxLayout.Y_AXIS);
+			BorderLayout panneauTableauLayout = new BorderLayout();
 			panneauTableau.setLayout(panneauTableauLayout);
-			panneauTableau.add(getTxtFiltrage());
-			panneauTableau.add(getScrollTableau());
+			panneauTableau.add(getTxtFiltrage(), BorderLayout.NORTH);
+			panneauTableau.add(getScrollTableau(), BorderLayout.CENTER);
 		}
 		return panneauTableau;
 	}
