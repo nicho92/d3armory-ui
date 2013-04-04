@@ -37,7 +37,6 @@ public class Main {
 				 
 				 hero = heroService.receiveEntity(conf);
 				 System.out.println(hero.getName() + " "+ hero.getClazz() + " pg:"+ hero.getParagonLevel());
-				 System.out.println("f:" + hero.getStats().getStrength() + " v:" + hero.getStats().getVitality() + " d:" + hero.getStats().getDexterity() +" i:" + hero.getStats().getIntelligence());
 				 System.out.println("poison:" + hero.getStats().getPoisonResist() + " fire:" + hero.getStats().getFireResist()+ " Arcane:" + hero.getStats().getArcaneResist() +" Cold:" + hero.getStats().getColdResist() + " physique:" + hero.getStats().getPhysicalResist());
 				 
 				 System.out.println("============================================================================================");
@@ -52,6 +51,8 @@ public class Main {
 					Item ringright = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLeftFinger());
 					Item ringleft = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getRightFinger());
 					Item mainHand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getMainHand());
+					if(mainHand!=null)
+					mainHand.setMainHand(true);
 					Item offhand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getOffHand());
 					Item torso = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getTorso());
 					
@@ -71,7 +72,7 @@ public class Main {
 						stuffs.add(foot);
 						
 					StuffCalculator calculator = new StuffCalculator(stuffs,hero);
-									calculator.calculateUnbuffedDPS();
+								System.out.println(calculator.calculateUnbuffedDPS());
 						
 					
 					

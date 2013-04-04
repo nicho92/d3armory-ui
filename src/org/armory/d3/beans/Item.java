@@ -41,6 +41,17 @@ public class Item  extends RemoteEntity {
 	private List<Salvage> salvage ;
 	private LegendarySet set;
 	private Number itemLevel;
+	private boolean isMainHand;
+	
+	public void setMainHand(boolean isMainHand) {
+		this.isMainHand = isMainHand;
+	}
+
+	public boolean isMainHand()
+	{
+		return isMainHand;
+	}
+	
 	
 	public int nbSockets(){
 		if(attributesRaw.get("Sockets")==null)
