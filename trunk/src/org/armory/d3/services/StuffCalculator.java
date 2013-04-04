@@ -17,6 +17,10 @@ public class StuffCalculator {
 
 	
 	private List<Item> stuffs;
+	
+	int countweapon;
+	boolean twohanded;
+	
 	public List<Item> getStuffs() {
 		return stuffs;
 	}
@@ -48,8 +52,15 @@ public class StuffCalculator {
 	{
 		Map<LegendarySet,Integer> piecesbyset=new HashMap<LegendarySet,Integer>();
 		int compteur=0;
+		countweapon=0;
+		
 		for(Item i : stuffs)
 		{
+			if(i.isWeapon())
+			{
+				countweapon=countweapon+1;
+				twohanded = i.getType().getTwoHanded();
+			}
 			
 			if(i.isSetObjects())
 			{
@@ -65,7 +76,7 @@ public class StuffCalculator {
 					Iterator<String> keysg = gems[g].getAttributesRaw().keySet().iterator();
 					String cleg = keysg.next();
 					compteur++;
-					bonusItem.put(cleg +"_GEM_"+i.getName().replaceAll(" ", "-"), gems[g].getAttributesRaw().get(cleg));
+					bonusItem.put(cleg +"_GEM_"+i.getName().replaceAll(" ", "-")+"_"+compteur, gems[g].getAttributesRaw().get(cleg));
 				}
 			}
 			//fin des gems
@@ -76,12 +87,17 @@ public class StuffCalculator {
 				String cle = keys.next();
 				compteur++;
 				bonusItem.put(cle+"_"+i.getName().replaceAll(" ", "-"), i.getAttributesRaw().get(cle));
-				
+				String mainoff="";
 				if(i.isWeapon())
 				{
-					bonusItem.put("Damage_DPS_Min_"+i.getName().replaceAll(" ", "-"), i.getMinDamage());
-					bonusItem.put("Damage_DPS_Max_"+i.getName().replaceAll(" ", "-"), i.getMaxDamage());
-					bonusItem.put("Damage_DPS_AttackSpeed_"+i.getName().replaceAll(" ", "-"), i.getAttacksPerSecond());
+					if(i.isMainHand())
+						mainoff="MAIN";
+					else
+						mainoff="OFF";
+				
+					bonusItem.put("Damage_DPS_Min_"+i.getName().replaceAll(" ", "-")+"_"+mainoff, i.getMinDamage());
+					bonusItem.put("Damage_DPS_Max_"+i.getName().replaceAll(" ", "-")+"_"+mainoff, i.getMaxDamage());
+					bonusItem.put("Damage_DPS_AttackSpeed_"+i.getName().replaceAll(" ", "-")+"_"+mainoff, i.getAttacksPerSecond());
 				}
 			}
 			
@@ -155,27 +171,79 @@ public class StuffCalculator {
 	
 	public double calculateUnbuffedDPS()
 	{
-		double eff_comp_psv=0;
-
-		double bonus_min_arme=getStat("Damage_Weapon_Min", "Bonus");
-		double bonus_max_arme=getStat("Damage_Weapon_Min", "Bonus")+getStat("Damage_Weapon_Delta", "Bonus");
 		
-		double vit_attaque=getStat("Attacks_Per_Second",null);
-		double degat_moy_arme= (((getStat("Damage_Weapon_Min", null)+getStat("Damage_Weapon_Delta", null)))/2)*(15/100)/vit_attaque;
-		double chance_cc=0.05+getStat("Crit_Percent", null);
-		double degat_cc=0.5+getStat("Crit_Damage", null);
+		double as_bonusarmor=getStat("Attacks_Per_Second_Percent",null);
+		double chance_cc;
+		double degat_cc;
+		double bonusDual;
+
+		chance_cc=0.05+getStat("Crit_Percent", null);
+		degat_cc=0.5+getStat("Crit_Damage", null);
+
+		if(countweapon==2)
+		{
+			bonusDual=0.15;
+		}
+		else
+		{
+			bonusDual=0;
+		}
+		
 		double stat_base=hero.getBaseStatPrimary()+getStat( hero.getPrimaryStat(),null);
 		
+		double damage_min =getStat("Damage_Min", null);
+		double damage_max = damage_min+ getStat("Damage_Delta", null);
+		
+		double attackPerSecondBonus = getStat("Attacks_Per_Second_Item_Bonus",null);
+		double attackPerSecondMain = getStat("Damage_DPS_Attack","MAIN");
+		double attackPerSecondOff = getStat("Damage_DPS_Attack","OFF");
+		
+		double attackSpeedMain =attackPerSecondMain*(1+bonusDual+as_bonusarmor);
+		double attackSpeedOff=(attackPerSecondBonus+attackPerSecondOff)*(1+bonusDual+as_bonusarmor);
+		
+		double dpsMain = ((getStat("Damage_DPS_Min","MAIN")+ getStat("Damage_DPS_Max","MAIN"))/2)*attackPerSecondMain;
+		double dpsOff = ((getStat("Damage_DPS_Min","OFF")+ getStat("Damage_DPS_Max","OFF"))/2)*(attackPerSecondOff+attackPerSecondBonus);
+		double damageIncrease=getStat("Damage_Weapon_Percent_Bonus", null);
+		double weaponDPS=0;
+		if(twohanded)
+			weaponDPS=((dpsMain))*1.2;
+		
+		if(countweapon==2)
+			weaponDPS=((dpsMain+dpsOff)/2)*1.15;
+		
+		if(countweapon==1)
+			weaponDPS=dpsMain;
+		
+		System.out.println("NB Weapon : " + countweapon);
+		System.out.println("Two Handed : " + twohanded);
 		System.out.println("==========================================");
-		System.out.println("vit_attaque_arme " + vit_attaque);
-		System.out.println("eff_comp_psv " + eff_comp_psv );
-		System.out.println("degat moyen de l'arme " + degat_moy_arme);
-		System.out.println("bonus_min_arme " + bonus_min_arme);
-		System.out.println("bonus_max_arme " + bonus_max_arme);
-		System.out.println("chance_cc " + chance_cc*100);
-		System.out.println("degat_cc " + degat_cc*100);
-		System.out.println("stat Base :" + stat_base);
-		double dps = (1 + eff_comp_psv) * (degat_moy_arme + (bonus_min_arme + bonus_max_arme) / 2) * vit_attaque * ( 1+(chance_cc * degat_cc)) * (1 + stat_base / 100);
+		System.out.println(hero.getPrimaryStat() +" : " + stat_base);
+		
+		System.out.println("Attack speed BONUS ITEM :  " + attackPerSecondBonus);
+		System.out.println("Attack speed BONUS ARMOR :  " + as_bonusarmor);
+		System.out.println("Attack Speed MAIN : " +  attackSpeedMain);
+		System.out.println("Attack Speed OFF : " + attackSpeedOff);
+		double attackSpeedFinal=attackSpeedMain;
+		
+		if(countweapon==2)
+			attackSpeedFinal=(attackPerSecondMain+attackSpeedOff)/2;
+		
+		System.out.println("Attack Speed AVG : " + attackSpeedFinal);
+		
+		
+		System.out.println("WEAPON DPS MAIN : " + dpsMain);
+		System.out.println("WEAPON DPS OFF : " + dpsOff);
+		
+		System.out.println("Bonus dual weapon :  " + bonusDual);
+		System.out.println("WEAPON DPS : " + weaponDPS);
+		
+		System.out.println("chance_cc : " + chance_cc*100);
+		System.out.println("degat_cc : " + degat_cc*100);
+		System.out.println("Damage min : " + damage_min);
+		System.out.println("Damage max : " + damage_max);
+		System.out.println("+% Damage  : " + damageIncrease*100);
+		
+		double dps= weaponDPS * (1 + stat_base / 100)* (1+attackSpeedFinal) *  (1 + (chance_cc * degat_cc));
 		return dps;
 	}
 
