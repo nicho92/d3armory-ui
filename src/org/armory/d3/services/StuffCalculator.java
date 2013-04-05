@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.armory.d3.Main;
 import org.armory.d3.beans.Gem;
 import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.HeroSkillContainer;
@@ -171,79 +172,61 @@ public class StuffCalculator {
 	
 	public double calculateUnbuffedDPS()
 	{
-		
+		double bonusDual=(countweapon==2)?1.15:1;
 		double as_bonusarmor=getStat("Attacks_Per_Second_Percent",null);
-		double chance_cc;
-		double degat_cc;
-		double bonusDual;
-
-		chance_cc=0.05+getStat("Crit_Percent", null);
-		degat_cc=0.5+getStat("Crit_Damage", null);
-
-		if(countweapon==2)
-		{
-			bonusDual=0.15;
-		}
-		else
-		{
-			bonusDual=0;
-		}
-		
+		double chance_cc=0.05+getStat("Crit_Percent", null);
+		double degat_cc=0.5+getStat("Crit_Damage", null);
 		double stat_base=hero.getBaseStatPrimary()+getStat( hero.getPrimaryStat(),null);
-		
 		double damage_min =getStat("Damage_Min", null);
 		double damage_max = damage_min+ getStat("Damage_Delta", null);
-		
-		double attackPerSecondBonus = getStat("Attacks_Per_Second_Item_Bonus",null);
 		double attackPerSecondMain = getStat("Damage_DPS_Attack","MAIN");
 		double attackPerSecondOff = getStat("Damage_DPS_Attack","OFF");
 		
-		double attackSpeedMain =attackPerSecondMain*(1+bonusDual+as_bonusarmor);
-		double attackSpeedOff=(attackPerSecondBonus+attackPerSecondOff)*(1+bonusDual+as_bonusarmor);
-		
-		double dpsMain = ((getStat("Damage_DPS_Min","MAIN")+ getStat("Damage_DPS_Max","MAIN"))/2)*attackPerSecondMain;
-		double dpsOff = ((getStat("Damage_DPS_Min","OFF")+ getStat("Damage_DPS_Max","OFF"))/2)*(attackPerSecondOff+attackPerSecondBonus);
-		double damageIncrease=getStat("Damage_Weapon_Percent_Bonus", null);
-		double weaponDPS=0;
-		if(twohanded)
-			weaponDPS=((dpsMain))*1.2;
-		
-		if(countweapon==2)
-			weaponDPS=((dpsMain+dpsOff)/2)*1.15;
-		
-		if(countweapon==1)
-			weaponDPS=dpsMain;
+		double attackSpeedMain =attackPerSecondMain*(1+as_bonusarmor);
+		double attackSpeedOff =attackPerSecondOff*(1+as_bonusarmor);
 		
 		System.out.println("NB Weapon : " + countweapon);
 		System.out.println("Two Handed : " + twohanded);
 		System.out.println("==========================================");
 		System.out.println(hero.getPrimaryStat() +" : " + stat_base);
 		
-		System.out.println("Attack speed BONUS ITEM :  " + attackPerSecondBonus);
-		System.out.println("Attack speed BONUS ARMOR :  " + as_bonusarmor);
-		System.out.println("Attack Speed MAIN : " +  attackSpeedMain);
-		System.out.println("Attack Speed OFF : " + attackSpeedOff);
 		double attackSpeedFinal=attackSpeedMain;
 		
+		//CALCUL DAMAGE HIT
+		double statDamage=1+(stat_base/100);
+		double ccDamage=1+chance_cc*degat_cc;
+		double minMaxDmg=damage_min+damage_max;
+		double weaponDmgMain=minMaxDmg/2+((getStat("Damage_DPS_Min","MAIN")+ getStat("Damage_DPS_Max","MAIN")))/2;
+		double weaponDmgOff=minMaxDmg/2+((getStat("Damage_DPS_Min","OFF")+ getStat("Damage_DPS_Max","OFF")))/2;
+		double hitDmgMAIN=statDamage*ccDamage*weaponDmgMain;
+		double hitDmgOFF=statDamage*ccDamage*weaponDmgOff;
+		
+		double hitDmg=0;
+		
 		if(countweapon==2)
-			attackSpeedFinal=(attackPerSecondMain+attackSpeedOff)/2;
+			hitDmg=bonusDual*(hitDmgMAIN+hitDmgOFF)/2;
+		else
+			hitDmg=hitDmgMAIN;
 		
-		System.out.println("Attack Speed AVG : " + attackSpeedFinal);
+		double dps=attackSpeedFinal*hitDmg;
 		
+		System.out.println("+% Attack Speed : " + as_bonusarmor*100 +"%");
+		System.out.println("Attack Speed MH "  + attackSpeedMain);
 		
-		System.out.println("WEAPON DPS MAIN : " + dpsMain);
-		System.out.println("WEAPON DPS OFF : " + dpsOff);
+		if(countweapon==2)
+			System.out.println("Attack Speed 0H "  + attackSpeedOff);
 		
-		System.out.println("Bonus dual weapon :  " + bonusDual);
-		System.out.println("WEAPON DPS : " + weaponDPS);
+		System.out.println("Attacks per Second MH: " + attackPerSecondMain);
+		if(countweapon==2)
+			System.out.println("Attacks per Second OH: " + attackPerSecondOff);
 		
-		System.out.println("chance_cc : " + chance_cc*100);
-		System.out.println("degat_cc : " + degat_cc*100);
-		System.out.println("Damage min : " + damage_min);
-		System.out.println("Damage max : " + damage_max);
-		System.out.println("+% Damage  : " + damageIncrease*100);
+		System.out.println("Critical Hit Chance : " + chance_cc*100+"%");
+		System.out.println("Critical Hit Damage : " + degat_cc*100+"%");
+		System.out.println("MH Weapon Damage " + hitDmgMAIN);
 		
-		double dps= weaponDPS * (1 + stat_base / 100)* (1+attackSpeedFinal) *  (1 + (chance_cc * degat_cc));
+		if(countweapon==2)
+			System.out.println("OH Weapon Damage " + hitDmgOFF);
+	
 		return dps;
 	}
 

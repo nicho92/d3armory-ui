@@ -74,17 +74,17 @@ public class Item  extends RemoteEntity {
 		{
 			String att= attributes.next();
 			if(att.contains("Poison"))
-				return "poison";
+				return "Poison";
 			if(att.contains("Arcane"))
-				return "arcane";
+				return "Arcane";
 			if(att.contains("Fire"))
-				return "fire";
+				return "Fire";
 			if(att.contains("Lightning"))
-				return "lightning";
+				return "Lightning";
 			if(att.contains("Holy"))
-				return "holy";
+				return "Holy";
 			if(att.contains("Cold"))
-				return "cold";
+				return "Cold";
 		}
 		return "";
 			
