@@ -99,6 +99,7 @@ public class StuffCalculator {
 					bonusItem.put("Damage_DPS_Min_"+i.getName().replaceAll(" ", "-")+"_"+mainoff, i.getMinDamage());
 					bonusItem.put("Damage_DPS_Max_"+i.getName().replaceAll(" ", "-")+"_"+mainoff, i.getMaxDamage());
 					bonusItem.put("Damage_DPS_AttackSpeed_"+i.getName().replaceAll(" ", "-")+"_"+mainoff, i.getAttacksPerSecond());
+				
 				}
 			}
 			
@@ -172,39 +173,69 @@ public class StuffCalculator {
 	
 	public double calculateUnbuffedDPS()
 	{
-		double bonusDual=(countweapon==2)?1.15:1;
+		double bonusDual=(countweapon==2)?0.15:0;
+		
 		double as_bonusarmor=getStat("Attacks_Per_Second_Percent",null);
+		//double as_weapon_bonus=getStat("Attacks_Per_Second_Item_Bonus",null);
+		
 		double chance_cc=0.05+getStat("Crit_Percent", null);
 		double degat_cc=0.5+getStat("Crit_Damage", null);
+		
 		double stat_base=hero.getBaseStatPrimary()+getStat( hero.getPrimaryStat(),null);
+		
 		double damage_min =getStat("Damage_Min", null);
 		double damage_max = damage_min+ getStat("Damage_Delta", null);
-		double attackPerSecondMain = getStat("Damage_DPS_Attack","MAIN");
-		double attackPerSecondOff = getStat("Damage_DPS_Attack","OFF");
-		
-		double attackSpeedMain =attackPerSecondMain*(1+as_bonusarmor);
-		double attackSpeedOff =attackPerSecondOff*(1+as_bonusarmor);
 		
 		System.out.println("NB Weapon : " + countweapon);
 		System.out.println("Two Handed : " + twohanded);
 		System.out.println("==========================================");
 		System.out.println(hero.getPrimaryStat() +" : " + stat_base);
+	
 		
-		double attackSpeedFinal=attackSpeedMain;
+		
+		//CALCUL attackSpeed 
+		double attackPerSecondMain = getStat("Damage_DPS_Attack","MAIN");
+		double attackPerSecondOff = getStat("Damage_DPS_Attack","OFF");
+		
+		double mainR=1.27; 
+		double mainI=1.2; //AS de base du type arme MAIN
+
+		double offR=1.27;
+		double offI=1.30;
+		
+		double MainU=0.25;
+		double OffU=0;
+
+		double compagnonBonus=0; // ou 0.3 pour l'enchanteresse
+				
+		double attackSpeedMain=(mainR+bonusDual)*(mainI*1+compagnonBonus+MainU+OffU);
+		double attackSpeedOff=(offR+bonusDual)*(offI*1+compagnonBonus+OffU+MainU);
+		
+		
+		
 		
 		//CALCUL DAMAGE HIT
 		double statDamage=1+(stat_base/100);
 		double ccDamage=1+chance_cc*degat_cc;
 		double minMaxDmg=damage_min+damage_max;
+		
+		double elementalDmgMin=getStat("Damage_Weapon_Min",null);
+		double elementalDmgMax=getStat("Damage_Weapon_Min",null)+getStat("Damage_Weapon_Delta",null);
+		
 		double weaponDmgMain=minMaxDmg/2+((getStat("Damage_DPS_Min","MAIN")+ getStat("Damage_DPS_Max","MAIN")))/2;
+		//double weaponDmgMain=minMaxDmg/2+(elementalDmgMax+elementalDmgMin)/2;
 		double weaponDmgOff=minMaxDmg/2+((getStat("Damage_DPS_Min","OFF")+ getStat("Damage_DPS_Max","OFF")))/2;
+	
 		double hitDmgMAIN=statDamage*ccDamage*weaponDmgMain;
 		double hitDmgOFF=statDamage*ccDamage*weaponDmgOff;
-		
 		double hitDmg=0;
 		
+		double attackSpeedFinal=attackSpeedMain;
 		if(countweapon==2)
-			hitDmg=bonusDual*(hitDmgMAIN+hitDmgOFF)/2;
+			attackSpeedFinal=(attackSpeedMain + attackSpeedOff)/2;
+		
+		if(countweapon==2)
+			hitDmg=(hitDmgMAIN+hitDmgOFF)/2;
 		else
 			hitDmg=hitDmgMAIN;
 		
@@ -215,10 +246,6 @@ public class StuffCalculator {
 		
 		if(countweapon==2)
 			System.out.println("Attack Speed 0H "  + attackSpeedOff);
-		
-		System.out.println("Attacks per Second MH: " + attackPerSecondMain);
-		if(countweapon==2)
-			System.out.println("Attacks per Second OH: " + attackPerSecondOff);
 		
 		System.out.println("Critical Hit Chance : " + chance_cc*100+"%");
 		System.out.println("Critical Hit Damage : " + degat_cc*100+"%");
