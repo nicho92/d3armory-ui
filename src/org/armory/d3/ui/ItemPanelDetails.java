@@ -1,6 +1,7 @@
 package org.armory.d3.ui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -54,7 +55,9 @@ public class ItemPanelDetails extends JPanel {
 	private SocketLabel lblSock1;
 	private SocketLabel lblSock2;
 	private SocketLabel lblSock3;
+	private JLabel lblTypeGenericItem;
 
+	
 	public ItemPanelDetails()
 	{
 		this.setLayout(null);
@@ -62,6 +65,7 @@ public class ItemPanelDetails extends JPanel {
 		this.add(getLblIcon());
 		this.add(getLblTextItem());
 		this.add(getLblTypeItem());
+		this.add(getLblTypeGenericItem());
 		this.add(getLblStatArmorDPS());
 		this.add(getLblTypeItemAD());
 		this.add(getLblDetailWeapon());
@@ -71,12 +75,15 @@ public class ItemPanelDetails extends JPanel {
 		this.add(getLblSock3());
 		this.add(getLblDetailSet());
 		this.add(getLblItemLevel());
+		this.add(getLblTypeGenericItem());
+		
 		this.setBackground(Color.BLACK);
 		
 		Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 	}
 	
 	
+
 	public void paintComponent(Graphics g)
 	{
 		 super.paintComponent(g);
@@ -116,6 +123,9 @@ public class ItemPanelDetails extends JPanel {
 		getLblTextItem().setFont(new Font("Palatino Linotype", Font.ITALIC, 16));
 		getLblTextItem().setBounds(0, this.getHeight()-100, getLblTextItem().getParent().getWidth() , 100);
 		getLblTextItem().setText(item.getFlavorText());
+		
+		getLblTypeGenericItem().setText(item.getType().getId());
+			
 		
 		getLblTypeItem().setForeground(ItemLabel.toColor(item.getDisplayColor()));
 		getLblTypeItem().setFont(new Font("Palatino Linotype", Font.PLAIN, 16));
@@ -351,6 +361,19 @@ public class ItemPanelDetails extends JPanel {
 		}
 		return lblNomItem;
 	}
+	private JLabel getLblTypeGenericItem() {
+		if(lblTypeGenericItem==null)
+		{
+			lblTypeGenericItem = new JLabel();
+			lblTypeGenericItem.setHorizontalAlignment(JLabel.CENTER);
+			lblTypeGenericItem.setBounds(200, 75, 60, 20);
+			lblTypeGenericItem.setName("lblTypeGenericItem");
+			lblTypeGenericItem.setForeground(Color.WHITE);
+
+		}
+		return lblTypeGenericItem;
+	}
+
 
 	public JLabel getLblTypeItem() {
 		if(lblTypeItem == null) {
