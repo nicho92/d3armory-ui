@@ -112,7 +112,7 @@ public class ItemPanelDetails extends JPanel {
 	public void showItem(Item item) {
 		try{
 			this.item=item;
-		
+		System.out.println(item.getType().getId());
 		getLblNomItem().setText(item.getName());
 		getLblNomItem().setForeground(ItemLabel.toColor(item.getDisplayColor()));
 		getLblNomItem().setFont(new Font("Palatino Linotype", Font.BOLD, 18));
