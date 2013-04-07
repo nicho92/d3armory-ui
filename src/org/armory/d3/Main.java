@@ -72,7 +72,10 @@ public class Main {
 						stuffs.add(foot);
 						
 					StuffCalculator calculator = new StuffCalculator(stuffs,hero);
-								System.out.println(calculator.calculateUnbuffedDPS());
+						//		calculator.setWeapons(mainHand,offhand);
+						//		calculator.setArmors(stuffs);
+					
+					System.out.println(calculator.calculateUnbuffedDPS());
 						
 					
 					

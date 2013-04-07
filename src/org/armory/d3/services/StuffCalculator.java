@@ -18,9 +18,17 @@ public class StuffCalculator {
 
 	
 	private List<Item> stuffs;
-	
-	int countweapon;
-	boolean twohanded;
+
+	private HeroSkillContainer skills;
+	private Map<String, MinMaxBonus> bonusItem;
+	private Hero hero;
+	private Map<String,Double> weaponDefaultAS;
+	private int countweapon;
+	private boolean twohanded;
+
+	private Item mainHand;
+
+	private Object offHand;
 	
 	public List<Item> getStuffs() {
 		return stuffs;
@@ -30,17 +38,33 @@ public class StuffCalculator {
 		this.stuffs = stuffs;
 	}
 
-
-	private HeroSkillContainer skills;
-	private Map<String, MinMaxBonus> bonusItem;
-	private Hero hero;
-	
-	public StuffCalculator(List<Item> stuff, Hero hero) {
+public StuffCalculator(List<Item> stuff, Hero hero) {
 		this.stuffs=stuff;
 		this.skills=hero.getSkills();
 		this.hero= hero;
 		while(stuffs.remove(null));
 		bonusItem = new HashMap<>();
+		weaponDefaultAS=new HashMap<String,Double>();
+		weaponDefaultAS.put("Axe", 1.30);
+		weaponDefaultAS.put("Crossbow", 1.60);
+		weaponDefaultAS.put("Dagger", 1.50);
+		weaponDefaultAS.put("Mace", 1.20);
+		weaponDefaultAS.put("Fist", 1.40);
+		weaponDefaultAS.put("MightyWeapon", 1.30);
+		weaponDefaultAS.put("Spear", 1.20);
+		weaponDefaultAS.put("Sword", 1.40);
+		weaponDefaultAS.put("CeremonialKnife",1.4);
+		weaponDefaultAS.put("Wand", 1.40);
+		weaponDefaultAS.put("Axe2H", 1.00);
+		weaponDefaultAS.put("Bow", 1.40);
+		weaponDefaultAS.put("Daibo", 1.10);
+		weaponDefaultAS.put("Crossbow2H", 1.10);
+		weaponDefaultAS.put("Mace2H", 0.90);
+		weaponDefaultAS.put("MightyWeapon2H", 1.00);
+		weaponDefaultAS.put("Polearm", 0.95);
+		weaponDefaultAS.put("Staff", 1.00);
+		weaponDefaultAS.put("Sword2H", 1.1);
+		weaponDefaultAS.put("none", 0.0);
 		init();
 	}
 
@@ -190,7 +214,6 @@ public class StuffCalculator {
 		System.out.println("Two Handed : " + twohanded);
 		System.out.println("==========================================");
 		System.out.println(hero.getPrimaryStat() +" : " + stat_base);
-	
 		
 		
 		//CALCUL attackSpeed 
@@ -257,5 +280,25 @@ public class StuffCalculator {
 		return dps;
 	}
 
-	
-}
+	public void setWeapons(Item mainHand,Item offHand) {
+		if(mainHand.isWeapon()&&offHand.isWeapon())
+		{
+			countweapon=2;
+		}
+		
+		if(mainHand.isWeapon()&&mainHand.getType().getTwoHanded())
+			twohanded=true;
+		
+		
+		
+		this.mainHand=mainHand;
+		this.offHand=offHand;
+		
+	}
+
+	public void setArmors(List<Item> armor) {
+		this.stuffs=armor;
+		
+	}
+
+	}
