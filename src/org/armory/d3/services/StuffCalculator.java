@@ -27,8 +27,7 @@ public class StuffCalculator {
 	private boolean twohanded;
 
 	private Item mainHand;
-
-	private Object offHand;
+	private Item offHand;
 	
 	public List<Item> getStuffs() {
 		return stuffs;
@@ -81,12 +80,6 @@ public StuffCalculator(List<Item> stuff, Hero hero) {
 		
 		for(Item i : stuffs)
 		{
-			if(i.isWeapon())
-			{
-				countweapon=countweapon+1;
-				twohanded = i.getType().getTwoHanded();
-			}
-			
 			if(i.isSetObjects())
 			{
 				piecesbyset.put(i.getSet(),LegendarySet.getStuffSetsNbPieces(stuffs, i.getSet()));
@@ -113,6 +106,7 @@ public StuffCalculator(List<Item> stuff, Hero hero) {
 				compteur++;
 				bonusItem.put(cle+"_"+i.getName().replaceAll(" ", "-"), i.getAttributesRaw().get(cle));
 				String mainoff="";
+				
 				if(i.isWeapon())
 				{
 					if(i.isMainHand())
@@ -217,14 +211,15 @@ public StuffCalculator(List<Item> stuff, Hero hero) {
 		
 		
 		//CALCUL attackSpeed 
-		double attackPerSecondMain = getStat("Damage_DPS_Attack","MAIN");
-		double attackPerSecondOff = getStat("Damage_DPS_Attack","OFF");
+		System.out.println(mainHand.getAttributesRaw());
+		double attackPerSecondMain = mainHand.getAttacksPerSecond().getMoyenne();//getStat("Damage_DPS_Attack","MAIN");
+		double attackPerSecondOff = offHand.getAttacksPerSecond().getMoyenne();//getStat("Damage_DPS_Attack","OFF");
 		
-		double mainR=1.27; 
-		double mainI=1.2; //AS de base du type arme MAIN
+		double mainR=1+as_bonusarmor; 
+		double mainI=this.weaponDefaultAS.get(mainHand.getType().getId()); //AS de base du type arme MAIN
 
-		double offR=1.27;
-		double offI=1.30;
+		double offR=1+as_bonusarmor;
+		double offI=this.weaponDefaultAS.get(offHand.getType().getId()); //AS de base du type arme MAIN
 		
 		double MainU=0.25;
 		double OffU=0;
@@ -245,10 +240,15 @@ public StuffCalculator(List<Item> stuff, Hero hero) {
 		double elementalDmgMin=getStat("Damage_Weapon_Min",null);
 		double elementalDmgMax=getStat("Damage_Weapon_Min",null)+getStat("Damage_Weapon_Delta",null);
 		
-		double weaponDmgMain=minMaxDmg/2+((getStat("Damage_DPS_Min","MAIN")+ getStat("Damage_DPS_Max","MAIN")))/2;
+		//double weaponDmgMain=minMaxDmg/2+((getStat("Damage_DPS_Min","MAIN")+ getStat("Damage_DPS_Max","MAIN")))/2;
+		double weaponDmgMain=minMaxDmg/2+(mainHand.getMinDamage().getMoyenne()+mainHand.getMaxDamage().getMoyenne())/2;
+		
 		//double weaponDmgMain=minMaxDmg/2+(elementalDmgMax+elementalDmgMin)/2;
-		double weaponDmgOff=minMaxDmg/2+((getStat("Damage_DPS_Min","OFF")+ getStat("Damage_DPS_Max","OFF")))/2;
-	
+		//double weaponDmgOff=minMaxDmg/2+((getStat("Damage_DPS_Min","OFF")+ getStat("Damage_DPS_Max","OFF")))/2;
+		double weaponDmgOff=minMaxDmg/2+(offHand.getMinDamage().getMoyenne()+offHand.getMaxDamage().getMoyenne())/2;
+		
+		
+		
 		double hitDmgMAIN=statDamage*ccDamage*weaponDmgMain;
 		double hitDmgOFF=statDamage*ccDamage*weaponDmgOff;
 		double hitDmg=0;
