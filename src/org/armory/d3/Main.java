@@ -1,7 +1,7 @@
 package org.armory.d3;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.Item;
@@ -12,6 +12,7 @@ import org.armory.d3.services.StuffCalculator;
 import com.sdfteam.d3armory.service.configuration.Configuration;
 import com.sdfteam.d3armory.service.remote.RemoteService;
 import com.sdfteam.d3armory.service.remote.SpringRemoteService;
+import com.sdfteam.d3armory.service.util.EnumerationStuff;
 
 
 public class Main {
@@ -19,8 +20,8 @@ public class Main {
 	
 	public static void main(String[] args) throws Exception  {
 		Configuration conf = new Configuration();
-					  conf.setBattleTag("nicho92");
-					  conf.setBattleTagCode(new Long(2603));
+					  conf.setBattleTag("djae");
+					  conf.setBattleTagCode(new Long(2225));
 					  conf.setHost("eu.battle.net");
 					  conf.setLocal("fr_FR");
 					  
@@ -51,30 +52,33 @@ public class Main {
 					Item ringleft = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getRightFinger());
 					Item mainHand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getMainHand());
 					if(mainHand!=null)
-					mainHand.setMainHand(true);
+						mainHand.setMainHand(true);
 					Item offhand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getOffHand());
+						
 					Item torso = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getTorso());
 					
-					List<Item> stuffs= new ArrayList<Item>();
-						stuffs.add(head);
-						stuffs.add(shoulders);
-						stuffs.add(neck);
-						stuffs.add(torso);
-						stuffs.add(gants);
-						stuffs.add(bracers);
-						stuffs.add(belt);
-						stuffs.add(legs);
-						stuffs.add(ringright);
-						stuffs.add(ringleft);
-						stuffs.add(mainHand);
-						stuffs.add(offhand);
-						stuffs.add(foot);
-						
+					Map<EnumerationStuff,Item> stuffs = new HashMap<EnumerationStuff, Item>();
+											  stuffs.put(EnumerationStuff.HEAD, head);
+											  stuffs.put(EnumerationStuff.SHOULDERS, shoulders);
+											  stuffs.put(EnumerationStuff.NECK, neck);
+											  stuffs.put(EnumerationStuff.TORSO, torso);
+											  stuffs.put(EnumerationStuff.GANT, gants);
+											  stuffs.put(EnumerationStuff.BRACER, bracers);
+											  stuffs.put(EnumerationStuff.BELT, belt);
+											  stuffs.put(EnumerationStuff.LEGS, legs);
+											  stuffs.put(EnumerationStuff.RING_RIGHT, ringright);
+											  stuffs.put(EnumerationStuff.RING_LEFT, ringleft);
+											  stuffs.put(EnumerationStuff.MAIN_HAND, mainHand);
+											  stuffs.put(EnumerationStuff.OFF_HAND, offhand);
+											  stuffs.put(EnumerationStuff.FEET, foot);
+					  
 					StuffCalculator calculator = new StuffCalculator(stuffs,hero);
-								calculator.setWeapons(mainHand,offhand);
-								calculator.setArmors(stuffs);
+									calculator.setMainHand(mainHand);
+									calculator.setOffHand(offhand);
 					
-					System.out.println(calculator.calculateUnbuffedDPS());
+					  
+					calculator.calculateUnbuffedDPS();
+					
 						
 					
 					
