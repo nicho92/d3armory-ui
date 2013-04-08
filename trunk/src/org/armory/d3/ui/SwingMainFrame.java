@@ -1,17 +1,16 @@
 package org.armory.d3.ui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.SplashScreen;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
@@ -32,8 +31,6 @@ import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.border.LineBorder;
 import javax.swing.table.TableRowSorter;
 
 import org.armory.d3.beans.Hero;
@@ -45,7 +42,7 @@ import org.armory.d3.ui.model.TableauDetailsModel;
 import org.jdesktop.application.Application;
 
 import com.sdfteam.d3armory.service.remote.exception.D3ServerCommunicationException;
-import java.awt.BorderLayout;
+import com.sdfteam.d3armory.service.util.EnumerationStuff;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -440,22 +437,23 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		Item belt = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getWaist());
 		lblbelt.setItem(belt);
 		
-		List<Item> stuffs= new ArrayList<Item>();
-					stuffs.add(head);
-					stuffs.add(shoulders);
-					stuffs.add(neck);
-					stuffs.add(torso);
-					stuffs.add(gants);
-					stuffs.add(bracers);
-					stuffs.add(belt);
-					stuffs.add(legs);
-					stuffs.add(ringright);
-					stuffs.add(ringleft);
-					stuffs.add(mainHand);
-					stuffs.add(offhand);
-					stuffs.add(foot);
+		Map<EnumerationStuff,Item> stuffs = new HashMap<EnumerationStuff, Item>();
+		  stuffs.put(EnumerationStuff.HEAD, head);
+		  stuffs.put(EnumerationStuff.SHOULDERS, shoulders);
+		  stuffs.put(EnumerationStuff.NECK, neck);
+		  stuffs.put(EnumerationStuff.TORSO, torso);
+		  stuffs.put(EnumerationStuff.GANT, gants);
+		  stuffs.put(EnumerationStuff.BRACER, bracers);
+		  stuffs.put(EnumerationStuff.BELT, belt);
+		  stuffs.put(EnumerationStuff.LEGS, legs);
+		  stuffs.put(EnumerationStuff.RING_RIGHT, ringright);
+		  stuffs.put(EnumerationStuff.RING_LEFT, ringleft);
+		  stuffs.put(EnumerationStuff.MAIN_HAND, mainHand);
+		  stuffs.put(EnumerationStuff.OFF_HAND, offhand);
+		  stuffs.put(EnumerationStuff.FEET, foot);
 		
 		D3ArmoryControler.getInstance().getInstance().initCalculator(stuffs);
+		
 		((TableauDetailsModel)getTableauDetails().getModel()).fireTableDataChanged();
 		
 		if(hero.isHardcore())

@@ -5,7 +5,7 @@ import org.armory.d3.services.D3ArmoryControler;
 import com.sdfteam.d3armory.service.configuration.Configuration;
 import com.sdfteam.d3armory.service.remote.RemoteService;
 import com.sdfteam.d3armory.service.remote.SpringRemoteService;
-import com.sdfteam.d3armory.service.util.EnumerationSet;
+import com.sdfteam.d3armory.service.util.EnumerationStuff;
 
 
 
@@ -130,7 +130,7 @@ public class ItemSet {
 		this.neck = neck;
 	}
 
-	public Item get(EnumerationSet e)
+	public Item get(EnumerationStuff e)
 	{
 		switch (e) 
 		{

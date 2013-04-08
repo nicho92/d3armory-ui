@@ -112,7 +112,6 @@ public class ItemPanelDetails extends JPanel {
 	public void showItem(Item item) {
 		try{
 			this.item=item;
-		System.out.println(item.getType().getId());
 		getLblNomItem().setText(item.getName());
 		getLblNomItem().setForeground(ItemLabel.toColor(item.getDisplayColor()));
 		getLblNomItem().setFont(new Font("Palatino Linotype", Font.BOLD, 18));
@@ -190,12 +189,12 @@ public class ItemPanelDetails extends JPanel {
 			List<Item> sets = item.getSet().getItems();
 			for(Item i:sets)
 			{
-				if(D3ArmoryControler.getInstance().getCalculator().getStuffs().contains(i))
+				if(D3ArmoryControler.getInstance().getCalculator().getAll().contains(i))
 					tempset.append("&nbsp;&nbsp;&nbsp;<font color='#02FF00'>" + i.getName()+"</font><br/>");
 				else
 					tempset.append("&nbsp;&nbsp;&nbsp;" + i.getName()+"<br/>");
 			}
-			int nbstuff= LegendarySet.getStuffSetsNbPieces(D3ArmoryControler.getInstance().getCalculator().getStuffs(),item.getSet());
+			int nbstuff= LegendarySet.getStuffSetsNbPieces(D3ArmoryControler.getInstance().getCalculator().getAll(),item.getSet());
 			
 			for(int z=0;z<item.getSet().getRanks().size();z++ )
 			{

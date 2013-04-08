@@ -1,6 +1,7 @@
 package org.armory.d3.beans;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class LegendarySet {
@@ -11,7 +12,7 @@ public class LegendarySet {
 	private List<Item> items;
 	
 	
-	public static int getStuffSetsNbPieces(List<Item> stuff,LegendarySet set)
+	public static int getStuffSetsNbPieces(Collection<Item> stuff,LegendarySet set)
 	{
 		int nbPiece=0;
 		for(Item z : stuff)

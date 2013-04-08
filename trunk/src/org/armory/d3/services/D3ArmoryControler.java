@@ -20,6 +20,7 @@ import com.sdfteam.d3armory.service.configuration.Configuration;
 import com.sdfteam.d3armory.service.remote.RemoteService;
 import com.sdfteam.d3armory.service.remote.SpringRemoteService;
 import com.sdfteam.d3armory.service.remote.exception.D3ServerCommunicationException;
+import com.sdfteam.d3armory.service.util.EnumerationStuff;
 
 public class D3ArmoryControler {
 
@@ -176,7 +177,7 @@ public class D3ArmoryControler {
 		}
 	}
 	
-	public boolean initCalculator(List<Item> stuffs) {
+	public boolean initCalculator(Map<EnumerationStuff, Item> stuffs) {
 		try {
 			calculator = new StuffCalculator(stuffs, getSelectedHero(false));
 			return true;
