@@ -1,6 +1,7 @@
 package org.armory.d3.services;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -25,34 +26,24 @@ public class StuffCalculator {
 	private HeroSkillContainer skills;
 	private Map<String, MinMaxBonus> bonusItem;
 	private Hero hero;
-	private int countweapon;
 	private boolean twohanded;
-	private Item mainHand;
-	private Item offHand;
 	private Map<String,Double> weaponDefaultAS;
+	int countweapon=0;
 	
-	public Item getMainHand() {
-		return mainHand;
-	}
-
-	public void setMainHand(Item mainHand) {
-		this.mainHand = mainHand;
-	}
-
-	public Item getOffHand() {
-		return offHand;
-	}
-
-	public void setOffHand(Item offHand) {
-		this.offHand = offHand;
-	}
-
+	
 	public StuffCalculator(Map<EnumerationStuff,Item> stuff, Hero hero) {
-		this.stuffs=stuff;
-		
-		stuffs.remove(null);
+		stuffs= new HashMap<EnumerationStuff,Item>();
 		this.skills=hero.getSkills();
 		this.hero= hero;
+		Iterator<EnumerationStuff> keys = stuff.keySet().iterator();
+		while(keys.hasNext())
+		{
+			EnumerationStuff key=keys.next();
+			if(stuff.get(key)!=null)
+				stuffs.put(key, stuff.get(key));
+		
+		}
+		
 		init();
 		
 	}
@@ -91,12 +82,15 @@ public class StuffCalculator {
 			
 		Map<LegendarySet,Integer> piecesbyset=new HashMap<LegendarySet,Integer>();
 		int compteur=0;
-		countweapon=0;
+		
 		
 		for(Item i : stuffs.values())
 		{
 			if(i.isWeapon())
+			{
 				countweapon+=1;
+				twohanded=i.getType().getTwoHanded();
+			}
 			
 			if(i.isSetObjects())
 			{
@@ -168,10 +162,13 @@ public class StuffCalculator {
 		List<Item> items = new ArrayList<Item>();
 		
 		for(EnumerationStuff e :EnumerationStuff.values())
-			items.add(stuffs.get(e));
+		{
+			if(stuffs.get(e)!=null)
+				items.add(stuffs.get(e));
+		}
 		
 			items.remove(EnumerationStuff.MAIN_HAND);
-		if(nbWeapon()==2)
+		if(countweapon==2)
 			items.remove(EnumerationStuff.OFF_HAND);
 		
 		return items;
@@ -182,25 +179,12 @@ public class StuffCalculator {
 			List<Item> items = new ArrayList<Item>();
 			
 			items.add(stuffs.get(EnumerationStuff.MAIN_HAND));
-			if(nbWeapon()==2)
+			if(countweapon==2)
 				items.add(stuffs.get(EnumerationStuff.OFF_HAND));
 			
 		return items;
 	}
 	
-	public int nbWeapon()
-	{
-		int nbWeapon=0;
-		
-		if(stuffs.get(EnumerationStuff.MAIN_HAND)!=null)
-			nbWeapon=1;
-		
-		if(stuffs.get(EnumerationStuff.OFF_HAND)!=null)
-			if(stuffs.get(EnumerationStuff.OFF_HAND).isWeapon())
-				nbWeapon=nbWeapon+1;
-		
-		return nbWeapon;
-	}
 	
 	public List<Item> getAll()
 	{
@@ -309,20 +293,27 @@ public class StuffCalculator {
 		
 		
 		//CALCUL attackSpeed 
-		double attackPerSecondMain = mainHand.getAttacksPerSecond().getMoyenne();//getStat("Damage_DPS_Attack","MAIN");
-		double attackPerSecondOff = offHand.getAttacksPerSecond().getMoyenne();//getStat("Damage_DPS_Attack","OFF");
+		double attackPerSecondMain = stuffs.get(EnumerationStuff.MAIN_HAND).getAttacksPerSecond().getMoyenne();//getStat("Damage_DPS_Attack","MAIN");
+		double attackPerSecondOff=0;
+		if(countweapon==2)
+			attackPerSecondOff = stuffs.get(EnumerationStuff.OFF_HAND).getAttacksPerSecond().getMoyenne();//getStat("Damage_DPS_Attack","OFF");
 		
-		double mainI=this.weaponDefaultAS.get(mainHand.getType().getId()); //AS de base du type arme MAIN
-
-		double offI=this.weaponDefaultAS.get(offHand.getType().getId()); //AS de base du type arme MAIN
+		double mainI=this.weaponDefaultAS.get(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId()); //AS de base du type arme MAIN
+		double offI=0;
+		
+		if(countweapon==2)
+			offI=this.weaponDefaultAS.get(stuffs.get(EnumerationStuff.OFF_HAND).getType().getId()); //AS de base du type arme MAIN
 		
 		double bonusArmor = getStat(getArmor(), "Attacks_Per_Second_Percent", null);
 		double bonusWeapon = getStat(getWeapons(), "Attacks_Per_Second_Item_Bonus", null);
-
+		
 		double compagnonBonus=0; // ou 0.3 pour l'enchanteresse
 				
 		double attackSpeedMain=(1+bonusArmor+bonusDual)*(mainI*1+compagnonBonus+bonusWeapon);
-		double attackSpeedOff=(1+bonusArmor+bonusDual)*(offI*1+compagnonBonus+bonusWeapon);
+		
+		double attackSpeedOff=0;
+		if(countweapon==2)
+			attackSpeedOff=(1+bonusArmor+bonusDual)*(offI*1+compagnonBonus+bonusWeapon);
 		
 		
 		//CALCUL DAMAGE HIT
@@ -334,11 +325,11 @@ public class StuffCalculator {
 		double elementalDmgMax=getStat("Damage_Weapon_Min",null)+getStat("Damage_Weapon_Delta",null);
 		
 		//double weaponDmgMain=minMaxDmg/2+((getStat("Damage_DPS_Min","MAIN")+ getStat("Damage_DPS_Max","MAIN")))/2;
-		double weaponDmgMain=minMaxDmg/2+(mainHand.getMinDamage().getMoyenne()+mainHand.getMaxDamage().getMoyenne())/2;
+		double weaponDmgMain=minMaxDmg/2+(stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne()+stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne())/2;
 		
-		//double weaponDmgMain=minMaxDmg/2+(elementalDmgMax+elementalDmgMin)/2;
-		//double weaponDmgOff=minMaxDmg/2+((getStat("Damage_DPS_Min","OFF")+ getStat("Damage_DPS_Max","OFF")))/2;
-		double weaponDmgOff=minMaxDmg/2+(offHand.getMinDamage().getMoyenne()+offHand.getMaxDamage().getMoyenne())/2;
+		double weaponDmgOff=0;
+		if(countweapon==2)
+			weaponDmgOff=minMaxDmg/2+(stuffs.get(EnumerationStuff.OFF_HAND).getMinDamage().getMoyenne()+stuffs.get(EnumerationStuff.OFF_HAND).getMaxDamage().getMoyenne())/2;
 		
 		
 		

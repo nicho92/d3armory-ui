@@ -27,35 +27,35 @@ public class Main {
 					  
 		RemoteService<Profile> profileService = new SpringRemoteService(Profile.class);
 		RemoteService<Hero> heroService = new SpringRemoteService(Hero.class);
-		RemoteService<Item> itemService = new SpringRemoteService(Item.class);
+//		RemoteService<Item> itemService = new SpringRemoteService(Item.class);
 		
 		Profile profile = profileService.receiveEntity(conf);
 		
 			
 			Hero hero = profile.getHeroes().get(0);
 				 conf.setHeroId(hero.getId());
-				 D3ArmoryControler.getInstance().getInstance().setConf(conf);
+				 D3ArmoryControler.getInstance().setConf(conf);
 				 
 				 hero = heroService.receiveEntity(conf);
 				 System.out.println(hero.getName() + " "+ hero.getClazz() + " pg:"+ hero.getParagonLevel());
 				 
 				 System.out.println("============================================================================================");
-					Item head = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHead());
-					Item foot = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getFeet());
-					Item shoulders = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getShoulders());
-					Item gants = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHands());
-					Item bracers = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getBracers());
-					Item legs = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLegs());
-					Item neck = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getNeck());
-					Item belt = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getWaist());
-					Item ringright = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLeftFinger());
-					Item ringleft = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getRightFinger());
-					Item mainHand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getMainHand());
+					Item head = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getHead());
+					Item foot = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getFeet());
+					Item shoulders = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getShoulders());
+					Item gants = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getHands());
+					Item bracers = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getBracers());
+					Item legs = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getLegs());
+					Item neck = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getNeck());
+					Item belt = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getWaist());
+					Item ringright = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getLeftFinger());
+					Item ringleft = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getRightFinger());
+					Item mainHand = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getMainHand());
 					if(mainHand!=null)
 						mainHand.setMainHand(true);
-					Item offhand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getOffHand());
+					Item offhand = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getOffHand());
 						
-					Item torso = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getTorso());
+					Item torso = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getTorso());
 					
 					Map<EnumerationStuff,Item> stuffs = new HashMap<EnumerationStuff, Item>();
 											  stuffs.put(EnumerationStuff.HEAD, head);
@@ -73,10 +73,6 @@ public class Main {
 											  stuffs.put(EnumerationStuff.FEET, foot);
 					  
 					StuffCalculator calculator = new StuffCalculator(stuffs,hero);
-									calculator.setMainHand(mainHand);
-									calculator.setOffHand(offhand);
-					
-					  
 					calculator.calculateUnbuffedDPS();
 					
 						
