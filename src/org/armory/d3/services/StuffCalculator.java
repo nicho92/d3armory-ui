@@ -19,17 +19,13 @@ import org.armory.d3.beans.Ranks;
 import com.sdfteam.d3armory.service.util.EnumerationStuff;
 
 public class StuffCalculator {
-
-	
 	private Map<EnumerationStuff,Item> stuffs;
-
 	private HeroSkillContainer skills;
 	private Map<String, MinMaxBonus> bonusItem;
 	private Hero hero;
 	private boolean twohanded;
 	private Map<String,Double> weaponDefaultAS;
 	int countweapon=0;
-	
 	
 	public StuffCalculator(Map<EnumerationStuff,Item> stuff, Hero hero) {
 		stuffs= new HashMap<EnumerationStuff,Item>();
@@ -47,9 +43,7 @@ public class StuffCalculator {
 		init();
 		
 	}
-	
-	
-	
+
 	public Map<String, MinMaxBonus> getBonusItem()
 	{
 		return bonusItem;
@@ -185,7 +179,6 @@ public class StuffCalculator {
 		return items;
 	}
 	
-	
 	public List<Item> getAll()
 	{
 		List<Item> items = new ArrayList<Item>();
@@ -234,11 +227,6 @@ public class StuffCalculator {
 		return total;
 	}
 	
-	/**
-	 * @param stat : stat to filter (Critic,Strength,...)
-	 * @param elementfilter : elemental filter : Fire, Cold,Physical,Lightning, Holy, Arcane
-	 * @param debug : show result in console;
-	 * */
 	public double getStat(String stat,String elementfilter,boolean debug) {
 		double total=0.0;
 		Iterator<String> keyIt = bonusItem.keySet().iterator();
@@ -277,10 +265,8 @@ public class StuffCalculator {
 	public double calculateUnbuffedDPS()
 	{
 		double bonusDual=(countweapon==2)?0.15:0;
-		
 		double chance_cc=0.05+getStat("Crit_Percent", null);
 		double degat_cc=0.5+getStat("Crit_Damage", null);
-		
 		double stat_base=hero.getBaseStatPrimary()+getStat( hero.getPrimaryStat(),null);
 		
 		double damage_min =getStat("Damage_Min", null);
@@ -305,6 +291,7 @@ public class StuffCalculator {
 			offI=this.weaponDefaultAS.get(stuffs.get(EnumerationStuff.OFF_HAND).getType().getId()); //AS de base du type arme MAIN
 		
 		double bonusArmor = getStat(getArmor(), "Attacks_Per_Second_Percent", null);
+		
 		double bonusWeapon = getStat(getWeapons(), "Attacks_Per_Second_Item_Bonus", null);
 		
 		double compagnonBonus=0; // ou 0.3 pour l'enchanteresse
@@ -327,16 +314,16 @@ public class StuffCalculator {
 		//double weaponDmgMain=minMaxDmg/2+((getStat("Damage_DPS_Min","MAIN")+ getStat("Damage_DPS_Max","MAIN")))/2;
 		double weaponDmgMain=minMaxDmg/2+(stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne()+stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne())/2;
 		
+		
 		double weaponDmgOff=0;
+		
 		if(countweapon==2)
 			weaponDmgOff=minMaxDmg/2+(stuffs.get(EnumerationStuff.OFF_HAND).getMinDamage().getMoyenne()+stuffs.get(EnumerationStuff.OFF_HAND).getMaxDamage().getMoyenne())/2;
-		
-		
 		
 		double hitDmgMAIN=statDamage*ccDamage*weaponDmgMain;
 		double hitDmgOFF=statDamage*ccDamage*weaponDmgOff;
 		double hitDmg=0;
-		
+
 		double attackSpeedFinal=attackSpeedMain;
 		if(countweapon==2)
 			attackSpeedFinal=(attackSpeedMain + attackSpeedOff)/2;
@@ -346,7 +333,7 @@ public class StuffCalculator {
 		else
 			hitDmg=hitDmgMAIN;
 		
-		double dps=attackSpeedFinal*hitDmg;
+		
 		
 		System.out.println("+% Attack Speed : " + bonusArmor*100 +"%");
 		System.out.println("Attack Speed MH "  + attackSpeedMain);
@@ -361,11 +348,77 @@ public class StuffCalculator {
 		if(countweapon==2)
 			System.out.println("OH Weapon Damage " + hitDmgOFF);
 	
+		
+		double dps=getDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
+		
 		System.out.println(dps);
 		
 		
 		return dps;
 	}
+
+	private double getDamage(double stat_base, double chance_cc,double ccDamage, double bonusAS, double minMaxDmg, int s) 
+	{		//e, t, n, r, i, s
+ 			double u = 0; 
+ 	    	double a = 1 + stat_base / 100; 
+ 	    	double f = tempspd(bonusAS); //== 1.3333333
+ 	    	double l = tempdamageweaps(minMaxDmg); //1936.333333
+ 	    	double c = ccDamage; 
+ 	    	double h = chance_cc;
+ 	    	
+ 	    	System.out.println(a +" " + f +" " + l +" " +c +" " +h +" ");
+ 	    	
+ 	    	
+ 		if(this.countweapon==2)
+ 			u = (1 + s) * a * (1 + c * h) * l * f;
+ 		else
+ 		{
+ 			bonusAS += .15;
+ 			u = (1 + s) * a * (1 + c * h) * bonusAS * l / f;
+ 		}
+ 			return u;
+	}
+	
+	private double tempdamageweaps(double minMaxDmg) {
+		double n=0;
+		if(countweapon==1)
+		{
+			n = minMaxDmg + stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne() + stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne();
+			n/=2;
+		}
+		else
+		{
+			n = (2 * minMaxDmg + stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne() + stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne() +stuffs.get(EnumerationStuff.OFF_HAND).getMaxDamage().getMoyenne() + stuffs.get(EnumerationStuff.OFF_HAND).getMinDamage().getMoyenne())/ 2;
+		}
+		
+		return n;
+	}
+
+	private double tempspd(double e)
+	{
+		double n = 0; 
+		double r = 0; 
+		double i = weaponDefaultAS.get(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId()); 
+		double s = weaponDefaultAS.get(stuffs.get(EnumerationStuff.OFF_HAND).getType().getId());;
+		double o = 1 + 0.25 / 100; 
+		double u = 1 + 0 / 100;
+		
+		r=0;//getStat(getArmor(), "Attacks_Per_Second_Item_Bonus", null);
+		double f = getStat(getWeapons(), "Attacks_Per_Second_Item_Bonus", null); 
+		double l= getStat(getWeapons(), "Attacks_Per_Second_Item_Bonus", "OFF"); 
+		double c = 0; //0.3 pour enchantersse
+		
+		System.out.println(n +" " + r +" " + i +" " + s +" " +o +" " + u +" " + f + " " + l);
+		
+		
+		if(countweapon==1)
+			n = e * (i * o + c + f + r);
+		else 
+			n = 1 / (i * o + c + f + l + r) + 1 / (s * u + c + f + l + r);
+			
+		return n;
+	}
+	
 
 
 	}
