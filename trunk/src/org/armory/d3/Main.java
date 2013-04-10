@@ -20,8 +20,10 @@ public class Main {
 	
 	public static void main(String[] args) throws Exception  {
 		Configuration conf = new Configuration();
-					  conf.setBattleTag("djae");
-					  conf.setBattleTagCode(new Long(2225));
+					  //conf.setBattleTag("djae");
+					  //conf.setBattleTagCode(new Long(2225));
+					  conf.setBattleTag("nicho92");
+					  conf.setBattleTagCode(new Long(2603));
 					  conf.setHost("eu.battle.net");
 					  conf.setLocal("fr_FR");
 					  
