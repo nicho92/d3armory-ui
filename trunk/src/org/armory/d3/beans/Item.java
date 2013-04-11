@@ -61,7 +61,10 @@ public class Item  extends RemoteEntity {
 	}
 	
 	public boolean equals(Object item) {
-		return this.getId().equals(((Item)item).getId());
+		if(item!=null)
+			return getId().equals(((Item)item).getId());
+		
+		return false;
 	}
 
 	public String getEnchantedWeapon()
