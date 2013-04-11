@@ -1,13 +1,11 @@
-package org.armory.d3.ui;
+package org.armory.d3.ui.components;
 
 import java.net.URL;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JToolTip;
 
-import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.SkillRune;
 
 public class SkillLabel extends JLabel {

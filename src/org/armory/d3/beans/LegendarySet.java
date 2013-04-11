@@ -1,6 +1,5 @@
 package org.armory.d3.beans;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 

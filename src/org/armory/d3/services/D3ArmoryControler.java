@@ -2,7 +2,6 @@ package org.armory.d3.services;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +12,6 @@ import java.util.Map;
 
 import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.Item;
-import org.armory.d3.beans.MinMaxBonus;
 import org.armory.d3.beans.Profile;
 
 import com.sdfteam.d3armory.service.configuration.Configuration;

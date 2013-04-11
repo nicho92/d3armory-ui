@@ -1,10 +1,5 @@
 package org.armory.d3.beans;
 
-import org.armory.d3.services.D3ArmoryControler;
-
-import com.sdfteam.d3armory.service.configuration.Configuration;
-import com.sdfteam.d3armory.service.remote.RemoteService;
-import com.sdfteam.d3armory.service.remote.SpringRemoteService;
 import com.sdfteam.d3armory.service.util.EnumerationStuff;
 
 
