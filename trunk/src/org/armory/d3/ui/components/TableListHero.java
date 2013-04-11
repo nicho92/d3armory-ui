@@ -1,4 +1,4 @@
-package org.armory.d3.ui;
+package org.armory.d3.ui.components;
 
 import java.awt.Component;
 

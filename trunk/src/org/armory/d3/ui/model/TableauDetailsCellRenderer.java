@@ -1,10 +1,7 @@
 package org.armory.d3.ui.model;
 
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.Font;
 
-import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 

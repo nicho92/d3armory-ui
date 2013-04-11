@@ -1,8 +1,7 @@
-package org.armory.d3.ui;
+package org.armory.d3.ui.components;
 
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.IOException;
 import java.net.URL;
