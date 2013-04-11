@@ -20,8 +20,6 @@ public class Main {
 	
 	public static void main(String[] args) throws Exception  {
 		Configuration conf = new Configuration();
-					  //conf.setBattleTag("djae");
-					  //conf.setBattleTagCode(new Long(2225));
 					  conf.setBattleTag("nicho92");
 					  conf.setBattleTagCode(new Long(2603));
 					  conf.setHost("eu.battle.net");
@@ -34,7 +32,7 @@ public class Main {
 		Profile profile = profileService.receiveEntity(conf);
 		
 			
-			Hero hero = profile.getHeroes().get(0);
+			Hero hero = profile.getHeroes().get(1);
 				 conf.setHeroId(hero.getId());
 				 D3ArmoryControler.getInstance().setConf(conf);
 				 
