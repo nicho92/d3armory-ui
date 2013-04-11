@@ -1,13 +1,11 @@
 package org.armory.d3.services;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.armory.d3.Main;
 import org.armory.d3.beans.Gem;
 import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.HeroSkillContainer;
@@ -158,13 +156,11 @@ public class StuffCalculator {
 		for(EnumerationStuff e :EnumerationStuff.values())
 		{
 			if(stuffs.get(e)!=null)
+			{
+				if(!stuffs.get(e).isWeapon())
 				items.add(stuffs.get(e));
+			}
 		}
-		
-			items.remove(EnumerationStuff.MAIN_HAND);
-		if(countweapon==2)
-			items.remove(EnumerationStuff.OFF_HAND);
-		
 		return items;
 	}
 	
@@ -269,22 +265,13 @@ public class StuffCalculator {
 		double degat_cc=0.5+getStat("Crit_Damage", null);
 		double stat_base=hero.getBaseStatPrimary()+getStat( hero.getPrimaryStat(),null);
 		
-		double damage_min =getStat("Damage_Min", null);
-		double damage_max = damage_min+ getStat("Damage_Delta", null);
-		
-		System.out.println("NB Weapon : " + countweapon);
-		System.out.println("Two Handed : " + twohanded);
-		System.out.println("==========================================");
-		System.out.println(hero.getPrimaryStat() +" : " + stat_base);
-		
-		
 		//CALCUL attackSpeed 
 		double attackPerSecondMain = stuffs.get(EnumerationStuff.MAIN_HAND).getAttacksPerSecond().getMoyenne();//getStat("Damage_DPS_Attack","MAIN");
 		double attackPerSecondOff=0;
 		if(countweapon==2)
 			attackPerSecondOff = stuffs.get(EnumerationStuff.OFF_HAND).getAttacksPerSecond().getMoyenne();//getStat("Damage_DPS_Attack","OFF");
 		
-		double mainI=this.weaponDefaultAS.get(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId()); //AS de base du type arme MAIN
+		double mainI=weaponDefaultAS.get(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId()); //AS de base du type arme MAIN
 		double offI=0;
 		
 		if(countweapon==2)
@@ -306,12 +293,8 @@ public class StuffCalculator {
 		//CALCUL DAMAGE HIT
 		double statDamage=1+(stat_base/100);
 		double ccDamage=1+chance_cc*degat_cc;
-		double minMaxDmg=damage_min+damage_max;
+		double minMaxDmg=tempDamage();
 		
-		double elementalDmgMin=getStat("Damage_Weapon_Min",null);
-		double elementalDmgMax=getStat("Damage_Weapon_Min",null)+getStat("Damage_Weapon_Delta",null);
-		
-		//double weaponDmgMain=minMaxDmg/2+((getStat("Damage_DPS_Min","MAIN")+ getStat("Damage_DPS_Max","MAIN")))/2;
 		double weaponDmgMain=minMaxDmg/2+(stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne()+stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne())/2;
 		
 		
@@ -324,10 +307,6 @@ public class StuffCalculator {
 		double hitDmgOFF=statDamage*ccDamage*weaponDmgOff;
 		double hitDmg=0;
 
-		double attackSpeedFinal=attackSpeedMain;
-		if(countweapon==2)
-			attackSpeedFinal=(attackSpeedMain + attackSpeedOff)/2;
-		
 		if(countweapon==2)
 			hitDmg=(hitDmgMAIN+hitDmgOFF)/2;
 		else
@@ -351,32 +330,51 @@ public class StuffCalculator {
 		
 		double dps=getDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
 		
+		System.out.println(getAvgDamage(EnumerationStuff.MAIN_HAND, stat_base, chance_cc, degat_cc, minMaxDmg, 0));
 		System.out.println(dps);
 		
 		
 		return dps;
 	}
 
+	private double tempDamage() {
+		
+		double min = getStat(getArmor(), "Damage","Min");
+		double max = getStat(getArmor(), "Damage_Min",null)+getStat(getArmor(), "Damage","Delta");
+	
+		return min+max;
+	}
+
+	private double getAvgDamage(EnumerationStuff mainoff,double statbase,double ccc,double degatcc,double i,double s)
+	{
+		double u=1+statbase/100;
+	  	double a=1+ccc*degatcc;
+	  	double f=0;
+	  	double damage_min =stuffs.get(mainoff).getMinDamage().getMoyenne();
+		double damage_max =stuffs.get(mainoff).getMaxDamage().getMoyenne();
+			f=i/2+(damage_min+damage_max)/2;
+	  	return u*a*f*(1+s);
+	}
+	
 	private double getDamage(double stat_base, double chance_cc,double ccDamage, double bonusAS, double minMaxDmg, int s) 
-	{		//e, t, n, r, i, s
- 			double u = 0; 
+	{	
+		
+		double u = 0; 
  	    	double a = 1 + stat_base / 100; 
- 	    	double f = tempspd(bonusAS); //== 1.3333333
- 	    	double l = tempdamageweaps(minMaxDmg); //1936.333333
+ 	    	double f = tempspd(bonusAS); 
+ 	    	double l = tempdamageweaps(minMaxDmg);
  	    	double c = ccDamage; 
  	    	double h = chance_cc;
- 	    	
- 	    	System.out.println(a +" " + f +" " + l +" " +c +" " +h +" ");
- 	    	
- 	    	
- 		if(this.countweapon==2)
+ 		if(countweapon<=1)
+ 		{
  			u = (1 + s) * a * (1 + c * h) * l * f;
+ 		}
  		else
  		{
- 			bonusAS += .15;
+ 			bonusAS += .15;//dual
  			u = (1 + s) * a * (1 + c * h) * bonusAS * l / f;
  		}
- 			return u;
+ 		return u;
 	}
 	
 	private double tempdamageweaps(double minMaxDmg) {
@@ -396,26 +394,28 @@ public class StuffCalculator {
 
 	private double tempspd(double e)
 	{
+
 		double n = 0; 
 		double r = 0; 
 		double i = weaponDefaultAS.get(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId()); 
-		double s = weaponDefaultAS.get(stuffs.get(EnumerationStuff.OFF_HAND).getType().getId());;
-		double o = 1 + 0.25 / 100; 
-		double u = 1 + 0 / 100;
+		double s = 0;
+		if(countweapon==2)
+			s=weaponDefaultAS.get(stuffs.get(EnumerationStuff.OFF_HAND).getType().getId());;
 		
-		r=0;//getStat(getArmor(), "Attacks_Per_Second_Item_Bonus", null);
+		double o = 1 + getStat(stuffs.get(EnumerationStuff.MAIN_HAND), "Attacks_Per_Second_Item_Percent", null);
+		double u = 1;
+		if(countweapon==2)
+			u=1 + getStat(stuffs.get(EnumerationStuff.OFF_HAND), "Attacks_Per_Second_Item_Percent", null); //augmente la vitesse d'attaque de XX% sur la OH
+		
+		r=getStat(getArmor(), "Attacks_Per_Second_Item_Percent", null);//0.
 		double f = getStat(getWeapons(), "Attacks_Per_Second_Item_Bonus", null); 
 		double l= getStat(getWeapons(), "Attacks_Per_Second_Item_Bonus", "OFF"); 
 		double c = 0; //0.3 pour enchantersse
-		
-		System.out.println(n +" " + r +" " + i +" " + s +" " +o +" " + u +" " + f + " " + l);
-		
 		
 		if(countweapon==1)
 			n = e * (i * o + c + f + r);
 		else 
 			n = 1 / (i * o + c + f + l + r) + 1 / (s * u + c + f + l + r);
-			
 		return n;
 	}
 	
