@@ -79,6 +79,7 @@ public class LocaleManagerFrame extends javax.swing.JFrame {
 				getContentPane().add(lblMessage);
 				lblMessage.setName("lblMessage");
 			}
+			setLocationRelativeTo(null);
 			pack();
 			this.setSize(432, 112);
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());

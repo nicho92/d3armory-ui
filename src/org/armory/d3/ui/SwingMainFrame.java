@@ -244,15 +244,21 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					}
 				}
 				{
-					jMenu5 = new JMenu();
+					jMenu5 = new JMenu("?");
 					jMenuBar1.add(jMenu5);
-					;
 					jMenu5.setName("jMenu5");
 					{
-						helpMenuItem = new JMenuItem();
+						helpMenuItem = new JMenuItem("About");
 						jMenu5.add(helpMenuItem);
 						;
 						helpMenuItem.setName("helpMenuItem");
+						helpMenuItem.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+									AboutFrame f = new AboutFrame();
+									f.setVisible(true);
+									f.setLocationRelativeTo(null);
+							}
+						});
 					}
 				}
 			}
@@ -479,7 +485,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						
 		panneauDessinHero.getLblInfoHero().setHtmlText(temp.toString(), "#5869D7","#BDA6CD");
 
-		
+		//TODO BETA
+		System.out.println(D3ArmoryControler.getInstance().getInstance().getCalculator().calculateUnbuffedDPS());
 		
 	}
 	
