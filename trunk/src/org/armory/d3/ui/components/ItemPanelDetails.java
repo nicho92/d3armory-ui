@@ -219,7 +219,9 @@ public class ItemPanelDetails extends JPanel {
 		
 
 		}
-		catch(NullPointerException e){e.printStackTrace();}
+		catch(NullPointerException e){
+			//e.printStackTrace();
+			}
 		
 	}
 	private void updateSocketLabel() {

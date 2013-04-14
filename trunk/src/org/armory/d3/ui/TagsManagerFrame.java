@@ -107,6 +107,7 @@ public class TagsManagerFrame extends javax.swing.JFrame {
 					});
 				}
 			}
+			setLocationRelativeTo(null);
 			pack();
 			this.setSize(354, 134);
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

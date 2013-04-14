@@ -329,7 +329,8 @@ public class StuffCalculator {
 			System.out.println("OH Weapon Damage " + hitDmgOFF);
 	
 		
-		double dps=getElemDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
+		double dps=getDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
+		System.out.println("ELEM " + getElemDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0));
 		return dps;
 	}
 
