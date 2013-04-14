@@ -337,8 +337,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		
 
 		Item mainHand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getMainHand());
-		if(mainHand!=null)
-			mainHand.setMainHand(true);
+	
 		Item offhand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getOffHand());
 		lblMainHand.setItem(mainHand);
 		lblSocketMainHand.setItem(mainHand,0);
