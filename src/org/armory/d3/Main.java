@@ -20,8 +20,8 @@ public class Main {
 	
 	public static void main(String[] args) throws Exception  {
 		Configuration conf = new Configuration();
-					  conf.setBattleTag("nicho92");
-					  conf.setBattleTagCode(new Long(2603));
+					  conf.setBattleTag("djae");
+					  conf.setBattleTagCode(new Long(2225));
 					  conf.setHost("eu.battle.net");
 					  conf.setLocal("fr_FR");
 					  
@@ -32,7 +32,7 @@ public class Main {
 		Profile profile = profileService.receiveEntity(conf);
 		
 			
-			Hero hero = profile.getHeroes().get(1);
+			Hero hero = profile.getHeroes().get(0);
 				 conf.setHeroId(hero.getId());
 				 D3ArmoryControler.getInstance().setConf(conf);
 				 
@@ -73,7 +73,7 @@ public class Main {
 											  stuffs.put(EnumerationStuff.FEET, foot);
 					  
 					StuffCalculator calculator = new StuffCalculator(stuffs,hero);
-					calculator.calculateUnbuffedDPS();
+					System.out.println("DPS UNBUFFED = " + calculator.calculateUnbuffedDPS());
 					
 						
 					

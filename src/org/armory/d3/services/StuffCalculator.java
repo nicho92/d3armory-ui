@@ -262,6 +262,7 @@ public class StuffCalculator {
 	{
 		double bonusDual=(countweapon==2)?0.15:0;
 		double chance_cc=0.05+getStat("Crit_Percent", null);
+		
 		double degat_cc=0.5+getStat("Crit_Damage", null);
 		double stat_base=hero.getBaseStatPrimary()+getStat( hero.getPrimaryStat(),null);
 		
@@ -313,7 +314,7 @@ public class StuffCalculator {
 			hitDmg=hitDmgMAIN;
 		
 		
-		
+		System.out.println(hero.getPrimaryStat() +" " + stat_base);
 		System.out.println("+% Attack Speed : " + bonusArmor*100 +"%");
 		System.out.println("Attack Speed MH "  + attackSpeedMain);
 		
@@ -328,12 +329,7 @@ public class StuffCalculator {
 			System.out.println("OH Weapon Damage " + hitDmgOFF);
 	
 		
-		double dps=getDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
-		
-		System.out.println(getAvgDamage(EnumerationStuff.MAIN_HAND, stat_base, chance_cc, degat_cc, minMaxDmg, 0));
-		System.out.println(dps);
-		
-		
+		double dps=getElemDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
 		return dps;
 	}
 
@@ -356,15 +352,50 @@ public class StuffCalculator {
 	  	return u*a*f*(1+s);
 	}
 	
+	private double getElemDamage(double stat_base, double chance_cc,double ccDamage, double bonusAS, double minMaxDmg, int s)
+	{
+			double a = 0; 
+	    	double f = 1 + stat_base / 100; 
+	    	double l = tempspd(bonusAS); 
+	    	double c = tempdamageweaps(minMaxDmg);
+	    	double h = ccDamage; 
+	    	double p = chance_cc;
+	    	double d =getStat("Damage_Type_Percent_Bonus", null);
+	      	double damage_minM =stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne();
+			double damage_maxM =stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne();
+			
+			//System.out.println(a + " "+  f + " " + l + " " + c + " " + h + " " + p +" " + d);
+
+			if(countweapon<=1)
+	    	{
+				c += d * (damage_minM + damage_maxM + minMaxDmg) / 2; 
+				a = (1 + s) * f * (1 + h * p) * c * l;
+	    	}
+	    	else
+	    	{
+	        	double damage_minO =stuffs.get(EnumerationStuff.OFF_HAND).getMinDamage().getMoyenne();
+				double damage_maxO =stuffs.get(EnumerationStuff.OFF_HAND).getMaxDamage().getMoyenne();
+				bonusAS += .15;//dual
+	    		c += d * (damage_minM + damage_maxM + damage_minO + damage_maxO + 2 * minMaxDmg) / 2;
+	    	}
+	    	return a;	 
+	}
+	
+	
 	private double getDamage(double stat_base, double chance_cc,double ccDamage, double bonusAS, double minMaxDmg, int s) 
 	{	
 		
-		double u = 0; 
+			double u = 0; 
  	    	double a = 1 + stat_base / 100; 
  	    	double f = tempspd(bonusAS); 
  	    	double l = tempdamageweaps(minMaxDmg);
  	    	double c = ccDamage; 
  	    	double h = chance_cc;
+ 	    	
+ 	    System.out.println(a + " "+  f + " " + l + " " + c + " " + h );
+ 	    
+		
+ 	    	
  		if(countweapon<=1)
  		{
  			u = (1 + s) * a * (1 + c * h) * l * f;
@@ -379,14 +410,35 @@ public class StuffCalculator {
 	
 	private double tempdamageweaps(double minMaxDmg) {
 		double n=0;
+	
+		String elementM = stuffs.get(EnumerationStuff.MAIN_HAND).getEnchantedWeapon();
+		double mindmgM=stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne();
+		double maxdmgM=stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne();
+		
+		if(!elementM.equals(""))
+		{
+			mindmgM+=stuffs.get(EnumerationStuff.MAIN_HAND).getAttributesRaw().get("Damage_Weapon_Min#"+elementM).getMoyenne();
+			maxdmgM+=stuffs.get(EnumerationStuff.MAIN_HAND).getAttributesRaw().get("Damage_Weapon_Min#"+elementM).getMoyenne()+stuffs.get(EnumerationStuff.MAIN_HAND).getAttributesRaw().get("Damage_Weapon_Delta#"+elementM).getMoyenne();
+		}
+		
 		if(countweapon==1)
 		{
-			n = minMaxDmg + stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne() + stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne();
+			n = minMaxDmg + mindmgM + maxdmgM;
 			n/=2;
 		}
 		else
 		{
-			n = (2 * minMaxDmg + stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne() + stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne() +stuffs.get(EnumerationStuff.OFF_HAND).getMaxDamage().getMoyenne() + stuffs.get(EnumerationStuff.OFF_HAND).getMinDamage().getMoyenne())/ 2;
+			String elementO = stuffs.get(EnumerationStuff.OFF_HAND).getEnchantedWeapon();
+			double mindmgO=stuffs.get(EnumerationStuff.OFF_HAND).getMinDamage().getMoyenne();
+			double maxdmgO=stuffs.get(EnumerationStuff.OFF_HAND).getMaxDamage().getMoyenne();
+			
+			if(!elementO.equals(""))
+			{
+				mindmgO+=stuffs.get(EnumerationStuff.OFF_HAND).getAttributesRaw().get("Damage_Weapon_Min#"+elementM).getMoyenne();
+				maxdmgO+=stuffs.get(EnumerationStuff.OFF_HAND).getAttributesRaw().get("Damage_Weapon_Min#"+elementM).getMoyenne()+stuffs.get(EnumerationStuff.OFF_HAND).getAttributesRaw().get("Damage_Weapon_Delta#"+elementM).getMoyenne();
+			}
+			
+			n = (2 * minMaxDmg + mindmgM + maxdmgM +mindmgO + maxdmgO)/ 2;
 		}
 		
 		return n;
