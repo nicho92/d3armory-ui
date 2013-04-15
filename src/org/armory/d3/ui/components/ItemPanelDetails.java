@@ -23,7 +23,6 @@ import org.armory.d3.beans.Item;
 import org.armory.d3.beans.LegendarySet;
 import org.armory.d3.beans.Ranks;
 import org.armory.d3.services.D3ArmoryControler;
-import org.jdesktop.application.Application;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -74,8 +73,7 @@ public class ItemPanelDetails extends JPanel {
 		
 		this.setBackground(Color.BLACK);
 		
-		Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
-	}
+		}
 	
 	
 

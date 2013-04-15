@@ -342,26 +342,15 @@ public class StuffCalculator {
 		return min+max;
 	}
 
-	private double getAvgDamage(EnumerationStuff mainoff,double statbase,double ccc,double degatcc,double i,double s)
-	{
-		double u=1+statbase/100;
-	  	double a=1+ccc*degatcc;
-	  	double f=0;
-	  	double damage_min =stuffs.get(mainoff).getMinDamage().getMoyenne();
-		double damage_max =stuffs.get(mainoff).getMaxDamage().getMoyenne();
-			f=i/2+(damage_min+damage_max)/2;
-	  	return u*a*f*(1+s);
-	}
-	
 	private double getElemDamage(double stat_base, double chance_cc,double ccDamage, double bonusAS, double minMaxDmg, int s)
 	{
-			double a = 0; 
-	    	double f = 1 + stat_base / 100; 
-	    	double l = tempspd(bonusAS); 
-	    	double c = tempdamageweaps(minMaxDmg);
-	    	double h = ccDamage; 
-	    	double p = chance_cc;
-	    	double d =getStat("Damage_Type_Percent_Bonus", null);
+			double damage = 0; 
+	    	double statBase = 1 + stat_base / 100; 
+	    	double vitesseMoyenne = vitesseMoyenne(bonusAS,0); 
+	    	double dommageMoyen = dommageMoyen(minMaxDmg);
+	    	double critDamage = ccDamage; 
+	    	double chanceCrit = chance_cc;
+	    	double elementalDamage=getStat("Damage_Type_Percent_Bonus", null);
 	      	double damage_minM =stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne();
 			double damage_maxM =stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne();
 			
@@ -369,47 +358,44 @@ public class StuffCalculator {
 
 			if(countweapon<=1)
 	    	{
-				c += d * (damage_minM + damage_maxM + minMaxDmg) / 2; 
-				a = (1 + s) * f * (1 + h * p) * c * l;
+				dommageMoyen += elementalDamage * (damage_minM + damage_maxM + minMaxDmg) / 2; 
+				damage = (1 + s) * statBase * (1 + critDamage * chanceCrit) * dommageMoyen * vitesseMoyenne;
 	    	}
 	    	else
 	    	{
 	        	double damage_minO =stuffs.get(EnumerationStuff.OFF_HAND).getMinDamage().getMoyenne();
 				double damage_maxO =stuffs.get(EnumerationStuff.OFF_HAND).getMaxDamage().getMoyenne();
 				bonusAS += .15;//dual
-	    		c += d * (damage_minM + damage_maxM + damage_minO + damage_maxO + 2 * minMaxDmg) / 2;
+	    		dommageMoyen += elementalDamage * (damage_minM + damage_maxM + damage_minO + damage_maxO + 2 * minMaxDmg) / 2;
 	    	}
-	    	return a;	 
+	    	return damage;	 
 	}
-	
 	
 	private double getDamage(double stat_base, double chance_cc,double ccDamage, double bonusAS, double minMaxDmg, int s) 
 	{	
 		
-			double u = 0; 
- 	    	double a = 1 + stat_base / 100; 
- 	    	double f = tempspd(bonusAS); 
- 	    	double l = tempdamageweaps(minMaxDmg);
- 	    	double c = ccDamage; 
- 	    	double h = chance_cc;
+			double damage = 0; 
+ 	    	double statBase = 1 + stat_base / 100; 
+ 	    	double vitesseMoyenne = vitesseMoyenne(bonusAS,0); 
+ 	    	double dommageMoyen = dommageMoyen(minMaxDmg);
+ 	    	double critDamage = ccDamage; 
+ 	    	double chanceCrit = chance_cc;
  	    	
- 	    System.out.println(a + " "+  f + " " + l + " " + c + " " + h );
+ 	    //System.out.println(a + " "+  f + " " + l + " " + c + " " + h );
  	    
-		
- 	    	
- 		if(countweapon<=1)
+		if(countweapon<=1)
  		{
- 			u = (1 + s) * a * (1 + c * h) * l * f;
+			damage = (1 + s) * statBase * (1 + critDamage * chanceCrit) * dommageMoyen * vitesseMoyenne;
  		}
  		else
  		{
  			bonusAS += .15;//dual
- 			u = (1 + s) * a * (1 + c * h) * bonusAS * l / f;
+ 			damage = (1 + s) * statBase * (1 + critDamage * chanceCrit) * bonusAS * dommageMoyen / vitesseMoyenne;
  		}
- 		return u;
+ 		return damage;
 	}
 	
-	private double tempdamageweaps(double minMaxDmg) {
+	private double dommageMoyen(double minMaxDmg) {
 		double n=0;
 	
 		String elementM = stuffs.get(EnumerationStuff.MAIN_HAND).getEnchantedWeapon();
@@ -445,30 +431,31 @@ public class StuffCalculator {
 		return n;
 	}
 
-	private double tempspd(double e)
+	private double vitesseMoyenne(double bonusAS,double enchanteresseBonus)
 	{
 
 		double n = 0; 
-		double r = 0; 
-		double i = weaponDefaultAS.get(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId()); 
-		double s = 0;
+		double armorASBonus = 0; 
+		double defaultMHas = weaponDefaultAS.get(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId()); 
+		double defaultOHas = 0;
 		if(countweapon==2)
-			s=weaponDefaultAS.get(stuffs.get(EnumerationStuff.OFF_HAND).getType().getId());;
+			defaultOHas=weaponDefaultAS.get(stuffs.get(EnumerationStuff.OFF_HAND).getType().getId());;
 		
-		double o = 1 + getStat(stuffs.get(EnumerationStuff.MAIN_HAND), "Attacks_Per_Second_Item_Percent", null);
-		double u = 1;
+		double bonusMHas = 1 + getStat(stuffs.get(EnumerationStuff.MAIN_HAND), "Attacks_Per_Second_Item_Percent", null);
+		double bonusOHas = 1;
 		if(countweapon==2)
-			u=1 + getStat(stuffs.get(EnumerationStuff.OFF_HAND), "Attacks_Per_Second_Item_Percent", null); //augmente la vitesse d'attaque de XX% sur la OH
+			bonusOHas=1 + getStat(stuffs.get(EnumerationStuff.OFF_HAND), "Attacks_Per_Second_Item_Percent", null); //augmente la vitesse d'attaque de XX% sur la OH
 		
-		r=getStat(getArmor(), "Attacks_Per_Second_Item_Percent", null);//0.
-		double f = getStat(getWeapons(), "Attacks_Per_Second_Item_Bonus", null); 
-		double l= getStat(getWeapons(), "Attacks_Per_Second_Item_Bonus", "OFF"); 
-		double c = 0; //0.3 pour enchantersse
+		armorASBonus=getStat(getArmor(), "Attacks_Per_Second_Item_Percent", null);//0.
+		double weaponASBonus = getStat(getWeapons(), "Attacks_Per_Second_Item_Bonus", null); 
+		double Attacks_Per_Second_Item_Bonus= getStat(getWeapons(), "Attacks_Per_Second_Item_Bonus", "OFF"); 
 		
+			
 		if(countweapon==1)
-			n = e * (i * o + c + f + r);
+			n = bonusAS * (defaultMHas * bonusMHas + enchanteresseBonus + weaponASBonus + armorASBonus);
 		else 
-			n = 1 / (i * o + c + f + l + r) + 1 / (s * u + c + f + l + r);
+			n = 1 / (defaultMHas * bonusMHas + enchanteresseBonus + weaponASBonus + Attacks_Per_Second_Item_Bonus + armorASBonus) + 1 / (defaultOHas * bonusOHas + enchanteresseBonus + weaponASBonus + Attacks_Per_Second_Item_Bonus + armorASBonus);
+		
 		return n;
 	}
 	
