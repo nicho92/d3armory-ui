@@ -357,8 +357,6 @@ public class StuffCalculator {
 	      	double damage_minM =stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne();
 			double damage_maxM =stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne();
 			
-			//System.out.println(a + " "+  f + " " + l + " " + c + " " + h + " " + p +" " + d);
-
 			if(countweapon<=1)
 	    	{
 				dommageMoyen += elementalDamage * (damage_minM + damage_maxM + minMaxDmg) / 2; 
@@ -384,9 +382,7 @@ public class StuffCalculator {
  	    	double critDamage = ccDamage; 
  	    	double chanceCrit = chance_cc;
  	    	
- 	    //System.out.println(a + " "+  f + " " + l + " " + c + " " + h );
- 	    
-		if(countweapon<=1)
+ 		if(countweapon<=1)
  		{
 			damage = (1 + s) * statBase * (1 + critDamage * chanceCrit) * dommageMoyen * vitesseMoyenne;
  		}
