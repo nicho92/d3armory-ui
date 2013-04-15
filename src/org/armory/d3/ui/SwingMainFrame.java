@@ -3,6 +3,7 @@ package org.armory.d3.ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.SplashScreen;
 import java.awt.event.ActionEvent;
@@ -139,7 +140,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SkillLabel labSkilL7;
 	private SkillLabel labSkilL8;
 	private SkillLabel labSkilL9;
-	private FormatedJLabel lblDetailDPS; 
 	private Hero hero;
 	
 	public ListeHeroModel getListeHerosModel() {
@@ -299,8 +299,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		return scrollFicheHeros;
 	}
 	
-	
-	
 	private void listeHerosMouseClicked(MouseEvent evt) throws D3ServerCommunicationException {
 		hero = (Hero)((JList) evt.getSource()).getSelectedValue();
 		D3ArmoryControler.getInstance().setSelectedHero(hero);
@@ -309,6 +307,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lblInformationClasseNiveau.setText(hero.getClazz() +" de niveau " + hero.getLevel());
 		lblParangonLevel.setText("("+hero.getParagonLevel()+")");
 		lblParangonLevel.setBounds(749, 20, 51, 16);
+		
+		getPanneauDetailDPS().removeAll();
 		getLblSkill1().setSkillRune(hero.getSkills().getActive().get(0));
 		getLblSkill2().setSkillRune(hero.getSkills().getActive().get(1));
 				
@@ -478,28 +478,64 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		else
 			lblHarcore.setText("");
 		
-		panneauDessinHero.repaint();	
-		getLabelDetailDPS().setHtmlText(getDetailHeroDPS(), "white","#BDA6CD");
+		panneauDessinHero.repaint();
+		
+		FormatedJLabel lbl1 = new FormatedJLabel();
+		lbl1.setHtmlText(getDetailHeroDPS(0), "white","#BDA6CD");
+		getPanneauDetailDPS().add(lbl1);
+		
+		FormatedJLabel lbl2 = new FormatedJLabel();
+		lbl2.setHtmlText(getDetailHeroDPS(1), "white","#BDA6CD");
+		getPanneauDetailDPS().add(lbl2);
+		
+		FormatedJLabel lbl3 = new FormatedJLabel();
+		lbl3.setHtmlText(getDetailHeroDPS(2), "white","#BDA6CD");
+		getPanneauDetailDPS().add(lbl3);
+		
+		FormatedJLabel lbl4 = new FormatedJLabel();
+		lbl4.setHtmlText(getDetailHeroDPS(3), "white","#BDA6CD");
+		getPanneauDetailDPS().add(lbl4);
 	
 	}
 	
-	private String getDetailHeroDPS() {
+	private String getDetailHeroDPS(int val) {
 		StringBuffer temp = new StringBuffer();
-		temp.append("DPS : " + hero.getStats().getDamage() +" <br/>");				
-		temp.append("Strength : " + hero.getStats().getStrength() +" <br/>");
-		temp.append("Intel : " + hero.getStats().getIntelligence() +" <br/>");
-		temp.append("Dex : " + hero.getStats().getDexterity() +" <br/>");
-		temp.append("Vita : " + hero.getStats().getVitality() +" <br/>");
-		temp.append("Armor : " + hero.getStats().getArmor() +" <br/>");
-		temp.append("Life : " + hero.getStats().getLife() +" <br/>");
-		temp.append("-----------------------<br/>");
-		temp.append("Physical Resist : " + hero.getStats().getPhysicalResist() +" <br/>");
-		temp.append("Arcan Resist : " + hero.getStats().getArcaneResist() +" <br/>");
-		temp.append("Cold Resist : " + hero.getStats().getColdResist() +" <br/>");
-		temp.append("Light Resist : " + hero.getStats().getLightningResist() +" <br/>");
-		temp.append("Fire Resist : " + hero.getStats().getFireResist() +" <br/>");
-		temp.append("Poison Resist : " + hero.getStats().getPoisonResist() +" <br/>");
 		
+		if(val==0){
+			//temp.append("DPS : " + hero.getStats().getDamage() +" <br/>");				
+			temp.append("Strength : " + hero.getStats().getStrength() +" <br/>");
+			temp.append("Intel : " + hero.getStats().getIntelligence() +" <br/>");
+			temp.append("Dex : " + hero.getStats().getDexterity() +" <br/>");
+			temp.append("Vita : " + hero.getStats().getVitality() +" <br/>");
+			temp.append("Armor : " + hero.getStats().getArmor() +" <br/>");
+			temp.append("Life : " + hero.getStats().getLife() +" <br/>");
+		}
+		
+		if(val==2)
+		{
+			
+			temp.append("Physical Resist : " + hero.getStats().getPhysicalResist() +" <br/>");
+			temp.append("Arcan Resist : " + hero.getStats().getArcaneResist() +" <br/>");
+			temp.append("Cold Resist : " + hero.getStats().getColdResist() +" <br/>");
+			temp.append("Light Resist : " + hero.getStats().getLightningResist() +" <br/>");
+			temp.append("Fire Resist : " + hero.getStats().getFireResist() +" <br/>");
+			temp.append("Poison Resist : " + hero.getStats().getPoisonResist() +" <br/>");
+		}
+		
+		if(val==3)
+		{
+			temp.append("Blocage : " + hero.getStats().getBlockChance() +" <br/>");
+			temp.append("Blocage Min : " + hero.getStats().getBlockAmountMin() +" <br/>");
+			temp.append("Blocage Max : " + hero.getStats().getBlockAmountMax() +" <br/>");
+			temp.append("Magic Find : " + hero.getStats().getMagicFind() +" <br/>");
+			temp.append("Gold Find : " + hero.getStats().getGoldFind() +" <br/>");			
+		}
+		
+		
+		if(val==4)
+		{
+			
+		}
 		return temp.toString();
 
 	}
@@ -1071,19 +1107,13 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(panneauDetailDPS == null) {
 			panneauDetailDPS = new JPanel();
 			panneauDetailDPS.setBackground(Color.black);
-			panneauDetailDPS.add(getLabelDetailDPS());
+			panneauDetailDPS.setLayout(new FlowLayout());
+			
 			
 		}
 		return panneauDetailDPS;
 	}
 	
-	private FormatedJLabel getLabelDetailDPS(){
-		if(lblDetailDPS==null){
-			lblDetailDPS=new FormatedJLabel();
-			lblDetailDPS.setForeground(Color.white); 
-		}
-		return lblDetailDPS;
-	}
 	
 
 }
