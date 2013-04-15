@@ -4,7 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.SplashScreen;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -510,7 +512,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			temp.append("Armor : " + hero.getStats().getArmor() +" <br/>");
 			temp.append("Life : " + hero.getStats().getLife() +" <br/>");
 		}
-		
 		if(val==1)
 		{
 			
@@ -521,34 +522,27 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			temp.append("Fire Resist : " + hero.getStats().getFireResist() +" <br/>");
 			temp.append("Poison Resist : " + hero.getStats().getPoisonResist() +" <br/>");
 		}
-		
 		if(val==2)
 		{
-			temp.append("Blocage : " + hero.getStats().getBlockChance() +" <br/>");
+			temp.append("Blocage : " + hero.getStats().getBlockChance()*100 +"% <br/>");
 			temp.append("Blocage Min : " + hero.getStats().getBlockAmountMin() +" <br/>");
 			temp.append("Blocage Max : " + hero.getStats().getBlockAmountMax() +" <br/>");
-			temp.append("Damage Reduc: " + hero.getStats().getDamageReduction() +" <br/>");
-			temp.append("Magic Find : " + hero.getStats().getMagicFind() +" <br/>");
-			temp.append("Gold Find : " + hero.getStats().getGoldFind() +" <br/>");
+			temp.append("Damage Reduc: " + hero.getStats().getDamageReduction()*100 +"% <br/>");
+			temp.append("Magic Find : " + hero.getStats().getMagicFind()*100 +"% <br/>");
+			temp.append("Gold Find : " + hero.getStats().getGoldFind()*100 +"% <br/>");
 		}
-		
-		
 		if(val==3)
 		{
 			temp.append("DPS : " + hero.getStats().getDamage() +" <br/>");
-			temp.append("Chance Crit : " + hero.getStats().getCritChance() +" <br/>");
-			temp.append("Crit Damage : " + hero.getStats().getCritDamage() +" <br/>");
-			temp.append("Damage Increase : " + hero.getStats().getDamageIncrease() +" <br/>");
+			temp.append("Chance Crit : " + hero.getStats().getCritChance()*100 +"% <br/>");
+			temp.append("Crit Damage : " + hero.getStats().getCritDamage()*100 +"% <br/>");
+			temp.append("Damage Increase : " + hero.getStats().getDamageIncrease()*100 +"% <br/>");
 			
 			temp.append("Life on hit : " + hero.getStats().getLifeOnHit() +" <br/>");
 			temp.append("Life per Kill : " + hero.getStats().getLifePerKill() +" <br/>");
-			temp.append("Life Steal : " + hero.getStats().getLifeSteal() +" <br/>");
-			
-			
-			
-			
-			
+			temp.append("Life Steal : " + hero.getStats().getLifeSteal()*100 +"% <br/>");
 		}
+		
 		return temp.toString();
 
 	}
@@ -1118,7 +1112,15 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private JPanel getPanneauDetailDPS() {
 		if(panneauDetailDPS == null) {
-			panneauDetailDPS = new JPanel();
+			panneauDetailDPS = new JPanel() {
+				
+				protected void paintComponent(Graphics g) {
+					super.paintComponent(g);
+					Image bg = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/bottom.jpg")).getImage();
+					g.drawImage(bg,0,0,null);
+
+				}
+			};
 			panneauDetailDPS.setBackground(Color.black);
 			panneauDetailDPS.setLayout(new FlowLayout());
 			
