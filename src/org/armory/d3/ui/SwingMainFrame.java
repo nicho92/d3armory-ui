@@ -38,6 +38,7 @@ import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.Item;
 import org.armory.d3.beans.Profile;
 import org.armory.d3.services.D3ArmoryControler;
+import org.armory.d3.ui.components.FormatedJLabel;
 import org.armory.d3.ui.components.HeroCellRenderer;
 import org.armory.d3.ui.components.HeroPanel;
 import org.armory.d3.ui.components.ItemLabel;
@@ -138,7 +139,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SkillLabel labSkilL7;
 	private SkillLabel labSkilL8;
 	private SkillLabel labSkilL9;
-	private JLabel lblDetailDPS; 
+	private FormatedJLabel lblDetailDPS; 
+	private Hero hero;
 	
 	public ListeHeroModel getListeHerosModel() {
 		return listeHerosModel;
@@ -300,7 +302,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	
 	private void listeHerosMouseClicked(MouseEvent evt) throws D3ServerCommunicationException {
-		Hero hero = (Hero)((JList) evt.getSource()).getSelectedValue();
+		hero = (Hero)((JList) evt.getSource()).getSelectedValue();
 		D3ArmoryControler.getInstance().setSelectedHero(hero);
 		hero=D3ArmoryControler.getInstance().getHeroDetails(hero);
 		lblNom.setText(hero.getName());
@@ -476,33 +478,33 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		else
 			lblHarcore.setText("");
 		
-		
-		
 		panneauDessinHero.repaint();	
-		StringBuffer temp = new StringBuffer();
-						temp.append("DPS : " + hero.getStats().getDamage() +" <br/>");				
-						temp.append("Strength : " + hero.getStats().getStrength() +" <br/>");
-						temp.append("Intel : " + hero.getStats().getIntelligence() +" <br/>");
-						temp.append("Dex : " + hero.getStats().getDexterity() +" <br/>");
-						temp.append("Vita : " + hero.getStats().getVitality() +" <br/>");
-						temp.append("Armor : " + hero.getStats().getArmor() +" <br/>");
-						temp.append("Life : " + hero.getStats().getLife() +" <br/>");
-						temp.append("-----------------------<br/>");
-						temp.append("Physical Resist : " + hero.getStats().getPhysicalResist() +" <br/>");
-						temp.append("Arcan Resist : " + hero.getStats().getArcaneResist() +" <br/>");
-						temp.append("Cold Resist : " + hero.getStats().getColdResist() +" <br/>");
-						temp.append("Light Resist : " + hero.getStats().getLightningResist() +" <br/>");
-						temp.append("Fire Resist : " + hero.getStats().getFireResist() +" <br/>");
-						temp.append("Poison Resist : " + hero.getStats().getPoisonResist() +" <br/>");
-						
-						
-		panneauDessinHero.getLblInfoHero().setHtmlText(temp.toString(), "#5869D7","#BDA6CD");
-
-		//TODO BETA
-		System.out.println(D3ArmoryControler.getInstance().getInstance().getCalculator().calculateUnbuffedDPS());
-		
+		getLabelDetailDPS().setHtmlText(getDetailHeroDPS(), "white","#BDA6CD");
+	
 	}
 	
+	private String getDetailHeroDPS() {
+		StringBuffer temp = new StringBuffer();
+		temp.append("DPS : " + hero.getStats().getDamage() +" <br/>");				
+		temp.append("Strength : " + hero.getStats().getStrength() +" <br/>");
+		temp.append("Intel : " + hero.getStats().getIntelligence() +" <br/>");
+		temp.append("Dex : " + hero.getStats().getDexterity() +" <br/>");
+		temp.append("Vita : " + hero.getStats().getVitality() +" <br/>");
+		temp.append("Armor : " + hero.getStats().getArmor() +" <br/>");
+		temp.append("Life : " + hero.getStats().getLife() +" <br/>");
+		temp.append("-----------------------<br/>");
+		temp.append("Physical Resist : " + hero.getStats().getPhysicalResist() +" <br/>");
+		temp.append("Arcan Resist : " + hero.getStats().getArcaneResist() +" <br/>");
+		temp.append("Cold Resist : " + hero.getStats().getColdResist() +" <br/>");
+		temp.append("Light Resist : " + hero.getStats().getLightningResist() +" <br/>");
+		temp.append("Fire Resist : " + hero.getStats().getFireResist() +" <br/>");
+		temp.append("Poison Resist : " + hero.getStats().getPoisonResist() +" <br/>");
+		
+		return temp.toString();
+
+	}
+
+
 	private void listeTagMouseClicked(MouseEvent evt) {
 		String selected_row = ((JList) evt.getSource()).getSelectedValue().toString();
 		String[] parser = selected_row.split("#");
@@ -1075,9 +1077,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		return panneauDetailDPS;
 	}
 	
-	private JLabel getLabelDetailDPS(){
+	private FormatedJLabel getLabelDetailDPS(){
 		if(lblDetailDPS==null){
-			lblDetailDPS=new JLabel();
+			lblDetailDPS=new FormatedJLabel();
 			lblDetailDPS.setForeground(Color.white); 
 		}
 		return lblDetailDPS;

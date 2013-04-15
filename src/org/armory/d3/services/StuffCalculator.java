@@ -47,7 +47,7 @@ public class StuffCalculator {
 		return bonusItem;
 	}
 	
-	public void init()
+	private void init()
 	{
 		bonusItem = new HashMap<>();
 			weaponDefaultAS=new HashMap<String,Double>();
@@ -257,7 +257,6 @@ public class StuffCalculator {
 		return total;	
 		}
 	
-	
 	public double calculateUnbuffedDPS()
 	{
 		double bonusDual=(countweapon==2)?0.15:0;
@@ -330,8 +329,12 @@ public class StuffCalculator {
 	
 		
 		double dps=getDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
-		System.out.println("ELEM " + getElemDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0));
-		return dps;
+		double elementdps = getElemDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
+		
+		if(dps>=elementdps)
+			return dps;
+		else
+			return elementdps;
 	}
 
 	private double tempDamage() {

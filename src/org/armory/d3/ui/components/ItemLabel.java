@@ -98,7 +98,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 			if(item != null)
 			{
 				switch (item.getDisplayColor()) {
-					case "orange":return new LineBorder(Color.orange, 1, true);
+					case "orange":return new LineBorder(new Color(223,116,1), 1, true);
 					case "yellow":return new LineBorder(Color.yellow, 1, true);
 					case "green":return new LineBorder(Color.green, 1, true);
 					case "blue":return new LineBorder(new Color(30,144,255), 1, true);

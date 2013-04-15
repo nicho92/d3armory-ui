@@ -67,35 +67,15 @@ public class HeroPanel extends JPanel {
 		// g.drawImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/inventory-lines.png")).getImage(),462,167,null);
 	}
 	
-	public FormatedJLabel getLblInfoHero() {
-		if(lblInfoHero==null)
-		{
-			lblInfoHero=new FormatedJLabel();
-			lblInfoHero.setName("lblInfoHero");
-			lblInfoHero.setFont(new Font("Palatino Linotype", Font.BOLD, 18));
-			lblInfoHero.setBounds(794, 43, 194, 475);
-		}
-		return lblInfoHero;
-	}
-
-	public void setLblInfoHero(FormatedJLabel lblInfoHero) {
-	}
-
-	
+		
 	public HeroPanel()
 	{
 		this.setLayout(null);
 		this.setPreferredSize(new java.awt.Dimension(1055, 556));
-		{
-			
-			this.add(getLblInfoHero());
-		}
-	
 	}
 	
 	
 	private String imagePath;
 
-	private FormatedJLabel lblInfoHero;
-
+	
 }
