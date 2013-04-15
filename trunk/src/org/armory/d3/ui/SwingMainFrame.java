@@ -540,6 +540,13 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			temp.append("Crit Damage : " + hero.getStats().getCritDamage() +" <br/>");
 			temp.append("Damage Increase : " + hero.getStats().getDamageIncrease() +" <br/>");
 			
+			temp.append("Life on hit : " + hero.getStats().getLifeOnHit() +" <br/>");
+			temp.append("Life per Kill : " + hero.getStats().getLifePerKill() +" <br/>");
+			temp.append("Life Steal : " + hero.getStats().getLifeSteal() +" <br/>");
+			
+			
+			
+			
 			
 		}
 		return temp.toString();
