@@ -26,6 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
@@ -73,6 +74,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JSplitPane splitPanneauFicheHero;
 	private ItemLabel lblTorso;
 	private SocketLabel lblSocketMainHand;
+	private JPanel panneauDetailDPS;
+	private JTabbedPane ongletPane;
 	private JTextField txtFiltrage;
 	private JPanel panneauTableau;
 	private JTable tableauDetails;
@@ -134,7 +137,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SkillLabel labSkilL6;
 	private SkillLabel labSkilL7;
 	private SkillLabel labSkilL8;
-	private SkillLabel labSkilL9; 
+	private SkillLabel labSkilL9;
+	private JLabel lblDetailDPS; 
 	
 	public ListeHeroModel getListeHerosModel() {
 		return listeHerosModel;
@@ -482,6 +486,15 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						temp.append("Dex : " + hero.getStats().getDexterity() +" <br/>");
 						temp.append("Vita : " + hero.getStats().getVitality() +" <br/>");
 						temp.append("Armor : " + hero.getStats().getArmor() +" <br/>");
+						temp.append("Life : " + hero.getStats().getLife() +" <br/>");
+						temp.append("-----------------------<br/>");
+						temp.append("Physical Resist : " + hero.getStats().getPhysicalResist() +" <br/>");
+						temp.append("Arcan Resist : " + hero.getStats().getArcaneResist() +" <br/>");
+						temp.append("Cold Resist : " + hero.getStats().getColdResist() +" <br/>");
+						temp.append("Light Resist : " + hero.getStats().getLightningResist() +" <br/>");
+						temp.append("Fire Resist : " + hero.getStats().getFireResist() +" <br/>");
+						temp.append("Poison Resist : " + hero.getStats().getPoisonResist() +" <br/>");
+						
 						
 		panneauDessinHero.getLblInfoHero().setHtmlText(temp.toString(), "#5869D7","#BDA6CD");
 
@@ -891,7 +904,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(panelItemDetails == null) {
 			panelItemDetails = new ItemPanelDetails();
 			panelItemDetails.setName("panelItemDetails");
-			panelItemDetails.setSize(360, 812);
+			//panelItemDetails.setSize(380, 812);
 			panelItemDetails.setLayout(null);
 			panelItemDetails.setPreferredSize(new java.awt.Dimension(0, 0));
 		}
@@ -904,13 +917,15 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			{
 				panneauDessinHero = new HeroPanel();
 				splitPanneauTableauHero.setOrientation(JSplitPane.VERTICAL_SPLIT);
-				splitPanneauTableauHero.add(getPanneauTableau(), JSplitPane.BOTTOM);
+				splitPanneauTableauHero.setPreferredSize(new java.awt.Dimension(980, 612));
+				splitPanneauTableauHero.setSize(980, 645);
 				splitPanneauTableauHero.add(panneauDessinHero, JSplitPane.TOP);
+				splitPanneauTableauHero.add(getOngletPane(), JSplitPane.BOTTOM);
 
 				panneauDessinHero.setLayout(null);
 				panneauDessinHero.setSize(994, 645);
-				panneauDessinHero.setPreferredSize(new java.awt.Dimension(993, 600));
 				panneauDessinHero.setName("panneauDessinHero");
+				panneauDessinHero.setPreferredSize(new java.awt.Dimension(1000, 645));
 				panneauDessinHero.add(getLblHead());
 				panneauDessinHero.add(getLblShoulders());
 				panneauDessinHero.add(getLblNeck());
@@ -973,7 +988,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JScrollPane getScrollTableau() {
 		if(scrollTableau == null) {
 			scrollTableau = new JScrollPane();
-			scrollTableau.setPreferredSize(new java.awt.Dimension(977, 202));
+			//scrollTableau.setPreferredSize(new java.awt.Dimension(977, 202));
 			scrollTableau.setName("scrollTableau");
 			scrollTableau.setViewportView(getTableauDetails());
 		}
@@ -1039,5 +1054,34 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		}
 		return txtFiltrage;
 	}
+	
+	private JTabbedPane getOngletPane() {
+		if(ongletPane == null) {
+			ongletPane = new JTabbedPane();
+			ongletPane.setPreferredSize(new java.awt.Dimension(0, 0));
+			ongletPane.addTab("DPS", null, getPanneauDetailDPS(), null);
+			ongletPane.addTab("Detail", null, getPanneauTableau(), null);
+		}
+		return ongletPane;
+	}
+	
+	private JPanel getPanneauDetailDPS() {
+		if(panneauDetailDPS == null) {
+			panneauDetailDPS = new JPanel();
+			panneauDetailDPS.setBackground(Color.black);
+			panneauDetailDPS.add(getLabelDetailDPS());
+			
+		}
+		return panneauDetailDPS;
+	}
+	
+	private JLabel getLabelDetailDPS(){
+		if(lblDetailDPS==null){
+			lblDetailDPS=new JLabel();
+			lblDetailDPS.setForeground(Color.white); 
+		}
+		return lblDetailDPS;
+	}
+	
 
 }

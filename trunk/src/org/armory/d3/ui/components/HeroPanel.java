@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 
 import org.armory.d3.beans.Hero;
 import org.armory.d3.services.D3ArmoryControler;
-import org.jdesktop.application.Application;
 
 import com.sdfteam.d3armory.service.remote.exception.D3ServerCommunicationException;
 
@@ -92,7 +91,6 @@ public class HeroPanel extends JPanel {
 			this.add(getLblInfoHero());
 		}
 	
-		Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
 	}
 	
 	
