@@ -511,7 +511,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			temp.append("Life : " + hero.getStats().getLife() +" <br/>");
 		}
 		
-		if(val==2)
+		if(val==1)
 		{
 			
 			temp.append("Physical Resist : " + hero.getStats().getPhysicalResist() +" <br/>");
@@ -522,18 +522,24 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			temp.append("Poison Resist : " + hero.getStats().getPoisonResist() +" <br/>");
 		}
 		
-		if(val==3)
+		if(val==2)
 		{
 			temp.append("Blocage : " + hero.getStats().getBlockChance() +" <br/>");
 			temp.append("Blocage Min : " + hero.getStats().getBlockAmountMin() +" <br/>");
 			temp.append("Blocage Max : " + hero.getStats().getBlockAmountMax() +" <br/>");
+			temp.append("Damage Reduc: " + hero.getStats().getDamageReduction() +" <br/>");
 			temp.append("Magic Find : " + hero.getStats().getMagicFind() +" <br/>");
-			temp.append("Gold Find : " + hero.getStats().getGoldFind() +" <br/>");			
+			temp.append("Gold Find : " + hero.getStats().getGoldFind() +" <br/>");
 		}
 		
 		
-		if(val==4)
+		if(val==3)
 		{
+			temp.append("DPS : " + hero.getStats().getDamage() +" <br/>");
+			temp.append("Chance Crit : " + hero.getStats().getCritChance() +" <br/>");
+			temp.append("Crit Damage : " + hero.getStats().getCritDamage() +" <br/>");
+			temp.append("Damage Increase : " + hero.getStats().getDamageIncrease() +" <br/>");
+			
 			
 		}
 		return temp.toString();
