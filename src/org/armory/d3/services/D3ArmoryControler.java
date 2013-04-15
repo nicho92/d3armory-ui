@@ -186,10 +186,6 @@ public class D3ArmoryControler {
 		
 	}
 
-
-
-
-	
 	public Item getSelectedItem() {
 		return selectedItem;
 	}

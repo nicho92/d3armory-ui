@@ -504,7 +504,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		StringBuffer temp = new StringBuffer();
 		
 		if(val==0){
-			//temp.append("DPS : " + hero.getStats().getDamage() +" <br/>");				
 			temp.append("Strength : " + hero.getStats().getStrength() +" <br/>");
 			temp.append("Intel : " + hero.getStats().getIntelligence() +" <br/>");
 			temp.append("Dex : " + hero.getStats().getDexterity() +" <br/>");
@@ -514,7 +513,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		}
 		if(val==1)
 		{
-			
 			temp.append("Physical Resist : " + hero.getStats().getPhysicalResist() +" <br/>");
 			temp.append("Arcan Resist : " + hero.getStats().getArcaneResist() +" <br/>");
 			temp.append("Cold Resist : " + hero.getStats().getColdResist() +" <br/>");
@@ -537,14 +535,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			temp.append("Chance Crit : " + hero.getStats().getCritChance()*100 +"% <br/>");
 			temp.append("Crit Damage : " + hero.getStats().getCritDamage()*100 +"% <br/>");
 			temp.append("Damage Increase : " + hero.getStats().getDamageIncrease()*100 +"% <br/>");
-			
 			temp.append("Life on hit : " + hero.getStats().getLifeOnHit() +" <br/>");
 			temp.append("Life per Kill : " + hero.getStats().getLifePerKill() +" <br/>");
 			temp.append("Life Steal : " + hero.getStats().getLifeSteal()*100 +"% <br/>");
 		}
-		
 		return temp.toString();
-
 	}
 
 
