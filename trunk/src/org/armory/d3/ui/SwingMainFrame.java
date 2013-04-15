@@ -1104,7 +1104,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(ongletPane == null) {
 			ongletPane = new JTabbedPane();
 			ongletPane.setPreferredSize(new java.awt.Dimension(0, 0));
-			ongletPane.addTab("DPS", null, getPanneauDetailDPS(), null);
+			ongletPane.addTab("Info", null, getPanneauDetailDPS(), null);
 			ongletPane.addTab("Detail", null, getPanneauTableau(), null);
 		}
 		return ongletPane;
