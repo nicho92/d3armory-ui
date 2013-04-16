@@ -20,14 +20,13 @@ public class Main {
 	
 	public static void main(String[] args) throws Exception  {
 		Configuration conf = new Configuration();
-					  conf.setBattleTag("djae");
-					  conf.setBattleTagCode(new Long(2225));
+					  conf.setBattleTag("nicho92");
+					  conf.setBattleTagCode(new Long(2603));
 					  conf.setHost("eu.battle.net");
 					  conf.setLocal("fr_FR");
 					  
 		RemoteService<Profile> profileService = new SpringRemoteService(Profile.class);
 		RemoteService<Hero> heroService = new SpringRemoteService(Hero.class);
-//		RemoteService<Item> itemService = new SpringRemoteService(Item.class);
 		
 		Profile profile = profileService.receiveEntity(conf);
 		
@@ -73,12 +72,7 @@ public class Main {
 											  stuffs.put(EnumerationStuff.FEET, foot);
 					  
 					StuffCalculator calculator = new StuffCalculator(stuffs,hero);
+					
 					System.out.println("DPS UNBUFFED = " + calculator.calculateUnbuffedDPS());
-					
-						
-					
-					
-						
-				 		
 		}
 }

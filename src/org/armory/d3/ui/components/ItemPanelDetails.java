@@ -52,8 +52,14 @@ public class ItemPanelDetails extends JPanel {
 	private SocketLabel lblSock1;
 	private SocketLabel lblSock2;
 	private SocketLabel lblSock3;
+	private boolean flavEnable=true;
 	
-	
+	public void setFlavEnable(boolean flavEnable) {
+		this.flavEnable = flavEnable;
+	}
+
+
+
 	public ItemPanelDetails()
 	{
 		this.setLayout(null);
@@ -90,7 +96,6 @@ public class ItemPanelDetails extends JPanel {
 			
 			
 			 if(item.isArmor())
-		 
 			 {
 				 g2d.drawImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/armor.jpg")).getImage(), 100, 85, null);
 			 }
@@ -104,18 +109,21 @@ public class ItemPanelDetails extends JPanel {
 	
 	public void showItem(Item item) {
 		try{
-			this.item=item;
+			
+		this.item=item;
 		getLblNomItem().setText(item.getName());
 		getLblNomItem().setForeground(ItemLabel.toColor(item.getDisplayColor()));
 		getLblNomItem().setFont(new Font("Palatino Linotype", Font.BOLD, 18));
 		resizeFont(getLblNomItem(),Font.BOLD);
 		
-		getLblTextItem().setForeground(new Color(138,75,8));
-		getLblTextItem().setBorder(new LineBorder(new Color(138,75,8)));
-		getLblTextItem().setFont(new Font("Palatino Linotype", Font.ITALIC, 16));
-		getLblTextItem().setBounds(0, this.getHeight()-100, getLblTextItem().getParent().getWidth() , 100);
-		getLblTextItem().setText(item.getFlavorText());
 		
+		if(flavEnable==true){
+			getLblTextItem().setForeground(new Color(138,75,8));
+			getLblTextItem().setBorder(new LineBorder(new Color(138,75,8)));
+			getLblTextItem().setFont(new Font("Palatino Linotype", Font.ITALIC, 16));
+			getLblTextItem().setBounds(0, this.getHeight()-100, getLblTextItem().getParent().getWidth() , 100);
+			getLblTextItem().setText(item.getFlavorText());
+		}
 		
 		getLblTypeItem().setForeground(ItemLabel.toColor(item.getDisplayColor()));
 		getLblTypeItem().setFont(new Font("Palatino Linotype", Font.PLAIN, 16));
@@ -160,6 +168,7 @@ public class ItemPanelDetails extends JPanel {
 		}
 		
 		StringBuffer temp = new StringBuffer();
+		
 		for(int i=0;i<item.getAttributes().length;i++)
 		{
 			temp.append(item.getAttributes()[i]+" <br/> ");
@@ -219,7 +228,7 @@ public class ItemPanelDetails extends JPanel {
 		}
 		catch(NullPointerException e){
 			//e.printStackTrace();
-			}
+		}
 		
 	}
 	private void updateSocketLabel() {
@@ -269,18 +278,24 @@ public class ItemPanelDetails extends JPanel {
 
 
 	private void resizeFont(JLabel lbl,int type) {
-		Font labelFont =lbl.getFont();
-		String labelText = lbl.getText();
-		int stringWidth = lbl.getFontMetrics(labelFont).stringWidth(labelText);
-		int componentWidth = lbl.getWidth();
-		double widthRatio = (double)componentWidth / (double)stringWidth;
-		int newFontSize = (int)(labelFont.getSize() * widthRatio);
-		int componentHeight = lbl.getHeight();
-		int fontSizeToUse = Math.min(newFontSize, componentHeight);
-		if(fontSizeToUse>18) //taille max
-			fontSizeToUse=18;
+		try{
+			Font labelFont =lbl.getFont();
+			String labelText = lbl.getText();
+			int stringWidth = lbl.getFontMetrics(labelFont).stringWidth(labelText);
+			int componentWidth = lbl.getWidth();
+			double widthRatio = (double)componentWidth / (double)stringWidth;
+			int newFontSize = (int)(labelFont.getSize() * widthRatio);
+			int componentHeight = lbl.getHeight();
+			int fontSizeToUse = Math.min(newFontSize, componentHeight);
+			if(fontSizeToUse>18) //taille max
+				fontSizeToUse=18;
+			lbl.setFont(new Font(labelFont.getName(), type, fontSizeToUse));
+		}
+		catch(Exception e)
+		{	
+			//e.printStackTrace();
+		}
 		
-		lbl.setFont(new Font(labelFont.getName(), type, fontSizeToUse));
 		
 	}
 

@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
@@ -35,6 +36,7 @@ import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.plaf.FontUIResource;
 import javax.swing.table.TableRowSorter;
 
 import org.armory.d3.beans.Hero;
@@ -78,7 +80,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JSplitPane splitPanneauFicheHero;
 	private ItemLabel lblTorso;
 	private SocketLabel lblSocketMainHand;
-	private JPanel panneauDetailDPS;
+	private JPanel panneauInfoHero;
 	private JTabbedPane ongletPane;
 	private JTextField txtFiltrage;
 	private JPanel panneauTableau;
@@ -143,6 +145,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SkillLabel labSkilL8;
 	private SkillLabel labSkilL9;
 	private Hero hero;
+	private JPanel panneauDPS;
+	private Map<EnumerationStuff,Item> stuffs;
 	
 	public ListeHeroModel getListeHerosModel() {
 		return listeHerosModel;
@@ -310,7 +314,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lblParangonLevel.setText("("+hero.getParagonLevel()+")");
 		lblParangonLevel.setBounds(749, 20, 51, 16);
 		
-		getPanneauDetailDPS().removeAll();
+		getPanneauInfoHero().removeAll();
+		getPanneauDPS().removeAll();
+		
 		getLblSkill1().setSkillRune(hero.getSkills().getActive().get(0));
 		getLblSkill2().setSkillRune(hero.getSkills().getActive().get(1));
 				
@@ -421,6 +427,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			lblSocketTorso2.setItem(null,0);
 			lblSocketTorso3.setItem(null,0);
 		}
+		
+		
 		Item legs = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLegs());
 		lblLegs.setItem(legs);
 		
@@ -456,7 +464,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		Item belt = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getWaist());
 		lblbelt.setItem(belt);
 		
-		Map<EnumerationStuff,Item> stuffs = new HashMap<EnumerationStuff, Item>();
+		stuffs = new HashMap<EnumerationStuff, Item>();
 		  stuffs.put(EnumerationStuff.HEAD, head);
 		  stuffs.put(EnumerationStuff.SHOULDERS, shoulders);
 		  stuffs.put(EnumerationStuff.NECK, neck);
@@ -471,7 +479,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		  stuffs.put(EnumerationStuff.OFF_HAND, offhand);
 		  stuffs.put(EnumerationStuff.FEET, foot);
 		
-		D3ArmoryControler.getInstance().getInstance().initCalculator(stuffs);
+		D3ArmoryControler.getInstance().getInstance().setStuff(stuffs);
+		D3ArmoryControler.getInstance().getInstance().initCalculator();
 		
 		((TableauDetailsModel)getTableauDetails().getModel()).fireTableDataChanged();
 		
@@ -483,24 +492,44 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		panneauDessinHero.repaint();
 		
 		FormatedJLabel lbl1 = new FormatedJLabel();
-		lbl1.setHtmlText(getDetailHeroDPS(0), "white","#BDA6CD");
-		getPanneauDetailDPS().add(lbl1);
+		lbl1.setHtmlText(getDetailHero(0), "white","#BDA6CD");
+		getPanneauInfoHero().add(lbl1);
 		
 		FormatedJLabel lbl2 = new FormatedJLabel();
-		lbl2.setHtmlText(getDetailHeroDPS(1), "white","#BDA6CD");
-		getPanneauDetailDPS().add(lbl2);
+		lbl2.setHtmlText(getDetailHero(1), "white","#BDA6CD");
+		getPanneauInfoHero().add(lbl2);
 		
 		FormatedJLabel lbl3 = new FormatedJLabel();
-		lbl3.setHtmlText(getDetailHeroDPS(2), "white","#BDA6CD");
-		getPanneauDetailDPS().add(lbl3);
+		lbl3.setHtmlText(getDetailHero(2), "white","#BDA6CD");
+		getPanneauInfoHero().add(lbl3);
 		
 		FormatedJLabel lbl4 = new FormatedJLabel();
-		lbl4.setHtmlText(getDetailHeroDPS(3), "white","#BDA6CD");
-		getPanneauDetailDPS().add(lbl4);
-	
+		lbl4.setHtmlText(getDetailHero(3), "white","#BDA6CD");
+		getPanneauInfoHero().add(lbl4);
+		
+		FormatedJLabel lbl5 = new FormatedJLabel();
+		lbl5.setHtmlText(getDetailDPS(), "white","#BDA6CD");
+		getPanneauDPS().add(lbl5);
 	}
 	
-	private String getDetailHeroDPS(int val) {
+	private String getDetailDPS()
+	{
+		D3ArmoryControler.getInstance().getCalculator().calculateUnbuffedDPS();
+		Iterator<String> keys = D3ArmoryControler.getInstance().getCalculator().getStats().keySet().iterator();
+		
+		StringBuffer temp = new StringBuffer();
+		while(keys.hasNext())
+		{
+			String key = keys.next();
+			temp.append(key +" : " + D3ArmoryControler.getInstance().getCalculator().getStats().get(key) +" <br/>" );
+		}
+		
+		return temp.toString();
+		
+	}
+	
+	
+	private String getDetailHero(int val) {
 		StringBuffer temp = new StringBuffer();
 		
 		if(val==0){
@@ -1099,15 +1128,16 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(ongletPane == null) {
 			ongletPane = new JTabbedPane();
 			ongletPane.setPreferredSize(new java.awt.Dimension(0, 0));
-			ongletPane.addTab("Info", null, getPanneauDetailDPS(), null);
+			ongletPane.addTab("Info", null, getPanneauInfoHero(), null);
 			ongletPane.addTab("Detail", null, getPanneauTableau(), null);
+			ongletPane.addTab("DPS", null, getPanneauDPS(), null);
 		}
 		return ongletPane;
 	}
 	
-	private JPanel getPanneauDetailDPS() {
-		if(panneauDetailDPS == null) {
-			panneauDetailDPS = new JPanel() {
+	private JPanel getPanneauInfoHero() {
+		if(panneauInfoHero == null) {
+			panneauInfoHero = new JPanel() {
 				
 				protected void paintComponent(Graphics g) {
 					super.paintComponent(g);
@@ -1116,14 +1146,32 @@ public class SwingMainFrame extends javax.swing.JFrame {
 
 				}
 			};
-			panneauDetailDPS.setBackground(Color.black);
-			panneauDetailDPS.setLayout(new FlowLayout());
+			panneauInfoHero.setBackground(Color.black);
+			panneauInfoHero.setLayout(new FlowLayout());
 			
 			
 		}
-		return panneauDetailDPS;
+		return panneauInfoHero;
 	}
 	
+	private JPanel getPanneauDPS() {
+		if(panneauDPS == null) {
+			panneauDPS = new JPanel() {
+				
+				protected void paintComponent(Graphics g) {
+					super.paintComponent(g);
+					Image bg = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/bottom.jpg")).getImage();
+					g.drawImage(bg,0,0,null);
+
+				}
+			};
+			panneauDPS.setBackground(Color.black);
+			panneauDPS.setLayout(new FlowLayout(FlowLayout.LEFT));
+			
+			
+		}
+		return panneauDPS;
+	}
 	
 
 }

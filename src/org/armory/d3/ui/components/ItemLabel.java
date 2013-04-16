@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Paint;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
@@ -25,6 +27,7 @@ import javax.swing.border.LineBorder;
 
 import org.armory.d3.beans.Item;
 import org.armory.d3.services.D3ArmoryControler;
+import org.armory.d3.ui.ItemCreatorFrame;
 
 public class ItemLabel extends JLabel implements MouseListener {
 	
@@ -59,6 +62,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 			}
 			return null;
 	}
+	
 	public Icon getIcon(boolean off) {
 		setHorizontalAlignment(JLabel.CENTER);
 		setVerticalAlignment(JLabel.CENTER);
@@ -182,6 +186,13 @@ public class ItemLabel extends JLabel implements MouseListener {
 				popupMenu.add(new JMenuItem("Compare " + item.getType().getId() + " with"));
 				popupMenu.add(new JSeparator());
 			JMenuItem itNewItem = new JMenuItem("New Item");
+				itNewItem.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						new ItemCreatorFrame(item);
+						
+					}
+				}
+				);
 			  popupMenu.add(itNewItem);
 			  popupMenu.add(createMenu(listeTag));
 			  popupMenu.show(e.getComponent(),e.getX(), e.getY());

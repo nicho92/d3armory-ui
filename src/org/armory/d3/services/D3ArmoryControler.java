@@ -33,6 +33,7 @@ public class D3ArmoryControler {
 	private StuffCalculator calculator;
 	private String local;
 	private Item selectedItem;
+	private Map<EnumerationStuff, Item> stuff;
 	
 	public static D3ArmoryControler getInstance()
 	{
@@ -175,9 +176,9 @@ public class D3ArmoryControler {
 		}
 	}
 	
-	public boolean initCalculator(Map<EnumerationStuff, Item> stuffs) {
+	public boolean initCalculator() {
 		try {
-			calculator = new StuffCalculator(stuffs, getSelectedHero(false));
+			calculator = new StuffCalculator(stuff, getSelectedHero(false));
 			return true;
 		} catch (D3ServerCommunicationException e) {
 			e.printStackTrace();
@@ -196,6 +197,11 @@ public class D3ArmoryControler {
 
 	public void setSelectedItem(Item item) {
 		this.selectedItem =item;
+		
+	}
+
+	public void setStuff(Map<EnumerationStuff, Item> stuffs) {
+		this.stuff= stuffs;
 		
 	}
 
