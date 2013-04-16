@@ -1,29 +1,28 @@
 package org.armory.d3.ui.model;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.Set;
 
 import javax.swing.table.DefaultTableModel;
 
+import org.armory.d3.beans.Attributs;
 import org.armory.d3.beans.MinMaxBonus;
 
 public class ItemDetailsModel extends DefaultTableModel {
 
-	private Map<String,MinMaxBonus> map;
+	private Set<Attributs> attSet;
 	
 	
 	public ItemDetailsModel()
 	{
-		map = new TreeMap<String, MinMaxBonus>();
+		attSet = new HashSet<Attributs>();
 	}
-	
 	
 	public String getColumnName(int c) {
 		if(c==0)
-			return "Bonus";
+			return "Attributs";
 		else
 			return "Valeur";
 		
@@ -31,21 +30,15 @@ public class ItemDetailsModel extends DefaultTableModel {
 
 	public String[] getAttributs()
 	{
-		Iterator<String> it = map.keySet().iterator();
-		List<String> l = new ArrayList<String>();
-		while(it.hasNext())
+		List<String> retour = new ArrayList<>();
+		for(Attributs a : attSet)
 		{
-			String att = it.next();
-			att=att.replaceFirst("X", String.valueOf(map.get(att).getMoyenne()));
-			l.add(att);
+			String lib = a.getLibelle().replaceFirst("X", String.valueOf(a.getValue().getMoyenne()));
+			retour.add(lib);
 		}
-		return l.toArray(new String[l.size()]);
+		return retour.toArray(new String[retour.size()]);
 	}
 	
-	public void addAttributes(String value,double valeur)
-	{
-		map.put(value, new MinMaxBonus(valeur));
-	}
 	
 	public boolean isCellEditable(int row, int col) {
 		if(col==1)
@@ -61,33 +54,32 @@ public class ItemDetailsModel extends DefaultTableModel {
 
 
 	public int getRowCount() {
-		if(map==null)
+		if(attSet==null)
 			return 0;
 		
-		return map.size();
+		return attSet.size();
 	}
 
 	public Object getValueAt(int row, int column) {
-		Object[] entries= map.entrySet().toArray();
-	        Map.Entry<String, MinMaxBonus> entry=(Map.Entry)entries[row];
-	        if (column==0) {
-	            return entry.getKey();
-	        } else if (column==1) { // column==1
-	            return entry.getValue().getMoyenne();
-	        } else {
-	            throw new IndexOutOfBoundsException("MapTableModel provides a 2-column table, column-index "+column+" is illegal.");
-	        } 
-        
+		    
+		Attributs[] val = attSet.toArray(new Attributs[attSet.size()]);
+			if (column==0) {
+	            return val[row];
+	        } else if (column==1) { 
+	           return val[row].getValue();
+	        }
+		    return 0;
 	}
 
 	public void setValueAt(Object o, int row, int col) {
-		List key = new ArrayList(map.keySet());
-		map.get(key.get(row)).setValue(Double.parseDouble(o.toString()));
-		
+		MinMaxBonus val = new MinMaxBonus(Double.parseDouble(o.toString()));
+		Attributs a = ((Attributs)getValueAt(row,0));
+		a.setValue(val);
+		attSet.add(a);
 	}
 
-	
-	
-
-
+	public void addAttributes(Attributs selectedItem) {
+		attSet.add(selectedItem);
+		
+	}
 }

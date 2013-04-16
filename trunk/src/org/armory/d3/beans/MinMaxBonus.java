@@ -25,7 +25,7 @@ public class MinMaxBonus {
 	
 	public String toString()
 	{
-		return "min:"+min+",max:"+max;
+		return String.valueOf(getMoyenne());
 	}
 	
 	public void setValue(double val)
