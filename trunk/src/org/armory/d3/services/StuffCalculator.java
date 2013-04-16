@@ -22,14 +22,16 @@ public class StuffCalculator {
 	private Map<String, MinMaxBonus> bonusItem;
 	private Hero hero;
 	private boolean twohanded;
-	private Map<String,Double> weaponDefaultAS;
+	private Map<String,Double> weaponDefaultAS=new HashMap<String,Double>();
 	int countweapon=0;
+	private Map<String,Double> mapResultat ;
 	
 	public StuffCalculator(Map<EnumerationStuff,Item> stuff, Hero hero) {
 		stuffs= new HashMap<EnumerationStuff,Item>();
 		this.skills=hero.getSkills();
 		this.hero= hero;
 		Iterator<EnumerationStuff> keys = stuff.keySet().iterator();
+		mapResultat = new HashMap<String, Double>();
 		while(keys.hasNext())
 		{
 			EnumerationStuff key=keys.next();
@@ -50,27 +52,28 @@ public class StuffCalculator {
 	private void init()
 	{
 		bonusItem = new HashMap<>();
-			weaponDefaultAS=new HashMap<String,Double>();
-			weaponDefaultAS.put("Axe", 1.30);
-			weaponDefaultAS.put("HandXbow", 1.60);
-			weaponDefaultAS.put("Dagger", 1.50);
-			weaponDefaultAS.put("Mace", 1.20);
-			weaponDefaultAS.put("FistWeapon", 1.40);
-			weaponDefaultAS.put("MightyWeapon1H", 1.30);
-			weaponDefaultAS.put("Spear", 1.20);
-			weaponDefaultAS.put("Sword", 1.40);
-			weaponDefaultAS.put("CeremonialDagger",1.4);
-			weaponDefaultAS.put("Wand", 1.40);
-			weaponDefaultAS.put("Axe2H", 1.00);
-			weaponDefaultAS.put("Bow", 1.40);
-			weaponDefaultAS.put("Daibo", 1.10);
-			weaponDefaultAS.put("Crossbow", 1.10);
-			weaponDefaultAS.put("Mace2H", 0.90);
-			weaponDefaultAS.put("MightyWeapon2H", 1.00);
-			weaponDefaultAS.put("Polearm", 0.95);
-			weaponDefaultAS.put("Staff", 1.00);
-			weaponDefaultAS.put("Sword2H", 1.1);
-			weaponDefaultAS.put("none", 0.0);
+		weaponDefaultAS=new HashMap<String,Double>();
+		weaponDefaultAS.put("Axe", 1.30);
+		weaponDefaultAS.put("HandXbow", 1.60);
+		weaponDefaultAS.put("Dagger", 1.50);
+		weaponDefaultAS.put("Mace", 1.20);
+		weaponDefaultAS.put("FistWeapon", 1.40);
+		weaponDefaultAS.put("MightyWeapon1H", 1.30);
+		weaponDefaultAS.put("Spear", 1.20);
+		weaponDefaultAS.put("Sword", 1.40);
+		weaponDefaultAS.put("CeremonialDagger",1.4);
+		weaponDefaultAS.put("Wand", 1.40);
+		weaponDefaultAS.put("Axe2H", 1.00);
+		weaponDefaultAS.put("Bow", 1.40);
+		weaponDefaultAS.put("Daibo", 1.10);
+		weaponDefaultAS.put("Crossbow", 1.10);
+		weaponDefaultAS.put("Mace2H", 0.90);
+		weaponDefaultAS.put("MightyWeapon2H", 1.00);
+		weaponDefaultAS.put("Polearm", 0.95);
+		weaponDefaultAS.put("Staff", 1.00);
+		weaponDefaultAS.put("Sword2H", 1.1);
+		weaponDefaultAS.put("none", 0.0);
+		
 			
 		Map<LegendarySet,Integer> piecesbyset=new HashMap<LegendarySet,Integer>();
 		int compteur=0;
@@ -313,30 +316,40 @@ public class StuffCalculator {
 			hitDmg=hitDmgMAIN;
 		
 		
-		System.out.println(hero.getPrimaryStat() +" " + stat_base);
-		System.out.println("+% Attack Speed : " + bonusArmor*100 +"%");
-		System.out.println("Attack Speed MH "  + attackSpeedMain);
+		//System.out.println(hero.getPrimaryStat() +" " + stat_base);
+		//System.out.println("+% Attack Speed : " + bonusArmor*100 +"%");
+		//System.out.println("Attack Speed MH "  + attackSpeedMain);
 		
-		if(countweapon==2)
-			System.out.println("Attack Speed 0H "  + attackSpeedOff);
-		
-		System.out.println("Critical Hit Chance : " + chance_cc*100+"%");
-		System.out.println("Critical Hit Damage : " + degat_cc*100+"%");
-		System.out.println("MH Weapon Damage " + hitDmgMAIN);
-		
-		if(countweapon==2)
-			System.out.println("OH Weapon Damage " + hitDmgOFF);
+		mapResultat.put("STAT",stat_base);
+		mapResultat.put("ATTACKSPEEDBONUS",bonusArmor*100);
+		mapResultat.put("ATTACKSPEEDMH",attackSpeedMain);
+		mapResultat.put("ATTACKSPEEDOH",attackSpeedOff);
+		mapResultat.put("CRITCHANCE", chance_cc*100);
+		mapResultat.put("CRITDAMAGE",degat_cc*100);
+		mapResultat.put("MHDAMAGE",hitDmgMAIN);
+		mapResultat.put("MHDAMAGE",hitDmgOFF);
 	
 		
 		double dps=getDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
 		double elementdps = getElemDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
 		
 		if(dps>=elementdps)
+		{
+			mapResultat.put("DPS",dps);
 			return dps;
+		}
 		else
+		{
+			mapResultat.put("DPS",elementdps);
 			return elementdps;
+		}
 	}
 
+	public Map<String,Double> getStats()
+	{
+		return mapResultat;
+	}
+	
 	private double tempDamage() {
 		
 		double min = getStat(getArmor(), "Damage","Min");
@@ -420,8 +433,8 @@ public class StuffCalculator {
 			
 			if(!elementO.equals(""))
 			{
-				mindmgO+=stuffs.get(EnumerationStuff.OFF_HAND).getAttributesRaw().get("Damage_Weapon_Min#"+elementM).getMoyenne();
-				maxdmgO+=stuffs.get(EnumerationStuff.OFF_HAND).getAttributesRaw().get("Damage_Weapon_Min#"+elementM).getMoyenne()+stuffs.get(EnumerationStuff.OFF_HAND).getAttributesRaw().get("Damage_Weapon_Delta#"+elementM).getMoyenne();
+				mindmgO+=stuffs.get(EnumerationStuff.OFF_HAND).getAttributesRaw().get("Damage_Weapon_Min#"+elementO).getMoyenne();
+				maxdmgO+=stuffs.get(EnumerationStuff.OFF_HAND).getAttributesRaw().get("Damage_Weapon_Min#"+elementO).getMoyenne()+stuffs.get(EnumerationStuff.OFF_HAND).getAttributesRaw().get("Damage_Weapon_Delta#"+elementO).getMoyenne();
 			}
 			
 			n = (2 * minMaxDmg + mindmgM + maxdmgM +mindmgO + maxdmgO)/ 2;

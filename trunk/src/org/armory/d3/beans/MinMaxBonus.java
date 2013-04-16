@@ -28,5 +28,21 @@ public class MinMaxBonus {
 		return "min:"+min+",max:"+max;
 	}
 	
+	public void setValue(double val)
+	{
+		setMin(val);
+		setMax(val);
+	}
+	
+	public MinMaxBonus()
+	{
+		
+	}
+	
+	public MinMaxBonus(double val)
+	{
+		setValue(val);
+	}
+	
 	
 }

@@ -1,5 +1,6 @@
 package org.armory.d3.beans;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +53,11 @@ public class Item  extends RemoteEntity {
 		return isMainHand;
 	}
 	
+	public Item()
+	{
+		attributesRaw=new HashMap<String, MinMaxBonus >();
+	}
+	
 	
 	public int nbSockets(){
 		if(attributesRaw.get("Sockets")==null)
@@ -72,6 +78,9 @@ public class Item  extends RemoteEntity {
 		if(!isWeapon())
 			return "";
 		
+		if(attributesRaw==null)
+			return "";
+		
 		Iterator<String> attributes = attributesRaw.keySet().iterator();
 		while(attributes.hasNext())
 		{
@@ -90,7 +99,7 @@ public class Item  extends RemoteEntity {
 				return "Cold";
 		}
 		return "";
-			
+		
 	}
 	
 	
@@ -172,6 +181,11 @@ public class Item  extends RemoteEntity {
 
 	public void setAttributesRaw(Map<String, MinMaxBonus> attributesRaw) {
 		this.attributesRaw = attributesRaw;
+	}
+	
+	public void addAttributesRaw(String titre, MinMaxBonus b)
+	{
+		attributesRaw.put(titre, b);
 	}
 
 	public MinMaxBonus getArmor() {
