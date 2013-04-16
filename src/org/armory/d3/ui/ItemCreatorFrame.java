@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -16,7 +18,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
+import javax.swing.text.JTextComponent;
 
+import org.armory.d3.beans.Attributs;
 import org.armory.d3.beans.Item;
 import org.armory.d3.beans.MinMaxBonus;
 import org.armory.d3.ui.components.AutoCompletion;
@@ -92,7 +96,7 @@ public class ItemCreatorFrame extends javax.swing.JFrame {
 				itemPanelDetails = new ItemPanelDetails();
 				itemPanelDetails.setFlavEnable(false);
 				getContentPane().add(panneauGauche, BorderLayout.CENTER);
-				panneauGauche.setPreferredSize(new java.awt.Dimension(291, 399));
+				panneauGauche.setPreferredSize(new java.awt.Dimension(474, 398));
 				{
 					panneauHaut = new JPanel();
 					GridLayout panneauHautLayout = new GridLayout(5, 2);
@@ -181,13 +185,15 @@ public class ItemCreatorFrame extends javax.swing.JFrame {
 					{
 						ComboBoxModel cboAttributsModel = new DefaultComboBoxModel(new RawsAttributes().getAttributs());
 						cboAttributs = new JComboBox();
+						cboAttributs.setEditable(true);
 						panneauHaut.add(cboAttributs);
+						AutoCompletion.enable(cboAttributs);
 						cboAttributs.setModel(cboAttributsModel);
 						cboAttributs.setPreferredSize(new java.awt.Dimension(294, 21));
 						cboAttributs.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								
-								((ItemDetailsModel)tableauSpecItem.getModel()).addAttributes(cboAttributs.getSelectedItem().toString(), 0);
+								((ItemDetailsModel)tableauSpecItem.getModel()).addAttributes((Attributs)cboAttributs.getSelectedItem());
 								((ItemDetailsModel)tableauSpecItem.getModel()).fireTableDataChanged();
 								
 								i.addAttributesRaw(cboAttributs.getSelectedItem().toString(), new MinMaxBonus(0));
@@ -196,7 +202,7 @@ public class ItemCreatorFrame extends javax.swing.JFrame {
 								refreshItem();
 							}
 						});
-						//AutoCompletion.enable(cboAttributs);
+						
 						
 					}
 				}
@@ -205,15 +211,17 @@ public class ItemCreatorFrame extends javax.swing.JFrame {
 					panneauGauche.add(panneauBas, BorderLayout.SOUTH);
 					panneauBas.setPreferredSize(new java.awt.Dimension(455, 272));
 					
+
 					{
 						
 						tableauSpecItem = new JTable();
 						panneauBas.setViewportView(tableauSpecItem);
 						tableauSpecItem.setModel(tableauSpecItemModel);
-						tableauSpecItem.addKeyListener(new KeyAdapter() {
-							public void keyPressed(KeyEvent evt) {
-								refreshItem();
-							}
+						tableauSpecItem.addPropertyChangeListener(new PropertyChangeListener() {
+							public void propertyChange(PropertyChangeEvent evt) {
+								  i.setAttributes(((ItemDetailsModel)tableauSpecItem.getModel()).getAttributs());
+								  refreshItem();
+						        }
 						});
 					}
 				}
@@ -222,11 +230,11 @@ public class ItemCreatorFrame extends javax.swing.JFrame {
 			{
 				
 				getContentPane().add(itemPanelDetails, BorderLayout.EAST);
-				itemPanelDetails.setPreferredSize(new java.awt.Dimension(413, 399));
+				itemPanelDetails.setPreferredSize(new java.awt.Dimension(368, 398));
 
 			}
 			pack();
-			this.setSize(955, 437);
+			this.setSize(870, 437);
 			refreshItem();
 			setVisible(true);
 			
