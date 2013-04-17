@@ -22,47 +22,47 @@ public class RawsAttributes  {
 	{
 		itemAttributes.add(new Attributs("" ,""));
 		itemAttributes.add(new Attributs("Strength_Item" ,"+X Strength"));
-		itemAttributes.add(new Attributs("intelligence" ,"+X Intelligence"));
-		itemAttributes.add(new Attributs("vitality" ,"+X Vitality"));
-		itemAttributes.add(new Attributs("dexterity" ,"+X Dexterity"));
-		itemAttributes.add(new Attributs("resist-all" ,"+X Resistance to All Elements"));
-		itemAttributes.add(new Attributs("armor" ,"+X Armor"));
-		itemAttributes.add(new Attributs("plus-life" ,"+X% Life"));
-		itemAttributes.add(new Attributs("life-regen" ,"Regenerates X Life per Second"));
-		itemAttributes.add(new Attributs("plus-block" ,"+X% Chance to Block"));
-		itemAttributes.add(new Attributs("cc-reduce" ,"Reduces the duration of control impairing effects by X%"));
-		itemAttributes.add(new Attributs("elite-reduce" ,"Reduces damage from elites by X%"));
-		itemAttributes.add(new Attributs("melee-reduce" ,"Reduces damage from melee attacks by X%"));
-		itemAttributes.add(new Attributs("range-reduce" ,"Reduces damage from ranged attacks by X%"));
-		itemAttributes.add(new Attributs("cold-reduce" ,"Reduces damage from Cold attacks by X%."));
-		itemAttributes.add(new Attributs("arcane-resist" ,"X Arcane Resistance"));
-		itemAttributes.add(new Attributs("cold-resist" ,"X Cold Resistance"));
-		itemAttributes.add(new Attributs("fire-resist" ,"X Fire Resistance"));
-		itemAttributes.add(new Attributs("lightning-resist" ,"X Lightning Resistance"));
-		itemAttributes.add(new Attributs("physical-resist" ,"X Physical Resistance"));
-		itemAttributes.add(new Attributs("poison-resist" ,"X Poison Resistance"));
-		itemAttributes.add(new Attributs("thorns" ,"Melee attackers take  damage per hit"));
-		itemAttributes.add(new Attributs("attack-speed" ,"Attack speed increased by X%"));
-		itemAttributes.add(new Attributs("plus-aps" ,"+X Attacks per Second"));
-		itemAttributes.add(new Attributs("critical-hit" ,"Critical Hit Chance increased by X%"));
-		itemAttributes.add(new Attributs("critical-hit-damage" ,"Critical Hit Damage increased by X%"));
-		itemAttributes.add(new Attributs("plus-damage" ,"+X% Damage"));
-		itemAttributes.add(new Attributs("min-damage" ,"+X Minimum Damage"));
-		itemAttributes.add(new Attributs("max-damage" ,"+X Maximum Damage"));
+		itemAttributes.add(new Attributs("Intelligence_Item" ,"+X Intelligence"));
+		itemAttributes.add(new Attributs("Vitality_Item" ,"+X Vitality"));
+		itemAttributes.add(new Attributs("Dexterity_Item" ,"+X Dexterity"));
+		itemAttributes.add(new Attributs("Resistance_All" ,"+X Resistance to All Elements"));
+		itemAttributes.add(new Attributs("Armor_Item" ,"+X Armor"));
+		itemAttributes.add(new Attributs("Hitpoints_Max_Percent_Bonus_Item" ,"+X% Life"));
+		itemAttributes.add(new Attributs("Hitpoints_Regen_Per_Second" ,"Regenerates X Life per Second"));
+		itemAttributes.add(new Attributs("Block_Chance_Bonus_Item" ,"+X% Chance to Block"));
+		itemAttributes.add(new Attributs("CrowdControl_Reduction_Hallowed" ,"Reduces the duration of control impairing effects by X%"));
+		itemAttributes.add(new Attributs("Damage_Percent_Reduction_From_Elites" ,"Reduces damage from elites by X%"));
+		itemAttributes.add(new Attributs("Damage_Percent_Reduction_From_Melee" ,"Reduces damage from melee attacks by X%"));
+		itemAttributes.add(new Attributs("Damage_Percent_Reduction_From_Range" ,"Reduces damage from ranged attacks by X%"));
+		itemAttributes.add(new Attributs("Damage_Percent_Reduction_From_Cold" ,"Reduces damage from Cold attacks by X%."));
+		itemAttributes.add(new Attributs("Resistance#Arcane" ,"X Arcane Resistance"));
+		itemAttributes.add(new Attributs("Resistance#Cold" ,"X Cold Resistance"));
+		itemAttributes.add(new Attributs("Resistance#Fire" ,"X Fire Resistance"));
+		itemAttributes.add(new Attributs("Resistance#Lightning" ,"X Lightning Resistance"));
+		itemAttributes.add(new Attributs("Resistance#Physical" ,"X Physical Resistance"));
+		itemAttributes.add(new Attributs("Resistance#Poison" ,"X Poison Resistance"));
+		itemAttributes.add(new Attributs("Thorns_Fixed#Physical" ,"Melee attackers take X damage per hit"));
+		itemAttributes.add(new Attributs("Attacks_Per_Second_Percent" ,"Attack speed increased by X%"));
+		itemAttributes.add(new Attributs("Attacks_Per_Second_Item_Bonus" ,"+X Attacks per Second"));
+		itemAttributes.add(new Attributs("Crit_Percent_Bonus" ,"Critical Hit Chance increased by X%"));
+		itemAttributes.add(new Attributs("Crit_Damage_Percent" ,"Critical Hit Damage increased by X%"));
+		itemAttributes.add(new Attributs("Damage_Weapon_Percent_Bonus" ,"+X% Damage"));
+		itemAttributes.add(new Attributs("Damage_Min" ,"+X Minimum Damage"));
+		itemAttributes.add(new Attributs("Damage_Delta" ,"+X Maximum Damage"));
 		//itemAttributes.add(new Attributs("minmax-damage" ,"Damage (Min-Max)"));
 		itemAttributes.add(new Attributs("ruby-damage" ,"Minimum and + Maximum Damage"));
-		itemAttributes.add(new Attributs("plus-arcane-damage" ,"+X% to Arcane Damage"));
-		itemAttributes.add(new Attributs("plus-cold-damage" ,"+X% to Cold Damage"));
-		itemAttributes.add(new Attributs("plus-fire-damage" ,"+X% to Fire Damage"));
-		itemAttributes.add(new Attributs("plus-holy-damage" ,"+X% to Holy Damage"));
-		itemAttributes.add(new Attributs("plus-lightning-damage" ,"+X% to Lightning Damage"));
-		itemAttributes.add(new Attributs("plus-poison-damage" ,"+X% to Poison Damage"));
-		itemAttributes.add(new Attributs("arcane-damage" ,"Arcane Damage"));
-		itemAttributes.add(new Attributs("cold-damage" ,"Cold Damage"));
-		itemAttributes.add(new Attributs("fire-damage" ,"Fire Damage"));
-		itemAttributes.add(new Attributs("holy-damage" ,"Holy Damage"));
-		itemAttributes.add(new Attributs("lightning-damage" ,"Lightning Damage"));
-		itemAttributes.add(new Attributs("poison-damage" ,"Poison Damage"));
+		itemAttributes.add(new Attributs("Damage_Type_Percent_Bonus#Arcane" ,"+X% to Arcane Damage"));
+		itemAttributes.add(new Attributs("Damage_Type_Percent_Bonus#Cold" ,"+X% to Cold Damage"));
+		itemAttributes.add(new Attributs("Damage_Type_Percent_Bonus#Fire" ,"+X% to Fire Damage"));
+		itemAttributes.add(new Attributs("Damage_Type_Percent_Bonus#Holy" ,"+X% to Holy Damage"));
+		itemAttributes.add(new Attributs("Damage_Type_Percent_Bonus#Lightning" ,"+X% to Lightning Damage"));
+		itemAttributes.add(new Attributs("Damage_Type_Percent_Bonus#Poison" ,"+X% to Poison Damage"));
+		itemAttributes.add(new Attributs("Damage_Weapon_Min#Arcane" ,"+X Arcane Damage"));
+		itemAttributes.add(new Attributs("Damage_Weapon_Min#Cold" ,"+X Cold Damage"));
+		itemAttributes.add(new Attributs("Damage_Weapon_Min#Fire" ,"+X Fire Damage"));
+		itemAttributes.add(new Attributs("Damage_Weapon_Min#Holy" ,"+X Holy Damage"));
+		itemAttributes.add(new Attributs("Damage_Weapon_Min#Lightning" ,"+X Lightning Damage"));
+		itemAttributes.add(new Attributs("Damage_Weapon_Min#Poison" ,"+X Poison Damage"));
 		itemAttributes.add(new Attributs("elite-damage" ,"Increases Damage against Elites by X%"));
 		itemAttributes.add(new Attributs("demon-damage" ,"+X% Damage to Demons"));
 		itemAttributes.add(new Attributs("human-damage" ,"+X% Damage to Humans"));
@@ -73,14 +73,14 @@ public class RawsAttributes  {
 		itemAttributes.add(new Attributs("plus-lightning-damage-skills" ,"Lightning skills deal % more damage"));
 		itemAttributes.add(new Attributs("plus-poison-damage-skills" ,"Poison skills deal % more damage"));
 		itemAttributes.add(new Attributs("chance-bleed" ,"X% chance to inflict Bleed for  damage over 5 seconds"));
-		itemAttributes.add(new Attributs("chance-blind" ,"X% chance to Blind on Hit"));
-		itemAttributes.add(new Attributs("chance-chill" ,"X% chance to Chill on Hit"));
-		itemAttributes.add(new Attributs("chance-fear" ,"X% chance to Fear on Hit"));
-		itemAttributes.add(new Attributs("chance-freeze" ,"X% chance to Freeze on Hit"));
-		itemAttributes.add(new Attributs("chance-immobilize" ,"X% chance to Immobilize on Hit"));
-		itemAttributes.add(new Attributs("chance-knockback" ,"X% chance to Knockback on Hit"));
-		itemAttributes.add(new Attributs("chance-slow" ,"X% chance to Slow on Hit"));
-		itemAttributes.add(new Attributs("chance-stun" ,"X% chance to Stun on Hit"));
+		itemAttributes.add(new Attributs("Weapond_On_Hit_Blind_Proc_Chance" ,"X% chance to Blind on Hit"));
+		itemAttributes.add(new Attributs("Weapond_On_Hit_Chill_Proc_Chance" ,"X% chance to Chill on Hit"));
+		itemAttributes.add(new Attributs("Weapond_On_Hit_Fear_Proc_Chance" ,"X% chance to Fear on Hit"));
+		itemAttributes.add(new Attributs("Weapond_On_Hit_Freeze_Proc_Chance" ,"X% chance to Freeze on Hit"));
+		itemAttributes.add(new Attributs("Weapond_On_Hit_Immobilize_Proc_Chance" ,"X% chance to Immobilize on Hit"));
+		itemAttributes.add(new Attributs("Weapond_On_Hit_Knockback_Proc_Chance" ,"X% chance to Knockback on Hit"));
+		itemAttributes.add(new Attributs("Weapond_On_Hit_Slow_Proc_Chance" ,"X% chance to Slow on Hit"));
+		itemAttributes.add(new Attributs("Weapond_On_Hit_Stun_Proc_Chance" ,"X% chance to Stun on Hit"));
 		itemAttributes.add(new Attributs("chance-whirlwind" ,"Chance to occasionally Whirlwind furioulsy."));
 		itemAttributes.add(new Attributs("chance-ball-energy" ,"Chance to hurt a ball of pure energy when attacking."));
 		itemAttributes.add(new Attributs("chance-skeleton" ,"Summons a skeleton when attacked."));
@@ -337,6 +337,16 @@ public class RawsAttributes  {
 	{
 		Collections.sort(itemAttributes);
 		return itemAttributes.toArray(new Attributs[itemAttributes.size()]);
+	}
+	
+	public Attributs getAttribut(String key)
+	{
+		for(Attributs a : itemAttributes)
+		{
+			if(a.getId().equalsIgnoreCase(key))
+				return a;
+		}
+		return null;
 	}
 
 }
