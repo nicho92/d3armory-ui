@@ -145,6 +145,7 @@ public class ItemPanelDetails extends JPanel {
 			
 		}
 		else if(item.isWeapon()){
+			
 			getLblStatArmorDPS().setText(new DecimalFormat("#0.0").format(item.getDps().getMoyenne()));
 			getLblTypeItemAD().setText("Damage Per Second");
 			String element = item.getEnchantedWeapon();
@@ -226,7 +227,7 @@ public class ItemPanelDetails extends JPanel {
 		
 
 		}
-		catch(NullPointerException e){
+		catch(Exception e){
 			//e.printStackTrace();
 		}
 		
