@@ -49,7 +49,6 @@ public class RawsAttributes  {
 		itemAttributes.add(new Attributs("Damage_Weapon_Percent_Bonus" ,"+X% Damage"));
 		itemAttributes.add(new Attributs("Damage_Min" ,"+X Minimum Damage"));
 		itemAttributes.add(new Attributs("Damage_Delta" ,"+X Maximum Damage"));
-		//itemAttributes.add(new Attributs("minmax-damage" ,"Damage (Min-Max)"));
 		itemAttributes.add(new Attributs("ruby-damage" ,"Minimum and + Maximum Damage"));
 		itemAttributes.add(new Attributs("Damage_Type_Percent_Bonus#Arcane" ,"+X% to Arcane Damage"));
 		itemAttributes.add(new Attributs("Damage_Type_Percent_Bonus#Cold" ,"+X% to Cold Damage"));
@@ -63,6 +62,8 @@ public class RawsAttributes  {
 		itemAttributes.add(new Attributs("Damage_Weapon_Min#Holy" ,"+X Holy Damage"));
 		itemAttributes.add(new Attributs("Damage_Weapon_Min#Lightning" ,"+X Lightning Damage"));
 		itemAttributes.add(new Attributs("Damage_Weapon_Min#Poison" ,"+X Poison Damage"));
+		itemAttributes.add(new Attributs("Damage_Weapon_Min#Physical" ,"+X Degats Min"));
+		itemAttributes.add(new Attributs("Damage_Weapon_Delta#Physical" ,"+X Degats Max"));
 		itemAttributes.add(new Attributs("elite-damage" ,"Increases Damage against Elites by X%"));
 		itemAttributes.add(new Attributs("demon-damage" ,"+X% Damage to Demons"));
 		itemAttributes.add(new Attributs("human-damage" ,"+X% Damage to Humans"));
@@ -94,11 +95,12 @@ public class RawsAttributes  {
 		itemAttributes.add(new Attributs("plus-gold-find" ,"+X% Extra Gold from Monsters"));
 		itemAttributes.add(new Attributs("plus-magic-find" ,"X% Better Chance of finding Magic Items"));
 		itemAttributes.add(new Attributs("health-globes" ,"Health Globes and Potions Grant +X Life"));
-		itemAttributes.add(new Attributs("life-steal" ,"% of Damage Dealt is Converted to Life"));
+		itemAttributes.add(new Attributs("life-steal" ,"X % of Damage Dealt is Converted to Life"));
 		itemAttributes.add(new Attributs("life-kill" ,"X Life after each Kill"));
 		itemAttributes.add(new Attributs("life-hit" ,"Each hit adds + X Life"));
 		itemAttributes.add(new Attributs("level-reduce" ,"Level Requirement reduced by "));
 		itemAttributes.add(new Attributs("indestructible" ,"Ignores durability loss"));
+		itemAttributes.add(new Attributs("Sockets" ,"Sockets"));
 	/*	itemAttributes.add(new Attributs("bb-bash" ,"Increases bash damage by X%"));
 		itemAttributes.add(new Attributs("bb-cleave" ,"Increases cleave damage by X%"));
 		itemAttributes.add(new Attributs("bb-frenzy" ,"Increases frenzy damage by X%"));
@@ -306,7 +308,7 @@ public class RawsAttributes  {
 //		itemAttributes.add("Resource_Regen_Per_Second#Hatred");
 //		itemAttributes.add("Resource_Regen_Per_Second#Mana");
 //		itemAttributes.add("Resource_Regen_Per_Second#Spirit");
-//		itemAttributes.add("Sockets");
+
 //		itemAttributes.add("Spending_Resource_Heals_Percent#Arcanum");
 //		itemAttributes.add("Spending_Resource_Heals_Percent#Discipline");
 //		itemAttributes.add("Spending_Resource_Heals_Percent#Fury");

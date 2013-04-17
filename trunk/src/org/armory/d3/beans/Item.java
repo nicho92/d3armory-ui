@@ -1,5 +1,6 @@
 package org.armory.d3.beans;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -9,6 +10,7 @@ import com.sdfteam.d3armory.service.annotation.DataType;
 import com.sdfteam.d3armory.service.annotation.RemoteConfiguration;
 import com.sdfteam.d3armory.service.annotation.RemoteData;
 import com.sdfteam.d3armory.service.remote.RemoteEntity;
+import com.sdfteam.d3armory.service.util.RawsAttributes;
 
 /**
  * Represents a single item, with links to the resources.
@@ -17,7 +19,7 @@ import com.sdfteam.d3armory.service.remote.RemoteEntity;
  * 
  */
 @RemoteConfiguration(url = "http://<host>/api/d3/data/item/<item-id>?locale=<local>")
-public class Item  extends RemoteEntity {
+public class Item  extends RemoteEntity implements Cloneable {
 	private String id;
 	private String displayColor;
 	@RemoteData(type = DataType.IMAGE)
@@ -291,6 +293,14 @@ public class Item  extends RemoteEntity {
 		return requiredLevel;
 	}
 
+	public Item clone() {
+		try {
+			return (Item)super.clone();
+		} catch (CloneNotSupportedException e) {
+			return new Item();
+		}
+	}
+
 	public void setRequiredLevel(Number requiredLevel) {
 		this.requiredLevel = requiredLevel;
 	}
@@ -311,6 +321,27 @@ public class Item  extends RemoteEntity {
 
 	public boolean isArmor() {
 		return armor!=null;
+	}
+	
+
+	public void generateAttributsString() {
+		Iterator<String> keys = getAttributesRaw().keySet().iterator();
+		RawsAttributes r = new RawsAttributes();
+		List<String> liste = new ArrayList<String>();
+		while(keys.hasNext())
+		{
+			String key = keys.next();
+			if(r.getAttribut(key)!=null)
+			{
+				liste.add(r.getAttribut(key).getLibelle().replaceFirst("X", String.valueOf(getAttributesRaw().get(key))));
+			}
+			else
+			{
+				System.err.println(key + " non disponible");
+			}
+		}
+		setAttributes(liste.toArray(new String[liste.size()]));
+		
 	}
 	
 
