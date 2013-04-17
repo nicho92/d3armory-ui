@@ -389,7 +389,7 @@ public class ItemPanelDetails extends JPanel {
 		return lblTextItem;
 	}
 	
-	private JLabel getLblStatArmorDPS() {
+	public JLabel getLblStatArmorDPS() {
 		if(lblStatArmorDPS == null) {
 			lblStatArmorDPS = new JLabel();
 			lblStatArmorDPS.setBounds(112, 93, 200, 61);
@@ -406,7 +406,7 @@ public class ItemPanelDetails extends JPanel {
 		return lblTypeItemAD;
 	}
 
-	private FormatedJLabel getLblDetailWeapon(){
+	public FormatedJLabel getLblDetailWeapon(){
 		if(lblDetailWeapon==null){
 			lblDetailWeapon=new FormatedJLabel();
 			lblDetailWeapon.setBounds(112, 161, 267, 65);

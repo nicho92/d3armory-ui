@@ -188,8 +188,8 @@ public class ItemLabel extends JLabel implements MouseListener {
 			JMenuItem itNewItem = new JMenuItem("New Item");
 				itNewItem.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
-						new ItemCreatorFrame(item);
-						
+						ItemCreatorFrame f = new ItemCreatorFrame(item);
+						f.getItemPanelDetails().getLblIcon().setIcon(getIcon());
 					}
 				}
 				);

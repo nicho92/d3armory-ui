@@ -53,6 +53,11 @@ public class Item  extends RemoteEntity {
 		return isMainHand;
 	}
 	
+	public void addAttributs(Attributs a)
+	{
+		attributesRaw.put(a.getId(), a.getValue());
+	}
+	
 	public Item()
 	{
 		attributesRaw=new HashMap<String, MinMaxBonus >();
@@ -124,8 +129,6 @@ public class Item  extends RemoteEntity {
 	public void setItemLevel(Number itemLevel) {
 		this.itemLevel = itemLevel;
 	}
-
-
 	
 	public LegendarySet getSet() {
 		return set;
