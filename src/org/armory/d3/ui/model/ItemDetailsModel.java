@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 
 import org.armory.d3.beans.Item;
+import org.armory.d3.beans.MinMaxBonus;
 
 import com.sdfteam.d3armory.service.util.RawsAttributes;
 
@@ -71,10 +72,12 @@ public class ItemDetailsModel extends DefaultTableModel {
 	}
 
 	public void setValueAt(Object o, int row, int column) {
+		double l = Double.parseDouble(o.toString());
+		
 		Object[] entries=item.getAttributesRaw().entrySet().toArray();
         Map.Entry entry=(Map.Entry)entries[row];
         if (column==1) { 
-            entry.setValue(o);
+            entry.setValue(new MinMaxBonus(l));
         }
 	}
 
