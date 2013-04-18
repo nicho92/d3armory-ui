@@ -67,7 +67,7 @@ public class Rune {
 	
 	public String toString()
 	{
-		return getName();
+		return getName() +": " + getDescription();
 	}
 
 

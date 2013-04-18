@@ -1,11 +1,15 @@
 package org.armory.d3.services;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,8 +26,9 @@ import com.sdfteam.d3armory.service.util.EnumerationStuff;
 
 public class D3ArmoryControler {
 
-	private static String CONF_FILE="conf/tags.d3armory";
+	private static String TAG_FILE="conf/tags.d3armory";
 	private static String LOCALE_FILE="conf/local.d3armory";
+	private static String SERIALISATION_DIR="conf/items";
 	
 	private static D3ArmoryControler instance;
 	public Configuration conf;
@@ -125,7 +130,7 @@ public class D3ArmoryControler {
 		//lecture du fichier texte	
 		List<String> liste = new ArrayList<>();
 				try{
-					InputStream ips=new FileInputStream(CONF_FILE); 
+					InputStream ips=new FileInputStream(TAG_FILE); 
 					InputStreamReader ipsr=new InputStreamReader(ips);
 					BufferedReader br=new BufferedReader(ipsr);
 					String ligne;
@@ -143,12 +148,18 @@ public class D3ArmoryControler {
 	public void addTags(String code,String server)
 	{
 		try {
-			FileWriter fw= new FileWriter(CONF_FILE,true);
+			FileWriter fw= new FileWriter(TAG_FILE,true);
 			fw.write("\n"+code+"#"+server+"\n");
 			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+	}
+	
+	public void removeTags(int pos)
+	{
+		//TODO
 		
 	}
 
@@ -205,6 +216,41 @@ public class D3ArmoryControler {
 		
 	}
 
+	public void saveItem(Item i)
+	{
+		try{
+			FileOutputStream fos = new FileOutputStream(SERIALISATION_DIR +"/"+i.getName()+".d3armory");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(i);
+			oos.flush();
+			oos.close();
+		}
+		catch (java.io.IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public Item loadItem(File f)
+	{
+		try{
+			FileInputStream fos = new FileInputStream(SERIALISATION_DIR +"/"+f.getName());
+			ObjectInputStream ois  = new ObjectInputStream(fos);
+			return (Item)ois.readObject();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public File[] getListeFileItem()
+	{
+		File f = new File(SERIALISATION_DIR);
+		return f.listFiles();
+	}
+	
+	
+	
 	
 	
 }

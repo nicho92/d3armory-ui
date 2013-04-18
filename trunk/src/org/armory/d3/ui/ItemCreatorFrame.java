@@ -14,6 +14,7 @@ import java.util.Map;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -31,6 +32,7 @@ import org.armory.d3.services.StuffCalculator;
 import org.armory.d3.ui.components.FormatedJLabel;
 import org.armory.d3.ui.components.ItemPanelDetails;
 import org.armory.d3.ui.model.ItemDetailsModel;
+import org.jdesktop.application.Application;
 
 import com.sdfteam.d3armory.service.util.EnumerationStuff;
 import com.sdfteam.d3armory.service.util.RawsAttributes;
@@ -53,6 +55,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 	private JPanel panneauGauche;
 	private ItemPanelDetails itemPanelDetails;
 	private JLabel lblSokets;
+	private JButton btnSauvegarder;
 	private JLabel lblStatDiff;
 	private FormatedJLabel lblStat2;
 	private FormatedJLabel lblStat1;
@@ -61,7 +64,6 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 	private JPanel panneauDPS;
 	private JTextField txtMax;
 	private JTextField txtMin;
-	private JLabel lblMinMax;
 	private JLabel lblDPS;
 	private JTextField txtArmor;
 	private JLabel lblArmor;
@@ -234,7 +236,9 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 										refreshItem();
 									}
 								});
-								
+
+
+
 								
 							}
 							{
@@ -260,11 +264,12 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								});
 							}
 							{
-								lblArmor = new JLabel();
+								lblArmor = new JLabel("Armor :");
 								panneauHaut.add(lblArmor);
 								lblArmor.setName("lblArmor");
 							}
 							{
+								
 								txtArmor = new JTextField(""+getItem().getArmor());
 								panneauHaut.add(txtArmor);
 								txtArmor.addKeyListener(new KeyAdapter() {
@@ -276,7 +281,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								});
 							}
 							{
-								lblDPS = new JLabel();
+								lblDPS = new JLabel("MIN MAX / AS : ");
 								panneauHaut.add(lblDPS);
 								lblDPS.setName("lblDPS");
 							}
@@ -287,11 +292,6 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								panneauHaut.add(panneauDPS);
 								
 								panneauDPSLayout.setAlignment(FlowLayout.LEFT);
-								{
-									lblMinMax = new JLabel();
-									panneauDPS.add(lblMinMax);
-									lblMinMax.setName("lblMinMax");
-								}
 								{
 									txtMin = new JTextField(""+getItem().getMinDamage());
 									panneauDPS.add(txtMin);
@@ -377,14 +377,27 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 						panneauDetailDPS.add(lblStatDiff);
 						lblStatDiff.setPreferredSize(new java.awt.Dimension(230,137));
 					}
+					{
+						btnSauvegarder = new JButton();
+						panneauDetailDPS.add(btnSauvegarder);
+						btnSauvegarder.setText("Save");
+						btnSauvegarder.setPreferredSize(new java.awt.Dimension(71, 23));
+						btnSauvegarder.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								D3ArmoryControler.getInstance().saveItem(getItem());
+								btnSauvegarder.setEnabled(false);
+							}
+						});
+					}
 				}
 
 			}
 			pack();
-			this.setSize(878, 602);
+			this.setSize(878, 594);
 			refreshItem();
+			setLocationRelativeTo(null);
 			setVisible(true);
-			//Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
+			
 		} catch (Exception e) {
 		    e.printStackTrace();
 		}
@@ -445,6 +458,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 			StuffCalculator b = D3ArmoryControler.getInstance().getCalculator().compareStuffsDPS(gear, getItem());
 			lblStat2.setHtmlText(getDetail(b.getMapResultat()), "white", "red");
 			lblStatDiff.setText("<html>"+getDetailDiff(a.getMapResultat(),b.getMapResultat()));
+			btnSauvegarder.setEnabled(true);
 			
 	}
 	public ItemPanelDetails getItemPanelDetails() {

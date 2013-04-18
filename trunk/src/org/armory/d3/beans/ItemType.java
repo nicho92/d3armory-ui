@@ -1,6 +1,8 @@
 package org.armory.d3.beans;
 
-public class ItemType {
+import java.io.Serializable;
+
+public class ItemType implements Serializable {
 
 		private Boolean twoHanded;
 		private String id;

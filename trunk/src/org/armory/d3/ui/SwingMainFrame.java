@@ -26,7 +26,9 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
@@ -319,6 +321,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	}
 	
 	private void listeHerosMouseClicked(MouseEvent evt) throws D3ServerCommunicationException {
+		
 		hero = (Hero)((JList) evt.getSource()).getSelectedValue();
 		D3ArmoryControler.getInstance().setSelectedHero(hero);
 		hero=D3ArmoryControler.getInstance().getHeroDetails(hero);
@@ -586,6 +589,24 @@ public class SwingMainFrame extends javax.swing.JFrame {
 
 
 	private void listeTagMouseClicked(MouseEvent evt) {
+		if(SwingUtilities.isRightMouseButton(evt))
+		{
+			JPopupMenu popupMenu = new JPopupMenu();
+			JMenuItem mnu = new JMenuItem("Delete");
+			mnu.addActionListener(new ActionListener() {
+				
+				public void actionPerformed(ActionEvent arg0) {
+					JOptionPane.showMessageDialog(null, "NOT YET !!!");
+					
+				}
+			});
+			
+			popupMenu.add(mnu);
+			popupMenu.show(evt.getComponent(),evt.getX(), evt.getY());
+			return;
+		}
+		
+		
 		String selected_row = ((JList) evt.getSource()).getSelectedValue().toString();
 		String[] parser = selected_row.split("#");
 		try {
@@ -993,7 +1014,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(panelItemDetails == null) {
 			panelItemDetails = new ItemPanelDetails();
 			panelItemDetails.setName("panelItemDetails");
-			//panelItemDetails.setSize(380, 812);
 			panelItemDetails.setLayout(null);
 			panelItemDetails.setPreferredSize(new java.awt.Dimension(0, 0));
 		}
