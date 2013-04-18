@@ -26,6 +26,10 @@ public class StuffCalculator {
 	int countweapon=0;
 	private Map<String,Double> mapResultat ;
 	
+	public Map<String, Double> getMapResultat() {
+		return mapResultat;
+	}
+
 	public StuffCalculator(Map<EnumerationStuff,Item> stuff, Hero hero) {
 		stuffs= new HashMap<EnumerationStuff,Item>();
 		this.skills=hero.getSkills();
@@ -39,9 +43,7 @@ public class StuffCalculator {
 				stuffs.put(key, stuff.get(key));
 		
 		}
-		
 		init();
-		
 	}
 
 	public Map<String, MinMaxBonus> getBonusItem()
@@ -327,7 +329,7 @@ public class StuffCalculator {
 		mapResultat.put("CRITCHANCE", chance_cc*100);
 		mapResultat.put("CRITDAMAGE",degat_cc*100);
 		mapResultat.put("MHDAMAGE",hitDmgMAIN);
-		mapResultat.put("MHDAMAGE",hitDmgOFF);
+		mapResultat.put("OHDAMAGE",hitDmgOFF);
 	
 		
 		double dps=getDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
@@ -469,6 +471,18 @@ public class StuffCalculator {
 			n = 1 / (defaultMHas * bonusMHas + enchanteresseBonus + weaponASBonus + Attacks_Per_Second_Item_Bonus + armorASBonus) + 1 / (defaultOHas * bonusOHas + enchanteresseBonus + weaponASBonus + Attacks_Per_Second_Item_Bonus + armorASBonus);
 		
 		return n;
+	}
+
+	public StuffCalculator compareStuffsDPS(EnumerationStuff g, Item i)
+	{
+		Map<EnumerationStuff,Item> stuffs2 = new HashMap<>();
+		stuffs2.putAll(stuffs);
+		stuffs2.put(g, i);
+		StuffCalculator calc2 = new StuffCalculator(stuffs2, hero);
+		calc2.calculateUnbuffedDPS();
+		return calc2;
+		
+		
 	}
 	
 

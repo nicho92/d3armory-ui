@@ -29,12 +29,14 @@ import org.armory.d3.beans.Item;
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.ItemCreatorFrame;
 
+import com.sdfteam.d3armory.service.util.EnumerationStuff;
+
 public class ItemLabel extends JLabel implements MouseListener {
 	
     Item item;
     ItemPanelDetails details;
 	private boolean disabled;
-    
+    private EnumerationStuff gear;
     
     public ItemLabel(ItemPanelDetails pan)
     {
@@ -46,11 +48,20 @@ public class ItemLabel extends JLabel implements MouseListener {
 		return item;
 	}
 
-	public void setItem(Item i) {
+	public void setItem(Item i,EnumerationStuff e) {
 		this.item = i;
+		this.gear = e;
 	}
 
 	
+	public EnumerationStuff getGear() {
+		return gear;
+	}
+
+	public void setGear(EnumerationStuff gear) {
+		this.gear = gear;
+	}
+
 	public Image getImage(){
 		if(item != null)
 			try {
@@ -188,7 +199,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 			JMenuItem itNewItem = new JMenuItem("New Item");
 				itNewItem.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
-						ItemCreatorFrame f = new ItemCreatorFrame(item.clone());
+						ItemCreatorFrame f = new ItemCreatorFrame(item.clone(),gear);
 						f.getItemPanelDetails().getLblIcon().setIcon(getIcon());
 					}
 				}

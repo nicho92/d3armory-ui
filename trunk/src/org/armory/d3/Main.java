@@ -8,6 +8,7 @@ import org.armory.d3.beans.Item;
 import org.armory.d3.beans.Profile;
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.services.StuffCalculator;
+import org.armory.d3.ui.ItemCreatorFrame;
 
 import com.sdfteam.d3armory.service.configuration.Configuration;
 import com.sdfteam.d3armory.service.remote.RemoteService;
@@ -70,9 +71,20 @@ public class Main {
 											  stuffs.put(EnumerationStuff.MAIN_HAND, mainHand);
 											  stuffs.put(EnumerationStuff.OFF_HAND, offhand);
 											  stuffs.put(EnumerationStuff.FEET, foot);
-					  
-					StuffCalculator calculator = new StuffCalculator(stuffs,hero);
 					
-					System.out.println("DPS UNBUFFED = " + calculator.calculateUnbuffedDPS());
+					D3ArmoryControler.getInstance().setStuff(stuffs);
+					D3ArmoryControler.getInstance().setSelectedHero(hero);
+					D3ArmoryControler.getInstance().initCalculator();
+					
+					
+						System.out.println(D3ArmoryControler.getInstance().getCalculator().calculateUnbuffedDPS());
+					ItemCreatorFrame f = new ItemCreatorFrame();
+									 f.setModal(true);
+					
+									 stuffs.put(EnumerationStuff.SHOULDERS, f.getItem());
+						D3ArmoryControler.getInstance().setStuff(stuffs);
+						D3ArmoryControler.getInstance().initCalculator();
+						System.out.println(D3ArmoryControler.getInstance().getCalculator().calculateUnbuffedDPS());
+					
 		}
 }

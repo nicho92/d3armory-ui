@@ -126,6 +126,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JMenuItem exitMenuItem;
 	private JSeparator jSeparator2;
 	private JMenuItem newFileMenuItem;
+	private JMenuItem jmiItemCreator;
 	private JMenu jMenu3;
 	private JMenuBar jMenuBar1;
 
@@ -147,6 +148,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private Hero hero;
 	private JPanel panneauDPS;
 	private Map<EnumerationStuff,Item> stuffs;
+
 	
 	public ListeHeroModel getListeHerosModel() {
 		return listeHerosModel;
@@ -238,6 +240,14 @@ public class SwingMainFrame extends javax.swing.JFrame {
 								newLocalActionPerformed(evt);
 							}
 						});
+						jmiItemCreator = new JMenuItem();
+						jMenu3.add(jmiItemCreator);
+						jmiItemCreator.setText("Item Creator");
+						jmiItemCreator.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								newItemCreatorActionPerformed(evt);
+							}
+						});
 						
 					}
 					{
@@ -280,6 +290,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		}
 	}
 	
+	
+
+
 	public HeroPanel getPanneauDessinHero() {
 		return panneauDessinHero;
 	}
@@ -331,35 +344,35 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		
 		
 		Item head = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHead());
-		lblHead.setItem(head);
+		lblHead.setItem(head,EnumerationStuff.HEAD);
 		lblSocketHead.setItem(head,0);
 		
 		Item foot = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getFeet());
-		lblFoot.setItem(foot);
+		lblFoot.setItem(foot,EnumerationStuff.FEET);
 		lblSocketBoot.setItem(foot,0);
 		
 		Item gants = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHands());
-		lblGants.setItem(gants);
+		lblGants.setItem(gants,EnumerationStuff.GANT);
 		lblSocketGants.setItem(gants,0);
 		
 		
 		Item neck = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getNeck());
-		lblNeck.setItem(neck);
+		lblNeck.setItem(neck,EnumerationStuff.NECK);
 		lblSocketNeck.setItem(neck,0);
 		
 		Item ringright = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLeftFinger());
-		lblRingRight.setItem(ringright);
+		lblRingRight.setItem(ringright,EnumerationStuff.RING_RIGHT);
 		lblSocketRightRing.setItem(ringright,0);
 		
 		Item ringleft = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getRightFinger());
-		lblRingLeft.setItem(ringleft);
+		lblRingLeft.setItem(ringleft,EnumerationStuff.RING_LEFT);
 		lblSocketLeftRing.setItem(ringleft,0);
 		
 
 		Item mainHand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getMainHand());
 	
 		Item offhand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getOffHand());
-		lblMainHand.setItem(mainHand);
+		lblMainHand.setItem(mainHand,EnumerationStuff.MAIN_HAND);
 		lblSocketMainHand.setItem(mainHand,0);
 		
 		lblOffHand.setDisabled(false);
@@ -372,24 +385,24 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			
 			if(mainHand.getType().getTwoHanded() && hero.getItems().getOffHand()==null)
 			{
-				lblOffHand.setItem(hero.getItems().getMainHand());
+				lblOffHand.setItem(hero.getItems().getMainHand(),EnumerationStuff.OFF_HAND);
 				lblOffHand.setDisabled(true);
 			}
 			else
 			{	
-				lblOffHand.setItem(offhand);
+				lblOffHand.setItem(offhand,EnumerationStuff.OFF_HAND);
 				lblSocketOffHand.setItem(offhand,0);
 			}
 		}	
 		
 		if(offhand!=null)
 		{
-			lblOffHand.setItem(offhand);
+			lblOffHand.setItem(offhand,EnumerationStuff.OFF_HAND);
 			lblSocketOffHand.setItem(offhand,0);
 		}
 
 		Item torso = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getTorso());
-		lblTorso.setItem(torso);
+		lblTorso.setItem(torso,EnumerationStuff.TORSO);
 		if(torso!=null)
 		{
 			if(torso.nbSockets()==0)
@@ -430,7 +443,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		
 		
 		Item legs = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLegs());
-		lblLegs.setItem(legs);
+		lblLegs.setItem(legs,EnumerationStuff.LEGS);
 		
 		if(legs!=null)
 		{
@@ -458,11 +471,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		}
 		
 		Item shoulders= D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getShoulders());
-		lblShoulders.setItem(shoulders);
+		lblShoulders.setItem(shoulders,EnumerationStuff.SHOULDERS);
 		Item bracers = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getBracers());
-		lblBracers.setItem(bracers);
+		lblBracers.setItem(bracers,EnumerationStuff.BRACER);
 		Item belt = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getWaist());
-		lblbelt.setItem(belt);
+		lblbelt.setItem(belt,EnumerationStuff.BELT);
 		
 		stuffs = new HashMap<EnumerationStuff, Item>();
 		  stuffs.put(EnumerationStuff.HEAD, head);
@@ -918,7 +931,14 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		LocaleManagerFrame f = new LocaleManagerFrame();
 		f.setVisible(true);
 	}
-
+	
+	protected void newItemCreatorActionPerformed(ActionEvent evt) {
+		ongletPane.setSelectedComponent(getPanneauDPS());
+		ItemCreatorFrame f = new ItemCreatorFrame();
+		f.setVisible(true);
+		
+		
+	}
 	
 	
 	private JSplitPane getSplitTagsHeroes() {
