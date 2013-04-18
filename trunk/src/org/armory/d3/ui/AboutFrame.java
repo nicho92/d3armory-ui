@@ -39,7 +39,8 @@ public class AboutFrame extends javax.swing.JFrame {
 			getContentPane().setLayout(thisLayout);
 			{
 				lblInfo = new JLabel();
-				lblInfo.setText("Developpé par Nicolas Pihen - 2013");
+				lblInfo.setText("Nicolas Pihen - 2013 - nicolas.pihen@gmail.com ");
+				lblInfo.setHorizontalAlignment(JLabel.CENTER);
 				getContentPane().add(lblInfo, BorderLayout.SOUTH);
 				lblInfo.setName("lblInfo");
 			}
