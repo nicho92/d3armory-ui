@@ -1,6 +1,8 @@
 package org.armory.d3.beans;
 
-public class Salvage {
+import java.io.Serializable;
+
+public class Salvage implements Serializable {
 	private Item item;
 	private Number quantity;
 	private Double chance;

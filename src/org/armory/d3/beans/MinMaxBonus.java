@@ -1,6 +1,8 @@
 package org.armory.d3.beans;
 
-public class MinMaxBonus {
+import java.io.Serializable;
+
+public class MinMaxBonus implements Serializable {
 
 	private Double min;
 	private Double max;

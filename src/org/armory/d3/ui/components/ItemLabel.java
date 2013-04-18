@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.net.URL;
 import java.util.List;
 
@@ -206,17 +207,39 @@ public class ItemLabel extends JLabel implements MouseListener {
 				);
 			  popupMenu.add(itNewItem);
 			  popupMenu.add(createMenu(listeTag));
+			  popupMenu.add(createMenu(D3ArmoryControler.getInstance().getListeFileItem()));
 			  popupMenu.show(e.getComponent(),e.getX(), e.getY());
 		}
 		
 	}
+	private JMenu createMenu(File[] listeFileItem) {
+		 JMenu m = new JMenu("Saved Item");
+		  for(final File f:listeFileItem)
+		  {	 
+			  JMenuItem a = new JMenuItem(f.getName().substring(0, f.getName().lastIndexOf(".")));
+			    m.add(a);
+		  		a.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Item i = D3ArmoryControler.getInstance().loadItem(f);
+					System.out.println(f);
+					ItemCreatorFrame f = new ItemCreatorFrame(i,gear);
+							
+				}
+			});
+		  }
+		  return m;
+	}
+
 	public JMenu createMenu(List<String> listeTag){
 		  JMenu m = new JMenu("Profile");
 		  for(String tag:listeTag)
-		  	  m.add(new JMenuItem(tag));
+		  {
+			  m.add(new JMenuItem(tag));
+			 
+		  }
 		  
 		  return m;
-		  }
+	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {

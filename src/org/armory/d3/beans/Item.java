@@ -1,5 +1,6 @@
 package org.armory.d3.beans;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -19,7 +20,7 @@ import com.sdfteam.d3armory.service.util.RawsAttributes;
  * 
  */
 @RemoteConfiguration(url = "http://<host>/api/d3/data/item/<item-id>?locale=<local>")
-public class Item  extends RemoteEntity implements Cloneable {
+public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	private String id;
 	private String displayColor;
 	@RemoteData(type = DataType.IMAGE)

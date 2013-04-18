@@ -1,9 +1,10 @@
 package org.armory.d3.beans;
 
+import java.io.Serializable;
 import java.util.Map;
 
 
-public class Gem {
+public class Gem implements Serializable{
 
 	private Item item;
 	private String[] attributes;

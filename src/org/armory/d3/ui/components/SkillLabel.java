@@ -42,6 +42,6 @@ public class SkillLabel extends JLabel {
 	public void setSkillRune(SkillRune skillRune) {
 		this.skill=skillRune;
 		if(skill.getSkill()!=null)
-			this.setToolTipText("<html>"+ skill.getSkill().getDescription()+"</html>");
+			this.setToolTipText("<html>"+ skill.getSkill()+"<br/>"+ skill.getRune()+"</html>");
 	}
 }
