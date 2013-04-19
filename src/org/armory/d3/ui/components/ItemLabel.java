@@ -113,15 +113,21 @@ public class ItemLabel extends JLabel implements MouseListener {
 		try{
 			if(item != null)
 			{
-				switch (item.getDisplayColor()) {
-					case "orange":return new LineBorder(new Color(223,116,1), 1, true);
-					case "yellow":return new LineBorder(Color.yellow, 1, true);
-					case "green":return new LineBorder(Color.green, 1, true);
-					case "blue":return new LineBorder(new Color(30,144,255), 1, true);
-					case "white":return new LineBorder(Color.white, 1, true);
-					case "grey":return new LineBorder(Color.gray, 1, true);
-					default:return new LineBorder(Color.white, 0, true);
-				}
+					if("orange".equals(item.getDisplayColor()))
+							return new LineBorder(new Color(223,116,1), 1, true);
+					if("yellow".equals(item.getDisplayColor()))
+							return new LineBorder(Color.yellow, 1, true);
+					if("green".equals(item.getDisplayColor()))
+							return new LineBorder(Color.green, 1, true);
+					if("blue".equals(item.getDisplayColor()))
+							return new LineBorder(new Color(30,144,255), 1, true);
+					if("white".equals(item.getDisplayColor()))
+						return new LineBorder(Color.white, 1, true);
+					if("grey".equals(item.getDisplayColor()))
+						return new LineBorder(Color.gray, 1, true);
+					
+					return new LineBorder(Color.white, 0, true);
+				
 			}
 		return super.getBorder();
 		}
@@ -156,15 +162,21 @@ public class ItemLabel extends JLabel implements MouseListener {
 			  return Color.white;
 		  
 		  
-			switch (s) {
-				case "orange":return new Color(210,105,30);
-				case "yellow":return new Color(255,215,0);
-				case "green":return new Color(107,142,35);
-				case "blue":return new Color(65,105,225);
-				case "white":return Color.white;
-				case "grey":return Color.gray;
-			default:return Color.white;
-	  }
+				if (s.equals("orange"))
+					return new Color(210,105,30);
+				if (s.equals("yellow"))
+					return new Color(255,215,0);
+				if (s.equals("green"))
+					return new Color(107,142,35);
+				if (s.equals("blue"))
+					return new Color(65,105,225);
+				if (s.equals("white"))
+					return Color.white;
+				if (s.equals("grey"))
+					return Color.gray;
+			
+				return Color.white;
+	  
 	 	
 }
 

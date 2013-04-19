@@ -26,14 +26,17 @@ public class Hero extends RemoteEntity {
 	
 	public String getPrimaryStat()
 	{
-		switch (getClazz()) 
-		{
-			case "demon-hunter":return "Dexterity"; 
-			case "barbarian":return "Strength"; 
-			case "monk":return "Dexterity"; 
-			case "wizard":return "Intelligence"; 
-			case "witch-doctor":return "Intelligence"; 
-		}
+			if("demon-hunter".equals(getClazz())) 
+				return "Dexterity"; 
+			if("barbarian".equals(getClazz()))
+				return "Strength"; 
+			if("monk".equals(getClazz()))
+				return "Dexterity"; 
+			if("wizard".equals(getClazz()))
+				return "Intelligence"; 
+			if("witch-doctor".equals(getClazz()))
+				return "Intelligence"; 
+		
 		return "";
 	}
 	

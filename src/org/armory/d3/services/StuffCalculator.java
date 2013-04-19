@@ -53,7 +53,7 @@ public class StuffCalculator {
 	
 	private void init()
 	{
-		bonusItem = new HashMap<>();
+		bonusItem = new HashMap<String,MinMaxBonus>();
 		weaponDefaultAS=new HashMap<String,Double>();
 		weaponDefaultAS.put("Axe", 1.30);
 		weaponDefaultAS.put("HandXbow", 1.60);
@@ -475,7 +475,7 @@ public class StuffCalculator {
 
 	public StuffCalculator compareStuffsDPS(EnumerationStuff g, Item i)
 	{
-		Map<EnumerationStuff,Item> stuffs2 = new HashMap<>();
+		Map<EnumerationStuff,Item> stuffs2 = new HashMap<EnumerationStuff,Item>();
 		stuffs2.putAll(stuffs);
 		stuffs2.put(g, i);
 		StuffCalculator calc2 = new StuffCalculator(stuffs2, hero);

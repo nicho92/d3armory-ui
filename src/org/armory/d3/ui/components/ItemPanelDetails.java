@@ -335,15 +335,19 @@ public class ItemPanelDetails extends JPanel {
 						try{
 						if(item != null)
 						{
-							switch (item.getDisplayColor()) {
-								case "orange":return new LineBorder(Color.orange, 1, true);
-								case "yellow":return new LineBorder(Color.yellow, 1, true);
-								case "green":return new LineBorder(Color.green, 1, true);
-								case "blue":return new LineBorder(new Color(30,144,255), 1, true);
-								case "white":return new LineBorder(Color.white, 1, true);
-								case "grey":return new LineBorder(Color.gray, 1, true);
-								default:return new LineBorder(Color.white, 0, true);
-							}
+							if("orange".equals(item.getDisplayColor()))
+								return new LineBorder(new Color(223,116,1), 1, true);
+						if("yellow".equals(item.getDisplayColor()))
+								return new LineBorder(Color.yellow, 1, true);
+						if("green".equals(item.getDisplayColor()))
+								return new LineBorder(Color.green, 1, true);
+						if("blue".equals(item.getDisplayColor()))
+								return new LineBorder(new Color(30,144,255), 1, true);
+						if("white".equals(item.getDisplayColor()))
+							return new LineBorder(Color.white, 1, true);
+						if("grey".equals(item.getDisplayColor()))
+							return new LineBorder(Color.gray, 1, true);
+						
 						}
 						return super.getBorder();
 						}

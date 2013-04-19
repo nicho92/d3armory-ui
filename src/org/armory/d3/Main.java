@@ -77,14 +77,8 @@ public class Main {
 					D3ArmoryControler.getInstance().initCalculator();
 					
 					
-						System.out.println(D3ArmoryControler.getInstance().getCalculator().calculateUnbuffedDPS());
-					ItemCreatorFrame f = new ItemCreatorFrame();
-									 f.setModal(true);
+					System.out.println(D3ArmoryControler.getInstance().getCalculator().calculateUnbuffedDPS());
 					
-									 stuffs.put(EnumerationStuff.SHOULDERS, f.getItem());
-						D3ArmoryControler.getInstance().setStuff(stuffs);
-						D3ArmoryControler.getInstance().initCalculator();
-						System.out.println(D3ArmoryControler.getInstance().getCalculator().calculateUnbuffedDPS());
 					
 		}
 }
