@@ -26,7 +26,6 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -38,6 +37,7 @@ import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.table.TableRowSorter;
 
 import org.armory.d3.beans.Hero;
@@ -171,14 +171,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				SwingMainFrame inst = new SwingMainFrame();
-				try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				SwingUtilities.updateComponentTreeUI(inst);
-
+				inst.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				inst.setLocationRelativeTo(null);
 				inst.setVisible(true);
 			}
@@ -265,15 +258,29 @@ public class SwingMainFrame extends javax.swing.JFrame {
 							}
 						});
 					}
-				}
-				{
+				
+					
+					JMenu jMenu4 = new JMenu("Look");
+					jMenuBar1.add(jMenu4);
+					
+					for(LookAndFeelInfo ui : UIManager.getInstalledLookAndFeels())
+					{
+						final JMenuItem it = new JMenuItem(ui.getClassName());
+							it.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent e) {
+									setLookAndFeel(it.getText());
+									
+								}
+							});
+						jMenu4.add(it);
+					}
 					jMenu5 = new JMenu("?");
 					jMenuBar1.add(jMenu5);
 					jMenu5.setName("jMenu5");
 					{
 						helpMenuItem = new JMenuItem("About");
 						jMenu5.add(helpMenuItem);
-						;
+						
 						helpMenuItem.setName("helpMenuItem");
 						helpMenuItem.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
@@ -590,23 +597,20 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private void listeTagMouseClicked(MouseEvent evt) {
 		if(SwingUtilities.isRightMouseButton(evt))
 		{
-			
+			listeTags.setSelectedIndex(listeTags.locationToIndex(evt.getPoint()));
 			JPopupMenu popupMenu = new JPopupMenu();
 			JMenuItem mnu = new JMenuItem("Delete");
 			mnu.addActionListener(new ActionListener() {
-				
-				public void actionPerformed(ActionEvent arg0) {
-					JOptionPane.showMessageDialog(null, "NOT YET !!!");
-					
+				public void actionPerformed(ActionEvent e) {
+					//D3ArmoryControler.getInstance().removeTags(listeTags.getSelectedIndex());
+					//listeTags.getModel().remove(listeTags.getSelectedIndex());
 				}
 			});
-			
 			popupMenu.add(mnu);
 			popupMenu.show(evt.getComponent(),evt.getX(), evt.getY());
 			return;
 		}
-		
-		
+
 		String selected_row = ((JList) evt.getSource()).getSelectedValue().toString();
 		String[] parser = selected_row.split("#");
 		try {
@@ -623,7 +627,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (D3ServerCommunicationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -964,7 +967,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		
 	}
 	
-	
 	private JSplitPane getSplitTagsHeroes() {
 		if(splitTagsHeroes == null) {
 			splitTagsHeroes = new JSplitPane();
@@ -1216,5 +1218,15 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		return panneauDPS;
 	}
 	
+	public void setLookAndFeel(String lookAndFeel)
+	{
+		try {
+			UIManager.setLookAndFeel(lookAndFeel);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		SwingUtilities.updateComponentTreeUI(this);
+
+	}
 
 }

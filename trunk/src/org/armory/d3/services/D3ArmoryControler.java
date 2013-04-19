@@ -1,6 +1,7 @@
 package org.armory.d3.services;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -159,8 +160,26 @@ public class D3ArmoryControler {
 	
 	public void removeTags(int pos)
 	{
-		//TODO
-		
+		try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(TAG_FILE)));
+ 
+            StringBuffer sb = new StringBuffer(); 
+            String line;    
+            int nbLinesRead = 0;       
+            while ((line = reader.readLine()) != null) {
+                if (nbLinesRead != pos) {
+                    sb.append(line + "\n");
+                }
+                nbLinesRead++;
+            }
+            reader.close();
+            BufferedWriter out = new BufferedWriter(new FileWriter(TAG_FILE));
+            out.write(sb.toString());
+            out.close();
+ 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
 
 	public String loadLocal()

@@ -361,21 +361,22 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 					panneauDetailDPS = new JPanel();
 					panneauDetailDPS.setBackground(Color.black);
 					getContentPane().add(panneauDetailDPS, BorderLayout.SOUTH);
+					panneauDetailDPS.setPreferredSize(new java.awt.Dimension(862, 169));
 					{
 						lblStat1 = new FormatedJLabel();
 						panneauDetailDPS.add(lblStat1);
-						lblStat1.setPreferredSize(new java.awt.Dimension(230, 137));
+						lblStat1.setPreferredSize(new java.awt.Dimension(230, 147));
 						lblStat1.setHtmlText(getDetail(D3ArmoryControler.getInstance().getCalculator().getMapResultat()), "white", "green");
 					}
 					{
 						lblStat2 = new FormatedJLabel();
 						panneauDetailDPS.add(lblStat2);
-						lblStat2.setPreferredSize(new java.awt.Dimension(230, 137));
+						lblStat2.setPreferredSize(new java.awt.Dimension(230, 143));
 					}
 					{
 						lblStatDiff = new FormatedJLabel();
 						panneauDetailDPS.add(lblStatDiff);
-						lblStatDiff.setPreferredSize(new java.awt.Dimension(230,137));
+						lblStatDiff.setPreferredSize(new java.awt.Dimension(230, 148));
 					}
 					{
 						btnSauvegarder = new JButton();
@@ -393,7 +394,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 
 			}
 			pack();
-			this.setSize(878, 594);
+			this.setSize(878, 613);
 			refreshItem();
 			setLocationRelativeTo(null);
 			setVisible(true);
