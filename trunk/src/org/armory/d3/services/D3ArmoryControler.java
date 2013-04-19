@@ -128,7 +128,7 @@ public class D3ArmoryControler {
 	public List<String> getListTags()
 	{
 		//lecture du fichier texte	
-		List<String> liste = new ArrayList<>();
+		List<String> liste = new ArrayList<String>();
 				try{
 					InputStream ips=new FileInputStream(TAG_FILE); 
 					InputStreamReader ipsr=new InputStreamReader(ips);

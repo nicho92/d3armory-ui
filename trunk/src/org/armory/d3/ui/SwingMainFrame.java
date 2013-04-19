@@ -620,7 +620,10 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				getListeHerosModel().addElement(h);
 			}
 			
-		} catch (NumberFormatException | D3ServerCommunicationException e) {
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (D3ServerCommunicationException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
