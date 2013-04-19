@@ -38,7 +38,6 @@ import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.plaf.FontUIResource;
 import javax.swing.table.TableRowSorter;
 
 import org.armory.d3.beans.Hero;
@@ -591,6 +590,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private void listeTagMouseClicked(MouseEvent evt) {
 		if(SwingUtilities.isRightMouseButton(evt))
 		{
+			
 			JPopupMenu popupMenu = new JPopupMenu();
 			JMenuItem mnu = new JMenuItem("Delete");
 			mnu.addActionListener(new ActionListener() {
