@@ -23,6 +23,7 @@ public class StuffCalculator {
 	private Hero hero;
 	private boolean twohanded;
 	private Map<String,Double> weaponDefaultAS=new HashMap<String,Double>();
+	
 	int countweapon=0;
 	private Map<String,Double> mapResultat ;
 	
@@ -273,6 +274,7 @@ public class StuffCalculator {
 		//CALCUL attackSpeed 
 		double attackPerSecondMain = stuffs.get(EnumerationStuff.MAIN_HAND).getAttacksPerSecond().getMoyenne();//getStat("Damage_DPS_Attack","MAIN");
 		double attackPerSecondOff=0;
+		
 		if(countweapon==2)
 			attackPerSecondOff = stuffs.get(EnumerationStuff.OFF_HAND).getAttacksPerSecond().getMoyenne();//getStat("Damage_DPS_Attack","OFF");
 		
