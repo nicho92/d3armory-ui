@@ -1,4 +1,4 @@
-package org.armory.d3;
+package org.armory.d3.test;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -5,6 +5,7 @@ import java.net.URL;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JToolTip;
 
 import org.armory.d3.beans.SkillRune;
 
@@ -12,6 +13,18 @@ public class SkillLabel extends JLabel {
 
 	private SkillRune skill;
 	
+	public SkillRune getSkill() {
+		return skill;
+	}
+
+
+
+	public void setSkill(SkillRune skill) {
+		this.skill = skill;
+	}
+
+
+
 	public SkillLabel()
 	{
 		super();
@@ -42,6 +55,27 @@ public class SkillLabel extends JLabel {
 	public void setSkillRune(SkillRune skillRune) {
 		this.skill=skillRune;
 		if(skill.getSkill()!=null)
-			this.setToolTipText("<html>"+ skill.getSkill()+"<br/>"+ skill.getRune()+"</html>");
+		{
+			this.setToolTipText(" ");
+		}
 	}
+
+    public JToolTip createToolTip() {
+		
+    	int height=200;
+    	int width=350;
+    	
+    	if(skill.getRune()!=null)
+    	{
+    		height=300;
+    	}
+    	
+    	
+    	JPanelToolTip t = new JPanelToolTip(width,height,this);
+        			t.setComponent(this);
+        return t;
+    }
+	
+	
+	
 }
