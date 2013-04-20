@@ -50,7 +50,7 @@ public class SkillPanel extends JPanel {
 						lblTextSkill = new FormatedJLabel();
 						lblTextSkill.setHtmlText(skill.getSkill().getDescription(), "#C7B377", "green");//TODO gestion des . et , 
 						this.add(lblTextSkill);
-						lblTextSkill.setBounds(82, 45, 256, 124);
+						lblTextSkill.setBounds(82, 51, 256, 118);
 					}
 					{
 						lblNomSkill = new JLabel(skill.getSkill().getName());

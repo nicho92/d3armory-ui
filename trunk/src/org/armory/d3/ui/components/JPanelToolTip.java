@@ -7,9 +7,9 @@ package org.armory.d3.ui.components;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 
 import javax.swing.JToolTip;
+import javax.swing.ToolTipManager;
 
  
 public class JPanelToolTip extends JToolTip {
@@ -24,6 +24,7 @@ public class JPanelToolTip extends JToolTip {
         tipArea = new SkillPanel(comp.getSkill());
         tipArea.setBackground(Color.BLACK);
         add(tipArea,BorderLayout.CENTER);
+        ToolTipManager.sharedInstance().setDismissDelay(600000);
         if(comp.getSkill().getRune()!=null)
         	add(new RunePanel(comp.getSkill()),BorderLayout.SOUTH);
 

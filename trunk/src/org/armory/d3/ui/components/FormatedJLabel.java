@@ -50,9 +50,13 @@ public class FormatedJLabel extends JLabel {
 			else{
 					if(detail[i].contains(",") || detail[i].contains("."))
 					{
-						temp.append(" <font color='"+numColor+"'>").append(detail[i]).append("</font>");
+						if(detail[i].endsWith(",") || (detail[i].endsWith(".") && !detail[i].endsWith("%.")))
+							temp.append(" <font color='"+textColor+"'>").append(detail[i]).append("</font>");
+						else
+							temp.append(" <font color='"+numColor+"'>").append(detail[i]).append("</font>");
 					}
-					else{
+					else
+					{
 						try{
 							Double.parseDouble(detail[i]);
 							temp.append(" <font color='"+numColor+"'>").append(detail[i]).append("</font>");
