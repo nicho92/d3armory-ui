@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Rsrc-Class-Path: ./ jnlp.jar appFramework-1.0.jar spring-web-3.0.3.REL
+ EASE.jar gson-2.2.2.jar spring.jar commons-logging-1.1.1.jar spring-c
+ ore-3.0.5.RELEASE.jar
+Class-Path: .
+Rsrc-Main-Class: org.armory.d3.ui.SwingMainFrame
+Main-Class: org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader
+SplashScreen-Image: splash.png
