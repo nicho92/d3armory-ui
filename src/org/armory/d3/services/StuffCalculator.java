@@ -319,11 +319,6 @@ public class StuffCalculator {
 		else
 			hitDmg=hitDmgMAIN;
 		
-		
-		//System.out.println(hero.getPrimaryStat() +" " + stat_base);
-		//System.out.println("+% Attack Speed : " + bonusArmor*100 +"%");
-		//System.out.println("Attack Speed MH "  + attackSpeedMain);
-		
 		mapResultat.put("STAT",stat_base);
 		mapResultat.put("ATTACKSPEEDBONUS",bonusArmor*100);
 		mapResultat.put("ATTACKSPEEDMH",attackSpeedMain);
@@ -336,7 +331,6 @@ public class StuffCalculator {
 		
 		double dps=getDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
 		double elementdps = getElemDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
-		
 		if(dps>=elementdps)
 		{
 			mapResultat.put("DPS",dps);
@@ -344,6 +338,7 @@ public class StuffCalculator {
 		}
 		else
 		{
+			
 			mapResultat.put("DPS",elementdps);
 			return elementdps;
 		}
@@ -371,7 +366,7 @@ public class StuffCalculator {
 	    	double critDamage = ccDamage; 
 	    	double chanceCrit = chance_cc;
 	    	double elementalDamage=getStat("Damage_Type_Percent_Bonus", null);
-	      	double damage_minM =stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne();
+	     	double damage_minM =stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne();
 			double damage_maxM =stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne();
 			
 			if(countweapon<=1)
@@ -385,6 +380,7 @@ public class StuffCalculator {
 				double damage_maxO =stuffs.get(EnumerationStuff.OFF_HAND).getMaxDamage().getMoyenne();
 				bonusAS += .15;//dual
 	    		dommageMoyen += elementalDamage * (damage_minM + damage_maxM + damage_minO + damage_maxO + 2 * minMaxDmg) / 2;
+	    		damage = (1 + s) * statBase * (1 + critDamage * chanceCrit) * bonusAS*dommageMoyen / vitesseMoyenne;
 	    	}
 	    	return damage;	 
 	}

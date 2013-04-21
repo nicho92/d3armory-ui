@@ -1,9 +1,10 @@
 package org.armory.d3.beans;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
-public class LegendarySet {
+public class LegendarySet implements Serializable {
 
 	private String name;
 	private String slug;
