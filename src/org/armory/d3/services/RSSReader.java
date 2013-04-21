@@ -38,7 +38,7 @@ public class RSSReader {
                 element = (Element) nodes.item(i);
                 String date = readNode(element, "updated").substring(0,readNode(element, "updated").lastIndexOf("T"));
                 String title = readNode(element, "title");
-                if(!title.equalsIgnoreCase("[No log message]"))
+                if(!title.endsWith("[No log message]"))
                 	temp.append("<b>" + date + "</b> : ").append(title).append("<br/>");
             } //for
             return temp.toString();
