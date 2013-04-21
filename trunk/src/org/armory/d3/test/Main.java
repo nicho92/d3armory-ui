@@ -1,5 +1,8 @@
 package org.armory.d3.test;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,8 +10,6 @@ import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.Item;
 import org.armory.d3.beans.Profile;
 import org.armory.d3.services.D3ArmoryControler;
-import org.armory.d3.services.StuffCalculator;
-import org.armory.d3.ui.ItemCreatorFrame;
 
 import com.sdfteam.d3armory.service.configuration.Configuration;
 import com.sdfteam.d3armory.service.remote.RemoteService;

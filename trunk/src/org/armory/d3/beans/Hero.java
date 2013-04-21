@@ -16,7 +16,7 @@ public class Hero extends RemoteEntity {
 	private ItemSet items;
 	private KillsInfo kills;
 	@SerializedName("last-updated")
-	private Number lastUpdated;
+	private Long lastUpdated;
 	private Number level;
 	private String name;
 	private Progression progress;
@@ -121,7 +121,7 @@ public class Hero extends RemoteEntity {
 		return lastUpdated;
 	}
 
-	public void setLastUpdated(Number lastUpdated) {
+	public void setLastUpdated(Long lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
 

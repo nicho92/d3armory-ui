@@ -12,6 +12,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -81,6 +84,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JSplitPane splitPanneauFicheHero;
 	private ItemLabel lblTorso;
 	private SocketLabel lblSocketMainHand;
+	private JLabel lblLastUpdate;
 	private JPanel panneauInfoHero;
 	private JTabbedPane ongletPane;
 	private JTextField txtFiltrage;
@@ -335,7 +339,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lblInformationClasseNiveau.setText(hero.getClazz() +" de niveau " + hero.getLevel());
 		lblParangonLevel.setText("("+hero.getParagonLevel()+")");
 		lblParangonLevel.setBounds(749, 20, 51, 16);
-		
+//		GregorianCalendar cal = (GregorianCalendar)Calendar.getInstance();
+//						  cal.setTimeInMillis(cal.getTimeInMillis()-hero.getLastUpdated().longValue());
+//		getLblLastUpdate().setText("Last Update : " + cal.get(Calendar.YEAR) + "-" + cal.get(Calendar.MONTH) +"-"+cal.get(Calendar.DAY_OF_MONTH) );
 		getPanneauInfoHero().removeAll();
 		getPanneauDPS().removeAll();
 		
@@ -1090,6 +1096,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					lblParangonLevel = new ItemLabel(getPanelItemDetails());
 					panneauDessinHero.add(lblParangonLevel);
 					panneauDessinHero.add(getLblHarcore());
+					panneauDessinHero.add(getLblLastUpdate());
 					lblParangonLevel.setBounds(692, 20, 51, 16);
 					lblParangonLevel.setName("lblParangonLevel");
 				}
@@ -1227,6 +1234,15 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		}
 		SwingUtilities.updateComponentTreeUI(this);
 
+	}
+	
+	private JLabel getLblLastUpdate() {
+		if(lblLastUpdate == null) {
+			lblLastUpdate = new JLabel();
+			lblLastUpdate.setBounds(757, 583, 183, 16);
+			lblLastUpdate.setForeground(Color.GREEN);
+		}
+		return lblLastUpdate;
 	}
 
 }
