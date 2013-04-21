@@ -233,7 +233,6 @@ public class ItemLabel extends JLabel implements MouseListener {
 		  		a.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					Item i = D3ArmoryControler.getInstance().loadItem(f);
-					System.out.println(f);
 					ItemCreatorFrame f = new ItemCreatorFrame(i,gear);
 							
 				}

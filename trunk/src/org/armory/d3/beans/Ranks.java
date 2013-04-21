@@ -1,8 +1,9 @@
 package org.armory.d3.beans;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public class Ranks {
+public class Ranks implements Serializable{
 
 	private String required;
 	private String[] attributes;

@@ -87,7 +87,7 @@ public class RawsAttributes  {
 		itemAttributes.add(new Attributs("chance-skeleton" ,"Summons a skeleton when attacked."));
 		itemAttributes.add(new Attributs("chance-reflect-projectiles" ,"Chance to reflect projectiles when hit."));
 		itemAttributes.add(new Attributs("effect-poison-cloud" ,"You are sourrounded by a deadly Posion Cloud."));
-		itemAttributes.add(new Attributs("plus-movement" ,"+X% Movement Speed"));
+		itemAttributes.add(new Attributs("Movement_Scalar" ,"+X% Movement Speed"));
 		itemAttributes.add(new Attributs("plus-pickup-radius" ,"Increases Gold and Health pickup by X yards"));
 		itemAttributes.add(new Attributs("plus-experience" ,"Monster kills grant + experience"));
 		itemAttributes.add(new Attributs("plus-experience-percent" ,"Increased Experience Rewarded per Kill by X%"));
@@ -101,6 +101,9 @@ public class RawsAttributes  {
 		itemAttributes.add(new Attributs("level-reduce" ,"Level Requirement reduced by "));
 		itemAttributes.add(new Attributs("indestructible" ,"Ignores durability loss"));
 		itemAttributes.add(new Attributs("Sockets" ,"Sockets"));
+		itemAttributes.add(new Attributs("Durability_Max" ,"X Durabilitity MAX"));
+		itemAttributes.add(new Attributs("Durability_Cur" ,"X Durabilitity CURRENT"));
+		
 	/*	itemAttributes.add(new Attributs("bb-bash" ,"Increases bash damage by X%"));
 		itemAttributes.add(new Attributs("bb-cleave" ,"Increases cleave damage by X%"));
 		itemAttributes.add(new Attributs("bb-frenzy" ,"Increases frenzy damage by X%"));

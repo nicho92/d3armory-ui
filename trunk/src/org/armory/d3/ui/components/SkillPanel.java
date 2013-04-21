@@ -37,7 +37,7 @@ public class SkillPanel extends JPanel {
 		this.skill=skillRune;
 		this.setBackground(Color.BLACK);
 		this.setSize(350, 200);
-		this.setPreferredSize(new java.awt.Dimension(350, 200));
+		this.setPreferredSize(new java.awt.Dimension(350, 181));
 		this.setLayout(null);
 					{
 						skillLabel = new SkillLabel();
@@ -50,7 +50,7 @@ public class SkillPanel extends JPanel {
 						lblTextSkill = new FormatedJLabel();
 						lblTextSkill.setHtmlText(skill.getSkill().getDescription(), "#C7B377", "green");//TODO gestion des . et , 
 						this.add(lblTextSkill);
-						lblTextSkill.setBounds(82, 51, 256, 118);
+						lblTextSkill.setBounds(82, 51, 256, 97);
 					}
 					{
 						lblNomSkill = new JLabel(skill.getSkill().getName());
@@ -64,7 +64,7 @@ public class SkillPanel extends JPanel {
 						lblUnLockedSkill = new FormatedJLabel();
 						this.add(lblUnLockedSkill);
 						lblUnLockedSkill.setHtmlText(String.valueOf("Level : " + skill.getSkill().getLevel()), "#C7B377", "white"); 
-						lblUnLockedSkill.setBounds(255, 168, 83, 16);
+						lblUnLockedSkill.setBounds(255, 160, 83, 16);
 					}
 	}
 	
