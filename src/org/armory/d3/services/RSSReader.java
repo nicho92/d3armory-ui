@@ -1,6 +1,5 @@
 package org.armory.d3.services;
 
-import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,13 +9,11 @@ import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 
 public class RSSReader {
@@ -25,41 +22,30 @@ public class RSSReader {
      * Parser le fichier XML
      * @param feedurl URL du flux RSS
      */
-    public void parse(String feedurl) {
+    public String parse() {
         try {
+        	String feedurl="https://code.google.com/feeds/p/d3armory-ui/svnchanges/basic";
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             URL url = new URL(feedurl);
             Document doc = builder.parse(url.openStream());
             NodeList nodes = null;
             Element element = null;
-            /**
-             * Titre et date du flux
-             */
-            nodes = doc.getElementsByTagName("feed");
-            Node node = doc.getDocumentElement();
-            System.out.println("Flux RSS: " + this.readNode(node, "title"));
-            System.out.println("Date de publication: " + this.readNode(node, "updated"));
-            System.out.println();
-            /**
-             * Elements du flux RSS
-             **/
+         
+            StringBuffer temp = new StringBuffer();
+            	
             nodes = doc.getElementsByTagName("entry");
             for (int i = 0; i < nodes.getLength(); i++) {
                 element = (Element) nodes.item(i);
-                System.out.println(readNode(element, "title"));
-                //System.out.println("Lien: " + readNode(element, "link"));
-                System.out.println("Date: " + readNode(element, "updated"));
-               // System.out.println("Description: " + readNode(element, "content"));
-                System.out.println();
+                String date = readNode(element, "updated").substring(0,readNode(element, "updated").lastIndexOf("T"));
+                String title = readNode(element, "title");
+                if(!title.equalsIgnoreCase("[No log message]"))
+                	temp.append("<b>" + date + "</b> : ").append(title).append("<br/>");
             } //for
-            //for
-        } catch (SAXException ex) {
-            Logger.getLogger(RSSReader.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(RSSReader.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(RSSReader.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            return temp.toString();
+        } catch (Exception ex) {
+        	return null;
+        } 
+		
     }
 
     /**
@@ -136,6 +122,6 @@ public class RSSReader {
      */
     public static void main(String[] args) {
         RSSReader reader = new RSSReader();
-        reader.parse("https://code.google.com/feeds/p/d3armory-ui/svnchanges/basic");
+        reader.parse();
     }
 }
