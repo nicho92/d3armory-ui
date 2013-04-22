@@ -77,8 +77,10 @@ public class Main {
 					D3ArmoryControler.getInstance().setSelectedHero(hero);
 					D3ArmoryControler.getInstance().initCalculator();
 					
-					
 					System.out.println(D3ArmoryControler.getInstance().getCalculator().calculateUnbuffedDPS());
+					double life= D3ArmoryControler.getInstance().getCalculator().getStat("Vitality_",null, true);
+					double lifeB= D3ArmoryControler.getInstance().getCalculator().getStat("Hitpoints_Max_Percent_Bonus",null, true);
+					System.out.println(life + (life*(1+lifeB)));
 					
 					
 		}

@@ -56,6 +56,7 @@ public class AboutFrame extends javax.swing.JFrame {
 					lblInfo = new JEditorPane();
 					jScrollPane1.setViewportView(lblInfo);
 					lblInfo.setContentType("text/html");
+					lblInfo.setEditable(false);
 					lblInfo.setText("Nicolas Pihen - 2013 - <a href='mailto:nicolas.pihen@gmail.com'>nicolas.pihen@gmail.com</a><br/>" + new RSSReader().parse());
 					lblInfo.setPreferredSize(new java.awt.Dimension(459, 116));
 					lblInfo.setCaretPosition(0);

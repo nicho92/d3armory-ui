@@ -334,7 +334,8 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 			String key = keys.next();
 			if(r.getAttribut(key)!=null)
 			{
-				liste.add(r.getAttribut(key).getLibelle().replaceFirst("X", String.valueOf(getAttributesRaw().get(key))));
+				if(!r.getAttribut(key).getLibelle().equals(""))
+					liste.add(r.getAttribut(key).getLibelle().replaceFirst("X", String.valueOf(getAttributesRaw().get(key))));
 			}
 			else
 			{

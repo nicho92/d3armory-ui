@@ -11,6 +11,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Iterator;
 import java.util.Map;
+import javax.swing.BoxLayout;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -120,6 +121,8 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 				
 				{
 					panneauTotalGauche = new JPanel();
+					BoxLayout panneauTotalGaucheLayout = new BoxLayout(panneauTotalGauche, javax.swing.BoxLayout.X_AXIS);
+					panneauTotalGauche.setLayout(panneauTotalGaucheLayout);
 					getContentPane().add(panneauTotalGauche, BorderLayout.CENTER);
 					{
 						panneauGauche = new JPanel();
@@ -166,14 +169,19 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								ComboBoxModel cboTypeModel = 
 										new DefaultComboBoxModel(
 												new String[] { "Axe","HandXbow","Dagger","Mace","FistWeapon","MightyWeapon1H","Spear","Sword","CeremonialDagger","Wand","Axe2H","Bow","Daibo","Crossbow","Mace2H","MightyWeapon2H","Polearm","Staff","Sword2H",
-														"ring","hat", "shoulders", "torso", "bracer", "glove", "belt", "pant", "boot" });
+																"ring","hat", "shoulders", "torso", "bracer", "glove", "belt", "pant", "boot","" });
+								
+								
+								if(getItem().getType()!=null)
+									cboTypeModel.setSelectedItem(getItem().getType().getId());
+								
 								cboType = new JComboBox();
 								panneauHaut.add(cboType);
 								cboType.setModel(cboTypeModel);
 								cboType.setPreferredSize(new java.awt.Dimension(148, 75));
 								cboType.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent evt) {
-										getItem().setIcon(((JComboBox)evt.getSource()).getSelectedItem().toString()+"_206_demonhunter_male");
+										
 										if(((JComboBox)evt.getSource()).getSelectedIndex()>=19)
 										{
 											getItem().setArmor(new MinMaxBonus(0));
@@ -192,9 +200,8 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								lblQuality.setText("Quality :");
 							}
 							{
-								ComboBoxModel cboQualityModel = 
-										new DefaultComboBoxModel(
-												new String[] { "white", "blue","green","orange","yellow"});
+								ComboBoxModel cboQualityModel = new DefaultComboBoxModel(new String[] { "white", "blue","green","orange","yellow"});
+								
 								cboQuality = new JComboBox();
 								panneauHaut.add(cboQuality);
 								
@@ -204,7 +211,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								}
 								else
 								{
-									cboQuality.setSelectedItem(getItem().getDisplayColor());
+									cboQualityModel.setSelectedItem(getItem().getDisplayColor());
 								}
 								cboQuality.setModel(cboQualityModel);
 								cboQuality.setPreferredSize(new java.awt.Dimension(148, 75));
@@ -430,7 +437,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 		{
 			double val = b.get(k) - a.get(k);
 			if(val <0)
-				color="<font color='red'/>-";
+				color="<font color='red'/>";
 			if(val >0)
 				color="<font color='green'/>+";
 			if(val==0)
