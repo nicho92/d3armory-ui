@@ -98,30 +98,4 @@ public class RSSReader {
         }
         return null;
     }
-
-    /**
-     * Afficher une Date GML au format francais
-     * @param gmtDate
-     * @return
-     */
-    public String GMTDateToFrench(String gmtDate) {
-        try {
-            SimpleDateFormat dfGMT = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH);
-            dfGMT.parse(gmtDate);
-            SimpleDateFormat dfFrench = new SimpleDateFormat("EEEE, d MMMM yyyy HH:mm:ss", Locale.FRANCE);
-            return dfFrench.format(dfGMT.getCalendar().getTime());
-        } catch (ParseException ex) {
-            Logger.getLogger(RSSReader.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return "";
-    }
-
-    /**
-     * Exemple
-     * @param args
-     */
-    public static void main(String[] args) {
-        RSSReader reader = new RSSReader();
-        reader.parse();
-    }
 }

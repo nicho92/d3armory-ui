@@ -44,7 +44,8 @@ public class RawsAttributes  {
 		itemAttributes.add(new Attributs("Thorns_Fixed#Physical" ,"Melee attackers take X damage per hit"));
 		itemAttributes.add(new Attributs("Attacks_Per_Second_Percent" ,"Attack speed increased by X%"));
 		itemAttributes.add(new Attributs("Attacks_Per_Second_Item_Bonus" ,"+X Attacks per Second"));
-		itemAttributes.add(new Attributs("Crit_Percent_Bonus" ,"Critical Hit Chance increased by X%"));
+		itemAttributes.add(new Attributs("Attacks_Per_Second_Item" ,""));//attaque de base de l'arme
+		itemAttributes.add(new Attributs("Crit_Percent_Bonus_Capped" ,"Critical Hit Chance increased by X%"));
 		itemAttributes.add(new Attributs("Crit_Damage_Percent" ,"Critical Hit Damage increased by X%"));
 		itemAttributes.add(new Attributs("Damage_Weapon_Percent_Bonus" ,"+X% Damage"));
 		itemAttributes.add(new Attributs("Damage_Min" ,"+X Minimum Damage"));
@@ -64,6 +65,12 @@ public class RawsAttributes  {
 		itemAttributes.add(new Attributs("Damage_Weapon_Min#Poison" ,"+X Poison Damage"));
 		itemAttributes.add(new Attributs("Damage_Weapon_Min#Physical" ,"+X Degats Min"));
 		itemAttributes.add(new Attributs("Damage_Weapon_Delta#Physical" ,"+X Degats Max"));
+		itemAttributes.add(new Attributs("Damage_Weapon_Delta#Arcane" ,"+X Degats Max Arcanic"));
+		itemAttributes.add(new Attributs("Damage_Weapon_Delta#Cold" ,"+X Degats Max Cold"));
+		itemAttributes.add(new Attributs("Damage_Weapon_Delta#Holy" ,"+X Degats Max Holy"));
+		itemAttributes.add(new Attributs("Damage_Weapon_Delta#Fire" ,"+X Degats Max Fire"));
+		itemAttributes.add(new Attributs("Damage_Weapon_Delta#Poison" ,"+X Degats Max Poison"));
+		itemAttributes.add(new Attributs("Damage_Weapon_Delta#Lightning" ,"+X Degats Max Lightning"));
 		itemAttributes.add(new Attributs("elite-damage" ,"Increases Damage against Elites by X%"));
 		itemAttributes.add(new Attributs("demon-damage" ,"+X% Damage to Demons"));
 		itemAttributes.add(new Attributs("human-damage" ,"+X% Damage to Humans"));
@@ -74,14 +81,14 @@ public class RawsAttributes  {
 		itemAttributes.add(new Attributs("plus-lightning-damage-skills" ,"Lightning skills deal % more damage"));
 		itemAttributes.add(new Attributs("plus-poison-damage-skills" ,"Poison skills deal % more damage"));
 		itemAttributes.add(new Attributs("chance-bleed" ,"X% chance to inflict Bleed for  damage over 5 seconds"));
-		itemAttributes.add(new Attributs("Weapond_On_Hit_Blind_Proc_Chance" ,"X% chance to Blind on Hit"));
-		itemAttributes.add(new Attributs("Weapond_On_Hit_Chill_Proc_Chance" ,"X% chance to Chill on Hit"));
-		itemAttributes.add(new Attributs("Weapond_On_Hit_Fear_Proc_Chance" ,"X% chance to Fear on Hit"));
-		itemAttributes.add(new Attributs("Weapond_On_Hit_Freeze_Proc_Chance" ,"X% chance to Freeze on Hit"));
-		itemAttributes.add(new Attributs("Weapond_On_Hit_Immobilize_Proc_Chance" ,"X% chance to Immobilize on Hit"));
-		itemAttributes.add(new Attributs("Weapond_On_Hit_Knockback_Proc_Chance" ,"X% chance to Knockback on Hit"));
-		itemAttributes.add(new Attributs("Weapond_On_Hit_Slow_Proc_Chance" ,"X% chance to Slow on Hit"));
-		itemAttributes.add(new Attributs("Weapond_On_Hit_Stun_Proc_Chance" ,"X% chance to Stun on Hit"));
+		itemAttributes.add(new Attributs("Weapon_On_Hit_Blind_Proc_Chance" ,"X% chance to Blind on Hit"));
+		itemAttributes.add(new Attributs("Weapon_On_Hit_Chill_Proc_Chance" ,"X% chance to Chill on Hit"));
+		itemAttributes.add(new Attributs("Weapon_On_Hit_Fear_Proc_Chance" ,"X% chance to Fear on Hit"));
+		itemAttributes.add(new Attributs("Weapon_On_Hit_Freeze_Proc_Chance" ,"X% chance to Freeze on Hit"));
+		itemAttributes.add(new Attributs("Weapon_On_Hit_Immobilize_Proc_Chance" ,"X% chance to Immobilize on Hit"));
+		itemAttributes.add(new Attributs("Weapon_On_Hit_Knockback_Proc_Chance" ,"X% chance to Knockback on Hit"));
+		itemAttributes.add(new Attributs("Weapon_On_Hit_Slow_Proc_Chance" ,"X% chance to Slow on Hit"));
+		itemAttributes.add(new Attributs("Weapon_On_Hit_Stun_Proc_Chance" ,"X% chance to Stun on Hit"));
 		itemAttributes.add(new Attributs("chance-whirlwind" ,"Chance to occasionally Whirlwind furioulsy."));
 		itemAttributes.add(new Attributs("chance-ball-energy" ,"Chance to hurt a ball of pure energy when attacking."));
 		itemAttributes.add(new Attributs("chance-skeleton" ,"Summons a skeleton when attacked."));
@@ -94,15 +101,16 @@ public class RawsAttributes  {
 		itemAttributes.add(new Attributs("plus-experience-bonus" ,"Increases Bonus Experience by X%"));
 		itemAttributes.add(new Attributs("plus-gold-find" ,"+X% Extra Gold from Monsters"));
 		itemAttributes.add(new Attributs("plus-magic-find" ,"X% Better Chance of finding Magic Items"));
-		itemAttributes.add(new Attributs("health-globes" ,"Health Globes and Potions Grant +X Life"));
+		itemAttributes.add(new Attributs("Health_Globe_Bonus_Health" ,"Health Globes and Potions Grant +X Life"));
 		itemAttributes.add(new Attributs("life-steal" ,"X % of Damage Dealt is Converted to Life"));
-		itemAttributes.add(new Attributs("life-kill" ,"X Life after each Kill"));
-		itemAttributes.add(new Attributs("life-hit" ,"Each hit adds + X Life"));
 		itemAttributes.add(new Attributs("level-reduce" ,"Level Requirement reduced by "));
 		itemAttributes.add(new Attributs("indestructible" ,"Ignores durability loss"));
-		itemAttributes.add(new Attributs("Sockets" ,"Sockets"));
-		itemAttributes.add(new Attributs("Durability_Max" ,"X Durabilitity MAX"));
-		itemAttributes.add(new Attributs("Durability_Cur" ,"X Durabilitity CURRENT"));
+		itemAttributes.add(new Attributs("Sockets" ,""));
+		itemAttributes.add(new Attributs("Durability_Max" ,""));//X Durabilitity MAX
+		itemAttributes.add(new Attributs("Durability_Cur" ,""));//X Durabilitity CURRENT
+		itemAttributes.add(new Attributs("Hitpoints_On_Hit" ,"Each hits adds +X Life"));
+		itemAttributes.add(new Attributs("Hitpoints_On_Kill" ,"+X Life after each Kill"));
+		itemAttributes.add(new Attributs("Hitpoints_Regen_Per_Second" ,"Regenerates X Life per Second"));
 		
 	/*	itemAttributes.add(new Attributs("bb-bash" ,"Increases bash damage by X%"));
 		itemAttributes.add(new Attributs("bb-cleave" ,"Increases cleave damage by X%"));
@@ -237,8 +245,6 @@ public class RawsAttributes  {
 //		itemAttributes.add("Attacks_Per_Second_Item_Percent" );
 //		itemAttributes.add("Attacks_Per_Second_Percent" );
 //		itemAttributes.add("Block_Chance_Bonus_Item" );
-//		itemAttributes.add("Crit_Damage_Percent" );
-//		itemAttributes.add("Crit_Percent_Bonus_Capped" );
 //		itemAttributes.add("CrowdControl_Reduction" );
 //		itemAttributes.add("Damage_Bonus_Min#Physical" );
 //		itemAttributes.add("Damage_Delta#Physical" );
@@ -273,9 +279,6 @@ public class RawsAttributes  {
 //		itemAttributes.add("Gold_PickUp_Radius" );
 //		itemAttributes.add("Hitpoints_Max_Bonus" );
 //		itemAttributes.add("Hitpoints_Max_Percent_Bonus_Item" );
-//		itemAttributes.add("Hitpoints_On_Hit" );
-//		itemAttributes.add("Hitpoints_On_Kill" );
-//		itemAttributes.add("Hitpoints_Regen_Per_Second" );
 //		itemAttributes.add("Intelligence_Item" );
 //		itemAttributes.add("Item_Indestructible" );
 //		itemAttributes.add("Item_Level_Requirement_Reduction" );
@@ -319,9 +322,7 @@ public class RawsAttributes  {
 //		itemAttributes.add("Spending_Resource_Heals_Percent#Mana");
 //		itemAttributes.add("Spending_Resource_Heals_Percent#Spirit");
 //		itemAttributes.add("Steal_Health_Percent");
-//		itemAttributes.add("Strength_Item" );
 //		itemAttributes.add("Thorns_Fixed#Physical");
-//		itemAttributes.add("Vitality_Item");
 //		itemAttributes.add("Weapon_On_Hit_Bleed_Proc_Chance" );
 //		itemAttributes.add("Weapon_On_Hit_Bleed_Proc_Damage_Base" );
 //		itemAttributes.add("Weapon_On_Hit_Bleed_Proc_Damage_Delta" );
