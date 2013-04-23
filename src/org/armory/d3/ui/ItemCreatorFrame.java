@@ -35,6 +35,7 @@ import org.armory.d3.ui.components.ItemPanelDetails;
 import org.armory.d3.ui.model.ItemDetailsModel;
 
 import ca.odell.glazedlists.GlazedLists;
+import ca.odell.glazedlists.matchers.TextMatcherEditor;
 import ca.odell.glazedlists.swing.AutoCompleteSupport;
 
 import com.sdfteam.d3armory.service.util.EnumerationStuff;
@@ -240,6 +241,8 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								cboAttributs.setPreferredSize(new java.awt.Dimension(294, 21));
 								AutoCompleteSupport support = AutoCompleteSupport.install(cboAttributs, GlazedLists.eventListOf(new RawsAttributes().getAttributs()));
 									support.setStrict(true);
+									support.setFilterMode(TextMatcherEditor.CONTAINS);
+									
 								
 								cboAttributs.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent evt) {
