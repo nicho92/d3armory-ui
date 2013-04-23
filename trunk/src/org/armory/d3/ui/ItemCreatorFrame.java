@@ -11,8 +11,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Iterator;
 import java.util.Map;
-import javax.swing.BoxLayout;
 
+import javax.swing.BoxLayout;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -33,7 +33,9 @@ import org.armory.d3.services.StuffCalculator;
 import org.armory.d3.ui.components.FormatedJLabel;
 import org.armory.d3.ui.components.ItemPanelDetails;
 import org.armory.d3.ui.model.ItemDetailsModel;
-import org.jdesktop.application.Application;
+
+import ca.odell.glazedlists.GlazedLists;
+import ca.odell.glazedlists.swing.AutoCompleteSupport;
 
 import com.sdfteam.d3armory.service.util.EnumerationStuff;
 import com.sdfteam.d3armory.service.util.RawsAttributes;
@@ -178,6 +180,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								cboType = new JComboBox();
 								panneauHaut.add(cboType);
 								cboType.setModel(cboTypeModel);
+						
 								cboType.setPreferredSize(new java.awt.Dimension(148, 75));
 								cboType.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent evt) {
@@ -229,13 +232,15 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								lblAttributes.setPreferredSize(new java.awt.Dimension(190, 21));
 							}
 							{
-								ComboBoxModel<Attributs> cboAttributsModel = new DefaultComboBoxModel<Attributs>(new RawsAttributes().getAttributs());
+								//ComboBoxModel<Attributs> cboAttributsModel = new DefaultComboBoxModel<Attributs>(new RawsAttributes().getAttributs());
 								cboAttributs = new JComboBox<Attributs>();
 								cboAttributs.setEditable(true);
 								panneauHaut.add(cboAttributs);
-								//AutoCompletion.enable(cboAttributs);
-								cboAttributs.setModel(cboAttributsModel);
+								//cboAttributs.setModel(cboAttributsModel);
 								cboAttributs.setPreferredSize(new java.awt.Dimension(294, 21));
+								AutoCompleteSupport support = AutoCompleteSupport.install(cboAttributs, GlazedLists.eventListOf(new RawsAttributes().getAttributs()));
+									support.setStrict(true);
+								
 								cboAttributs.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent evt) {
 										getItem().addAttributs((Attributs)cboAttributs.getSelectedItem());

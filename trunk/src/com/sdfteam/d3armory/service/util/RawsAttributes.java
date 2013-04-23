@@ -20,7 +20,6 @@ public class RawsAttributes  {
 	
 	private void initMap()
 	{
-		itemAttributes.add(new Attributs("" ,""));
 		itemAttributes.add(new Attributs("Strength_Item" ,"+X Strength"));
 		itemAttributes.add(new Attributs("Intelligence_Item" ,"+X Intelligence"));
 		itemAttributes.add(new Attributs("Vitality_Item" ,"+X Vitality"));
