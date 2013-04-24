@@ -345,6 +345,13 @@ public class StuffCalculator {
 		else
 			life= (36 + 4* lvl  + (vitality * (lvl - 25))) * (1+lifeB);
 		
+		
+		//ARMOR CALCUL TODO : BUFF DES ARMORS
+		double armorBonus= getStat("Armor","",false);
+		double armor = stat_base+armorBonus;
+		
+		
+		
 		mapResultat.put("STAT",stat_base);
 		mapResultat.put("ATTACKSPEEDBONUS",bonusArmor*100);
 		mapResultat.put("ATTACKSPEEDMH",attackSpeedMain);
@@ -355,6 +362,7 @@ public class StuffCalculator {
 		mapResultat.put("OHDAMAGE",hitDmgOFF);
 		mapResultat.put("VITALITY",vitality);
 		mapResultat.put("LIFE",life);
+		mapResultat.put("ARMOR",armor);
 		
 		double dps=getDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
 		double elementdps = getElemDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
