@@ -333,8 +333,8 @@ public class StuffCalculator {
 		else
 			hitDmg=hitDmgMAIN;
 		
-		
-		double lifeB= D3ArmoryControler.getInstance().getCalculator().getStat("Hitpoints_Max_Percent_Bonus","",false);
+		//CALCUL VITALITY
+		double lifeB= getStat("Hitpoints_Max_Percent_Bonus","",false);
 		double lvl = hero.getLevel().doubleValue();
 		double paran =  hero.getParagonLevel();
 		double vitality = 9+ 2 *((lvl+paran)-1) + getStat("Vitality_","",false);
