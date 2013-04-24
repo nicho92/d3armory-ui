@@ -24,10 +24,14 @@ public class StuffCalculator {
 	private Hero hero;
 	private boolean twohanded;
 	private Map<String,Double> weaponDefaultAS=new HashMap<String,Double>();
-	
 	int countweapon=0;
 	private Map<String,Double> mapResultat ;
 	
+
+	public boolean isTwohanded() {
+		return twohanded;
+	}
+
 	public Map<String, Double> getMapResultat() {
 		return mapResultat;
 	}
@@ -64,6 +68,7 @@ public class StuffCalculator {
 	private void init()
 	{
 		bonusItem = new HashMap<String,MinMaxBonus>();
+		
 		weaponDefaultAS=new HashMap<String,Double>();
 		weaponDefaultAS.put("Axe", 1.30);
 		weaponDefaultAS.put("HandXbow", 1.60);
@@ -272,7 +277,7 @@ public class StuffCalculator {
 		return total;	
 		}
 	
-	public double calculateUnbuffedDPS()
+	public double calculate()
 	{
 		double bonusDual=(countweapon==2)?0.15:0;
 		double chance_cc=0.05+getStat("Crit_Percent", null);
@@ -328,6 +333,18 @@ public class StuffCalculator {
 		else
 			hitDmg=hitDmgMAIN;
 		
+		
+		double lifeB= D3ArmoryControler.getInstance().getCalculator().getStat("Hitpoints_Max_Percent_Bonus","",false);
+		double lvl = hero.getLevel().doubleValue();
+		double paran =  hero.getParagonLevel();
+		double vitality = 9+ 2 *((lvl+paran)-1) + getStat("Vitality_","",false);
+		double life=0;
+		
+		if(lvl<35)
+			life = (36 + (lvl * 4) + (vitality * 10)) * (1+lifeB);
+		else
+			life= (36 + 4* lvl  + (vitality * (lvl - 25))) * (1+lifeB);
+		
 		mapResultat.put("STAT",stat_base);
 		mapResultat.put("ATTACKSPEEDBONUS",bonusArmor*100);
 		mapResultat.put("ATTACKSPEEDMH",attackSpeedMain);
@@ -336,7 +353,8 @@ public class StuffCalculator {
 		mapResultat.put("CRITDAMAGE",degat_cc*100);
 		mapResultat.put("MHDAMAGE",hitDmgMAIN);
 		mapResultat.put("OHDAMAGE",hitDmgOFF);
-	
+		mapResultat.put("VITALITY",vitality);
+		mapResultat.put("LIFE",life);
 		
 		double dps=getDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
 		double elementdps = getElemDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
@@ -486,7 +504,7 @@ public class StuffCalculator {
 		stuffs2.putAll(stuffs);
 		stuffs2.put(g, i);//on écrase avec le nouvel item
 		StuffCalculator calc2 = new StuffCalculator(stuffs2, hero);
-		calc2.calculateUnbuffedDPS();
+		calc2.calculate();
 		return calc2;
 		
 		
