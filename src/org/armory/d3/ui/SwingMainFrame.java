@@ -542,7 +542,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private String getDetailDPS()
 	{
-		D3ArmoryControler.getInstance().getCalculator().calculateUnbuffedDPS();
+		D3ArmoryControler.getInstance().getCalculator().calculate();
 		Iterator<String> keys = D3ArmoryControler.getInstance().getCalculator().getStats().keySet().iterator();
 		
 		StringBuffer temp = new StringBuffer();
