@@ -41,6 +41,10 @@ public class D3ArmoryControler {
 	private Item selectedItem;
 	private Map<EnumerationStuff, Item> stuff;
 	
+	public Map<EnumerationStuff, Item> getStuff() {
+		return stuff;
+	}
+
 	public static D3ArmoryControler getInstance()
 	{
 		if(instance==null)

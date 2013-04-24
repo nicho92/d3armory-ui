@@ -18,6 +18,7 @@ import com.sdfteam.d3armory.service.util.EnumerationStuff;
 
 public class StuffCalculator {
 	private Map<EnumerationStuff,Item> stuffs;
+	
 	private HeroSkillContainer skills;
 	private Map<String, MinMaxBonus> bonusItem;
 	private Hero hero;
@@ -29,6 +30,14 @@ public class StuffCalculator {
 	
 	public Map<String, Double> getMapResultat() {
 		return mapResultat;
+	}
+
+	public Map<EnumerationStuff, Item> getStuffs() {
+		return stuffs;
+	}
+
+	public void setStuffs(Map<EnumerationStuff, Item> stuffs) {
+		this.stuffs = stuffs;
 	}
 
 	public StuffCalculator(Map<EnumerationStuff,Item> stuff, Hero hero) {
@@ -475,7 +484,7 @@ public class StuffCalculator {
 	{
 		Map<EnumerationStuff,Item> stuffs2 = new HashMap<EnumerationStuff,Item>();
 		stuffs2.putAll(stuffs);
-		stuffs2.put(g, i);
+		stuffs2.put(g, i);//on écrase avec le nouvel item
 		StuffCalculator calc2 = new StuffCalculator(stuffs2, hero);
 		calc2.calculateUnbuffedDPS();
 		return calc2;
