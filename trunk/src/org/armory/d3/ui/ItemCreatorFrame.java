@@ -376,22 +376,22 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 					panneauDetailDPS = new JPanel();
 					panneauDetailDPS.setBackground(Color.black);
 					getContentPane().add(panneauDetailDPS, BorderLayout.SOUTH);
-					panneauDetailDPS.setPreferredSize(new java.awt.Dimension(862, 183));
+					panneauDetailDPS.setPreferredSize(new java.awt.Dimension(862, 198));
 					{
 						lblStat1 = new FormatedJLabel();
 						panneauDetailDPS.add(lblStat1);
-						lblStat1.setPreferredSize(new java.awt.Dimension(230, 161));
+						lblStat1.setPreferredSize(new java.awt.Dimension(230, 179));
 						lblStat1.setHtmlText(getDetail(D3ArmoryControler.getInstance().getCalculator().getMapResultat()), "white", "green");
 					}
 					{
 						lblStat2 = new FormatedJLabel();
 						panneauDetailDPS.add(lblStat2);
-						lblStat2.setPreferredSize(new java.awt.Dimension(230, 167));
+						lblStat2.setPreferredSize(new java.awt.Dimension(230, 178));
 					}
 					{
 						lblStatDiff = new FormatedJLabel();
 						panneauDetailDPS.add(lblStatDiff);
-						lblStatDiff.setPreferredSize(new java.awt.Dimension(230, 160));
+						lblStatDiff.setPreferredSize(new java.awt.Dimension(230, 182));
 					}
 					{
 						btnSauvegarder = new JButton();
@@ -424,6 +424,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 		StringBuffer temp = new StringBuffer();
 				temp.append("Vitality " + mapResultat.get("VITALITY") +" <br/> ") ;
 				temp.append("Life " + mapResultat.get("LIFE") +" <br/> ") ;
+				temp.append("Armor " + mapResultat.get("ARMOR") +" <br/> ") ;
 				temp.append("Stat " + mapResultat.get("STAT") +" <br/> ") ;
 				temp.append("AS Bonus " + mapResultat.get("ATTACKSPEEDBONUS") +" <br/> ") ;
 				temp.append("AS MH " + mapResultat.get("ATTACKSPEEDMH") +" <br/> ") ;
@@ -442,7 +443,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 		String color="Green";
 		Iterator<String> it=a.keySet().iterator();
 		StringBuffer temp = new StringBuffer();
-		String keys[] = {"VITALITY","LIFE","STAT","ATTACKSPEEDBONUS","ATTACKSPEEDMH","ATTACKSPEEDOH","CRITCHANCE","CRITDAMAGE","OHDAMAGE","MHDAMAGE","DPS"};
+		String keys[] = {"ARMOR","VITALITY","LIFE","STAT","ATTACKSPEEDBONUS","ATTACKSPEEDMH","ATTACKSPEEDOH","CRITCHANCE","CRITDAMAGE","OHDAMAGE","MHDAMAGE","DPS"};
 		for(String k:keys)
 		{
 			double val = b.get(k) - a.get(k);
