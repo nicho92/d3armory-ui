@@ -233,11 +233,9 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								lblAttributes.setPreferredSize(new java.awt.Dimension(190, 21));
 							}
 							{
-								//ComboBoxModel<Attributs> cboAttributsModel = new DefaultComboBoxModel<Attributs>(new RawsAttributes().getAttributs());
 								cboAttributs = new JComboBox<Attributs>();
 								cboAttributs.setEditable(true);
 								panneauHaut.add(cboAttributs);
-								//cboAttributs.setModel(cboAttributsModel);
 								cboAttributs.setPreferredSize(new java.awt.Dimension(294, 21));
 								AutoCompleteSupport support = AutoCompleteSupport.install(cboAttributs, GlazedLists.eventListOf(new RawsAttributes().getAttributs()));
 									support.setStrict(true);
@@ -441,9 +439,8 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 	public String getDetailDiff(Map<String, Double> a,Map<String, Double> b)
 	{
 		String color="Green";
-		Iterator<String> it=a.keySet().iterator();
 		StringBuffer temp = new StringBuffer();
-		String keys[] = {"ARMOR","VITALITY","LIFE","STAT","ATTACKSPEEDBONUS","ATTACKSPEEDMH","ATTACKSPEEDOH","CRITCHANCE","CRITDAMAGE","OHDAMAGE","MHDAMAGE","DPS"};
+		String keys[] = {"VITALITY","LIFE","ARMOR","STAT","ATTACKSPEEDBONUS","ATTACKSPEEDMH","ATTACKSPEEDOH","CRITCHANCE","CRITDAMAGE","OHDAMAGE","MHDAMAGE","DPS"};
 		for(String k:keys)
 		{
 			double val = b.get(k) - a.get(k);

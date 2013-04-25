@@ -12,9 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -608,8 +605,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			JMenuItem mnu = new JMenuItem("Delete");
 			mnu.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//D3ArmoryControler.getInstance().removeTags(listeTags.getSelectedIndex());
-					//listeTags.getModel().remove(listeTags.getSelectedIndex());
+					D3ArmoryControler.getInstance().removeTags(listeTags.getSelectedIndex());
+					listeTags.removeAll();
+					listeTags.setModel( new DefaultComboBoxModel(D3ArmoryControler.getInstance().getListTags().toArray()));
 				}
 			});
 			popupMenu.add(mnu);
