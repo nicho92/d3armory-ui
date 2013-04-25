@@ -1,5 +1,6 @@
 package org.armory.d3.ui;
 
+import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -7,15 +8,21 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
 import java.awt.SplashScreen;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultRowSorter;
@@ -159,7 +166,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	public static void main(String[] args) {
 		
-		 final SplashScreen splash = SplashScreen.getSplashScreen();
+	    final SplashScreen splash = SplashScreen.getSplashScreen();
 	        if (splash != null) {
 	             Graphics2D g = splash.createGraphics();
 	        try {
@@ -169,6 +176,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			}
 	        splash.close();
 	        }
+
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				SwingMainFrame inst = new SwingMainFrame();
@@ -182,6 +190,41 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	public SwingMainFrame() {
 		super();
 		initGUI();
+//		if(SystemTray.isSupported()){
+//			SystemTray tray = SystemTray.getSystemTray();
+//			try {
+//				Image image = ImageIO.read(getClass().getResource("/org/armory/d3/ui/resources/icone.jpg"));
+//				PopupMenu popup = new PopupMenu();
+//				MenuItem openItem = new MenuItem("Ouvrir");
+//				openItem.addActionListener(new ActionListener() {
+//					public void actionPerformed(ActionEvent e) {
+//						setVisible(true);
+//					}
+//				});
+//				 
+//				popup.add(openItem);
+//				 
+//				MenuItem closeItem = new MenuItem("Fermer");
+//				 
+//				closeItem.addActionListener(new ActionListener() {
+//					public void actionPerformed(ActionEvent e) {
+//						setVisible(false);
+//				}
+//				});
+//				 
+//				popup.add(closeItem);
+//				 
+//				TrayIcon  trayIcon = new TrayIcon(image, "Notre application", popup);
+//				tray.add(trayIcon);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (AWTException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+		
 	}
 	
 	private void initGUI() {
