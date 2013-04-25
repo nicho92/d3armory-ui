@@ -18,7 +18,7 @@ public class HeroCellRenderer implements ListCellRenderer
 	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 		JLabel lab = new JLabel();
 		Hero hero = (Hero)value;
-		lab.setText("<html>"+ hero.getName() + " ("+hero.getLevel() +") <font color='#A591C2'>(" + hero.getParagonLevel()+")</font>");
+		lab.setText("<html>"+ hero.getName() + " "+hero.getLevel() +" <font color='#A591C2'>(" + hero.getParagonLevel()+")</font>");
 		lab.setOpaque(true);
 		lab.setBackground(Color.black);
 		lab.setForeground(Color.white);

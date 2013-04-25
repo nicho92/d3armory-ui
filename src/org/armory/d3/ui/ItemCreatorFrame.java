@@ -453,7 +453,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 			
 			
 			
-			temp.append(color+val +"</font><br/>");
+			temp.append(color+StuffCalculator.format(val) +"</font><br/>");
 		}
 		return temp.toString();
 	}
