@@ -180,12 +180,11 @@ public class ItemLabel extends JLabel implements MouseListener {
 	 	
 }
 
-	@Override
+
 	public void mouseClicked(MouseEvent e) {
 		details.showItem(item);
 		}
 
-	@Override
 	public void mouseEntered(MouseEvent e) {
 		details.showItem(item);
 		details.getLblIcon().setIcon(this.getIcon());
@@ -196,12 +195,10 @@ public class ItemLabel extends JLabel implements MouseListener {
 		 
 	}
 
-	@Override
 	public void mouseExited(MouseEvent e) {
 		//details.removeAll();
 	}
 
-	@Override
 	public void mousePressed(MouseEvent e) {
 		if(SwingUtilities.isRightMouseButton(e))
 		{
@@ -252,7 +249,6 @@ public class ItemLabel extends JLabel implements MouseListener {
 		  return m;
 	}
 
-	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		

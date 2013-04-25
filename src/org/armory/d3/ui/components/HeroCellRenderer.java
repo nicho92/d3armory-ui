@@ -15,7 +15,6 @@ import org.armory.d3.beans.Hero;
 
 public class HeroCellRenderer implements ListCellRenderer
 {
-	@Override
 	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 		JLabel lab = new JLabel();
 		Hero hero = (Hero)value;
