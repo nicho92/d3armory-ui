@@ -77,7 +77,7 @@ public class Main {
 					D3ArmoryControler.getInstance().setSelectedHero(hero);
 					D3ArmoryControler.getInstance().initCalculator();
 					
-					//System.out.println(D3ArmoryControler.getInstance().getCalculator().calculateUnbuffedDPS());
+					System.out.println(D3ArmoryControler.getInstance().getCalculator().calculate());
 					
 		}
 }
