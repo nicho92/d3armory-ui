@@ -51,6 +51,7 @@ import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.Item;
 import org.armory.d3.beans.Profile;
 import org.armory.d3.services.D3ArmoryControler;
+import org.armory.d3.services.StuffCalculator;
 import org.armory.d3.ui.components.FormatedJLabel;
 import org.armory.d3.ui.components.HeroCellRenderer;
 import org.armory.d3.ui.components.HeroPanel;
@@ -376,7 +377,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		D3ArmoryControler.getInstance().setSelectedHero(hero);
 		hero=D3ArmoryControler.getInstance().getHeroDetails(hero);
 		lblNom.setText(hero.getName());
-		lblInformationClasseNiveau.setText(hero.getClazz() +" de niveau " + hero.getLevel());
+		lblInformationClasseNiveau.setText(hero.getClazz() +" Level : " + hero.getLevel());
 		lblParangonLevel.setText("("+hero.getParagonLevel()+")");
 		lblParangonLevel.setBounds(749, 20, 51, 16);
 //		GregorianCalendar cal = (GregorianCalendar)Calendar.getInstance();
@@ -589,7 +590,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		while(keys.hasNext())
 		{
 			String key = keys.next();
-			temp.append(key +" : " + D3ArmoryControler.getInstance().getCalculator().getStats().get(key) +" <br/>" );
+			temp.append(key +" : " + StuffCalculator.format(D3ArmoryControler.getInstance().getCalculator().getStats().get(key)) +" <br/>" );
 		}
 		
 		return temp.toString();
@@ -622,19 +623,19 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			temp.append("Blocage : " + hero.getStats().getBlockChance()*100 +"% <br/>");
 			temp.append("Blocage Min : " + hero.getStats().getBlockAmountMin() +" <br/>");
 			temp.append("Blocage Max : " + hero.getStats().getBlockAmountMax() +" <br/>");
-			temp.append("Damage Reduc: " + hero.getStats().getDamageReduction()*100 +"% <br/>");
-			temp.append("Magic Find : " + hero.getStats().getMagicFind()*100 +"% <br/>");
-			temp.append("Gold Find : " + hero.getStats().getGoldFind()*100 +"% <br/>");
+			temp.append("Damage Reduc: " + StuffCalculator.format(hero.getStats().getDamageReduction()*100) +"% <br/>");
+			temp.append("Magic Find : " + StuffCalculator.format(hero.getStats().getMagicFind()*100) +"% <br/>");
+			temp.append("Gold Find : " + StuffCalculator.format(hero.getStats().getGoldFind()*100) +"% <br/>");
 		}
 		if(val==3)
 		{
 			temp.append("DPS : " + hero.getStats().getDamage() +" <br/>");
-			temp.append("Chance Crit : " + hero.getStats().getCritChance()*100 +"% <br/>");
-			temp.append("Crit Damage : " + hero.getStats().getCritDamage()*100 +"% <br/>");
-			temp.append("Damage Increase : " + hero.getStats().getDamageIncrease()*100 +"% <br/>");
+			temp.append("Chance Crit : " + StuffCalculator.format(hero.getStats().getCritChance()*100) +"% <br/>");
+			temp.append("Crit Damage : " + StuffCalculator.format(hero.getStats().getCritDamage()*100) +"% <br/>");
+			temp.append("Damage Increase : " + StuffCalculator.format(hero.getStats().getDamageIncrease()*100) +"% <br/>");
 			temp.append("Life on hit : " + hero.getStats().getLifeOnHit() +" <br/>");
 			temp.append("Life per Kill : " + hero.getStats().getLifePerKill() +" <br/>");
-			temp.append("Life Steal : " + hero.getStats().getLifeSteal()*100 +"% <br/>");
+			temp.append("Life Steal : " + StuffCalculator.format(hero.getStats().getLifeSteal()*100) +"% <br/>");
 		}
 		return temp.toString();
 	}

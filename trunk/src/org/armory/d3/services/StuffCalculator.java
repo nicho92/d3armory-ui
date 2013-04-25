@@ -1,5 +1,6 @@
 package org.armory.d3.services;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -353,22 +354,22 @@ public class StuffCalculator {
 		
 		
 		mapResultat.put("STAT",stat_base);
-		mapResultat.put("ATTACKSPEEDBONUS",bonusArmor*100);
-		mapResultat.put("ATTACKSPEEDMH",attackSpeedMain);
-		mapResultat.put("ATTACKSPEEDOH",attackSpeedOff);
-		mapResultat.put("CRITCHANCE", chance_cc*100);
-		mapResultat.put("CRITDAMAGE",degat_cc*100);
-		mapResultat.put("MHDAMAGE",hitDmgMAIN);
-		mapResultat.put("OHDAMAGE",hitDmgOFF);
-		mapResultat.put("VITALITY",vitality);
-		mapResultat.put("LIFE",life);
-		mapResultat.put("ARMOR",armor);
+		mapResultat.put("ATTACKSPEEDBONUS",format(bonusArmor*100));
+		mapResultat.put("ATTACKSPEEDMH",format(attackSpeedMain));
+		mapResultat.put("ATTACKSPEEDOH",format(attackSpeedOff));
+		mapResultat.put("CRITCHANCE", format(chance_cc*100));
+		mapResultat.put("CRITDAMAGE",format(degat_cc*100));
+		mapResultat.put("MHDAMAGE",format(hitDmgMAIN));
+		mapResultat.put("OHDAMAGE",format(hitDmgOFF));
+		mapResultat.put("VITALITY",format(vitality));
+		mapResultat.put("LIFE",format(life));
+		mapResultat.put("ARMOR",format(armor));
 		
 		double dps=getDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
 		double elementdps = getElemDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
 		if(dps>=elementdps)
 		{
-			mapResultat.put("DPS",dps);
+			mapResultat.put("DPS",format(dps));
 			return dps;
 		}
 		else
@@ -514,8 +515,11 @@ public class StuffCalculator {
 		StuffCalculator calc2 = new StuffCalculator(stuffs2, hero);
 		calc2.calculate();
 		return calc2;
-		
-		
+	}
+	
+	public static double format(double val)
+	{
+		return Double.parseDouble(new DecimalFormat("######.00").format(val).replaceAll(",", "."));
 	}
 	
 
