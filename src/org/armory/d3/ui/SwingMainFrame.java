@@ -93,7 +93,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JTable tableauDetails;
 	private JScrollPane scrollTableau;
 	private JSplitPane splitPanneauTableauHero;
-
+	private JLabel lblLoader;
 	private ItemPanelDetails panelItemDetails;
 	private JSplitPane splitTagsHeroes;
 	private SocketLabel lblSocketMainHand2;
@@ -382,9 +382,26 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		return scrollFicheHeros;
 	}
 	
-	private void listeHerosMouseClicked(MouseEvent evt) throws D3ServerCommunicationException {
-		
+	private void listeHerosMouseClicked(MouseEvent evt)  {
 		hero = (Hero)((JList) evt.getSource()).getSelectedValue();
+		
+			new Thread(new Runnable() {
+			      public void run() {
+			    	  try {	
+			    		  getLblLoader().setIcon(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/loading.gif")));
+			    		  chargementHero();
+			    		  Thread.sleep(1000);
+			    		  getLblLoader().setIcon(null);
+			    		} 
+			    	  catch (Exception e) {
+			  			e.printStackTrace();
+			  		}
+			      }
+			  }).start();
+	}
+	
+	private void chargementHero() throws D3ServerCommunicationException
+	{
 		D3ArmoryControler.getInstance().setSelectedHero(hero);
 		hero=D3ArmoryControler.getInstance().getHeroDetails(hero);
 		lblNom.setText(hero.getName());
@@ -592,6 +609,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		getPanneauDPS().add(lbl5);
 	}
 	
+	
 	private String getDetailDPS()
 	{
 		D3ArmoryControler.getInstance().getCalculator().calculate();
@@ -689,6 +707,18 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	private JLabel getLblLoader()
+	{
+		if(lblLoader==null){
+			lblLoader = new JLabel();
+			lblLoader.setBounds(0, 0, 64, 64);
+		}
+		return lblLoader;
+	}
+	
 	
 	private SkillLabel getLblSkill1()
 	{
@@ -1061,11 +1091,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					listeHeros.setPreferredSize(new Dimension(150,812));
 					listeHeros.addMouseListener(new MouseAdapter() {
 						public void mouseClicked(MouseEvent evt) {
-							try {
 								listeHerosMouseClicked(evt);
-							} catch (D3ServerCommunicationException e) {
-								e.printStackTrace();
-							}
 						}
 					});
 				}
@@ -1128,7 +1154,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				panneauDessinHero.add(getLblSkill8());
 				panneauDessinHero.add(getLblSkill9());
 				
-
+				panneauDessinHero.add(getLblLoader());
 				
 				
 				{
