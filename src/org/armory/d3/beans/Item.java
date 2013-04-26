@@ -1,5 +1,6 @@
 package org.armory.d3.beans;
 
+import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -343,8 +344,42 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 			}
 		}
 		setAttributes(liste.toArray(new String[liste.size()]));
-		
 	}
+
+	public String getTypeOfObject()
+	{
+			if (displayColor.equals("orange"))
+				return "Legendary";
+			if (displayColor.equals("yellow"))
+				return "Rare";
+			if (displayColor.equals("green"))
+				return "Legendary Set";
+			if (displayColor.equals("blue"))
+				return "Magic";
+			if (displayColor.equals("white"))
+				return "Normal";
+			if (displayColor.equals("grey"))
+				return "Damaged";
+			
+			return "";
+	}
+	
+	public void setTypeOfObject(String type)
+	{
+		if (type.equalsIgnoreCase("Legendary"))
+			setDisplayColor("orange");
+		if (type.equalsIgnoreCase("Rare"))
+			setDisplayColor("yellow");
+		if (type.equalsIgnoreCase("Legendary Set"))
+			setDisplayColor("green");
+		if (type.equalsIgnoreCase("Magic"))
+			setDisplayColor("blue");
+		if (type.equalsIgnoreCase("Normal"))
+			setDisplayColor("white");
+		if (type.equalsIgnoreCase("Damaged"))
+			setDisplayColor("grey");
+	}
+
 	
 
 	
