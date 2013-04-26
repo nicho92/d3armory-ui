@@ -81,6 +81,7 @@ public class Hero extends RemoteEntity {
 		
 		return "female";
 	}
+	
 	public void setGender(Number gender) {
 		this.gender = gender;
 	}
