@@ -182,6 +182,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	    	new File(repconf.getAbsolutePath()+"/items").mkdir();
 	    	new File(repconf.getAbsolutePath()+"/local.d3armory").createNewFile();
 	    	new File(repconf.getAbsolutePath()+"/tags.d3armory").createNewFile();
+	    	D3ArmoryControler.getInstance().setLocal("en_EN");
 	    }
 	    }
 	    catch(IOException e)
@@ -714,7 +715,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	{
 		if(lblLoader==null){
 			lblLoader = new JLabel();
-			lblLoader.setBounds(0, 0, 64, 64);
+			lblLoader.setBounds(0, 0, 128, 128);
 		}
 		return lblLoader;
 	}
