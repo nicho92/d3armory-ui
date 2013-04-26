@@ -1,6 +1,5 @@
 package org.armory.d3.ui;
 
-import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,21 +7,17 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.MenuItem;
-import java.awt.PopupMenu;
 import java.awt.SplashScreen;
-import java.awt.SystemTray;
-import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultRowSorter;
@@ -33,6 +28,7 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -177,7 +173,22 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			}
 	        splash.close();
 	        }
-
+	   
+	    try{    
+	    File repconf = new File("conf");
+	    if(!repconf.exists())
+	    {
+	    	repconf.mkdir();
+	    	new File(repconf.getAbsolutePath()+"/items").mkdir();
+	    	new File(repconf.getAbsolutePath()+"/local.d3armory").createNewFile();
+	    	new File(repconf.getAbsolutePath()+"/tags.d3armory").createNewFile();
+	    }
+	    }
+	    catch(IOException e)
+	    {
+	    	JOptionPane.showMessageDialog(null, e);
+	    }
+	        
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				SwingMainFrame inst = new SwingMainFrame();
