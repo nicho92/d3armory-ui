@@ -90,7 +90,7 @@ public class StuffCalculator {
 		weaponDefaultAS.put("Polearm", 0.95);
 		weaponDefaultAS.put("Staff", 1.00);
 		weaponDefaultAS.put("Sword2H", 1.1);
-		weaponDefaultAS.put("none", 0.0);
+		weaponDefaultAS.put("None", 0.0);
 		
 			
 		Map<LegendarySet,Integer> piecesbyset=new HashMap<LegendarySet,Integer>();

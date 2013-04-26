@@ -176,9 +176,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 					return Color.gray;
 			
 				return Color.white;
-	  
-	 	
-}
+	 }
 
 
 	public void mouseClicked(MouseEvent e) {

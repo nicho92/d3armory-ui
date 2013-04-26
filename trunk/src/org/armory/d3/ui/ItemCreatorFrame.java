@@ -9,7 +9,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
@@ -172,7 +171,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								ComboBoxModel cboTypeModel = 
 										new DefaultComboBoxModel(
 												new String[] { "Axe","HandXbow","Dagger","Mace","FistWeapon","MightyWeapon1H","Spear","Sword","CeremonialDagger","Wand","Axe2H","Bow","Daibo","Crossbow","Mace2H","MightyWeapon2H","Polearm","Staff","Sword2H",
-																"ring","hat", "shoulders", "torso", "bracer", "glove", "belt", "pant", "boot","" });
+																"Ring","Hat", "Shoulders", "Torso", "Bracer", "Glove", "Belt", "Pant", "Boot","" });
 								
 								
 								if(getItem().getType()!=null)
@@ -204,24 +203,24 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								lblQuality.setText("Quality :");
 							}
 							{
-								ComboBoxModel cboQualityModel = new DefaultComboBoxModel(new String[] { "white", "blue","green","orange","yellow"});
-								
+								ComboBoxModel cboQualityModel = new DefaultComboBoxModel(new String[] {"Normal", "Magical","Rare","Legendary","Legendary Set"});
 								cboQuality = new JComboBox();
+								cboQuality.setModel(cboQualityModel);
 								panneauHaut.add(cboQuality);
 								
 								if(getItem().getDisplayColor()==null)
 								{
-									getItem().setDisplayColor("White");
+									getItem().setTypeOfObject("Normal");
 								}
 								else
 								{
-									cboQualityModel.setSelectedItem(getItem().getDisplayColor());
+									cboQualityModel.setSelectedItem(getItem().getTypeOfObject());
 								}
-								cboQuality.setModel(cboQualityModel);
+								
 								cboQuality.setPreferredSize(new java.awt.Dimension(148, 75));
 								cboQuality.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent evt) {
-										getItem().setDisplayColor(((JComboBox)evt.getSource()).getSelectedItem().toString());
+										getItem().setTypeOfObject(((JComboBox)evt.getSource()).getSelectedItem().toString());
 										refreshItem();
 									}
 								});
