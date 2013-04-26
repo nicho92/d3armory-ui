@@ -66,6 +66,7 @@ public class StuffCalculator {
 		return bonusItem;
 	}
 	
+	//TODO preparation for BUFFER;
 	private void init()
 	{
 		bonusItem = new HashMap<String,MinMaxBonus>();
