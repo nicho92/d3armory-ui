@@ -30,6 +30,10 @@ public class Gem implements Serializable{
 		this.attributes = attributes;
 	}
 	
+	public final static String[] getType()
+	{
+		return new String[]{"Chipped","Flawed","Normal","Flawless","Perfect","Radiant","Square","Flawless Square","Perfect Square","Radiant Square","Star","Flawless Star","Perfect Star","Marquise"};
+	}
 	
 	
 }

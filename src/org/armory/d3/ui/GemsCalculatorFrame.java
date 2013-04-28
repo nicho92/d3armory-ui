@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import javax.swing.WindowConstants;
+
+import org.armory.d3.beans.Gem;
 import org.jdesktop.application.Application;
 import javax.swing.SwingUtilities;
 
@@ -71,8 +73,7 @@ public class GemsCalculatorFrame extends javax.swing.JFrame {
 				}
 				{
 					ComboBoxModel cboStartGemModel = 
-							new DefaultComboBoxModel(
-									new String[] { "Item One", "Item Two" });
+							new DefaultComboBoxModel(Gem.getType());
 					cboStartGem = new JComboBox();
 					panneauHaut.add(getCboStartGem(), new GridBagConstraints(1, 0, 2, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 					cboStartGem.setModel(cboStartGemModel);
@@ -84,8 +85,7 @@ public class GemsCalculatorFrame extends javax.swing.JFrame {
 				}
 				{
 					ComboBoxModel cboTargetGemModel = 
-							new DefaultComboBoxModel(
-									new String[] { "Item One", "Item Two" });
+							new DefaultComboBoxModel( Gem.getType() );
 					cboTargetGem = new JComboBox();
 					panneauHaut.add(getCboTargetGem(), new GridBagConstraints(1, 1, 2, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 					cboTargetGem.setModel(cboTargetGemModel);
