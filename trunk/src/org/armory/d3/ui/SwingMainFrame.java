@@ -291,14 +291,14 @@ public class SwingMainFrame extends javax.swing.JFrame {
 								newLocalActionPerformed(evt);
 							}
 						});
-						jmiItemCreator = new JMenuItem();
-						jMenu3.add(jmiItemCreator);
-						jmiItemCreator.setText("Item Creator");
-						jmiItemCreator.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent evt) {
-								newItemCreatorActionPerformed(evt);
-							}
-						});
+//						jmiItemCreator = new JMenuItem();
+//						jMenu3.add(jmiItemCreator);
+//						jmiItemCreator.setText("Item Creator");
+//						jmiItemCreator.addActionListener(new ActionListener() {
+//							public void actionPerformed(ActionEvent evt) {
+//								newItemCreatorActionPerformed(evt);
+//							}
+//						});
 						
 					}
 					{
