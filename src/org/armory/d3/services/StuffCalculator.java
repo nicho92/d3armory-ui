@@ -508,20 +508,14 @@ public class StuffCalculator {
 
 	public StuffCalculator compareStuffs(EnumerationStuff g, Item i)
 	{
-		Map<EnumerationStuff,Item> stuffs2 = new HashMap<EnumerationStuff,Item>();
+		Map<EnumerationStuff,Item> stuffs2 = null;
+								   stuffs2 = new HashMap<EnumerationStuff,Item>();
 								   stuffs2.putAll(stuffs);
 								   stuffs2.put(g, i);
+		
 		StuffCalculator calc2 = new StuffCalculator(stuffs2, hero);
-		calc2.calculate();
-		
-//		Iterator<String> it2=calc2.getBonusItem().keySet().iterator();
-//		while(it2.hasNext())
-//		{
-//			String k = it2.next();
-//			System.out.println(k +";" + calc2.getBonusItem().get(k));
-//		}
-//		
-		
+						calc2.calculate();
+	
 		return calc2;
 	}
 	

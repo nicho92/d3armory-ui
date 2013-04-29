@@ -7,8 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Map;
@@ -24,7 +22,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 import javax.swing.table.TableRowSorter;
 
@@ -91,10 +88,12 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 	private JLabel lblName;
 	private ItemDetailsModel tableauSpecItemModel;
 	private EnumerationStuff gear;
-	
+
 	public ItemCreatorFrame() {
+		super();
 		Item i = new Item();
 		tableauSpecItemModel =new ItemDetailsModel(i);
+		tableauSpecItemModel.setItem(i);
 		initGUI();
 	}
 	
@@ -103,15 +102,21 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 		this.gear=e;
 		tableauSpecItemModel =new ItemDetailsModel(i);
 		tableauSpecItemModel.setItem(i);
+		
 		initGUI();
 	}
 	
 	
 	public void initGUI() {
 		try {
+			
 			setLocationRelativeTo(null);
 			setTitle("Item Builder");
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+			
+			lblStat1 = new FormatedJLabel();
+			lblStat2 = new FormatedJLabel();
+			lblStatDiff = new FormatedJLabel();
 			
 			{
 				{
@@ -369,18 +374,18 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 					getContentPane().add(panneauDetailDPS, BorderLayout.SOUTH);
 					panneauDetailDPS.setPreferredSize(new java.awt.Dimension(862, 198));
 					{
-						lblStat1 = new FormatedJLabel();
+					
 						panneauDetailDPS.add(lblStat1);
 						lblStat1.setPreferredSize(new java.awt.Dimension(230, 179));
 						lblStat1.setHtmlText(getDetail(D3ArmoryControler.getInstance().getCalculator().getMapResultat()), "white", "green");
 					}
 					{
-						lblStat2 = new FormatedJLabel();
+						
 						panneauDetailDPS.add(lblStat2);
 						lblStat2.setPreferredSize(new java.awt.Dimension(230, 178));
 					}
 					{
-						lblStatDiff = new FormatedJLabel();
+						
 						panneauDetailDPS.add(lblStatDiff);
 						lblStatDiff.setPreferredSize(new java.awt.Dimension(230, 182));
 					}
@@ -403,6 +408,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 			this.setSize(878, 613);
 			setLocationRelativeTo(null);
 			setVisible(true);
+			
 			refreshItem();
 			
 		} catch (Exception e) {
@@ -442,9 +448,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 				color="<font color='green'/>+";
 			if(val==0)
 				color="<font color='gray'/> ";
-			
-			
-			
+	
 			temp.append(color+StuffCalculator.format(val) +"</font><br/>");
 		}
 		return temp.toString();
@@ -461,8 +465,10 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 			lblStatDiff.setText("");
 			getItem().generateAttributsString();
 			itemPanelDetails.showItem(getItem());
+			
 			StuffCalculator a = D3ArmoryControler.getInstance().getCalculator();
-			StuffCalculator b = D3ArmoryControler.getInstance().getCalculator().compareStuffs(gear, getItem());
+			StuffCalculator b = a.compareStuffs(gear, getItem());
+		
 			lblStat2.setHtmlText(getDetail(b.getMapResultat()), "white", "red");
 			lblStatDiff.setText("<html>"+getDetailDiff(a.getMapResultat(),b.getMapResultat()));
 			btnSauvegarder.setEnabled(true);

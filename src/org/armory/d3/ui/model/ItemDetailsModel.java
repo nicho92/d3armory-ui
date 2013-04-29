@@ -7,8 +7,6 @@ import javax.swing.table.DefaultTableModel;
 import org.armory.d3.beans.Item;
 import org.armory.d3.beans.MinMaxBonus;
 
-import com.sdfteam.d3armory.service.util.RawsAttributes;
-
 public class ItemDetailsModel extends DefaultTableModel {
 
 	private Item item ;
@@ -33,7 +31,7 @@ public class ItemDetailsModel extends DefaultTableModel {
 		if(c==0)
 			return "Attributs";
 		else
-			return "Valeur";
+			return "Value";
 		
 	}
 
