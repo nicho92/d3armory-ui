@@ -14,6 +14,7 @@ import java.util.Map;
 import javax.swing.BoxLayout;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultRowSorter;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -23,6 +24,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
+import javax.swing.table.TableRowSorter;
 
 import org.armory.d3.beans.Attributs;
 import org.armory.d3.beans.Item;
@@ -192,6 +194,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 										else
 										{
 											getItem().setDps(new MinMaxBonus(0));
+											getItem().addAttributesRaw("Attacks_Per_Second_Item", new MinMaxBonus(StuffCalculator.getWeaponDefaultAS().get(((JComboBox)evt.getSource()).getSelectedItem().toString())));
 										}
 										refreshItem();
 									}
@@ -269,6 +272,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 											getItem().setRequiredLevel(Long.parseLong(txtLevel.getText())-1);
 										else
 											getItem().setRequiredLevel(60);
+									
 										refreshItem();
 										
 										
@@ -288,6 +292,8 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 									public void keyReleased(KeyEvent evt) {
 										double val = Double.valueOf(txtArmor.getText());
 										getItem().setArmor(new MinMaxBonus(val));
+										getItem().addAttributesRaw("Armor_Item", new MinMaxBonus(val));
+										
 										refreshItem();
 									}
 								});
@@ -343,6 +349,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 											getItem().setAttacksPerSecond(new MinMaxBonus(Double.valueOf(txtAS.getText())));
 											getItem().setDps(new MinMaxBonus(calcWeaponDPS(Double.valueOf(txtMin.getText()),Double.valueOf(txtMax.getText()),Double.valueOf(txtAS.getText()))));
 											getItem().addAttributesRaw("Damage_Weapon_Delta#Physical", new MinMaxBonus(Double.valueOf(txtMax.getText())-Double.valueOf(txtMin.getText())));
+											getItem().addAttributesRaw("Attacks_Per_Second_Item_Bonus",new MinMaxBonus(getItem().getAttacksPerSecond().getMoyenne()-getItem().getAttributesRaw().get("Attacks_Per_Second_Item").getMoyenne()));
 											refreshItem();
 										}
 									});
@@ -359,6 +366,8 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								tableauSpecItem = new JTable();
 								panneauBas.setViewportView(tableauSpecItem);
 								tableauSpecItem.setModel(tableauSpecItemModel);
+								DefaultRowSorter sorter = new TableRowSorter(tableauSpecItem.getModel());
+								tableauSpecItem.setRowSorter(sorter);
 								tableauSpecItem.addPropertyChangeListener(new PropertyChangeListener() {
 									public void propertyChange(PropertyChangeEvent evt) {
 										refreshItem();
