@@ -186,6 +186,9 @@ public class ItemLabel extends JLabel implements MouseListener {
 		}
 
 	public void mouseEntered(MouseEvent e) {
+		if(item==null)
+			return;
+		
 		details.showItem(item);
 		details.getLblIcon().setIcon(this.getIcon());
 		details.repaint();
@@ -211,7 +214,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 					public void actionPerformed(ActionEvent evt) {
 						itemBuilderFrame = new ItemCreatorFrame(item.clone(),gear);
 						itemBuilderFrame.getItemPanelDetails().getLblIcon().setIcon(getIcon());
-						itemBuilderFrame.setModal(true);
+					
 					}
 				}
 				);
@@ -232,7 +235,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 				public void actionPerformed(ActionEvent e) {
 					Item i = D3ArmoryControler.getInstance().loadItem(f);
 					itemBuilderFrame = new ItemCreatorFrame(i,gear);
-					itemBuilderFrame.setModal(true);
+					
 				}
 			});
 		  }
