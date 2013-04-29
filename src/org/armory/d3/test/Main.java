@@ -52,8 +52,6 @@ public class Main {
 					Item ringright = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getLeftFinger());
 					Item ringleft = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getRightFinger());
 					Item mainHand = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getMainHand());
-					if(mainHand!=null)
-						mainHand.setMainHand(true);
 					Item offhand = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getOffHand());
 						
 					Item torso = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getTorso());

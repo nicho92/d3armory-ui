@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.armory.d3.beans.Gem;
 import org.armory.d3.beans.Hero;
@@ -47,8 +48,8 @@ public class StuffCalculator {
 
 	public StuffCalculator(Map<EnumerationStuff,Item> stuff, Hero hero) {
 		stuffs= new HashMap<EnumerationStuff,Item>();
-		this.skills=hero.getSkills();
 		this.hero= hero;
+		this.skills=hero.getSkills();
 		Iterator<EnumerationStuff> keys = stuff.keySet().iterator();
 		mapResultat = new HashMap<String, Double>();
 		while(keys.hasNext())
@@ -142,19 +143,6 @@ public class StuffCalculator {
 				compteur++;
 				bonusItem.put(cle+"_"+i.getName().replaceAll(" ", "-"), i.getAttributesRaw().get(cle));
 				String mainoff="";
-				
-				if(i.isWeapon())
-				{
-					if(i.isMainHand())
-						mainoff="MAIN";
-					else
-						mainoff="OFF";
-				
-					bonusItem.put("Damage_DPS_Min_"+i.getName().replaceAll(" ", "-")+"_"+mainoff, i.getMinDamage());
-					bonusItem.put("Damage_DPS_Max_"+i.getName().replaceAll(" ", "-")+"_"+mainoff, i.getMaxDamage());
-					bonusItem.put("Damage_DPS_AttackSpeed_"+i.getName().replaceAll(" ", "-")+"_"+mainoff, i.getAttacksPerSecond());
-				
-				}
 			}
 			
 		}//fin de boucle sur les items
@@ -298,11 +286,11 @@ public class StuffCalculator {
 		double stat_base=hero.getBaseStatPrimary()+getStat( hero.getPrimaryStat(),null);
 		
 		//CALCUL attackSpeed 
-		double attackPerSecondMain = stuffs.get(EnumerationStuff.MAIN_HAND).getAttacksPerSecond().getMoyenne();//getStat("Damage_DPS_Attack","MAIN");
+		double attackPerSecondMain = stuffs.get(EnumerationStuff.MAIN_HAND).getAttacksPerSecond().getMoyenne();
 		double attackPerSecondOff=0;
 		
 		if(countweapon==2)
-			attackPerSecondOff = stuffs.get(EnumerationStuff.OFF_HAND).getAttacksPerSecond().getMoyenne();//getStat("Damage_DPS_Attack","OFF");
+			attackPerSecondOff = stuffs.get(EnumerationStuff.OFF_HAND).getAttacksPerSecond().getMoyenne();
 		
 		double mainI=weaponDefaultAS.get(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId()); //AS de base du type arme MAIN
 		double offI=0;
@@ -518,13 +506,22 @@ public class StuffCalculator {
 		return n;
 	}
 
-	public StuffCalculator compareStuffsDPS(EnumerationStuff g, Item i)
+	public StuffCalculator compareStuffs(EnumerationStuff g, Item i)
 	{
 		Map<EnumerationStuff,Item> stuffs2 = new HashMap<EnumerationStuff,Item>();
-		stuffs2.putAll(stuffs);
-		stuffs2.put(g, i);//on écrase avec le nouvel item
+								   stuffs2.putAll(stuffs);
+								   stuffs2.put(g, i);
 		StuffCalculator calc2 = new StuffCalculator(stuffs2, hero);
 		calc2.calculate();
+		
+//		Iterator<String> it2=calc2.getBonusItem().keySet().iterator();
+//		while(it2.hasNext())
+//		{
+//			String k = it2.next();
+//			System.out.println(k +";" + calc2.getBonusItem().get(k));
+//		}
+//		
+		
 		return calc2;
 	}
 	
