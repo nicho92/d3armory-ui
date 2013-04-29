@@ -24,7 +24,7 @@ public class StuffCalculator {
 	private Map<String, MinMaxBonus> bonusItem;
 	private Hero hero;
 	private boolean twohanded;
-	private Map<String,Double> weaponDefaultAS=new HashMap<String,Double>();
+	private static Map<String,Double> weaponDefaultAS=new HashMap<String,Double>();
 	int countweapon=0;
 	private Map<String,Double> mapResultat ;
 	
@@ -66,10 +66,10 @@ public class StuffCalculator {
 		return bonusItem;
 	}
 	
-	//TODO preparation for BUFFER;
-	private void init()
+	
+	public static Map<String,Double> getWeaponDefaultAS()
 	{
-		bonusItem = new HashMap<String,MinMaxBonus>();
+		
 		
 		weaponDefaultAS=new HashMap<String,Double>();
 		weaponDefaultAS.put("Axe", 1.30);
@@ -93,7 +93,17 @@ public class StuffCalculator {
 		weaponDefaultAS.put("Sword2H", 1.1);
 		weaponDefaultAS.put("None", 0.0);
 		
-			
+		return weaponDefaultAS;
+	}
+	
+	
+	
+	//TODO preparation for BUFFER;
+	private void init()
+	{
+		
+		StuffCalculator.getWeaponDefaultAS();
+		bonusItem = new HashMap<String,MinMaxBonus>();
 		Map<LegendarySet,Integer> piecesbyset=new HashMap<LegendarySet,Integer>();
 		int compteur=0;
 		
