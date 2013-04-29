@@ -255,8 +255,6 @@ public class RawsAttributes  {
 		itemAttributes.add(new Attributs("leg-the-murlocket","Call forth a creature from the depths."));*/
 	}
 	
-
-	
 	public Attributs[] getAttributs()
 	{
 		Collections.sort(itemAttributes);

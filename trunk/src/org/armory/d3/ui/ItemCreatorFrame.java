@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Map;
@@ -90,15 +92,6 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 	private ItemDetailsModel tableauSpecItemModel;
 	private EnumerationStuff gear;
 	
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				ItemCreatorFrame inst = new ItemCreatorFrame();
-				inst.setVisible(true);
-			}
-		});
-	}
-	
 	public ItemCreatorFrame() {
 		Item i = new Item();
 		tableauSpecItemModel =new ItemDetailsModel(i);
@@ -114,15 +107,13 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 	}
 	
 	
-	private void initGUI() {
+	public void initGUI() {
 		try {
-			
 			setLocationRelativeTo(null);
 			setTitle("Item Builder");
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+			
 			{
-
-				
 				{
 					panneauTotalGauche = new JPanel();
 					BoxLayout panneauTotalGaucheLayout = new BoxLayout(panneauTotalGauche, javax.swing.BoxLayout.X_AXIS);
@@ -173,7 +164,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								ComboBoxModel cboTypeModel = 
 										new DefaultComboBoxModel(
 												new String[] { "Axe","HandXbow","Dagger","Mace","FistWeapon","MightyWeapon1H","Spear","Sword","CeremonialDagger","Wand","Axe2H","Bow","Daibo","Crossbow","Mace2H","MightyWeapon2H","Polearm","Staff","Sword2H",
-																"Ring","Hat", "Shoulders", "Torso", "Bracer", "Glove", "Belt", "Pant", "Boot","" });
+															   "Ring","Hat", "Shoulders", "Torso", "Bracer", "Glove", "Belt", "Pant", "Boot","" });
 								
 								
 								if(getItem().getType()!=null)
@@ -240,8 +231,8 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								panneauHaut.add(cboAttributs);
 								cboAttributs.setPreferredSize(new java.awt.Dimension(294, 21));
 								AutoCompleteSupport support = AutoCompleteSupport.install(cboAttributs, GlazedLists.eventListOf(new RawsAttributes().getAttributs()));
-									support.setStrict(true);
-									support.setFilterMode(TextMatcherEditor.CONTAINS);
+													support.setStrict(true);
+													support.setFilterMode(TextMatcherEditor.CONTAINS);
 									
 								
 								cboAttributs.addActionListener(new ActionListener() {
@@ -251,11 +242,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 										refreshItem();
 									}
 								});
-
-
-
-								
-							}
+						}
 							{
 								lblLevelItem = new JLabel();
 								panneauHaut.add(lblLevelItem);
@@ -274,8 +261,6 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 											getItem().setRequiredLevel(60);
 									
 										refreshItem();
-										
-										
 									}
 								});
 							}
@@ -416,9 +401,9 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 			}
 			pack();
 			this.setSize(878, 613);
-			refreshItem();
 			setLocationRelativeTo(null);
 			setVisible(true);
+			refreshItem();
 			
 		} catch (Exception e) {
 		    e.printStackTrace();
@@ -443,7 +428,6 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 		return temp.toString();
 	}
 	
-
 	public String getDetailDiff(Map<String, Double> a,Map<String, Double> b)
 	{
 		String color="Green";
@@ -473,17 +457,15 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 	}
 	
 	protected void refreshItem() {
-			
 			lblStat2.setText("");
 			lblStatDiff.setText("");
 			getItem().generateAttributsString();
 			itemPanelDetails.showItem(getItem());
 			StuffCalculator a = D3ArmoryControler.getInstance().getCalculator();
-			StuffCalculator b = D3ArmoryControler.getInstance().getCalculator().compareStuffsDPS(gear, getItem());
+			StuffCalculator b = D3ArmoryControler.getInstance().getCalculator().compareStuffs(gear, getItem());
 			lblStat2.setHtmlText(getDetail(b.getMapResultat()), "white", "red");
 			lblStatDiff.setText("<html>"+getDetailDiff(a.getMapResultat(),b.getMapResultat()));
 			btnSauvegarder.setEnabled(true);
-			
 	}
 	public ItemPanelDetails getItemPanelDetails() {
 		return itemPanelDetails;

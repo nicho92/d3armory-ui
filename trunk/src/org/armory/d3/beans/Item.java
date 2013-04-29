@@ -36,7 +36,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	private String flavorText;
 	private String[] attributes;
 	private Gem[] gems;
-	//private List<MinMaxBonus> socketEffects;
+	private String GemQuality;
 	private MinMaxBonus armor;
 	private MinMaxBonus dps;
 	private Map<String, MinMaxBonus > attributesRaw;
@@ -46,17 +46,16 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	private List<Salvage> salvage ;
 	private LegendarySet set;
 	private Number itemLevel;
-	private boolean isMainHand;
 	
-	public void setMainHand(boolean isMainHand) {
-		this.isMainHand = isMainHand;
+	
+	public String getGemQuality() {
+		return GemQuality;
 	}
 
-	public boolean isMainHand()
-	{
-		return isMainHand;
+	public void setGemQuality(String gemQuality) {
+		GemQuality = gemQuality;
 	}
-	
+
 	public void addAttributs(Attributs a)
 	{
 		attributesRaw.put(a.getId(), a.getValue());
@@ -77,7 +76,9 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	
 	public boolean equals(Object item) {
 		if(item!=null)
-			return getId().equals(((Item)item).getId());
+		{
+			return getName().equals(((Item)item).getName());
+		}
 		
 		return false;
 	}
@@ -363,7 +364,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 			if (displayColor.equals("green"))
 				return "Legendary Set";
 			if (displayColor.equals("blue"))
-				return "Magic";
+				return "Magical";
 			if (displayColor.equals("white"))
 				return "Normal";
 			if (displayColor.equals("grey"))
@@ -380,7 +381,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 			setDisplayColor("yellow");
 		if (type.equalsIgnoreCase("Legendary Set"))
 			setDisplayColor("green");
-		if (type.equalsIgnoreCase("Magic"))
+		if (type.equalsIgnoreCase("Magical"))
 			setDisplayColor("blue");
 		if (type.equalsIgnoreCase("Normal"))
 			setDisplayColor("white");
