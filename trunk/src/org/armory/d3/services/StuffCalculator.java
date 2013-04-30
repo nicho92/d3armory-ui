@@ -364,6 +364,7 @@ public class StuffCalculator {
 		mapResultat.put("LIFE",format(life));
 		mapResultat.put("ARMOR",format(armor));
 		
+		
 		double dps=getDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
 		double elementdps = getElemDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
 		if(dps>=elementdps)
