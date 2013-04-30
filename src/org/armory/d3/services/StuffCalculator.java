@@ -296,7 +296,7 @@ public class StuffCalculator {
 		double offI=0;
 		
 		if(countweapon==2)
-			offI=this.weaponDefaultAS.get(stuffs.get(EnumerationStuff.OFF_HAND).getType().getId()); //AS de base du type arme MAIN
+			offI=weaponDefaultAS.get(stuffs.get(EnumerationStuff.OFF_HAND).getType().getId()); //AS de base du type arme MAIN
 		
 		double bonusArmor = getStat(getArmor(), "Attacks_Per_Second_Percent", null);
 		
@@ -512,7 +512,12 @@ public class StuffCalculator {
 								   stuffs2 = new HashMap<EnumerationStuff,Item>();
 								   stuffs2.putAll(stuffs);
 								   stuffs2.put(g, i);
-		
+								   if(i.isWeapon())
+									   if(i.getType().getTwoHanded())
+										   if(stuffs2.get(EnumerationStuff.OFF_HAND)!=null)
+											   if(stuffs2.get(EnumerationStuff.OFF_HAND).isWeapon())
+											   		stuffs2.put(EnumerationStuff.OFF_HAND, null);
+				
 		StuffCalculator calc2 = new StuffCalculator(stuffs2, hero);
 						calc2.calculate();
 	

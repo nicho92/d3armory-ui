@@ -57,6 +57,7 @@ public class ItemDetailsModel extends DefaultTableModel {
 	}
 
 	public Object getValueAt(int row, int column) {
+		
 		 Object[] entries=item.getAttributesRaw().entrySet().toArray();
 	        Map.Entry entry=(Map.Entry)entries[row];
 	        if (column==0) {

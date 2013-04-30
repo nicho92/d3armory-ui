@@ -89,20 +89,19 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 	private ItemDetailsModel tableauSpecItemModel;
 	private EnumerationStuff gear;
 
-	public ItemCreatorFrame() {
-		super();
-		Item i = new Item();
-		tableauSpecItemModel =new ItemDetailsModel(i);
-		tableauSpecItemModel.setItem(i);
-		initGUI();
-	}
+//	public ItemCreatorFrame() {
+//		super();
+//		Item i = new Item();
+//		tableauSpecItemModel.setItem(null);
+//		tableauSpecItemModel =new ItemDetailsModel(i);
+//		tableauSpecItemModel.setItem(i);
+//		initGUI();
+//	}
 	
 	public ItemCreatorFrame(Item i,EnumerationStuff e) {
 		super();
 		this.gear=e;
 		tableauSpecItemModel =new ItemDetailsModel(i);
-		tableauSpecItemModel.setItem(i);
-		
 		initGUI();
 	}
 	
@@ -438,7 +437,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 	{
 		String color="Green";
 		StringBuffer temp = new StringBuffer();
-		String keys[] = {"VITALITY","LIFE","ARMOR","STAT","ATTACKSPEEDBONUS","ATTACKSPEEDMH","ATTACKSPEEDOH","CRITCHANCE","CRITDAMAGE","OHDAMAGE","MHDAMAGE","DPS"};
+		String keys[] = {"VITALITY","LIFE","ARMOR","STAT","ATTACKSPEEDBONUS","ATTACKSPEEDMH","ATTACKSPEEDOH","CRITCHANCE","CRITDAMAGE","MHDAMAGE","OHDAMAGE","DPS"};
 		for(String k:keys)
 		{
 			double val = b.get(k) - a.get(k);
