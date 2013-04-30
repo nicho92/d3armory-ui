@@ -52,6 +52,7 @@ public class StuffCalculator {
 		this.skills=hero.getSkills();
 		Iterator<EnumerationStuff> keys = stuff.keySet().iterator();
 		mapResultat = new HashMap<String, Double>();
+		bonusItem = new HashMap<String,MinMaxBonus>();
 		while(keys.hasNext())
 		{
 			EnumerationStuff key=keys.next();
@@ -65,6 +66,11 @@ public class StuffCalculator {
 	public Map<String, MinMaxBonus> getBonusItem()
 	{
 		return bonusItem;
+	}
+	
+	public void addBonus(Map<String,MinMaxBonus> bonus)
+	{
+		bonusItem.putAll(bonus);
 	}
 	
 	
@@ -98,13 +104,12 @@ public class StuffCalculator {
 	}
 	
 	
-	
 	//TODO preparation for BUFFER;
 	private void init()
 	{
 		
 		StuffCalculator.getWeaponDefaultAS();
-		bonusItem = new HashMap<String,MinMaxBonus>();
+		
 		Map<LegendarySet,Integer> piecesbyset=new HashMap<LegendarySet,Integer>();
 		int compteur=0;
 		

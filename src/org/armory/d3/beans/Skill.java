@@ -15,6 +15,12 @@ public class Skill {
 	private String flavor;
 	
 	
+	
+	public String getId()
+	{
+		return getTooltipUrl().substring(getTooltipUrl().lastIndexOf("/")+1,getTooltipUrl().length()).trim();
+	}
+	
 	public String getFlavor() {
 		return flavor;
 	}

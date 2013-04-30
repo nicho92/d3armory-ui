@@ -159,7 +159,6 @@ public class ItemPanelDetails extends JPanel {
 					mindmg+=item.getAttributesRaw().get("Damage_Weapon_Min#"+element).getMoyenne();
 					maxdmg+=item.getAttributesRaw().get("Damage_Weapon_Min#"+element).getMoyenne()+item.getAttributesRaw().get("Damage_Weapon_Delta#"+element).getMoyenne();
 				}
-			
 			getLblDetailWeapon().setHtmlText(new DecimalFormat("#0").format(mindmg)+" - "+new DecimalFormat("#0").format(maxdmg)+" points de degats<br/> "+new DecimalFormat("#0.00").format(item.getAttacksPerSecond().getMoyenne())+" vitesse d'attaque","gray","white");
 		}
 		else
