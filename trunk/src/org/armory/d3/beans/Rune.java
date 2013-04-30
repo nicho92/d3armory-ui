@@ -10,6 +10,13 @@ public class Rune {
 	private String tooltipParams;
 	private String skillCalcId;
 	private Number order;
+	
+	public String getId()
+	{
+		return getSlug().substring(getSlug().lastIndexOf("/")+1,getSlug().length()).trim();
+	}
+	
+	
 	public String getSlug() {
 		return slug;
 	}

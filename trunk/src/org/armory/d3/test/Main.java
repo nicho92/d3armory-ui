@@ -1,19 +1,19 @@
 package org.armory.d3.test;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.Item;
 import org.armory.d3.beans.Profile;
+import org.armory.d3.beans.SkillRune;
 import org.armory.d3.services.D3ArmoryControler;
 
 import com.sdfteam.d3armory.service.configuration.Configuration;
 import com.sdfteam.d3armory.service.remote.RemoteService;
 import com.sdfteam.d3armory.service.remote.SpringRemoteService;
+import com.sdfteam.d3armory.service.util.BuffSkill;
 import com.sdfteam.d3armory.service.util.EnumerationStuff;
 
 
@@ -74,6 +74,15 @@ public class Main {
 					D3ArmoryControler.getInstance().setStuff(stuffs);
 					D3ArmoryControler.getInstance().setSelectedHero(hero);
 					D3ArmoryControler.getInstance().initCalculator();
+					
+					System.out.println(D3ArmoryControler.getInstance().getCalculator().calculate());
+					
+					List<SkillRune> liste = hero.getSkills().getPassive();
+					
+					for(SkillRune sr : liste)
+					{
+						D3ArmoryControler.getInstance().getCalculator().addBonus(BuffSkill.getBuff(BuffSkill.convert(sr.getSkill().getId()), stuffs));
+					}
 					
 					System.out.println(D3ArmoryControler.getInstance().getCalculator().calculate());
 					
