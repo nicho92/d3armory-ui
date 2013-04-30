@@ -63,6 +63,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	
 	public Item()
 	{
+		super();
 		attributesRaw=new HashMap<String, MinMaxBonus >();
 	}
 	
@@ -296,9 +297,12 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		return requiredLevel;
 	}
 
-	public Item clone() {
+	public Object clone() {
 		try {
-			return (Item)super.clone();
+			Item i = (Item)super.clone();
+			i.setAttributesRaw(new HashMap<String, MinMaxBonus>(this.getAttributesRaw()));
+			i.setGems(i.getGems().clone());
+			return i;
 		} catch (CloneNotSupportedException e) {
 			return new Item();
 		}
@@ -313,11 +317,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		return tooltipParams.split("/")[1];
 	}
 	
-	public String toString()
-	{
-		return name;
-	}
-
+	
 	public boolean isWeapon() {
 		return dps!=null;
 	}

@@ -1049,13 +1049,13 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		f.setVisible(true);
 	}
 	
-	protected void newItemCreatorActionPerformed(ActionEvent evt) {
-		ongletPane.setSelectedComponent(getPanneauDPS());
-		ItemCreatorFrame f = new ItemCreatorFrame();
-		f.setVisible(true);
-		
-		
-	}
+//	protected void newItemCreatorActionPerformed(ActionEvent evt) {
+//		ongletPane.setSelectedComponent(getPanneauDPS());
+//		ItemCreatorFrame f = new ItemCreatorFrame();
+//		f.setVisible(true);
+//		
+//		
+//	}
 	
 	private JSplitPane getSplitTagsHeroes() {
 		if(splitTagsHeroes == null) {

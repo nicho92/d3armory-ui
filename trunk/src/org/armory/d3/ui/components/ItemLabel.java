@@ -34,12 +34,10 @@ import com.sdfteam.d3armory.service.util.EnumerationStuff;
 
 public class ItemLabel extends JLabel implements MouseListener {
 	
-    Item item;
-    ItemPanelDetails details;
+    private Item item;
+    private ItemPanelDetails details;
 	private boolean disabled;
     private EnumerationStuff gear;
-    private ItemCreatorFrame itemBuilderFrame;
-    
     
     public ItemLabel(ItemPanelDetails pan)
     {
@@ -212,9 +210,9 @@ public class ItemLabel extends JLabel implements MouseListener {
 			JMenuItem itNewItem = new JMenuItem("New Item");
 				itNewItem.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
-						itemBuilderFrame = new ItemCreatorFrame(item.clone(),gear);
-						itemBuilderFrame.getItemPanelDetails().getLblIcon().setIcon(getIcon());
-					
+						Item i =  (Item) item.clone();
+						System.out.println(item.getAttributesRaw());
+						initWindowBuilder(i,gear);
 					}
 				}
 				);
@@ -225,6 +223,13 @@ public class ItemLabel extends JLabel implements MouseListener {
 		}
 		
 	}
+	protected void initWindowBuilder(Item i, EnumerationStuff g) {
+		System.out.println(i.getAttributesRaw());
+		ItemCreatorFrame itemBuilderFrame = new ItemCreatorFrame(i,g);
+		itemBuilderFrame.getItemPanelDetails().getLblIcon().setIcon(getIcon());
+		
+	}
+
 	private JMenu createMenu(File[] listeFileItem) {
 		 JMenu m = new JMenu("Saved Item");
 		  for(final File f:listeFileItem)
@@ -234,7 +239,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 		  		a.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					Item i = D3ArmoryControler.getInstance().loadItem(f);
-					itemBuilderFrame = new ItemCreatorFrame(i,gear);
+					initWindowBuilder(i,gear);
 					
 				}
 			});
