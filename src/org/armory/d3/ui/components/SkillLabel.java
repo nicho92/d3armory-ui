@@ -1,17 +1,25 @@
 package org.armory.d3.ui.components;
 
+import java.awt.Cursor;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.net.URL;
 
+import javax.swing.GrayFilter;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JToolTip;
 
 import org.armory.d3.beans.SkillRune;
+import org.armory.d3.services.D3ArmoryControler;
 
-public class SkillLabel extends JLabel {
+import com.sdfteam.d3armory.service.util.BuffSkill;
+
+public class SkillLabel extends JLabel implements MouseListener {
 
 	private SkillRune skill;
+	private boolean enabled=true;
 	
 	public SkillRune getSkill() {
 		return skill;
@@ -28,6 +36,7 @@ public class SkillLabel extends JLabel {
 	public SkillLabel()
 	{
 		super();
+		addMouseListener(this);
 	}
 	
 	
@@ -35,7 +44,7 @@ public class SkillLabel extends JLabel {
 	public SkillLabel(SkillRune s)
 	{
 		this.skill=s;
-		
+		addMouseListener(this);
 	}
 	
 	
@@ -44,7 +53,11 @@ public class SkillLabel extends JLabel {
 		if(skill != null)
 			try {
 				URL url = new URL("http://media.blizzard.com/d3/icons/skills/64/"+skill.getSkill().getIcon()+".png");
-				return new ImageIcon(url);
+				
+				if(enabled)
+					return new ImageIcon(url);
+				else
+					return new ImageIcon(GrayFilter.createDisabledImage(new ImageIcon(url).getImage()));
 			} catch (Exception e1) {
 				return new ImageIcon();
 			}
@@ -75,6 +88,52 @@ public class SkillLabel extends JLabel {
         			t.setComponent(this);
         return t;
     }
+
+
+
+	public void mouseClicked(MouseEvent arg0) {
+		if(enabled)
+			enabled=false;
+		else
+			enabled=true;
+		
+		if(enabled)
+			D3ArmoryControler.getInstance().getCalculator().addBonus(BuffSkill.getBuff(BuffSkill.convert(skill.getSkill().getId()), D3ArmoryControler.getInstance().getStuff()));
+		else
+			D3ArmoryControler.getInstance().getCalculator().removeBonus(BuffSkill.getBuff(BuffSkill.convert(skill.getSkill().getId()), D3ArmoryControler.getInstance().getStuff()).keySet());
+		
+		D3ArmoryControler.getInstance().getCalculator().calculate();
+		
+		repaint();
+	}
+
+
+
+	public void mouseEntered(MouseEvent arg0) {
+		this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+	}
+
+
+
+	public void mouseExited(MouseEvent arg0) {
+		this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		
+	}
+
+
+
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	
