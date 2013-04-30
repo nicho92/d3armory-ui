@@ -200,6 +200,10 @@ public class ItemLabel extends JLabel implements MouseListener {
 		//details.removeAll();
 	}
 
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 	public void mousePressed(MouseEvent e) {
 		if(SwingUtilities.isRightMouseButton(e))
 		{
@@ -256,9 +260,5 @@ public class ItemLabel extends JLabel implements MouseListener {
 		  return m;
 	}
 
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 	 	
 }

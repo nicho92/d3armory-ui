@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.armory.d3.beans.Gem;
 import org.armory.d3.beans.Hero;
@@ -16,6 +17,7 @@ import org.armory.d3.beans.LegendarySet;
 import org.armory.d3.beans.MinMaxBonus;
 import org.armory.d3.beans.Ranks;
 
+import com.sdfteam.d3armory.service.util.EnumerationBuffs;
 import com.sdfteam.d3armory.service.util.EnumerationStuff;
 
 public class StuffCalculator {
@@ -533,6 +535,14 @@ public class StuffCalculator {
 	public static double format(double val)
 	{
 		return Double.parseDouble(new DecimalFormat("######.00").format(val).replaceAll(",", "."));
+	}
+
+	public void removeBonus(Set<String> set) {
+		
+		for(String k: set)
+			bonusItem.remove(k);
+		
+		
 	}
 	
 

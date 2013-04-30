@@ -62,18 +62,7 @@ import org.jdesktop.application.Application;
 import com.sdfteam.d3armory.service.remote.exception.D3ServerCommunicationException;
 import com.sdfteam.d3armory.service.util.EnumerationStuff;
 
-/**
-* This code was edited or generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
-* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
-* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
-*/
+
 public class SwingMainFrame extends javax.swing.JFrame {
 
 	private JMenuItem helpMenuItem;
@@ -203,48 +192,21 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	public SwingMainFrame() {
 		super();
 		initGUI();
-//		if(SystemTray.isSupported()){
-//			SystemTray tray = SystemTray.getSystemTray();
-//			try {
-//				Image image = ImageIO.read(getClass().getResource("/org/armory/d3/ui/resources/icone.jpg"));
-//				PopupMenu popup = new PopupMenu();
-//				MenuItem openItem = new MenuItem("Ouvrir");
-//				openItem.addActionListener(new ActionListener() {
-//					public void actionPerformed(ActionEvent e) {
-//						setVisible(true);
-//					}
-//				});
-//				 
-//				popup.add(openItem);
-//				 
-//				MenuItem closeItem = new MenuItem("Fermer");
-//				 
-//				closeItem.addActionListener(new ActionListener() {
-//					public void actionPerformed(ActionEvent e) {
-//						setVisible(false);
-//				}
-//				});
-//				 
-//				popup.add(closeItem);
-//				 
-//				TrayIcon  trayIcon = new TrayIcon(image, "Notre application", popup);
-//				tray.add(trayIcon);
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (AWTException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
+
+	}
+	
+	public static void reloadGUI()
+	{
 		
 	}
+	
 	
 	private void initGUI() {
 		try {
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.setTitle("Diablo III Profile");
 			this.setIconImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/icone.jpg")).getImage());
+			this.setSize(1820, 915);
 			UIManager.put("Table.alternateRowColor", Color.decode("#E1E4F2"));
 			BoxLayout thisLayout = new BoxLayout(getContentPane(), javax.swing.BoxLayout.X_AXIS);
 			getContentPane().setLayout(thisLayout);
@@ -265,7 +227,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					}
 				}
 			}
-			this.setSize(1820, 915);
+			
 			{
 				jMenuBar1 = new JMenuBar();
 				setJMenuBar(jMenuBar1);
@@ -291,15 +253,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 								newLocalActionPerformed(evt);
 							}
 						});
-//						jmiItemCreator = new JMenuItem();
-//						jMenu3.add(jmiItemCreator);
-//						jmiItemCreator.setText("Item Creator");
-//						jmiItemCreator.addActionListener(new ActionListener() {
-//							public void actionPerformed(ActionEvent evt) {
-//								newItemCreatorActionPerformed(evt);
-//							}
-//						});
-						
 					}
 					{
 						jSeparator2 = new JSeparator();
@@ -555,11 +508,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			lblSocketLegs2.setItem(null,0);
 		}
 		
-		Item shoulders= D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getShoulders());
+		Item shoulders= D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getShoulders());
 		lblShoulders.setItem(shoulders,EnumerationStuff.SHOULDERS);
-		Item bracers = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getBracers());
+		Item bracers = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getBracers());
 		lblBracers.setItem(bracers,EnumerationStuff.BRACER);
-		Item belt = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getWaist());
+		Item belt = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getWaist());
 		lblbelt.setItem(belt,EnumerationStuff.BELT);
 		
 		stuffs = new HashMap<EnumerationStuff, Item>();
@@ -577,8 +530,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		  stuffs.put(EnumerationStuff.OFF_HAND, offhand);
 		  stuffs.put(EnumerationStuff.FEET, foot);
 		
-		D3ArmoryControler.getInstance().getInstance().setStuff(stuffs);
-		D3ArmoryControler.getInstance().getInstance().initCalculator();
+		D3ArmoryControler.getInstance().setStuff(stuffs);
+		D3ArmoryControler.getInstance().initCalculator();
 		
 		((TableauDetailsModel)getTableauDetails().getModel()).fireTableDataChanged();
 		
@@ -611,7 +564,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	}
 	
 	
-	private String getDetailDPS()
+	private static String getDetailDPS()
 	{
 		D3ArmoryControler.getInstance().getCalculator().calculate();
 		Iterator<String> keys = D3ArmoryControler.getInstance().getCalculator().getStats().keySet().iterator();
