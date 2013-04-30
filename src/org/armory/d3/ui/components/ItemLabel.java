@@ -224,7 +224,6 @@ public class ItemLabel extends JLabel implements MouseListener {
 		
 	}
 	protected void initWindowBuilder(Item i, EnumerationStuff g) {
-		System.out.println(i.getAttributesRaw());
 		ItemCreatorFrame itemBuilderFrame = new ItemCreatorFrame(i,g);
 		itemBuilderFrame.getItemPanelDetails().getLblIcon().setIcon(getIcon());
 		
