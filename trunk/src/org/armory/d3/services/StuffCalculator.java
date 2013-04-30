@@ -351,7 +351,7 @@ public class StuffCalculator {
 			life= (36 + 4* lvl  + (vitality * (lvl - 25))) * (1+lifeB);
 		
 		
-		//ARMOR CALCUL TODO : BUFF DES ARMORS
+		//ARMOR CALCUL
 		double armorBonus= getStat("Armor","",false);
 		double armor = stat_base+armorBonus;
 		
