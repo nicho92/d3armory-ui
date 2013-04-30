@@ -17,7 +17,8 @@ public class BuffSkill {
 		if(b==null)
 			return buffs;
 			
-		switch (b) {
+		switch (b) 
+		{
 		case FOCUSEDMIND : buffs.put("Attacks_Per_Second_Item_Bonus_"+b, new MinMaxBonus(0.03));
 			break;
 		case ANATOMY: buffs.put("Crit_Percent_Bonus"+b, new MinMaxBonus(0.03));
@@ -32,10 +33,13 @@ public class BuffSkill {
 			}
 			break;
 		case BATTLERAGE:
+				buffs.put("Crit_Percent_"+b, new MinMaxBonus(0.03));
+				buffs.put("Damage_Weapon_Percent_Bonus#Physical_"+b, new MinMaxBonus(0.15));
 			break;
 		case BATTLERAGE_MARAUDER:
 			break;
 		case BERSERKERRAGE:
+				buffs.put("Damage_Weapon_Percent_Bonus#Physical_"+b, new MinMaxBonus(0.25));
 			break;
 		case BLINDINGFLASH_FAITTHELIGHT:
 			break;
@@ -78,9 +82,24 @@ public class BuffSkill {
 					buffs.put("Attacks_Per_Second_Percent_"+b, new MinMaxBonus(0.1));
 			break;
 		case WRATHOFTHEBERSERKER:
+				buffs.put("Crit_Percent_Bonus_"+b, new MinMaxBonus(0.1));
+				buffs.put("Movement_Scalar_"+b, new MinMaxBonus(0.2));
+				//TODO ADD dodge
 			break;
 		case WRATHOFTHEBERSERKER_INSANITY:
+				buffs.put("Crit_Percent_Bonus_"+b, new MinMaxBonus(0.1));
+				buffs.put("Movement_Scalar_"+b, new MinMaxBonus(0.2));
+				buffs.put("Damage_Weapon_Percent_Bonus#Physical_"+b, new MinMaxBonus(1));
+				//TODO ADD dodge
 			break;
+			
+		case WARCRY:
+			buffs.put("Armor_"+b, new MinMaxBonus(0.20));
+			buffs.put("Resistance_All_"+b, new MinMaxBonus(20));
+			break;
+		
+	
+			
 		default:
 			break;
 		}
@@ -90,10 +109,25 @@ public class BuffSkill {
 	
 	public static EnumerationBuffs convert(String a)
 	{
+		System.out.println("CONVERT " + a);
+		
 		if(a.equals("ruthless"))
 			return EnumerationBuffs.RUTHLESS;
+		
 		if(a.equals("weapons-master"))
 			return EnumerationBuffs.WEAPONMASTER;
+		
+		if(a.equals("wrath-of-the-berserker"))
+			return EnumerationBuffs.WRATHOFTHEBERSERKER;
+		
+		if(a.equals("battle-rage"))
+			return EnumerationBuffs.BATTLERAGE;
+		
+		if(a.equals("war-cry"))
+			return EnumerationBuffs.WARCRY;
+		
+		if(a.equals("berserker-rage"))
+			return EnumerationBuffs.BERSERKERRAGE;
 		
 		return null;
 			
