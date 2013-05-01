@@ -19,7 +19,7 @@ public class BuffSkill {
 			
 		switch (b) 
 		{
-		case FOCUSEDMIND : buffs.put("Attacks_Per_Second_Item_Bonus_"+b, new MinMaxBonus(0.03));
+		case FOCUSEDMIND : buffs.put("Attacks_Per_Second_Item_Bonus_BUFF"+b, new MinMaxBonus(0.03));
 			break;
 		case ANATOMY: buffs.put("Crit_Percent_Bonus"+b, new MinMaxBonus(0.03));
 			break;
@@ -106,6 +106,11 @@ public class BuffSkill {
 		
 		return buffs;
 	}
+	
+	public static Map<String,MinMaxBonus> getBuff(String b, Map<EnumerationStuff,Item> stuffs) {
+		return getBuff(convert(b), stuffs);
+	}
+	
 	
 	public static EnumerationBuffs convert(String a)
 	{

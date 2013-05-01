@@ -39,11 +39,7 @@ public class D3ArmoryControler {
 	private StuffCalculator calculator;
 	private String local;
 	private Item selectedItem;
-	private Map<EnumerationStuff, Item> stuff;
 	
-	public Map<EnumerationStuff, Item> getStuff() {
-		return stuff;
-	}
 
 	public static D3ArmoryControler getInstance()
 	{
@@ -210,7 +206,7 @@ public class D3ArmoryControler {
 		}
 	}
 	
-	public boolean initCalculator() {
+	public boolean initCalculator(Map<EnumerationStuff, Item> stuff) {
 		try {
 			calculator = new StuffCalculator(stuff, getSelectedHero(false));
 			return true;
@@ -233,12 +229,7 @@ public class D3ArmoryControler {
 		this.selectedItem =item;
 		
 	}
-
-	public void setStuff(Map<EnumerationStuff, Item> stuffs) {
-		this.stuff= stuffs;
-		
-	}
-
+	
 	public void saveItem(Item i)
 	{
 		try{

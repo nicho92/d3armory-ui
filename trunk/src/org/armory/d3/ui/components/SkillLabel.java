@@ -13,7 +13,9 @@ import javax.swing.JToolTip;
 
 import org.armory.d3.beans.SkillRune;
 import org.armory.d3.services.D3ArmoryControler;
+import org.armory.d3.ui.SwingMainFrame;
 
+import com.sdfteam.d3armory.service.remote.exception.D3ServerCommunicationException;
 import com.sdfteam.d3armory.service.util.BuffSkill;
 
 public class SkillLabel extends JLabel implements MouseListener {
@@ -98,12 +100,13 @@ public class SkillLabel extends JLabel implements MouseListener {
 			enabled=true;
 		
 		if(enabled)
-			D3ArmoryControler.getInstance().getCalculator().addBonus(BuffSkill.getBuff(BuffSkill.convert(skill.getSkill().getId()), D3ArmoryControler.getInstance().getStuff()));
+			D3ArmoryControler.getInstance().getCalculator().addBonus(BuffSkill.getBuff(skill.getSkill().getId(), D3ArmoryControler.getInstance().getCalculator().getStuffs()));
 		else
-			D3ArmoryControler.getInstance().getCalculator().removeBonus(BuffSkill.getBuff(BuffSkill.convert(skill.getSkill().getId()), D3ArmoryControler.getInstance().getStuff()).keySet());
+			D3ArmoryControler.getInstance().getCalculator().removeBonus(BuffSkill.getBuff(skill.getSkill().getId(), D3ArmoryControler.getInstance().getCalculator().getStuffs()).keySet());
 		
 		D3ArmoryControler.getInstance().getCalculator().calculate();
-		
+		((SwingMainFrame)this.getTopLevelAncestor()).refreshDPS(); 
+		((SwingMainFrame)this.getTopLevelAncestor()).getTableauDetailsModel().fireTableDataChanged();
 		repaint();
 	}
 

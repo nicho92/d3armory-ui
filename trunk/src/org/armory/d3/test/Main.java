@@ -71,9 +71,9 @@ public class Main {
 											  stuffs.put(EnumerationStuff.OFF_HAND, offhand);
 											  stuffs.put(EnumerationStuff.FEET, foot);
 					
-					D3ArmoryControler.getInstance().setStuff(stuffs);
+	
 					D3ArmoryControler.getInstance().setSelectedHero(hero);
-					D3ArmoryControler.getInstance().initCalculator();
+					D3ArmoryControler.getInstance().initCalculator(stuffs);
 					
 					System.out.println(D3ArmoryControler.getInstance().getCalculator().calculate());
 					

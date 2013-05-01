@@ -114,7 +114,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private ItemLabel lblParangonLevel;
 	private ItemLabel lblInformationClasseNiveau;
 	private ItemLabel lblNom;
-
 	private JList listeTags;
 	private JScrollPane scrollTags;
 	private JSplitPane jSplitPane1;
@@ -194,12 +193,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		initGUI();
 
 	}
-	
-	public static void reloadGUI()
-	{
-		
-	}
-	
 	
 	private void initGUI() {
 		try {
@@ -308,9 +301,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		}
 	}
 	
-	
-
-
 	public HeroPanel getPanneauDessinHero() {
 		return panneauDessinHero;
 	}
@@ -354,20 +344,52 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			  }).start();
 	}
 	
-	private void chargementHero() throws D3ServerCommunicationException
+	public void chargementHero(){
+		 try {
+			loadItem();
+			refreshDPS();
+		} catch (D3ServerCommunicationException e) {
+			e.printStackTrace();
+		}
+		 
+	}
+	
+	public void refreshDPS() 
+	{
+		getPanneauDPS().removeAll();
+		FormatedJLabel lbl5 = new FormatedJLabel();
+		lbl5.setHtmlText(getDetailDPS(), "white","#BDA6CD");
+		getPanneauDPS().add(lbl5);
+		
+	}
+	
+	private void loadItem() throws D3ServerCommunicationException
 	{
 		D3ArmoryControler.getInstance().setSelectedHero(hero);
 		hero=D3ArmoryControler.getInstance().getHeroDetails(hero);
 		lblNom.setText(hero.getName());
+		getPanneauInfoHero().removeAll();
 		lblInformationClasseNiveau.setText(hero.getClazz() +" Level : " + hero.getLevel());
 		lblParangonLevel.setText("("+hero.getParagonLevel()+")");
 		lblParangonLevel.setBounds(749, 20, 51, 16);
-//		GregorianCalendar cal = (GregorianCalendar)Calendar.getInstance();
-//						  cal.setTimeInMillis(cal.getTimeInMillis()-hero.getLastUpdated().longValue());
-//		getLblLastUpdate().setText("Last Update : " + cal.get(Calendar.YEAR) + "-" + cal.get(Calendar.MONTH) +"-"+cal.get(Calendar.DAY_OF_MONTH) );
-		getPanneauInfoHero().removeAll();
-		getPanneauDPS().removeAll();
+
 		
+		FormatedJLabel lbl1 = new FormatedJLabel();
+		lbl1.setHtmlText(getDetailHero(0), "white","#BDA6CD");
+		getPanneauInfoHero().add(lbl1);
+		
+		FormatedJLabel lbl2 = new FormatedJLabel();
+		lbl2.setHtmlText(getDetailHero(1), "white","#BDA6CD");
+		getPanneauInfoHero().add(lbl2);
+		
+		FormatedJLabel lbl3 = new FormatedJLabel();
+		lbl3.setHtmlText(getDetailHero(2), "white","#BDA6CD");
+		getPanneauInfoHero().add(lbl3);
+		
+		FormatedJLabel lbl4 = new FormatedJLabel();
+		lbl4.setHtmlText(getDetailHero(3), "white","#BDA6CD");
+		getPanneauInfoHero().add(lbl4);
+	
 		getLblSkill1().setSkillRune(hero.getSkills().getActive().get(0));
 		getLblSkill2().setSkillRune(hero.getSkills().getActive().get(1));
 				
@@ -530,8 +552,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		  stuffs.put(EnumerationStuff.OFF_HAND, offhand);
 		  stuffs.put(EnumerationStuff.FEET, foot);
 		
-		D3ArmoryControler.getInstance().setStuff(stuffs);
-		D3ArmoryControler.getInstance().initCalculator();
+		D3ArmoryControler.getInstance().initCalculator(stuffs);
 		
 		((TableauDetailsModel)getTableauDetails().getModel()).fireTableDataChanged();
 		
@@ -541,30 +562,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			lblHarcore.setText("");
 		
 		panneauDessinHero.repaint();
-		
-		FormatedJLabel lbl1 = new FormatedJLabel();
-		lbl1.setHtmlText(getDetailHero(0), "white","#BDA6CD");
-		getPanneauInfoHero().add(lbl1);
-		
-		FormatedJLabel lbl2 = new FormatedJLabel();
-		lbl2.setHtmlText(getDetailHero(1), "white","#BDA6CD");
-		getPanneauInfoHero().add(lbl2);
-		
-		FormatedJLabel lbl3 = new FormatedJLabel();
-		lbl3.setHtmlText(getDetailHero(2), "white","#BDA6CD");
-		getPanneauInfoHero().add(lbl3);
-		
-		FormatedJLabel lbl4 = new FormatedJLabel();
-		lbl4.setHtmlText(getDetailHero(3), "white","#BDA6CD");
-		getPanneauInfoHero().add(lbl4);
-		
-		FormatedJLabel lbl5 = new FormatedJLabel();
-		lbl5.setHtmlText(getDetailDPS(), "white","#BDA6CD");
-		getPanneauDPS().add(lbl5);
 	}
 	
-	
-	private static String getDetailDPS()
+	private String getDetailDPS()
 	{
 		D3ArmoryControler.getInstance().getCalculator().calculate();
 		Iterator<String> keys = D3ArmoryControler.getInstance().getCalculator().getStats().keySet().iterator();
@@ -1161,7 +1161,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	}
 
 
-	private TableauDetailsModel getTableauDetailsModel() {
+	public TableauDetailsModel getTableauDetailsModel() {
 		if(tableaudetailModel==null)
 		{
 			tableaudetailModel= new TableauDetailsModel();
@@ -1220,7 +1220,12 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		return ongletPane;
 	}
 	
-	private JPanel getPanneauInfoHero() {
+	public void reloadInfo()
+	{
+		
+	}
+	
+	public JPanel getPanneauInfoHero() {
 		if(panneauInfoHero == null) {
 			panneauInfoHero = new JPanel() {
 				

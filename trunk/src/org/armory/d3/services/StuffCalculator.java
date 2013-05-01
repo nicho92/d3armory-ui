@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import org.armory.d3.beans.Gem;
@@ -16,11 +15,13 @@ import org.armory.d3.beans.Item;
 import org.armory.d3.beans.LegendarySet;
 import org.armory.d3.beans.MinMaxBonus;
 import org.armory.d3.beans.Ranks;
+import org.armory.d3.beans.Skill;
+import org.armory.d3.beans.SkillRune;
 
-import com.sdfteam.d3armory.service.util.EnumerationBuffs;
+import com.sdfteam.d3armory.service.util.BuffSkill;
 import com.sdfteam.d3armory.service.util.EnumerationStuff;
 
-public class StuffCalculator {
+public class StuffCalculator implements Cloneable{
 	private Map<EnumerationStuff,Item> stuffs;
 	
 	private HeroSkillContainer skills;
@@ -74,7 +75,10 @@ public class StuffCalculator {
 	{
 		bonusItem.putAll(bonus);
 	}
-	
+	private void putStuff(EnumerationStuff g, Item i) {
+		stuffs.put(g, i);
+		
+	}
 	
 	public static Map<String,Double> getWeaponDefaultAS()
 	{
@@ -106,8 +110,7 @@ public class StuffCalculator {
 	}
 	
 	
-	//TODO preparation for BUFFER;
-	private void init()
+	public void init()
 	{
 		
 		StuffCalculator.getWeaponDefaultAS();
@@ -173,6 +176,16 @@ public class StuffCalculator {
 			}
 		}
 		//fin des bonus de set
+		
+		HeroSkillContainer cont = hero.getSkills();
+		{
+			List<SkillRune> sr = cont.getPassive();
+			for(SkillRune s : sr)
+			{
+				bonusItem.putAll(BuffSkill.getBuff(s.getSkill().getId(),stuffs));
+			}
+		}
+		
 	}
 	
 	public List<Item> getArmor()
@@ -513,25 +526,29 @@ public class StuffCalculator {
 		
 		return n;
 	}
-
+	
+	//TODO revoir la formule avec les buffs
 	public StuffCalculator compareStuffs(EnumerationStuff g, Item i)
 	{
-		Map<EnumerationStuff,Item> stuffs2 = null;
-								   stuffs2 = new HashMap<EnumerationStuff,Item>();
-								   stuffs2.putAll(stuffs);
+		Map<EnumerationStuff,Item> stuffs2 = new HashMap<EnumerationStuff,Item>();
+								   stuffs2.putAll(getStuffs());
 								   stuffs2.put(g, i);
+								   
 								   if(i.isWeapon())
 									   if(i.getType().getTwoHanded())
 										   if(stuffs2.get(EnumerationStuff.OFF_HAND)!=null)
 											   if(stuffs2.get(EnumerationStuff.OFF_HAND).isWeapon())
 											   		stuffs2.put(EnumerationStuff.OFF_HAND, null);
 				
-		StuffCalculator calc2 = new StuffCalculator(stuffs2, hero);
+		StuffCalculator calc2=new StuffCalculator(stuffs2, hero);
+						
 						calc2.calculate();
-	
+						
 		return calc2;
 	}
 	
+	
+
 	public static double format(double val)
 	{
 		return Double.parseDouble(new DecimalFormat("######.00").format(val).replaceAll(",", "."));
