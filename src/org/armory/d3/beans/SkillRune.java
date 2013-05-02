@@ -19,4 +19,25 @@ public class SkillRune {
 		this.rune = rune;
 	}
 	
+	//TODO
+	public String toString()
+	{
+		String s = getSkill().getId();
+		String r = "";
+		
+		if(getRune()!=null)
+		{
+			r=getRune().getId();
+			return r;
+		}
+		else
+		{
+			return s;
+		}
+		
+		
+		
+	}
+	
+	
 }

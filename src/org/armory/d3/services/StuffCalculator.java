@@ -21,7 +21,7 @@ import org.armory.d3.beans.SkillRune;
 import com.sdfteam.d3armory.service.util.BuffSkill;
 import com.sdfteam.d3armory.service.util.EnumerationStuff;
 
-public class StuffCalculator implements Cloneable{
+public class StuffCalculator{
 	private Map<EnumerationStuff,Item> stuffs;
 	
 	private HeroSkillContainer skills;
@@ -32,7 +32,11 @@ public class StuffCalculator implements Cloneable{
 	int countweapon=0;
 	private Map<String,Double> mapResultat ;
 	
+	public void setBonusItem(Map<String, MinMaxBonus> bonusItem) {
+		this.bonusItem = bonusItem;
+	}
 
+	
 	public boolean isTwohanded() {
 		return twohanded;
 	}
@@ -71,10 +75,7 @@ public class StuffCalculator implements Cloneable{
 		return bonusItem;
 	}
 	
-	public void addBonus(Map<String,MinMaxBonus> bonus)
-	{
-		bonusItem.putAll(bonus);
-	}
+
 	private void putStuff(EnumerationStuff g, Item i) {
 		stuffs.put(g, i);
 		
@@ -175,21 +176,23 @@ public class StuffCalculator implements Cloneable{
 				}
 			}
 		}
-		//fin des bonus de set
+		calculeBuff();
 		
+	}
+	
+	public void calculeBuff()
+	{
 		HeroSkillContainer cont = hero.getSkills();
 		{
 			List<SkillRune> sr = cont.getPassive();
 			for(SkillRune s : sr)
 			{
-				bonusItem.putAll(BuffSkill.getBuff(s.getSkill().getId(),stuffs));
+				bonusItem.putAll(BuffSkill.getBuff(s,getStuffs()));
 			}
 		}
-		
 	}
 	
 	public List<Item> getArmor()
-
 	{
 		List<Item> items = new ArrayList<Item>();
 		
@@ -541,7 +544,7 @@ public class StuffCalculator implements Cloneable{
 											   		stuffs2.put(EnumerationStuff.OFF_HAND, null);
 				
 		StuffCalculator calc2=new StuffCalculator(stuffs2, hero);
-						
+						calc2.calculeBuff();
 						calc2.calculate();
 						
 		return calc2;
@@ -555,11 +558,13 @@ public class StuffCalculator implements Cloneable{
 	}
 
 	public void removeBonus(Set<String> set) {
-		
 		for(String k: set)
 			bonusItem.remove(k);
-		
-		
+	}
+	public void addBonus(Map<String,MinMaxBonus> bonus)
+	{
+		bonusItem.putAll(bonus);
+		calculeBuff();
 	}
 	
 
