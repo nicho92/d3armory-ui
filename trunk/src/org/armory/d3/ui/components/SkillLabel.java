@@ -100,9 +100,9 @@ public class SkillLabel extends JLabel implements MouseListener {
 			enabled=true;
 		
 		if(enabled)
-			D3ArmoryControler.getInstance().getCalculator().addBonus(BuffSkill.getBuff(skill.getSkill().getId(), D3ArmoryControler.getInstance().getCalculator().getStuffs()));
+			D3ArmoryControler.getInstance().getCalculator().addBonus(BuffSkill.getBuff(skill, D3ArmoryControler.getInstance().getCalculator().getStuffs()));
 		else
-			D3ArmoryControler.getInstance().getCalculator().removeBonus(BuffSkill.getBuff(skill.getSkill().getId(), D3ArmoryControler.getInstance().getCalculator().getStuffs()).keySet());
+			D3ArmoryControler.getInstance().getCalculator().removeBonus(BuffSkill.getBuff(skill, D3ArmoryControler.getInstance().getCalculator().getStuffs()).keySet());
 		
 		D3ArmoryControler.getInstance().getCalculator().calculate();
 		((SwingMainFrame)this.getTopLevelAncestor()).refreshDPS(); 
