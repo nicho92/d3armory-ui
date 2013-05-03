@@ -1,5 +1,6 @@
 package org.armory.d3.ui.components;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -10,6 +11,8 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JToolTip;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 import org.armory.d3.beans.SkillRune;
 import org.armory.d3.services.D3ArmoryControler;
@@ -35,9 +38,10 @@ public class SkillLabel extends JLabel implements MouseListener {
 
 
 
-	public SkillLabel()
+	public SkillLabel(boolean enabled)
 	{
 		super();
+		this.enabled=enabled;
 		addMouseListener(this);
 	}
 	
@@ -49,17 +53,27 @@ public class SkillLabel extends JLabel implements MouseListener {
 		addMouseListener(this);
 	}
 	
-	
+	public Border getBorder() {
+		if(skill==null)
+			return super.getBorder();
+		
+		if(enabled)
+			return new LineBorder(Color.red);
+		else
+			return super.getBorder(); 
+	}
+
+
 
 	public Icon getIcon(){
 		if(skill != null)
 			try {
 				URL url = new URL("http://media.blizzard.com/d3/icons/skills/64/"+skill.getSkill().getIcon()+".png");
 				
-				if(enabled)
+//				if(enabled)
 					return new ImageIcon(url);
-				else
-					return new ImageIcon(GrayFilter.createDisabledImage(new ImageIcon(url).getImage()));
+//				else
+//					return new ImageIcon(GrayFilter.createDisabledImage(new ImageIcon(url).getImage()));
 			} catch (Exception e1) {
 				return new ImageIcon();
 			}

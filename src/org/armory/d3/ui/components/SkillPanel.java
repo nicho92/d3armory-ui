@@ -40,7 +40,7 @@ public class SkillPanel extends JPanel {
 		this.setPreferredSize(new java.awt.Dimension(350, 181));
 		this.setLayout(null);
 					{
-						skillLabel = new SkillLabel();
+						skillLabel = new SkillLabel(false);
 						skillLabel.setSkillRune(skill);
 						this.add(skillLabel);
 						skillLabel.setBounds(12, 51, 59, 58);

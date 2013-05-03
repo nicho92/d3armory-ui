@@ -80,7 +80,7 @@ public class Main {
 					List<SkillRune> liste = hero.getSkills().getPassive();
 					
 					for(SkillRune sr : liste)
-						D3ArmoryControler.getInstance().getCalculator().addBonus(BuffSkill.getBuff(BuffSkill.convert(sr), stuffs));
+						D3ArmoryControler.getInstance().getCalculator().addBonus(BuffSkill.getBuff(sr, stuffs));
 					
 					System.out.println(D3ArmoryControler.getInstance().getCalculator().calculate());
 					

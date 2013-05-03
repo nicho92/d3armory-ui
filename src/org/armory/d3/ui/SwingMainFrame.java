@@ -677,7 +677,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SkillLabel getLblSkill1()
 	{
 		if(labSkilL1==null){
-			labSkilL1 = new SkillLabel();
+			labSkilL1 = new SkillLabel(false);
 			labSkilL1.setBounds(42, 395, 64, 64);
 		}
 		return labSkilL1;
@@ -686,7 +686,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SkillLabel getLblSkill2()
 	{
 		if(labSkilL2==null){
-			labSkilL2 = new SkillLabel();
+			labSkilL2 = new SkillLabel(false);
 			labSkilL2.setBounds(108, 395, 64, 64);
 		}
 		return labSkilL2;
@@ -694,7 +694,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SkillLabel getLblSkill3()
 	{
 		if(labSkilL3==null){
-			labSkilL3 = new SkillLabel();
+			labSkilL3 = new SkillLabel(false);
 			labSkilL3.setBounds(42, 462, 64, 64);
 		}
 		return labSkilL3;
@@ -702,7 +702,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SkillLabel getLblSkill4()
 	{
 		if(labSkilL4==null){
-			labSkilL4 = new SkillLabel();
+			labSkilL4 = new SkillLabel(false);
 			labSkilL4.setBounds(108, 462, 64, 64);
 		}
 		return labSkilL4;
@@ -710,7 +710,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SkillLabel getLblSkill5()
 	{
 		if(labSkilL5==null){
-			labSkilL5 = new SkillLabel();
+			labSkilL5 = new SkillLabel(false);
 			labSkilL5.setBounds(174, 462, 64, 64);
 		}
 		return labSkilL5;
@@ -718,7 +718,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SkillLabel getLblSkill6()
 	{
 		if(labSkilL6==null){
-			labSkilL6 = new SkillLabel();
+			labSkilL6 = new SkillLabel(false);
 			labSkilL6.setBounds(240, 462, 64, 64);
 		}
 		return labSkilL6;
@@ -727,7 +727,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SkillLabel getLblSkill7()
 	{
 		if(labSkilL7==null){
-			labSkilL7 = new SkillLabel();
+			labSkilL7 = new SkillLabel(true);
 			labSkilL7.setBounds(42, 528, 64, 64);
 		}
 		return labSkilL7;
@@ -735,7 +735,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SkillLabel getLblSkill8()
 	{
 		if(labSkilL8==null){
-			labSkilL8 = new SkillLabel();
+			labSkilL8 = new SkillLabel(true);
 			labSkilL8.setBounds(108, 528, 64, 64);
 		}
 		return labSkilL8;
@@ -743,7 +743,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SkillLabel getLblSkill9()
 	{
 		if(labSkilL9==null){
-			labSkilL9 = new SkillLabel();
+			labSkilL9 = new SkillLabel(true);
 			labSkilL9.setBounds(174, 528, 64, 64);
 		}
 		return labSkilL9;
@@ -1054,7 +1054,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		return splitTagsHeroes;
 	}
 	
-	private ItemPanelDetails getPanelItemDetails() {
+	public ItemPanelDetails getPanelItemDetails() {
 		if(panelItemDetails == null) {
 			panelItemDetails = new ItemPanelDetails();
 			panelItemDetails.setName("panelItemDetails");

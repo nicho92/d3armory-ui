@@ -25,23 +25,25 @@ public class StuffCalculator{
 	private Map<EnumerationStuff,Item> stuffs;
 	
 	private HeroSkillContainer skills;
-	private Map<String, MinMaxBonus> bonusItem;
+	private Map<String, MinMaxBonus> statsCalculator;
 	private Hero hero;
 	private boolean twohanded;
-	private static Map<String,Double> weaponDefaultAS=new HashMap<String,Double>();
 	int countweapon=0;
+	private static Map<String,Double> weaponDefaultAS=new HashMap<String,Double>();
+	
 	private Map<String,Double> mapResultat ;
 	
-	public void setBonusItem(Map<String, MinMaxBonus> bonusItem) {
-		this.bonusItem = bonusItem;
-	}
 
-	
 	public boolean isTwohanded() {
 		return twohanded;
 	}
 
-	public Map<String, Double> getMapResultat() {
+	public void setStatCalculator(Map<String, MinMaxBonus> bonusItem) {
+		this.statsCalculator = bonusItem;
+	}
+
+	
+	public Map<String, Double> getStatCalculator() {
 		return mapResultat;
 	}
 
@@ -59,7 +61,7 @@ public class StuffCalculator{
 		this.skills=hero.getSkills();
 		Iterator<EnumerationStuff> keys = stuff.keySet().iterator();
 		mapResultat = new HashMap<String, Double>();
-		bonusItem = new HashMap<String,MinMaxBonus>();
+		statsCalculator = new HashMap<String,MinMaxBonus>();
 		while(keys.hasNext())
 		{
 			EnumerationStuff key=keys.next();
@@ -72,13 +74,7 @@ public class StuffCalculator{
 
 	public Map<String, MinMaxBonus> getBonusItem()
 	{
-		return bonusItem;
-	}
-	
-
-	private void putStuff(EnumerationStuff g, Item i) {
-		stuffs.put(g, i);
-		
+		return statsCalculator;
 	}
 	
 	public static Map<String,Double> getWeaponDefaultAS()
@@ -142,7 +138,7 @@ public class StuffCalculator{
 					Iterator<String> keysg = gems[g].getAttributesRaw().keySet().iterator();
 					String cleg = keysg.next();
 					compteur++;
-					bonusItem.put(cleg +"_GEM_"+i.getName().replaceAll(" ", "-")+"_"+compteur, gems[g].getAttributesRaw().get(cleg));
+					statsCalculator.put(cleg +"_GEM_"+i.getName().replaceAll(" ", "-")+"_"+compteur, gems[g].getAttributesRaw().get(cleg));
 				}
 			}
 			//fin des gems
@@ -152,7 +148,7 @@ public class StuffCalculator{
 			{
 				String cle = keys.next();
 				compteur++;
-				bonusItem.put(cle+"_"+i.getName().replaceAll(" ", "-"), i.getAttributesRaw().get(cle));
+				statsCalculator.put(cle+"_"+i.getName().replaceAll(" ", "-"), i.getAttributesRaw().get(cle));
 				String mainoff="";
 			}
 			
@@ -172,7 +168,7 @@ public class StuffCalculator{
 				{
 					String k = keys.next();
 					compteur++;
-					bonusItem.put(k+"_SET_"+compteur, r.getAttributesRaw().get(k));
+					statsCalculator.put(k+"_SET_"+compteur, r.getAttributesRaw().get(k));
 				}
 			}
 		}
@@ -187,7 +183,7 @@ public class StuffCalculator{
 			List<SkillRune> sr = cont.getPassive();
 			for(SkillRune s : sr)
 			{
-				bonusItem.putAll(BuffSkill.getBuff(s,getStuffs()));
+				statsCalculator.putAll(BuffSkill.getBuff(s,getStuffs()));
 			}
 		}
 	}
@@ -268,7 +264,7 @@ public class StuffCalculator{
 	
 	public double getStat(String stat,String elementfilter,boolean debug) {
 		double total=0.0;
-		Iterator<String> keyIt = bonusItem.keySet().iterator();
+		Iterator<String> keyIt = statsCalculator.keySet().iterator();
 		
 		while(keyIt.hasNext())
 		{
@@ -280,17 +276,17 @@ public class StuffCalculator{
 				if(elementfilter==null)
 				{
 					if(debug)
-						System.out.println(k + " " + bonusItem.get(k).getMoyenne());
+						System.out.println(k + " " + statsCalculator.get(k).getMoyenne());
 					
-					total=total+ bonusItem.get(k).getMoyenne();
+					total=total+ statsCalculator.get(k).getMoyenne();
 				}
 				else 
 				if(k.contains(elementfilter))
 				{
 					if(debug)
-						System.out.println(k + " " + bonusItem.get(k).getMoyenne());
+						System.out.println(k + " " + statsCalculator.get(k).getMoyenne());
 					
-					total=total+ bonusItem.get(k).getMoyenne();
+					total=total+ statsCalculator.get(k).getMoyenne();
 				}
 				
 				
@@ -533,15 +529,15 @@ public class StuffCalculator{
 	//TODO revoir la formule avec les buffs
 	public StuffCalculator compareStuffs(EnumerationStuff g, Item i)
 	{
-		Map<EnumerationStuff,Item> stuffs2 = new HashMap<EnumerationStuff,Item>();
+	   Map<EnumerationStuff,Item> stuffs2 = new HashMap<EnumerationStuff,Item>();
 								   stuffs2.putAll(getStuffs());
 								   stuffs2.put(g, i);
 								   
-								   if(i.isWeapon())
-									   if(i.getType().getTwoHanded())
-										   if(stuffs2.get(EnumerationStuff.OFF_HAND)!=null)
-											   if(stuffs2.get(EnumerationStuff.OFF_HAND).isWeapon())
-											   		stuffs2.put(EnumerationStuff.OFF_HAND, null);
+	   if(i.isWeapon())
+		   if(i.getType().getTwoHanded())
+			   if(stuffs2.get(EnumerationStuff.OFF_HAND)!=null)
+				   if(stuffs2.get(EnumerationStuff.OFF_HAND).isWeapon())
+				   		stuffs2.put(EnumerationStuff.OFF_HAND, null);
 				
 		StuffCalculator calc2=new StuffCalculator(stuffs2, hero);
 						calc2.calculeBuff();
@@ -559,12 +555,13 @@ public class StuffCalculator{
 
 	public void removeBonus(Set<String> set) {
 		for(String k: set)
-			bonusItem.remove(k);
+			statsCalculator.remove(k);
 	}
+	
 	public void addBonus(Map<String,MinMaxBonus> bonus)
 	{
-		bonusItem.putAll(bonus);
-		calculeBuff();
+		statsCalculator.putAll(bonus);
+		
 	}
 	
 
