@@ -234,7 +234,7 @@ public class StuffCalculator{
 		return total;
 	}
 	
-	private double getStat(String stat,String elementfilter) {
+	private double filterStats(String stat,String elementfilter) {
 		return filterStats(stat, elementfilter,false);
 	}
 	
@@ -302,10 +302,10 @@ public class StuffCalculator{
 	public double calculate()
 	{
 		double bonusDual=(countweapon==2)?0.15:0;
-		double chance_cc=0.05+getStat("Crit_Percent", null);
+		double chance_cc=0.05+filterStats("Crit_Percent", null);
 		
-		double degat_cc=0.5+getStat("Crit_Damage", null);
-		double stat_base=hero.getBaseStatPrimary()+getStat( hero.getPrimaryStat(),null);
+		double degat_cc=0.5+filterStats("Crit_Damage", null);
+		double stat_base=hero.getBaseStatPrimary()+filterStats( hero.getPrimaryStat(),null);
 		
 		//CALCUL attackSpeed 
 		double attackPerSecondMain = stuffs.get(EnumerationStuff.MAIN_HAND).getAttacksPerSecond().getMoyenne();
@@ -320,7 +320,7 @@ public class StuffCalculator{
 		if(countweapon==2)
 			offI=weaponDefaultAS.get(stuffs.get(EnumerationStuff.OFF_HAND).getType().getId()); //AS de base du type arme MAIN
 		
-		double bonusArmor = getStat(getArmor(), "Attacks_Per_Second_Percent", null) + filterStats("Attacks_Per_Second_Percent","BUFF",false);
+		double bonusArmor = getStat(getArmor(), "Attacks_Per_Second_Percent", null) + filterStats("Attacks_Per_Second_Percent","BUFF");
 		double bonusWeapon = getStat(getWeapons(), "Attacks_Per_Second_Item_Bonus", null);
 		
 		double compagnonBonus=0; // ou 0.3 pour l'enchanteresse
@@ -338,14 +338,14 @@ public class StuffCalculator{
 		double minMaxDmg=tempDamage();
 		
 		double weaponDmgMain=minMaxDmg/2+(stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne()+stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne())/2;
-			weaponDmgMain = weaponDmgMain * (1+ filterStats("Damage_Weapon_Percent_Bonus#Physical","BUFF",false));
+			weaponDmgMain = weaponDmgMain * (1+ filterStats("Damage_Weapon_Percent_Bonus#Physical","BUFF"));
 		
 		double weaponDmgOff=0;
 		
 		if(countweapon==2)
 		{
 			weaponDmgOff=minMaxDmg/2+(stuffs.get(EnumerationStuff.OFF_HAND).getMinDamage().getMoyenne()+stuffs.get(EnumerationStuff.OFF_HAND).getMaxDamage().getMoyenne())/2;
-			weaponDmgOff = weaponDmgOff * (1+ filterStats("Damage_Weapon_Percent_Bonus#Physical","BUFF",false));
+			weaponDmgOff = weaponDmgOff * (1+ filterStats("Damage_Weapon_Percent_Bonus#Physical","BUFF"));
 		}
 		
 		double hitDmgMAIN=statDamage*ccDamage*weaponDmgMain;
@@ -426,7 +426,7 @@ public class StuffCalculator{
 	    	double dommageMoyen = dommageMoyen(minMaxDmg);
 	    	double critDamage = ccDamage; 
 	    	double chanceCrit = chance_cc;
-	    	double elementalDamage=getStat("Damage_Type_Percent_Bonus", null);
+	    	double elementalDamage=filterStats("Damage_Type_Percent_Bonus", null);
 	     	double damage_minM =stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne();
 			double damage_maxM =stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne();
 			
@@ -443,7 +443,7 @@ public class StuffCalculator{
 	    		dommageMoyen += elementalDamage * (damage_minM + damage_maxM + damage_minO + damage_maxO + 2 * minMaxDmg) / 2;
 	    		damage = (1 + s) * statBase * (1 + critDamage * chanceCrit) * bonusAS*dommageMoyen / vitesseMoyenne;
 	    	}
-	    	return damage* (1+ filterStats("Damage_Weapon_Percent_Bonus#Physical","BUFF",false));	 
+	    	return damage* (1+ filterStats("Damage_Weapon_Percent_Bonus#Physical","BUFF"));	 
 	}
 	
 	private double getDamage(double stat_base, double chance_cc,double ccDamage, double bonusAS, double minMaxDmg, int s) 
@@ -465,7 +465,7 @@ public class StuffCalculator{
  			bonusAS += .15;//dual
  			damage = (1 + s) * statBase * (1 + critDamage * chanceCrit) * bonusAS * dommageMoyen / vitesseMoyenne;
  		}
- 		return damage* (1+ filterStats("Damage_Weapon_Percent_Bonus#Physical","BUFF",false));
+ 		return damage* (1+ filterStats("Damage_Weapon_Percent_Bonus#Physical","BUFF"));
 	}
 	
 	private double dommageMoyen(double minMaxDmg) {
