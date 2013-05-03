@@ -29,6 +29,7 @@ import javax.swing.border.LineBorder;
 import org.armory.d3.beans.Item;
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.ItemCreatorFrame;
+import org.armory.d3.ui.SwingMainFrame;
 
 import com.sdfteam.d3armory.service.util.EnumerationStuff;
 
@@ -41,6 +42,7 @@ public class ItemLabel extends JLabel implements MouseListener {
     
     public ItemLabel(ItemPanelDetails pan)
     {
+    	
     	this.details=pan;
     	addMouseListener(this);
     }
