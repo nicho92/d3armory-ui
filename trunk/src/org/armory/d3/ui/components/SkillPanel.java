@@ -48,7 +48,7 @@ public class SkillPanel extends JPanel {
 					}
 					{
 						lblTextSkill = new FormatedJLabel();
-						lblTextSkill.setHtmlText(skill.getSkill().getDescription().replaceAll("\n", "<br/>"), "#C7B377", "green");//TODO gestion des . et , 
+						lblTextSkill.setHtmlText(skill.getSkill().getDescription().replaceAll("\n", "<br/>").replaceAll("\r", ""), "#C7B377", "green");
 						this.add(lblTextSkill);
 						lblTextSkill.setBounds(82, 51, 256, 97);
 					}

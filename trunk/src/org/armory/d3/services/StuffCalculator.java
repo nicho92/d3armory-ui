@@ -29,6 +29,7 @@ public class StuffCalculator{
 	private Hero hero;
 	private boolean twohanded;
 	int countweapon=0;
+	private Map<String, MinMaxBonus> buffs;
 	private static Map<String,Double> weaponDefaultAS=new HashMap<String,Double>();
 	
 	private Map<String,Double> mapResultat ;
@@ -239,26 +240,26 @@ public class StuffCalculator{
 	
 	public double getStat(Item i,String stat,String elementfilter) {
 		double total=0.0;
-		
-		Map<String, MinMaxBonus> attributes = i.getAttributesRaw();
-		Iterator<String> keyIt = attributes.keySet().iterator();
-		while(keyIt.hasNext())
-		{
-			String k = keyIt.next();
-			
-			if(k.startsWith(stat)||stat.equals(""))
-			{
-				
-				if(elementfilter==null)
+			Map<String, MinMaxBonus> attributes = i.getAttributesRaw();
+				Iterator<String> keyIt = attributes.keySet().iterator();
+				while(keyIt.hasNext())
 				{
-					total=total+ attributes.get(k).getMoyenne();
+					String k = keyIt.next();
+					
+					if(k.startsWith(stat)||stat.equals(""))
+					{
+						
+						if(elementfilter==null)
+						{
+							total=total+ attributes.get(k).getMoyenne();
+						}
+						else 
+							if(k.contains(elementfilter))
+						{
+							total=total+ attributes.get(k).getMoyenne();
+						}
+					}
 				}
-				else if(k.contains(elementfilter))
-				{
-					total=total+ attributes.get(k).getMoyenne();
-				}
-			}
-		}
 		return total;
 	}
 	
@@ -294,7 +295,9 @@ public class StuffCalculator{
 		}
 		
 		return total;	
-		}
+	}
+	
+	
 	
 	public double calculate()
 	{
@@ -317,8 +320,7 @@ public class StuffCalculator{
 		if(countweapon==2)
 			offI=weaponDefaultAS.get(stuffs.get(EnumerationStuff.OFF_HAND).getType().getId()); //AS de base du type arme MAIN
 		
-		double bonusArmor = getStat(getArmor(), "Attacks_Per_Second_Percent", null);
-		
+		double bonusArmor = getStat(getArmor(), "Attacks_Per_Second_Percent", null) + getStat("Attacks_Per_Second_Percent","BUFF",false);
 		double bonusWeapon = getStat(getWeapons(), "Attacks_Per_Second_Item_Bonus", null);
 		
 		double compagnonBonus=0; // ou 0.3 pour l'enchanteresse
@@ -336,12 +338,15 @@ public class StuffCalculator{
 		double minMaxDmg=tempDamage();
 		
 		double weaponDmgMain=minMaxDmg/2+(stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne()+stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne())/2;
-		
+			weaponDmgMain = weaponDmgMain * (1+ getStat("Damage_Weapon_Percent_Bonus#Physical","BUFF",false));
 		
 		double weaponDmgOff=0;
 		
 		if(countweapon==2)
+		{
 			weaponDmgOff=minMaxDmg/2+(stuffs.get(EnumerationStuff.OFF_HAND).getMinDamage().getMoyenne()+stuffs.get(EnumerationStuff.OFF_HAND).getMaxDamage().getMoyenne())/2;
+			weaponDmgOff = weaponDmgOff * (1+ getStat("Damage_Weapon_Percent_Bonus#Physical","BUFF",false));
+		}
 		
 		double hitDmgMAIN=statDamage*ccDamage*weaponDmgMain;
 		double hitDmgOFF=statDamage*ccDamage*weaponDmgOff;
@@ -386,6 +391,7 @@ public class StuffCalculator{
 		
 		double dps=getDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
 		double elementdps = getElemDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
+		
 		if(dps>=elementdps)
 		{
 			mapResultat.put("DPS",format(dps));
@@ -409,14 +415,14 @@ public class StuffCalculator{
 		double min = getStat(getArmor(), "Damage","Min");
 		double max = getStat(getArmor(), "Damage_Min",null)+getStat(getArmor(), "Damage","Delta");
 	
-		return min+max;
+		return (min+max) ;
 	}
 
 	private double getElemDamage(double stat_base, double chance_cc,double ccDamage, double bonusAS, double minMaxDmg, int s)
 	{
 			double damage = 0; 
 	    	double statBase = 1 + stat_base / 100; 
-	    	double vitesseMoyenne = vitesseMoyenne(bonusAS,0); 
+	    	double vitesseMoyenne = vitesseMoyenne(bonusAS); 
 	    	double dommageMoyen = dommageMoyen(minMaxDmg);
 	    	double critDamage = ccDamage; 
 	    	double chanceCrit = chance_cc;
@@ -437,7 +443,7 @@ public class StuffCalculator{
 	    		dommageMoyen += elementalDamage * (damage_minM + damage_maxM + damage_minO + damage_maxO + 2 * minMaxDmg) / 2;
 	    		damage = (1 + s) * statBase * (1 + critDamage * chanceCrit) * bonusAS*dommageMoyen / vitesseMoyenne;
 	    	}
-	    	return damage;	 
+	    	return damage* (1+ getStat("Damage_Weapon_Percent_Bonus#Physical","BUFF",false));	 
 	}
 	
 	private double getDamage(double stat_base, double chance_cc,double ccDamage, double bonusAS, double minMaxDmg, int s) 
@@ -445,7 +451,7 @@ public class StuffCalculator{
 		
 			double damage = 0; 
  	    	double statBase = 1 + stat_base / 100; 
- 	    	double vitesseMoyenne = vitesseMoyenne(bonusAS,0); 
+ 	    	double vitesseMoyenne = vitesseMoyenne(bonusAS); 
  	    	double dommageMoyen = dommageMoyen(minMaxDmg);
  	    	double critDamage = ccDamage; 
  	    	double chanceCrit = chance_cc;
@@ -459,7 +465,7 @@ public class StuffCalculator{
  			bonusAS += .15;//dual
  			damage = (1 + s) * statBase * (1 + critDamage * chanceCrit) * bonusAS * dommageMoyen / vitesseMoyenne;
  		}
- 		return damage;
+ 		return damage* (1+ getStat("Damage_Weapon_Percent_Bonus#Physical","BUFF",false));
 	}
 	
 	private double dommageMoyen(double minMaxDmg) {
@@ -498,7 +504,7 @@ public class StuffCalculator{
 		return n;
 	}
 
-	private double vitesseMoyenne(double bonusAS,double enchanteresseBonus)
+	private double vitesseMoyenne(double bonusAS)
 	{
 
 		double n = 0; 
@@ -519,14 +525,12 @@ public class StuffCalculator{
 		
 			
 		if(countweapon==1)
-			n = bonusAS * (defaultMHas * bonusMHas + enchanteresseBonus + weaponASBonus + armorASBonus);
+			n = bonusAS * (defaultMHas * bonusMHas  + weaponASBonus + armorASBonus);
 		else 
-			n = 1 / (defaultMHas * bonusMHas + enchanteresseBonus + weaponASBonus + Attacks_Per_Second_Item_Bonus + armorASBonus) + 1 / (defaultOHas * bonusOHas + enchanteresseBonus + weaponASBonus + Attacks_Per_Second_Item_Bonus + armorASBonus);
-		
+			n = 1 / (defaultMHas * bonusMHas  + weaponASBonus + Attacks_Per_Second_Item_Bonus + armorASBonus) + 1 / (defaultOHas * bonusOHas  + weaponASBonus + Attacks_Per_Second_Item_Bonus + armorASBonus);
 		return n;
 	}
 	
-	//TODO revoir la formule avec les buffs
 	public StuffCalculator compareStuffs(EnumerationStuff g, Item i)
 	{
 	   Map<EnumerationStuff,Item> stuffs2 = new HashMap<EnumerationStuff,Item>();

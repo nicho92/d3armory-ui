@@ -69,11 +69,7 @@ public class SkillLabel extends JLabel implements MouseListener {
 		if(skill != null)
 			try {
 				URL url = new URL("http://media.blizzard.com/d3/icons/skills/64/"+skill.getSkill().getIcon()+".png");
-				
-//				if(enabled)
-					return new ImageIcon(url);
-//				else
-//					return new ImageIcon(GrayFilter.createDisabledImage(new ImageIcon(url).getImage()));
+				return new ImageIcon(url);
 			} catch (Exception e1) {
 				return new ImageIcon();
 			}

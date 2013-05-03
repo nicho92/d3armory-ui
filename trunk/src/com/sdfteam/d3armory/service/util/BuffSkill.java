@@ -58,6 +58,8 @@ public class BuffSkill {
 		}
 		if(a.getSkill().getId().equals("wrath-of-the-berserker"))
 		{
+			buffs.put("Attacks_Per_Second_Percent_BUFF_"+a, new MinMaxBonus(0.25));
+			buffs.put("Crit_Percent_Bonus_BUFF_"+a, new MinMaxBonus(0.1));
 			buffs.put("Crit_Percent_Bonus_BUFF_"+a, new MinMaxBonus(0.1));
 			buffs.put("Movement_Scalar_BUFF_"+a, new MinMaxBonus(0.2));
 			//TODO ADD dodge
@@ -65,6 +67,7 @@ public class BuffSkill {
 		
 		if(a.getSkill().getId().equals("wrath-of-the-berserker-d"))//INSANITY
 		{
+			buffs.put("Attacks_Per_Second_Percent_BUFF_"+a, new MinMaxBonus(0.25));
 			buffs.put("Crit_Percent_Bonus_BUFF_"+a, new MinMaxBonus(0.1));
 			buffs.put("Movement_Scalar_BUFF_"+a, new MinMaxBonus(0.2));
 			buffs.put("Damage_Weapon_Percent_Bonus#Physical_BUFF_"+a, new MinMaxBonus(1));
@@ -103,4 +106,6 @@ public class BuffSkill {
 	*/
 		return buffs;
 	}
+	
+	
 }
