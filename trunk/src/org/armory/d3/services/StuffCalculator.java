@@ -350,12 +350,12 @@ public class StuffCalculator{
 		
 		double hitDmgMAIN=statDamage*ccDamage*weaponDmgMain;
 		double hitDmgOFF=statDamage*ccDamage*weaponDmgOff;
-		double hitDmg=0;
-
-		if(countweapon==2)
-			hitDmg=(hitDmgMAIN+hitDmgOFF)/2;
-		else
-			hitDmg=hitDmgMAIN;
+//		double hitDmg=0;
+//
+//		if(countweapon==2)
+//			hitDmg=(hitDmgMAIN+hitDmgOFF)/2;
+//		else
+//			hitDmg=hitDmgMAIN;
 		
 		//CALCUL VITALITY
 		double lifeB= getStat("Hitpoints_Max_Percent_Bonus","",false);
