@@ -51,6 +51,7 @@ import org.armory.d3.beans.Item;
 import org.armory.d3.beans.Profile;
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.services.StuffCalculator;
+import org.armory.d3.ui.components.FollowersPanel;
 import org.armory.d3.ui.components.FormatedJLabel;
 import org.armory.d3.ui.components.HeroCellRenderer;
 import org.armory.d3.ui.components.HeroPanel;
@@ -146,6 +147,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JPanel panneauDPS;
 	private Map<EnumerationStuff,Item> stuffs;
 	private JLabel lblRessources;
+	private FollowersPanel panelFollowers;
 
 	
 	public ListeHeroModel getListeHerosModel() {
@@ -1253,9 +1255,10 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(ongletPane == null) {
 			ongletPane = new JTabbedPane();
 			ongletPane.setPreferredSize(new java.awt.Dimension(0, 0));
-			ongletPane.addTab("Info", null, getPanneauInfoHero(), null);
-			ongletPane.addTab("Detail", null, getPanneauTableau(), null);
-			ongletPane.addTab("DPS", null, getPanneauDPS(), null);
+			ongletPane.addTab("General", null, getPanneauInfoHero(), null);
+			ongletPane.addTab("Stuff", null, getPanneauTableau(), null);
+			ongletPane.addTab("Info", null, getPanneauDPS(), null);
+			ongletPane.addTab("Followers", null, getFollowersPanel(), null);
 		}
 		return ongletPane;
 	}
@@ -1364,5 +1367,10 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		return lblRessources;
 	}
 	
-
+	private FollowersPanel getFollowersPanel() {
+		if(panelFollowers == null) {
+			panelFollowers = new FollowersPanel(hero);
+		}
+		return panelFollowers;
+	}
 }
