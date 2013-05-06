@@ -2,6 +2,8 @@ package org.armory.d3.ui.components;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
@@ -15,9 +17,23 @@ import org.armory.d3.beans.Hero;
 
 public class HeroCellRenderer implements ListCellRenderer
 {
+	
+	Hero hero = null;
 	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-		JLabel lab = new JLabel();
-		Hero hero = (Hero)value;
+		final Hero hero = (Hero)value;
+		
+		JLabel lab = new JLabel() {
+			@Override
+			public void  paint(Graphics g) {
+				super.paint(g);
+				if(hero.isDead())
+				{
+					Image dead =new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/dead.png")).getImage();
+					g.drawImage(dead, getWidth()-60, 5, null);
+				}
+			}
+		};
+		
 		String levels = hero.getLevel() +" ";
 				if(hero.getParagonLevel()>0)
 					levels=levels+ "<font color='#A591C2'>(" + hero.getParagonLevel()+")</font>";
@@ -38,8 +54,13 @@ public class HeroCellRenderer implements ListCellRenderer
 		Image i =new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/"+hero.getClazz()+"-"+hero.getSexe()+".png")).getImage();
 		Image newimg = i.getScaledInstance(i.getWidth(null)/2, i.getHeight(null)/2,  java.awt.Image.SCALE_SMOOTH); 
 		lab.setIcon(new ImageIcon(newimg));
+		
+		
+		
 		return lab;
 	}
 
+	
+	
 	
 }

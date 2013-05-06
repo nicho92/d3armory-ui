@@ -1,19 +1,18 @@
 package org.armory.d3.test;
 
+import java.sql.Time;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.Item;
 import org.armory.d3.beans.Profile;
-import org.armory.d3.beans.SkillRune;
 import org.armory.d3.services.D3ArmoryControler;
 
 import com.sdfteam.d3armory.service.configuration.Configuration;
 import com.sdfteam.d3armory.service.remote.RemoteService;
 import com.sdfteam.d3armory.service.remote.SpringRemoteService;
-import com.sdfteam.d3armory.service.util.BuffSkill;
 import com.sdfteam.d3armory.service.util.EnumerationStuff;
 
 
@@ -33,7 +32,7 @@ public class Main {
 		Profile profile = profileService.receiveEntity(conf);
 		
 			
-			Hero hero = profile.getHeroes().get(0);
+			Hero hero = profile.getHeroes().get(4);
 				 conf.setHeroId(hero.getId());
 				 D3ArmoryControler.getInstance().setConf(conf);
 				 
@@ -75,14 +74,20 @@ public class Main {
 					D3ArmoryControler.getInstance().setSelectedHero(hero);
 					D3ArmoryControler.getInstance().initCalculator(stuffs);
 					
-					System.out.println(D3ArmoryControler.getInstance().getCalculator().calculate());
+//					System.out.println(D3ArmoryControler.getInstance().getCalculator().calculate());
+//					
+//					List<SkillRune> liste = hero.getSkills().getPassive();
+//					
+//					for(SkillRune sr : liste)
+//						D3ArmoryControler.getInstance().getCalculator().addBonus(BuffSkill.getBuff(sr, stuffs));
+//					
+//					System.out.println(D3ArmoryControler.getInstance().getCalculator().calculate());
 					
-					List<SkillRune> liste = hero.getSkills().getPassive();
+					Date d = new Date(hero.getLastUpdated().longValue());
 					
-					for(SkillRune sr : liste)
-						D3ArmoryControler.getInstance().getCalculator().addBonus(BuffSkill.getBuff(sr, stuffs));
 					
-					System.out.println(D3ArmoryControler.getInstance().getCalculator().calculate());
+					System.out.println(hero.getLastUpdated() + " " + d);
+					
 					
 		}
 }
