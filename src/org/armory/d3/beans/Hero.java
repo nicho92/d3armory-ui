@@ -23,6 +23,8 @@ public class Hero extends RemoteEntity {
 	private HeroSkillContainer skills;
 	private Stats stats;
 	private Long paragonLevel;
+	private boolean dead;
+	
 	
 	public String getPrimaryStat()
 	{
@@ -40,7 +42,17 @@ public class Hero extends RemoteEntity {
 		return "";
 	}
 	
-	
+
+	public boolean isDead() {
+		return dead;
+	}
+
+
+	public void setDead(boolean dead) {
+		this.dead = dead;
+	}
+
+
 	public double getBaseStatPrimary()
 	{
 		return (7+(this.getLevel().intValue()+this.getParagonLevel().intValue())*3);
