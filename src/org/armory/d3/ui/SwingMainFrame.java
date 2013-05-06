@@ -63,20 +63,6 @@ import org.jdesktop.application.Application;
 import com.sdfteam.d3armory.service.remote.exception.D3ServerCommunicationException;
 import com.sdfteam.d3armory.service.util.EnumerationStuff;
 
-
-
-/**
-* This code was edited or generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
-* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
-* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
-*/
 public class SwingMainFrame extends javax.swing.JFrame {
 
 	private JMenuItem helpMenuItem;
@@ -169,7 +155,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		
 	    final SplashScreen splash = SplashScreen.getSplashScreen();
 	        if (splash != null) {
-	             Graphics2D g = splash.createGraphics();
+	             splash.createGraphics();
 	        try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {

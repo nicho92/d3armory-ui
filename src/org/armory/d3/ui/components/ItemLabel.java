@@ -211,7 +211,12 @@ public class ItemLabel extends JLabel implements MouseListener {
 		{
 			List<String> listeTag= D3ArmoryControler.getInstance().getListTags();
 			JPopupMenu popupMenu = new JPopupMenu();
+			
+			if(item==null)
+				popupMenu.add(new JMenuItem("Compare gear with"));
+			else
 				popupMenu.add(new JMenuItem("Compare " + item.getType().getId() + " with"));
+			
 				popupMenu.add(new JSeparator());
 			JMenuItem itNewItem = new JMenuItem("New Item");
 				itNewItem.addActionListener(new ActionListener() {
