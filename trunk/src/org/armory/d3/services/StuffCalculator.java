@@ -226,6 +226,7 @@ public class StuffCalculator{
 	
 	public double getStat(List<Item> listes,String stat,String elementfilter)
 	{
+		
 		double total =0;
 		for(Item it:listes)
 		{
@@ -239,6 +240,10 @@ public class StuffCalculator{
 	}
 	
 	public double getStat(Item i,String stat,String elementfilter) {
+		
+		if(i==null)
+			return 0;
+		
 		double total=0.0;
 			Map<String, MinMaxBonus> attributes = i.getAttributesRaw();
 				Iterator<String> keyIt = attributes.keySet().iterator();
@@ -306,15 +311,19 @@ public class StuffCalculator{
 		
 		double degat_cc=0.5+filterStats("Crit_Damage", null);
 		double stat_base=hero.getBaseStatPrimary()+filterStats( hero.getPrimaryStat(),null);
-		
+		double attackPerSecondMain =0;
 		//CALCUL attackSpeed 
-		double attackPerSecondMain = stuffs.get(EnumerationStuff.MAIN_HAND).getAttacksPerSecond().getMoyenne();
+		if(stuffs.get(EnumerationStuff.MAIN_HAND)!=null)
+			attackPerSecondMain = stuffs.get(EnumerationStuff.MAIN_HAND).getAttacksPerSecond().getMoyenne();
+		
 		double attackPerSecondOff=0;
 		
 		if(countweapon==2)
 			attackPerSecondOff = stuffs.get(EnumerationStuff.OFF_HAND).getAttacksPerSecond().getMoyenne();
+		double mainI=0;
+		if(stuffs.get(EnumerationStuff.MAIN_HAND)!=null)
+			mainI=weaponDefaultAS.get(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId()); //AS de base du type arme MAIN
 		
-		double mainI=weaponDefaultAS.get(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId()); //AS de base du type arme MAIN
 		double offI=0;
 		
 		if(countweapon==2)
@@ -336,10 +345,13 @@ public class StuffCalculator{
 		double statDamage=1+(stat_base/100);
 		double ccDamage=1+chance_cc*degat_cc;
 		double minMaxDmg=tempDamage();
-		
-		double weaponDmgMain=minMaxDmg/2+(stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne()+stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne())/2;
+		double weaponDmgMain=0;
+			
+		if(stuffs.get(EnumerationStuff.MAIN_HAND)!=null)
+		{
+			weaponDmgMain=minMaxDmg/2+(stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne()+stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne())/2;
 			weaponDmgMain = weaponDmgMain * (1+ filterStats("Damage_Weapon_Percent_Bonus#Physical","BUFF"));
-		
+		}
 		double weaponDmgOff=0;
 		
 		if(countweapon==2)
@@ -427,8 +439,15 @@ public class StuffCalculator{
 	    	double critDamage = ccDamage; 
 	    	double chanceCrit = chance_cc;
 	    	double elementalDamage=filterStats("Damage_Type_Percent_Bonus", null);
-	     	double damage_minM =stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne();
-			double damage_maxM =stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne();
+	    	double damage_minM=0;
+	    	double damage_maxM=0;
+	    	
+	    	if(stuffs.get(EnumerationStuff.MAIN_HAND)!=null)
+	    	{
+	    		damage_minM =stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne();
+	    		damage_maxM =stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne();
+	    	}
+			
 			
 			if(countweapon<=1)
 	    	{
@@ -471,9 +490,17 @@ public class StuffCalculator{
 	private double dommageMoyen(double minMaxDmg) {
 		double n=0;
 	
-		String elementM = stuffs.get(EnumerationStuff.MAIN_HAND).getEnchantedWeapon();
-		double mindmgM=stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne();
-		double maxdmgM=stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne();
+		String elementM="";
+		double mindmgM=0;
+		double maxdmgM=0;
+		if(stuffs.get(EnumerationStuff.MAIN_HAND)!=null)
+		{
+			elementM = stuffs.get(EnumerationStuff.MAIN_HAND).getEnchantedWeapon();
+			mindmgM=stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne();
+			maxdmgM=stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne();
+
+		}
+		
 		
 		if(!elementM.equals(""))
 		{
@@ -486,7 +513,7 @@ public class StuffCalculator{
 			n = minMaxDmg + mindmgM + maxdmgM;
 			n/=2;
 		}
-		else
+		else if(stuffs.get(EnumerationStuff.OFF_HAND)!=null)
 		{
 			String elementO = stuffs.get(EnumerationStuff.OFF_HAND).getEnchantedWeapon();
 			double mindmgO=stuffs.get(EnumerationStuff.OFF_HAND).getMinDamage().getMoyenne();
@@ -508,8 +535,11 @@ public class StuffCalculator{
 	{
 
 		double n = 0; 
-		double armorASBonus = 0; 
-		double defaultMHas = weaponDefaultAS.get(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId()); 
+		double armorASBonus = 0;
+		double defaultMHas =0;
+		if(stuffs.get(EnumerationStuff.MAIN_HAND)!=null)
+			defaultMHas = weaponDefaultAS.get(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId()); 
+
 		double defaultOHas = 0;
 		if(countweapon==2)
 			defaultOHas=weaponDefaultAS.get(stuffs.get(EnumerationStuff.OFF_HAND).getType().getId());;
@@ -554,7 +584,13 @@ public class StuffCalculator{
 
 	public static double format(double val)
 	{
-		return Double.parseDouble(new DecimalFormat("######.00").format(val).replaceAll(",", "."));
+		try{
+			return Double.parseDouble(new DecimalFormat("######.00").format(val).replaceAll(",", "."));
+		}
+		catch(NumberFormatException e)
+		{
+			return 0.0;
+		}
 	}
 
 	public void removeBonus(Set<String> set) {
