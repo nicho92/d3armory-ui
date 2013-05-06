@@ -56,6 +56,9 @@ public class SkillLabel extends JLabel implements MouseListener {
 	public Border getBorder() {
 		if(skill==null)
 			return super.getBorder();
+			
+		if(skill.getSkill()==null)
+			return super.getBorder();
 		
 		if(enabled)
 			return new LineBorder(Color.red);
