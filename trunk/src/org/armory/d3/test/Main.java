@@ -1,6 +1,7 @@
 package org.armory.d3.test;
 
-import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -83,10 +84,9 @@ public class Main {
 //					
 //					System.out.println(D3ArmoryControler.getInstance().getCalculator().calculate());
 					
-					Date d = new Date(hero.getLastUpdated().longValue());
-					
-					
-					System.out.println(hero.getLastUpdated() + " " + d);
+					Timestamp t = new Timestamp(hero.getLastUpdated().longValue());
+					System.out.println(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date(hero.getLastUpdated().longValue())));
+					System.out.println(hero.getLastUpdated().longValue()/1000/60/60/24);
 					
 					
 		}

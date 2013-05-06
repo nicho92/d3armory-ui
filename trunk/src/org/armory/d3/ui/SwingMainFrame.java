@@ -14,6 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -63,6 +64,19 @@ import com.sdfteam.d3armory.service.remote.exception.D3ServerCommunicationExcept
 import com.sdfteam.d3armory.service.util.EnumerationStuff;
 
 
+
+/**
+* This code was edited or generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
+* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
+* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
+*/
 public class SwingMainFrame extends javax.swing.JFrame {
 
 	private JMenuItem helpMenuItem;
@@ -74,6 +88,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JSplitPane splitPanneauFicheHero;
 	private ItemLabel lblTorso;
 	private SocketLabel lblSocketMainHand;
+	private JLabel lblLife;
 	private JLabel lblLastUpdate;
 	private JPanel panneauInfoHero;
 	private JTabbedPane ongletPane;
@@ -142,6 +157,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private Hero hero;
 	private JPanel panneauDPS;
 	private Map<EnumerationStuff,Item> stuffs;
+	private JLabel lblRessources;
 
 	
 	public ListeHeroModel getListeHerosModel() {
@@ -389,6 +405,10 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		FormatedJLabel lbl4 = new FormatedJLabel();
 		lbl4.setHtmlText(getDetailHero(3), "white","#BDA6CD");
 		getPanneauInfoHero().add(lbl4);
+		
+		FormatedJLabel lbl5 = new FormatedJLabel();
+		lbl5.setHtmlText(getDetailHero(4), "white","#BDA6CD");
+		getPanneauInfoHero().add(lbl5);
 	
 		getLblSkill1().setSkillRune(hero.getSkills().getActive().get(0));
 		getLblSkill2().setSkillRune(hero.getSkills().getActive().get(1));
@@ -561,8 +581,27 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		else
 			lblHarcore.setText("");
 		
+		
+		getLblLife().setText(format(hero.getStats().getLife()));
+		
+		if(hero.getClazz().equals("demon-hunter"))
+			getLblRessources().setText("<html>"+hero.getStats().getPrimaryResource()+"<br/>"+hero.getStats().getSecondaryResource()+"<html>");
+		else
+			getLblRessources().setText(""+hero.getStats().getPrimaryResource());
+		
 		panneauDessinHero.repaint();
 	}
+	
+	private String format(double number) {
+		if(number<1000)
+			return String.valueOf(number);
+		
+	    String r = new DecimalFormat("##0E0").format(number);
+	    r = r.replaceAll("E[0-9]", "k");
+	    return r.length()>4 ?  r.replaceAll("\\.[0-9]+", "") : r;
+	}
+	
+	
 	
 	private String getDetailDPS()
 	{
@@ -612,7 +651,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		}
 		if(val==3)
 		{
-			temp.append("DPS : " + hero.getStats().getDamage() +" <br/>");
 			temp.append("Chance Crit : " + StuffCalculator.format(hero.getStats().getCritChance()*100) +"% <br/>");
 			temp.append("Crit Damage : " + StuffCalculator.format(hero.getStats().getCritDamage()*100) +"% <br/>");
 			temp.append("Damage Increase : " + StuffCalculator.format(hero.getStats().getDamageIncrease()*100) +"% <br/>");
@@ -620,6 +658,13 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			temp.append("Life per Kill : " + hero.getStats().getLifePerKill() +" <br/>");
 			temp.append("Life Steal : " + StuffCalculator.format(hero.getStats().getLifeSteal()*100) +"% <br/>");
 		}
+		if(val==4)
+		{
+			temp.append("DPS : " + hero.getStats().getDamage() +" <br/>");
+			temp.append("Elites Kill : " + hero.getKills().getElites() +" <br/>");
+			
+		}
+		
 		return temp.toString();
 	}
 
@@ -1130,6 +1175,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					panneauDessinHero.add(lblParangonLevel);
 					panneauDessinHero.add(getLblHarcore());
 					panneauDessinHero.add(getLblLastUpdate());
+					panneauDessinHero.add(getLblLife());
+					panneauDessinHero.add(getLblRessources());
 					lblParangonLevel.setBounds(692, 20, 51, 16);
 					lblParangonLevel.setName("lblParangonLevel");
 				}
@@ -1282,5 +1329,47 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		}
 		return lblLastUpdate;
 	}
+	
+	private JLabel getLblLife() {
+		if(lblLife == null) {
+			lblLife = new JLabel() {
+
+				public void paint(Graphics g) {
+					Image bg = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/ressource_life.png")).getImage();
+					if(hero!=null)
+						g.drawImage(bg,0,0,null);
+					super.paintComponent(g);
+				}
+				
+				
+			};
+			lblLife.setForeground(Color.WHITE);
+			lblLife.setHorizontalAlignment(JLabel.CENTER);
+			lblLife.setBounds(320, 540, 50, 50);
+
+		}
+		return lblLife;
+	}
+	
+	private JLabel getLblRessources() {
+		if(lblRessources == null) {
+			lblRessources = new JLabel(){
+
+				public void paint(Graphics g) {
+					if(hero!=null)
+					{
+						Image bg = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/ressource_"+hero.getClazz()+".png")).getImage();
+						g.drawImage(bg,0,0,null);
+					}
+					super.paintComponent(g);
+				}
+			};
+			lblRessources.setBounds(391, 540, 50, 50);
+			lblRessources.setHorizontalAlignment(JLabel.CENTER);
+			lblRessources.setForeground(Color.WHITE);
+		}
+		return lblRessources;
+	}
+	
 
 }
