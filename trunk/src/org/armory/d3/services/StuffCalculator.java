@@ -321,6 +321,7 @@ public class StuffCalculator{
 		if(countweapon==2)
 			attackPerSecondOff = stuffs.get(EnumerationStuff.OFF_HAND).getAttacksPerSecond().getMoyenne();
 		double mainI=0;
+		
 		if(stuffs.get(EnumerationStuff.MAIN_HAND)!=null)
 			mainI=weaponDefaultAS.get(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId()); //AS de base du type arme MAIN
 		
@@ -412,7 +413,7 @@ public class StuffCalculator{
 		else
 		{
 			
-			mapResultat.put("DPS",elementdps);
+			mapResultat.put("DPS",format(elementdps));
 			return elementdps;
 		}
 	}
@@ -589,7 +590,7 @@ public class StuffCalculator{
 		}
 		catch(NumberFormatException e)
 		{
-			return 0.0;
+			return 0;
 		}
 	}
 

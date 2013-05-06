@@ -429,7 +429,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 				temp.append("CRIT DAMAGE " + mapResultat.get("CRITDAMAGE") +" <br/> ") ;
 				temp.append("MH DAMAGE " + mapResultat.get("MHDAMAGE") +" <br/> ") ;
 				temp.append("OH DAMAGE " + mapResultat.get("OHDAMAGE") +" <br/> ") ;
-				temp.append("DPS : " + mapResultat.get("DPS") +" <br/> ") ;
+				temp.append("DPS :<b> " + mapResultat.get("DPS") +" </b> <br/> ") ;
 		return temp.toString();
 	}
 	
@@ -448,7 +448,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 			if(val==0)
 				color="<font color='gray'/> ";
 	
-			temp.append(color+StuffCalculator.format(val) +"</font><br/>");
+			temp.append(color + StuffCalculator.format(val) +"</font><br/>");
 		}
 		return temp.toString();
 	}
