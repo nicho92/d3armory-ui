@@ -14,7 +14,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -574,6 +576,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			getLblRessources().setText("<html>"+hero.getStats().getPrimaryResource()+"<br/>"+hero.getStats().getSecondaryResource()+"<html>");
 		else
 			getLblRessources().setText(""+hero.getStats().getPrimaryResource());
+		
+		Date d = new Date();
+		d.setTime(hero.getLastUpdated().longValue()*1000);
+		getLblLastUpdate().setText(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(d));
+		
 		
 		panneauDessinHero.repaint();
 	}

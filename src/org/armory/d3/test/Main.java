@@ -1,7 +1,7 @@
 package org.armory.d3.test;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +33,7 @@ public class Main {
 		Profile profile = profileService.receiveEntity(conf);
 		
 			
-			Hero hero = profile.getHeroes().get(4);
+			Hero hero = profile.getHeroes().get(0);
 				 conf.setHeroId(hero.getId());
 				 D3ArmoryControler.getInstance().setConf(conf);
 				 
@@ -84,9 +84,6 @@ public class Main {
 //					
 //					System.out.println(D3ArmoryControler.getInstance().getCalculator().calculate());
 					
-					Timestamp t = new Timestamp(hero.getLastUpdated().longValue());
-					System.out.println(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date(hero.getLastUpdated().longValue())));
-					System.out.println(hero.getLastUpdated().longValue()/1000/60/60/24);
 					
 					
 		}
