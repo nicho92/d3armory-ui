@@ -382,6 +382,19 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		Item special = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getSpecial());
 		getFollowersPanel().getLblTemplarObject().setItem(special, null);
 		
+		Item mh = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getMainHand());
+		getFollowersPanel().getLblTemplarMH().setItem(mh, EnumerationStuff.MAIN_HAND);
+		
+		Item oh = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getOffHand());
+		getFollowersPanel().getLblTemplarOH().setItem(oh, EnumerationStuff.OFF_HAND);
+		
+		Item r1 = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getRightFinger());
+		getFollowersPanel().getLblTemplarRing1().setItem(r1, EnumerationStuff.RING_RIGHT);
+
+		Item r2 = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getLeftFinger());
+		getFollowersPanel().getLblTemplarRing2().setItem(r2, EnumerationStuff.RING_LEFT);
+		
+		
 	}
 	
 	

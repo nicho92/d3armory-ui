@@ -39,12 +39,21 @@ public class ItemLabel extends JLabel implements MouseListener {
     private Item item;
  	private boolean disabled;
     private EnumerationStuff gear;
+    public static String SIZE_LARGE="large";
+    public static String SIZE_SMALL="small";
+    private String size;
     
     public ItemLabel()
     {
+    	size=SIZE_LARGE;
     	addMouseListener(this);
     }
     
+    public ItemLabel(String size)
+    {
+    	this.size=size;
+    	addMouseListener(this);
+    }
     
     public Item getItem() {
 		return item;
@@ -64,31 +73,32 @@ public class ItemLabel extends JLabel implements MouseListener {
 		this.gear = gear;
 	}
 
-	public Image getImage(){
-		if(item != null)
-			try {
-				URL url = new URL("http://media.blizzard.com/d3/icons/items/large/"+item.getIcon()+".png");
-				return new ImageIcon(url).getImage();
-			} catch (Exception e1) {
-				e1.printStackTrace();
-				return new ImageIcon().getImage();
-			}
-			return null;
-	}
+//	public Image getImage(){
+//		if(item != null)
+//			try {
+//				URL url = new URL("http://media.blizzard.com/d3/icons/items/"+size+"/"+item.getIcon()+".png");
+//				return new ImageIcon(url).getImage();
+//			} catch (Exception e1) {
+//				e1.printStackTrace();
+//				return new ImageIcon().getImage();
+//			}
+//			return null;
+//	}
 	
-	public Icon getIcon(boolean off) {
+	
+	
+	public Icon getIcon(boolean off,String size) {
 		setHorizontalAlignment(JLabel.CENTER);
 		setVerticalAlignment(JLabel.CENTER);
 
 		if(item != null)
 		try {
-			URL url = new URL("http://media.blizzard.com/d3/icons/items/large/"+item.getIcon()+".png");
+			URL url = new URL("http://media.blizzard.com/d3/icons/items/"+size+"/"+item.getIcon()+".png");
 			ImageIcon i = new ImageIcon(url);
 			if(off==false)
 				return i;
 			else
 				return new ImageIcon(GrayFilter.createDisabledImage((i).getImage()));
-			
 			
 		} catch (Exception e1) {
 			return new ImageIcon();
@@ -98,7 +108,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 	
 	
 	public Icon getIcon() {
-		return getIcon(disabled);
+		return getIcon(disabled,size);
 	}
 	
 	public boolean isDisabled() {
@@ -189,7 +199,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 			return;
 		
 		((SwingMainFrame)this.getTopLevelAncestor()).getPanelItemDetails().showItem(item);
-		((SwingMainFrame)this.getTopLevelAncestor()).getPanelItemDetails().getLblIcon().setIcon(this.getIcon());
+		((SwingMainFrame)this.getTopLevelAncestor()).getPanelItemDetails().getLblIcon().setIcon(this.getIcon(false,SIZE_LARGE));
 		((SwingMainFrame)this.getTopLevelAncestor()).getPanelItemDetails().repaint();
 		
 		if(item!=null)
@@ -237,7 +247,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 	}
 	protected void initWindowBuilder(Item i, EnumerationStuff g) {
 		ItemCreatorFrame itemBuilderFrame = new ItemCreatorFrame(i,g);
-						 itemBuilderFrame.getItemPanelDetails().getLblIcon().setIcon(getIcon());
+						 itemBuilderFrame.getItemPanelDetails().getLblIcon().setIcon(getIcon(false,SIZE_LARGE));
 		
 	}
 
