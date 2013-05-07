@@ -8,30 +8,30 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import org.jdesktop.application.Application;
 
-/**
-* This code was edited or generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
-* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
-* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
-*/
 public class FollowersPanel extends JPanel {
 	
-	private ItemLabel lblTemplarObject;
-	private ItemLabel lblTemplarNeck;
-	private ItemLabel lblTemplarRing1;
-	private ItemLabel lblTemplarOH;
-	private ItemLabel lblTemplarMH;
-	private ItemLabel lblTemplarRing2;
+	public ItemLabel lblTemplarObject;
+	public ItemLabel lblTemplarNeck;
+	public ItemLabel lblTemplarRing1;
+	public ItemLabel lblTemplarOH;
+	public ItemLabel lblTemplarMH;
+	public ItemLabel lblTemplarRing2;
+	
+	public ItemLabel lblScoundrelObject;
+	public ItemLabel lblEnchanteressRing2;
+	public ItemLabel lblEnchanteressRing1;
+	public ItemLabel lblEnchanteressOH;
+	public ItemLabel lblEnchanteressMH;
+	public ItemLabel lblEnchanteressNeck;
+	public ItemLabel lblScoundrelNeck;
+	public ItemLabel lblScoundrelMH;
+	public ItemLabel lblEnchanteressObject;
+	public ItemLabel lblScoundrelOH;
+	public ItemLabel lblScoundrelRing1;
+	public ItemLabel lblScoundrelRing2;
 
 	public FollowersPanel() {
 		setBackground(new Color(35,33,29));
-		this.setPreferredSize(new java.awt.Dimension(845, 439));
 		this.setLayout(null);
 		this.add(getLblTemplarObject());
 		this.add(getLblTemplarNeck());
@@ -39,14 +39,26 @@ public class FollowersPanel extends JPanel {
 		this.add(getLblTemplarOH());
 		this.add(getLblTemplarRing1());
 		this.add(getLblTemplarRing2());
-		Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(this);
+		this.add(getLblScoundrelRing2());
+		this.add(getLblScoundrelRing1());
+		this.add(getLblScoundrelOH());
+		this.add(getLblScoundrelMH());
+		this.add(getLblScoundrelNeck());
+		this.add(getLblScoundrelObject());
+		this.add(getLblEnchanteressObject());
+		this.add(getLblEnchanteressNeck());
+		this.add(getLblEnchanteressMH());
+		this.add(getLblEnchanteressOH());
+		this.add(getLblEnchanteressRing1());
+		this.add(getLblEnchanteressRing2());
+
 	}
 	
 
     protected void paintComponent(Graphics g) {
-    		super.paintComponents(g);
-			Image bg = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/followers.jpg")).getImage();
-			g.drawImage(bg,0,0,null);	
+    		Image bg = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/followers.jpg")).getImage();
+			g.drawImage(bg,0,0,null);
+			super.paintComponents(g);
 	}
     
     public ItemLabel getLblTemplarObject() {
@@ -99,6 +111,103 @@ public class FollowersPanel extends JPanel {
 
     	}
     	return lblTemplarRing2;
+    }
+    
+    public ItemLabel getLblScoundrelRing2() {
+    	if(lblScoundrelRing2 == null) {
+    		lblScoundrelRing2 = new ItemLabel(ItemLabel.SIZE_SMALL);
+    		lblScoundrelRing2.setBounds(520, 203, 39, 39);
+    	}
+    	return lblScoundrelRing2;
+    }
+    
+    public ItemLabel getLblScoundrelRing1() {
+    	if(lblScoundrelRing1 == null) {
+    		lblScoundrelRing1 = new ItemLabel(ItemLabel.SIZE_SMALL);
+    		lblScoundrelRing1.setBounds(520, 159, 39, 39);
+    	}
+    	return lblScoundrelRing1;
+    }
+    
+    public ItemLabel getLblScoundrelOH() {
+    	if(lblScoundrelOH == null) {
+    		lblScoundrelOH = new ItemLabel(ItemLabel.SIZE_SMALL);
+    		lblScoundrelOH.setBounds(463, 158, 51, 101);
+
+   	}
+    	return lblScoundrelOH;
+    }
+    
+    public ItemLabel getLblScoundrelMH() {
+    	if(lblScoundrelMH == null) {
+    		lblScoundrelMH = new  ItemLabel(ItemLabel.SIZE_SMALL);
+    		lblScoundrelMH.setBounds(410, 158, 51, 101);
+    	}
+    	return lblScoundrelMH;
+    }
+    
+    public ItemLabel getLblScoundrelNeck() {
+    	if(lblScoundrelNeck == null) {
+    		lblScoundrelNeck = new ItemLabel(ItemLabel.SIZE_SMALL);
+    		lblScoundrelNeck.setBounds(495, 113, 39, 39);
+    	}
+    	return lblScoundrelNeck;
+    }
+    
+    public ItemLabel getLblScoundrelObject() {
+    	if(lblScoundrelObject == null) {
+    		lblScoundrelObject = new ItemLabel(ItemLabel.SIZE_SMALL);
+    		lblScoundrelObject.setBounds(444, 113, 39, 39);
+    	}
+    	return lblScoundrelObject;
+    }
+    
+    public ItemLabel getLblEnchanteressObject() {
+    	if(lblEnchanteressObject == null) {
+    		lblEnchanteressObject =new ItemLabel(ItemLabel.SIZE_SMALL);
+    		lblEnchanteressObject.setBounds(734, 113, 39, 39);
+    	}
+    	return lblEnchanteressObject;
+    }
+    
+    public ItemLabel getLblEnchanteressNeck() {
+    	if(lblEnchanteressNeck == null) {
+    		lblEnchanteressNeck = new ItemLabel(ItemLabel.SIZE_SMALL);
+    		lblEnchanteressNeck.setBounds(785, 113, 39, 39);
+    	}
+    	return lblEnchanteressNeck;
+    }
+    
+    public ItemLabel getLblEnchanteressMH() {
+    	if(lblEnchanteressMH == null) {
+    		lblEnchanteressMH = new ItemLabel(ItemLabel.SIZE_SMALL);
+    		lblEnchanteressMH.setBounds(700, 158, 51, 101);
+    	}
+    	return lblEnchanteressMH;
+    }
+    
+    public ItemLabel getLblEnchanteressOH() {
+    	if(lblEnchanteressOH == null) {
+    		lblEnchanteressOH = new ItemLabel(ItemLabel.SIZE_SMALL);
+    		lblEnchanteressOH.setBounds(753, 158, 51, 101);
+    	}
+    	return lblEnchanteressOH;
+    }
+    
+    public ItemLabel getLblEnchanteressRing1() {
+    	if(lblEnchanteressRing1 == null) {
+    		lblEnchanteressRing1 = new ItemLabel(ItemLabel.SIZE_SMALL);
+    		lblEnchanteressRing1.setBounds(810, 159, 39, 39);
+    	}
+    	return lblEnchanteressRing1;
+    }
+    
+    public ItemLabel getLblEnchanteressRing2() {
+    	if(lblEnchanteressRing2 == null) {
+    		lblEnchanteressRing2 = new ItemLabel(ItemLabel.SIZE_SMALL);
+    		lblEnchanteressRing2.setBounds(810, 203, 39, 39);
+    	}
+    	return lblEnchanteressRing2;
     }
 
 }
