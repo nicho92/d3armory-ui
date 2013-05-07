@@ -33,21 +33,20 @@ import org.armory.d3.ui.SwingMainFrame;
 
 import com.sdfteam.d3armory.service.util.EnumerationStuff;
 
+
 public class ItemLabel extends JLabel implements MouseListener {
 	
     private Item item;
-    private ItemPanelDetails details;
-	private boolean disabled;
+ 	private boolean disabled;
     private EnumerationStuff gear;
     
-    public ItemLabel(ItemPanelDetails pan)
+    public ItemLabel()
     {
-    	
-    	this.details=pan;
     	addMouseListener(this);
     }
     
- 	public Item getItem() {
+    
+    public Item getItem() {
 		return item;
 	}
 
@@ -182,16 +181,16 @@ public class ItemLabel extends JLabel implements MouseListener {
 
 
 	public void mouseClicked(MouseEvent e) {
-		details.showItem(item);
+		((SwingMainFrame)this.getTopLevelAncestor()).getPanelItemDetails().showItem(item);
 		}
 
 	public void mouseEntered(MouseEvent e) {
 		if(item==null)
 			return;
 		
-		details.showItem(item);
-		details.getLblIcon().setIcon(this.getIcon());
-		details.repaint();
+		((SwingMainFrame)this.getTopLevelAncestor()).getPanelItemDetails().showItem(item);
+		((SwingMainFrame)this.getTopLevelAncestor()).getPanelItemDetails().getLblIcon().setIcon(this.getIcon());
+		((SwingMainFrame)this.getTopLevelAncestor()).getPanelItemDetails().repaint();
 		
 		if(item!=null)
 			D3ArmoryControler.getInstance().setSelectedItem(item);

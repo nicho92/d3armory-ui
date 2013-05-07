@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.SplashScreen;
 import java.awt.event.ActionEvent;
@@ -14,9 +13,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -46,6 +45,8 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.table.TableRowSorter;
 
+import org.armory.d3.beans.Follower;
+import org.armory.d3.beans.FollowersList;
 import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.Item;
 import org.armory.d3.beans.Profile;
@@ -118,7 +119,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private ItemLabel lblParangonLevel;
 	private ItemLabel lblInformationClasseNiveau;
 	private ItemLabel lblNom;
-	private JList listeTags;
+	private JList<String> listeTags;
 	private JScrollPane scrollTags;
 	private JSplitPane jSplitPane1;
 	private JMenuItem exitMenuItem;
@@ -352,7 +353,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	public void chargementHero(){
 		 try {
-			loadItem();
+			loadItems();
+			loadFollowers();
 			refreshDPS();
 		} catch (D3ServerCommunicationException e) {
 			e.printStackTrace();
@@ -369,7 +371,22 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		
 	}
 	
-	private void loadItem() throws D3ServerCommunicationException
+	public void loadFollowers() throws D3ServerCommunicationException
+	{
+		FollowersList liste = hero.getFollowers();
+		Follower templar = liste.getTemplar();
+		
+		Item neck = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getNeck());
+		getFollowersPanel().getLblTemplarNeck().setItem(neck, EnumerationStuff.NECK);
+		
+		Item special = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getSpecial());
+		getFollowersPanel().getLblTemplarObject().setItem(special, null);
+		
+	}
+	
+	
+	
+	private void loadItems() throws D3ServerCommunicationException
 	{
 		D3ArmoryControler.getInstance().setSelectedHero(hero);
 		hero=D3ArmoryControler.getInstance().getHeroDetails(hero);
@@ -792,7 +809,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblShoulders() {
 		if(lblShoulders == null) {
-			lblShoulders = new ItemLabel(getPanelItemDetails());
+			lblShoulders = new ItemLabel();
 			lblShoulders.setBounds(502, 179, 75, 89);
 		}
 		return lblShoulders;
@@ -800,7 +817,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblGants() {
 		if(lblGants == null) {
-			lblGants = new ItemLabel(getPanelItemDetails());
+			lblGants = new ItemLabel();
 			lblGants.setBounds(490, 274, 61, 98);
 			lblGants.add(getLblSocketGants());
 		}
@@ -809,7 +826,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblNeck() {
 		if(lblNeck == null) {
-			lblNeck = new ItemLabel(getPanelItemDetails());
+			lblNeck = new ItemLabel();
 			lblNeck.setBounds(679, 206, 56, 50);
 			lblNeck.add(getLblSocketNeck());
 		}
@@ -818,7 +835,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblBracers() {
 		if(lblBracers == null) {
-			lblBracers = new ItemLabel(getPanelItemDetails());
+			lblBracers = new ItemLabel();
 			lblBracers.setBounds(702, 282, 66, 90);
 		}
 		return lblBracers;
@@ -826,7 +843,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblTorso() {
 		if(lblTorso == null) {
-			lblTorso = new ItemLabel(getPanelItemDetails());
+			lblTorso = new ItemLabel();
 			lblTorso.setBounds(589, 229, 78, 113);
 			lblTorso.add(getLblSocketTorso1());
 			lblTorso.add(getLblSocketTorso2());
@@ -837,7 +854,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblRingRight() {
 		if(lblRingRight == null) {
-			lblRingRight = new ItemLabel(getPanelItemDetails());
+			lblRingRight = new ItemLabel();
 			lblRingRight.setBounds(502, 385, 37, 37);
 			lblRingRight.add(getLblSocketRightRing());
 		}
@@ -846,7 +863,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblRingLeft() {
 		if(lblRingLeft == null) {
-			lblRingLeft = new ItemLabel(getPanelItemDetails());
+			lblRingLeft = new ItemLabel();
 			lblRingLeft.setBounds(719, 381, 38, 41);
 			lblRingLeft.add(getLblSocketLeftRing());
 		}
@@ -855,7 +872,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblbelt() {
 		if(lblbelt == null) {
-			lblbelt = new ItemLabel(getPanelItemDetails());
+			lblbelt = new ItemLabel();
 			lblbelt.setBounds(589, 347, 78, 32);
 		}
 		return lblbelt;
@@ -863,7 +880,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblLegs() {
 		if(lblLegs == null) {
-			lblLegs = new ItemLabel(getPanelItemDetails());
+			lblLegs = new ItemLabel();
 			lblLegs.setBounds(589, 391, 78, 84);
 			lblLegs.add(getLblSocketLegs1());
 			lblLegs.add(getLblSocketLegs2());
@@ -873,7 +890,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblFoot() {
 		if(lblFoot == null) {
-			lblFoot = new ItemLabel(getPanelItemDetails());
+			lblFoot = new ItemLabel();
 			lblFoot.setBounds(589, 481, 78, 89);
 			lblFoot.add(getLblSocketBoot());
 		}
@@ -882,7 +899,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblMainHand() {
 		if(lblMainHand == null) {
-			lblMainHand = new ItemLabel(getPanelItemDetails());
+			lblMainHand = new ItemLabel();
 			lblMainHand.setBounds(490, 434, 67, 136);
 			lblMainHand.add(getLblSocketMainHand());
 			lblMainHand.add(getLblSocketMainHand2());
@@ -892,7 +909,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblOffHand() {
 		if(lblOffHand == null) {
-			lblOffHand = new ItemLabel(getPanelItemDetails());
+			lblOffHand = new ItemLabel();
 			lblOffHand.setBounds(702, 434, 73, 133);
 			lblOffHand.add(getLblSocketOffHand());
 		}
@@ -901,7 +918,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblHead() {
 		if(lblHead == null) {
-			lblHead = new ItemLabel(getPanelItemDetails());
+			lblHead = new ItemLabel();
 			lblHead.setBounds(594, 148, 67, 77);
 			lblHead.add(getLblSocketHead());
 		}
@@ -910,7 +927,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private ItemLabel getLblHarcore() {
 		if(lblHarcore == null) {
-			lblHarcore = new ItemLabel(getPanelItemDetails());
+			lblHarcore = new ItemLabel();
 			lblHarcore.setText("");
 			lblHarcore.setBounds(539, 42, 180, 18);
 			lblHarcore.setName("lblHarcore");
@@ -1152,21 +1169,21 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				
 				
 				{
-					lblNom = new ItemLabel(getPanelItemDetails());
+					lblNom = new ItemLabel();
 					panneauDessinHero.add(lblNom);
 					lblNom.setBounds(466, 80, 314, 43);
 					lblNom.setName("lblNom");
 					lblNom.setHorizontalAlignment(JLabel.CENTER);
 				}
 				{
-					lblInformationClasseNiveau = new ItemLabel(getPanelItemDetails());
+					lblInformationClasseNiveau = new ItemLabel();
 					panneauDessinHero.add(lblInformationClasseNiveau);
 					lblInformationClasseNiveau.setBounds(521, 20, 222, 16);
 					lblInformationClasseNiveau.setName("lblInformationClasseNiveau");
 					lblInformationClasseNiveau.setHorizontalAlignment(JLabel.HORIZONTAL);
 				}
 				{
-					lblParangonLevel = new ItemLabel(getPanelItemDetails());
+					lblParangonLevel = new ItemLabel();
 					panneauDessinHero.add(lblParangonLevel);
 					panneauDessinHero.add(getLblHarcore());
 					panneauDessinHero.add(getLblLastUpdate());
@@ -1369,7 +1386,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private FollowersPanel getFollowersPanel() {
 		if(panelFollowers == null) {
-			panelFollowers = new FollowersPanel(hero);
+			panelFollowers = new FollowersPanel();
 		}
 		return panelFollowers;
 	}
