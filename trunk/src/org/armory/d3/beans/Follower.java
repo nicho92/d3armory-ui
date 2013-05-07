@@ -7,13 +7,23 @@ public class Follower {
 	private Number level;
 	private List<Skill> skills;
 	private String slug;
-
+	private FollowersStats stats;
+	
+	
 	public FollowerItemSet getItems() {
 		return items;
 	}
 
 	public void setItems(FollowerItemSet items) {
 		this.items = items;
+	}
+
+	public FollowersStats getStats() {
+		return stats;
+	}
+
+	public void setStats(FollowersStats stats) {
+		this.stats = stats;
 	}
 
 	public Number getLevel() {

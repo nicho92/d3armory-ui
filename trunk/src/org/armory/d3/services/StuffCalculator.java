@@ -81,7 +81,6 @@ public class StuffCalculator{
 	public static Map<String,Double> getWeaponDefaultAS()
 	{
 		
-		
 		weaponDefaultAS=new HashMap<String,Double>();
 		weaponDefaultAS.put("Axe", 1.30);
 		weaponDefaultAS.put("HandXbow", 1.60);
@@ -111,7 +110,7 @@ public class StuffCalculator{
 	public void init()
 	{
 		
-		StuffCalculator.getWeaponDefaultAS();
+		StuffCalculator.getWeaponDefaultAS();//init 
 		
 		Map<LegendarySet,Integer> piecesbyset=new HashMap<LegendarySet,Integer>();
 		int compteur=0;
@@ -174,7 +173,6 @@ public class StuffCalculator{
 			}
 		}
 		calculeBuff();
-		
 	}
 	
 	public void calculeBuff()
@@ -302,8 +300,6 @@ public class StuffCalculator{
 		return total;	
 	}
 	
-	
-	
 	public double calculate()
 	{
 		double bonusDual=(countweapon==2)?0.15:0;
@@ -311,15 +307,6 @@ public class StuffCalculator{
 		
 		double degat_cc=0.5+filterStats("Crit_Damage", null);
 		double stat_base=hero.getBaseStatPrimary()+filterStats( hero.getPrimaryStat(),null);
-		double attackPerSecondMain =0;
-		//CALCUL attackSpeed 
-		if(stuffs.get(EnumerationStuff.MAIN_HAND)!=null)
-			attackPerSecondMain = stuffs.get(EnumerationStuff.MAIN_HAND).getAttacksPerSecond().getMoyenne();
-		
-		double attackPerSecondOff=0;
-		
-		if(countweapon==2)
-			attackPerSecondOff = stuffs.get(EnumerationStuff.OFF_HAND).getAttacksPerSecond().getMoyenne();
 		double mainI=0;
 		
 		if(stuffs.get(EnumerationStuff.MAIN_HAND)!=null)
@@ -363,13 +350,7 @@ public class StuffCalculator{
 		
 		double hitDmgMAIN=statDamage*ccDamage*weaponDmgMain;
 		double hitDmgOFF=statDamage*ccDamage*weaponDmgOff;
-//		double hitDmg=0;
-//
-//		if(countweapon==2)
-//			hitDmg=(hitDmgMAIN+hitDmgOFF)/2;
-//		else
-//			hitDmg=hitDmgMAIN;
-		
+
 		//CALCUL VITALITY
 		double lifeB= filterStats("Hitpoints_Max_Percent_Bonus","",false);
 		double lvl = hero.getLevel().doubleValue();
@@ -581,8 +562,6 @@ public class StuffCalculator{
 		return calc2;
 	}
 	
-	
-
 	public static double format(double val)
 	{
 		try{
@@ -590,7 +569,7 @@ public class StuffCalculator{
 		}
 		catch(NumberFormatException e)
 		{
-			return 0;
+			return 0.0;
 		}
 	}
 

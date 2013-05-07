@@ -7,6 +7,17 @@ public class FollowerItemSet {
 	private Item neck;
 	private Item offHand;
 	private Item rightFinger;
+	private Item special;
+	
+	
+	
+	public Item getSpecial() {
+		return special;
+	}
+
+	public void setSpecial(Item special) {
+		this.special = special;
+	}
 
 	public Item getLeftFinger() {
 		return leftFinger;

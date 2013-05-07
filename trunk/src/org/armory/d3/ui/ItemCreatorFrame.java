@@ -307,7 +307,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 										public void keyReleased(KeyEvent evt) {
 											
 											getItem().setMinDamage(new MinMaxBonus(Double.valueOf(txtMin.getText())));
-											getItem().addAttributesRaw("Damage_Weapon_Min#Physical", new MinMaxBonus(Double.valueOf(txtMin.getText())));
+											//getItem().addAttributesRaw("Damage_Weapon_Min#Physical", new MinMaxBonus(Double.valueOf(txtMin.getText())));
 											getItem().setDps(new MinMaxBonus(calcWeaponDPS(Double.valueOf(txtMin.getText()),Double.valueOf(txtMax.getText()),Double.valueOf(txtAS.getText()))));
 											refreshItem();
 										}
@@ -324,7 +324,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 										public void keyReleased(KeyEvent evt) {
 											getItem().setMaxDamage(new MinMaxBonus(Double.valueOf(txtMax.getText())));
 											getItem().setDps(new MinMaxBonus(calcWeaponDPS(Double.valueOf(txtMin.getText()),Double.valueOf(txtMax.getText()),Double.valueOf(txtAS.getText()))));
-											getItem().addAttributesRaw("Damage_Weapon_Delta#Physical", new MinMaxBonus(Double.valueOf(txtMax.getText())-Double.valueOf(txtMin.getText())));
+											//getItem().addAttributesRaw("Damage_Weapon_Delta#Physical", new MinMaxBonus(Double.valueOf(txtMax.getText())-Double.valueOf(txtMin.getText())));
 											refreshItem();
 										}
 									});
@@ -337,6 +337,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 										public void keyReleased(KeyEvent evt) {
 											getItem().setAttacksPerSecond(new MinMaxBonus(Double.valueOf(txtAS.getText())));
 											getItem().setDps(new MinMaxBonus(calcWeaponDPS(Double.valueOf(txtMin.getText()),Double.valueOf(txtMax.getText()),Double.valueOf(txtAS.getText()))));
+											
 											getItem().addAttributesRaw("Damage_Weapon_Delta#Physical", new MinMaxBonus(Double.valueOf(txtMax.getText())-Double.valueOf(txtMin.getText())));
 											getItem().addAttributesRaw("Attacks_Per_Second_Item_Bonus",new MinMaxBonus(getItem().getAttacksPerSecond().getMoyenne()-getItem().getAttributesRaw().get("Attacks_Per_Second_Item").getMoyenne()));
 											refreshItem();

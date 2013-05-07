@@ -13,6 +13,8 @@ public class BuffSkill {
 		
 	public static Map<String,MinMaxBonus> getBuff(SkillRune a, Map<EnumerationStuff,Item> stuffs) {
 		
+		//System.out.println("DEBUG : if(a.getSkill().getId().equals("+a.getSkill().getId()+")");
+		
 		buffs = new HashMap<String, MinMaxBonus>();
 		
 		if(a==null)
@@ -90,22 +92,50 @@ public class BuffSkill {
 			//TODO ADD Epine damage
 		}
 		
-		
-		
+		//DEMON HUNTER 
+		if(a.getSkill().getId().equals("archery"))
+		{
+			if(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Crossbow"))
+				buffs.put("Crit_Damage_Percent_BUFF_"+a, new MinMaxBonus(0.5));
+			if(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("HandXbow"))
+				buffs.put("Crit_Percent_Bonus_BUFF_"+a, new MinMaxBonus(0.1));
+			if(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Bow"))
+				buffs.put("Damage_Weapon_Percent_Bonus#Physical_BUFF_"+a, new MinMaxBonus(0.03));
+		}
+	
 		/*
+		 * DEMON HUNTER
+		 *  if(a.getSkill().getId().equals("tactical-advantage")
+			if(a.getSkill().getId().equals("perfectionist")
+			if(a.getSkill().getId().equals("night-stalker")
+			
+		   WIZARD
+		 *  if(a.getSkill().getId().equals("critical-mass)
+			if(a.getSkill().getId().equals("paralysis)
+			if(a.getSkill().getId().equals("cold-blooded)
+		 * 
+		 * 
+		 *WITCH DOCTOR
+		 * if(a.getSkill().getId().equals("circle-of-life)
+		   if(a.getSkill().getId().equals("grave-injustice)
+		   if(a.getSkill().getId().equals("gruesome-feast)
+
+		 * MONK
+		 *  if(a.getSkill().getId().equals(combination-strike)
+			if(a.getSkill().getId().equals(one-with-everything)
+			if(a.getSkill().getId().equals(seize-the-initiative)
+		 * 
+		 * */
+		
+		
+		
+		/*COMPANION
 		case "FOCUSEDMIND" : buffs.put("Attacks_Per_Second_Item_Bonus_BUFF"+skill, new MinMaxBonus(0.03));
 			break;
 		case ANATOMY: buffs.put("Crit_Percent_Bonus"+skill, new MinMaxBonus(0.03));
 			break;
 			
-		case ARCHERY: {
-				if(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Crossbow"))
-					buffs.put("Crit_Damage_BUFF_"+skill, new MinMaxBonus(0.5));
-				if(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("HandXbow"))
-					buffs.put("Crit_Percent_BUFF_"+skill, new MinMaxBonus(0.1));
-				if(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Bow"))
-					buffs.put("Damage_Weapon_Percent_Bonus#Physical_BUFF_"+skill, new MinMaxBonus(0.03));
-			}
+		
 	*/
 		return buffs;
 	}
