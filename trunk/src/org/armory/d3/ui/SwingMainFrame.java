@@ -374,26 +374,77 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	public void loadFollowers() throws D3ServerCommunicationException
 	{
 		FollowersList liste = hero.getFollowers();
+		
 		Follower templar = liste.getTemplar();
 		
-		Item neck = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getNeck());
-		getFollowersPanel().getLblTemplarNeck().setItem(neck, EnumerationStuff.NECK);
+		if(templar!=null){
+			Item neck = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getNeck());
+			getFollowersPanel().getLblTemplarNeck().setItem(neck, EnumerationStuff.NECK);
+			
+			Item special = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getSpecial());
+			getFollowersPanel().getLblTemplarObject().setItem(special, null);
+			
+			Item mh = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getMainHand());
+			getFollowersPanel().getLblTemplarMH().setItem(mh, EnumerationStuff.MAIN_HAND);
+			
+			Item oh = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getOffHand());
+			getFollowersPanel().getLblTemplarOH().setItem(oh, EnumerationStuff.OFF_HAND);
+			
+			Item r1 = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getRightFinger());
+			getFollowersPanel().getLblTemplarRing1().setItem(r1, EnumerationStuff.RING_RIGHT);
+	
+			Item r2 = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getLeftFinger());
+			getFollowersPanel().getLblTemplarRing2().setItem(r2, EnumerationStuff.RING_LEFT);
+		}
+	
+		Follower scoundrel = liste.getScoundrel();
+		if(scoundrel!=null)
+		{
+			Item neckS = D3ArmoryControler.getInstance().getItemDetails(scoundrel.getItems().getNeck());
+			getFollowersPanel().getLblScoundrelNeck().setItem(neckS, EnumerationStuff.NECK);
+			
+			Item specialS = D3ArmoryControler.getInstance().getItemDetails(scoundrel.getItems().getSpecial());
+			getFollowersPanel().getLblScoundrelObject().setItem(specialS, null);
+			
+			Item mhS = D3ArmoryControler.getInstance().getItemDetails(scoundrel.getItems().getMainHand());
+			getFollowersPanel().getLblScoundrelMH().setItem(mhS, EnumerationStuff.MAIN_HAND);
+			
+			Item ohS = D3ArmoryControler.getInstance().getItemDetails(scoundrel.getItems().getOffHand());
+			getFollowersPanel().getLblScoundrelOH().setItem(ohS, EnumerationStuff.OFF_HAND);
+			
+			Item r1S = D3ArmoryControler.getInstance().getItemDetails(scoundrel.getItems().getRightFinger());
+			getFollowersPanel().getLblScoundrelRing1().setItem(r1S, EnumerationStuff.RING_RIGHT);
+	
+			Item r2S = D3ArmoryControler.getInstance().getItemDetails(scoundrel.getItems().getLeftFinger());
+			getFollowersPanel().getLblScoundrelRing2().setItem(r2S, EnumerationStuff.RING_LEFT);
+		}
 		
-		Item special = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getSpecial());
-		getFollowersPanel().getLblTemplarObject().setItem(special, null);
 		
-		Item mh = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getMainHand());
-		getFollowersPanel().getLblTemplarMH().setItem(mh, EnumerationStuff.MAIN_HAND);
+		Follower echanteress = liste.getEnchantress();
+		if(echanteress!=null)
+		{
+			Item neckE = D3ArmoryControler.getInstance().getItemDetails(echanteress.getItems().getNeck());
+			getFollowersPanel().getLblEnchanteressNeck().setItem(neckE, EnumerationStuff.NECK);
+			
+			Item specialE = D3ArmoryControler.getInstance().getItemDetails(echanteress.getItems().getSpecial());
+			getFollowersPanel().getLblEnchanteressObject().setItem(specialE, null);
+			
+			Item mhE = D3ArmoryControler.getInstance().getItemDetails(echanteress.getItems().getMainHand());
+			getFollowersPanel().getLblEnchanteressMH().setItem(mhE, EnumerationStuff.MAIN_HAND);
+			
+			Item ohE = D3ArmoryControler.getInstance().getItemDetails(echanteress.getItems().getOffHand());
+			getFollowersPanel().getLblEnchanteressOH().setItem(ohE, EnumerationStuff.OFF_HAND);
+			
+			Item r1E = D3ArmoryControler.getInstance().getItemDetails(echanteress.getItems().getRightFinger());
+			getFollowersPanel().getLblEnchanteressRing1().setItem(r1E, EnumerationStuff.RING_RIGHT);
+	
+			Item r2E = D3ArmoryControler.getInstance().getItemDetails(echanteress.getItems().getLeftFinger());
+			getFollowersPanel().getLblEnchanteressRing2().setItem(r2E, EnumerationStuff.RING_LEFT);
 		
-		Item oh = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getOffHand());
-		getFollowersPanel().getLblTemplarOH().setItem(oh, EnumerationStuff.OFF_HAND);
+		}
 		
-		Item r1 = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getRightFinger());
-		getFollowersPanel().getLblTemplarRing1().setItem(r1, EnumerationStuff.RING_RIGHT);
-
-		Item r2 = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getLeftFinger());
-		getFollowersPanel().getLblTemplarRing2().setItem(r2, EnumerationStuff.RING_LEFT);
 		
+		getFollowersPanel().repaint();
 		
 	}
 	
