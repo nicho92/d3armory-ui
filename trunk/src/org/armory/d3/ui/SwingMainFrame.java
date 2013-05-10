@@ -67,6 +67,19 @@ import org.jdesktop.application.Application;
 import com.sdfteam.d3armory.service.remote.exception.D3ServerCommunicationException;
 import com.sdfteam.d3armory.service.util.EnumerationStuff;
 
+
+/**
+* This code was edited or generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
+* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
+* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
+*/
 public class SwingMainFrame extends javax.swing.JFrame {
 
 	private JMenuItem helpMenuItem;
@@ -78,6 +91,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JSplitPane splitPanneauFicheHero;
 	private ItemLabel lblTorso;
 	private SocketLabel lblSocketMainHand;
+	private JLabel lblstatbar;
+	private JPanel stateBar;
 	private JLabel lblLife;
 	private JLabel lblLastUpdate;
 	private JPanel panneauInfoHero;
@@ -208,12 +223,13 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			this.setIconImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/icone.jpg")).getImage());
 			this.setSize(1820, 915);
 			UIManager.put("Table.alternateRowColor", Color.decode("#E1E4F2"));
-			BoxLayout thisLayout = new BoxLayout(getContentPane(), javax.swing.BoxLayout.X_AXIS);
+			BorderLayout thisLayout = new BorderLayout();
 			getContentPane().setLayout(thisLayout);
 			{
 				
 				jSplitPane1 = new JSplitPane();
-				getContentPane().add(jSplitPane1);
+				getContentPane().add(jSplitPane1, BorderLayout.CENTER);
+				getContentPane().add(getStateBar(), BorderLayout.SOUTH);
 				{
 					splitPanneauFicheHero = new JSplitPane();
 					jSplitPane1.add(getSplitTagsHeroes(), JSplitPane.LEFT);
@@ -353,9 +369,13 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	public void chargementHero(){
 		 try {
+			lblstatbar.setText("Chargement Item"); 
 			loadItems();
+			lblstatbar.setText("Chargement Followers");
 			loadFollowers();
+			lblstatbar.setText("CalculDPS");
 			refreshDPS();
+			lblstatbar.setText("");
 		} catch (D3ServerCommunicationException e) {
 			e.printStackTrace();
 		}
@@ -1453,5 +1473,23 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			panelFollowers = new FollowersPanel();
 		}
 		return panelFollowers;
+	}
+	
+	public JPanel getStateBar() {
+		if(stateBar == null) {
+			stateBar = new JPanel();
+			FlowLayout stateBarLayout = new FlowLayout();
+			stateBar.setLayout(stateBarLayout);
+			stateBar.add(getLblstatbar());
+		}
+		return stateBar;
+	}
+	
+	private JLabel getLblstatbar() {
+		if(lblstatbar == null) {
+			lblstatbar = new JLabel();
+			lblstatbar.setName("lblstatbar");
+		}
+		return lblstatbar;
 	}
 }
