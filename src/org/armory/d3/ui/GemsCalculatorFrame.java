@@ -2,19 +2,18 @@ package org.armory.d3.ui;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
+
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 import org.armory.d3.beans.Gem;
 import org.jdesktop.application.Application;
-import javax.swing.SwingUtilities;
 
 
 /**

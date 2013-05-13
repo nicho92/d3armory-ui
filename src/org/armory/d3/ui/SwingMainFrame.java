@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultRowSorter;
 import javax.swing.ImageIcon;
@@ -68,18 +67,6 @@ import com.sdfteam.d3armory.service.remote.exception.D3ServerCommunicationExcept
 import com.sdfteam.d3armory.service.util.EnumerationStuff;
 
 
-/**
-* This code was edited or generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
-* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
-* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
-*/
 public class SwingMainFrame extends javax.swing.JFrame {
 
 	private JMenuItem helpMenuItem;
@@ -369,9 +356,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	public void chargementHero(){
 		 try {
-			lblstatbar.setText("Chargement Item"); 
+			lblstatbar.setText("Loading Item"); 
 			loadItems();
-			lblstatbar.setText("Chargement Followers");
+			lblstatbar.setText("Loading Followers");
 			loadFollowers();
 			lblstatbar.setText("CalculDPS");
 			refreshDPS();
@@ -379,7 +366,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		} catch (D3ServerCommunicationException e) {
 			e.printStackTrace();
 		}
-		 
 	}
 	
 	public void refreshDPS() 
@@ -388,7 +374,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		FormatedJLabel lbl5 = new FormatedJLabel();
 		lbl5.setHtmlText(getDetailDPS(), "white","#BDA6CD");
 		getPanneauDPS().add(lbl5);
-		
 	}
 	
 	public void loadFollowers() throws D3ServerCommunicationException
@@ -431,6 +416,18 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			
 			Item ohS = D3ArmoryControler.getInstance().getItemDetails(scoundrel.getItems().getOffHand());
 			getFollowersPanel().getLblScoundrelOH().setItem(ohS, EnumerationStuff.OFF_HAND);
+			if(mhS!=null)
+			{
+				if(mhS.getType().getTwoHanded() && ohS==null)
+				{
+					getFollowersPanel().getLblScoundrelOH().setItem(mhS, EnumerationStuff.OFF_HAND);
+					getFollowersPanel().getLblScoundrelOH().setDisabled(true);
+				}
+				else
+				{
+					getFollowersPanel().getLblScoundrelOH().setItem(ohS, EnumerationStuff.OFF_HAND);
+				}
+			}
 			
 			Item r1S = D3ArmoryControler.getInstance().getItemDetails(scoundrel.getItems().getRightFinger());
 			getFollowersPanel().getLblScoundrelRing1().setItem(r1S, EnumerationStuff.RING_RIGHT);
@@ -455,6 +452,21 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			Item ohE = D3ArmoryControler.getInstance().getItemDetails(echanteress.getItems().getOffHand());
 			getFollowersPanel().getLblEnchanteressOH().setItem(ohE, EnumerationStuff.OFF_HAND);
 			
+			if(mhE!=null)
+			{
+				if(mhE.getType().getTwoHanded() && ohE==null)
+				{
+					getFollowersPanel().getLblEnchanteressOH().setItem(mhE, EnumerationStuff.OFF_HAND);
+					getFollowersPanel().getLblEnchanteressOH().setDisabled(true);
+				}
+				else
+				{
+					getFollowersPanel().getLblEnchanteressOH().setItem(ohE, EnumerationStuff.OFF_HAND);
+				}
+			}
+			
+			
+			
 			Item r1E = D3ArmoryControler.getInstance().getItemDetails(echanteress.getItems().getRightFinger());
 			getFollowersPanel().getLblEnchanteressRing1().setItem(r1E, EnumerationStuff.RING_RIGHT);
 	
@@ -462,8 +474,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			getFollowersPanel().getLblEnchanteressRing2().setItem(r2E, EnumerationStuff.RING_LEFT);
 		
 		}
-		
-		
 		getFollowersPanel().repaint();
 		
 	}
@@ -501,6 +511,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lbl5.setHtmlText(getDetailHero(4), "white","#BDA6CD");
 		getPanneauInfoHero().add(lbl5);
 	
+		lblstatbar.setText("Loading : skills");
 		getLblSkill1().setSkillRune(hero.getSkills().getActive().get(0));
 		getLblSkill2().setSkillRune(hero.getSkills().getActive().get(1));
 				
@@ -517,7 +528,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		Item head = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHead());
 		lblHead.setItem(head,EnumerationStuff.HEAD);
 		lblSocketHead.setItem(head,0);
-		
+				
 		Item foot = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getFeet());
 		lblFoot.setItem(foot,EnumerationStuff.FEET);
 		lblSocketBoot.setItem(foot,0);
@@ -525,7 +536,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		Item gants = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHands());
 		lblGants.setItem(gants,EnumerationStuff.GANT);
 		lblSocketGants.setItem(gants,0);
-		
 		
 		Item neck = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getNeck());
 		lblNeck.setItem(neck,EnumerationStuff.NECK);
@@ -697,8 +707,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	    return r.length()>4 ?  r.replaceAll("\\.[0-9]+", "") : r;
 	}
 	
-	
-	
 	private String getDetailDPS()
 	{
 		D3ArmoryControler.getInstance().getCalculator().calculate();
@@ -714,7 +722,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		return temp.toString();
 		
 	}
-	
 	
 	private String getDetailHero(int val) {
 		StringBuffer temp = new StringBuffer();
@@ -1485,7 +1492,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		return stateBar;
 	}
 	
-	private JLabel getLblstatbar() {
+	public JLabel getLblstatbar() {
 		if(lblstatbar == null) {
 			lblstatbar = new JLabel();
 			lblstatbar.setName("lblstatbar");

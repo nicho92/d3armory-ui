@@ -1,7 +1,6 @@
 package org.armory.d3.test;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.armory.d3.beans.Follower;
@@ -10,13 +9,11 @@ import org.armory.d3.beans.FollowersList;
 import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.Item;
 import org.armory.d3.beans.Profile;
-import org.armory.d3.beans.SkillRune;
 import org.armory.d3.services.D3ArmoryControler;
 
 import com.sdfteam.d3armory.service.configuration.Configuration;
 import com.sdfteam.d3armory.service.remote.RemoteService;
 import com.sdfteam.d3armory.service.remote.SpringRemoteService;
-import com.sdfteam.d3armory.service.util.BuffSkill;
 import com.sdfteam.d3armory.service.util.EnumerationStuff;
 
 
