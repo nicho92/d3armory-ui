@@ -7,30 +7,47 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-public class FollowersPanel extends JPanel {
-	
-	public ItemLabel lblTemplarObject;
-	public ItemLabel lblTemplarNeck;
-	public ItemLabel lblTemplarRing1;
-	public ItemLabel lblTemplarOH;
-	public ItemLabel lblTemplarMH;
-	public ItemLabel lblTemplarRing2;
-	
-	public ItemLabel lblScoundrelObject;
-	public ItemLabel lblEnchanteressRing2;
-	public ItemLabel lblEnchanteressRing1;
-	public ItemLabel lblEnchanteressOH;
-	public ItemLabel lblEnchanteressMH;
-	public ItemLabel lblEnchanteressNeck;
-	public ItemLabel lblScoundrelNeck;
-	public ItemLabel lblScoundrelMH;
-	public ItemLabel lblEnchanteressObject;
-	public ItemLabel lblScoundrelOH;
-	public ItemLabel lblScoundrelRing1;
-	public ItemLabel lblScoundrelRing2;
 
+public class FollowersPanel extends JPanel{
+	
+	private ItemLabel lblTemplarObject;
+	private ItemLabel lblTemplarNeck;
+	private ItemLabel lblTemplarRing1;
+	private ItemLabel lblTemplarOH;
+	private ItemLabel lblTemplarMH;
+	private ItemLabel lblTemplarRing2;
+	
+	private ItemLabel lblScoundrelObject;
+	private ItemLabel lblEnchanteressRing2;
+	private ItemLabel lblEnchanteressRing1;
+	private ItemLabel lblEnchanteressOH;
+	private ItemLabel lblEnchanteressMH;
+	private ItemLabel lblEnchanteressNeck;
+	private ItemLabel lblScoundrelNeck;
+	private ItemLabel lblScoundrelMH;
+	private ItemLabel lblEnchanteressObject;
+	private ItemLabel lblScoundrelOH;
+	private ItemLabel lblScoundrelRing1;
+	private ItemLabel lblScoundrelRing2;
+
+	private SkillLabel lblTemplarSkill1;
+	private SkillLabel lblTemplarSkill2;
+	private SkillLabel lblTemplarSkill3;
+	private SkillLabel lblTemplarSkill4;
+	
+	private SkillLabel lblScoundrelSkill1;
+	private SkillLabel lblScoundrelSkill2;
+	private SkillLabel lblScoundrelSkill3;
+	private SkillLabel lblScoundrelSkill4;
+	
+	private SkillLabel lblEnchanteressSkill1;
+	private SkillLabel lblEnchanteressSkill2;
+	private SkillLabel lblEnchanteressSkill3;
+	private SkillLabel lblEnchanteressSkill4;
+	
+	
 	public FollowersPanel() {
-		setBackground(new Color(35,33,29));
+		this.setBackground(new Color(35,33,29));	
 		this.setLayout(null);
 		this.add(getLblTemplarObject());
 		this.add(getLblTemplarNeck());
@@ -38,18 +55,33 @@ public class FollowersPanel extends JPanel {
 		this.add(getLblTemplarOH());
 		this.add(getLblTemplarRing1());
 		this.add(getLblTemplarRing2());
+		this.add(getLblTemplarSkill1());
+		this.add(getLblTemplarSkill2());
+		this.add(getLblTemplarSkill3());
+		this.add(getLblTemplarSkill4());
+		
 		this.add(getLblScoundrelRing2());
 		this.add(getLblScoundrelRing1());
 		this.add(getLblScoundrelOH());
 		this.add(getLblScoundrelMH());
 		this.add(getLblScoundrelNeck());
 		this.add(getLblScoundrelObject());
+		this.add(getLblScoundrelSkill1());
+		this.add(getLblScoundrelSkill2());
+		this.add(getLblScoundrelSkill3());
+		this.add(getLblScoundrelSkill4());
+		
+		
 		this.add(getLblEnchanteressObject());
 		this.add(getLblEnchanteressNeck());
 		this.add(getLblEnchanteressMH());
 		this.add(getLblEnchanteressOH());
 		this.add(getLblEnchanteressRing1());
 		this.add(getLblEnchanteressRing2());
+		this.add(getLblEnchanteressSkill1());
+		this.add(getLblEnchanteressSkill2());
+		this.add(getLblEnchanteressSkill3());
+		this.add(getLblEnchanteressSkill4());
 	}
 	
 
@@ -207,5 +239,131 @@ public class FollowersPanel extends JPanel {
     	}
     	return lblEnchanteressRing2;
     }
+    
 
+	public SkillLabel getLblTemplarSkill1() {
+		if(lblTemplarSkill1==null)
+		{
+			lblTemplarSkill1= new SkillLabel(false);
+			lblTemplarSkill1.setBounds(19,110, 39, 39);
+		}
+		return lblTemplarSkill1;
+	}
+
+
+	public SkillLabel getLblTemplarSkill2() {
+		if(lblTemplarSkill2==null)
+		{
+			lblTemplarSkill2= new SkillLabel(false);
+			lblTemplarSkill2.setBounds(19, 140, 39, 39);
+		}
+		return lblTemplarSkill2;
+	}
+
+
+	public SkillLabel getLblTemplarSkill3() {
+		if(lblTemplarSkill3==null)
+		{
+			lblTemplarSkill3= new SkillLabel(false);
+			lblTemplarSkill3.setBounds(19, 175, 39, 39);
+		}
+		return lblTemplarSkill3;
+	}
+
+
+	public SkillLabel getLblTemplarSkill4() {
+		if(lblTemplarSkill4==null)
+		{
+			lblTemplarSkill4= new SkillLabel(false);
+			lblTemplarSkill4.setBounds(19, 210, 39, 39);
+		}
+		return lblTemplarSkill4;
+	}
+
+
+	public SkillLabel getLblScoundrelSkill1() {
+		if(lblScoundrelSkill1==null)
+		{
+			lblScoundrelSkill1= new SkillLabel(false);
+			lblScoundrelSkill1.setBounds(305, 110, 39, 39);
+		}
+		return lblScoundrelSkill1;
+	}
+
+
+	public SkillLabel getLblScoundrelSkill2() {
+		if(lblScoundrelSkill2==null)
+		{
+			lblScoundrelSkill2= new SkillLabel(false);
+			lblScoundrelSkill2.setBounds(305, 140, 39, 39);
+		}
+		
+		return lblScoundrelSkill2;
+	}
+
+
+	public SkillLabel getLblScoundrelSkill3() {
+		if(lblScoundrelSkill3==null)
+		{
+			lblScoundrelSkill3= new SkillLabel(false);
+			lblScoundrelSkill3.setBounds(305, 175, 39, 39);
+		}
+		
+		return lblScoundrelSkill3;
+	}
+
+
+	public SkillLabel getLblScoundrelSkill4() {
+		if(lblScoundrelSkill4==null)
+		{
+			lblScoundrelSkill4= new SkillLabel(false);
+			lblScoundrelSkill4.setBounds(305, 210, 39, 39);
+		}
+		
+		return lblScoundrelSkill4;
+	}
+
+
+	public SkillLabel getLblEnchanteressSkill1() {
+		
+		if(lblEnchanteressSkill1==null)
+		{
+			lblEnchanteressSkill1= new SkillLabel(false);
+			lblEnchanteressSkill1.setBounds(592, 110, 39, 39);
+		}
+		return lblEnchanteressSkill1;
+	}
+
+
+	public SkillLabel getLblEnchanteressSkill2() {
+		if(lblEnchanteressSkill2==null)
+		{
+			lblEnchanteressSkill2= new SkillLabel(false);
+			lblEnchanteressSkill2.setBounds(592, 140, 39, 39);
+		}
+		
+		return lblEnchanteressSkill2;
+	}
+
+
+	public SkillLabel getLblEnchanteressSkill3() {
+		if(lblEnchanteressSkill3==null)
+		{
+			lblEnchanteressSkill3= new SkillLabel(false);
+			lblEnchanteressSkill3.setBounds(592, 175, 39, 39);
+		}
+		
+		return lblEnchanteressSkill3;
+	}
+
+
+	public SkillLabel getLblEnchanteressSkill4() {
+		if(lblEnchanteressSkill4==null)
+		{
+			lblEnchanteressSkill4= new SkillLabel(false);
+			lblEnchanteressSkill4.setBounds(592, 210, 39, 39);
+		}
+		
+		return lblEnchanteressSkill4;
+	}
 }

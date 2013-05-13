@@ -2,6 +2,7 @@ package org.armory.d3.beans;
 
 public class SkillRune {
 
+
 	private Skill skill;
 	private Rune rune;
 	

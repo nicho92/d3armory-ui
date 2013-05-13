@@ -53,7 +53,6 @@ public class Main {
 					Item ringleft = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getRightFinger());
 					Item mainHand = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getMainHand());
 					Item offhand = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getOffHand());
-						
 					Item torso = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getTorso());
 					
 					Map<EnumerationStuff,Item> stuffs = new HashMap<EnumerationStuff, Item>();
@@ -81,7 +80,6 @@ public class Main {
 						Item i = set.getMainHand();
 						i = D3ArmoryControler.getInstance().getItemDetails(i);
 						System.out.println(i.getAttributesRaw());
-					
-					
+				
 		}
 }
