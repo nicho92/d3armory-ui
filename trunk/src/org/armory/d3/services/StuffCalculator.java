@@ -15,7 +15,6 @@ import org.armory.d3.beans.Item;
 import org.armory.d3.beans.LegendarySet;
 import org.armory.d3.beans.MinMaxBonus;
 import org.armory.d3.beans.Ranks;
-import org.armory.d3.beans.Skill;
 import org.armory.d3.beans.SkillRune;
 
 import com.sdfteam.d3armory.service.util.BuffSkill;

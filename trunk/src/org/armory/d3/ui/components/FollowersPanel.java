@@ -6,7 +6,6 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import org.jdesktop.application.Application;
 
 public class FollowersPanel extends JPanel {
 	
@@ -51,7 +50,6 @@ public class FollowersPanel extends JPanel {
 		this.add(getLblEnchanteressOH());
 		this.add(getLblEnchanteressRing1());
 		this.add(getLblEnchanteressRing2());
-
 	}
 	
 

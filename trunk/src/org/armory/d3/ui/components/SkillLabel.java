@@ -6,7 +6,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
 
-import javax.swing.GrayFilter;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -18,7 +17,6 @@ import org.armory.d3.beans.SkillRune;
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.SwingMainFrame;
 
-import com.sdfteam.d3armory.service.remote.exception.D3ServerCommunicationException;
 import com.sdfteam.d3armory.service.util.BuffSkill;
 
 public class SkillLabel extends JLabel implements MouseListener {

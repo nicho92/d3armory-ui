@@ -1,18 +1,13 @@
 package org.armory.d3.ui;
 import java.awt.BorderLayout;
-import java.awt.Color;
 
 import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
 import javax.swing.WindowConstants;
 
 import org.armory.d3.services.RSSReader;
-import org.jdesktop.application.Application;
-import javax.swing.SwingUtilities;
 
 
 public class AboutFrame extends javax.swing.JFrame {

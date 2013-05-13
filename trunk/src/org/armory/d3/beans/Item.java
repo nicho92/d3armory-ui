@@ -1,6 +1,5 @@
 package org.armory.d3.beans;
 
-import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
