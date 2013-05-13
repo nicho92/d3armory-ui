@@ -23,31 +23,26 @@ public class SkillLabel extends JLabel implements MouseListener {
 
 	private SkillRune skill;
 	private boolean enabled=true;
+	private String size;
+	public static final String SMALL = "21";
+	public static final String LARGE = "64";
 	
 	public SkillRune getSkill() {
 		return skill;
 	}
 
-
-
-	public void setSkill(SkillRune skill) {
-		this.skill = skill;
-	}
-
-
-
 	public SkillLabel(boolean enabled)
 	{
 		super();
+		size="64";
 		this.enabled=enabled;
 		addMouseListener(this);
 	}
 	
-	
-	
 	public SkillLabel(SkillRune s)
 	{
 		this.skill=s;
+		size=LARGE;
 		addMouseListener(this);
 	}
 	
@@ -69,7 +64,7 @@ public class SkillLabel extends JLabel implements MouseListener {
 	public Icon getIcon(){
 		if(skill != null)
 			try {
-				URL url = new URL("http://media.blizzard.com/d3/icons/skills/64/"+skill.getSkill().getIcon()+".png");
+				URL url = new URL("http://media.blizzard.com/d3/icons/skills/"+size+"/"+skill.getSkill().getIcon()+".png");
 				return new ImageIcon(url);
 			} catch (Exception e1) {
 				return new ImageIcon();
@@ -147,6 +142,10 @@ public class SkillLabel extends JLabel implements MouseListener {
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void setSize(String size) {
+		this.size = size;
 	}
 	
 	

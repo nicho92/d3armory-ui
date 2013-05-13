@@ -5,7 +5,7 @@ import java.util.List;
 public class Follower {
 	private FollowerItemSet items;
 	private Number level;
-	private List<Skill> skills;
+	private List<FollowersSkills> skills;
 	private String slug;
 	private FollowersStats stats;
 	
@@ -34,11 +34,11 @@ public class Follower {
 		this.level = level;
 	}
 
-	public List<Skill> getSkills() {
+	public List<FollowersSkills> getSkills() {
 		return skills;
 	}
 
-	public void setSkills(List<Skill> skills) {
+	public void setSkills(List<FollowersSkills> skills) {
 		this.skills = skills;
 	}
 

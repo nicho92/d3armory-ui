@@ -49,6 +49,8 @@ import org.armory.d3.beans.FollowersList;
 import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.Item;
 import org.armory.d3.beans.Profile;
+import org.armory.d3.beans.Skill;
+import org.armory.d3.beans.SkillRune;
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.services.StuffCalculator;
 import org.armory.d3.ui.components.FollowersPanel;
@@ -208,7 +210,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.setTitle("Diablo III Profile");
 			this.setIconImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/icone.jpg")).getImage());
-			this.setSize(1820, 915);
+			setExtendedState(MAXIMIZED_BOTH);
 			UIManager.put("Table.alternateRowColor", Color.decode("#E1E4F2"));
 			BorderLayout thisLayout = new BorderLayout();
 			getContentPane().setLayout(thisLayout);
@@ -400,6 +402,38 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 			Item r2 = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getLeftFinger());
 			getFollowersPanel().getLblTemplarRing2().setItem(r2, EnumerationStuff.RING_LEFT);
+			
+			
+			if(templar.getSkills().get(0)!=null){
+				SkillRune r = new SkillRune();
+						  r.setSkill(templar.getSkills().get(0).getSkill());
+						  
+				getFollowersPanel().getLblTemplarSkill1().setSize(SkillLabel.SMALL);
+				getFollowersPanel().getLblTemplarSkill1().setSkillRune(r);
+			}
+			
+			if(templar.getSkills().get(1)!=null){
+				SkillRune r = new SkillRune();
+						  r.setSkill(templar.getSkills().get(1).getSkill());
+						  
+				getFollowersPanel().getLblTemplarSkill2().setSize(SkillLabel.SMALL);
+				getFollowersPanel().getLblTemplarSkill2().setSkillRune(r);
+			}
+			if(templar.getSkills().get(2)!=null){
+				SkillRune r = new SkillRune();
+						  r.setSkill(templar.getSkills().get(2).getSkill());
+						  
+				getFollowersPanel().getLblTemplarSkill3().setSize(SkillLabel.SMALL);
+				getFollowersPanel().getLblTemplarSkill3().setSkillRune(r);
+			}
+			if(templar.getSkills().get(3)!=null){
+				SkillRune r = new SkillRune();
+						  r.setSkill(templar.getSkills().get(3).getSkill());
+						  
+				getFollowersPanel().getLblTemplarSkill4().setSize(SkillLabel.SMALL);
+				getFollowersPanel().getLblTemplarSkill4().setSkillRune(r);
+			}
+			
 		}
 	
 		Follower scoundrel = liste.getScoundrel();
@@ -434,6 +468,42 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 			Item r2S = D3ArmoryControler.getInstance().getItemDetails(scoundrel.getItems().getLeftFinger());
 			getFollowersPanel().getLblScoundrelRing2().setItem(r2S, EnumerationStuff.RING_LEFT);
+			
+			
+
+			if(scoundrel.getSkills().get(0)!=null){
+				SkillRune r = new SkillRune();
+						  r.setSkill(scoundrel.getSkills().get(0).getSkill());
+						  
+				getFollowersPanel().getLblScoundrelSkill1().setSize(SkillLabel.SMALL);
+				getFollowersPanel().getLblScoundrelSkill1().setSkillRune(r);
+			}
+			
+			if(scoundrel.getSkills().get(1)!=null){
+				SkillRune r = new SkillRune();
+						  r.setSkill(scoundrel.getSkills().get(1).getSkill());
+						  
+				getFollowersPanel().getLblScoundrelSkill2().setSize(SkillLabel.SMALL);
+				getFollowersPanel().getLblScoundrelSkill2().setSkillRune(r);
+			}
+			
+			if(scoundrel.getSkills().get(2)!=null){
+				SkillRune r = new SkillRune();
+						  r.setSkill(scoundrel.getSkills().get(2).getSkill());
+						  
+				getFollowersPanel().getLblScoundrelSkill3().setSize(SkillLabel.SMALL);
+				getFollowersPanel().getLblScoundrelSkill3().setSkillRune(r);
+			}
+			
+			if(scoundrel.getSkills().get(3)!=null){
+				SkillRune r = new SkillRune();
+						  r.setSkill(scoundrel.getSkills().get(3).getSkill());
+						  
+				getFollowersPanel().getLblScoundrelSkill4().setSize(SkillLabel.SMALL);
+				getFollowersPanel().getLblScoundrelSkill4().setSkillRune(r);
+			}
+			
+			
 		}
 		
 		
@@ -473,6 +543,38 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			Item r2E = D3ArmoryControler.getInstance().getItemDetails(echanteress.getItems().getLeftFinger());
 			getFollowersPanel().getLblEnchanteressRing2().setItem(r2E, EnumerationStuff.RING_LEFT);
 		
+			
+			if(echanteress.getSkills().get(0)!=null){
+				SkillRune r = new SkillRune();
+						  r.setSkill(echanteress.getSkills().get(0).getSkill());
+						  
+				getFollowersPanel().getLblEnchanteressSkill1().setSize(SkillLabel.SMALL);
+				getFollowersPanel().getLblEnchanteressSkill1().setSkillRune(r);
+			}
+			
+			if(echanteress.getSkills().get(1)!=null){
+				SkillRune r = new SkillRune();
+						  r.setSkill(echanteress.getSkills().get(1).getSkill());
+						  
+				getFollowersPanel().getLblEnchanteressSkill2().setSize(SkillLabel.SMALL);
+				getFollowersPanel().getLblEnchanteressSkill2().setSkillRune(r);
+			}
+			
+			if(echanteress.getSkills().get(2)!=null){
+				SkillRune r = new SkillRune();
+						  r.setSkill(echanteress.getSkills().get(2).getSkill());
+						  
+				getFollowersPanel().getLblEnchanteressSkill3().setSize(SkillLabel.SMALL);
+				getFollowersPanel().getLblEnchanteressSkill3().setSkillRune(r);
+			}
+			
+			if(echanteress.getSkills().get(3)!=null){
+				SkillRune r = new SkillRune();
+						  r.setSkill(echanteress.getSkills().get(3).getSkill());
+						  
+				getFollowersPanel().getLblEnchanteressSkill4().setSize(SkillLabel.SMALL);
+				getFollowersPanel().getLblEnchanteressSkill4().setSkillRune(r);
+			}
 		}
 		getFollowersPanel().repaint();
 		
