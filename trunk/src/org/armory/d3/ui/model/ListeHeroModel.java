@@ -10,19 +10,28 @@ public class ListeHeroModel extends DefaultComboBoxModel<Hero> {
 
 	public Hero getElementAt(int i) {
 		if (D3ArmoryControler.getInstance().getCurrentProfil() !=null)
+		{
 			return D3ArmoryControler.getInstance().getCurrentProfil().getHeroes().get(i);
+		}
+			
 		return null; 
 	}
 
 	public int getSize() {
 		if (D3ArmoryControler.getInstance().getCurrentProfil() !=null)
+		{
+
 			return D3ArmoryControler.getInstance().getCurrentProfil().getHeroes().size();
+		}
+			
 		return 0;
 	}
 
 	public Hero get(int i) {
 		if (D3ArmoryControler.getInstance().getCurrentProfil() !=null)
+		{
 			return D3ArmoryControler.getInstance().getCurrentProfil().getHeroes().get(i);
+		}
 		return null; 
 	}
 

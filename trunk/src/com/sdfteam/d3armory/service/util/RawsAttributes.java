@@ -52,6 +52,8 @@ public class RawsAttributes  {
 		itemAttributes.add(new Attributs("Damage_Weapon_Percent_Bonus" ,"+X% Damage"));
 		itemAttributes.add(new Attributs("Damage_Min" ,"+X Minimum Damage"));
 		itemAttributes.add(new Attributs("Damage_Delta" ,"+X Maximum Damage"));
+		itemAttributes.add(new Attributs("Damage_Min#Physical" ,"+X Minimum Damage"));
+		itemAttributes.add(new Attributs("Damage_Delta#Physical" ,"+X Maximum Damage"));
 		itemAttributes.add(new Attributs("Damage_Type_Percent_Bonus#Arcane" ,"+X% to Arcane Damage"));
 		itemAttributes.add(new Attributs("Damage_Type_Percent_Bonus#Cold" ,"+X% to Cold Damage"));
 		itemAttributes.add(new Attributs("Damage_Type_Percent_Bonus#Fire" ,"+X% to Fire Damage"));
