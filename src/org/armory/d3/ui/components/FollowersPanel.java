@@ -47,7 +47,7 @@ public class FollowersPanel extends JPanel{
 	
 	
 	public FollowersPanel() {
-		this.setBackground(new Color(35,33,29));	
+		
 		this.setLayout(null);
 		this.add(getLblTemplarObject());
 		this.add(getLblTemplarNeck());
@@ -82,6 +82,8 @@ public class FollowersPanel extends JPanel{
 		this.add(getLblEnchanteressSkill2());
 		this.add(getLblEnchanteressSkill3());
 		this.add(getLblEnchanteressSkill4());
+		
+		this.setBackground(new Color(35,33,29));	
 	}
 	
 

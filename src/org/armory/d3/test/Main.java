@@ -1,11 +1,10 @@
 package org.armory.d3.test;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import org.armory.d3.beans.Follower;
-import org.armory.d3.beans.FollowerItemSet;
-import org.armory.d3.beans.FollowersList;
+import org.armory.d3.beans.Artisans;
 import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.Item;
 import org.armory.d3.beans.Profile;
@@ -74,12 +73,11 @@ public class Main {
 					D3ArmoryControler.getInstance().setSelectedHero(hero);
 					D3ArmoryControler.getInstance().initCalculator(stuffs);
 					
-					FollowersList liste = hero.getFollowers();
-					Follower enchanteresse = liste.getEnchantress();
-						FollowerItemSet set = enchanteresse.getItems();
-						Item i = set.getMainHand();
-						i = D3ArmoryControler.getInstance().getItemDetails(i);
-						System.out.println(i.getAttributesRaw());
+					List<Artisans> list = profile.getArtisans();
+						for(Artisans a : list)
+						{
+							System.out.println(a.getSlug());
+						}
 				
 		}
 }
