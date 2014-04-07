@@ -35,7 +35,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	private Number bonusAffixes;
 	private ItemType type;
 	private String flavorText;
-	private String[] attributes;
+	private Attributes attributes;
 	private Gem[] gems;
 	private String GemQuality;
 	private MinMaxBonus armor;
@@ -68,6 +68,14 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		attributesRaw=new HashMap<String, MinMaxBonus >();
 	}
 	
+	public Attributes getAttributes() {
+		return attributes;
+	}
+
+	public void setAttributes(Attributes attributes) {
+		this.attributes = attributes;
+	}
+
 	
 	public int nbSockets(){
 		if(attributesRaw.get("Sockets")==null)
@@ -214,13 +222,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		this.gems = gems;
 	}
 
-	public String[] getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(String[] attributes) {
-		this.attributes = attributes;
-	}
+	
 
 	public String getFlavorText() {
 		return flavorText;
@@ -353,7 +355,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 				System.err.println("itemAttributes.add(new Attributs(\""+key+"\",\"X BLALALBLA\"));" );
 			}
 		}
-		setAttributes(liste.toArray(new String[liste.size()]));
+		//setAttributes(liste.toArray(new String[liste.size()]));
 	}
 
 	public String getTypeOfObject()
