@@ -30,6 +30,7 @@ public class MinMaxBonus implements Serializable {
 		return String.valueOf(getMoyenne());
 	}
 	
+	
 	public void setValue(double val)
 	{
 		setMin(val);

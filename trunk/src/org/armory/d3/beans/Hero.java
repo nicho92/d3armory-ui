@@ -7,24 +7,23 @@ import com.sdfteam.d3armory.service.remote.RemoteEntity;
 @RemoteConfiguration(url = "http://<host>/api/d3/profile/<battletag-name>-<battletag-code>/hero/<hero-id>?locale=<local>")
 public class Hero extends RemoteEntity {
 	
-	@SerializedName("class")
-	private String clazz;
-	private FollowersList followers;
-	private Number gender;
-	private boolean hardcore;
 	private Number id;
-	private ItemSet items;
-	private KillsInfo kills;
-	@SerializedName("last-updated")
-	private Long lastUpdated;
-	private Number level;
 	private String name;
-	private Progression progress;
-	private HeroSkillContainer skills;
-	private Stats stats;
+	@SerializedName("class") private String clazz;
+	private Number gender;	
+	private Number level;
 	private Long paragonLevel;
+	private boolean hardcore;
+
+	private HeroSkillContainer skills;
+	private ItemSet items;
+	private FollowersList followers;
+	private Stats stats;
+	private KillsInfo kills;
+	//TODO private Progression progression;
 	private boolean dead;
-	
+	@SerializedName("last-updated")	private Long lastUpdated;
+
 	
 	public String getPrimaryStat()
 	{
@@ -38,6 +37,8 @@ public class Hero extends RemoteEntity {
 				return "Intelligence"; 
 			if("witch-doctor".equals(getClazz()))
 				return "Intelligence"; 
+			if("crusader".equals(getClazz()))
+				return "Strength";
 		
 		return "";
 	}
@@ -52,12 +53,6 @@ public class Hero extends RemoteEntity {
 		this.dead = dead;
 	}
 
-
-	public double getBaseStatPrimary()
-	{
-		return (7+(this.getLevel().intValue()+this.getParagonLevel().intValue())*3);
-	}
-	
 	public Long getParagonLevel() {
 		return paragonLevel;
 	}
@@ -154,14 +149,7 @@ public class Hero extends RemoteEntity {
 		this.name = name;
 	}
 
-	public Progression getProgress() {
-		return progress;
-	}
-
-	public void setProgress(Progression progress) {
-		this.progress = progress;
-	}
-
+	
 	public HeroSkillContainer getSkills() {
 		return skills;
 	}

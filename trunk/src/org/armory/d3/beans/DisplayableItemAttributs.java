@@ -1,9 +1,11 @@
 package org.armory.d3.beans;
 
-public class ItemAttributs {
+public class DisplayableItemAttributs {
+	
 	private String text;
 	private String affixType;
 	private String color;
+	
 	public String getText() {
 		return text;
 	}
@@ -22,4 +24,10 @@ public class ItemAttributs {
 	public void setColor(String color) {
 		this.color = color;
 	}
+	
+	public String toString()
+	{
+		return getText();
+	}
+	
 }

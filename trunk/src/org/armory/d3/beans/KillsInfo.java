@@ -28,4 +28,10 @@ public class KillsInfo {
 	public void setElites(Number elites) {
 		this.elites = elites;
 	}
+	
+	public String toString()
+	{
+		return "Elites:"+ elites + "/monsters: "+monsters+"/ hardcore Monsters: "+ hardcoreMonsters;
+	}
+	
 }

@@ -3,6 +3,7 @@ package org.armory.d3.beans;
 import java.util.List;
 
 public class HeroSkillContainer {
+	
 	private List<SkillRune> active;
 	private List<SkillRune> passive;
 

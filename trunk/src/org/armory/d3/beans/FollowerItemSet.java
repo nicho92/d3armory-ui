@@ -10,6 +10,11 @@ public class FollowerItemSet {
 	private Item special;
 	
 	
+	public String toString()
+	{
+		return leftFinger + " " + mainHand + " " + offHand + " " + neck + " " + special +" " + rightFinger;  
+	}
+	
 	
 	public Item getSpecial() {
 		return special;

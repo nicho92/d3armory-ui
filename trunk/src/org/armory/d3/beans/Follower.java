@@ -3,11 +3,12 @@ package org.armory.d3.beans;
 import java.util.List;
 
 public class Follower {
-	private FollowerItemSet items;
-	private Number level;
-	private List<FollowersSkills> skills;
 	private String slug;
+	private Number level;
+	private FollowerItemSet items;
 	private FollowersStats stats;
+	private List<FollowersSkills> skills;
+	
 	
 	
 	public FollowerItemSet getItems() {
