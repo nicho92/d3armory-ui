@@ -20,7 +20,7 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 import org.armory.d3.beans.Item;
-import org.armory.d3.beans.ItemAttributs;
+import org.armory.d3.beans.DisplayableItemAttributs;
 import org.armory.d3.beans.LegendarySet;
 import org.armory.d3.beans.Ranks;
 import org.armory.d3.services.D3ArmoryControler;
@@ -159,9 +159,9 @@ public class ItemPanelDetails extends JPanel {
 		
 		StringBuffer temp = new StringBuffer();
 		
-		ItemAttributs[] prim = item.getAttributes().getPrimary();
-		ItemAttributs[] sec = item.getAttributes().getSecondary();
-		ItemAttributs[] pass = item.getAttributes().getPassive();
+		DisplayableItemAttributs[] prim = item.getAttributes().getPrimary();
+		DisplayableItemAttributs[] sec = item.getAttributes().getSecondary();
+		DisplayableItemAttributs[] pass = item.getAttributes().getPassive();
 		
 		for(int i=0;i<prim.length;i++)
 		{
