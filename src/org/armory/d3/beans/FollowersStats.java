@@ -27,4 +27,10 @@ public class FollowersStats {
 	}
 	
 	
+	public String toString()
+	{
+		return "MF:" + getMagicFind() + " GF:" + getGoldFind() + " XP:"+getExperienceBonus(); 
+	}
+	
+	
 }

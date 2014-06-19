@@ -12,5 +12,8 @@ public class FollowersSkills {
 		this.skill = skill;
 	}
 	
-	
+	public String toString()
+	{
+		return skill.toString();
+	}
 }

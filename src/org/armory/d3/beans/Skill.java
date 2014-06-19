@@ -111,7 +111,7 @@ public class Skill {
 	
 	public String toString()
 	{
-		return getName() +": " + getDescription();
+		return getName();
 	}
 
 }

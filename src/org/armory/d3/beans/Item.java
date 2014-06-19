@@ -23,40 +23,38 @@ import com.sdfteam.d3armory.service.util.RawsAttributes;
 public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	
 	private static final long serialVersionUID = 5279622195128628056L;
+	
 	private String id;
-	private String displayColor;
-	@RemoteData(type = DataType.IMAGE)
-	private String icon;
 	private String name;
-	@RemoteData(type = DataType.HTML)
-	private String tooltipParams;
+	@RemoteData(type = DataType.IMAGE) private String icon;
+	private String displayColor;
+	@RemoteData(type = DataType.HTML) private String tooltipParams;
 	private Number requiredLevel;
-	private String typeName;
+	private Number itemLevel;
 	private Number bonusAffixes;
-	private ItemType type;
+	private Number bonusAffixesMax;
+	private Boolean accountBound;
 	private String flavorText;
-	private Attributes attributes;
-	private Gem[] gems;
-	private String GemQuality;
+	private String typeName;
+	private ItemType type;
 	private MinMaxBonus armor;
-	private MinMaxBonus dps;
+	private AttributsContainer attributes;
 	private Map<String, MinMaxBonus > attributesRaw;
+	//todo randomAffixes
+	private List<Gem> gems;
+	//todo socketEffects
+	//private Item transmogItem;
+	
+	
+	private MinMaxBonus dps;
 	private MinMaxBonus attacksPerSecond;
 	private MinMaxBonus minDamage;
 	private MinMaxBonus maxDamage;
-	private List<Salvage> salvage ;
+	
+	
 	private LegendarySet set;
-	private Number itemLevel;
 	
 	
-	public String getGemQuality() {
-		return GemQuality;
-	}
-
-	public void setGemQuality(String gemQuality) {
-		GemQuality = gemQuality;
-	}
-
 	public void addAttributs(Attributs a)
 	{
 		attributesRaw.put(a.getId(), a.getValue());
@@ -66,14 +64,6 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	{
 		super();
 		attributesRaw=new HashMap<String, MinMaxBonus >();
-	}
-	
-	public Attributes getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(Attributes attributes) {
-		this.attributes = attributes;
 	}
 
 	
@@ -122,14 +112,6 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		
 	}
 	
-	
-	public int nbGems(){
-		if (gems!=null)
-			return gems.length;
-			
-		return 0;
-	}
-	
 	public boolean isSetObjects()
 	{
 		return set!=null;
@@ -153,13 +135,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		this.set = set;
 	}
 
-	public List<Salvage> getSalvage() {
-		return salvage;
-	}
-
-	public void setSalvage(List<Salvage> salvage) {
-		this.salvage = salvage;
-	}
+	
 
 	public MinMaxBonus getAttacksPerSecond() {
 		return attacksPerSecond;
@@ -214,11 +190,11 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		this.armor = armor;
 	}
 
-	public Gem[] getGems() {
+	public List<Gem> getGems() {
 		return gems;
 	}
 
-	public void setGems(Gem[] gems) {
+	public void setGems(List<Gem> gems) {
 		this.gems = gems;
 	}
 
@@ -300,11 +276,23 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		return requiredLevel;
 	}
 
+	
+	
+	public AttributsContainer getAttributes() {
+		return attributes;
+	}
+
+	public void setAttributes(AttributsContainer attributes) {
+		this.attributes = attributes;
+	}
+
+	
+	
 	public Object clone() {
 		try {
 			Item i = (Item)super.clone();
 			i.setAttributesRaw(new HashMap<String, MinMaxBonus>(this.getAttributesRaw()));
-			i.setGems(i.getGems().clone());
+			i.setGems(i.getGems());
 			return i;
 		} catch (CloneNotSupportedException e) {
 			return new Item();
@@ -391,6 +379,30 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		if (type.equalsIgnoreCase("Damaged"))
 			setDisplayColor("grey");
 	}
+
+	public Number getBonusAffixesMax() {
+		return bonusAffixesMax;
+	}
+
+	public void setBonusAffixesMax(Number bonusAffixesMax) {
+		this.bonusAffixesMax = bonusAffixesMax;
+	}
+
+	public Boolean getAccountBound() {
+		return accountBound;
+	}
+
+	public void setAccountBound(Boolean accountBound) {
+		this.accountBound = accountBound;
+	}
+
+//	public Item getTransmogItem() {
+//		return transmogItem;
+//	}
+//
+//	public void setTransmogItem(Item transmogItem) {
+//		this.transmogItem = transmogItem;
+//	}
 
 	
 

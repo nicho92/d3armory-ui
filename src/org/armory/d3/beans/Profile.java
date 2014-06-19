@@ -14,33 +14,41 @@ import com.sdfteam.d3armory.service.remote.RemoteEntity;
  */
 @RemoteConfiguration(url = "http://<host>/api/d3/profile/<battletag-name>-<battletag-code>/?locale=<local>")
 public class Profile extends RemoteEntity {
-	private List<Artisans> artisans;
-	private String battleTag;
-	private List<ItemSet> Itemes;
-	private List<Artisans> hardcoreArtisans;
-	private Progression hardcoreProgression;
+
 	private List<Hero> heroes;
-	private KillsInfo kills;
 	private Number lastHeroPlayed;
 	private Number lastUpdated;
-	private Progression progression;
+	private KillsInfo kills;
 	private TimePlayed timePlayed;
 	private List<Hero> fallenHeros;
+	private Number paragonLevel;
+	private Number paragonLevelHardcore;
+	private String battleTag;
+	private Progression progression;
 	
+	
+	public Number getParagonLevel() {
+		return paragonLevel;
+	}
+
+	public void setParagonLevel(Number paragonLevel) {
+		this.paragonLevel = paragonLevel;
+	}
+
+	public Number getParagonLevelHardcore() {
+		return paragonLevelHardcore;
+	}
+
+	public void setParagonLevelHardcore(Number paragonLevelHardcore) {
+		this.paragonLevelHardcore = paragonLevelHardcore;
+	}
+
 	public List<Hero> getFallenHeros() {
 		return fallenHeros;
 	}
 
 	public void setFallenHeros(List<Hero> fallenHeros) {
 		this.fallenHeros = fallenHeros;
-	}
-
-	public List<Artisans> getArtisans() {
-		return this.artisans;
-	}
-
-	public void setArtisans(List<Artisans> artisans) {
-		this.artisans = artisans;
 	}
 
 	public String getBattleTag() {
@@ -51,10 +59,7 @@ public class Profile extends RemoteEntity {
 		this.battleTag = battleTag;
 	}
 
-	public List<ItemSet> getItemes() {
-		return this.Itemes;
-	}
-
+	
 	public KillsInfo getKills() {
 		return kills;
 	}
@@ -63,26 +68,7 @@ public class Profile extends RemoteEntity {
 		this.kills = kills;
 	}
 
-	public void setItemes(List<ItemSet> Itemes) {
-		this.Itemes = Itemes;
-	}
-
-	public List<Artisans> getHardcoreArtisans() {
-		return this.hardcoreArtisans;
-	}
-
-	public void setHardcoreArtisans(List<Artisans> hardcoreArtisans) {
-		this.hardcoreArtisans = hardcoreArtisans;
-	}
-
-	public Progression getHardcoreProgression() {
-		return this.hardcoreProgression;
-	}
-
-	public void setHardcoreProgression(Progression hardcoreProgression) {
-		this.hardcoreProgression = hardcoreProgression;
-	}
-
+	
 	public List<Hero> getHeroes() {
 		return this.heroes;
 	}
@@ -125,6 +111,6 @@ public class Profile extends RemoteEntity {
 	
 	public String toString()
 	{
-		return getBattleTag(); 
+		return getBattleTag() + " (" + getParagonLevel()+")"; 
 	}
 }

@@ -10,6 +10,16 @@ public class TimePlayed {
 	@SerializedName("witch-doctor")
 	private Number witchDoctor;
 	private Number wizard;
+	private Number crusader;
+	
+	
+	public Number getCrusader() {
+		return crusader;
+	}
+
+	public void setCrusader(Number crusader) {
+		this.crusader = crusader;
+	}
 
 	public Number getBarbarian() {
 		return barbarian;
@@ -51,4 +61,10 @@ public class TimePlayed {
 		this.wizard = wizard;
 	}
 
+	
+	public String toString()
+	{
+		return "barb :" + barbarian + " wd " + witchDoctor + " wz :" + wizard + " cru: " + crusader + " mk: "+ monk +" dh: "+ demonHunter;
+	}
+	
 }

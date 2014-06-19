@@ -19,4 +19,10 @@ public class ItemType implements Serializable {
 		public void setId(String id) {
 			this.id = id;
 		}
+		
+		
+		public String toString()
+		{
+			return id + " 2H=" + twoHanded; 
+		}
 }
