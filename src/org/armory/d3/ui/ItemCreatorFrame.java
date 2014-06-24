@@ -25,9 +25,6 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.table.TableRowSorter;
 
-import org.armory.d3.beans.Attributs;
-import org.armory.d3.beans.Item;
-import org.armory.d3.beans.MinMaxBonus;
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.services.StuffCalculator;
 import org.armory.d3.ui.components.FormatedJLabel;
@@ -38,8 +35,11 @@ import ca.odell.glazedlists.GlazedLists;
 import ca.odell.glazedlists.matchers.TextMatcherEditor;
 import ca.odell.glazedlists.swing.AutoCompleteSupport;
 
-import com.sdfteam.d3armory.service.util.EnumerationStuff;
-import com.sdfteam.d3armory.service.util.RawsAttributes;
+import com.pihen.d3restapi.beans.Attributs;
+import com.pihen.d3restapi.beans.Item;
+import com.pihen.d3restapi.beans.MinMaxBonus;
+import com.pihen.d3restapi.service.util.EnumerationStuff;
+import com.pihen.d3restapi.service.util.RawsAttributes;
 
 
 

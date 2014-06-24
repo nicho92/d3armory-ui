@@ -11,7 +11,7 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.LineBorder;
 
-import org.armory.d3.beans.Hero;
+import com.pihen.d3restapi.beans.Hero;
 
 
 public class HeroCellRenderer implements ListCellRenderer

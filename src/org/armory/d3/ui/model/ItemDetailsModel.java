@@ -4,8 +4,8 @@ import java.util.Map;
 
 import javax.swing.table.DefaultTableModel;
 
-import org.armory.d3.beans.Item;
-import org.armory.d3.beans.MinMaxBonus;
+import com.pihen.d3restapi.beans.Item;
+import com.pihen.d3restapi.beans.MinMaxBonus;
 
 public class ItemDetailsModel extends DefaultTableModel {
 

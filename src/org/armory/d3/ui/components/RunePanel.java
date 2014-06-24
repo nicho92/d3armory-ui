@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.armory.d3.beans.SkillRune;
+import com.pihen.d3restapi.beans.SkillRune;
 
 
 /**

@@ -25,12 +25,12 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
-import org.armory.d3.beans.Item;
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.ItemCreatorFrame;
 import org.armory.d3.ui.SwingMainFrame;
 
-import com.sdfteam.d3armory.service.util.EnumerationStuff;
+import com.pihen.d3restapi.beans.Item;
+import com.pihen.d3restapi.service.util.EnumerationStuff;
 
 
 public class ItemLabel extends JLabel implements MouseListener {

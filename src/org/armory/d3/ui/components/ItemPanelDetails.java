@@ -19,12 +19,13 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
-import org.armory.d3.beans.AttributsContainer;
-import org.armory.d3.beans.Item;
-import org.armory.d3.beans.DisplayableItemAttributs;
-import org.armory.d3.beans.LegendarySet;
-import org.armory.d3.beans.Ranks;
 import org.armory.d3.services.D3ArmoryControler;
+
+import com.pihen.d3restapi.beans.AttributsContainer;
+import com.pihen.d3restapi.beans.DisplayableItemAttributs;
+import com.pihen.d3restapi.beans.Item;
+import com.pihen.d3restapi.beans.LegendarySet;
+import com.pihen.d3restapi.beans.Ranks;
 
 
 public class ItemPanelDetails extends JPanel {
@@ -241,6 +242,7 @@ public class ItemPanelDetails extends JPanel {
 		}
 		
 	}
+	
 	private void updateSocketLabel() {
 		if(item.nbSockets()>0)
 		{
