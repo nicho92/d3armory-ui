@@ -112,6 +112,11 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		
 	}
 	
+	public boolean isTransmogrifiedObject()
+	{
+		return transmogItem !=null;
+	}
+	
 	public boolean isSetObjects()
 	{
 		return set!=null;
@@ -404,6 +409,10 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		this.transmogItem = transmogItem;
 	}
 
+	public String toString()
+	{
+		return getType() +" - " + getName();
+	}
 	
 
 	
