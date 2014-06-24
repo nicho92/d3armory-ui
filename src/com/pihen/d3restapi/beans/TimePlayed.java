@@ -1,0 +1,70 @@
+package com.pihen.d3restapi.beans;
+
+import com.google.gson.annotations.SerializedName;
+
+public class TimePlayed {
+	private Number barbarian;
+	@SerializedName("demon-hunter")
+	private Number demonHunter;
+	private Number monk;
+	@SerializedName("witch-doctor")
+	private Number witchDoctor;
+	private Number wizard;
+	private Number crusader;
+	
+	
+	public Number getCrusader() {
+		return crusader;
+	}
+
+	public void setCrusader(Number crusader) {
+		this.crusader = crusader;
+	}
+
+	public Number getBarbarian() {
+		return barbarian;
+	}
+
+	public void setBarbarian(Number barbarian) {
+		this.barbarian = barbarian;
+	}
+
+	public Number getDemonHunter() {
+		return demonHunter;
+	}
+
+	public void setDemonHunter(Number demonHunter) {
+		this.demonHunter = demonHunter;
+	}
+
+	public Number getMonk() {
+		return monk;
+	}
+
+	public void setMonk(Number monk) {
+		this.monk = monk;
+	}
+
+	public Number getWitchDoctor() {
+		return witchDoctor;
+	}
+
+	public void setWitchDoctor(Number witchDoctor) {
+		this.witchDoctor = witchDoctor;
+	}
+
+	public Number getWizard() {
+		return wizard;
+	}
+
+	public void setWizard(Number wizard) {
+		this.wizard = wizard;
+	}
+
+	
+	public String toString()
+	{
+		return "barb :" + barbarian + " wd " + witchDoctor + " wz :" + wizard + " cru: " + crusader + " mk: "+ monk +" dh: "+ demonHunter;
+	}
+	
+}
