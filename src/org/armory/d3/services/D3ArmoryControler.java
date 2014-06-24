@@ -15,10 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.armory.d3.beans.Hero;
-import org.armory.d3.beans.Item;
-import org.armory.d3.beans.Profile;
-
+import com.pihen.d3restapi.beans.Hero;
+import com.pihen.d3restapi.beans.Item;
+import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.service.configuration.Configuration;
 import com.pihen.d3restapi.service.remote.RemoteService;
 import com.pihen.d3restapi.service.remote.SpringRemoteService;

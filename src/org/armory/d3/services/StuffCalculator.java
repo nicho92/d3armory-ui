@@ -8,15 +8,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.armory.d3.beans.Gem;
-import org.armory.d3.beans.Hero;
-import org.armory.d3.beans.HeroSkillContainer;
-import org.armory.d3.beans.Item;
-import org.armory.d3.beans.LegendarySet;
-import org.armory.d3.beans.MinMaxBonus;
-import org.armory.d3.beans.Ranks;
-import org.armory.d3.beans.SkillRune;
-
+import com.pihen.d3restapi.beans.Gem;
+import com.pihen.d3restapi.beans.Hero;
+import com.pihen.d3restapi.beans.HeroSkillContainer;
+import com.pihen.d3restapi.beans.Item;
+import com.pihen.d3restapi.beans.LegendarySet;
+import com.pihen.d3restapi.beans.MinMaxBonus;
+import com.pihen.d3restapi.beans.Ranks;
+import com.pihen.d3restapi.beans.SkillRune;
 import com.pihen.d3restapi.service.util.BuffSkill;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 
