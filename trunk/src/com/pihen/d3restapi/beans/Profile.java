@@ -24,7 +24,7 @@ public class Profile extends RemoteEntity {
 	private Number paragonLevel;
 	private Number paragonLevelHardcore;
 	private String battleTag;
-	private Progression progression;
+	
 	
 	
 	public Number getParagonLevel() {
@@ -93,14 +93,7 @@ public class Profile extends RemoteEntity {
 		this.lastUpdated = lastUpdated;
 	}
 
-	public Progression getProgression() {
-		return this.progression;
-	}
-
-	public void setProgression(Progression progression) {
-		this.progression = progression;
-	}
-
+	
 	public TimePlayed getTimePlayed() {
 		return this.timePlayed;
 	}
