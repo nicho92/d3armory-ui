@@ -3,9 +3,9 @@ package com.pihen.d3restapi.service.util;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.armory.d3.beans.Item;
-import org.armory.d3.beans.MinMaxBonus;
-import org.armory.d3.beans.SkillRune;
+import com.pihen.d3restapi.beans.Item;
+import com.pihen.d3restapi.beans.MinMaxBonus;
+import com.pihen.d3restapi.beans.SkillRune;
 
 public class BuffSkill {
 
