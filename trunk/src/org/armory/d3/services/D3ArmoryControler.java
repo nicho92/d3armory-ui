@@ -57,6 +57,8 @@ public class D3ArmoryControler {
 		this.conf = conf;
 	}
 
+	
+	
 	public Profile getProfil(String profile) throws D3ServerCommunicationException
 	{
 		String[] val = profile.split("#");

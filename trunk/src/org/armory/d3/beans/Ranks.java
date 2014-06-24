@@ -6,7 +6,7 @@ import java.util.Map;
 public class Ranks implements Serializable{
 
 	private String required;
-	private String[] attributes;
+	private  AttributsContainer attributes;
 	private Map<String, MinMaxBonus > attributesRaw;
 	
 	
@@ -27,14 +27,15 @@ public class Ranks implements Serializable{
 		this.attributesRaw = attributesRaw;
 	}
 
-	public String[] getAttributes() {
+	
+	public AttributsContainer getAttributes() {
 		return attributes;
 	}
 
-	public void setAttributes(String[] attributes) {
+	public void setAttributes(AttributsContainer attributes) {
 		this.attributes = attributes;
 	}
-	
+
 	public String toString()
 	{
 		return ""+getAttributesRaw();
