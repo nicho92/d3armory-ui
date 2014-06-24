@@ -99,6 +99,11 @@ public class StuffCalculator{
 		weaponDefaultAS.put("Polearm", 0.95);
 		weaponDefaultAS.put("Staff", 1.00);
 		weaponDefaultAS.put("Sword2H", 1.1);
+		weaponDefaultAS.put("Flail1H", 1.4);
+		weaponDefaultAS.put("Flail2H", 1.15);
+		
+		
+		
 		weaponDefaultAS.put("None", 0.0);
 		
 		return weaponDefaultAS;
