@@ -137,18 +137,24 @@ public class ItemPanelDetails extends JPanel {
 			
 		}
 		else if(item.isWeapon()){
-			
-			getLblStatArmorDPS().setText(new DecimalFormat("#0.0").format(item.getDps().getMoyenne()));
-			getLblTypeItemAD().setText("Damage Per Second");
-			String element = item.getEnchantedWeapon();
 			double mindmg=item.getMinDamage().getMoyenne();
 			double maxdmg=item.getMaxDamage().getMoyenne();
-			
+			String element = item.getEnchantedWeapon();
+			double multiplicateur=1;
+			if(item.getAttributesRaw().get("Damage_Weapon_Percent_Bonus#Physical")!=null)
+				multiplicateur=multiplicateur+item.getAttributesRaw().get("Damage_Weapon_Percent_Bonus#Physical").getMoyenne();;
+					
 			if(!element.equals(""))
 				{
-					mindmg+=item.getAttributesRaw().get("Damage_Weapon_Min#"+element).getMoyenne();
-					maxdmg+=item.getAttributesRaw().get("Damage_Weapon_Min#"+element).getMoyenne()+item.getAttributesRaw().get("Damage_Weapon_Delta#"+element).getMoyenne();
+					mindmg+=item.getAttributesRaw().get("Damage_Weapon_Min#"+element).getMoyenne()*multiplicateur;
+					maxdmg+=(item.getAttributesRaw().get("Damage_Weapon_Min#"+element).getMoyenne()+item.getAttributesRaw().get("Damage_Weapon_Delta#"+element).getMoyenne())*multiplicateur;
+					
 				}
+			getLblStatArmorDPS().setText(new DecimalFormat("#0.0").format(((mindmg+maxdmg)/2)*item.getAttacksPerSecond().getMoyenne()));
+			getLblTypeItemAD().setText("Damage Per Second");
+					
+			
+			
 			getLblDetailWeapon().setHtmlText(new DecimalFormat("#0").format(mindmg)+" - "+new DecimalFormat("#0").format(maxdmg)+" points de degats<br/> "+new DecimalFormat("#0.00").format(item.getAttacksPerSecond().getMoyenne())+" vitesse d'attaque","gray","white");
 		}
 		else
