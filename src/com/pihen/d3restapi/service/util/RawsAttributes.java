@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.armory.d3.beans.Attributs;
+import com.pihen.d3restapi.beans.Attributs;
 
 public class RawsAttributes  {
 	
