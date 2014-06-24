@@ -165,28 +165,28 @@ public class ItemPanelDetails extends JPanel {
 			getLblDetailWeapon().setHtmlText("","","");
 		}
 		
-		StringBuffer temp = new StringBuffer();
+		StringBuffer temp = new StringBuffer("<html> ");
 		
 		List<DisplayableItemAttributs> prim = item.getAttributes().getPrimary();
 		List<DisplayableItemAttributs> sec = item.getAttributes().getSecondary();
 		List<DisplayableItemAttributs> pass = item.getAttributes().getPassive();
-		
+		temp.append(" #Primaire <br/> ");
 		for(DisplayableItemAttributs i : prim)
 		{
 			temp.append(i.getText()+" <br/> ");
 		}
-		
+		temp.append(" #Secondaire <br/> ");
 		for(DisplayableItemAttributs i : sec)
 		{
 			temp.append(i.getText()+" <br/> ");
 		}
-		
+		temp.append(" #Passifs <br/> ");
 		for(DisplayableItemAttributs i : pass)
 		{
-			temp.append("#"+i.getText()+"<br/> ");
+			temp.append(i.getText()+"<br/> ");
 		}
-		
 		getLblDetailItem().setHtmlText(temp.toString(),"#5869D7","#BDA6CD");
+		
 		
 		//Affichage des sockets
 		updateSocketLabel();

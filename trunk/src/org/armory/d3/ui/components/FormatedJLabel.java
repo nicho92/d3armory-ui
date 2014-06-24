@@ -42,10 +42,13 @@ public class FormatedJLabel extends JLabel {
 		
 		String[] detail = texte.split(" ");
 		boolean spec=false;
+		
 		for(int i=0;i<detail.length;i++)
 		{
-			
-			
+			if(detail[i].startsWith("#")){
+				temp.append(" <font color='white'>").append(detail[i].substring(1)).append("</font> ");
+			}
+			else
 			if(detail[i].startsWith("+") || detail[i].endsWith("%")){
 				temp.append(" <font color='"+numColor+"'>").append(detail[i]).append("</font>");
 			}
