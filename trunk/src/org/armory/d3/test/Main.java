@@ -26,15 +26,15 @@ public class Main {
 		
 		Profile profile = profileService.receiveEntity(conf);
 			
-		Hero h = profile.getHeroes().get(0);
+		Hero h = profile.getHeroes().get(1);
 			conf.setHeroId(h.getId());
 			D3ArmoryControler.getInstance().setConf(conf);
 			h = heroService.receiveEntity(conf);
 
-			Item item = D3ArmoryControler.getInstance().getItemDetails(h.getItems().getLeftFinger());
+			Item item = D3ArmoryControler.getInstance().getItemDetails(h.getItems().getMainHand());
 			
 			
-			System.out.println(item.getAttributes());
+			System.out.println(item.getAttacksPerSecond());
 			
 			
 			
