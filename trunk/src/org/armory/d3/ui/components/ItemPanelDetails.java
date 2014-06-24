@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+import org.armory.d3.beans.AttributsContainer;
 import org.armory.d3.beans.Item;
 import org.armory.d3.beans.DisplayableItemAttributs;
 import org.armory.d3.beans.LegendarySet;
@@ -175,7 +176,7 @@ public class ItemPanelDetails extends JPanel {
 		
 		for(DisplayableItemAttributs i : pass)
 		{
-			temp.append(i.getText()+" <br/> ");
+			temp.append("#"+i.getText()+"<br/> ");
 		}
 		
 		getLblDetailItem().setHtmlText(temp.toString(),"#5869D7","#BDA6CD");
@@ -210,10 +211,15 @@ public class ItemPanelDetails extends JPanel {
 						tempset.append("<font color='white'>");
 					
 					tempset.append("set ("+r.getRequired()+")<br/>");
-					for(DisplayableItemAttributs d: r.getAttributes().getPrimary())
-					{
+					
+					AttributsContainer con = r.getAttributes();
+					
+					for(DisplayableItemAttributs d : con.getPrimary())
 						tempset.append("&nbsp;&nbsp;"+d.getText()+"<br/>");
-					}
+					for(DisplayableItemAttributs d : con.getSecondary())
+						tempset.append("&nbsp;&nbsp;"+d.getText()+"<br/>");
+					for(DisplayableItemAttributs d : con.getPassive())
+						tempset.append("&nbsp;&nbsp;"+d.getText()+"<br/>");
 					
 					tempset.append("</font>");
 					
@@ -340,16 +346,16 @@ public class ItemPanelDetails extends JPanel {
 						{
 							if("orange".equals(item.getDisplayColor()))
 								return new LineBorder(new Color(223,116,1), 1, true);
-						if("yellow".equals(item.getDisplayColor()))
-								return new LineBorder(Color.yellow, 1, true);
-						if("green".equals(item.getDisplayColor()))
-								return new LineBorder(Color.green, 1, true);
-						if("blue".equals(item.getDisplayColor()))
-								return new LineBorder(new Color(30,144,255), 1, true);
-						if("white".equals(item.getDisplayColor()))
-							return new LineBorder(Color.white, 1, true);
-						if("grey".equals(item.getDisplayColor()))
-							return new LineBorder(Color.gray, 1, true);
+							if("yellow".equals(item.getDisplayColor()))
+									return new LineBorder(Color.yellow, 1, true);
+							if("green".equals(item.getDisplayColor()))
+									return new LineBorder(Color.green, 1, true);
+							if("blue".equals(item.getDisplayColor()))
+									return new LineBorder(new Color(30,144,255), 1, true);
+							if("white".equals(item.getDisplayColor()))
+								return new LineBorder(Color.white, 1, true);
+							if("grey".equals(item.getDisplayColor()))
+								return new LineBorder(Color.gray, 1, true);
 						
 						}
 						return super.getBorder();

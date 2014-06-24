@@ -44,6 +44,8 @@ public class FormatedJLabel extends JLabel {
 		boolean spec=false;
 		for(int i=0;i<detail.length;i++)
 		{
+			
+			
 			if(detail[i].startsWith("+") || detail[i].endsWith("%")){
 				temp.append(" <font color='"+numColor+"'>").append(detail[i]).append("</font>");
 			}
