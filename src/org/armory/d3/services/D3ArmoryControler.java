@@ -19,11 +19,11 @@ import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.Item;
 import org.armory.d3.beans.Profile;
 
-import com.sdfteam.d3armory.service.configuration.Configuration;
-import com.sdfteam.d3armory.service.remote.RemoteService;
-import com.sdfteam.d3armory.service.remote.SpringRemoteService;
-import com.sdfteam.d3armory.service.remote.exception.D3ServerCommunicationException;
-import com.sdfteam.d3armory.service.util.EnumerationStuff;
+import com.pihen.d3restapi.service.configuration.Configuration;
+import com.pihen.d3restapi.service.remote.RemoteService;
+import com.pihen.d3restapi.service.remote.SpringRemoteService;
+import com.pihen.d3restapi.service.remote.exception.D3ServerCommunicationException;
+import com.pihen.d3restapi.service.util.EnumerationStuff;
 
 public class D3ArmoryControler {
 

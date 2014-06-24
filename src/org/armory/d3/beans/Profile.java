@@ -2,8 +2,8 @@ package org.armory.d3.beans;
 
 import java.util.List;
 
-import com.sdfteam.d3armory.service.annotation.RemoteConfiguration;
-import com.sdfteam.d3armory.service.remote.RemoteEntity;
+import com.pihen.d3restapi.service.annotation.RemoteConfiguration;
+import com.pihen.d3restapi.service.remote.RemoteEntity;
 
 /**
  * Retrieves CareerProfile battletag-name ::= <regional battletag allowed

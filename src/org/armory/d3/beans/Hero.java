@@ -1,8 +1,8 @@
 package org.armory.d3.beans;
 
 import com.google.gson.annotations.SerializedName;
-import com.sdfteam.d3armory.service.annotation.RemoteConfiguration;
-import com.sdfteam.d3armory.service.remote.RemoteEntity;
+import com.pihen.d3restapi.service.annotation.RemoteConfiguration;
+import com.pihen.d3restapi.service.remote.RemoteEntity;
 
 @RemoteConfiguration(url = "http://<host>/api/d3/profile/<battletag-name>-<battletag-code>/hero/<hero-id>?locale=<local>")
 public class Hero extends RemoteEntity {
@@ -16,7 +16,7 @@ public class Hero extends RemoteEntity {
 	private boolean hardcore;
 
 	private HeroSkillContainer skills;
-	private ItemSet items;
+	@SerializedName("items") private Stuff stuff;
 	private FollowersList followers;
 	private Stats stats;
 	private KillsInfo kills;
@@ -109,12 +109,12 @@ public class Hero extends RemoteEntity {
 		this.id = id;
 	}
 
-	public ItemSet getItems() {
-		return items;
+	public Stuff getItems() {
+		return stuff;
 	}
 
-	public void setItems(ItemSet items) {
-		this.items = items;
+	public void setItems(Stuff items) {
+		this.stuff = items;
 	}
 
 	public KillsInfo getKills() {

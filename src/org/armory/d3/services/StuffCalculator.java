@@ -17,8 +17,8 @@ import org.armory.d3.beans.MinMaxBonus;
 import org.armory.d3.beans.Ranks;
 import org.armory.d3.beans.SkillRune;
 
-import com.sdfteam.d3armory.service.util.BuffSkill;
-import com.sdfteam.d3armory.service.util.EnumerationStuff;
+import com.pihen.d3restapi.service.util.BuffSkill;
+import com.pihen.d3restapi.service.util.EnumerationStuff;
 
 public class StuffCalculator{
 	private Map<EnumerationStuff,Item> stuffs;

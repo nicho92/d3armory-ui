@@ -5,9 +5,9 @@ import org.armory.d3.beans.Item;
 import org.armory.d3.beans.Profile;
 import org.armory.d3.services.D3ArmoryControler;
 
-import com.sdfteam.d3armory.service.configuration.Configuration;
-import com.sdfteam.d3armory.service.remote.RemoteService;
-import com.sdfteam.d3armory.service.remote.SpringRemoteService;
+import com.pihen.d3restapi.service.configuration.Configuration;
+import com.pihen.d3restapi.service.remote.RemoteService;
+import com.pihen.d3restapi.service.remote.SpringRemoteService;
 
 
 public class Main {
@@ -26,12 +26,12 @@ public class Main {
 		
 		Profile profile = profileService.receiveEntity(conf);
 			
-		Hero h = profile.getHeroes().get(1);
+		Hero h = profile.getHeroes().get(0);
 			conf.setHeroId(h.getId());
 			D3ArmoryControler.getInstance().setConf(conf);
 			h = heroService.receiveEntity(conf);
 
-			Item item = D3ArmoryControler.getInstance().getItemDetails(h.getItems().getHead());
+			Item item = D3ArmoryControler.getInstance().getItemDetails(h.getItems().getLeftFinger());
 			
 			
 			System.out.println(item.getAttributes());
