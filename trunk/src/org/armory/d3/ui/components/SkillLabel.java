@@ -13,11 +13,11 @@ import javax.swing.JToolTip;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
-import org.armory.d3.beans.SkillRune;
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.SwingMainFrame;
 
-import com.sdfteam.d3armory.service.util.BuffSkill;
+import com.pihen.d3restapi.beans.SkillRune;
+import com.pihen.d3restapi.service.util.BuffSkill;
 
 public class SkillLabel extends JLabel implements MouseListener {
 

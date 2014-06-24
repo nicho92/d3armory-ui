@@ -2,8 +2,9 @@ package org.armory.d3.ui.model;
 
 import javax.swing.DefaultComboBoxModel;
 
-import org.armory.d3.beans.Hero;
 import org.armory.d3.services.D3ArmoryControler;
+
+import com.pihen.d3restapi.beans.Hero;
 
 public class ListeHeroModel extends DefaultComboBoxModel<Hero> {
 

@@ -9,8 +9,8 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import org.armory.d3.beans.Gem;
-import org.armory.d3.beans.Item;
+import com.pihen.d3restapi.beans.Gem;
+import com.pihen.d3restapi.beans.Item;
 
 public class SocketLabel extends JLabel {
 

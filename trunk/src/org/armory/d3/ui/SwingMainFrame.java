@@ -44,13 +44,6 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.table.TableRowSorter;
 
-import org.armory.d3.beans.Follower;
-import org.armory.d3.beans.FollowersList;
-import org.armory.d3.beans.Hero;
-import org.armory.d3.beans.Item;
-import org.armory.d3.beans.Profile;
-import org.armory.d3.beans.Skill;
-import org.armory.d3.beans.SkillRune;
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.services.StuffCalculator;
 import org.armory.d3.ui.components.FollowersPanel;
@@ -65,8 +58,15 @@ import org.armory.d3.ui.model.ListeHeroModel;
 import org.armory.d3.ui.model.TableauDetailsModel;
 import org.jdesktop.application.Application;
 
-import com.sdfteam.d3armory.service.remote.exception.D3ServerCommunicationException;
-import com.sdfteam.d3armory.service.util.EnumerationStuff;
+import com.pihen.d3restapi.beans.Follower;
+import com.pihen.d3restapi.beans.FollowersList;
+import com.pihen.d3restapi.beans.Hero;
+import com.pihen.d3restapi.beans.Item;
+import com.pihen.d3restapi.beans.Profile;
+import com.pihen.d3restapi.beans.Skill;
+import com.pihen.d3restapi.beans.SkillRune;
+import com.pihen.d3restapi.service.remote.exception.D3ServerCommunicationException;
+import com.pihen.d3restapi.service.util.EnumerationStuff;
 
 
 public class SwingMainFrame extends javax.swing.JFrame {

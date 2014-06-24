@@ -4,8 +4,9 @@ import java.util.Map;
 
 import javax.swing.table.DefaultTableModel;
 
-import org.armory.d3.beans.MinMaxBonus;
 import org.armory.d3.services.D3ArmoryControler;
+
+import com.pihen.d3restapi.beans.MinMaxBonus;
 
 public class TableauDetailsModel extends DefaultTableModel {
 
