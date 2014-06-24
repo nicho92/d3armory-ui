@@ -1,10 +1,10 @@
 package org.armory.d3.beans;
 
-import com.sdfteam.d3armory.service.util.EnumerationStuff;
+import com.pihen.d3restapi.service.util.EnumerationStuff;
 
 
 
-public class ItemSet {
+public class Stuff {
 	private Item bracers;
 	private Item feet;
 	private Item hands;

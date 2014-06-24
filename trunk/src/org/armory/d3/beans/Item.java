@@ -7,11 +7,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.sdfteam.d3armory.service.annotation.DataType;
-import com.sdfteam.d3armory.service.annotation.RemoteConfiguration;
-import com.sdfteam.d3armory.service.annotation.RemoteData;
-import com.sdfteam.d3armory.service.remote.RemoteEntity;
-import com.sdfteam.d3armory.service.util.RawsAttributes;
+import com.pihen.d3restapi.service.annotation.DataType;
+import com.pihen.d3restapi.service.annotation.RemoteConfiguration;
+import com.pihen.d3restapi.service.annotation.RemoteData;
+import com.pihen.d3restapi.service.remote.RemoteEntity;
+import com.pihen.d3restapi.service.util.RawsAttributes;
 
 /**
  * Represents a single item, with links to the resources.
@@ -396,13 +396,13 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		this.accountBound = accountBound;
 	}
 
-//	public Item getTransmogItem() {
-//		return transmogItem;
-//	}
-//
-//	public void setTransmogItem(Item transmogItem) {
-//		this.transmogItem = transmogItem;
-//	}
+	public Item getTransmogItem() {
+		return transmogItem;
+	}
+
+	public void setTransmogItem(Item transmogItem) {
+		this.transmogItem = transmogItem;
+	}
 
 	
 

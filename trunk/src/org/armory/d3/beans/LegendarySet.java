@@ -18,11 +18,16 @@ public class LegendarySet implements Serializable {
 		for(Item z : stuff)
 		{
 			if(z!=null)
+			{	
+				if(z.getAttributesRaw().get("Attribute_Set_Item_Discount")!=null)
+					nbPiece=nbPiece+ z.getAttributesRaw().get("Attribute_Set_Item_Discount").getMoyenne().intValue();
+				
 				for(Item s : set.getItems())
 				{
 					if(s.equals(z))
 						nbPiece++;
 				}
+			}
 		}
 		
 		return nbPiece;
