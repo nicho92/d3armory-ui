@@ -90,8 +90,8 @@ public class SocketLabel extends JLabel {
 			else
 				hasSocket=false;			
 				
-			if(item.nbGems()>0)
-				setSocket(item.getGems()[i]);
+			if(item.getGems().size()>0)
+				setSocket(item.getGems().get(i));
 			else
 				setSocket(null);
 		}

@@ -5,31 +5,66 @@ import java.util.List;
 
 public class AttributsContainer {
 
-	private ArrayList<DisplayableItemAttributs> primary;
-	private ArrayList<DisplayableItemAttributs> secondary;
-	private ArrayList<DisplayableItemAttributs> passive;
+	private List<DisplayableItemAttributs> primary;
+	private List<DisplayableItemAttributs> secondary;
+	private List<DisplayableItemAttributs> passive;
 	
 	
 	
-	public ArrayList<DisplayableItemAttributs> getPrimary() {
+
+
+	public List<DisplayableItemAttributs> getPrimary() {
 		return primary;
 	}
-	public void setPrimary(ArrayList<DisplayableItemAttributs> primary) {
+
+
+
+
+
+	public void setPrimary(List<DisplayableItemAttributs> primary) {
 		this.primary = primary;
 	}
-	public ArrayList<DisplayableItemAttributs> getSecondary() {
+
+
+
+
+
+	public List<DisplayableItemAttributs> getSecondary() {
 		return secondary;
 	}
-	public void setSecondary(ArrayList<DisplayableItemAttributs> secondary) {
+
+
+
+
+
+	public void setSecondary(List<DisplayableItemAttributs> secondary) {
 		this.secondary = secondary;
 	}
-	public ArrayList<DisplayableItemAttributs> getPassive() {
+
+
+
+
+
+	public List<DisplayableItemAttributs> getPassive() {
 		return passive;
 	}
-	public void setPassive(ArrayList<DisplayableItemAttributs> passive) {
+
+
+
+
+
+	public void setPassive(List<DisplayableItemAttributs> passive) {
 		this.passive = passive;
 	}
-	
+
+
+
+
+
+	public String toString()
+	{
+		return "prim : " + getPrimary() + " \nsec: " + getSecondary() + " \npassive : " + getPassive();
+	}
 	
 	
 	

@@ -129,15 +129,15 @@ public class StuffCalculator{
 			}
 			
 			//bonus de gems
-			if(i.nbGems()>0)
+			if(i.getGems().size()>0)
 			{
-				Gem[] gems = i.getGems();
-				for(int g=0;g<gems.length;g++)
+				List<Gem> gems = i.getGems();
+				for(Gem g : gems)
 				{
-					Iterator<String> keysg = gems[g].getAttributesRaw().keySet().iterator();
+					Iterator<String> keysg = g.getAttributesRaw().keySet().iterator();
 					String cleg = keysg.next();
 					compteur++;
-					statsCalculator.put(cleg +"_GEM_"+i.getName().replaceAll(" ", "-")+"_"+compteur, gems[g].getAttributesRaw().get(cleg));
+					statsCalculator.put(cleg +"_GEM_"+i.getName().replaceAll(" ", "-")+"_"+compteur, g.getAttributesRaw().get(cleg));
 				}
 			}
 			//fin des gems
@@ -305,7 +305,8 @@ public class StuffCalculator{
 		double chance_cc=0.05+filterStats("Crit_Percent", null);
 		
 		double degat_cc=0.5+filterStats("Crit_Damage", null);
-		double stat_base=hero.getBaseStatPrimary()+filterStats( hero.getPrimaryStat(),null);
+		double stat_base=0;
+		//double stat_base=hero.getStats().()+filterStats( hero.getPrimaryStat(),null);
 		double mainI=0;
 		
 		if(stuffs.get(EnumerationStuff.MAIN_HAND)!=null)

@@ -43,7 +43,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	//todo randomAffixes
 	private List<Gem> gems;
 	//todo socketEffects
-	//private Item transmogItem;
+	private Item transmogItem;
 	
 	
 	private MinMaxBonus dps;

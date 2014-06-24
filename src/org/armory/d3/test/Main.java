@@ -1,10 +1,5 @@
 package org.armory.d3.test;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.armory.d3.beans.Artisans;
 import org.armory.d3.beans.Hero;
 import org.armory.d3.beans.Item;
 import org.armory.d3.beans.Profile;
@@ -13,7 +8,6 @@ import org.armory.d3.services.D3ArmoryControler;
 import com.sdfteam.d3armory.service.configuration.Configuration;
 import com.sdfteam.d3armory.service.remote.RemoteService;
 import com.sdfteam.d3armory.service.remote.SpringRemoteService;
-import com.sdfteam.d3armory.service.util.EnumerationStuff;
 
 
 public class Main {
@@ -25,22 +19,26 @@ public class Main {
 					  conf.setBattleTagCode(new Long(2603));
 					  conf.setHost("eu.battle.net");
 					  conf.setLocal("fr_FR");
-					  
+		
 		RemoteService<Profile> profileService = new SpringRemoteService(Profile.class);
 		RemoteService<Hero> heroService = new SpringRemoteService(Hero.class);
 		
-		Profile profile = profileService.receiveEntity(conf);
 		
+		Profile profile = profileService.receiveEntity(conf);
 			
-			Hero hero = profile.getHeroes().get(0);
-				 conf.setHeroId(hero.getId());
-				 D3ArmoryControler.getInstance().setConf(conf);
-				 
-				 hero = heroService.receiveEntity(conf);
-				 System.out.println(hero.getName() + " "+ hero.getClazz() + " pg:"+ hero.getParagonLevel());
-				 
-				 System.out.println("============================================================================================");
-					Item head = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getHead());
+		Hero h = profile.getHeroes().get(1);
+			conf.setHeroId(h.getId());
+			D3ArmoryControler.getInstance().setConf(conf);
+			h = heroService.receiveEntity(conf);
+
+			Item item = D3ArmoryControler.getInstance().getItemDetails(h.getItems().getHead());
+			
+			
+			System.out.println(item.getAttributes());
+			
+			
+			
+				 /*	Item head = D3ArmoryControler.getInstance().getItemDetails(h.getItems().getHead());
 					Item foot = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getFeet());
 					Item shoulders = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getShoulders());
 					Item gants = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getHands());
@@ -72,12 +70,7 @@ public class Main {
 	
 					D3ArmoryControler.getInstance().setSelectedHero(hero);
 					D3ArmoryControler.getInstance().initCalculator(stuffs);
-					
-					List<Artisans> list = profile.getArtisans();
-						for(Artisans a : list)
-						{
-							System.out.println(a.getSlug());
-						}
-				
+					*/
+									
 		}
 }

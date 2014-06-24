@@ -1,6 +1,7 @@
 package com.sdfteam.d3armory.service.remote.gson;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
@@ -29,15 +30,9 @@ import com.sdfteam.d3armory.service.remote.exception.D3ServerCommunicationExcept
 public class SpringGsonConverter<T> implements HttpMessageConverter<T> {
 
 	private Class<T> clazz;
+	
 	private Gson gson;
 
-	/**
-	 * Creates the converter confiured with the requested class to convert with
-	 * Gson.
-	 * 
-	 * @param clazz
-	 *            the Class to use.
-	 */
 	public SpringGsonConverter(Class<T> clazz) {
 		this.clazz = clazz;
 		this.gson = new Gson();
@@ -55,16 +50,16 @@ public class SpringGsonConverter<T> implements HttpMessageConverter<T> {
 		return Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON });
 	}
 
-	public T read(Class<? extends T> clazz, HttpInputMessage message)
-			throws IOException, HttpMessageNotReadableException {
+	public T read(Class<? extends T> clazz, HttpInputMessage message) throws IOException, HttpMessageNotReadableException {
+	
+		
 		Reader jsonReader = new InputStreamReader(message.getBody(),"UTF-8");
 		T resultObject = gson.fromJson(jsonReader, clazz);
 		checkErrorEntity(resultObject);
 		return resultObject;
 	}
 
-	private void checkErrorEntity(T resultObject)
-			throws D3ServerCommunicationException {
+	private void checkErrorEntity(T resultObject) throws D3ServerCommunicationException {
 		if (resultObject instanceof RemoteEntity) {
 			RemoteEntity errorEntity = (RemoteEntity) resultObject;
 			if (errorEntity.getCode() != null) {

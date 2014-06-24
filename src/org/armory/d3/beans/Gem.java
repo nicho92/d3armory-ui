@@ -1,13 +1,14 @@
 package org.armory.d3.beans;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
 
 public class Gem implements Serializable{
 
 	private Item item;
-	private String[] attributes;
+	private AttributsContainer attributes;
 	private Map<String, MinMaxBonus > attributesRaw;
 	
 	
@@ -23,12 +24,13 @@ public class Gem implements Serializable{
 	public void setItem(Item item) {
 		this.item = item;
 	}
-	public String[] getAttributes() {
+	public AttributsContainer getAttributes() {
 		return attributes;
 	}
-	public void setAttributes(String[] attributes) {
+	public void setAttributes(AttributsContainer attributes) {
 		this.attributes = attributes;
 	}
+	
 	
 //	public final static String[] getType()
 //	{

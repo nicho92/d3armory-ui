@@ -159,25 +159,24 @@ public class ItemPanelDetails extends JPanel {
 		
 		StringBuffer temp = new StringBuffer();
 		
-		DisplayableItemAttributs[] prim = item.getAttributes().getPrimary();
-		DisplayableItemAttributs[] sec = item.getAttributes().getSecondary();
-		DisplayableItemAttributs[] pass = item.getAttributes().getPassive();
+		List<DisplayableItemAttributs> prim = item.getAttributes().getPrimary();
+		List<DisplayableItemAttributs> sec = item.getAttributes().getSecondary();
+		List<DisplayableItemAttributs> pass = item.getAttributes().getPassive();
 		
-		for(int i=0;i<prim.length;i++)
+		for(DisplayableItemAttributs i : prim)
 		{
-			temp.append(prim[i].getText()+" <br/> ");
+			temp.append(i.getText()+" <br/> ");
 		}
 		
-		for(int i=0;i<sec.length;i++)
+		for(DisplayableItemAttributs i : sec)
 		{
-			temp.append(sec[i].getText()+" <br/> ");
+			temp.append(i.getText()+" <br/> ");
 		}
 		
-		for(int i=0;i<pass.length;i++)
+		for(DisplayableItemAttributs i : pass)
 		{
-			temp.append(pass[i].getText()+" <br/> ");
+			temp.append(i.getText()+" <br/> ");
 		}
-		
 		
 		getLblDetailItem().setHtmlText(temp.toString(),"#5869D7","#BDA6CD");
 		
@@ -211,9 +210,9 @@ public class ItemPanelDetails extends JPanel {
 						tempset.append("<font color='white'>");
 					
 					tempset.append("set ("+r.getRequired()+")<br/>");
-					for(int att=0;att<r.getAttributes().length;att++)
+					for(DisplayableItemAttributs d: r.getAttributes().getPrimary())
 					{
-						tempset.append("&nbsp;&nbsp;"+r.getAttributes()[att]+"<br/>");
+						tempset.append("&nbsp;&nbsp;"+d.getText()+"<br/>");
 					}
 					
 					tempset.append("</font>");
@@ -242,8 +241,8 @@ public class ItemPanelDetails extends JPanel {
 			lblSock1.setVisible(true);
 			
 			lblSock1.setItem(item,0);
-			if(item.nbGems()>0)
-				lblSock1.setText(item.getGems()[0].getAttributes()[0]);
+			if(item.getGems().size()>0)
+				lblSock1.setText(item.getGems().get(0).getAttributes().getPrimary().get(0).getText());
 			else
 				lblSock1.setText("            vide");
 		}
@@ -256,8 +255,8 @@ public class ItemPanelDetails extends JPanel {
 		{
 			lblSock2.setVisible(true);
 			lblSock2.setItem(item,1);
-			if(item.nbGems()>1)
-				lblSock2.setText(item.getGems()[1].getAttributes()[0]);
+			if(item.getGems().size()>1)
+				lblSock2.setText(item.getGems().get(1).getAttributes().getPrimary().get(0).getText());
 			else
 				lblSock2.setText("            vide");
 		}
@@ -270,8 +269,8 @@ public class ItemPanelDetails extends JPanel {
 		{
 			lblSock3.setVisible(true);
 			lblSock3.setItem(item,2);
-			if(item.nbGems()>2)
-				lblSock3.setText(item.getGems()[2].getAttributes()[0]);
+			if(item.getGems().size()>2)
+				lblSock3.setText(item.getGems().get(2).getAttributes().getPrimary().get(0).getText());
 			else
 				lblSock3.setText("            vide");
 		}
