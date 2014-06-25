@@ -66,6 +66,28 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		attributesRaw=new HashMap<String, MinMaxBonus >();
 	}
 
+	public double getRealDPS()
+	{
+		
+		double mindmg=getMinDamage().getMoyenne();
+		double maxdmg=getMaxDamage().getMoyenne();
+		
+		String element = getEnchantedWeapon();
+		double multiplicateur=1;
+		
+		if(getAttributesRaw().get("Damage_Weapon_Percent_Bonus#Physical")!=null)
+			multiplicateur=multiplicateur+getAttributesRaw().get("Damage_Weapon_Percent_Bonus#Physical").getMoyenne();;
+				
+		if(!element.equals(""))
+			{
+				mindmg+=getAttributesRaw().get("Damage_Weapon_Min#"+element).getMoyenne()*multiplicateur;
+				maxdmg+=(getAttributesRaw().get("Damage_Weapon_Min#"+element).getMoyenne()+getAttributesRaw().get("Damage_Weapon_Delta#"+element).getMoyenne())*multiplicateur;
+				
+			}
+	
+		return ((mindmg+maxdmg)/2)*getAttacksPerSecond().getMoyenne();
+	}
+	
 	
 	public int nbSockets(){
 		if(attributesRaw.get("Sockets")==null)
