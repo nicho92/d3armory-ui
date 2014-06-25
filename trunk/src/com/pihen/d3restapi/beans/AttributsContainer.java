@@ -1,6 +1,5 @@
 package com.pihen.d3restapi.beans;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AttributsContainer {

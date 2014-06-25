@@ -23,6 +23,6 @@ public class ItemType implements Serializable {
 		
 		public String toString()
 		{
-			return id + " 2H=" + twoHanded; 
+			return getId(); 
 		}
 }
