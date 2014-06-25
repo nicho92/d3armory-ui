@@ -40,7 +40,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	private MinMaxBonus armor;
 	private AttributsContainer attributes;
 	private Map<String, MinMaxBonus > attributesRaw;
-	//todo randomAffixes
+	private List<AffixesContainer> randomAffixes;
 	private List<Gem> gems;
 	//todo socketEffects
 	private Item transmogItem;
@@ -162,7 +162,15 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		this.set = set;
 	}
 
-	
+	public List<AffixesContainer> getRandomAffixes() {
+		return randomAffixes;
+	}
+
+	public void setRandomAffixes(List<AffixesContainer> randomAffixes) {
+		this.randomAffixes = randomAffixes;
+	}
+
+
 
 	public MinMaxBonus getAttacksPerSecond() {
 		return attacksPerSecond;
