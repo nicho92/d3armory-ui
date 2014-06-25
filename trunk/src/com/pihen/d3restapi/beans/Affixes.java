@@ -1,8 +1,9 @@
 package com.pihen.d3restapi.beans;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public class Affixes {
+public class Affixes implements Serializable{
 
 	private AttributsContainer attributes;
 	private Map<String, MinMaxBonus > attributesRaw;

@@ -1,6 +1,8 @@
 package com.pihen.d3restapi.beans;
 
-public class DisplayableItemAttributs {
+import java.io.Serializable;
+
+public class DisplayableItemAttributs  implements Serializable{
 	
 	private String text;
 	private String affixType;

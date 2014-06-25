@@ -1,8 +1,9 @@
 package com.pihen.d3restapi.beans;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class AffixesContainer {
+public class AffixesContainer implements Serializable {
 
 	private List<Affixes> oneOf;
 
