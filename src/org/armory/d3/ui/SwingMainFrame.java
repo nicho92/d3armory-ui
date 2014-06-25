@@ -148,6 +148,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SkillLabel labSkilL7;
 	private SkillLabel labSkilL8;
 	private SkillLabel labSkilL9;
+	private SkillLabel labSkilL10;
 	private Hero hero;
 	private JPanel panneauDPS;
 	private Map<EnumerationStuff,Item> stuffs;
@@ -626,7 +627,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		getLblSkill7().setSkillRune(hero.getSkills().getPassive().get(0));
 		getLblSkill8().setSkillRune(hero.getSkills().getPassive().get(1));
 		getLblSkill9().setSkillRune(hero.getSkills().getPassive().get(2));
-		
+		getLblSkill10().setSkillRune(hero.getSkills().getPassive().get(3));
 		
 		Item head = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHead());
 		lblHead.setItem(head,EnumerationStuff.HEAD);
@@ -1000,6 +1001,15 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		return labSkilL9;
 	}
 	
+	private SkillLabel getLblSkill10()
+	{
+		if(labSkilL10==null){
+			labSkilL10 = new SkillLabel(true);
+			labSkilL10.setBounds(240, 528, 64, 64);
+		}
+		return labSkilL10;
+	}
+	
 	
 	private ItemLabel getLblShoulders() {
 		if(lblShoulders == null) {
@@ -1354,10 +1364,12 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				panneauDessinHero.add(getLblSkill6());
 				
 				
-				//actif
+				//passif
 				panneauDessinHero.add(getLblSkill7());
 				panneauDessinHero.add(getLblSkill8());
 				panneauDessinHero.add(getLblSkill9());
+				panneauDessinHero.add(getLblSkill10());
+				
 				
 				panneauDessinHero.add(getLblLoader());
 				
