@@ -13,7 +13,6 @@ public class BuffSkill {
 		
 	public static Map<String,MinMaxBonus> getBuff(SkillRune a, Map<EnumerationStuff,Item> stuffs) {
 		
-		//System.out.println("DEBUG : if(a.getSkill().getId().equals("+a.getSkill().getId()+")");
 		
 		buffs = new HashMap<String, MinMaxBonus>();
 		
