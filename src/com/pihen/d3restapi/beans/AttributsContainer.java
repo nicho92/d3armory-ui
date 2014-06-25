@@ -1,8 +1,9 @@
 package com.pihen.d3restapi.beans;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class AttributsContainer {
+public class AttributsContainer  implements Serializable {
 
 	private List<DisplayableItemAttributs> primary;
 	private List<DisplayableItemAttributs> secondary;
