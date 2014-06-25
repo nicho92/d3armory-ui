@@ -34,29 +34,6 @@ public class Main {
 			Item item = D3ArmoryControler.getInstance().getItemDetails(h.getItems().getMainHand());
 			
 			
-			double mindmg=item.getMinDamage().getMoyenne();
-			double maxdmg=item.getMaxDamage().getMoyenne();
-			
-			
-			
-			
-			String element = item.getEnchantedWeapon();
-			double multiplicateur=1;
-			
-			if(item.getAttributesRaw().get("Damage_Weapon_Percent_Bonus#Physical")!=null)
-				multiplicateur=multiplicateur+item.getAttributesRaw().get("Damage_Weapon_Percent_Bonus#Physical").getMoyenne();;
-					
-			if(!element.equals(""))
-				{
-					mindmg+=item.getAttributesRaw().get("Damage_Weapon_Min#"+element).getMoyenne()*multiplicateur;
-					maxdmg+=(item.getAttributesRaw().get("Damage_Weapon_Min#"+element).getMoyenne()+item.getAttributesRaw().get("Damage_Weapon_Delta#"+element).getMoyenne())*multiplicateur;
-					
-				}
-			System.out.println(item.getName());
-			System.out.println(((mindmg+maxdmg)/2)*item.getAttacksPerSecond().getMoyenne());
-			System.out.println(mindmg + "-" + maxdmg);
-			System.out.println(item.getAttacksPerSecond());
-			
 			
 				 /*	Item head = D3ArmoryControler.getInstance().getItemDetails(h.getItems().getHead());
 					Item foot = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getFeet());

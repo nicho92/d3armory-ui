@@ -150,7 +150,7 @@ public class ItemPanelDetails extends JPanel {
 					maxdmg+=(item.getAttributesRaw().get("Damage_Weapon_Min#"+element).getMoyenne()+item.getAttributesRaw().get("Damage_Weapon_Delta#"+element).getMoyenne())*multiplicateur;
 					
 				}
-			getLblStatArmorDPS().setText(new DecimalFormat("#0.0").format(((mindmg+maxdmg)/2)*item.getAttacksPerSecond().getMoyenne()));
+			getLblStatArmorDPS().setText(new DecimalFormat("#0.0").format(item.getRealDPS()));
 			getLblTypeItemAD().setText("Damage Per Second");
 					
 			
