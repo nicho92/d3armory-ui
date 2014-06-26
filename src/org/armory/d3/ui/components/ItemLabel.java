@@ -52,6 +52,7 @@ public class ItemLabel extends JLabel implements MouseListener {
     {
     	this.size=size;
     	addMouseListener(this);
+    	
     }
     
     public Item getItem() {
@@ -72,20 +73,6 @@ public class ItemLabel extends JLabel implements MouseListener {
 		this.gear = gear;
 	}
 
-//	public Image getImage(){
-//		if(item != null)
-//			try {
-//				URL url = new URL("http://media.blizzard.com/d3/icons/items/"+size+"/"+item.getIcon()+".png");
-//				return new ImageIcon(url).getImage();
-//			} catch (Exception e1) {
-//				e1.printStackTrace();
-//				return new ImageIcon().getImage();
-//			}
-//			return null;
-//	}
-	
-	
-	
 	public Icon getIcon(boolean off,String size) {
 		setHorizontalAlignment(JLabel.CENTER);
 		setVerticalAlignment(JLabel.CENTER);
@@ -161,6 +148,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 			    	g2d.setPaint( paint );
 			    	g2d.fillRect( 0, 0, width, height );
 			    	g2d.setPaint( oldPaint );
+			    	
 			    	
 	  	}
 	    super.paint( g );
