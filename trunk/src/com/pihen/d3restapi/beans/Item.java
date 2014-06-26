@@ -444,6 +444,33 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		return getType() +" - " + getName();
 	}
 	
-
+	public static Map<String,Double> getWeaponDefaultAS()
+	{
+		
+		Map<String,Double>weaponDefaultAS=new HashMap<String,Double>();
+			weaponDefaultAS.put("Axe", 1.30);
+			weaponDefaultAS.put("HandXbow", 1.60);
+			weaponDefaultAS.put("Dagger", 1.50);
+			weaponDefaultAS.put("Mace", 1.20);
+			weaponDefaultAS.put("FistWeapon", 1.40);
+			weaponDefaultAS.put("MightyWeapon1H", 1.30);
+			weaponDefaultAS.put("Spear", 1.20);
+			weaponDefaultAS.put("Sword", 1.40);
+			weaponDefaultAS.put("CeremonialDagger",1.4);
+			weaponDefaultAS.put("Wand", 1.40);
+			weaponDefaultAS.put("Axe2H", 1.00);
+			weaponDefaultAS.put("Bow", 1.40);
+			weaponDefaultAS.put("Daibo", 1.10);
+			weaponDefaultAS.put("Crossbow", 1.10);
+			weaponDefaultAS.put("Mace2H", 0.90);
+			weaponDefaultAS.put("MightyWeapon2H", 1.00);
+			weaponDefaultAS.put("Polearm", 0.95);
+			weaponDefaultAS.put("Staff", 1.00);
+			weaponDefaultAS.put("Sword2H", 1.1);
+			weaponDefaultAS.put("Flail1H", 1.4);
+			weaponDefaultAS.put("Flail2H", 1.15);
+			weaponDefaultAS.put("None", 0.0);
+		return weaponDefaultAS;
+	}
 	
 }
