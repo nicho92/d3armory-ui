@@ -28,7 +28,7 @@ public class StuffCalculator{
 	private boolean twohanded;
 	int countweapon=0;
 	private Map<String, MinMaxBonus> buffs;
-	private static Map<String,Double> weaponDefaultAS=new HashMap<String,Double>();
+	private Map<String,Double> weaponDefaultAS=new HashMap<String,Double>();
 	
 	private Map<String,Double> mapResultat ;
 	
@@ -76,44 +76,13 @@ public class StuffCalculator{
 		return statsCalculator;
 	}
 	
-	public static Map<String,Double> getWeaponDefaultAS()
-	{
-		
-		weaponDefaultAS=new HashMap<String,Double>();
-		weaponDefaultAS.put("Axe", 1.30);
-		weaponDefaultAS.put("HandXbow", 1.60);
-		weaponDefaultAS.put("Dagger", 1.50);
-		weaponDefaultAS.put("Mace", 1.20);
-		weaponDefaultAS.put("FistWeapon", 1.40);
-		weaponDefaultAS.put("MightyWeapon1H", 1.30);
-		weaponDefaultAS.put("Spear", 1.20);
-		weaponDefaultAS.put("Sword", 1.40);
-		weaponDefaultAS.put("CeremonialDagger",1.4);
-		weaponDefaultAS.put("Wand", 1.40);
-		weaponDefaultAS.put("Axe2H", 1.00);
-		weaponDefaultAS.put("Bow", 1.40);
-		weaponDefaultAS.put("Daibo", 1.10);
-		weaponDefaultAS.put("Crossbow", 1.10);
-		weaponDefaultAS.put("Mace2H", 0.90);
-		weaponDefaultAS.put("MightyWeapon2H", 1.00);
-		weaponDefaultAS.put("Polearm", 0.95);
-		weaponDefaultAS.put("Staff", 1.00);
-		weaponDefaultAS.put("Sword2H", 1.1);
-		weaponDefaultAS.put("Flail1H", 1.4);
-		weaponDefaultAS.put("Flail2H", 1.15);
-		
-		
-		
-		weaponDefaultAS.put("None", 0.0);
-		
-		return weaponDefaultAS;
-	}
+	
 	
 	
 	public void init()
 	{
 		
-		StuffCalculator.getWeaponDefaultAS();//init 
+		weaponDefaultAS=Item.getWeaponDefaultAS();//init 
 		
 		Map<LegendarySet,Integer> piecesbyset=new HashMap<LegendarySet,Integer>();
 		int compteur=0;
@@ -157,7 +126,7 @@ public class StuffCalculator{
 			
 		}//fin de boucle sur les items
 		
-		//on ajout les bonus de set
+		//on ajoute les bonus de set
 		Iterator<LegendarySet> it = piecesbyset.keySet().iterator();
 		while(it.hasNext())
 		{
@@ -309,8 +278,10 @@ public class StuffCalculator{
 		double chance_cc=0.05+filterStats("Crit_Percent", null);
 		
 		double degat_cc=0.5+filterStats("Crit_Damage", null);
-		double stat_base=0;
-		//double stat_base=hero.getStats().()+filterStats( hero.getPrimaryStat(),null);
+		
+		
+		
+		double stat_base=hero.getPrimaryStatValue()+filterStats( hero.getPrimaryStat(),null);
 		double mainI=0;
 		
 		if(stuffs.get(EnumerationStuff.MAIN_HAND)!=null)
