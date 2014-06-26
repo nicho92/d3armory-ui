@@ -13,7 +13,6 @@ public class BuffSkill {
 		
 	public static Map<String,MinMaxBonus> getBuff(SkillRune a, Map<EnumerationStuff,Item> stuffs) {
 		
-		
 		buffs = new HashMap<String, MinMaxBonus>();
 		
 		if(a==null)
