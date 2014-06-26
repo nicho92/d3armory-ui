@@ -1,4 +1,4 @@
-package org.armory.d3.test;
+package com.pihen.d3restapi.test;
 
 import org.armory.d3.services.D3ArmoryControler;
 
