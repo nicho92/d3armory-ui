@@ -182,4 +182,23 @@ public class Hero extends RemoteEntity {
 		return name;
 	}
 
+
+	public double getPrimaryStatValue() {
+		if("demon-hunter".equals(getClazz())) 
+			return getStats().getDexterity(); 
+		if("barbarian".equals(getClazz()))
+			return getStats().getStrength(); 
+		if("monk".equals(getClazz()))
+			return getStats().getDexterity(); 
+		if("wizard".equals(getClazz()))
+			return getStats().getIntelligence(); 
+		if("witch-doctor".equals(getClazz()))
+			return getStats().getIntelligence(); 
+		if("crusader".equals(getClazz()))
+			return getStats().getStrength();
+		
+		
+		return 0.0;
+	}
+
 }
