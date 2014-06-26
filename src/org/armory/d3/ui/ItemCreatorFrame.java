@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.swing.BoxLayout;
 import javax.swing.ComboBoxModel;
@@ -166,9 +167,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 							}
 							{
 								ComboBoxModel cboTypeModel = 
-										new DefaultComboBoxModel(
-												new String[] { "Axe","HandXbow","Dagger","Mace","FistWeapon","MightyWeapon1H","Spear","Sword","CeremonialDagger","Wand","Axe2H","Bow","Daibo","Crossbow","Mace2H","MightyWeapon2H","Polearm","Staff","Sword2H",
-															   "Ring","Hat", "Shoulders", "Torso", "Bracer", "Glove", "Belt", "Pant", "Boot","" });
+										new DefaultComboBoxModel( Item.getWeaponDefaultAS().keySet().toArray(new String[Item.getWeaponDefaultAS().size()]) );
 								
 								
 								if(getItem().getType()!=null)
@@ -189,7 +188,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 										else
 										{
 											getItem().setDps(new MinMaxBonus(0));
-											getItem().addAttributesRaw("Attacks_Per_Second_Item", new MinMaxBonus(StuffCalculator.getWeaponDefaultAS().get(((JComboBox)evt.getSource()).getSelectedItem().toString())));
+											getItem().addAttributesRaw("Attacks_Per_Second_Item", new MinMaxBonus(Item.getWeaponDefaultAS().get(((JComboBox)evt.getSource()).getSelectedItem().toString())));
 										}
 										refreshItem();
 									}
