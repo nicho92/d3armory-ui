@@ -10,7 +10,6 @@ import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Map;
-import java.util.Vector;
 
 import javax.swing.BoxLayout;
 import javax.swing.ComboBoxModel;
