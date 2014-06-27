@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Paint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +17,7 @@ import java.util.List;
 import javax.swing.GrayFilter;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -62,6 +64,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 	public void setItem(Item i,EnumerationStuff e) {
 		this.item = i;
 		this.gear = e;
+		this.add(new JLabel("COUCOU"));
 	}
 
 	
@@ -85,7 +88,23 @@ public class ItemLabel extends JLabel implements MouseListener {
 				return i;
 			else
 				return new ImageIcon(GrayFilter.createDisabledImage((i).getImage()));
-			
+		
+		} catch (Exception e1) {
+			return new ImageIcon();
+		}
+		return super.getIcon();
+	}
+	
+	public Icon getTransmogIcon(String size) {
+		setHorizontalAlignment(JLabel.CENTER);
+		setVerticalAlignment(JLabel.CENTER);
+
+		if(item != null)
+		try {
+			URL url = new URL("http://media.blizzard.com/d3/icons/items/"+size+"/"+item.getTransmogItem().getIcon()+".png");
+			ImageIcon i = new ImageIcon(url);
+			return i;
+		
 		} catch (Exception e1) {
 			return new ImageIcon();
 		}
@@ -148,7 +167,14 @@ public class ItemLabel extends JLabel implements MouseListener {
 			    	g2d.setPaint( paint );
 			    	g2d.fillRect( 0, 0, width, height );
 			    	g2d.setPaint( oldPaint );
+			    
 			    	
+			    	if(item.getTransmogItem()!=null)
+					{
+			    		Image i = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/bg-transmog.gif")).getImage();
+			    		g2d.drawImage(i, this.getWidth()-13, 0, null);
+					}
+						
 			    	
 	  	}
 	    super.paint( g );
@@ -178,8 +204,14 @@ public class ItemLabel extends JLabel implements MouseListener {
 
 
 	public void mouseClicked(MouseEvent e) {
-		((SwingMainFrame)this.getTopLevelAncestor()).getPanelItemDetails().showItem(item);
+		if(item.getTransmogItem()!=null)
+		{
+			((SwingMainFrame)this.getTopLevelAncestor()).getPanelItemDetails().showItem(item.getTransmogItem());
+			((SwingMainFrame)this.getTopLevelAncestor()).getPanelItemDetails().getLblIcon().setIcon(this.getTransmogIcon(SIZE_LARGE));
+			((SwingMainFrame)this.getTopLevelAncestor()).getPanelItemDetails().repaint();
 		}
+		
+	}
 
 	public void mouseEntered(MouseEvent e) {
 		if(item==null)
