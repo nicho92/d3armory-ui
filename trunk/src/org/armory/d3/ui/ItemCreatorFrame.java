@@ -210,7 +210,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								}
 								else
 								{
-									cboQualityModel.setSelectedItem(getItem().getTypeOfObject());
+									cboQualityModel.setSelectedItem(getItem().getRarity());
 								}
 								
 								cboQuality.setPreferredSize(new java.awt.Dimension(148, 75));
