@@ -256,7 +256,12 @@ public class ItemPanelDetails extends JPanel {
 			
 			lblSock1.setItem(item,0);
 			if(item.getGems().size()>0)
-				lblSock1.setText(item.getGems().get(0).getAttributes().getPrimary().get(0).getText());
+			{
+				if(item.getType().getId().startsWith("Helm_"))
+					lblSock1.setText(item.getGems().get(0).getAttributes().getSecondary().get(0).getText());
+				else	
+					lblSock1.setText(item.getGems().get(0).getAttributes().getPrimary().get(0).getText());
+			}
 			else
 				lblSock1.setText("            vide");
 		}
