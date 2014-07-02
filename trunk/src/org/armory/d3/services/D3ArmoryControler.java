@@ -23,6 +23,7 @@ import com.pihen.d3restapi.service.remote.RemoteService;
 import com.pihen.d3restapi.service.remote.SpringRemoteService;
 import com.pihen.d3restapi.service.remote.exception.D3ServerCommunicationException;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
+import com.pihen.d3restapi.service.util.StuffCalculator;
 
 public class D3ArmoryControler {
 
