@@ -123,8 +123,9 @@ public class ItemPanelDetails extends JPanel {
 		resizeFont(getLblTypeItem(), Font.PLAIN);
 		
 		String levelItem = "Level: "+item.getItemLevel()+" <br/>Level Min: "+item.getRequiredLevel();
-		getLblItemLevel().setHtmlText(levelItem, "#BAB348", "white");
-		
+		getLblItemLevel().init();
+		getLblItemLevel().addText(levelItem, "#BAB348", "white");
+		getLblItemLevel().applyText();
 		getLblStatArmorDPS().setForeground(Color.WHITE);
 		getLblStatArmorDPS().setFont(new Font("Palatino Linotype", Font.PLAIN, 40));
 		
@@ -154,15 +155,18 @@ public class ItemPanelDetails extends JPanel {
 			getLblTypeItemAD().setText("Damage Per Second");
 					
 			
-			
-			getLblDetailWeapon().setHtmlText(new DecimalFormat("#0").format(mindmg)+" - "+new DecimalFormat("#0").format(maxdmg)+" points de degats<br/> "+new DecimalFormat("#0.00").format(item.getAttacksPerSecond().getMoyenne())+" vitesse d'attaque","gray","white");
+			getLblDetailWeapon().init();
+			getLblDetailWeapon().addText(new DecimalFormat("#0").format(mindmg)+" - "+new DecimalFormat("#0").format(maxdmg)+" points de degats<br/> "+new DecimalFormat("#0.00").format(item.getAttacksPerSecond().getMoyenne())+" vitesse d'attaque","gray","white");
+			getLblDetailWeapon().applyText();
 		}
 		else
 		{
 			getLblStatArmorDPS().setText("");
 			getLblTypeItemAD().setText("");
 			getLblDetailWeapon().setText("");
-			getLblDetailWeapon().setHtmlText("","","");
+			getLblDetailWeapon().init();
+			getLblDetailWeapon().addText("", "", "");
+			getLblDetailWeapon().applyText();
 		}
 		
 		StringBuffer temp = new StringBuffer("<html> ");
@@ -170,22 +174,34 @@ public class ItemPanelDetails extends JPanel {
 		List<DisplayableItemAttributs> prim = item.getAttributes().getPrimary();
 		List<DisplayableItemAttributs> sec = item.getAttributes().getSecondary();
 		List<DisplayableItemAttributs> pass = item.getAttributes().getPassive();
-		temp.append(" #Primaire <br/> ");
+		
+		getLblDetailItem().init();
+		
+		//temp.append(" #Primaire <br/> ");
+		getLblDetailItem().addText("Primaire ","white","white");
 		for(DisplayableItemAttributs i : prim)
 		{
-			temp.append(i.getText()+" <br/> ");
+			//temp.append(i.getText()+" <br/> ");
+			getLblDetailItem().addText(i.getText(), i.getColor(), "#BDA6CD");
 		}
-		temp.append(" #Secondaire <br/> ");
+		
+		//temp.append(" #Secondaire <br/> ");
+		getLblDetailItem().addText("Secondaire ","white","white");
 		for(DisplayableItemAttributs i : sec)
 		{
-			temp.append(i.getText()+" <br/> ");
+			//temp.append(i.getText()+" <br/> ");
+			getLblDetailItem().addText(i.getText(), i.getColor(), "#BDA6CD");
 		}
-		temp.append(" #Passifs <br/> ");
+		getLblDetailItem().addText("Passif ","white","white");
+		//temp.append(" #Passifs <br/> ");
 		for(DisplayableItemAttributs i : pass)
 		{
-			temp.append(i.getText()+"<br/> ");
+			//temp.append(i.getText()+"<br/> ");
+			getLblDetailItem().addText(i.getText(), i.getColor(), "#BDA6CD");
 		}
-		getLblDetailItem().setHtmlText(temp.toString(),"#5869D7","#BDA6CD");
+		
+		//getLblDetailItem().setHtmlText(temp.toString(),"#5869D7","#BDA6CD");
+		getLblDetailItem().applyText();
 		
 		
 		//Affichage des sockets

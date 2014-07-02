@@ -375,7 +375,9 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 					
 						panneauDetailDPS.add(lblStat1);
 						lblStat1.setPreferredSize(new java.awt.Dimension(230, 179));
-						lblStat1.setHtmlText(getDetail(D3ArmoryControler.getInstance().getCalculator().getStatCalculator()), "white", "green");
+						lblStat1.init();
+						lblStat1.addText(getDetail(D3ArmoryControler.getInstance().getCalculator().getStatCalculator()), "white", "green");
+						lblStat1.applyText();
 					}
 					{
 						
@@ -466,8 +468,10 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 			
 			StuffCalculator a = D3ArmoryControler.getInstance().getCalculator();
 			StuffCalculator b = a.compareStuffs(gear, getItem());
-		
-			lblStat2.setHtmlText(getDetail(b.getStatCalculator()), "white", "red");
+			lblStat2.init();
+			lblStat2.addText(getDetail(b.getStatCalculator()), "white", "red");
+			lblStat2.applyText();
+			
 			lblStatDiff.setText("<html>"+getDetailDiff(a.getStatCalculator(),b.getStatCalculator()));
 			btnSauvegarder.setEnabled(true);
 	}
