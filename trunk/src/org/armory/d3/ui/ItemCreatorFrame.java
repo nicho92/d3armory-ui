@@ -26,7 +26,6 @@ import javax.swing.WindowConstants;
 import javax.swing.table.TableRowSorter;
 
 import org.armory.d3.services.D3ArmoryControler;
-import org.armory.d3.services.StuffCalculator;
 import org.armory.d3.ui.components.FormatedJLabel;
 import org.armory.d3.ui.components.ItemPanelDetails;
 import org.armory.d3.ui.model.ItemDetailsModel;
@@ -40,6 +39,7 @@ import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.MinMaxBonus;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.RawsAttributes;
+import com.pihen.d3restapi.service.util.StuffCalculator;
 
 
 

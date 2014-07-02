@@ -45,7 +45,6 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.table.TableRowSorter;
 
 import org.armory.d3.services.D3ArmoryControler;
-import org.armory.d3.services.StuffCalculator;
 import org.armory.d3.ui.components.FollowersPanel;
 import org.armory.d3.ui.components.FormatedJLabel;
 import org.armory.d3.ui.components.HeroCellRenderer;
@@ -67,6 +66,7 @@ import com.pihen.d3restapi.beans.Skill;
 import com.pihen.d3restapi.beans.SkillRune;
 import com.pihen.d3restapi.service.remote.exception.D3ServerCommunicationException;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
+import com.pihen.d3restapi.service.util.StuffCalculator;
 
 
 public class SwingMainFrame extends javax.swing.JFrame {
