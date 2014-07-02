@@ -1,4 +1,4 @@
-package org.armory.d3.services;
+package com.pihen.d3restapi.service.util;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -16,8 +16,6 @@ import com.pihen.d3restapi.beans.LegendarySet;
 import com.pihen.d3restapi.beans.MinMaxBonus;
 import com.pihen.d3restapi.beans.Ranks;
 import com.pihen.d3restapi.beans.SkillRune;
-import com.pihen.d3restapi.service.util.BuffSkill;
-import com.pihen.d3restapi.service.util.EnumerationStuff;
 
 public class StuffCalculator{
 	private Map<EnumerationStuff,Item> stuffs;
