@@ -20,7 +20,7 @@ public class BuffSkill {
 		
 		if(a.getSkill()==null)
 			return buffs;
-		
+		/*
 // BARBARE
 		if(a.getSkill().getId().equals("battle-rage"))
 		{
