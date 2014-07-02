@@ -18,6 +18,7 @@ public class FormatedJLabel extends JLabel {
 		this.setVerticalAlignment(JLabel.TOP);
 		chiffreColor=Color.WHITE;
 		textColor=Color.GRAY;
+		init();
 	}
 	
 	public FormatedJLabel()
@@ -25,7 +26,7 @@ public class FormatedJLabel extends JLabel {
 		this.setVerticalAlignment(JLabel.TOP);
 		chiffreColor=Color.WHITE;
 		textColor=Color.GRAY;
-		
+		init();
 	}
 
 	public void setPuces(boolean bool)
@@ -33,12 +34,27 @@ public class FormatedJLabel extends JLabel {
 		this.puces=bool;
 	}
 	
+	public void init()
+	{
+		temp=new StringBuffer("<html>");
+	}
 	
+	public void addText(String text,String t,String numColor)
+	{
+		if(t.equals("blue"))
+			t="#5869D7";
+		
+			setHtmlText(text +" <br/> ",t,numColor);
+	}
 	
-	public void setHtmlText(String string,String textColor, String numColor)  {
+	public void applyText()
+	{
+		temp.append("</HTML>");
+		this.setText(temp.toString());
+	}
+	
+	private void setHtmlText(String string,String textColor, String numColor)  {
 		this.texte=string;
-		temp = new StringBuffer();
-		temp.append("<html>");
 		
 		String[] detail = texte.split(" ");
 		boolean spec=false;
@@ -86,8 +102,8 @@ public class FormatedJLabel extends JLabel {
 						}
 					}
 			}
-		temp.append("</html>");
-		this.setText(temp.toString());
+		//temp.append("</html>");
+		//this.setText(temp.toString());
 		
 	}
 

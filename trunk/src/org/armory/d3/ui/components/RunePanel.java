@@ -48,7 +48,8 @@ public class RunePanel extends JPanel {
 					}
 					{
 						lblTextSkill = new FormatedJLabel();
-						lblTextSkill.setHtmlText(skill.getRune().getDescription(), "#C7B377", "green");//TODO gestion des . et , 
+						lblTextSkill.addText(skill.getRune().getDescription(), "#C7B377", "green");//TODO gestion des . et ,
+						lblTextSkill.applyText();
 						this.add(lblTextSkill);
 						lblTextSkill.setBounds(52, 39, 286, 58);
 					}
@@ -63,7 +64,8 @@ public class RunePanel extends JPanel {
 					{
 						lblUnLockedSkill = new FormatedJLabel();
 						this.add(lblUnLockedSkill);
-						lblUnLockedSkill.setHtmlText(String.valueOf("Level : " + skill.getRune().getLevel()), "#C7B377", "white"); 
+						lblUnLockedSkill.addText(String.valueOf("Level : " + skill.getRune().getLevel()), "#C7B377", "white");
+						lblUnLockedSkill.applyText();
 						lblUnLockedSkill.setBounds(255, 97, 83, 16);
 					}
 	}

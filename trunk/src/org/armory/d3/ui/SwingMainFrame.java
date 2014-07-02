@@ -376,7 +376,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	{
 		getPanneauDPS().removeAll();
 		FormatedJLabel lbl5 = new FormatedJLabel();
-		lbl5.setHtmlText(getDetailDPS(), "white","#BDA6CD");
+		lbl5.addText(getDetailDPS(), "white","#BDA6CD");
+		lbl5.applyText();
 		getPanneauDPS().add(lbl5);
 	}
 	
@@ -596,23 +597,28 @@ public class SwingMainFrame extends javax.swing.JFrame {
 
 		
 		FormatedJLabel lbl1 = new FormatedJLabel();
-		lbl1.setHtmlText(getDetailHero(0), "white","#BDA6CD");
+		lbl1.addText(getDetailHero(0), "white","#BDA6CD");
+		lbl1.applyText();
 		getPanneauInfoHero().add(lbl1);
 		
 		FormatedJLabel lbl2 = new FormatedJLabel();
-		lbl2.setHtmlText(getDetailHero(1), "white","#BDA6CD");
+		lbl2.addText(getDetailHero(1), "white","#BDA6CD");
+		lbl2.applyText();
 		getPanneauInfoHero().add(lbl2);
 		
 		FormatedJLabel lbl3 = new FormatedJLabel();
-		lbl3.setHtmlText(getDetailHero(2), "white","#BDA6CD");
+		lbl3.addText(getDetailHero(2), "white","#BDA6CD");
+		lbl3.applyText();
 		getPanneauInfoHero().add(lbl3);
 		
 		FormatedJLabel lbl4 = new FormatedJLabel();
-		lbl4.setHtmlText(getDetailHero(3), "white","#BDA6CD");
+		lbl4.addText(getDetailHero(3), "white","#BDA6CD");
+		lbl4.applyText();
 		getPanneauInfoHero().add(lbl4);
 		
 		FormatedJLabel lbl5 = new FormatedJLabel();
-		lbl5.setHtmlText(getDetailHero(4), "white","#BDA6CD");
+		lbl5.addText(getDetailHero(4), "white","#BDA6CD");
+		lbl5.applyText();
 		getPanneauInfoHero().add(lbl5);
 	
 		lblstatbar.setText("Loading : skills");
