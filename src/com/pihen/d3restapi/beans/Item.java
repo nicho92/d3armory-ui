@@ -170,8 +170,6 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		this.randomAffixes = randomAffixes;
 	}
 
-
-
 	public MinMaxBonus getAttacksPerSecond() {
 		return attacksPerSecond;
 	}
@@ -381,7 +379,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		//setAttributes(liste.toArray(new String[liste.size()]));
 	}
 
-	public String getTypeOfObject()
+	public String getRarity()
 	{
 			if (displayColor.equals("orange"))
 				return "Legendary";
