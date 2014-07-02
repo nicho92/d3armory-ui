@@ -3,6 +3,7 @@ package com.pihen.d3restapi.test;
 import org.armory.d3.services.D3ArmoryControler;
 
 import com.pihen.d3restapi.beans.Hero;
+import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.service.configuration.Configuration;
 import com.pihen.d3restapi.service.remote.RemoteService;
@@ -25,12 +26,15 @@ public class Main {
 		
 		Profile profile = profileService.receiveEntity(conf);
 			
-		Hero h = profile.getHeroes().get(1);
+		Hero h = profile.getHeroes().get(0);
 			conf.setHeroId(h.getId());
 			D3ArmoryControler.getInstance().setConf(conf);
 			h = heroService.receiveEntity(conf);
 
-			System.out.println(h.getSkills().getPassive().get(1).getSkill().getDescription());
+			Item head = D3ArmoryControler.getInstance().getItemDetails(h.getItems().getHead());
+			System.out.println(h.getName());
+			System.out.println(head.getGems());
+			
 			
 				 /*	Item head = D3ArmoryControler.getInstance().getItemDetails(h.getItems().getHead());
 					Item foot = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getFeet());
