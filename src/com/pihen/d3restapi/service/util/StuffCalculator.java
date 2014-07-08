@@ -86,7 +86,13 @@ public class StuffCalculator{
 	}
 	
 	
-	public void init()
+	public double getPrimaryStatValue()
+	{
+		//System.out.println(hero.getPrimaryStatValue() + " " + filterStats( hero.getPrimaryStat(),null));
+		return hero.getPrimaryStatValue()+filterStats( hero.getPrimaryStat(),null);
+	}
+	
+	private void init()
 	{
 		
 		weaponDefaultAS=Item.getWeaponDefaultAS();//init 
@@ -154,7 +160,7 @@ public class StuffCalculator{
 		calculeBuff();
 	}
 	
-	public void calculeBuff()
+	private void calculeBuff()
 	{
 		HeroSkillContainer cont = hero.getSkills();
 		{
@@ -283,12 +289,11 @@ public class StuffCalculator{
 	{
 		double bonusDual=(countweapon==2)?0.15:0;
 		double chance_cc=getCritChance();
-		
 		double degat_cc=getCritDamage();
 		
 		
 		
-		double stat_base=hero.getPrimaryStatValue()+filterStats( hero.getPrimaryStat(),null);
+		double stat_base=getPrimaryStatValue();
 		double mainI=0;
 		
 		if(stuffs.get(EnumerationStuff.MAIN_HAND)!=null)
