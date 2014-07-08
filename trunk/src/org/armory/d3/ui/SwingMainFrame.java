@@ -364,22 +364,12 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			loadItems();
 			lblstatbar.setText("Loading Followers");
 			loadFollowers();
-			lblstatbar.setText("CalculDPS");
-			refreshDPS();
 			lblstatbar.setText("");
 		} catch (D3ServerCommunicationException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void refreshDPS() 
-	{
-		getPanneauDPS().removeAll();
-		FormatedJLabel lbl5 = new FormatedJLabel();
-		lbl5.addText(getDetailDPS(), "white","#BDA6CD");
-		lbl5.applyText();
-		getPanneauDPS().add(lbl5);
-	}
 	
 	public void loadFollowers() throws D3ServerCommunicationException
 	{
@@ -817,21 +807,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	    return r.length()>4 ?  r.replaceAll("\\.[0-9]+", "") : r;
 	}
 	
-	private String getDetailDPS()
-	{
-		D3ArmoryControler.getInstance().getCalculator().calculate();
-		Iterator<String> keys = D3ArmoryControler.getInstance().getCalculator().getStats().keySet().iterator();
-		
-		StringBuffer temp = new StringBuffer();
-		while(keys.hasNext())
-		{
-			String key = keys.next();
-			temp.append(key +" : " + StuffCalculator.format(D3ArmoryControler.getInstance().getCalculator().getStats().get(key)) +" <br/>" );
-		}
-		
-		return temp.toString();
-		
-	}
 	
 	private String getDetailHero(int val) {
 		StringBuffer temp = new StringBuffer();
