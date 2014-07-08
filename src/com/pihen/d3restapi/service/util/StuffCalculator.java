@@ -25,7 +25,6 @@ public class StuffCalculator{
 	private Hero hero;
 	private boolean twohanded;
 	int countweapon=0;
-	private Map<String, MinMaxBonus> buffs;
 	private Map<String,Double> weaponDefaultAS=new HashMap<String,Double>();
 	
 	private Map<String,Double> mapResultat ;
@@ -74,7 +73,17 @@ public class StuffCalculator{
 		return statsCalculator;
 	}
 	
+	public double getCritChance()
+	{
+		 return 0.05 + filterStats("Crit_Percent",null);
+	}
 	
+	
+	public double getCritDamage()
+	{
+		
+		return 0.5 + filterStats("Crit_Damage",null);
+	}
 	
 	
 	public void init()
@@ -119,7 +128,7 @@ public class StuffCalculator{
 				String cle = keys.next();
 				compteur++;
 				statsCalculator.put(cle+"_"+i.getName().replaceAll(" ", "-"), i.getAttributesRaw().get(cle));
-				String mainoff="";
+				
 			}
 			
 		}//fin de boucle sur les items
@@ -192,22 +201,22 @@ public class StuffCalculator{
 		return items;
 	}
 	
-	public double getStat(List<Item> listes,String stat,String elementfilter)
+	public double filter(List<Item> listes,String stat,String elementfilter)
 	{
 		
 		double total =0;
 		for(Item it:listes)
 		{
-			total+=getStat(it, stat, elementfilter);
+			total+=filter(it, stat, elementfilter);
 		}
 		return total;
 	}
 	
-	private double filterStats(String stat,String elementfilter) {
+	public double filterStats(String stat,String elementfilter) {
 		return filterStats(stat, elementfilter,false);
 	}
 	
-	public double getStat(Item i,String stat,String elementfilter) {
+	public double filter(Item i,String stat,String elementfilter) {
 		
 		if(i==null)
 			return 0;
@@ -273,9 +282,9 @@ public class StuffCalculator{
 	public double calculate()
 	{
 		double bonusDual=(countweapon==2)?0.15:0;
-		double chance_cc=0.05+filterStats("Crit_Percent", null);
+		double chance_cc=getCritChance();
 		
-		double degat_cc=0.5+filterStats("Crit_Damage", null);
+		double degat_cc=getCritDamage();
 		
 		
 		
@@ -290,8 +299,8 @@ public class StuffCalculator{
 		if(countweapon==2)
 			offI=weaponDefaultAS.get(stuffs.get(EnumerationStuff.OFF_HAND).getType().getId()); //AS de base du type arme MAIN
 		
-		double bonusArmor = getStat(getArmor(), "Attacks_Per_Second_Percent", null) + filterStats("Attacks_Per_Second_Percent","BUFF");
-		double bonusWeapon = getStat(getWeapons(), "Attacks_Per_Second_Item_Bonus", null);
+		double bonusArmor = filter(getArmor(), "Attacks_Per_Second_Percent", null) + filterStats("Attacks_Per_Second_Percent","BUFF");
+		double bonusWeapon = filter(getWeapons(), "Attacks_Per_Second_Item_Bonus", null);
 		
 		double compagnonBonus=0; // ou 0.3 pour l'enchanteresse
 				
@@ -379,8 +388,8 @@ public class StuffCalculator{
 	
 	private double tempDamage() {
 		
-		double min = getStat(getArmor(), "Damage","Min");
-		double max = getStat(getArmor(), "Damage_Min",null)+getStat(getArmor(), "Damage","Delta");
+		double min = filter(getArmor(), "Damage","Min");
+		double max = filter(getArmor(), "Damage_Min",null)+filter(getArmor(), "Damage","Delta");
 	
 		return (min+max) ;
 	}
@@ -499,14 +508,14 @@ public class StuffCalculator{
 		if(countweapon==2)
 			defaultOHas=weaponDefaultAS.get(stuffs.get(EnumerationStuff.OFF_HAND).getType().getId());;
 		
-		double bonusMHas = 1 + getStat(stuffs.get(EnumerationStuff.MAIN_HAND), "Attacks_Per_Second_Item_Percent", null);
+		double bonusMHas = 1 + filter(stuffs.get(EnumerationStuff.MAIN_HAND), "Attacks_Per_Second_Item_Percent", null);
 		double bonusOHas = 1;
 		if(countweapon==2)
-			bonusOHas=1 + getStat(stuffs.get(EnumerationStuff.OFF_HAND), "Attacks_Per_Second_Item_Percent", null); //augmente la vitesse d'attaque de XX% sur la OH
+			bonusOHas=1 + filter(stuffs.get(EnumerationStuff.OFF_HAND), "Attacks_Per_Second_Item_Percent", null); //augmente la vitesse d'attaque de XX% sur la OH
 		
-		armorASBonus=getStat(getArmor(), "Attacks_Per_Second_Item_Percent", null);//0.
-		double weaponASBonus = getStat(getWeapons(), "Attacks_Per_Second_Item_Bonus", null); 
-		double Attacks_Per_Second_Item_Bonus= getStat(getWeapons(), "Attacks_Per_Second_Item_Bonus", "OFF"); 
+		armorASBonus=filter(getArmor(), "Attacks_Per_Second_Item_Percent", null);//0.
+		double weaponASBonus = filter(getWeapons(), "Attacks_Per_Second_Item_Bonus", null); 
+		double Attacks_Per_Second_Item_Bonus= filter(getWeapons(), "Attacks_Per_Second_Item_Bonus", "OFF"); 
 		
 			
 		if(countweapon==1)
