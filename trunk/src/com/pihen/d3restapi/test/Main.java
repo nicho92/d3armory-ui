@@ -31,10 +31,10 @@ public class Main {
 		
 		Profile profile = profileService.receiveEntity(conf);
 			
-		Hero hero = profile.getHeroes().get(2);
-			conf.setHeroId(hero.getId());
-			D3ArmoryControler.getInstance().setConf(conf);
-			hero = heroService.receiveEntity(conf);
+		Hero hero = profile.getHeroes().get(0);
+					conf.setHeroId(hero.getId());
+		D3ArmoryControler.getInstance().setConf(conf);
+		hero = heroService.receiveEntity(conf);
 
 				 	Item head = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getHead());
 					Item foot = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getFeet());
@@ -50,7 +50,7 @@ public class Main {
 					Item offhand = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getOffHand());
 					Item torso = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getTorso());
 					
-					Map<EnumerationStuff,Item> stuffs = new HashMap<EnumerationStuff, Item>();
+					Map<EnumerationStuff,Item>stuffs = new HashMap<EnumerationStuff, Item>();
 											  stuffs.put(EnumerationStuff.HEAD, head);
 											  stuffs.put(EnumerationStuff.SHOULDERS, shoulders);
 											  stuffs.put(EnumerationStuff.NECK, neck);
@@ -66,18 +66,15 @@ public class Main {
 											  stuffs.put(EnumerationStuff.FEET, foot);
 											  
 					StuffCalculator calc = new StuffCalculator(stuffs,hero);
+					calc.calculate();
 					
-					System.out.println("HERO : " + hero.getName());
+					System.out.println("HERO : " + hero.getName() + " " + hero.getLevel() + " ("+ hero.getParagonLevel()+")");
 					System.out.println("CritC : " +calc.getCritChance()*100);
 					System.out.println("CritD : " + calc.getCritDamage()*100);
 					System.out.println(hero.getPrimaryStat() + " : " + calc.getPrimaryStatValue());
-					System.out.println("%fireDamage : " + calc.filterStats("Damage_Dealt_Percent_Bonus", "Fire")*100);
-					System.out.println("%ColdDamage : " + calc.filterStats("Damage_Dealt_Percent_Bonus", "Cold")*100);
-					System.out.println("%LightningDamage : " + calc.filterStats("Damage_Dealt_Percent_Bonus", "Lightning")*100);
-					System.out.println("%PoisonDamage : " + calc.filterStats("Damage_Dealt_Percent_Bonus", "Poison")*100);
-					System.out.println("%HolyDamage : " + calc.filterStats("Damage_Dealt_Percent_Bonus", "Holy")*100);
-					System.out.println("%PhysicalDamage : " + calc.filterStats("Damage_Dealt_Percent_Bonus", "Physical")*100);
-					
+					System.out.println("Profile DPS : " + hero.getStats().getDamage());
+					System.out.println("Vita : " + calc.getVitality());
+					System.out.println("HP : " + calc.getHP());
 									
 		}
 }
