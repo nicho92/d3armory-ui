@@ -20,8 +20,18 @@ public class BuffSkill {
 		
 		if(a.getSkill()==null)
 			return buffs;
-		/*
+		
 // BARBARE
+		/*
+		if(a.getSkill().getId().equals("weapons-master"))
+		{
+			if(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Sword")||stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Dagger"))
+				buffs.put("Damage_Weapon_Percent_Bonus#Physical_BUFF_"+a, new MinMaxBonus(0.08));
+			if(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Mace")||stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Axe"))
+				buffs.put("Crit_Percent_Bonus_BUFF_"+a, new MinMaxBonus(0.05));
+			if(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Polearm")||stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Spear"))
+				buffs.put("Attacks_Per_Second_Percent_BUFF_"+a, new MinMaxBonus(0.8));
+		}
 		if(a.getSkill().getId().equals("battle-rage"))
 		{
 			buffs.put("Crit_Percent_BUFF_"+a, new MinMaxBonus(0.03));
@@ -46,18 +56,6 @@ public class BuffSkill {
 		{
 			buffs.put("Crit_Damage_BUFF_"+a, new MinMaxBonus(0.5));
 			buffs.put("Crit_Percent_Bonus_BUFF_"+a, new MinMaxBonus(0.05));
-		}
-		if(a.getSkill().getId().equals("weapons-master"))
-		{
-			if(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Sword")||stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Dagger"))
-				buffs.put("Damage_Weapon_Percent_Bonus#Physical_BUFF_"+a, new MinMaxBonus(0.015));
-			if(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Mace")||stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Axe"))
-				buffs.put("Crit_Percent_Bonus_BUFF_"+a, new MinMaxBonus(0.1));
-			if(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Polearm")||stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Spear"))
-				buffs.put("Attacks_Per_Second_Percent_BUFF_"+a, new MinMaxBonus(0.1));
-			if(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("MightyWeapon"))
-				buffs.put("Attacks_Per_Second_Percent_BUFF_"+a, new MinMaxBonus(0.1));
-
 		}
 		if(a.getSkill().getId().equals("wrath-of-the-berserker"))
 		{
