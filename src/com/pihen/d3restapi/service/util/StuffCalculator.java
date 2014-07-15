@@ -88,9 +88,14 @@ public class StuffCalculator{
 	
 	public double getPrimaryStatValue()
 	{
-		//System.out.println(hero.getPrimaryStatValue() + " " + filterStats( hero.getPrimaryStat(),null));
-		return hero.getPrimaryStatValue()+filterStats( hero.getPrimaryStat(),null);
+		return 7+ (3*hero.getLevel().intValue()) + filterStats(hero.getPrimaryStat(), null);
 	}
+	
+	public double getEliteDamage()
+	{
+		return filterStats("Damage_Percent_Bonus_Vs_Elites", null);
+	}
+	
 	
 	private void init()
 	{
@@ -368,7 +373,7 @@ public class StuffCalculator{
 		mapResultat.put("VITALITY",format(vitality));
 		mapResultat.put("LIFE",format(life));
 		mapResultat.put("ARMOR",format(armor));
-		
+		mapResultat.put("ELITEDAMAGE", format(getEliteDamage()*100));
 		
 		double dps=getDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
 		double elementdps = getElemDamage(stat_base,chance_cc,degat_cc,1+bonusArmor,minMaxDmg,0);
