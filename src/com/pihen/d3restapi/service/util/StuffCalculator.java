@@ -85,6 +85,11 @@ public class StuffCalculator{
 		return 0.5 + filterStats("Crit_Damage",null);
 	}
 	
+	public double getElementalDamageBonus(String element)
+	{
+		return filterStats("Damage_Dealt_Percent_Bonus", element);
+	}
+	
 	
 	public double getPrimaryStatValue()
 	{
@@ -96,6 +101,28 @@ public class StuffCalculator{
 		return filterStats("Damage_Percent_Bonus_Vs_Elites", null);
 	}
 	
+	public int getVitality()
+	{
+		return (int)(7+(2*hero.getLevel().intValue())+ filterStats("Vitality", null));
+	}
+	
+	
+	public double getHP()
+	{
+		int lvl = hero.getLevel().intValue();
+		int vit = getVitality();
+		
+		if(lvl>=65)	
+			return 36+(4*lvl)+(35*vit)+5*(lvl-61)*vit;
+		if(lvl>=60)
+			return 36+(4*lvl)+(35*getVitality())+(4*(lvl-60)*getVitality());
+		if(lvl>=35)
+			return 36+(4*lvl)+((lvl-25)*getVitality());
+		if(lvl<35)
+			return 36+(4*lvl)+(10*getVitality());
+
+		return 0;
+	}
 	
 	private void init()
 	{
@@ -203,7 +230,7 @@ public class StuffCalculator{
 		return items;
 	}
 	
-	public List<Item> getAll()
+	public List<Item> getAllItems()
 	{
 		List<Item> items = new ArrayList<Item>();
 		for(EnumerationStuff e :EnumerationStuff.values())
