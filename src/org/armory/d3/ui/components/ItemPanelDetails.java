@@ -216,12 +216,12 @@ public class ItemPanelDetails extends JPanel {
 			List<Item> sets = item.getSet().getItems();
 			for(Item i:sets)
 			{
-				if(D3ArmoryControler.getInstance().getCalculator().getAll().contains(i))
+				if(D3ArmoryControler.getInstance().getCalculator().getAllItems().contains(i))
 					tempset.append("&nbsp;&nbsp;&nbsp;<font color='#02FF00'>" + i.getName()+"</font><br/>");
 				else
 					tempset.append("&nbsp;&nbsp;&nbsp;" + i.getName()+"<br/>");
 			}
-			int nbstuff= LegendarySet.getStuffSetsNbPieces(D3ArmoryControler.getInstance().getCalculator().getAll(),item.getSet());
+			int nbstuff= LegendarySet.getStuffSetsNbPieces(D3ArmoryControler.getInstance().getCalculator().getAllItems(),item.getSet());
 			
 			for(int z=0;z<item.getSet().getRanks().size();z++ )
 			{
