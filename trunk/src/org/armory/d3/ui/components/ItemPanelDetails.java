@@ -46,6 +46,7 @@ public class ItemPanelDetails extends JPanel {
 	private SocketLabel lblSock3;
 	private boolean flavEnable=true;
 	
+	
 	public void setFlavEnable(boolean flavEnable) {
 		this.flavEnable = flavEnable;
 	}
@@ -72,8 +73,6 @@ public class ItemPanelDetails extends JPanel {
 		this.setBackground(Color.BLACK);
 		
 		}
-	
-	
 
 	public void paintComponent(Graphics g)
 	{
@@ -314,7 +313,6 @@ public class ItemPanelDetails extends JPanel {
 			lblSock3.setVisible(false);
 		}
 	}
-
 
 	private void resizeFont(JLabel lbl,int type) {
 		try{
