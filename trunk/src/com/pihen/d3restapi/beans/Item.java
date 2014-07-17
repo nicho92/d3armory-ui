@@ -373,7 +373,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 			}
 			else
 			{
-				System.err.println("itemAttributes.add(new Attributs(\""+key+"\",\"X BLALALBLA\"));" );
+				System.err.println("itemAttributes.add(new Attributs(\""+key+"\"));");
 			}
 		}
 		//setAttributes(liste.toArray(new String[liste.size()]));
