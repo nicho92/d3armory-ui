@@ -94,10 +94,8 @@ public class D3ArmoryControler {
 	
 	public Hero getHeroDetails(Hero h) throws D3ServerCommunicationException
 	{
-		conf.setHeroId(h.getId());
-		RemoteService<Hero> heroService = new SpringRemoteService(Hero.class);
-		selected = heroService.receiveEntity(conf);
-		return selected;
+		return getHeroDetails(h.getId().longValue());
+		
 	}
 
 	public void setSelectedHero(Hero h) {
@@ -224,6 +222,7 @@ public class D3ArmoryControler {
 	}
 
 	public StuffCalculator getCalculator() {
+		
 		return calculator;
 	}
 
