@@ -69,12 +69,16 @@ public class Main {
 					calc.calculate();
 					
 					System.out.println("HERO : " + hero.getName() + " " + hero.getLevel() + " ("+ hero.getParagonLevel()+")");
+					System.out.println("Profile DPS : " + hero.getStats().getDamage());
+					
 					System.out.println("CritC : " +calc.getCritChance()*100);
 					System.out.println("CritD : " + calc.getCritDamage()*100);
-					System.out.println(hero.getPrimaryStat() + " : " + calc.getPrimaryStatValue());
-					System.out.println("Profile DPS : " + hero.getStats().getDamage());
+					System.out.println(hero.getPrimaryStat() + " : " + calc.getPrimaryStatUnbuffedValue());
 					System.out.println("Vita : " + calc.getVitality());
 					System.out.println("HP : " + calc.getHP());
+					System.out.println("Armor :" + calc.getStats().get("ARMOR"));
+					System.out.println("RAW DPS : " + calc.calculate());
 									
 		}
 }
+
