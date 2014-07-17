@@ -44,7 +44,7 @@ public class FormatedJLabel extends JLabel {
 		if(t.equals("blue"))
 			t="#5869D7";
 		
-			setHtmlText(text +" <br/> ",t,numColor);
+		setHtmlText(text +" <br/> ",t,numColor);
 	}
 	
 	public void applyText()
