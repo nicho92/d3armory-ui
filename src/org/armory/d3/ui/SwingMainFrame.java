@@ -150,7 +150,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SkillLabel labSkilL9;
 	private SkillLabel labSkilL10;
 	private Hero hero;
-	private JPanel panneauDPS;
 	private Map<EnumerationStuff,Item> stuffs;
 	private JLabel lblRessources;
 	private FollowersPanel panelFollowers;
@@ -1461,7 +1460,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			ongletPane.setPreferredSize(new java.awt.Dimension(0, 0));
 			ongletPane.addTab("General", null, getPanneauInfoHero(), null);
 			ongletPane.addTab("Stuff", null, getPanneauTableau(), null);
-			ongletPane.addTab("Info", null, getPanneauDPS(), null);
 			ongletPane.addTab("Followers", null, getFollowersPanel(), null);
 		}
 		return ongletPane;
@@ -1489,25 +1487,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			
 		}
 		return panneauInfoHero;
-	}
-	
-	private JPanel getPanneauDPS() {
-		if(panneauDPS == null) {
-			panneauDPS = new JPanel() {
-				
-				protected void paintComponent(Graphics g) {
-					super.paintComponent(g);
-					Image bg = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/bottom.jpg")).getImage();
-					g.drawImage(bg,0,0,null);
-
-				}
-			};
-			panneauDPS.setBackground(Color.black);
-			panneauDPS.setLayout(new FlowLayout(FlowLayout.LEFT));
-			
-			
-		}
-		return panneauDPS;
 	}
 	
 	public void setLookAndFeel(String lookAndFeel)

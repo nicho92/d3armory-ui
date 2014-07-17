@@ -467,7 +467,9 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 			itemPanelDetails.showItem(getItem());
 			
 			StuffCalculator a = D3ArmoryControler.getInstance().getCalculator();
+			a.calculate();
 			StuffCalculator b = a.compareStuffs(gear, getItem());
+
 			lblStat2.init();
 			lblStat2.addText(getDetail(b.getStatCalculator()), "white", "red");
 			lblStat2.applyText();
