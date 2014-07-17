@@ -204,7 +204,7 @@ public class StuffCalculator{
 		}
 	}
 	
-	public List<Item> getArmor()
+	public List<Item> getArmorsItem()
 	{
 		List<Item> items = new ArrayList<Item>();
 		
@@ -219,7 +219,7 @@ public class StuffCalculator{
 		return items;
 	}
 	
-	public List<Item> getWeapons()
+	public List<Item> getWeaponsItems()
 	{
 			List<Item> items = new ArrayList<Item>();
 			
@@ -336,8 +336,8 @@ public class StuffCalculator{
 		if(countweapon==2)
 			offI=weaponDefaultAS.get(stuffs.get(EnumerationStuff.OFF_HAND).getType().getId()); //AS de base du type arme MAIN
 		
-		double bonusArmor = filter(getArmor(), "Attacks_Per_Second_Percent", null) + filterStats("Attacks_Per_Second_Percent","BUFF");
-		double bonusWeapon = filter(getWeapons(), "Attacks_Per_Second_Item_Bonus", null);
+		double bonusArmor = filter(getArmorsItem(), "Attacks_Per_Second_Percent", null) + filterStats("Attacks_Per_Second_Percent","BUFF");
+		double bonusWeapon = filter(getWeaponsItems(), "Attacks_Per_Second_Item_Bonus", null);
 		
 		double compagnonBonus=0; // ou 0.3 pour l'enchanteresse
 				
@@ -373,7 +373,6 @@ public class StuffCalculator{
 		//CALCUL VITALITY
 		double lifeB= filterStats("Hitpoints_Max_Percent_Bonus","",false);
 		double lvl = hero.getLevel().doubleValue();
-		double paran =  hero.getParagonLevel();
 		double vitality = getVitality();
 		double life=0;
 		
@@ -412,7 +411,6 @@ public class StuffCalculator{
 		}
 		else
 		{
-			
 			mapResultat.put("DPS",format(elementdps));
 			return elementdps;
 		}
@@ -425,8 +423,8 @@ public class StuffCalculator{
 	
 	private double tempDamage() {
 		
-		double min = filter(getArmor(), "Damage","Min");
-		double max = filter(getArmor(), "Damage_Min",null)+filter(getArmor(), "Damage","Delta");
+		double min = filter(getArmorsItem(), "Damage","Min");
+		double max = filter(getArmorsItem(), "Damage_Min",null)+filter(getArmorsItem(), "Damage","Delta");
 	
 		return (min+max) ;
 	}
@@ -550,9 +548,9 @@ public class StuffCalculator{
 		if(countweapon==2)
 			bonusOHas=1 + filter(stuffs.get(EnumerationStuff.OFF_HAND), "Attacks_Per_Second_Item_Percent", null); //augmente la vitesse d'attaque de XX% sur la OH
 		
-		armorASBonus=filter(getArmor(), "Attacks_Per_Second_Item_Percent", null);//0.
-		double weaponASBonus = filter(getWeapons(), "Attacks_Per_Second_Item_Bonus", null); 
-		double Attacks_Per_Second_Item_Bonus= filter(getWeapons(), "Attacks_Per_Second_Item_Bonus", "OFF"); 
+		armorASBonus=filter(getArmorsItem(), "Attacks_Per_Second_Item_Percent", null);//0.
+		double weaponASBonus = filter(getWeaponsItems(), "Attacks_Per_Second_Item_Bonus", null); 
+		double Attacks_Per_Second_Item_Bonus= filter(getWeaponsItems(), "Attacks_Per_Second_Item_Bonus", "OFF"); 
 		
 			
 		if(countweapon==1)
