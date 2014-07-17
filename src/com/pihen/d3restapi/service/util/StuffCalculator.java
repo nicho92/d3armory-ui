@@ -91,7 +91,7 @@ public class StuffCalculator{
 	}
 	
 	
-	public double getPrimaryStatValue()
+	public double getPrimaryStatUnbuffedValue()
 	{
 		return 7+ (3*hero.getLevel().intValue()) + filterStats(hero.getPrimaryStat(), null);
 	}
@@ -325,7 +325,7 @@ public class StuffCalculator{
 		
 		
 		
-		double stat_base=getPrimaryStatValue();
+		double stat_base=getPrimaryStatUnbuffedValue();
 		double mainI=0;
 		
 		if(stuffs.get(EnumerationStuff.MAIN_HAND)!=null)
@@ -374,7 +374,7 @@ public class StuffCalculator{
 		double lifeB= filterStats("Hitpoints_Max_Percent_Bonus","",false);
 		double lvl = hero.getLevel().doubleValue();
 		double paran =  hero.getParagonLevel();
-		double vitality = 9+ 2 *((lvl+paran)-1) + filterStats("Vitality_","",false);
+		double vitality = getVitality();
 		double life=0;
 		
 		if(lvl<35)
