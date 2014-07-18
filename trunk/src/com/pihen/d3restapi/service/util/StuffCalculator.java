@@ -18,6 +18,14 @@ import com.pihen.d3restapi.beans.Ranks;
 import com.pihen.d3restapi.beans.SkillRune;
 
 public class StuffCalculator{
+	public Hero getHero() {
+		return hero;
+	}
+
+	public void setHero(Hero hero) {
+		this.hero = hero;
+	}
+
 	private Map<EnumerationStuff,Item> stuffs;
 	
 	private HeroSkillContainer skills;
