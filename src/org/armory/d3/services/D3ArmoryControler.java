@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -95,7 +96,6 @@ public class D3ArmoryControler {
 	public Hero getHeroDetails(Hero h) throws D3ServerCommunicationException
 	{
 		return getHeroDetails(h.getId().longValue());
-		
 	}
 
 	public void setSelectedHero(Hero h) {
@@ -125,6 +125,44 @@ public class D3ArmoryControler {
 			return null;
 		}
 	}
+	
+	
+	public Map<EnumerationStuff,Item> initStuffHero(Hero hero)
+	{
+		Item head = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getHead());
+		Item foot = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getFeet());
+		Item shoulders = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getShoulders());
+		Item gants = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getHands());
+		Item bracers = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getBracers());
+		Item legs = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getLegs());
+		Item neck = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getNeck());
+		Item belt = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getWaist());
+		Item ringright = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getLeftFinger());
+		Item ringleft = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getRightFinger());
+		Item mainHand = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getMainHand());
+		Item offhand = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getOffHand());
+		Item torso = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getTorso());
+		
+		Map<EnumerationStuff,Item>stuffs = new HashMap<EnumerationStuff, Item>();
+								  stuffs.put(EnumerationStuff.HEAD, head);
+								  stuffs.put(EnumerationStuff.SHOULDERS, shoulders);
+								  stuffs.put(EnumerationStuff.NECK, neck);
+								  stuffs.put(EnumerationStuff.TORSO, torso);
+								  stuffs.put(EnumerationStuff.GANT, gants);
+								  stuffs.put(EnumerationStuff.BRACER, bracers);
+								  stuffs.put(EnumerationStuff.BELT, belt);
+								  stuffs.put(EnumerationStuff.LEGS, legs);
+								  stuffs.put(EnumerationStuff.RING_RIGHT, ringright);
+								  stuffs.put(EnumerationStuff.RING_LEFT, ringleft);
+								  stuffs.put(EnumerationStuff.MAIN_HAND, mainHand);
+								  stuffs.put(EnumerationStuff.OFF_HAND, offhand);
+								  stuffs.put(EnumerationStuff.FEET, foot);
+								  
+		return stuffs;
+	}
+	
+	
+	
 	
 	public List<String> getListTags()
 	{
