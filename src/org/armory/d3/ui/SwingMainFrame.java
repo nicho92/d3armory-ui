@@ -42,6 +42,8 @@ import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.TableRowSorter;
 
 import org.armory.d3.services.D3ArmoryControler;
@@ -54,6 +56,7 @@ import org.armory.d3.ui.components.ItemPanelDetails;
 import org.armory.d3.ui.components.SkillLabel;
 import org.armory.d3.ui.components.SocketLabel;
 import org.armory.d3.ui.model.ListeHeroModel;
+import org.armory.d3.ui.model.StuffDetailsModel;
 import org.armory.d3.ui.model.TableauDetailsModel;
 import org.jdesktop.application.Application;
 
@@ -153,6 +156,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private Map<EnumerationStuff,Item> stuffs;
 	private JLabel lblRessources;
 	private FollowersPanel panelFollowers;
+	private JScrollPane panneauTableauDescription;
+	private JTable tableauDescription;
 
 	
 	public ListeHeroModel getListeHerosModel() {
@@ -361,9 +366,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		 try {
 			lblstatbar.setText("Loading Item"); 
 			loadItems();
-			lblstatbar.setText("Loading Followers");
-			loadFollowers();
 			lblstatbar.setText("");
+			getTableauDescription().setModel(new StuffDetailsModel());
+			
 		} catch (D3ServerCommunicationException e) {
 			e.printStackTrace();
 		}
@@ -806,7 +811,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	    return r.length()>4 ?  r.replaceAll("\\.[0-9]+", "") : r;
 	}
 	
-	
 	private String getDetailHero(int val) {
 		StringBuffer temp = new StringBuffer();
 		
@@ -855,7 +859,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		return temp.toString();
 	}
 
-
 	private void listeTagMouseClicked(MouseEvent evt) {
 		if(SwingUtilities.isRightMouseButton(evt))
 		{
@@ -893,8 +896,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			e.printStackTrace();
 		}
 	}
-	
-	
 	
 	private JLabel getLblLoader()
 	{
@@ -1461,14 +1462,28 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			ongletPane.addTab("General", null, getPanneauInfoHero(), null);
 			ongletPane.addTab("Stuff", null, getPanneauTableau(), null);
 			ongletPane.addTab("Followers", null, getFollowersPanel(), null);
+			ongletPane.addTab("Details", null, getPanneauTableauDescription(), null);
+			ongletPane.addChangeListener(new ChangeListener() {
+				
+				public void stateChanged(ChangeEvent e) {
+					
+					JTabbedPane sourceTabbedPane = (JTabbedPane) e.getSource();
+			        int index = sourceTabbedPane.getSelectedIndex();
+					if(index==2)
+						try {
+							loadFollowers();
+						} catch (D3ServerCommunicationException e1) {
+							
+							e1.printStackTrace();
+						}
+						
+					
+				}
+			});
 		}
 		return ongletPane;
 	}
 	
-	public void reloadInfo()
-	{
-		
-	}
 	
 	public JPanel getPanneauInfoHero() {
 		if(panneauInfoHero == null) {
@@ -1553,6 +1568,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private FollowersPanel getFollowersPanel() {
 		if(panelFollowers == null) {
 			panelFollowers = new FollowersPanel();
+			
 		}
 		return panelFollowers;
 	}
@@ -1573,5 +1589,19 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			lblstatbar.setName("lblstatbar");
 		}
 		return lblstatbar;
+	}
+	private JScrollPane getPanneauTableauDescription() {
+		if (panneauTableauDescription == null) {
+			panneauTableauDescription = new JScrollPane();
+			panneauTableauDescription.setViewportView(getTableauDescription());
+			
+		}
+		return panneauTableauDescription;
+	}
+	private JTable getTableauDescription() {
+		if (tableauDescription == null) {
+			tableauDescription = new JTable();
+		}
+		return tableauDescription;
 	}
 }
