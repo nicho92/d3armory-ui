@@ -1460,12 +1460,12 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			ongletPane = new JTabbedPane();
 			ongletPane.setPreferredSize(new java.awt.Dimension(0, 0));
 			ongletPane.addTab("General", null, getPanneauInfoHero(), null);
-			ongletPane.addTab("Stuff", null, getPanneauTableau(), null);
-			ongletPane.addTab("Followers", null, getFollowersPanel(), null);
 			ongletPane.addTab("Details", null, getPanneauTableauDescription(), null);
+			ongletPane.addTab("Followers", null, getFollowersPanel(), null);
+			ongletPane.addTab("Expert", null, getPanneauTableau(), null);
 			ongletPane.addChangeListener(new ChangeListener() {
 				
-				public void stateChanged(ChangeEvent e) {
+				public void stateChanged(ChangeEvent e) {//on charge les followers lors du clique sur l'onglet
 					
 					JTabbedPane sourceTabbedPane = (JTabbedPane) e.getSource();
 			        int index = sourceTabbedPane.getSelectedIndex();
@@ -1586,7 +1586,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	public JLabel getLblstatbar() {
 		if(lblstatbar == null) {
 			lblstatbar = new JLabel();
-			lblstatbar.setName("lblstatbar");
+		
 		}
 		return lblstatbar;
 	}
@@ -1601,6 +1601,16 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JTable getTableauDescription() {
 		if (tableauDescription == null) {
 			tableauDescription = new JTable();
+			tableauDescription.addMouseListener(new java.awt.event.MouseAdapter() {
+				public void mouseClicked(java.awt.event.MouseEvent evt) {
+			        int row = tableauDescription.rowAtPoint(evt.getPoint());
+			        Item i = ((StuffDetailsModel)tableauDescription.getModel()).getItemAt(row);
+			        getPanelItemDetails().showItem(i);
+			        getPanelItemDetails().repaint(); 
+			        
+			        
+			    }
+			});
 		}
 		return tableauDescription;
 	}
