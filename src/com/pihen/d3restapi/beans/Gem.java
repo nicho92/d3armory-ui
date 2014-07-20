@@ -1,7 +1,6 @@
 package com.pihen.d3restapi.beans;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Map;
 
 
