@@ -15,6 +15,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultRowSorter;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -112,7 +113,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 			setLocationRelativeTo(null);
 			setTitle("Item Builder");
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			
+			this.setIconImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/icone.jpg")).getImage());
 			lblStat1 = new FormatedJLabel();
 			lblStat2 = new FormatedJLabel();
 			lblStatDiff = new FormatedJLabel();

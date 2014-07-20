@@ -66,12 +66,16 @@ public class StuffDetailsModel extends DefaultTableModel {
 			{
 				return EnumerationStuff.values()[row];
 			}
-			if(column==1){
+			if(column==1)
+			{
 				return calc.getStuffs().get(EnumerationStuff.getValueAt(row)).getName();
 			}
 			if(column==2)
 			{
-				return calc.filter(calc.getStuffs().get(EnumerationStuff.getValueAt(row)), calc.getHero().getPrimaryStat(), null);
+				String statLabel = calc.getHero().getPrimaryStat();
+				Item i = calc.getStuffs().get(EnumerationStuff.getValueAt(row));
+				
+				return calc.filter(i, statLabel, null);
 			}
 			if(column==3)
 			{

@@ -1,17 +1,12 @@
 package com.pihen.d3restapi.test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.armory.d3.services.D3ArmoryControler;
 
 import com.pihen.d3restapi.beans.Hero;
-import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.service.configuration.Configuration;
 import com.pihen.d3restapi.service.remote.RemoteService;
 import com.pihen.d3restapi.service.remote.SpringRemoteService;
-import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.StuffCalculator;
 
 
@@ -31,7 +26,7 @@ public class Main {
 		
 		Profile profile = profileService.receiveEntity(conf);
 			
-		Hero hero = profile.getHeroes().get(0);
+		Hero hero = profile.getHeroes().get(3);
 					conf.setHeroId(hero.getId());
 		D3ArmoryControler.getInstance().setConf(conf);
 		hero = heroService.receiveEntity(conf);
