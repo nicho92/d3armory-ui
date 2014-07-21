@@ -622,10 +622,16 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		getLblSkill5().setSkillRune(hero.getSkills().getActive().get(4));
 		getLblSkill6().setSkillRune(hero.getSkills().getActive().get(5));
 		
-		getLblSkill7().setSkillRune(hero.getSkills().getPassive().get(0));
-		getLblSkill8().setSkillRune(hero.getSkills().getPassive().get(1));
-		getLblSkill9().setSkillRune(hero.getSkills().getPassive().get(2));
-		getLblSkill10().setSkillRune(hero.getSkills().getPassive().get(3));
+		if(hero.getSkills().getPassive().get(0)!=null)
+			getLblSkill7().setSkillRune(hero.getSkills().getPassive().get(0));
+		
+		if(hero.getSkills().getPassive().get(1)!=null)
+			getLblSkill8().setSkillRune(hero.getSkills().getPassive().get(1));
+		if(hero.getSkills().getPassive().get(2)!=null)
+			getLblSkill9().setSkillRune(hero.getSkills().getPassive().get(2));
+		
+		if(hero.getSkills().getPassive().get(3)!=null)
+			getLblSkill10().setSkillRune(hero.getSkills().getPassive().get(3));
 		
 		Item head = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHead());
 		lblHead.setItem(head,EnumerationStuff.HEAD);

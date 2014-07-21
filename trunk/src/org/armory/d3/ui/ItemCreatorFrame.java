@@ -42,7 +42,7 @@ import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.RawsAttributes;
 import com.pihen.d3restapi.service.util.StuffCalculator;
 
-
+import static com.pihen.d3restapi.service.util.StuffCalculator.KEY;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -418,30 +418,29 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 		}
 	}
 	
-	public String getDetail(Map<String, Double> mapResultat)
+	public String getDetail(Map<KEY, Double> mapResultat)
 	{
 		StringBuffer temp = new StringBuffer();
-				temp.append("Vitality " + mapResultat.get("VITALITY") +" <br/> ") ;
-				temp.append("Life " + mapResultat.get("LIFE") +" <br/> ") ;
-				temp.append("Armor " + mapResultat.get("ARMOR") +" <br/> ") ;
-				temp.append("Stat " + mapResultat.get("STAT") +" <br/> ") ;
-				temp.append("AS Bonus " + mapResultat.get("ATTACKSPEEDBONUS") +" <br/> ") ;
-				temp.append("AS MH " + mapResultat.get("ATTACKSPEEDMH") +" <br/> ") ;
-				temp.append("AS OH " + mapResultat.get("ATTACKSPEEDOH") +" <br/> ") ;
-				temp.append("CRIT CHANCE " + mapResultat.get("CRITCHANCE") +" <br/> ") ;
-				temp.append("CRIT DAMAGE " + mapResultat.get("CRITDAMAGE") +" <br/> ") ;
-				temp.append("MH DAMAGE " + mapResultat.get("MHDAMAGE") +" <br/> ") ;
-				temp.append("OH DAMAGE " + mapResultat.get("OHDAMAGE") +" <br/> ") ;
-				temp.append("DPS :<b> " + mapResultat.get("DPS") +" </b> <br/> ") ;
+				temp.append("Vitality " + mapResultat.get(KEY.VITALITY) +" <br/> ") ;
+				temp.append("Life " + mapResultat.get(KEY.LIFE) +" <br/> ") ;
+				temp.append("Armor " + mapResultat.get(KEY.ARMOR) +" <br/> ") ;
+				temp.append("Stat " + mapResultat.get(KEY.DAMAGE_PRIMARY_STAT) +" <br/> ") ;
+				temp.append("AS Bonus " + mapResultat.get(KEY.AS_BONUS) +" <br/> ") ;
+				temp.append("AS MH " + mapResultat.get(KEY.AS_MH) +" <br/> ") ;
+				temp.append("AS OH " + mapResultat.get(KEY.AS_OH) +" <br/> ") ;
+				temp.append("CRIT CHANCE " + mapResultat.get(KEY.DAMAGE_CRIT_CHANCE) +" <br/> ") ;
+				temp.append("CRIT DAMAGE " + mapResultat.get(KEY.DAMAGE_CRIT_DAMAGE) +" <br/> ") ;
+				temp.append("MH DAMAGE " + mapResultat.get(KEY.MH_DAMAGE) +" <br/> ") ;
+				temp.append("OH DAMAGE " + mapResultat.get(KEY.OH_DAMAGE) +" <br/> ") ;
+				temp.append("DPS :<b> " + mapResultat.get(KEY.DPS) +" </b> <br/> ") ;
 		return temp.toString();
 	}
 	
-	public String getDetailDiff(Map<String, Double> a,Map<String, Double> b)
+	public String getDetailDiff(Map<KEY, Double> a,Map<KEY, Double> b)
 	{
 		String color="Green";
 		StringBuffer temp = new StringBuffer();
-		String keys[] = {"VITALITY","LIFE","ARMOR","STAT","ATTACKSPEEDBONUS","ATTACKSPEEDMH","ATTACKSPEEDOH","CRITCHANCE","CRITDAMAGE","MHDAMAGE","OHDAMAGE","DPS"};
-		for(String k:keys)
+		for(KEY k:KEY.values())
 		{
 			double val = b.get(k) - a.get(k);
 			if(val <0)
@@ -469,7 +468,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 			itemPanelDetails.showItem(getItem());
 			
 			StuffCalculator a = D3ArmoryControler.getInstance().getCalculator();
-			StuffCalculator b = a.compareStuffs(gear, getItem());
+			StuffCalculator b = a.compareStuffWithItem(gear, getItem());
 
 			lblStat2.init();
 			lblStat2.addText(getDetail(b.getStatCalculator()), "white", "red");
