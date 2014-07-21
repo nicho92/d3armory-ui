@@ -1,5 +1,7 @@
 package com.pihen.d3restapi.test;
 
+import java.util.Collections;
+
 import org.armory.d3.services.D3ArmoryControler;
 
 import com.pihen.d3restapi.beans.Hero;
@@ -8,6 +10,7 @@ import com.pihen.d3restapi.service.configuration.Configuration;
 import com.pihen.d3restapi.service.remote.RemoteService;
 import com.pihen.d3restapi.service.remote.SpringRemoteService;
 import com.pihen.d3restapi.service.util.StuffCalculator;
+import com.pihen.d3restapi.service.util.StuffCalculator.KEY;
 
 
 public class Main {
@@ -35,16 +38,12 @@ public class Main {
 					calc.calculate();
 					
 					System.out.println("HERO : " + hero.getName() + " " + hero.getLevel() + " ("+ hero.getParagonLevel()+")");
-					System.out.println("Profile DPS : " + hero.getStats().getDamage());
+					System.out.println("----------------------------------");
 					
-					System.out.println("CritC : " +calc.getCritChance()*100);
-					System.out.println("CritD : " + calc.getCritDamage()*100);
-					System.out.println(hero.getPrimaryStat() + " : " + calc.getPrimaryStatUnbuffedValue());
-					System.out.println("Vita : " + calc.getVitality());
-					System.out.println("HP : " + calc.getHP());
-					System.out.println("Armor :" + calc.getStats().get("ARMOR"));
-					System.out.println("RAW DPS : " + calc.calculate());
-									
+					for(KEY k : calc.getStatCalculator().keySet())
+					{
+						System.out.println(k + "--> " + calc.getStatCalculator().get(k));
+					}
 		}
 }
 

@@ -4,6 +4,8 @@ import javax.swing.table.DefaultTableModel;
 
 import org.armory.d3.services.D3ArmoryControler;
 
+import com.pihen.d3restapi.beans.Gem;
+import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.StuffCalculator;
@@ -62,42 +64,74 @@ public class StuffDetailsModel extends DefaultTableModel {
 
 	public Object getValueAt(int row, int column) {
 	try {	
-			if(column==0)
+			if(row==EnumerationStuff.values().length)
 			{
-				return EnumerationStuff.values()[row];
-			}
-			if(column==1)
-			{
-				return calc.getStuffs().get(EnumerationStuff.getValueAt(row)).getName();
-			}
-			if(column==2)
-			{
-				String statLabel = calc.getHero().getPrimaryStat();
-				Item i = calc.getStuffs().get(EnumerationStuff.getValueAt(row));
+				if(column==0)
+				{
+					return "Base";
+				}
+				if(column==1)
+				{
+					Hero h = D3ArmoryControler.getInstance().getSelectedHero(false);
+					return h.getClazz() +"-"+ h.getLevel(); 
+				}
+				if(column==2)
+				{
+					return calc.getPrimaryBaseValue();
+				}
+				if(column==3)
+				{
+					return 5;
+				}
+				if(column==4)
+				{
+					return 50;
+				}
 				
-				return calc.filter(i, statLabel, null);
 			}
-			if(column==3)
+			else
 			{
-				return StuffCalculator.format(calc.filter(calc.getStuffs().get(EnumerationStuff.getValueAt(row)), "Crit_Percent", null)*100);
+				if(column==0)
+				{
+					return EnumerationStuff.values()[row];
+				}
+				if(column==1)
+				{
+					return calc.getStuffs().get(EnumerationStuff.getValueAt(row)).getName();
+				}
+				if(column==2)//stat de base, avec la récuperation des gems.
+				{
+					String statLabel = calc.getHero().getPrimaryStat();
+					Item i = calc.getStuffs().get(EnumerationStuff.getValueAt(row));
+					double gemstat =0;
+					for(Gem g: i.getGems())
+						gemstat+=calc.filter(g.getAttributesRaw(), statLabel, null);
+					
+					return calc.filter(i, statLabel, null)+gemstat;
+				}
+				if(column==3)
+				{
+					return StuffCalculator.format(calc.filter(calc.getStuffs().get(EnumerationStuff.getValueAt(row)), "Crit_Percent", null)*100);
+				}
+				if(column==4)
+				{
+					return StuffCalculator.format(calc.filter(calc.getStuffs().get(EnumerationStuff.getValueAt(row)), "Crit_Damage", null)*100);
+				}	
+				if(column==5)
+				{
+					return StuffCalculator.format(calc.filter(calc.getStuffs().get(EnumerationStuff.getValueAt(row)), "Attacks_Per_Second_Percent", null)*100);
+				}
+				if(column==6)
+				{
+					return StuffCalculator.format(calc.filter(calc.getStuffs().get(EnumerationStuff.getValueAt(row)), "Vitality", null));
+				}
+				if(column==7)
+				{
+					return StuffCalculator.format(calc.filter(calc.getStuffs().get(EnumerationStuff.getValueAt(row)),"Damage_Percent_Bonus_Vs_Elites", null)*100);
+				}
+
 			}
-			if(column==4)
-			{
-				return StuffCalculator.format(calc.filter(calc.getStuffs().get(EnumerationStuff.getValueAt(row)), "Crit_Damage", null)*100);
-			}	
-			if(column==5)
-			{
-				return StuffCalculator.format(calc.filter(calc.getStuffs().get(EnumerationStuff.getValueAt(row)), "Attacks_Per_Second_Percent", null)*100);
-			}
-			if(column==6)
-			{
-				return StuffCalculator.format(calc.filter(calc.getStuffs().get(EnumerationStuff.getValueAt(row)), "Vitality", null));
-			}
-			if(column==7)
-			{
-				return StuffCalculator.format(calc.filter(calc.getStuffs().get(EnumerationStuff.getValueAt(row)),"Damage_Percent_Bonus_Vs_Elites", null)*100);
-			}
-		return null;
+					return null;
 	}catch(Exception e)
 	{
 		return null;

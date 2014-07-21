@@ -35,10 +35,10 @@ public class Gem implements Serializable{
 		return item.getName() + " "+ attributes;
 	}
 	
-	public final static String[] getTypes()
-	{
-		return new String[]{"Chipped","Flawed","Normal","Flawless","Perfect","Radiant","Square","Flawless Square","Perfect Square","Radiant Square","Star","Flawless Star","Perfect Star","Marquise"};
-	}
-	
+//	public final static String[] getTypes()
+//	{
+//		return new String[]{"Chipped","Flawed","Normal","Flawless","Perfect","Radiant","Square","Flawless Square","Perfect Square","Radiant Square","Star","Flawless Star","Perfect Star","Marquise"};
+//	}
+//	
 	
 }
