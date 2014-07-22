@@ -30,7 +30,8 @@ public class Main {
 		Profile profile = profileService.receiveEntity(conf);
 			
 		Hero hero = profile.getHeroes().get(3);
-					conf.setHeroId(hero.getId());
+					conf.setHeroId(
+							hero.getId());
 		D3ArmoryControler.getInstance().setConf(conf);
 		hero = heroService.receiveEntity(conf);
 
