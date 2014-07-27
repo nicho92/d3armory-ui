@@ -19,6 +19,7 @@ public class LegendarySet implements Serializable {
 		{
 			if(z!=null)
 			{	
+				//add one item for ring of royal grandeur
 				if(z.getAttributesRaw().get("Attribute_Set_Item_Discount")!=null)
 					nbPiece=nbPiece+ z.getAttributesRaw().get("Attribute_Set_Item_Discount").getMoyenne().intValue();
 				
