@@ -1,7 +1,10 @@
 package com.pihen.d3restapi.beans;
 
-public class Skill {
-	
+import java.io.Serializable;
+
+public class Skill implements Serializable{
+
+	private static final long serialVersionUID = 1672183573682019273L;
 	private String description;
 	private String icon;
 	private String name;

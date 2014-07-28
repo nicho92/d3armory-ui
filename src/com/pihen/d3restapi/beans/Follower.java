@@ -1,8 +1,13 @@
 package com.pihen.d3restapi.beans;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Follower {
+public class Follower implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4190827522169521184L;
 	private String slug;
 	private Number level;
 	private FollowerItemSet items;

@@ -1,7 +1,12 @@
 package com.pihen.d3restapi.beans;
 
+import java.io.Serializable;
 
-public class FollowerItemSet {
+
+public class FollowerItemSet implements Serializable {
+	
+
+	private static final long serialVersionUID = -6741577083847030888L;
 	private Item leftFinger;
 	private Item mainHand;
 	private Item neck;

@@ -1,6 +1,13 @@
 package com.pihen.d3restapi.beans;
 
-public class Stats {
+import java.io.Serializable;
+
+public class Stats implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2552962533518205081L;
 	private Double life;
 	private Double damage ;
 	private Double attackSpeed ;

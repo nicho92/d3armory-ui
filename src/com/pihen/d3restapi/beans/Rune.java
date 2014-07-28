@@ -1,6 +1,12 @@
 package com.pihen.d3restapi.beans;
 
-public class Rune {
+import java.io.Serializable;
+
+public class Rune implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 101689568751186415L;
 	private String slug;
 	private String type;
 	private String name;

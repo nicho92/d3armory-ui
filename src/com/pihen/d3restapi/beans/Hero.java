@@ -1,12 +1,16 @@
 package com.pihen.d3restapi.beans;
 
+import java.io.Serializable;
+
 import com.google.gson.annotations.SerializedName;
 import com.pihen.d3restapi.service.annotation.RemoteConfiguration;
 import com.pihen.d3restapi.service.remote.RemoteEntity;
 
 @RemoteConfiguration(url = "http://<host>/api/d3/profile/<battletag-name>-<battletag-code>/hero/<hero-id>?locale=<local>")
-public class Hero extends RemoteEntity {
+public class Hero extends RemoteEntity implements Serializable {
 	
+
+	private static final long serialVersionUID = -3004980927672845063L;
 	private Number id;
 	private String name;
 	@SerializedName("class") private String clazz;

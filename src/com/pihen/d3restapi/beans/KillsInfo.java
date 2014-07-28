@@ -1,6 +1,12 @@
 package com.pihen.d3restapi.beans;
 
-public class KillsInfo {
+import java.io.Serializable;
+
+public class KillsInfo implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3611613482562817012L;
 	private Number elites;
 	private Number monsters;
 	private Number hardcoreMonsters;

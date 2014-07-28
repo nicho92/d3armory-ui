@@ -1,6 +1,10 @@
 package com.pihen.d3restapi.beans;
 
-public class FollowersList {
+import java.io.Serializable;
+
+public class FollowersList implements Serializable{
+
+	private static final long serialVersionUID = 1762202995634306237L;
 	private Follower enchantress;
 	private Follower scoundrel;
 	private Follower templar;

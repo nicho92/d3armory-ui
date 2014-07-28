@@ -31,6 +31,8 @@ public class D3ArmoryControler {
 	private static String TAG_FILE="conf/tags.d3armory";
 	private static String LOCALE_FILE="conf/local.d3armory";
 	private static String SERIALISATION_DIR="conf/items";
+	private static String SERIALISATION_HERO_DIR="conf/heroes";
+	
 	
 	private static D3ArmoryControler instance;
 	public Configuration conf;
@@ -269,10 +271,37 @@ public class D3ArmoryControler {
 		
 	}
 	
+	public void saveHero(Hero i)
+	{
+		try{
+			FileOutputStream fos = new FileOutputStream(SERIALISATION_HERO_DIR +"/"+i.getName()+".d3hero");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(i);
+			oos.flush();
+			oos.close();
+		}
+		catch (java.io.IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public Hero loadHero(File f)
+	{
+		try{
+			FileInputStream fos = new FileInputStream(SERIALISATION_HERO_DIR +"/"+f.getName()+".d3hero");
+			ObjectInputStream ois  = new ObjectInputStream(fos);
+			return (Hero)ois.readObject();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	public void saveItem(Item i)
 	{
 		try{
-			FileOutputStream fos = new FileOutputStream(SERIALISATION_DIR +"/"+i.getName()+".d3armory");
+			FileOutputStream fos = new FileOutputStream(SERIALISATION_DIR +"/"+i.getName()+".d3item");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(i);
 			oos.flush();
@@ -286,7 +315,7 @@ public class D3ArmoryControler {
 	public Item loadItem(File f)
 	{
 		try{
-			FileInputStream fos = new FileInputStream(SERIALISATION_DIR +"/"+f.getName());
+			FileInputStream fos = new FileInputStream(SERIALISATION_DIR +"/"+f.getName()+".d3item");
 			ObjectInputStream ois  = new ObjectInputStream(fos);
 			return (Item)ois.readObject();
 		}

@@ -1,7 +1,13 @@
 package com.pihen.d3restapi.beans;
 
-public class Progression {
+import java.io.Serializable;
 
+public class Progression implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6637648015577173612L;
 	private QuestProgression act1;
 	private QuestProgression act2;
 	private QuestProgression act3;

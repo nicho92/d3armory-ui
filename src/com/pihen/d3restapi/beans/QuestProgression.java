@@ -1,9 +1,14 @@
 package com.pihen.d3restapi.beans;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class QuestProgression {
+public class QuestProgression implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8623958270945604532L;
 	private boolean completed;
 	private List<Quest> completedQuests;
 	
