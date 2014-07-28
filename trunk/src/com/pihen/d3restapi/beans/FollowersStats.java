@@ -1,7 +1,13 @@
 package com.pihen.d3restapi.beans;
 
-public class FollowersStats {
+import java.io.Serializable;
 
+public class FollowersStats implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6758459890542133507L;
 	private String goldFind;
 	private String magicFind;
 	private Number experienceBonus;

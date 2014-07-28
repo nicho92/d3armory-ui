@@ -1,8 +1,14 @@
 package com.pihen.d3restapi.beans;
 
-public class SkillRune {
+import java.io.Serializable;
+
+public class SkillRune implements Serializable{
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3859658134581050046L;
 	private Skill skill;
 	private Rune rune;
 	

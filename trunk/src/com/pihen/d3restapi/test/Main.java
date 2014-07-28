@@ -38,6 +38,8 @@ public class Main {
 					StuffCalculator calc = new StuffCalculator(D3ArmoryControler.getInstance().initStuffHero(hero),hero);
 					calc.calculate();
 					
+					
+					D3ArmoryControler.getInstance().saveHero(hero);
 					System.out.println("HERO : " + hero.getName() + " " + hero.getLevel() + " ("+ hero.getParagonLevel()+")");
 					System.out.println("----------------------------------");
 					

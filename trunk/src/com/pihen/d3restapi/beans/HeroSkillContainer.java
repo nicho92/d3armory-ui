@@ -1,9 +1,14 @@
 package com.pihen.d3restapi.beans;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class HeroSkillContainer {
+public class HeroSkillContainer implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2283076437248119519L;
 	private List<SkillRune> active;
 	private List<SkillRune> passive;
 

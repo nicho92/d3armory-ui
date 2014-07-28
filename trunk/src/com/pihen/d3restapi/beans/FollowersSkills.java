@@ -1,8 +1,12 @@
 package com.pihen.d3restapi.beans;
 
-public class FollowersSkills {
+import java.io.Serializable;
 
-	Skill skill;
+public class FollowersSkills implements Serializable{
+
+
+	private static final long serialVersionUID = -6745327194567651378L;
+	private Skill skill;
 
 	public Skill getSkill() {
 		return skill;

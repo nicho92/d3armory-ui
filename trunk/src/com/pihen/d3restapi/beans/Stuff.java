@@ -1,10 +1,16 @@
 package com.pihen.d3restapi.beans;
 
+import java.io.Serializable;
+
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 
 
 
-public class Stuff {
+public class Stuff implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7916630887795237313L;
 	private Item bracers;
 	private Item feet;
 	private Item hands;
