@@ -1,6 +1,6 @@
 package com.pihen.d3restapi.test;
 
-import java.util.Collections;
+import java.io.File;
 
 import org.armory.d3.services.D3ArmoryControler;
 
@@ -29,12 +29,12 @@ public class Main {
 		
 		Profile profile = profileService.receiveEntity(conf);
 			
-		Hero hero = profile.getHeroes().get(3);
+		Hero hero = profile.getHeroes().get(5);
 					conf.setHeroId(
 							hero.getId());
 		D3ArmoryControler.getInstance().setConf(conf);
 		hero = heroService.receiveEntity(conf);
-
+		//hero= D3ArmoryControler.getInstance().loadHero(new File("Cynyda"));
 					StuffCalculator calc = new StuffCalculator(D3ArmoryControler.getInstance().initStuffHero(hero),hero);
 					calc.calculate();
 					

@@ -59,16 +59,18 @@ public class StuffDetailsModel extends DefaultTableModel {
 
 	public int getRowCount() {
 		
-		return EnumerationStuff.values().length+1;
+		return EnumerationStuff.values().length+2;
 	}
 
 	public Object getValueAt(int row, int column) {
 	try {	
+		String filter="";
+		
 			if(row==EnumerationStuff.values().length)
 			{
 				if(column==0)
 				{
-					return "Base";
+					return "BASE";
 				}
 				if(column==1)
 				{
@@ -88,6 +90,24 @@ public class StuffDetailsModel extends DefaultTableModel {
 					return 50;
 				}
 				
+			}
+			if(row==EnumerationStuff.values().length+1)
+			{
+				if(column==0)
+					return "SET BONUS";
+				
+				
+				if(column==2)
+					return calc.filterStats(calc.getHero().getPrimaryStat(), "SET");
+				
+				if(column==3)
+					return StuffCalculator.format(calc.filter(calc.getStuffs().get(EnumerationStuff.getValueAt(row)), "Crit_Percent", "SET")*100);
+				
+				if(column==4)
+				{
+					return StuffCalculator.format(calc.filter(calc.getStuffs().get(EnumerationStuff.getValueAt(row)), "Crit_Damage", "SET")*100);
+				}	
+			
 			}
 			else
 			{
@@ -119,7 +139,11 @@ public class StuffDetailsModel extends DefaultTableModel {
 				}	
 				if(column==5)
 				{
-					return StuffCalculator.format(calc.filter(calc.getStuffs().get(EnumerationStuff.getValueAt(row)), "Attacks_Per_Second_Percent", null)*100);
+					Item i = calc.getStuffs().get(EnumerationStuff.getValueAt(row));
+					if(i.isWeapon())
+						return StuffCalculator.format(i.getAttacksPerSecond().getMoyenne());
+					else
+						return StuffCalculator.format(calc.filter(i, "Attacks_Per_Second_Percent", null)*100);
 				}
 				if(column==6)
 				{

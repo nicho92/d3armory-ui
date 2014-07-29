@@ -33,7 +33,7 @@ public class TableauDetailsModel extends DefaultTableModel {
 		int row=0;
 		
 		if(D3ArmoryControler.getInstance().getCalculator()!=null)
-			row = D3ArmoryControler.getInstance().getCalculator().getBonusItem().size();
+			row = D3ArmoryControler.getInstance().getCalculator().getStatAttributs().size();
 		
 		return row;
 	}
@@ -52,7 +52,7 @@ public class TableauDetailsModel extends DefaultTableModel {
 	
 	@Override
 	public Object getValueAt(int row, int column) {
-		Map<String,MinMaxBonus> map = D3ArmoryControler.getInstance().getCalculator().getBonusItem();
+		Map<String,MinMaxBonus> map = D3ArmoryControler.getInstance().getCalculator().getStatAttributs();
 		Object[] entries= map.entrySet().toArray();
 	        Map.Entry<String, MinMaxBonus> entry=(Map.Entry)entries[row];
 	        if (column==0) {
