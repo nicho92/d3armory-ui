@@ -19,8 +19,8 @@ import com.pihen.d3restapi.beans.SkillRune;
 
 public class StuffCalculator{
 	
-	public static enum KEY { DAMAGE_PRIMARY_STAT, AS_BONUS, AS_ATTACK_PER_SECONDS, AS_MH, AS_OH, DAMAGE_CRIT_CHANCE,DAMAGE_CRIT_DAMAGE,MH_DAMAGE,OH_DAMAGE,VITALITY,LIFE,ARMOR,DAMAGE_ELITE, DPS,ELEMENTAL_DPS, DODGECHANCE,FIRE_D,COLD_D,POISON_D,HOLY_D,ARCANE_D};
-	public static enum ELEMENTS { Fire, Cold, Holy,Poison,Arcane};
+	public static enum KEY { DAMAGE_PRIMARY_STAT, AS_BONUS, AS_ATTACK_PER_SECONDS, AS_MH, AS_OH, DAMAGE_CRIT_CHANCE,DAMAGE_CRIT_DAMAGE,MH_DAMAGE,OH_DAMAGE,VITALITY,LIFE,ARMOR,DAMAGE_ELITE, DPS,ELEMENTAL_DPS, DODGECHANCE,FIRE_D,COLD_D,POISON_D,HOLY_D,ARCANE_D,LIGHTNING_D,PHYSICAL_D};
+	public static enum ELEMENTS { Fire, Cold, Holy,Poison,Arcane,Lightning,Physical};
 	
 	public Hero getHero() {
 		return hero;
@@ -35,8 +35,7 @@ public class StuffCalculator{
 	private HeroSkillContainer skills;
 	private Map<String, MinMaxBonus> statsCalculator;
 	private Hero hero;
-	private boolean twohanded;
-	int countweapon=0;
+	private boolean twohanded;	int countweapon=0;
 	private Map<String,Double> weaponDefaultAS=new HashMap<String,Double>();
 	
 	private Map<KEY,Double> mapResultat ;
@@ -80,7 +79,7 @@ public class StuffCalculator{
 		init();
 	}
 
-	public Map<String, MinMaxBonus> getBonusItem()
+	public Map<String, MinMaxBonus> getStatAttributs()
 	{
 		return statsCalculator;
 	}
@@ -312,7 +311,7 @@ public class StuffCalculator{
 		mapResultat.put(KEY.POISON_D,format(getElementalDamageBonus(ELEMENTS.Poison)*100));
 		mapResultat.put(KEY.COLD_D,format(getElementalDamageBonus(ELEMENTS.Cold)*100));
 		mapResultat.put(KEY.ARCANE_D,format(getElementalDamageBonus(ELEMENTS.Arcane)*100));
-		
+		mapResultat.put(KEY.LIGHTNING_D, format(getElementalDamageBonus(ELEMENTS.Lightning)*100));
 		
 		mapResultat.put(KEY.DPS,format(dps));
 		mapResultat.put(KEY.ELEMENTAL_DPS,format(elementdps));
