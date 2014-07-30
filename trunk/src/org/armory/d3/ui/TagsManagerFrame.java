@@ -34,7 +34,6 @@ public class TagsManagerFrame extends javax.swing.JFrame {
 		initGUI();
 		tagsList = listeTagsModel;
 	}
-	
 	private void initGUI() {
 		try {
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
