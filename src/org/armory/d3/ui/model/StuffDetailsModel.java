@@ -67,7 +67,7 @@ public class StuffDetailsModel extends DefaultTableModel {
 	public Object getValueAt(int row, int column) {
 
 		try {	
-			Item i = calc.getStuffs().get(EnumerationStuff.getValueAt(row));
+			
 			if(row==EnumerationStuff.values().length)
 			{
 				if(column==0)
@@ -119,15 +119,17 @@ public class StuffDetailsModel extends DefaultTableModel {
 				}
 				if(column==7)
 				{
-					return StuffCalculator.format(calc.filter("Damage_Percent_Bonus_Vs_Elites", null)*100);
+					return StuffCalculator.format(calc.filter("Damage_Percent_Bonus_Vs_Elites", "SET")*100);
 				}
 				if(column==8)
 				{
-					return StuffCalculator.format(calc.filter("Power_Cooldown_Reduction_Percent_All",null)*100);
+					return StuffCalculator.format(calc.filter("Power_Cooldown_Reduction_Percent_All","SET")*100);
 				}
 			}
 			else
 			{
+				Item i = calc.getStuffs().get(EnumerationStuff.getValueAt(row));
+				
 				if(column==0)
 				{
 					return EnumerationStuff.values()[row];
@@ -151,7 +153,11 @@ public class StuffDetailsModel extends DefaultTableModel {
 				}
 				if(column==4)
 				{
-					return StuffCalculator.format(calc.filter(i, "Crit_Damage", null)*100);
+					double val=StuffCalculator.format(calc.filter(i, "Crit_Damage", null)*100);
+					if(i.isWeapon())
+						if(i.getGems().size()>0)
+							val+=calc.filter(i.getGems().get(0).getAttributesRaw(), "Crit_Damage", null)*100;
+					return val;
 				}	
 				if(column==5)
 				{
@@ -175,7 +181,7 @@ public class StuffDetailsModel extends DefaultTableModel {
 					
 					if( EnumerationStuff.values()[row].equals(EnumerationStuff.HEAD))
 						if(i.getGems().size()>0)
-							val=StuffCalculator.format(calc.filter(i.getGems().get(0).getAttributesRaw(), "Power_Cooldown_Reduction_Percent_All",null)*100);
+							val+=StuffCalculator.format(calc.filter(i.getGems().get(0).getAttributesRaw(), "Power_Cooldown_Reduction_Percent_All",null)*100);
 					return val;
 				}
 
