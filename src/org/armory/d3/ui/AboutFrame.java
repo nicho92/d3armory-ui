@@ -1,5 +1,7 @@
 package org.armory.d3.ui;
 import java.awt.BorderLayout;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
@@ -40,7 +42,7 @@ public class AboutFrame extends javax.swing.JFrame {
 					jScrollPane1.setViewportView(lblInfo);
 					lblInfo.setContentType("text/html");
 					lblInfo.setEditable(false);
-					lblInfo.setText("Nicolas Pihen - 2013 - <a href='mailto:nicolas.pihen@gmail.com'>nicolas.pihen@gmail.com</a><br/>" + new RSSReader().parse());
+					lblInfo.setText("Nicolas Pihen - " +GregorianCalendar.getInstance().get(Calendar.YEAR)+" - <a href='mailto:nicolas.pihen@gmail.com'>nicolas.pihen@gmail.com</a><br/>" + new RSSReader().parse());
 					lblInfo.setPreferredSize(new java.awt.Dimension(459, 116));
 					lblInfo.setCaretPosition(0);
 				}

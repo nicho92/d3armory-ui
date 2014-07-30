@@ -1,8 +1,7 @@
 package com.pihen.d3restapi.test;
 
-import java.io.File;
-
 import org.armory.d3.services.D3ArmoryControler;
+import org.armory.d3.services.RSSReader;
 
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.Profile;
@@ -47,6 +46,7 @@ public class Main {
 					{
 						System.out.println(k + "--> " + calc.getStatCalculator().get(k));
 					}
+				
 		}
 }
 

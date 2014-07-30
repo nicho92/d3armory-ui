@@ -38,6 +38,7 @@ public class RSSReader {
             } //for
             return temp.toString();
         } catch (Exception ex) {
+        	System.out.println(ex);
         	return null;
         } 
 		

@@ -38,6 +38,7 @@ public class StuffDetailsModel extends DefaultTableModel {
 			case 6: return "Vitality" ;
 			case 7: return "Elite Damage" ;
 			case 8: return "Cooldown Reduction";
+			case 9: return "Elemental Damage";
 			default : return "";
 			}
 		}
@@ -54,7 +55,7 @@ public class StuffDetailsModel extends DefaultTableModel {
 	}
 
 	public int getColumnCount() {
-		return 9;
+		return 10;
 	}
 
 
