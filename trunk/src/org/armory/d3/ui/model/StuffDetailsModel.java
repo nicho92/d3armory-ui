@@ -37,6 +37,7 @@ public class StuffDetailsModel extends DefaultTableModel {
 			case 5: return "Attack Speed" ;
 			case 6: return "Vitality" ;
 			case 7: return "Elite Damage" ;
+			case 8: return "Cooldown Reduction";
 			default : return "";
 			}
 		}
@@ -53,7 +54,7 @@ public class StuffDetailsModel extends DefaultTableModel {
 	}
 
 	public int getColumnCount() {
-		return 8;
+		return 9;
 	}
 
 
@@ -63,9 +64,9 @@ public class StuffDetailsModel extends DefaultTableModel {
 	}
 
 	public Object getValueAt(int row, int column) {
-	try {	
-		String filter="";
-		
+
+		try {	
+			Item i = calc.getStuffs().get(EnumerationStuff.getValueAt(row));
 			if(row==EnumerationStuff.values().length)
 			{
 				if(column==0)
@@ -98,16 +99,31 @@ public class StuffDetailsModel extends DefaultTableModel {
 				
 				
 				if(column==2)
-					return calc.filterStats(calc.getHero().getPrimaryStat(), "SET");
+					return calc.filter(calc.getHero().getPrimaryStat(), "SET");
 				
 				if(column==3)
-					return StuffCalculator.format(calc.filter(calc.getStuffs().get(EnumerationStuff.getValueAt(row)), "Crit_Percent", "SET")*100);
+					return StuffCalculator.format(calc.filter("Crit_Percent", "SET")*100);
 				
 				if(column==4)
 				{
-					return StuffCalculator.format(calc.filter(calc.getStuffs().get(EnumerationStuff.getValueAt(row)), "Crit_Damage", "SET")*100);
+					return StuffCalculator.format(calc.filter("Crit_Damage", "SET")*100);
 				}	
-			
+				if(column==5)
+				{
+					return StuffCalculator.format(calc.filter("Attacks_Per_Second_Percent", "SET")*100);
+				}
+				if(column==6)
+				{
+					return StuffCalculator.format(calc.filter("Vitality", "SET"));
+				}
+				if(column==7)
+				{
+					return StuffCalculator.format(calc.filter("Damage_Percent_Bonus_Vs_Elites", null)*100);
+				}
+				if(column==8)
+				{
+					return StuffCalculator.format(calc.filter("Power_Cooldown_Reduction_Percent_All",null)*100);
+				}
 			}
 			else
 			{
@@ -122,7 +138,6 @@ public class StuffDetailsModel extends DefaultTableModel {
 				if(column==2)//stat de base, avec la récuperation des gems.
 				{
 					String statLabel = calc.getHero().getPrimaryStat();
-					Item i = calc.getStuffs().get(EnumerationStuff.getValueAt(row));
 					double gemstat =0;
 					for(Gem g: i.getGems())
 						gemstat+=calc.filter(g.getAttributesRaw(), statLabel, null);
@@ -131,15 +146,15 @@ public class StuffDetailsModel extends DefaultTableModel {
 				}
 				if(column==3)
 				{
-					return StuffCalculator.format(calc.filter(calc.getStuffs().get(EnumerationStuff.getValueAt(row)), "Crit_Percent", null)*100);
+					return StuffCalculator.format(calc.filter(i, "Crit_Percent", null)*100);
 				}
 				if(column==4)
 				{
-					return StuffCalculator.format(calc.filter(calc.getStuffs().get(EnumerationStuff.getValueAt(row)), "Crit_Damage", null)*100);
+					return StuffCalculator.format(calc.filter(i, "Crit_Damage", null)*100);
 				}	
 				if(column==5)
 				{
-					Item i = calc.getStuffs().get(EnumerationStuff.getValueAt(row));
+					
 					if(i.isWeapon())
 						return StuffCalculator.format(i.getAttacksPerSecond().getMoyenne());
 					else
@@ -147,11 +162,20 @@ public class StuffDetailsModel extends DefaultTableModel {
 				}
 				if(column==6)
 				{
-					return StuffCalculator.format(calc.filter(calc.getStuffs().get(EnumerationStuff.getValueAt(row)), "Vitality", null));
+					return StuffCalculator.format(calc.filter(i, "Vitality", null));
 				}
 				if(column==7)
 				{
-					return StuffCalculator.format(calc.filter(calc.getStuffs().get(EnumerationStuff.getValueAt(row)),"Damage_Percent_Bonus_Vs_Elites", null)*100);
+					return StuffCalculator.format(calc.filter(i,"Damage_Percent_Bonus_Vs_Elites", null)*100);
+				}
+				if(column==8)
+				{
+					double val = StuffCalculator.format(calc.filter(i, "Power_Cooldown_Reduction_Percent_All",null)*100);
+					
+					if( EnumerationStuff.values()[row].equals(EnumerationStuff.HEAD))
+						if(i.getGems().size()>0)
+							val=StuffCalculator.format(calc.filter(i.getGems().get(0).getAttributesRaw(), "Power_Cooldown_Reduction_Percent_All",null)*100);
+					return val;
 				}
 
 			}

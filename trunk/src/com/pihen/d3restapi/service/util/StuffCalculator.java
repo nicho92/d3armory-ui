@@ -19,7 +19,7 @@ import com.pihen.d3restapi.beans.SkillRune;
 
 public class StuffCalculator{
 	
-	public static enum KEY { DAMAGE_PRIMARY_STAT, AS_BONUS, AS_ATTACK_PER_SECONDS, AS_MH, AS_OH, DAMAGE_CRIT_CHANCE,DAMAGE_CRIT_DAMAGE,MH_DAMAGE,OH_DAMAGE,VITALITY,LIFE,ARMOR,DAMAGE_ELITE, DPS,ELEMENTAL_DPS, DODGECHANCE,FIRE_D,COLD_D,POISON_D,HOLY_D,ARCANE_D,LIGHTNING_D,PHYSICAL_D};
+	public static enum KEY { DAMAGE_PRIMARY_STAT, AS_BONUS, AS_ATTACK_PER_SECONDS, AS_MH, AS_OH, DAMAGE_CRIT_CHANCE,DAMAGE_CRIT_DAMAGE,MH_DAMAGE,OH_DAMAGE,VITALITY,HP, LIFE,ARMOR,DAMAGE_ELITE, DPS,ELEMENTAL_DPS, DODGECHANCE,FIRE_D,COLD_D,POISON_D,HOLY_D,ARCANE_D,LIGHTNING_D,PHYSICAL_D};
 	public static enum ELEMENTS { Fire, Cold, Holy,Poison,Arcane,Lightning,Physical};
 	
 	public Hero getHero() {
@@ -86,25 +86,25 @@ public class StuffCalculator{
 	
 	public double getCritChance()
 	{
-		 return 0.05 + filterStats("Crit_Percent",null);
+		 return 0.05 + filter("Crit_Percent",null);
 	}
 	
 	
 	public double getCritDamage()
 	{
 		
-		return 0.5 + filterStats("Crit_Damage",null);
+		return 0.5 + filter("Crit_Damage",null);
 	}
 	
 	public double getElementalDamageBonus(ELEMENTS element)
 	{
-		return filterStats("Damage_Dealt_Percent_Bonus", element.toString());
+		return filter("Damage_Dealt_Percent_Bonus", element.toString());
 	}
 	
 	
 	public double getPrimaryStatUnbuffedValue()
 	{
-		return getPrimaryBaseValue() + filterStats(hero.getPrimaryStat(), null);
+		return getPrimaryBaseValue() + filter(hero.getPrimaryStat(), null);
 	}
 	
 	public double getPrimaryBaseValue()
@@ -114,12 +114,12 @@ public class StuffCalculator{
 	
 	public double getEliteDamageBonus()
 	{
-		return filterStats("Damage_Percent_Bonus_Vs_Elites", null);
+		return filter("Damage_Percent_Bonus_Vs_Elites", null);
 	}
 	
 	private int getVitality()
 	{
-		return (int)(7+(2*hero.getLevel().intValue())+ filterStats("Vitality", null));
+		return (int)(7+(2*hero.getLevel().intValue())+ filter("Vitality", null));
 	}
 		
 	private double getHP()
@@ -219,7 +219,7 @@ public class StuffCalculator{
 		}
 	}
 	
-	public double calculate()
+	public Map<KEY,Double> calculate()
 	{
 		double bonusDual=(countweapon==2)?0.15:0;
 	
@@ -236,7 +236,7 @@ public class StuffCalculator{
 		if(countweapon==2)
 			offI=weaponDefaultAS.get(stuffs.get(EnumerationStuff.OFF_HAND).getType().getId()); //AS de base du type arme OFF
 		
-		double bonusAsArmor = filter(getArmorsItem(), "Attacks_Per_Second_Percent", null) + filterStats("Attacks_Per_Second_Percent","BUFF");
+		double bonusAsArmor = filter(getArmorsItem(), "Attacks_Per_Second_Percent", null) + filter("Attacks_Per_Second_Percent","BUFF");
 		double bonusWeapon = filter(getWeaponsItems(), "Attacks_Per_Second_Item_Bonus", null);
 		double compagnonBonus=0; // ou 0.3 pour l'enchanteresse
 				
@@ -255,14 +255,14 @@ public class StuffCalculator{
 		if(stuffs.get(EnumerationStuff.MAIN_HAND)!=null)
 		{
 			weaponDmgMain=minMaxDmg/2+(stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne()+stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne())/2;
-			weaponDmgMain = weaponDmgMain * (1+ filterStats("Damage_Weapon_Percent_Bonus#Physical","BUFF"));
+			weaponDmgMain = weaponDmgMain * (1+ filter("Damage_Weapon_Percent_Bonus#Physical","BUFF"));
 		}
 		double weaponDmgOff=0;
 		
 		if(countweapon==2)
 		{
 			weaponDmgOff=minMaxDmg/2+(stuffs.get(EnumerationStuff.OFF_HAND).getMinDamage().getMoyenne()+stuffs.get(EnumerationStuff.OFF_HAND).getMaxDamage().getMoyenne())/2;
-			weaponDmgOff = weaponDmgOff * (1+ filterStats("Damage_Weapon_Percent_Bonus#Physical","BUFF"));
+			weaponDmgOff = weaponDmgOff * (1+ filter("Damage_Weapon_Percent_Bonus#Physical","BUFF"));
 		}
 		
 		double hitDmgMAIN=statDamage*ccDamage*weaponDmgMain;
@@ -271,7 +271,7 @@ public class StuffCalculator{
 	
 		
 		//CALCUL VITALITY
-		double lifeB= filterStats("Hitpoints_Max_Percent_Bonus","");
+		double lifeB= filter("Hitpoints_Max_Percent_Bonus","");
 		double lvl = hero.getLevel().doubleValue();
 		double vitality = getVitality();
 		double life=0;
@@ -283,7 +283,7 @@ public class StuffCalculator{
 		
 		
 		//ARMOR CALCUL
-		double armorBonus= filterStats("Armor","");
+		double armorBonus= filter("Armor","");
 		double armor = stat_base+armorBonus;
 
 		double dps=getDamage(stat_base,chance_cc,degat_cc,1+bonusAsArmor,minMaxDmg,0);
@@ -303,6 +303,7 @@ public class StuffCalculator{
 		mapResultat.put(KEY.OH_DAMAGE,format(hitDmgOFF));
 		mapResultat.put(KEY.VITALITY,format(vitality));
 		mapResultat.put(KEY.LIFE,format(life));
+		mapResultat.put(KEY.HP, getHP());
 		mapResultat.put(KEY.ARMOR,format(armor));
 		mapResultat.put(KEY.DODGECHANCE,dodgeChance);
 		mapResultat.put(KEY.DAMAGE_ELITE, format(getEliteDamageBonus()*100));
@@ -312,23 +313,11 @@ public class StuffCalculator{
 		mapResultat.put(KEY.COLD_D,format(getElementalDamageBonus(ELEMENTS.Cold)*100));
 		mapResultat.put(KEY.ARCANE_D,format(getElementalDamageBonus(ELEMENTS.Arcane)*100));
 		mapResultat.put(KEY.LIGHTNING_D, format(getElementalDamageBonus(ELEMENTS.Lightning)*100));
-		
+		mapResultat.put(KEY.PHYSICAL_D,format(getElementalDamageBonus(ELEMENTS.Physical)*100));
 		mapResultat.put(KEY.DPS,format(dps));
 		mapResultat.put(KEY.ELEMENTAL_DPS,format(elementdps));
-		
-		if(dps>=elementdps)
-			return dps;
-		else
-			return elementdps;
+	return mapResultat;
 	}
-	
-
-	public double getDodgeChance()
-	{
-		return mapResultat.get(KEY.DODGECHANCE); 
-		
-	}
-	
 	
 	public Map<KEY,Double> getStats()
 	{
@@ -350,7 +339,7 @@ public class StuffCalculator{
 	    	double dommageMoyen = dommageMoyen(minMaxDmg);
 	    	double critDamage = ccDamage; 
 	    	double chanceCrit = chance_cc;
-	    	double elementalDamage=filterStats("Damage_Dealt_Percent_Bonus", null);
+	    	double elementalDamage=filter("Damage_Dealt_Percent_Bonus", null);
 	    	double mainWeaponMinDamage=0;
 	    	double mainWeaponMaxDamage=0;
 	    	
@@ -373,7 +362,7 @@ public class StuffCalculator{
 	    		dommageMoyen += elementalDamage * (mainWeaponMinDamage + mainWeaponMaxDamage + offHandMinDamage + offHandMaxDamage + 2 * minMaxDmg) / 2;
 	    		damage = (1 + s) * statBase * (1 + critDamage * chanceCrit) * bonusAS*dommageMoyen / vitesseMoyenne;
 	    	}
-	    	return damage * (1+ filterStats("Damage_Weapon_Percent_Bonus#Physical","BUFF"));	 
+	    	return damage * (1+ filter("Damage_Weapon_Percent_Bonus#Physical","BUFF"));	 
 	}
 	
 	private double getDamage(double stat_base, double chance_cc,double ccDamage, double bonusAS, double minMaxDmg, int s) 
@@ -395,7 +384,7 @@ public class StuffCalculator{
  			bonusAS += .15;//dual
  			damage = (1 + s) * statBase * (1 + critDamage * chanceCrit) * bonusAS * dommageMoyen / vitesseMoyenne;
  		}
- 		return damage* (1+ filterStats("Damage_Weapon_Percent_Bonus#Physical","BUFF"));
+ 		return damage* (1+ filter("Damage_Weapon_Percent_Bonus#Physical","BUFF"));
 	}
 	
 	private double dommageMoyen(double minMaxDmg) {
@@ -602,7 +591,7 @@ public class StuffCalculator{
 		return total;
 	}
 	
-	public double filterStats(String stat,String elementfilter) {
+	public double filter(String stat,String elementfilter) {
 		double total=0.0;
 		Iterator<String> keyIt = statsCalculator.keySet().iterator();
 		
