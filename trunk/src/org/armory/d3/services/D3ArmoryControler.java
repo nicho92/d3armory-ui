@@ -315,7 +315,7 @@ public class D3ArmoryControler {
 	public Item loadItem(File f)
 	{
 		try{
-			FileInputStream fos = new FileInputStream(SERIALISATION_DIR +"/"+f.getName()+".d3item");
+			FileInputStream fos = new FileInputStream(SERIALISATION_DIR +"/"+f.getName());
 			ObjectInputStream ois  = new ObjectInputStream(fos);
 			return (Item)ois.readObject();
 		}

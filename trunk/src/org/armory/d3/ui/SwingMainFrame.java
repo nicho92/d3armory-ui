@@ -344,7 +344,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private void listeHerosMouseClicked(MouseEvent evt)  {
 		hero = (Hero)((JList) evt.getSource()).getSelectedValue();
-		
+		D3ArmoryControler.getInstance().saveHero(hero);
 			new Thread(new Runnable() {
 			      public void run() {
 			    	  try {	
