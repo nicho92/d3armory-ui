@@ -1,7 +1,12 @@
 package com.pihen.d3restapi.test;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import org.armory.d3.services.D3ArmoryControler;
-import org.armory.d3.services.RSSReader;
 
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.Profile;
@@ -38,13 +43,14 @@ public class Main {
 					calc.calculate();
 					
 					
-					D3ArmoryControler.getInstance().saveHero(hero);
+					
 					System.out.println("HERO : " + hero.getName() + " " + hero.getLevel() + " ("+ hero.getParagonLevel()+")");
 					System.out.println("----------------------------------");
+					System.out.println(calc.getOrientation());
 					
-					for(KEY k : calc.getStatCalculator().keySet())
+					for(KEY k : calc.getStats().keySet())
 					{
-						System.out.println(k + "--> " + calc.getStatCalculator().get(k));
+						System.out.println(k + "--> " + calc.getStats().get(k));
 					}
 				
 		}

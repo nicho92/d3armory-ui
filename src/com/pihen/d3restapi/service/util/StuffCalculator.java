@@ -50,9 +50,6 @@ public class StuffCalculator{
 	}
 
 	
-	public Map<KEY, Double> getStatCalculator() {
-		return mapResultat;
-	}
 
 	public Map<EnumerationStuff, Item> getStuffs() {
 		return stuffs;
@@ -286,12 +283,14 @@ public class StuffCalculator{
 		double armorBonus= filter("Armor","");
 		double armor = stat_base+armorBonus;
 
-		double dps=getDamage(stat_base,chance_cc,degat_cc,1+bonusAsArmor,minMaxDmg,0);
-		double elementdps = getElemDamage(stat_base,chance_cc,degat_cc,1+bonusAsArmor,minMaxDmg,0);
-
 		
 		//DODGE
 		double dodgeChance = hero.getStats().getDexterity() / (0.00031*Math.pow(hero.getLevel().intValue(), 3) + 0.0186*Math.pow(hero.getLevel().intValue(),2) + 0.25*hero.getLevel().intValue() + 1.93);
+
+		
+		double dps=getDamage(stat_base,chance_cc,degat_cc,1+bonusAsArmor,minMaxDmg,0);
+		double elementdps = getElemDamage(stat_base,chance_cc,degat_cc,1+bonusAsArmor,minMaxDmg,0);
+
 		
 		mapResultat.put(KEY.DAMAGE_PRIMARY_STAT,stat_base);
 		mapResultat.put(KEY.AS_BONUS,format(bonusAsArmor*100));
@@ -331,6 +330,26 @@ public class StuffCalculator{
 		return (min+max) ;
 	}
 
+	public ELEMENTS getOrientation()
+	{
+		ELEMENTS ret=null;
+		double temp=0;
+		double max=0;
+		for(ELEMENTS e:ELEMENTS.values())
+		{
+			temp = getElementalDamageBonus(e);
+			
+			if(temp>max)
+			{
+				max=temp;
+				ret=e;
+			}
+		}
+		return ret;
+	
+		
+	}
+	
 	private double getElemDamage(double stat_base, double chance_cc,double ccDamage, double bonusAS, double minMaxDmg, int s)
 	{
 			double damage = 0; 
@@ -339,7 +358,7 @@ public class StuffCalculator{
 	    	double dommageMoyen = dommageMoyen(minMaxDmg);
 	    	double critDamage = ccDamage; 
 	    	double chanceCrit = chance_cc;
-	    	double elementalDamage=filter("Damage_Dealt_Percent_Bonus", null);
+	    	double elementalDamage=filter("Damage_Dealt_Percent_Bonus",null);
 	    	double mainWeaponMinDamage=0;
 	    	double mainWeaponMaxDamage=0;
 	    	

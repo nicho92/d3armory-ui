@@ -11,7 +11,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Map;
 
-import javax.swing.BoxLayout;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultRowSorter;
@@ -27,9 +26,10 @@ import javax.swing.WindowConstants;
 import javax.swing.table.TableRowSorter;
 
 import org.armory.d3.services.D3ArmoryControler;
-import org.armory.d3.ui.components.FormatedJLabel;
 import org.armory.d3.ui.components.ItemPanelDetails;
+import org.armory.d3.ui.components.StuffComparCellRenderer;
 import org.armory.d3.ui.model.ItemDetailsModel;
+import org.armory.d3.ui.model.StuffComparaisonModel;
 
 import ca.odell.glazedlists.GlazedLists;
 import ca.odell.glazedlists.matchers.TextMatcherEditor;
@@ -41,29 +41,13 @@ import com.pihen.d3restapi.beans.MinMaxBonus;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.RawsAttributes;
 import com.pihen.d3restapi.service.util.StuffCalculator;
+import com.pihen.d3restapi.service.util.StuffCalculator.KEY;
 
-import static com.pihen.d3restapi.service.util.StuffCalculator.KEY;
-
-/**
-* This code was edited or generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
-* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
-* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
-*/
-public class ItemCreatorFrame extends javax.swing.JDialog {
+public class ItemCreatorFrame extends javax.swing.JFrame {
 	private JPanel panneauGauche;
 	private ItemPanelDetails itemPanelDetails;
 	private JLabel lblSokets;
 	private JButton btnSauvegarder;
-	private JLabel lblStatDiff;
-	private FormatedJLabel lblStat2;
-	private FormatedJLabel lblStat1;
 	private JPanel panneauDetailDPS;
 	private JPanel panneauTotalGauche;
 	private JPanel panneauDPS;
@@ -89,15 +73,9 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 	private JLabel lblName;
 	private ItemDetailsModel tableauSpecItemModel;
 	private EnumerationStuff gear;
+	private JTable table;
 
-//	public ItemCreatorFrame() {
-//		super();
-//		Item i = new Item();
-//		tableauSpecItemModel.setItem(null);
-//		tableauSpecItemModel =new ItemDetailsModel(i);
-//		tableauSpecItemModel.setItem(i);
-//		initGUI();
-//	}
+
 	
 	public ItemCreatorFrame(Item i,EnumerationStuff e) {
 		super();
@@ -114,25 +92,17 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 			setTitle("Item Builder");
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			this.setIconImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/icone.jpg")).getImage());
-			lblStat1 = new FormatedJLabel();
-			lblStat2 = new FormatedJLabel();
-			lblStatDiff = new FormatedJLabel();
 			
 			{
 				{
 					panneauTotalGauche = new JPanel();
-					BoxLayout panneauTotalGaucheLayout = new BoxLayout(panneauTotalGauche, javax.swing.BoxLayout.X_AXIS);
-					panneauTotalGauche.setLayout(panneauTotalGaucheLayout);
-					getContentPane().add(panneauTotalGauche, BorderLayout.CENTER);
+					getContentPane().add(panneauTotalGauche, BorderLayout.WEST);
+					panneauTotalGauche.setLayout(new BorderLayout(0, 0));
 					{
 						panneauGauche = new JPanel();
-						panneauTotalGauche.add(panneauGauche);
+						panneauTotalGauche.add(panneauGauche, BorderLayout.CENTER);
 						BorderLayout panneauGaucheLayout = new BorderLayout();
 						panneauGauche.setLayout(panneauGaucheLayout);
-						itemPanelDetails = new ItemPanelDetails();
-						itemPanelDetails.setPreferredSize(new java.awt.Dimension(379, 398));
-						panneauTotalGauche.add(itemPanelDetails);
-						itemPanelDetails.setFlavEnable(false);
 						panneauGauche.setPreferredSize(new java.awt.Dimension(461, 398));
 						{
 							panneauHaut = new JPanel();
@@ -144,11 +114,8 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 							panneauHautLayout.setVgap(5);
 							panneauHautLayout.setColumns(2);
 							panneauHautLayout.setRows(7);
-							{
-								lblName = new JLabel();
+								lblName = new JLabel("Name :");
 								panneauHaut.add(lblName);
-								lblName.setText("Name :");
-							}
 							{
 								txtNom = new JTextField(getItem().getName());
 								panneauHaut.add(txtNom);
@@ -357,6 +324,46 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								tableauSpecItem.setModel(tableauSpecItemModel);
 								DefaultRowSorter sorter = new TableRowSorter(tableauSpecItem.getModel());
 								tableauSpecItem.setRowSorter(sorter);
+								panneauDetailDPS = new JPanel();
+								panneauTotalGauche.add(panneauDetailDPS, BorderLayout.SOUTH);
+								panneauDetailDPS.setBackground(Color.black);
+								panneauDetailDPS.setPreferredSize(new java.awt.Dimension(862, 198));
+								
+								panneauDetailDPS.setLayout(new BorderLayout(0, 0));
+								
+								JScrollPane scrollPane = new JScrollPane();
+								panneauDetailDPS.add(scrollPane, BorderLayout.CENTER);
+								
+								table = new JTable();
+								table.setBackground(Color.BLACK);
+								
+								
+								D3ArmoryControler.getInstance().getCalculator().calculate();
+								StuffCalculator a = D3ArmoryControler.getInstance().getCalculator();
+								StuffCalculator b = D3ArmoryControler.getInstance().getCalculator();
+								a.calculate();
+								b.calculate();
+								StuffComparaisonModel mod = new StuffComparaisonModel();
+								mod.setStuffCalc(a, b);
+								table.setModel(mod);
+								
+								
+								table.setDefaultRenderer(Object.class, new StuffComparCellRenderer());
+								DefaultRowSorter sorter1 = new TableRowSorter(table.getModel());
+								table.setRowSorter(sorter1);
+								
+								
+								scrollPane.setViewportView(table);
+								btnSauvegarder = new JButton();
+								panneauDetailDPS.add(btnSauvegarder, BorderLayout.EAST);
+								btnSauvegarder.setText("Save");
+								btnSauvegarder.setPreferredSize(new java.awt.Dimension(71, 23));
+								btnSauvegarder.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent evt) {
+										D3ArmoryControler.getInstance().saveItem(getItem());
+										btnSauvegarder.setEnabled(false);
+									}
+								});
 								tableauSpecItem.addPropertyChangeListener(new PropertyChangeListener() {
 									public void propertyChange(PropertyChangeEvent evt) {
 										refreshItem();
@@ -368,49 +375,22 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 					}
 				}
 				{
-					panneauDetailDPS = new JPanel();
-					panneauDetailDPS.setBackground(Color.black);
-					getContentPane().add(panneauDetailDPS, BorderLayout.SOUTH);
-					panneauDetailDPS.setPreferredSize(new java.awt.Dimension(862, 198));
-					{
 					
-						panneauDetailDPS.add(lblStat1);
-						lblStat1.setPreferredSize(new java.awt.Dimension(230, 179));
-						lblStat1.init();
-						D3ArmoryControler.getInstance().getCalculator().calculate();
-						lblStat1.addText(getDetail(D3ArmoryControler.getInstance().getCalculator().getStatCalculator()), "white", "green");
-						lblStat1.applyText();
-					}
+				
 					{
-						
-						panneauDetailDPS.add(lblStat2);
-						lblStat2.setPreferredSize(new java.awt.Dimension(230, 178));
-					}
-					{
-						
-						panneauDetailDPS.add(lblStatDiff);
-						lblStatDiff.setPreferredSize(new java.awt.Dimension(230, 182));
-					}
-					{
-						btnSauvegarder = new JButton();
-						panneauDetailDPS.add(btnSauvegarder);
-						btnSauvegarder.setText("Save");
-						btnSauvegarder.setPreferredSize(new java.awt.Dimension(71, 23));
-						btnSauvegarder.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent evt) {
-								D3ArmoryControler.getInstance().saveItem(getItem());
-								btnSauvegarder.setEnabled(false);
-							}
-						});
+						itemPanelDetails = new ItemPanelDetails();
+						getContentPane().add(itemPanelDetails, BorderLayout.CENTER);
+						itemPanelDetails.setPreferredSize(new java.awt.Dimension(379, 398));
+						itemPanelDetails.setFlavEnable(false);
 					}
 				}
 
 			}
 			pack();
-			this.setSize(878, 613);
+			//this.setSize(878, 613);
 			setLocationRelativeTo(null);
 			setVisible(true);
-			
+			setResizable(true);
 			refreshItem();
 			
 		} catch (Exception e) {
@@ -418,23 +398,6 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 		}
 	}
 	
-	public String getDetail(Map<KEY, Double> mapResultat)
-	{
-		StringBuffer temp = new StringBuffer();
-				temp.append("Vitality " + mapResultat.get(KEY.VITALITY) +" <br/> ") ;
-				temp.append("Life " + mapResultat.get(KEY.LIFE) +" <br/> ") ;
-				temp.append("Armor " + mapResultat.get(KEY.ARMOR) +" <br/> ") ;
-				temp.append("Stat " + mapResultat.get(KEY.DAMAGE_PRIMARY_STAT) +" <br/> ") ;
-				temp.append("AS Bonus " + mapResultat.get(KEY.AS_BONUS) +" <br/> ") ;
-				temp.append("AS MH " + mapResultat.get(KEY.AS_MH) +" <br/> ") ;
-				temp.append("AS OH " + mapResultat.get(KEY.AS_OH) +" <br/> ") ;
-				temp.append("CRIT CHANCE " + mapResultat.get(KEY.DAMAGE_CRIT_CHANCE) +" <br/> ") ;
-				temp.append("CRIT DAMAGE " + mapResultat.get(KEY.DAMAGE_CRIT_DAMAGE) +" <br/> ") ;
-				temp.append("MH DAMAGE " + mapResultat.get(KEY.MH_DAMAGE) +" <br/> ") ;
-				temp.append("OH DAMAGE " + mapResultat.get(KEY.OH_DAMAGE) +" <br/> ") ;
-				temp.append("DPS :<b> " + mapResultat.get(KEY.DPS) +" </b> <br/> ") ;
-		return temp.toString();
-	}
 	
 	public String getDetailDiff(Map<KEY, Double> a,Map<KEY, Double> b)
 	{
@@ -451,7 +414,9 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 				color="<font color='gray'/> ";
 	
 			temp.append(color + StuffCalculator.format(val) +"</font><br/>");
+			
 		}
+		
 		return temp.toString();
 	}
 	
@@ -462,21 +427,21 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 	}
 	
 	protected void refreshItem() {
-			lblStat2.setText("");
-			lblStatDiff.setText("");
 			getItem().generateAttributsString();
 			itemPanelDetails.showItem(getItem());
 			
 			StuffCalculator a = D3ArmoryControler.getInstance().getCalculator();
 			StuffCalculator b = a.compareStuffWithItem(gear, getItem());
-
-			lblStat2.init();
-			lblStat2.addText(getDetail(b.getStatCalculator()), "white", "red");
-			lblStat2.applyText();
 			
-			lblStatDiff.setText("<html>"+getDetailDiff(a.getStatCalculator(),b.getStatCalculator()));
+		
+			((StuffComparaisonModel)this.table.getModel()).setStuffCalc(a,b);
+			
+			((StuffComparaisonModel)this.table.getModel()).fireTableDataChanged();
+			
 			btnSauvegarder.setEnabled(true);
 	}
+	
+	
 	public ItemPanelDetails getItemPanelDetails() {
 		return itemPanelDetails;
 	}
@@ -485,6 +450,4 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 	{
 		return tableauSpecItemModel.getItem();
 	}
-
-		
 }
