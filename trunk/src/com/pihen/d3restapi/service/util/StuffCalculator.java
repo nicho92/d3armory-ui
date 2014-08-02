@@ -470,7 +470,9 @@ public class StuffCalculator{
 		if(countweapon==2)
 			bonusOHas=1 + filter(stuffs.get(EnumerationStuff.OFF_HAND), "Attacks_Per_Second_Item_Percent", null); //augmente la vitesse d'attaque de XX% sur la OH
 		
-		armorASBonus=filter(getArmorsItem(), "Attacks_Per_Second_Item_Percent", null);//0.
+		//armorASBonus=filter(getArmorsItem(), "Attacks_Per_Second_Item_Percent", null);//0.
+		armorASBonus=filter("Attacks_Per_Second_Item_Percent", null);//0.
+		
 		double weaponASBonus = filter(getWeaponsItems(), "Attacks_Per_Second_Item_Bonus", null); 
 		double attacks_Per_Second_Item_Bonus= filter(getWeaponsItems(), "Attacks_Per_Second_Item_Bonus", "OFF"); 
 		
@@ -518,6 +520,11 @@ public class StuffCalculator{
 	public void removeBonus(Set<String> set) {
 		for(String k: set)
 			statsCalculator.remove(k);
+	}
+	
+	public void addBonus(String att, MinMaxBonus val)
+	{
+		statsCalculator.put(att, val);
 	}
 	
 	public void addBonus(Map<String,MinMaxBonus> bonus)
