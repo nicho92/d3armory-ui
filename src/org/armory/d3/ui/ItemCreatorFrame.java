@@ -1,6 +1,7 @@
 package org.armory.d3.ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -43,7 +44,7 @@ import com.pihen.d3restapi.service.util.RawsAttributes;
 import com.pihen.d3restapi.service.util.StuffCalculator;
 import com.pihen.d3restapi.service.util.StuffCalculator.KEY;
 
-public class ItemCreatorFrame extends javax.swing.JFrame {
+public class ItemCreatorFrame extends javax.swing.JDialog {
 	private JPanel panneauGauche;
 	private ItemPanelDetails itemPanelDetails;
 	private JLabel lblSokets;
@@ -100,10 +101,10 @@ public class ItemCreatorFrame extends javax.swing.JFrame {
 					panneauTotalGauche.setLayout(new BorderLayout(0, 0));
 					{
 						panneauGauche = new JPanel();
-						panneauTotalGauche.add(panneauGauche, BorderLayout.CENTER);
+						panneauTotalGauche.add(panneauGauche, BorderLayout.NORTH);
 						BorderLayout panneauGaucheLayout = new BorderLayout();
 						panneauGauche.setLayout(panneauGaucheLayout);
-						panneauGauche.setPreferredSize(new java.awt.Dimension(461, 398));
+						panneauGauche.setPreferredSize(new Dimension(0, 398));
 						{
 							panneauHaut = new JPanel();
 							GridLayout panneauHautLayout = new GridLayout(7, 2);
@@ -119,7 +120,6 @@ public class ItemCreatorFrame extends javax.swing.JFrame {
 							{
 								txtNom = new JTextField(getItem().getName());
 								panneauHaut.add(txtNom);
-								txtNom.setPreferredSize(new java.awt.Dimension(148, 75));
 								txtNom.addKeyListener(new KeyAdapter() {
 									public void keyReleased(KeyEvent evt) {
 										getItem().setName(txtNom.getText());
@@ -144,7 +144,6 @@ public class ItemCreatorFrame extends javax.swing.JFrame {
 								panneauHaut.add(cboType);
 								cboType.setModel(cboTypeModel);
 						
-								cboType.setPreferredSize(new java.awt.Dimension(148, 75));
 								cboType.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent evt) {
 										
@@ -193,13 +192,11 @@ public class ItemCreatorFrame extends javax.swing.JFrame {
 								lblAttributes = new JLabel();
 								panneauHaut.add(lblAttributes);
 								lblAttributes.setText("Attributs :");
-								lblAttributes.setPreferredSize(new java.awt.Dimension(190, 21));
 							}
 							{
 								cboAttributs = new JComboBox<Attributs>();
 								cboAttributs.setEditable(true);
 								panneauHaut.add(cboAttributs);
-								cboAttributs.setPreferredSize(new java.awt.Dimension(294, 21));
 								AutoCompleteSupport support = AutoCompleteSupport.install(cboAttributs, GlazedLists.eventListOf(new RawsAttributes().getAttributs()));
 													support.setStrict(true);
 													support.setFilterMode(TextMatcherEditor.CONTAINS);
@@ -325,9 +322,9 @@ public class ItemCreatorFrame extends javax.swing.JFrame {
 								DefaultRowSorter sorter = new TableRowSorter(tableauSpecItem.getModel());
 								tableauSpecItem.setRowSorter(sorter);
 								panneauDetailDPS = new JPanel();
-								panneauTotalGauche.add(panneauDetailDPS, BorderLayout.SOUTH);
+								panneauTotalGauche.add(panneauDetailDPS, BorderLayout.CENTER);
 								panneauDetailDPS.setBackground(Color.black);
-								panneauDetailDPS.setPreferredSize(new java.awt.Dimension(862, 198));
+								panneauDetailDPS.setPreferredSize(new Dimension(500, 198));
 								
 								panneauDetailDPS.setLayout(new BorderLayout(0, 0));
 								
@@ -338,7 +335,7 @@ public class ItemCreatorFrame extends javax.swing.JFrame {
 								table.setBackground(Color.BLACK);
 								
 								
-								D3ArmoryControler.getInstance().getCalculator().calculate();
+
 								StuffCalculator a = D3ArmoryControler.getInstance().getCalculator();
 								StuffCalculator b = D3ArmoryControler.getInstance().getCalculator();
 								a.calculate();
@@ -357,7 +354,6 @@ public class ItemCreatorFrame extends javax.swing.JFrame {
 								btnSauvegarder = new JButton();
 								panneauDetailDPS.add(btnSauvegarder, BorderLayout.EAST);
 								btnSauvegarder.setText("Save");
-								btnSauvegarder.setPreferredSize(new java.awt.Dimension(71, 23));
 								btnSauvegarder.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent evt) {
 										D3ArmoryControler.getInstance().saveItem(getItem());
@@ -380,14 +376,13 @@ public class ItemCreatorFrame extends javax.swing.JFrame {
 					{
 						itemPanelDetails = new ItemPanelDetails();
 						getContentPane().add(itemPanelDetails, BorderLayout.CENTER);
-						itemPanelDetails.setPreferredSize(new java.awt.Dimension(379, 398));
+						itemPanelDetails.setPreferredSize(new Dimension(420, 398));
 						itemPanelDetails.setFlavEnable(false);
 					}
 				}
 
 			}
 			pack();
-			//this.setSize(878, 613);
 			setLocationRelativeTo(null);
 			setVisible(true);
 			setResizable(true);
@@ -398,27 +393,6 @@ public class ItemCreatorFrame extends javax.swing.JFrame {
 		}
 	}
 	
-	
-	public String getDetailDiff(Map<KEY, Double> a,Map<KEY, Double> b)
-	{
-		String color="Green";
-		StringBuffer temp = new StringBuffer();
-		for(KEY k:KEY.values())
-		{
-			double val = b.get(k) - a.get(k);
-			if(val <0)
-				color="<font color='red'/>";
-			if(val >0)
-				color="<font color='green'/>+";
-			if(val==0)
-				color="<font color='gray'/> ";
-	
-			temp.append(color + StuffCalculator.format(val) +"</font><br/>");
-			
-		}
-		
-		return temp.toString();
-	}
 	
 	
 	public double calcWeaponDPS(Double min,Double max, Double as) {

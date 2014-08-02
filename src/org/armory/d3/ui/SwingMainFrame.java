@@ -2,6 +2,7 @@ package org.armory.d3.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -52,6 +53,7 @@ import org.armory.d3.ui.components.HeroCellRenderer;
 import org.armory.d3.ui.components.HeroPanel;
 import org.armory.d3.ui.components.ItemLabel;
 import org.armory.d3.ui.components.ItemPanelDetails;
+import org.armory.d3.ui.components.ParangonPanel;
 import org.armory.d3.ui.components.SkillLabel;
 import org.armory.d3.ui.components.SocketLabel;
 import org.armory.d3.ui.model.ListeHeroModel;
@@ -63,6 +65,7 @@ import com.pihen.d3restapi.beans.Follower;
 import com.pihen.d3restapi.beans.FollowersList;
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.Item;
+import com.pihen.d3restapi.beans.ItemType;
 import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.beans.SkillRune;
 import com.pihen.d3restapi.service.remote.exception.D3ServerCommunicationException;
@@ -130,10 +133,10 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JMenuItem exitMenuItem;
 	private JSeparator jSeparator2;
 	private JMenuItem newFileMenuItem;
-	private JMenuItem jmiItemCreator;
+	private JMenu jmiItemCreator;
 	private JMenu jMenu3;
 	private JMenuBar jMenuBar1;
-
+	private ParangonPanel parangonPanel;
 	private DefaultComboBoxModel listeTagsModel;
 	private DefaultRowSorter sorter;
 	
@@ -211,7 +214,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private void initGUI() {
 		try {
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			this.setTitle("Diablo III Profile");
+			this.setTitle("Diablo III -ROS- Manager");
 			this.setIconImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/icone.jpg")).getImage());
 			
 			setExtendedState(MAXIMIZED_BOTH);
@@ -262,6 +265,28 @@ public class SwingMainFrame extends javax.swing.JFrame {
 								newLocalActionPerformed(evt);
 							}
 						});
+						jmiItemCreator=new JMenu("Item Creator");
+						jMenu3.add(jmiItemCreator);
+						for(final EnumerationStuff e : EnumerationStuff.values())
+						{
+							JMenuItem it = new JMenuItem(e.toString());
+							it.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent evt) {
+									try {
+										if(D3ArmoryControler.getInstance().getSelectedHero(false)!=null)
+										new ItemCreatorFrame(new Item(), e).setVisible(true);
+									} catch (D3ServerCommunicationException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+								}
+							});
+							
+							jmiItemCreator.add(it);
+
+						}
+							
+						
 					}
 					{
 						jSeparator2 = new JSeparator();
@@ -1467,6 +1492,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			ongletPane.addTab("Details", null, getPanneauTableauDescription(), null);
 			ongletPane.addTab("Followers", null, getFollowersPanel(), null);
 			ongletPane.addTab("Expert", null, getPanneauTableau(), null);
+			ongletPane.addTab("Parangon", null,getPanneauParangon(),null);
 			ongletPane.addChangeListener(new ChangeListener() {
 				
 				public void stateChanged(ChangeEvent e) {//on charge les followers lors du clique sur l'onglet
@@ -1489,6 +1515,14 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	}
 	
 	
+	private JPanel getPanneauParangon() {
+		if(parangonPanel==null){
+			parangonPanel=new ParangonPanel();
+		}
+		return parangonPanel;
+	}
+
+
 	public JPanel getPanneauInfoHero() {
 		if(panneauInfoHero == null) {
 			panneauInfoHero = new JPanel() {
