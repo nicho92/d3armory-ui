@@ -1497,13 +1497,15 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					JTabbedPane sourceTabbedPane = (JTabbedPane) e.getSource();
 			        int index = sourceTabbedPane.getSelectedIndex();
 					if(index==2)
+					{		getLblstatbar().setText("Loading Followers");
 						try {
 							loadFollowers();
 						} catch (D3ServerCommunicationException e1) {
-							
 							e1.printStackTrace();
 						}
+							getLblstatbar().setText("");
 						
+					}	
 					
 				}
 			});
