@@ -34,11 +34,9 @@ public class HeroPanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Hero hero=null;
-		try {
+		
 			hero = D3ArmoryControler.getInstance().getSelectedHero(false);
-		} catch (D3ServerCommunicationException e1) {
-			e1.printStackTrace();
-		}
+		
 		if(hero!=null){
 				String classe = hero.getClazz();
 				String sexe = hero.getSexe();

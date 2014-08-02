@@ -105,10 +105,15 @@ public class D3ArmoryControler {
 		
 	}
 	
-	public Hero getSelectedHero(boolean reloading) throws D3ServerCommunicationException
+	public Hero getSelectedHero(boolean reloading) 
 	{
 		if(reloading)
-			selected = getHeroDetails(selected.getId().longValue());
+			try {
+				selected = getHeroDetails(selected.getId().longValue());
+			} catch (D3ServerCommunicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		
 		return selected;
 	}
@@ -247,13 +252,10 @@ public class D3ArmoryControler {
 	}
 	
 	public boolean initCalculator(Map<EnumerationStuff, Item> stuff) {
-		try {
+	
 			calculator = new StuffCalculator(stuff, getSelectedHero(false));
 			return true;
-		} catch (D3ServerCommunicationException e) {
-			e.printStackTrace();
-			return false;
-		}
+		 
 		
 	}
 

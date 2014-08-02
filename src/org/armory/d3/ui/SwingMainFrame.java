@@ -272,13 +272,10 @@ public class SwingMainFrame extends javax.swing.JFrame {
 							JMenuItem it = new JMenuItem(e.toString());
 							it.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent evt) {
-									try {
+									
 										if(D3ArmoryControler.getInstance().getSelectedHero(false)!=null)
-										new ItemCreatorFrame(new Item(), e).setVisible(true);
-									} catch (D3ServerCommunicationException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
+											new ItemCreatorFrame(new Item(), e).setVisible(true);
+									
 								}
 							});
 							
