@@ -158,7 +158,9 @@ public class StuffCalculator{
 				piecesbyset.put(i.getSet(),LegendarySet.getStuffSetsNbPieces(stuffs.values(), i.getSet()));
 			}
 			
+			
 			//bonus de gems
+			if(i.getGems()!=null)
 			if(i.getGems().size()>0)
 			{
 				List<Gem> gems = i.getGems();

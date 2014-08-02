@@ -11,6 +11,7 @@ import com.pihen.d3restapi.service.annotation.DataType;
 import com.pihen.d3restapi.service.annotation.RemoteConfiguration;
 import com.pihen.d3restapi.service.annotation.RemoteData;
 import com.pihen.d3restapi.service.remote.RemoteEntity;
+import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.RawsAttributes;
 
 /**
@@ -441,6 +442,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	{
 		return getType() +" - " + getName();
 	}
+
 	
 	public static Map<String,Double> getWeaponDefaultAS()
 	{

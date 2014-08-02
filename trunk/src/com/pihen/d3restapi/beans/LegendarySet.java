@@ -15,6 +15,7 @@ public class LegendarySet implements Serializable {
 	public static int getStuffSetsNbPieces(Collection<Item> stuff,LegendarySet set)
 	{
 		int nbPiece=0;
+		int ringRoyale=0;
 		for(Item z : stuff)
 		{
 			if(z!=null)
@@ -24,17 +25,13 @@ public class LegendarySet implements Serializable {
 					if(s.equals(z))
 						nbPiece++;
 				}
-				
-				if(nbPiece>1)
-					//add one item for ring of royal grandeur
-					if(z.getAttributesRaw().get("Attribute_Set_Item_Discount")!=null)
-						nbPiece=nbPiece+ z.getAttributesRaw().get("Attribute_Set_Item_Discount").getMoyenne().intValue();
-					
-				
-				
+				if(z.getAttributesRaw().get("Attribute_Set_Item_Discount")!=null)
+					ringRoyale=z.getAttributesRaw().get("Attribute_Set_Item_Discount").getMoyenne().intValue();
 			}
 		}
-		
+		if(nbPiece>1)
+			nbPiece=nbPiece+ringRoyale;//add one item for ring of royal grandeur
+	
 		return nbPiece;
 	}
 	
