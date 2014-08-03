@@ -185,6 +185,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	    {
 	    	repconf.mkdir();
 	    	new File(repconf.getAbsolutePath()+"/items").mkdir();
+	    	new File(repconf.getAbsolutePath()+"/heroes").mkdir();
 	    	new File(repconf.getAbsolutePath()+"/local.d3armory").createNewFile();
 	    	new File(repconf.getAbsolutePath()+"/tags.d3armory").createNewFile();
 	    	D3ArmoryControler.getInstance().setLocal("en_EN");
@@ -366,7 +367,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private void listeHerosMouseClicked(MouseEvent evt)  {
 		hero = (Hero)((JList) evt.getSource()).getSelectedValue();
-		D3ArmoryControler.getInstance().saveHero(hero);
 			new Thread(new Runnable() {
 			      public void run() {
 			    	  try {	

@@ -19,7 +19,7 @@ import com.pihen.d3restapi.beans.SkillRune;
 
 public class StuffCalculator{
 	
-	public static enum KEY { DAMAGE_PRIMARY_STAT, AS_BONUS, AS_ATTACK_PER_SECONDS, AS_MH, AS_OH, DAMAGE_CRIT_CHANCE,DAMAGE_CRIT_DAMAGE,MH_DAMAGE,OH_DAMAGE,VITALITY,HP, LIFE,ARMOR,DAMAGE_ELITE, DPS,ELEMENTAL_DPS, DODGECHANCE,FIRE_D,COLD_D,POISON_D,HOLY_D,ARCANE_D,LIGHTNING_D,PHYSICAL_D};
+	public static enum KEY { DAMAGE_PRIMARY_STAT, AS_BONUS, AS_ATTACK_PER_SECONDS, AS_MH, AS_OH, DAMAGE_CRIT_CHANCE,DAMAGE_CRIT_DAMAGE,MH_DAMAGE,OH_DAMAGE,VITALITY,HP, LIFE,ARMOR,DAMAGE_ELITE, DPS,ELEMENTAL_DPS, DODGECHANCE,FIRE_D,COLD_D,POISON_D,HOLY_D,ARCANE_D,LIGHTNING_D,PHYSICAL_D, COOLDOWN_REDUCTION};
 	public static enum ELEMENTS { Fire, Cold, Holy,Poison,Arcane,Lightning,Physical};
 	
 	public Hero getHero() {
@@ -256,7 +256,7 @@ public class StuffCalculator{
 		{
 			weaponDmgMain=minMaxDmg/2+(stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne()+stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne())/2;
 			weaponDmgMain = weaponDmgMain * (1+ filter("Damage_Weapon_Percent_Bonus#Physical",null));
-		}
+					}
 		double weaponDmgOff=0;
 		
 		if(countweapon==2)
@@ -318,12 +318,18 @@ public class StuffCalculator{
 		mapResultat.put(KEY.PHYSICAL_D,format(getElementalDamageBonus(ELEMENTS.Physical)*100));
 		mapResultat.put(KEY.DPS,format(dps));
 		mapResultat.put(KEY.ELEMENTAL_DPS,format(elementdps));
+		mapResultat.put(KEY.COOLDOWN_REDUCTION, format(getCoolDownReduction()*100));
 	return mapResultat;
 	}
 	
 	public Map<KEY,Double> getStats()
 	{
 		return mapResultat;
+	}
+	
+	private double getCoolDownReduction()
+	{
+		return filter("Power_Cooldown_Reduction_Percent_All",null);
 	}
 	
 	private double getMinMaxArmorBonusDamage() {
