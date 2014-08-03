@@ -42,11 +42,10 @@ public class StuffComparaisonModel extends DefaultTableModel{
 			double valb=b.getStats().get(StuffCalculator.KEY.values()[row]);
 				
 			if((Double)getValueAt(row, 2)>(Double)getValueAt(row, 1))
-				return "+"+StuffCalculator.format(valb-vala);
+				return "+"+StuffCalculator.format(valb-vala)+ " ("+StuffCalculator.format(((valb - vala) / valb ) * 100)+"%)";
 			
 			if((Double)getValueAt(row, 2)<(Double)getValueAt(row, 1))
-				return "-"+StuffCalculator.format(valb-vala);
-			
+				return "-"+StuffCalculator.format(valb-vala)+ " ("+StuffCalculator.format(((valb - vala) / valb ) * 100)+"%)";
 			
 			return  StuffCalculator.format(valb-vala);
 		}

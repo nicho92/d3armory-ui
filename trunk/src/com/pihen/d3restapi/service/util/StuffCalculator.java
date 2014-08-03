@@ -235,8 +235,9 @@ public class StuffCalculator{
 		if(countweapon==2)
 			offI=weaponDefaultAS.get(stuffs.get(EnumerationStuff.OFF_HAND).getType().getId()); //AS de base du type arme OFF
 		
-		double bonusAsArmor = filter(getArmorsItem(), "Attacks_Per_Second_Percent", null) + filter("Attacks_Per_Second_Percent","BUFF");
-		double bonusWeapon = filter(getWeaponsItems(), "Attacks_Per_Second_Item_Bonus", null);
+		double bonusAsArmor = filter("Attacks_Per_Second_Percent", null) + filter("Attacks_Per_Second_Percent","BUFF");
+		double bonusWeapon = filter("Attacks_Per_Second_Item_Bonus", null);
+		
 		double compagnonBonus=0; // ou 0.3 pour l'enchanteresse
 				
 		double attackSpeedMain=(1+bonusAsArmor+bonusDual)*(mainI*1+compagnonBonus+bonusWeapon);
