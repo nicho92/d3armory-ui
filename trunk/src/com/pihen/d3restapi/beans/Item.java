@@ -1,6 +1,8 @@
 package com.pihen.d3restapi.beans;
 
+import java.awt.Color;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,7 +14,7 @@ import com.pihen.d3restapi.service.annotation.RemoteConfiguration;
 import com.pihen.d3restapi.service.annotation.RemoteData;
 import com.pihen.d3restapi.service.remote.RemoteEntity;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
-import com.pihen.d3restapi.service.util.RawsAttributes;
+import com.pihen.d3restapi.service.util.RawsAttributeFactory;
 
 /**
  * Represents a single item, with links to the resources.
@@ -352,10 +354,10 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	}
 	
 
-	public void generateAttributsString() {
+	public void generateAttributsDisplayble() {
 		Iterator<String> keys = getAttributesRaw().keySet().iterator();
-		RawsAttributes r = new RawsAttributes();
-		List<String> liste = new ArrayList<String>();
+		RawsAttributeFactory r = new RawsAttributeFactory();
+		List<DisplayableItemAttributs> liste = new ArrayList<DisplayableItemAttributs>();
 		while(keys.hasNext())
 		{
 			String key = keys.next();
@@ -363,12 +365,20 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 			{
 				if(!r.getAttribut(key).getLibelle().equals(""))
 				{
-					String value= String.valueOf(getAttributesRaw().get(key));
+					double value=getAttributesRaw().get(key).getMoyenne();
+				
 					if(key.contains("Percent") || r.getAttribut(key).getLibelle().contains("%"))
-					{
-						value= String.valueOf(getAttributesRaw().get(key).getMoyenne()*100);
-					}
-					liste.add(r.getAttribut(key).getLibelle().replaceFirst("X",value ));
+						value= getAttributesRaw().get(key).getMoyenne()*100;
+					
+					
+					DisplayableItemAttributs da = new DisplayableItemAttributs();
+											da.setText(r.getAttribut(key).getLibelle().replaceFirst("X",String.valueOf(new DecimalFormat("#0.0").format(value).replace(",", ".")) ));
+											da.setColor("blue");
+											
+											
+					if(r.getAttribut(key).isDisplayable())
+						if(value>0)
+							liste.add(da);
 				}
 					
 			}
@@ -377,7 +387,11 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 				System.err.println("itemAttributes.add(new Attributs(\""+key+"\"));");
 			}
 		}
-		//setAttributes(liste.toArray(new String[liste.size()]));
+		
+		AttributsContainer att = new AttributsContainer();
+		att.setPrimary(liste);
+		setAttributes(att);
+		
 	}
 
 	public String getRarity()

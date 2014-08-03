@@ -37,11 +37,13 @@ import ca.odell.glazedlists.matchers.TextMatcherEditor;
 import ca.odell.glazedlists.swing.AutoCompleteSupport;
 
 import com.pihen.d3restapi.beans.Attributs;
+import com.pihen.d3restapi.beans.AttributsContainer;
 import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.MinMaxBonus;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
-import com.pihen.d3restapi.service.util.RawsAttributes;
+import com.pihen.d3restapi.service.util.RawsAttributeFactory;
 import com.pihen.d3restapi.service.util.StuffCalculator;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -199,7 +201,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								cboAttributs = new JComboBox<Attributs>();
 								cboAttributs.setEditable(true);
 								panneauHaut.add(cboAttributs);
-								AutoCompleteSupport support = AutoCompleteSupport.install(cboAttributs, GlazedLists.eventListOf(new RawsAttributes().getAttributs()));
+								AutoCompleteSupport support = AutoCompleteSupport.install(cboAttributs, GlazedLists.eventListOf(new RawsAttributeFactory().getAttributs()));
 													support.setStrict(true);
 													support.setFilterMode(TextMatcherEditor.CONTAINS);
 									
@@ -213,25 +215,10 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								});
 						}
 							{
-								lblLevelItem = new JLabel();
-								panneauHaut.add(lblLevelItem);
-								lblLevelItem.setText("Level :");
+								
 							}
 							{
-								txtLevel = new JTextField(""+getItem().getItemLevel());
-								panneauHaut.add(txtLevel);
-								txtLevel.addActionListener(new ActionListener() {
-									public void actionPerformed(ActionEvent evt) {
-										long leve = Long.parseLong(txtLevel.getText());
-										getItem().setItemLevel(leve);
-										if(leve<=60)
-											getItem().setRequiredLevel(Long.parseLong(txtLevel.getText())-1);
-										else
-											getItem().setRequiredLevel(60);
-									
-										refreshItem();
-									}
-								});
+								
 							}
 							{
 								lblArmor = new JLabel("Armor :");
@@ -295,7 +282,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 									});
 								}
 								{
-									txtAS = new JTextField(""+getItem().getAttacksPerSecond());
+									txtAS = new JTextField(String.valueOf(getItem().getAttacksPerSecond()));
 									panneauDPS.add(txtAS);
 									txtAS.setPreferredSize(new java.awt.Dimension(47, 23));
 									txtAS.addKeyListener(new KeyAdapter() {
@@ -359,9 +346,12 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								
 								JButton btnClear = new JButton("Clear");
 								btnClear.addActionListener(new ActionListener() {
-									public void actionPerformed(ActionEvent arg0) {
-										tableauSpecItemModel.getItem().setAttributesRaw(new HashMap<String,MinMaxBonus>());
+									public void actionPerformed(ActionEvent arg0) {//vidage des champs
+										getItem().setAttributesRaw(new HashMap<String,MinMaxBonus>());
+										getItem().setAttributes(null);
 										tableauSpecItemModel.fireTableDataChanged();
+										
+										refreshItem();
 									}
 								});
 								panel.setLayout(new GridLayout(2, 1, 0, 0));
@@ -416,7 +406,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 	}
 	
 	protected void refreshItem() {
-			getItem().generateAttributsString();
+			getItem().generateAttributsDisplayble();
 			itemPanelDetails.showItem(getItem());
 			
 			StuffCalculator a = D3ArmoryControler.getInstance().getCalculator();
