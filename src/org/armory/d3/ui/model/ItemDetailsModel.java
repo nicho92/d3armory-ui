@@ -4,6 +4,8 @@ import java.util.Map;
 
 import javax.swing.table.DefaultTableModel;
 
+import com.pihen.d3restapi.beans.Attributs;
+import com.pihen.d3restapi.beans.DisplayableItemAttributs;
 import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.MinMaxBonus;
 
@@ -60,6 +62,7 @@ public class ItemDetailsModel extends DefaultTableModel {
 		
 		 Object[] entries=item.getAttributesRaw().entrySet().toArray();
 	        Map.Entry entry=(Map.Entry)entries[row];
+
 	        if (column==0) {
 	            return entry.getKey();
 	        } else if (column==1) { 
@@ -67,17 +70,22 @@ public class ItemDetailsModel extends DefaultTableModel {
 	        } else {
 	           return null;
 	        }
-		
+	        
 	}
 
 	public void setValueAt(Object o, int row, int column) {
 		double l = Double.parseDouble(o.toString());
-		
+ 
 		Object[] entries=item.getAttributesRaw().entrySet().toArray();
         Map.Entry entry=(Map.Entry)entries[row];
-        if (column==1) { 
-            entry.setValue(new MinMaxBonus(l));
+          
+        if (column==1) {
+        	if(entry.toString().contains("Percent"))
+        		l=l/100;
+        		
+        		entry.setValue(new MinMaxBonus(l));
         }
+     
 	}
 
 	

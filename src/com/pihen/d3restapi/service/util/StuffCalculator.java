@@ -255,14 +255,14 @@ public class StuffCalculator{
 		if(stuffs.get(EnumerationStuff.MAIN_HAND)!=null)
 		{
 			weaponDmgMain=minMaxDmg/2+(stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne()+stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne())/2;
-			weaponDmgMain = weaponDmgMain * (1+ filter("Damage_Weapon_Percent_Bonus#Physical","BUFF"));
+			weaponDmgMain = weaponDmgMain * (1+ filter("Damage_Weapon_Percent_Bonus#Physical",null));
 		}
 		double weaponDmgOff=0;
 		
 		if(countweapon==2)
 		{
 			weaponDmgOff=minMaxDmg/2+(stuffs.get(EnumerationStuff.OFF_HAND).getMinDamage().getMoyenne()+stuffs.get(EnumerationStuff.OFF_HAND).getMaxDamage().getMoyenne())/2;
-			weaponDmgOff = weaponDmgOff * (1+ filter("Damage_Weapon_Percent_Bonus#Physical","BUFF"));
+			weaponDmgOff = weaponDmgOff * (1+ filter("Damage_Weapon_Percent_Bonus#Physical",null));
 		}
 		
 		double hitDmgMAIN=statDamage*ccDamage*weaponDmgMain;
@@ -384,7 +384,7 @@ public class StuffCalculator{
 	    		dommageMoyen += elementalDamage * (mainWeaponMinDamage + mainWeaponMaxDamage + offHandMinDamage + offHandMaxDamage + 2 * minMaxDmg) / 2;
 	    		damage = (1 + s) * statBase * (1 + critDamage * chanceCrit) * bonusAS*dommageMoyen / vitesseMoyenne;
 	    	}
-	    	return damage * (1+ filter("Damage_Weapon_Percent_Bonus#Physical","BUFF"));	 
+	    	return damage * (1+ filter("Damage_Weapon_Percent_Bonus#Physical",null));	 
 	}
 	
 	private double getDamage(double stat_base, double chance_cc,double ccDamage, double bonusAS, double minMaxDmg, int s) 
@@ -406,7 +406,7 @@ public class StuffCalculator{
  			bonusAS += .15;//dual
  			damage = (1 + s) * statBase * (1 + critDamage * chanceCrit) * bonusAS * dommageMoyen / vitesseMoyenne;
  		}
- 		return damage* (1+ filter("Damage_Weapon_Percent_Bonus#Physical","BUFF"));
+ 		return damage* (1+ filter("Damage_Weapon_Percent_Bonus#Physical",null));
 	}
 	
 	private double dommageMoyen(double minMaxDmg) {

@@ -168,7 +168,6 @@ public class ItemPanelDetails extends JPanel {
 			getLblDetailWeapon().applyText();
 		}
 		
-		StringBuffer temp = new StringBuffer("<html> ");
 		
 		List<DisplayableItemAttributs> prim = item.getAttributes().getPrimary();
 		List<DisplayableItemAttributs> sec = item.getAttributes().getSecondary();
@@ -176,30 +175,27 @@ public class ItemPanelDetails extends JPanel {
 		
 		getLblDetailItem().init();
 		
-		//temp.append(" #Primaire <br/> ");
-		getLblDetailItem().addText("Primaire ","white","white");
-		for(DisplayableItemAttributs i : prim)
-		{
-			//temp.append(i.getText()+" <br/> ");
-			getLblDetailItem().addText(i.getText(), i.getColor(), "#BDA6CD");
+		if(prim !=null){
+			getLblDetailItem().addText("Primaire ","white","white");
+			for(DisplayableItemAttributs i : prim)
+			{
+				getLblDetailItem().addText(i.getText(), i.getColor(), "#BDA6CD");
+			}
 		}
-		
-		//temp.append(" #Secondaire <br/> ");
-		getLblDetailItem().addText("Secondaire ","white","white");
-		for(DisplayableItemAttributs i : sec)
-		{
-			//temp.append(i.getText()+" <br/> ");
-			getLblDetailItem().addText(i.getText(), i.getColor(), "#BDA6CD");
+		if(sec!=null){
+			getLblDetailItem().addText("Secondaire ","white","white");
+			for(DisplayableItemAttributs i : sec)
+			{
+				getLblDetailItem().addText(i.getText(), i.getColor(), "#BDA6CD");
+			}
 		}
-		getLblDetailItem().addText("Passif ","white","white");
-		//temp.append(" #Passifs <br/> ");
-		for(DisplayableItemAttributs i : pass)
-		{
-			//temp.append(i.getText()+"<br/> ");
-			getLblDetailItem().addText(i.getText(), i.getColor(), "#BDA6CD");
+		if(pass !=null){
+			getLblDetailItem().addText("Passif ","white","white");
+			for(DisplayableItemAttributs i : pass)
+			{
+				getLblDetailItem().addText(i.getText(), i.getColor(), "#BDA6CD");
+			}
 		}
-		
-		//getLblDetailItem().setHtmlText(temp.toString(),"#5869D7","#BDA6CD");
 		getLblDetailItem().applyText();
 		
 		
@@ -259,7 +255,7 @@ public class ItemPanelDetails extends JPanel {
 
 		}
 		catch(Exception e){
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 		
 	}
