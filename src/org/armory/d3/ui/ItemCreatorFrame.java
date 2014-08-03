@@ -10,7 +10,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.Map;
+import java.util.HashMap;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -42,7 +42,9 @@ import com.pihen.d3restapi.beans.MinMaxBonus;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.RawsAttributes;
 import com.pihen.d3restapi.service.util.StuffCalculator;
-import com.pihen.d3restapi.service.util.StuffCalculator.KEY;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class ItemCreatorFrame extends javax.swing.JDialog {
 	private JPanel panneauGauche;
@@ -351,8 +353,21 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								
 								
 								scrollPane.setViewportView(table);
+								
+								JPanel panel = new JPanel();
+								panneauDetailDPS.add(panel, BorderLayout.EAST);
+								
+								JButton btnClear = new JButton("Clear");
+								btnClear.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent arg0) {
+										tableauSpecItemModel.getItem().setAttributesRaw(new HashMap<String,MinMaxBonus>());
+										tableauSpecItemModel.fireTableDataChanged();
+									}
+								});
+								panel.setLayout(new GridLayout(2, 1, 0, 0));
+								panel.add(btnClear);
 								btnSauvegarder = new JButton();
-								panneauDetailDPS.add(btnSauvegarder, BorderLayout.EAST);
+								panel.add(btnSauvegarder);
 								btnSauvegarder.setText("Save");
 								btnSauvegarder.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent evt) {
