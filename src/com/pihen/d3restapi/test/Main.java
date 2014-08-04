@@ -33,7 +33,7 @@ public class Main {
 		
 		Profile profile = profileService.receiveEntity(conf);
 			
-		Hero hero = profile.getHeroes().get(2);
+		Hero hero = profile.getHeroes().get(0);
 					conf.setHeroId(
 							hero.getId());
 		D3ArmoryControler.getInstance().setConf(conf);
@@ -46,8 +46,6 @@ public class Main {
 					
 					System.out.println("HERO : " + hero.getName() + " " + hero.getLevel() + " ("+ hero.getParagonLevel()+")");
 					System.out.println("----------------------------------");
-					System.out.println(calc.getElementalOrientation());
-					
 					for(KEY k : calc.getStats().keySet())
 					{
 						System.out.println(k + "--> " + calc.getStats().get(k));

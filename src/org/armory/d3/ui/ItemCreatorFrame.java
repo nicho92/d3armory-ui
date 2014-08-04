@@ -79,7 +79,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 	private JLabel lblName;
 	private ItemDetailsModel tableauSpecItemModel;
 	private EnumerationStuff gear;
-	private JTable table;
+	private JTable stuffcalcTable;
 
 
 	
@@ -235,10 +235,13 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 												}
 												catch(Exception e)
 												{
-													e.printStackTrace();
+													//e.printStackTrace();
 												}
 												
 												 input= JOptionPane.showInputDialog("Damage MIN-MAX",oldValue);
+												 if(input==null)
+													 input = oldValue;
+												 
 												 String value[] = input.split("-");
 											     min=Double.parseDouble(value[0]);
 												 max=Double.parseDouble(value[1]);
@@ -264,18 +267,11 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 									}
 								});
 						}
-							{
-								
-							}
-							{
-								
-							}
-							{
+							
+							
 								lblArmor = new JLabel("Armor :");
 								panneauHaut.add(lblArmor);
 								lblArmor.setName("lblArmor");
-							}
-							{
 								
 								txtArmor = new JTextField(""+getItem().getArmor());
 								panneauHaut.add(txtArmor);
@@ -288,13 +284,9 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 										refreshItem();
 									}
 								});
-							}
-							{
 								lblDPS = new JLabel("MIN MAX / AS : ");
 								panneauHaut.add(lblDPS);
 								lblDPS.setName("lblDPS");
-							}
-							{
 								panneauDPS = new JPanel();
 								FlowLayout panneauDPSLayout = new FlowLayout();
 								panneauDPS.setLayout(panneauDPSLayout);
@@ -315,7 +307,6 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 										}
 										
 									});
-								}
 								
 								
 								{
@@ -359,6 +350,8 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								panneauBas.setViewportView(tableauSpecItem);
 								tableauSpecItem.setModel(tableauSpecItemModel);
 								DefaultRowSorter sorter = new TableRowSorter(tableauSpecItem.getModel());
+								sorter.toggleSortOrder(0);
+								
 								tableauSpecItem.setRowSorter(sorter);
 								panneauDetailDPS = new JPanel();
 								panneauTotalGauche.add(panneauDetailDPS, BorderLayout.CENTER);
@@ -370,8 +363,8 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								JScrollPane scrollPane = new JScrollPane();
 								panneauDetailDPS.add(scrollPane, BorderLayout.CENTER);
 								
-								table = new JTable();
-								table.setBackground(Color.BLACK);
+								stuffcalcTable = new JTable();
+								stuffcalcTable.setBackground(Color.BLACK);
 								
 								
 
@@ -381,15 +374,15 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								b.calculate();
 								StuffComparaisonModel mod = new StuffComparaisonModel();
 								mod.setStuffCalc(a, b);
-								table.setModel(mod);
+								stuffcalcTable.setModel(mod);
 								
 								
-								table.setDefaultRenderer(Object.class, new StuffComparCellRenderer());
-								DefaultRowSorter sorter1 = new TableRowSorter(table.getModel());
-								table.setRowSorter(sorter1);
+								stuffcalcTable.setDefaultRenderer(Object.class, new StuffComparCellRenderer());
+								DefaultRowSorter sorter1 = new TableRowSorter(stuffcalcTable.getModel());
+								stuffcalcTable.setRowSorter(sorter1);
+								sorter1.toggleSortOrder(0);
 								
-								
-								scrollPane.setViewportView(table);
+								scrollPane.setViewportView(stuffcalcTable);
 								
 								JPanel panel = new JPanel();
 								panneauDetailDPS.add(panel, BorderLayout.EAST);
@@ -456,16 +449,16 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 	}
 	
 	protected void refreshItem() {
-			getItem().generateAttributsDisplayble();
+			getItem().generateDisplayableAttributs();
 			itemPanelDetails.showItem(getItem());
 			
 			StuffCalculator a = D3ArmoryControler.getInstance().getCalculator();
 			StuffCalculator b = a.compareStuffWithItem(gear, getItem());
 			
 		
-			((StuffComparaisonModel)this.table.getModel()).setStuffCalc(a,b);
+			((StuffComparaisonModel)this.stuffcalcTable.getModel()).setStuffCalc(a,b);
 			
-			((StuffComparaisonModel)this.table.getModel()).fireTableDataChanged();
+			((StuffComparaisonModel)this.stuffcalcTable.getModel()).fireTableDataChanged();
 			
 			btnSauvegarder.setEnabled(true);
 	}

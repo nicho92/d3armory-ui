@@ -1,6 +1,7 @@
 package com.pihen.d3restapi.service.util;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -19,7 +20,7 @@ import com.pihen.d3restapi.beans.SkillRune;
 
 public class StuffCalculator{
 	
-	public static enum KEY { DAMAGE_PRIMARY_STAT, AS_BONUS, AS_ATTACK_PER_SECONDS, AS_MH, AS_OH, DAMAGE_CRIT_CHANCE,DAMAGE_CRIT_DAMAGE,MH_DAMAGE,OH_DAMAGE,VITALITY,HP, LIFE,ARMOR,DAMAGE_ELITE, DPS,ELEMENTAL_DPS, DODGECHANCE,FIRE_D,COLD_D,POISON_D,HOLY_D,ARCANE_D,LIGHTNING_D,PHYSICAL_D, COOLDOWN_REDUCTION};
+	public static enum KEY { PRIMARY_STAT, AS_BONUS, AS_ATTACK_PER_SECONDS, AS_MH, AS_OH, DAMAGE_CRIT_CHANCE,DAMAGE_CRIT_DAMAGE,MH_DAMAGE,OH_DAMAGE,VITALITY,HP, LIFE,ARMOR,DAMAGE_ELITE, DPS,DPS_ELEMENTAL, DODGECHANCE,FIRE_D,COLD_D,POISON_D,HOLY_D,ARCANE_D,LIGHTNING_D,PHYSICAL_D, COOLDOWN_REDUCTION, DPS_ELITE};
 	public static enum ELEMENTS { Fire, Cold, Holy,Poison,Arcane,Lightning,Physical};
 	
 	public Hero getHero() {
@@ -295,7 +296,7 @@ public class StuffCalculator{
 		double elementdps = getElemDamage(stat_base,chance_cc,degat_cc,1+bonusAsArmor,minMaxDmg,0);
 
 		
-		mapResultat.put(KEY.DAMAGE_PRIMARY_STAT,stat_base);
+		mapResultat.put(KEY.PRIMARY_STAT,stat_base);
 		mapResultat.put(KEY.AS_BONUS,format(bonusAsArmor*100));
 		mapResultat.put(KEY.AS_MH,format(attackSpeedMain));
 		mapResultat.put(KEY.AS_OH,format(attackSpeedOff));
@@ -317,7 +318,8 @@ public class StuffCalculator{
 		mapResultat.put(KEY.LIGHTNING_D, format(getElementalDamageBonus(ELEMENTS.Lightning)*100));
 		mapResultat.put(KEY.PHYSICAL_D,format(getElementalDamageBonus(ELEMENTS.Physical)*100));
 		mapResultat.put(KEY.DPS,format(dps));
-		mapResultat.put(KEY.ELEMENTAL_DPS,format(elementdps));
+		mapResultat.put(KEY.DPS_ELEMENTAL,format(elementdps)*(1+(getElementalDamageBonus(getElementalOrientation()))));
+		mapResultat.put(KEY.DPS_ELITE,format(elementdps)*(1+(getElementalDamageBonus(getElementalOrientation()))*(1+getEliteDamageBonus())));
 		mapResultat.put(KEY.COOLDOWN_REDUCTION, format(getCoolDownReduction()*100));
 	return mapResultat;
 	}
@@ -513,10 +515,17 @@ public class StuffCalculator{
 		return calc2;
 	}
 	
+	public static void main(String[] args) {
+		System.out.println(format(12345.67));
+	}
+	
 	public static double format(double val)
 	{
 		try{
-			return Double.parseDouble(new DecimalFormat("### ### ### ###.00").format(val).replaceAll(",", "."));
+			
+			DecimalFormat format = new DecimalFormat("### ### ### ###.00");
+			
+			return Double.parseDouble(format.format(val).replaceAll(",", "."));
 		}
 		catch(NumberFormatException e)
 		{

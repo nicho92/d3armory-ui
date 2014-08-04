@@ -257,7 +257,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 				}
 				);
 			  popupMenu.add(itNewItem);
-			  popupMenu.add(createMenu(listeTag));
+			//  popupMenu.add(createMenu(listeTag));
 			  popupMenu.add(createMenu(D3ArmoryControler.getInstance().getListeFileItem()));
 			  popupMenu.show(e.getComponent(),e.getX(), e.getY());
 		}
