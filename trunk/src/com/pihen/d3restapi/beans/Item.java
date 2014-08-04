@@ -121,17 +121,18 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		{
 		
 			String att= attributes.next();
-			if(att.contains("Poison"))
+			
+			if(att.contains("Damage_Weapon_Min#Poison"))
 				return "Poison";
-			if(att.contains("Arcane"))
+			if(att.contains("Damage_Weapon_Min#Arcane"))
 				return "Arcane";
-			if(att.contains("Fire"))
+			if(att.contains("Damage_Weapon_Min#Fire"))
 				return "Fire";
-			if(att.contains("Lightning"))
+			if(att.contains("Damage_Weapon_Min#Lightning"))
 				return "Lightning";
-			if(att.contains("Holy"))
+			if(att.contains("Damage_Weapon_Min#Holy"))
 				return "Holy";
-			if(att.contains("Cold"))
+			if(att.contains("Damage_Weapon_Min#Cold"))
 				return "Cold";
 		}
 		return "";
@@ -353,7 +354,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	}
 	
 
-	public void generateAttributsDisplayble() {
+	public void generateDisplayableAttributs() {
 		Iterator<String> keys = getAttributesRaw().keySet().iterator();
 		RawsAttributeFactory r = new RawsAttributeFactory();
 		List<DisplayableItemAttributs> liste = new ArrayList<DisplayableItemAttributs>();
@@ -406,7 +407,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 			}
 			else
 			{
-				System.err.println("itemAttributes.add(new Attributs(\""+key+"\"));");
+				//System.err.println("itemAttributes.add(new Attributs(\""+key+"\"));");
 			}
 		}
 		
