@@ -38,7 +38,7 @@ public class StuffDetailsModel extends DefaultTableModel {
 			case 6: return "Vitality" ;
 			case 7: return "Elite Damage" ;
 			case 8: return "Cooldown Reduction";
-			case 9: return "Elemental Damage";
+			case 9: return calc.getElementalOrientation() +" Elemental Damage";
 			default : return "";
 			}
 		}
@@ -125,6 +125,10 @@ public class StuffDetailsModel extends DefaultTableModel {
 				{
 					return StuffCalculator.format(calc.filter("Power_Cooldown_Reduction_Percent_All","SET")*100);
 				}
+				if(column==9)
+				{
+					return StuffCalculator.format(calc.filter("Damage_Dealt_Percent_Bonus#"+calc.getElementalOrientation(),"SET")*100);
+				}
 			}
 			else
 			{
@@ -183,6 +187,10 @@ public class StuffDetailsModel extends DefaultTableModel {
 						if(i.getGems().size()>0)
 							val+=StuffCalculator.format(calc.filter(i.getGems().get(0).getAttributesRaw(), "Power_Cooldown_Reduction_Percent_All",null)*100);
 					return val;
+				}
+				if(column==9)
+				{
+					return StuffCalculator.format(calc.filter(i,"Damage_Dealt_Percent_Bonus", calc.getElementalOrientation().toString())*100);
 				}
 
 			}

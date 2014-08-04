@@ -283,7 +283,7 @@ public class StuffCalculator{
 		
 		
 		//ARMOR CALCUL
-		double armorBonus= filter("Armor","");
+		double armorBonus= filter("Armor",null);
 		double armor = stat_base+armorBonus;
 
 		
@@ -339,7 +339,7 @@ public class StuffCalculator{
 		return (min+max) ;
 	}
 
-	public ELEMENTS getOrientation()
+	public ELEMENTS getElementalOrientation()
 	{
 		ELEMENTS ret=null;
 		double temp=0;
@@ -639,14 +639,11 @@ public class StuffCalculator{
 				
 				if(elementfilter==null)
 				{
-					
-					//System.out.println(k + " " + statsCalculator.get(k).getMoyenne());
 					total=total+ statsCalculator.get(k).getMoyenne();
 				}
 				else 
 				if(k.contains(elementfilter))
 				{
-					//System.out.println(k + " " + statsCalculator.get(k).getMoyenne());
 					total=total+ statsCalculator.get(k).getMoyenne();
 				}
 				

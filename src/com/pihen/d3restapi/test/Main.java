@@ -46,7 +46,7 @@ public class Main {
 					
 					System.out.println("HERO : " + hero.getName() + " " + hero.getLevel() + " ("+ hero.getParagonLevel()+")");
 					System.out.println("----------------------------------");
-					System.out.println(calc.getOrientation());
+					System.out.println(calc.getElementalOrientation());
 					
 					for(KEY k : calc.getStats().keySet())
 					{
