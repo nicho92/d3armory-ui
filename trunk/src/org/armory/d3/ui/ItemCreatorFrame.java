@@ -19,6 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -208,8 +209,57 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								
 								cboAttributs.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent evt) {
-										getItem().addAttributs((Attributs)cboAttributs.getSelectedItem());
+										Attributs a = (Attributs)cboAttributs.getSelectedItem();
+										
+										
+										if(a.getLibelle().startsWith("+X-X"))
+										{
+											String key_min="Damage_Weapon_Min";
+											String key_delta="Damage_Weapon_Delta";
+										
+											if(a.getLibelle().equals("+X-X Damage"))
+											{
+												key_min="Damage_Min";
+												key_delta="Damage_Delta";
+											}
+											
+												String input = "";
+												String element = a.getId().split("#")[1];
+												double min=0;
+												double max=0;
+												String oldValue="0-0";
+												try{
+												 min = getItem().getAttributesRaw().get(key_min+"#"+element).getMoyenne();
+												 max = getItem().getAttributesRaw().get(key_delta+"#"+element).getMoyenne();
+												 oldValue=min+"-"+(min+max);
+												}
+												catch(Exception e)
+												{
+													e.printStackTrace();
+												}
+												
+												 input= JOptionPane.showInputDialog("Damage MIN-MAX",oldValue);
+												 String value[] = input.split("-");
+											     min=Double.parseDouble(value[0]);
+												 max=Double.parseDouble(value[1]);
+											
+											
+											a.setValue(new MinMaxBonus(min));
+											Attributs b = new Attributs(key_delta+"#"+element, "",false);
+													  b.setValue(new MinMaxBonus(max-min));
+											
+											getItem().addAttributs(a);
+											getItem().addAttributs(b);
+										}
+										else
+										{
+											getItem().addAttributs(a);
+										}
+											
+										
 										tableauSpecItemModel.fireTableDataChanged();
+									
+										
 										refreshItem();
 									}
 								});

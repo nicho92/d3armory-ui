@@ -813,7 +813,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			lblHarcore.setText("");
 		
 		
-		getLblLife().setText(format(hero.getStats().getLife()));
+		getLblLife().setText(formatRessourceVisibleValue(hero.getStats().getLife()));
 		
 		if(hero.getClazz().equals("demon-hunter"))
 			getLblRessources().setText("<html>"+hero.getStats().getPrimaryResource()+"<br/>"+hero.getStats().getSecondaryResource()+"<html>");
@@ -828,7 +828,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		panneauDessinHero.repaint();
 	}
 	
-	private String format(double number) {
+	private String formatRessourceVisibleValue(double number) {
 		if(number<1000)
 			return String.valueOf(number);
 		

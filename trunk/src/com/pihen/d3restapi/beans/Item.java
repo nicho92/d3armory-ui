@@ -119,6 +119,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		Iterator<String> attributes = attributesRaw.keySet().iterator();
 		while(attributes.hasNext())
 		{
+		
 			String att= attributes.next();
 			if(att.contains("Poison"))
 				return "Poison";
@@ -311,8 +312,6 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	public Number getRequiredLevel() {
 		return requiredLevel;
 	}
-
-	
 	
 	public AttributsContainer getAttributes() {
 		return attributes;
@@ -360,22 +359,45 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		List<DisplayableItemAttributs> liste = new ArrayList<DisplayableItemAttributs>();
 		while(keys.hasNext())
 		{
+			
 			String key = keys.next();
 			if(r.getAttribut(key)!=null)
 			{
 				if(!r.getAttribut(key).getLibelle().equals(""))
 				{
+					DisplayableItemAttributs da = new DisplayableItemAttributs();
+					
+					
 					double value=getAttributesRaw().get(key).getMoyenne();
 				
 					if(key.contains("Percent") || r.getAttribut(key).getLibelle().contains("%"))
 						value= getAttributesRaw().get(key).getMoyenne()*100;
 					
+					if(r.getAttribut(key).getLibelle().contains("+X-X"))
+					{
+						
+						String key_min="Damage_Weapon_Min";
+						String key_delta="Damage_Weapon_Delta";
+						String element=key.split("#")[1];
+						
+						if(r.getAttribut(key).getLibelle().equals("+X-X Damage"))
+						{
+							key_min="Damage_Min";
+							key_delta="Damage_Delta";
+						}
+						
+					double min = getAttributesRaw().get(key_min+"#"+element).getMoyenne();
+					double max = getAttributesRaw().get(key_delta+"#"+element).getMoyenne();
+					da.setText(r.getAttribut(key).getLibelle().replaceFirst("X",String.valueOf(min)).replaceFirst("X", String.valueOf(min+max)));
 					
-					DisplayableItemAttributs da = new DisplayableItemAttributs();
-											da.setText(r.getAttribut(key).getLibelle().replaceFirst("X",String.valueOf(new DecimalFormat("#0.0").format(value).replace(",", ".")) ));
-											da.setColor("blue");
-											
-											
+					}
+					else
+					{
+						da.setText(r.getAttribut(key).getLibelle().replaceFirst("X",String.valueOf(new DecimalFormat("#0.0").format(value).replace(",", ".")) ));
+					}
+					
+					
+					da.setColor("blue");
 					if(r.getAttribut(key).isDisplayable())
 						if(value>0)
 							liste.add(da);
