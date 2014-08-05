@@ -26,12 +26,11 @@ public class StuffComparCellRenderer extends JLabel implements TableCellRenderer
     {
 		
 		this.setForeground(Color.WHITE);
-		this.setText(value.toString());
+		this.setText(String.valueOf(value));
 		
 		if(column==1)
 		{
 			this.setForeground(Color.GRAY);
-			
 			setText(formatter.format(value).toString());
 		}
 		

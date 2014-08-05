@@ -8,7 +8,7 @@ import com.pihen.d3restapi.beans.MinMaxBonus;
 import com.pihen.d3restapi.beans.SkillRune;
 
 public class BuffSkill {
-
+	private static String PREFIX="_SKILLS_";
 	private static Map<String,MinMaxBonus> buffs; 
 		
 	public static Map<String,MinMaxBonus> getBuff(SkillRune a, Map<EnumerationStuff,Item> stuffs) {
