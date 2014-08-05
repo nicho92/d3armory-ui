@@ -92,6 +92,7 @@ public class ItemPanelDetails extends JPanel {
 			 }
 			 else
 			 {
+				 System.out.println(item.getEnchantedWeapon());
 				 if(!item.getEnchantedWeapon().equals(""))
 					 g2d.drawImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/"+item.getEnchantedWeapon()+".jpg")).getImage(), 40, 85, null);
 			 }
