@@ -20,7 +20,7 @@ import com.pihen.d3restapi.beans.SkillRune;
 
 public class StuffCalculator{
 	
-	public static enum KEY { PRIMARY_STAT, BONUS_ATTACK_SPEED, AS_ATTACK_PER_SECONDS, AS_MH, AS_OH, DAMAGE_CRIT_CHANCE,DAMAGE_CRIT_DAMAGE,MH_DAMAGE,OH_DAMAGE,VITALITY,HP, LIFE,ARMOR,BONUS_ELITE, DPS,DPS_ELEMENTAL, DODGECHANCE,BONUS_FIRE,BONUS_COLD,BONUS_POISON,BONUS_HOLY,BONUS_ARCANE,BONUS_LIGHTNING,BONUS_PHYSICAL, COOLDOWN_REDUCTION, DPS_ELITE};
+	public static enum KEY { PRIMARY_STAT, BONUS_ATTACK_SPEED,ATTACK_PER_SECONDS, AS_MH, AS_OH, DAMAGE_CRIT_CHANCE,DAMAGE_CRIT_DAMAGE,MH_DAMAGE,OH_DAMAGE,VITALITY,HP, LIFE,ARMOR,BONUS_ELITE, DPS,DPS_ELEMENTAL, DODGECHANCE,BONUS_FIRE,BONUS_COLD,BONUS_POISON,BONUS_HOLY,BONUS_ARCANE,BONUS_LIGHTNING,BONUS_PHYSICAL, COOLDOWN_REDUCTION, DPS_ELITE};
 	public static enum ELEMENTS { Fire, Cold, Holy,Poison,Arcane,Lightning,Physical};
 	
 	public Hero getHero() {
@@ -36,15 +36,11 @@ public class StuffCalculator{
 	private HeroSkillContainer skills;
 	private Map<String, MinMaxBonus> statsCalculator;
 	private Hero hero;
-	private boolean twohanded;	int countweapon=0;
+	int countweapon=0;
 	private Map<String,Double> weaponDefaultAS=new HashMap<String,Double>();
 	
 	private Map<KEY,Double> mapResultat ;
 	
-
-	public boolean isTwohanded() {
-		return twohanded;
-	}
 
 	public void setStatCalculator(Map<String, MinMaxBonus> bonusItem) {
 		this.statsCalculator = bonusItem;
@@ -151,7 +147,6 @@ public class StuffCalculator{
 			if(i.isWeapon())
 			{
 				countweapon+=1;
-				twohanded=i.getType().getTwoHanded();
 			}
 			
 			if(i.isSetObjects())
@@ -491,7 +486,7 @@ public class StuffCalculator{
 		else 
 			n = 1 / (defaultMHas * bonusMHas  + weaponASBonus + attacks_Per_Second_Item_Bonus + armorASBonus) + 1 / (defaultOHas * bonusOHas  + weaponASBonus + attacks_Per_Second_Item_Bonus + armorASBonus);
 	
-		mapResultat.put(KEY.AS_ATTACK_PER_SECONDS, n);
+		mapResultat.put(KEY.ATTACK_PER_SECONDS, n);
 		
 		return n;
 	}
