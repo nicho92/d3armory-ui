@@ -41,11 +41,10 @@ public class RawsAttributeFactory  {
 		{
 			itemAttributes.add(new Attributs("Resistance#"+e ,"+X " +e+" Resistance"));
 			itemAttributes.add(new Attributs("Damage_Dealt_Percent_Bonus#"+e,e+" Skills deal X% more damage"));
-			if(e!=ELEMENTS.Physical)
 				itemAttributes.add(new Attributs("Damage_Weapon_Min#"+e ,"+X-X "+e+" Damage"));
 		}
 		itemAttributes.add(new Attributs("Damage_Min#Physical","+X-X Damage"));
-		
+	
 	
 	}
 	
