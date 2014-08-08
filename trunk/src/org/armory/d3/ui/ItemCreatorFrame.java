@@ -30,7 +30,7 @@ import javax.swing.table.TableRowSorter;
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.components.ItemPanelDetails;
 import org.armory.d3.ui.components.StuffComparCellRenderer;
-import org.armory.d3.ui.model.ItemDetailsModel;
+import org.armory.d3.ui.model.DetailsDPSModel;
 import org.armory.d3.ui.model.StuffComparaisonModel;
 
 import ca.odell.glazedlists.GlazedLists;
@@ -77,7 +77,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 	private JLabel lblType;
 	private JTextField txtNom;
 	private JLabel lblName;
-	private ItemDetailsModel tableauSpecItemModel;
+	private DetailsDPSModel tableauSpecItemModel;
 	private EnumerationStuff gear;
 	private JTable stuffcalcTable;
 
@@ -86,7 +86,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 	public ItemCreatorFrame(Item i,EnumerationStuff e) {
 		super();
 		this.gear=e;
-		tableauSpecItemModel =new ItemDetailsModel(i);
+		tableauSpecItemModel =new DetailsDPSModel(i);
 		initGUI();
 	}
 	

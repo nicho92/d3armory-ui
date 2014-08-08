@@ -44,6 +44,8 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import org.armory.d3.services.D3ArmoryControler;
@@ -56,9 +58,10 @@ import org.armory.d3.ui.components.ItemPanelDetails;
 import org.armory.d3.ui.components.ParangonPanel;
 import org.armory.d3.ui.components.SkillLabel;
 import org.armory.d3.ui.components.SocketLabel;
+import org.armory.d3.ui.model.CalculatorModel;
 import org.armory.d3.ui.model.ListeHeroModel;
-import org.armory.d3.ui.model.StuffDetailsModel;
-import org.armory.d3.ui.model.TableauDetailsModel;
+import org.armory.d3.ui.model.ItemsDetailModel;
+import org.armory.d3.ui.model.TableauExpertModel;
 import org.jdesktop.application.Application;
 
 import com.pihen.d3restapi.beans.Follower;
@@ -92,7 +95,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JTabbedPane ongletPane;
 	private JTextField txtFiltrage;
 	private JPanel panneauTableau;
-	private JTable tableauDetails;
+	private JTable tableauExpert;
 	private JScrollPane scrollTableau;
 	private JSplitPane splitPanneauTableauHero;
 	private JLabel lblLoader;
@@ -141,7 +144,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private DefaultRowSorter sorter;
 	
 	private ListeHeroModel listeHerosModel;
-	private TableauDetailsModel tableaudetailModel;
+	private TableauExpertModel tableaudetailModel;
 	private JMenuItem jmiLocal;
 	private SkillLabel labSkilL1;
 	private SkillLabel labSkilL2;
@@ -158,7 +161,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JLabel lblRessources;
 	private FollowersPanel panelFollowers;
 	private JScrollPane panneauTableauDescription;
-	private JTable tableauDescription;
+	private JTable tableauDescriptionItems;
+	private JScrollPane detailsPanel;
 
 	
 	public ListeHeroModel getListeHerosModel() {
@@ -335,6 +339,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				}
 			}
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -387,7 +392,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			lblstatbar.setText("Loading Item"); 
 			loadItems();
 			lblstatbar.setText("");
-			getTableauDescription().setModel(new StuffDetailsModel());
+			getTableauDescriptionItems().setModel(new ItemsDetailModel());
 			
 		} catch (D3ServerCommunicationException e) {
 			e.printStackTrace();
@@ -805,7 +810,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		
 		D3ArmoryControler.getInstance().initCalculator(stuffs);
 		
-		((TableauDetailsModel)getTableauDetails().getModel()).fireTableDataChanged();
+		((TableauExpertModel)getTableauExpert().getModel()).fireTableDataChanged();
 		
 		if(hero.isHardcore())
 			lblHarcore.setText("Hardcore");
@@ -986,7 +991,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SkillLabel getLblSkill7()
 	{
 		if(labSkilL7==null){
-			labSkilL7 = new SkillLabel(true);
+			labSkilL7 = new SkillLabel(false);
 			labSkilL7.setBounds(42, 528, 64, 64);
 		}
 		return labSkilL7;
@@ -994,7 +999,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SkillLabel getLblSkill8()
 	{
 		if(labSkilL8==null){
-			labSkilL8 = new SkillLabel(true);
+			labSkilL8 = new SkillLabel(false);
 			labSkilL8.setBounds(108, 528, 64, 64);
 		}
 		return labSkilL8;
@@ -1002,7 +1007,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SkillLabel getLblSkill9()
 	{
 		if(labSkilL9==null){
-			labSkilL9 = new SkillLabel(true);
+			labSkilL9 = new SkillLabel(false);
 			labSkilL9.setBounds(174, 528, 64, 64);
 		}
 		return labSkilL9;
@@ -1011,7 +1016,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SkillLabel getLblSkill10()
 	{
 		if(labSkilL10==null){
-			labSkilL10 = new SkillLabel(true);
+			labSkilL10 = new SkillLabel(false);
 			labSkilL10.setBounds(240, 528, 64, 64);
 		}
 		return labSkilL10;
@@ -1325,7 +1330,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	public ItemPanelDetails getPanelItemDetails() {
 		if(panelItemDetails == null) {
 			panelItemDetails = new ItemPanelDetails();
-			panelItemDetails.setName("panelItemDetails");
 			panelItemDetails.setLayout(null);
 			panelItemDetails.setPreferredSize(new java.awt.Dimension(0, 0));
 		}
@@ -1403,7 +1407,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					panneauDessinHero.add(getLblLife());
 					panneauDessinHero.add(getLblRessources());
 					lblParangonLevel.setBounds(692, 20, 51, 16);
-					lblParangonLevel.setName("lblParangonLevel");
 				}
 				
 			}
@@ -1414,29 +1417,27 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JScrollPane getScrollTableau() {
 		if(scrollTableau == null) {
 			scrollTableau = new JScrollPane();
-			//scrollTableau.setPreferredSize(new java.awt.Dimension(977, 202));
-			scrollTableau.setName("scrollTableau");
-			scrollTableau.setViewportView(getTableauDetails());
+			scrollTableau.setViewportView(getTableauExpert());
 		}
 		return scrollTableau;
 	}
 	
-	private JTable getTableauDetails() {
-		if(tableauDetails == null) {
-			tableauDetails = new JTable();
+	private JTable getTableauExpert() {
+		if(tableauExpert == null) {
+			tableauExpert = new JTable();
 			sorter = new TableRowSorter(getTableauDetailsModel());
-			tableauDetails.setRowSorter(sorter);
-			tableauDetails.setModel(getTableauDetailsModel());
-			tableauDetails.setOpaque(true);
+			tableauExpert.setRowSorter(sorter);
+			tableauExpert.setModel(getTableauDetailsModel());
+			tableauExpert.setOpaque(true);
 		}
-		return tableauDetails;
+		return tableauExpert;
 	}
 
 
-	public TableauDetailsModel getTableauDetailsModel() {
+	public TableauExpertModel getTableauDetailsModel() {
 		if(tableaudetailModel==null)
 		{
-			tableaudetailModel= new TableauDetailsModel();
+			tableaudetailModel= new TableauExpertModel();
 		}
 		return tableaudetailModel;
 	}
@@ -1486,17 +1487,18 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			ongletPane = new JTabbedPane();
 			ongletPane.setPreferredSize(new java.awt.Dimension(0, 0));
 			ongletPane.addTab("General", null, getPanneauInfoHero(), null);
-			ongletPane.addTab("Details", null, getPanneauTableauDescription(), null);
+			ongletPane.addTab("Items", null, getPanneauTableauDescription(), null);
+			ongletPane.addTab("Details", null,getPanneauDetails(),null);
 			ongletPane.addTab("Followers", null, getFollowersPanel(), null);
-			ongletPane.addTab("Expert", null, getPanneauTableau(), null);
 			ongletPane.addTab("Parangon", null,getPanneauParangon(),null);
+			ongletPane.addTab("Expert", null, getPanneauTableau(), null);
 			ongletPane.addChangeListener(new ChangeListener() {
 				
 				public void stateChanged(ChangeEvent e) {//on charge les followers lors du clique sur l'onglet
 					
 					JTabbedPane sourceTabbedPane = (JTabbedPane) e.getSource();
-			        int index = sourceTabbedPane.getSelectedIndex();
-					if(index==2)
+					int index = sourceTabbedPane.getSelectedIndex();
+					if(index==3)
 					{		getLblstatbar().setText("Loading Followers");
 						try {
 							loadFollowers();
@@ -1514,6 +1516,21 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	}
 	
 	
+	private JScrollPane getPanneauDetails() {
+		if(detailsPanel==null){
+			detailsPanel=new JScrollPane();
+			CalculatorModel mod = new CalculatorModel();
+			sorter = new TableRowSorter(mod);
+			JTable tableauCalculator=new JTable(mod);
+			
+			tableauCalculator.setRowSorter(sorter);
+			detailsPanel.setViewportView(tableauCalculator);
+		}
+		return detailsPanel;
+	}
+	
+
+
 	private JPanel getPanneauParangon() {
 		if(parangonPanel==null){
 			parangonPanel=new ParangonPanel();
@@ -1630,18 +1647,18 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JScrollPane getPanneauTableauDescription() {
 		if (panneauTableauDescription == null) {
 			panneauTableauDescription = new JScrollPane();
-			panneauTableauDescription.setViewportView(getTableauDescription());
+			panneauTableauDescription.setViewportView(getTableauDescriptionItems());
 			
 		}
 		return panneauTableauDescription;
 	}
-	private JTable getTableauDescription() {
-		if (tableauDescription == null) {
-			tableauDescription = new JTable();
-			tableauDescription.addMouseListener(new java.awt.event.MouseAdapter() {
+	private JTable getTableauDescriptionItems() {
+		if (tableauDescriptionItems == null) {
+			tableauDescriptionItems = new JTable();
+			tableauDescriptionItems.addMouseListener(new java.awt.event.MouseAdapter() {
 				public void mouseClicked(java.awt.event.MouseEvent evt) {
-			        int row = tableauDescription.rowAtPoint(evt.getPoint());
-			        Item i = ((StuffDetailsModel)tableauDescription.getModel()).getItemAt(row);
+			        int row = tableauDescriptionItems.rowAtPoint(evt.getPoint());
+			        Item i = ((ItemsDetailModel)tableauDescriptionItems.getModel()).getItemAt(row);
 			        getPanelItemDetails().showItem(i);
 			        getPanelItemDetails().repaint(); 
 			        
@@ -1649,6 +1666,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			    }
 			});
 		}
-		return tableauDescription;
+		return tableauDescriptionItems;
 	}
 }

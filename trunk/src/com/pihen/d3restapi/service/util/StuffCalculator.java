@@ -92,7 +92,10 @@ public class StuffCalculator{
 	
 	public double getElementalDamageBonus(ELEMENTS element)
 	{
-		return filter("Damage_Dealt_Percent_Bonus", element.toString());
+		if(element!=null)
+			return filter("Damage_Dealt_Percent_Bonus", element.toString());
+		else
+			return filter("Damage_Dealt_Percent_Bonus",null);
 	}
 	
 	
@@ -303,7 +306,7 @@ public class StuffCalculator{
 		mapResultat.put(KEY.LIFE,format(life));
 		mapResultat.put(KEY.HP, getHP());
 		mapResultat.put(KEY.ARMOR,format(armor));
-		mapResultat.put(KEY.DODGECHANCE,dodgeChance);
+		mapResultat.put(KEY.DODGECHANCE,format(dodgeChance));
 		mapResultat.put(KEY.BONUS_ELITE, format(getEliteDamageBonus()*100));
 		mapResultat.put(KEY.BONUS_HOLY,format(getElementalDamageBonus(ELEMENTS.Holy)*100));
 		mapResultat.put(KEY.BONUS_FIRE,format(getElementalDamageBonus(ELEMENTS.Fire)*100));
@@ -313,8 +316,8 @@ public class StuffCalculator{
 		mapResultat.put(KEY.BONUS_LIGHTNING, format(getElementalDamageBonus(ELEMENTS.Lightning)*100));
 		mapResultat.put(KEY.BONUS_PHYSICAL,format(getElementalDamageBonus(ELEMENTS.Physical)*100));
 		mapResultat.put(KEY.DPS,format(dps));
-		mapResultat.put(KEY.DPS_ELEMENTAL,format(elementdps)*(1+(getElementalDamageBonus(getElementalOrientation()))));
-		mapResultat.put(KEY.DPS_ELITE,format(elementdps)*(1+(getElementalDamageBonus(getElementalOrientation()))*(1+getEliteDamageBonus())));
+		mapResultat.put(KEY.DPS_ELEMENTAL,format(elementdps*(1+(getElementalDamageBonus(getElementalOrientation())))));
+		mapResultat.put(KEY.DPS_ELITE,format(elementdps*(1+(getElementalDamageBonus(getElementalOrientation()))*(1+getEliteDamageBonus()))));
 		mapResultat.put(KEY.COOLDOWN_REDUCTION, format(getCoolDownReduction()*100));
 	return mapResultat;
 	}
@@ -486,7 +489,7 @@ public class StuffCalculator{
 		else 
 			n = 1 / (defaultMHas * bonusMHas  + weaponASBonus + attacks_Per_Second_Item_Bonus + armorASBonus) + 1 / (defaultOHas * bonusOHas  + weaponASBonus + attacks_Per_Second_Item_Bonus + armorASBonus);
 	
-		mapResultat.put(KEY.ATTACK_PER_SECONDS, n);
+		mapResultat.put(KEY.ATTACK_PER_SECONDS, format(n));
 		
 		return n;
 	}

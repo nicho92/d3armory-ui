@@ -10,11 +10,11 @@ import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.StuffCalculator;
 
-public class StuffDetailsModel extends DefaultTableModel {
+public class ItemsDetailModel extends DefaultTableModel {
 
 	StuffCalculator calc;
 
-	public StuffDetailsModel() {
+	public ItemsDetailModel() {
 		calc=D3ArmoryControler.getInstance().getCalculator();
 	}
 
