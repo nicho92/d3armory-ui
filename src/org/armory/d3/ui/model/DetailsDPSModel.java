@@ -9,7 +9,7 @@ import com.pihen.d3restapi.beans.DisplayableItemAttributs;
 import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.MinMaxBonus;
 
-public class ItemDetailsModel extends DefaultTableModel {
+public class DetailsDPSModel extends DefaultTableModel {
 
 	private Item item ;
 	
@@ -22,7 +22,7 @@ public class ItemDetailsModel extends DefaultTableModel {
 	}
 
 	
-	public ItemDetailsModel(Item i)
+	public DetailsDPSModel(Item i)
 	{
 		this.item=i;
 	}
