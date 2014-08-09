@@ -1,5 +1,9 @@
 package org.armory.d3.ui.model;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.swing.table.DefaultTableModel;
@@ -11,7 +15,14 @@ import com.pihen.d3restapi.service.util.StuffCalculator.KEY;
 
 public class CalculatorModel extends DefaultTableModel {
 
-
+	DecimalFormat formatter;
+	
+	public CalculatorModel() {
+		 formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
+			DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
+			symbols.setGroupingSeparator(' ');
+			formatter.setDecimalFormatSymbols(symbols);
+	}
 	
 	@Override
 	public int getColumnCount() {
@@ -40,7 +51,7 @@ public class CalculatorModel extends DefaultTableModel {
 	        if (column==0) {
 	            return entry.getKey();
 	        } else if (column==1) { 
-	            return entry.getValue();
+	            return formatter.format((Double)entry.getValue());
 	        } else {
 	           return null;
 	        }

@@ -39,7 +39,8 @@ public class StuffComparCellRenderer extends JLabel implements TableCellRenderer
 			this.setForeground(Color.LIGHT_GRAY);
 			setText(formatter.format(value).toString());
 		}
-		if(column==3){
+		if(column==3)
+		{
 			if(table.getValueAt(row, column).toString().startsWith("+")){
 		        this.setForeground(Color.GREEN);
 	        } 

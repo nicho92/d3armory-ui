@@ -58,6 +58,7 @@ import org.armory.d3.ui.components.ItemPanelDetails;
 import org.armory.d3.ui.components.ParangonPanel;
 import org.armory.d3.ui.components.SkillLabel;
 import org.armory.d3.ui.components.SocketLabel;
+import org.armory.d3.ui.components.StuffComparCellRenderer;
 import org.armory.d3.ui.model.CalculatorModel;
 import org.armory.d3.ui.model.ListeHeroModel;
 import org.armory.d3.ui.model.ItemsDetailModel;
@@ -184,7 +185,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	        }
 	   
 	    try{    
-	    File repconf = new File("conf");
+	    	
+	    File repconf = new File(System.getProperty("user.home")+"/d3conf");
+	    
 	    if(!repconf.exists())
 	    {
 	    	repconf.mkdir();
@@ -197,6 +200,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	    }
 	    catch(IOException e)
 	    {
+	    
 	    	JOptionPane.showMessageDialog(null, e);
 	    }
 	        
@@ -1486,9 +1490,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(ongletPane == null) {
 			ongletPane = new JTabbedPane();
 			ongletPane.setPreferredSize(new java.awt.Dimension(0, 0));
-			ongletPane.addTab("General", null, getPanneauInfoHero(), null);
+			ongletPane.addTab("Blizzard Profil", null, getPanneauInfoHero(), null);
 			ongletPane.addTab("Items", null, getPanneauTableauDescription(), null);
-			ongletPane.addTab("Details", null,getPanneauDetails(),null);
+			ongletPane.addTab("DPS/EHP", null,getPanneauDetails(),null);
 			ongletPane.addTab("Followers", null, getFollowersPanel(), null);
 			ongletPane.addTab("Parangon", null,getPanneauParangon(),null);
 			ongletPane.addTab("Expert", null, getPanneauTableau(), null);
@@ -1522,7 +1526,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			CalculatorModel mod = new CalculatorModel();
 			sorter = new TableRowSorter(mod);
 			JTable tableauCalculator=new JTable(mod);
-			
 			tableauCalculator.setRowSorter(sorter);
 			detailsPanel.setViewportView(tableauCalculator);
 		}

@@ -28,10 +28,10 @@ import com.pihen.d3restapi.service.util.StuffCalculator;
 
 public class D3ArmoryControler {
 
-	private static String TAG_FILE="conf/tags.d3armory";
-	private static String LOCALE_FILE="conf/local.d3armory";
-	private static String SERIALISATION_DIR="conf/items";
-	private static String SERIALISATION_HERO_DIR="conf/heroes";
+	private static String TAG_FILE=System.getProperty("user.home")+"/d3conf/tags.d3armory";
+	private static String LOCALE_FILE=System.getProperty("user.home")+"/d3conf/local.d3armory";
+	private static String SERIALISATION_DIR=System.getProperty("user.home")+"/d3conf/items";
+	private static String SERIALISATION_HERO_DIR=System.getProperty("user.home")+"/d3conf/heroes";
 	
 	
 	private static D3ArmoryControler instance;

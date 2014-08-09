@@ -256,6 +256,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 										}
 										else
 										{
+											a.setValue(new MinMaxBonus(Double.parseDouble(JOptionPane.showInputDialog("Value",a.getValue()))));
 											getItem().addAttributs(a);
 										}
 											
@@ -393,7 +394,6 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 										getItem().setAttributesRaw(new HashMap<String,MinMaxBonus>());
 										getItem().setAttributes(null);
 										tableauSpecItemModel.fireTableDataChanged();
-										
 										refreshItem();
 									}
 								});
