@@ -63,7 +63,8 @@ public class ItemLabel extends JLabel implements MouseListener {
 	public void setItem(Item i,EnumerationStuff e) {
 		this.item = i;
 		this.gear = e;
-		this.add(new JLabel("COUCOU"));
+		//this.setToolTipText(i.getAttributes().toString());
+	
 	}
 
 	
@@ -75,6 +76,8 @@ public class ItemLabel extends JLabel implements MouseListener {
 		this.gear = gear;
 	}
 
+
+	
 	public Icon getIcon(boolean off,String size) {
 		setHorizontalAlignment(JLabel.CENTER);
 		setVerticalAlignment(JLabel.CENTER);
