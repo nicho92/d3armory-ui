@@ -46,9 +46,9 @@ public class ParangonPanel extends JPanel {
 		setBackground(Color.BLACK);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{130, 269, 122, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		JLabel lblDamage = new JLabel("DAMAGE");
@@ -58,7 +58,7 @@ public class ParangonPanel extends JPanel {
 		GridBagConstraints gbc_lblDamage = new GridBagConstraints();
 		gbc_lblDamage.fill = GridBagConstraints.BOTH;
 		gbc_lblDamage.gridwidth = 3;
-		gbc_lblDamage.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDamage.insets = new Insets(0, 0, 5, 0);
 		gbc_lblDamage.gridx = 0;
 		gbc_lblDamage.gridy = 1;
 		add(lblDamage, gbc_lblDamage);
@@ -142,7 +142,7 @@ public class ParangonPanel extends JPanel {
 		JLabel label = new JLabel("Attack Speed");
 		label.setForeground(Color.WHITE);
 		GridBagConstraints gbc_label = new GridBagConstraints();
-		gbc_label.insets = new Insets(0, 0, 0, 5);
+		gbc_label.insets = new Insets(0, 0, 5, 5);
 		gbc_label.gridx = 0;
 		gbc_label.gridy = 5;
 		add(label, gbc_label);
@@ -150,7 +150,7 @@ public class ParangonPanel extends JPanel {
 		final JSpinner spinner_3 = new JSpinner();
 		GridBagConstraints gbc_spinner_3 = new GridBagConstraints();
 		gbc_spinner_3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_spinner_3.insets = new Insets(0, 0, 0, 5);
+		gbc_spinner_3.insets = new Insets(0, 0, 5, 5);
 		gbc_spinner_3.gridx = 1;
 		gbc_spinner_3.gridy = 5;
 		add(spinner_3, gbc_spinner_3);
@@ -158,9 +158,22 @@ public class ParangonPanel extends JPanel {
 		final JLabel lblNewLabel_3 = new JLabel("");
 		lblNewLabel_3.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
+		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewLabel_3.gridx = 2;
 		gbc_lblNewLabel_3.gridy = 5;
 		add(lblNewLabel_3, gbc_lblNewLabel_3);
+		
+		JLabel lblEhp = new JLabel("EHP");
+		lblEhp.setOpaque(true);
+		lblEhp.setForeground(Color.WHITE);
+		lblEhp.setBackground(new Color(60, 179, 113));
+		GridBagConstraints gbc_lblEhp = new GridBagConstraints();
+		gbc_lblEhp.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblEhp.gridwidth = 3;
+		gbc_lblEhp.insets = new Insets(0, 0, 0, 5);
+		gbc_lblEhp.gridx = 0;
+		gbc_lblEhp.gridy = 6;
+		add(lblEhp, gbc_lblEhp);
 		
 		spinner.addChangeListener(new ChangeListener() {
 			
