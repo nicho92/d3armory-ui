@@ -20,7 +20,7 @@ import com.pihen.d3restapi.beans.SkillRune;
 
 public class StuffCalculator{
 	
-	public static enum KEY { PRIMARY_STAT, BONUS_ATTACK_SPEED,ATTACK_PER_SECONDS, AS_MH, AS_OH, DAMAGE_CRIT_CHANCE,DAMAGE_CRIT_DAMAGE,MH_DAMAGE,OH_DAMAGE,VITALITY,HP, LIFE,ARMOR,BONUS_ELITE, DPS,DPS_ELEMENTAL, DODGECHANCE,BONUS_FIRE,BONUS_COLD,BONUS_POISON,BONUS_HOLY,BONUS_ARCANE,BONUS_LIGHTNING,BONUS_PHYSICAL, COOLDOWN_REDUCTION, DPS_ELITE};
+	public static enum KEY { PRIMARY_STAT, BONUS_ATTACK_SPEED,ATTACK_PER_SECONDS, AS_MH, AS_OH, DAMAGE_CRIT_CHANCE,DAMAGE_CRIT_DAMAGE,MH_DAMAGE,OH_DAMAGE,VITALITY,EHP, LIFE,ARMOR,BONUS_ELITE, DPS,DPS_ELEMENTAL, DODGECHANCE,BONUS_FIRE,BONUS_COLD,BONUS_POISON,BONUS_HOLY,BONUS_ARCANE,BONUS_LIGHTNING,BONUS_PHYSICAL, COOLDOWN_REDUCTION, DPS_ELITE, RESISTANCE_ALL, RESISTANCE_PHYSICAL, RESISTANCE_FIRE, RESISTANCE_POISON, RESISTANCE_COLD, RESISTANCE_LIGHTNING, RESISTANCE_ARCANE};
 	public static enum ELEMENTS { Fire, Cold, Holy,Poison,Arcane,Lightning,Physical};
 	
 	public Hero getHero() {
@@ -104,6 +104,11 @@ public class StuffCalculator{
 		return getPrimaryBaseValue() + filter(hero.getPrimaryStat(), null);
 	}
 	
+	public double getSecondaryBaseValue()
+	{
+		return 7+ (1*hero.getLevel().intValue());
+	}
+	
 	public double getPrimaryBaseValue()
 	{
 		return 7+ (3*hero.getLevel().intValue());
@@ -118,22 +123,68 @@ public class StuffCalculator{
 	{
 		return (int)(7+(2*hero.getLevel().intValue())+ filter("Vitality", null));
 	}
+	
+	private double getResistance(ELEMENTS e)
+	{
+		double baseValue=0;
 		
-	private double getHP()
+		if(hero.getClazz().equals("witch-doctor")||hero.getClazz().equals("wizard"))
+			baseValue=getPrimaryBaseValue();
+		else
+			baseValue=getSecondaryBaseValue();
+	
+		double intel = (baseValue + filter("Intelligence",null))/10;
+		
+		if(e!=null)
+			return(baseValue + intel + filter("Resistance_All",null) + filter("Resistance#",e.toString()));
+		else
+			return(baseValue + intel + filter("Resistance_All",null));
+	}
+	
+	private double getArmor()
+	{
+		return filter(hero.getPrimaryStat(),null)+filter("Armor",null);
+	}
+	
+	private double getArmorReduction(int monsterLevel)
+	{
+		double armor = getArmor();
+		return armor/((50*monsterLevel) + armor);
+	}
+	
+	private double getDodge()
+	{
+		return hero.getStats().getDexterity() / (0.00031*Math.pow(hero.getLevel().intValue(), 3) + 0.0186*Math.pow(hero.getLevel().intValue(),2) + 0.25*hero.getLevel().intValue() + 1.93);
+	}
+	
+	private double getHealthPool()
 	{
 		int lvl = hero.getLevel().intValue();
 		int vit = getVitality();
 		
+		double lifeB= filter("Hitpoints_Max_Percent_Bonus",null);
+		
 		if(lvl>=65)	
-			return 36+(4*lvl)+(35*vit)+5*(lvl-61)*vit;
+			return 36+(4*lvl)+(35*vit)+5*(lvl-61)*vit*(1+lifeB);
 		if(lvl>=60)
-			return 36+(4*lvl)+(35*getVitality())+(4*(lvl-60)*getVitality());
+			return 36+(4*lvl)+(35*getVitality())+(4*(lvl-60)*getVitality())*(1+lifeB);
 		if(lvl>=35)
-			return 36+(4*lvl)+((lvl-25)*getVitality());
+			return 36+(4*lvl)+((lvl-25)*getVitality())*(1+lifeB);
 		if(lvl<35)
-			return 36+(4*lvl)+(10*getVitality());
-
+			return 36+(4*lvl)+(10*getVitality())*(1+lifeB);
+		
 		return 0;
+	}
+	
+	
+	private double getHP(int levelMonster)
+	{
+		double armorReduction=getArmorReduction(levelMonster);
+		double classReduction=hero.getClassReduction();
+		double dodgeReduction=getDodge();
+		double resistReduction=getResistance(null);
+		
+		return getHealthPool() / (1-armorReduction)*(1-resistReduction)*(1-dodgeReduction)*(1+classReduction);//*(1-Any other dmg reduction you want)
 	}
 	
 	private void init()
@@ -269,26 +320,9 @@ public class StuffCalculator{
 		
 	
 		
-		//CALCUL VITALITY
-		double lifeB= filter("Hitpoints_Max_Percent_Bonus","");
-		double lvl = hero.getLevel().doubleValue();
 		double vitality = getVitality();
-		double life=0;
-		
-		if(lvl<35)
-			life = (36 + (lvl * 4) + (vitality * 10)) * (1+lifeB);
-		else
-			life= (36 + 4* lvl  + (vitality * (lvl - 25))) * (1+lifeB);
-		
-		
-		//ARMOR CALCUL
-		double armorBonus= filter("Armor",null);
-		double armor = stat_base+armorBonus;
-
-		
-		//DODGE
-		double dodgeChance = hero.getStats().getDexterity() / (0.00031*Math.pow(hero.getLevel().intValue(), 3) + 0.0186*Math.pow(hero.getLevel().intValue(),2) + 0.25*hero.getLevel().intValue() + 1.93);
-
+		double armor = getArmor();
+		double dodgeChance = getDodge();
 		
 		double dps=getDamage(stat_base,chance_cc,degat_cc,1+bonusAsArmor,minMaxDmg,0);
 		double elementdps = getElemDamage(stat_base,chance_cc,degat_cc,1+bonusAsArmor,minMaxDmg,0);
@@ -303,8 +337,8 @@ public class StuffCalculator{
 		mapResultat.put(KEY.MH_DAMAGE,format(hitDmgMAIN));
 		mapResultat.put(KEY.OH_DAMAGE,format(hitDmgOFF));
 		mapResultat.put(KEY.VITALITY,format(vitality));
-		mapResultat.put(KEY.LIFE,format(life));
-		mapResultat.put(KEY.HP, getHP());
+		mapResultat.put(KEY.LIFE,format(getHealthPool()));
+		mapResultat.put(KEY.EHP, format(getHP(hero.getLevel().intValue())));
 		mapResultat.put(KEY.ARMOR,format(armor));
 		mapResultat.put(KEY.DODGECHANCE,format(dodgeChance));
 		mapResultat.put(KEY.BONUS_ELITE, format(getEliteDamageBonus()*100));
@@ -319,6 +353,16 @@ public class StuffCalculator{
 		mapResultat.put(KEY.DPS_ELEMENTAL,format(elementdps*(1+(getElementalDamageBonus(getElementalOrientation())))));
 		mapResultat.put(KEY.DPS_ELITE,format(elementdps*(1+(getElementalDamageBonus(getElementalOrientation()))*(1+getEliteDamageBonus()))));
 		mapResultat.put(KEY.COOLDOWN_REDUCTION, format(getCoolDownReduction()*100));
+		mapResultat.put(KEY.RESISTANCE_ALL, format(getResistance(null)));
+		mapResultat.put(KEY.RESISTANCE_PHYSICAL, format(getResistance(ELEMENTS.Physical)));
+		mapResultat.put(KEY.RESISTANCE_FIRE, format(getResistance(ELEMENTS.Fire)));
+		mapResultat.put(KEY.RESISTANCE_COLD, format(getResistance(ELEMENTS.Cold)));
+		mapResultat.put(KEY.RESISTANCE_POISON, format(getResistance(ELEMENTS.Poison)));
+		mapResultat.put(KEY.RESISTANCE_LIGHTNING, format(getResistance(ELEMENTS.Lightning)));
+		mapResultat.put(KEY.RESISTANCE_ARCANE, format(getResistance(ELEMENTS.Arcane)));
+	
+		
+		
 	return mapResultat;
 	}
 	
