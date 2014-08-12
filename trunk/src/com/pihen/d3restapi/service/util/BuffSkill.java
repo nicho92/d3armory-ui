@@ -3,6 +3,7 @@ package com.pihen.d3restapi.service.util;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.pihen.d3restapi.beans.Gem;
 import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.MinMaxBonus;
 import com.pihen.d3restapi.beans.SkillRune;
@@ -11,7 +12,7 @@ public class BuffSkill {
 	private static String PREFIX="_SKILLS_";
 	private static Map<String,MinMaxBonus> buffs; 
 		
-	public static Map<String,MinMaxBonus> getBuff(SkillRune a, Map<EnumerationStuff,Item> stuffs) {
+	public static Map<String,MinMaxBonus> getBuff(SkillRune a, StuffCalculator sc) {
 		
 		buffs = new HashMap<String, MinMaxBonus>();
 		
@@ -20,6 +21,30 @@ public class BuffSkill {
 		
 		if(a.getSkill()==null)
 			return buffs;
+		
+		
+//CRUSADER
+		if(a.getSkill().getId().equals("finery"))
+		{
+			
+			double gem = 0;
+			double strength=sc.getPrimaryStatUnbuffedValue();
+			for(Item i : sc.getAllItems())
+			{
+				for(Gem g : i.getGems())
+			
+					if(g.getItem()!=null)
+						gem=gem+1;
+			}
+			gem = gem*(1.5/100);
+			System.out.println(gem);
+			System.out.println(strength);
+			buffs.put("Strength"+PREFIX+a, new MinMaxBonus(strength*gem));
+		}
+		
+		
+		
+		
 		
 // BARBARE
 		/*

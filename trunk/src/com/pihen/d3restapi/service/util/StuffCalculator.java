@@ -272,7 +272,7 @@ public class StuffCalculator{
 			List<SkillRune> sr = cont.getPassive();
 			for(SkillRune s : sr)
 			{
-				statsCalculator.putAll(BuffSkill.getBuff(s,getStuffs()));
+				statsCalculator.putAll(BuffSkill.getBuff(s,this));
 			}
 		}
 	}

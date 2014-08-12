@@ -28,7 +28,7 @@ public class Main {
 		
 		Profile profile = profileService.receiveEntity(conf);
 			
-		Hero hero = profile.getHeroes().get(2);
+		Hero hero = profile.getHeroes().get(1);
 					conf.setHeroId(
 							hero.getId());
 		D3ArmoryControler.getInstance().setConf(conf);
