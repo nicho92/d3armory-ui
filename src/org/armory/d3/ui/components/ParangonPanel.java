@@ -22,9 +22,9 @@ import com.pihen.d3restapi.beans.MinMaxBonus;
 import com.pihen.d3restapi.service.remote.exception.D3ServerCommunicationException;
 import com.pihen.d3restapi.service.util.StuffCalculator;
 import com.pihen.d3restapi.service.util.StuffCalculator.KEY;
+import javax.swing.JComboBox;
 
 public class ParangonPanel extends JPanel {
-	
 	
 	
 	public void updateParametre(String att,double val,JLabel label){
@@ -58,7 +58,7 @@ public class ParangonPanel extends JPanel {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{130, 269, 122, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
@@ -182,12 +182,24 @@ public class ParangonPanel extends JPanel {
 		lblEhp.setForeground(Color.WHITE);
 		lblEhp.setBackground(new Color(60, 179, 113));
 		GridBagConstraints gbc_lblEhp = new GridBagConstraints();
-		gbc_lblEhp.insets = new Insets(0, 0, 5, 0);
+		gbc_lblEhp.insets = new Insets(0, 0, 5, 5);
 		gbc_lblEhp.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblEhp.gridwidth = 3;
+		gbc_lblEhp.gridwidth = 2;
 		gbc_lblEhp.gridx = 0;
 		gbc_lblEhp.gridy = 7;
 		add(lblEhp, gbc_lblEhp);
+		
+		
+//		int level = D3ArmoryControler.getInstance().getSelectedHero(false).getLevel().intValue();
+//		String[] items = {level + " - Hero Level", level+3+" - Elite Level", level+9 + "-Uber Level"};
+		JComboBox cboEnemyLevel = new JComboBox();
+		
+		GridBagConstraints gbc_cboEnemyLevel = new GridBagConstraints();
+		gbc_cboEnemyLevel.insets = new Insets(0, 0, 5, 0);
+		gbc_cboEnemyLevel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cboEnemyLevel.gridx = 2;
+		gbc_cboEnemyLevel.gridy = 7;
+		add(cboEnemyLevel, gbc_cboEnemyLevel);
 		
 		JLabel lblVitality = new JLabel("Vitality");
 		lblVitality.setForeground(Color.WHITE);
