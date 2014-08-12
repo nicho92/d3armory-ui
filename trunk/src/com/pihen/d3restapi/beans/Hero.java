@@ -40,6 +40,24 @@ public class Hero extends RemoteEntity implements Serializable {
 	@SerializedName("last-updated")	private Long lastUpdated;
 
 	
+	public double getClassReduction()
+	{
+		if("demon-hunter".equals(getClazz())) 
+			return 0; 
+		if("barbarian".equals(getClazz()))
+			return 0.30; 
+		if("monk".equals(getClazz()))
+			return 0.30; 
+		if("wizard".equals(getClazz()))
+			return 0; 
+		if("witch-doctor".equals(getClazz()))
+			return 0; 
+		if("crusader".equals(getClazz()))
+			return 0.30;
+		
+		return 0;
+	}
+	
 	public String getPrimaryStat()
 	{
 			if("demon-hunter".equals(getClazz())) 
