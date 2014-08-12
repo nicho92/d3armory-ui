@@ -124,7 +124,7 @@ public class StuffCalculator{
 		return (int)(7+(2*hero.getLevel().intValue())+ filter("Vitality", null));
 	}
 	
-	private double getResistance(ELEMENTS e)
+	private double getResistance(ELEMENTS e)//TODO
 	{
 		double baseValue=0;
 		
@@ -141,9 +141,18 @@ public class StuffCalculator{
 			return(baseValue + intel + filter("Resistance_All",null));
 	}
 	
-	private double getArmor()
+	private double getArmor()//TODO
 	{
-		return filter(hero.getPrimaryStat(),null)+filter("Armor",null);
+		
+		double baseValue=0;
+		if(hero.getClazz().equals("barbarian")||hero.getClazz().equals("crusader"))
+			baseValue=getPrimaryBaseValue();
+		else
+			baseValue=getSecondaryBaseValue();
+	
+		double strength = (baseValue + filter("Strength",null));
+		
+		return filter("Armor",null) + strength;
 	}
 	
 	private double getArmorReduction(int monsterLevel)
