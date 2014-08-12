@@ -51,7 +51,8 @@ public class StuffComparaisonModel extends DefaultTableModel{
 		}
 
 		return null;
-		}catch(Exception e)
+		}
+		catch(Exception e)
 		{
 			return null;
 		}
