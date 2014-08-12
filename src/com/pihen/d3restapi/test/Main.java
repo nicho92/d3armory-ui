@@ -7,6 +7,7 @@ import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.service.configuration.Configuration;
 import com.pihen.d3restapi.service.remote.RemoteService;
 import com.pihen.d3restapi.service.remote.SpringRemoteService;
+import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.StuffCalculator;
 import com.pihen.d3restapi.service.util.StuffCalculator.KEY;
 
@@ -27,7 +28,7 @@ public class Main {
 		
 		Profile profile = profileService.receiveEntity(conf);
 			
-		Hero hero = profile.getHeroes().get(1);
+		Hero hero = profile.getHeroes().get(2);
 					conf.setHeroId(
 							hero.getId());
 		D3ArmoryControler.getInstance().setConf(conf);
@@ -35,8 +36,6 @@ public class Main {
 		//hero= D3ArmoryControler.getInstance().loadHero(new File("Cynyda"));
 					StuffCalculator calc = new StuffCalculator(D3ArmoryControler.getInstance().initStuffHero(hero),hero);
 					calc.calculate();
-					
-					
 					
 					System.out.println("HERO : " + hero.getName() + " " + hero.getLevel() + " ("+ hero.getParagonLevel()+")");
 					System.out.println("----------------------------------");
