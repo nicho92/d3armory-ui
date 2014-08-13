@@ -20,7 +20,7 @@ import com.pihen.d3restapi.beans.SkillRune;
 
 public class StuffCalculator{
 	
-	public static enum KEY { PRIMARY_STAT, BONUS_ATTACK_SPEED,ATTACK_PER_SECONDS, AS_MH, AS_OH, DAMAGE_CRIT_CHANCE,DAMAGE_CRIT_DAMAGE,MH_DAMAGE,OH_DAMAGE,VITALITY,EHP, LIFE,ARMOR,BONUS_ELITE, DPS,DPS_ELEMENTAL, DODGECHANCE,BONUS_FIRE,BONUS_COLD,BONUS_POISON,BONUS_HOLY,BONUS_ARCANE,BONUS_LIGHTNING,BONUS_PHYSICAL, COOLDOWN_REDUCTION, DPS_ELITE, RESISTANCE_ALL, RESISTANCE_PHYSICAL, RESISTANCE_FIRE, RESISTANCE_POISON, RESISTANCE_COLD, RESISTANCE_LIGHTNING, RESISTANCE_ARCANE};
+	public static enum KEY { PRIMARY_STAT, BONUS_ATTACK_SPEED,ATTACK_PER_SECONDS, AS_MH, AS_OH, HEALING, DAMAGE_CRIT_CHANCE,DAMAGE_CRIT_DAMAGE,MH_DAMAGE,OH_DAMAGE,VITALITY,TOUGHNESS, HP,ARMOR,BONUS_ELITE, DPS,DPS_ELEMENTAL, DODGECHANCE,BONUS_FIRE,BONUS_COLD,BONUS_POISON,BONUS_HOLY,BONUS_ARCANE,BONUS_LIGHTNING,BONUS_PHYSICAL, COOLDOWN_REDUCTION, DPS_ELITE, RESISTANCE_ALL, RESISTANCE_PHYSICAL, RESISTANCE_FIRE, RESISTANCE_POISON, RESISTANCE_COLD, RESISTANCE_LIGHTNING, RESISTANCE_ARCANE};
 	public static enum ELEMENTS { Fire, Cold, Holy,Poison,Arcane,Lightning,Physical};
 	
 	public Hero getHero() {
@@ -36,8 +36,11 @@ public class StuffCalculator{
 	private HeroSkillContainer skills;
 	private Map<String, MinMaxBonus> statsCalculator;
 	private Hero hero;
-	int countweapon=0;
+	private int countweapon=0;
 	private Map<String,Double> weaponDefaultAS=new HashMap<String,Double>();
+	private double attackSpeedMain;
+	private double attackSpeedOff;
+
 	
 	private Map<KEY,Double> mapResultat ;
 	
@@ -124,6 +127,17 @@ public class StuffCalculator{
 		return (int)(7+(2*hero.getLevel().intValue())+ filter("Vitality", null));
 	}
 	
+	private double getResistanceAverage()
+	{
+		double val=0;
+		for(ELEMENTS k : ELEMENTS.values())
+		{
+			if(!k.equals(ELEMENTS.Holy))
+				val=val+getResistance(k);
+		}
+		return val/6;
+	}
+	
 	private double getResistance(ELEMENTS e)//TODO
 	{
 		double baseValue=0;
@@ -141,7 +155,7 @@ public class StuffCalculator{
 			return(baseValue + intel + filter("Resistance_All",null));
 	}
 	
-	private double getArmor()//TODO
+	private double getArmor()
 	{
 		
 		double baseValue=0;
@@ -151,50 +165,77 @@ public class StuffCalculator{
 			baseValue=getSecondaryBaseValue();
 	
 		double strength = (baseValue + filter("Strength",null));
-		
 		return filter("Armor",null) + strength;
-	}
-	
-	private double getArmorReduction(int monsterLevel)
-	{
-		double armor = getArmor();
-		return armor/((50*monsterLevel) + armor);
 	}
 	
 	private double getDodge()
 	{
-		return hero.getStats().getDexterity() / (0.00031*Math.pow(hero.getLevel().intValue(), 3) + 0.0186*Math.pow(hero.getLevel().intValue(),2) + 0.25*hero.getLevel().intValue() + 1.93);
+		double dext = 0;
+		if(hero.equals("demon-hunter")|| hero.equals("monk"))
+			dext=getPrimaryBaseValue();
+		else
+			dext=getSecondaryBaseValue()+filter("Dexterity",null);
+		
+		return dext / (0.00031*Math.pow(hero.getLevel().intValue(), 3) + 0.0186*Math.pow(hero.getLevel().intValue(),2) + 0.25*hero.getLevel().intValue() + 1.93);
 	}
 	
 	private double getHealthPool()
 	{
 		int lvl = hero.getLevel().intValue();
 		int vit = getVitality();
-		
 		double lifeB= filter("Hitpoints_Max_Percent_Bonus",null);
+	
+		double vitaMultiplier=0;
 		
-		if(lvl>=65)	
-			return 36+(4*lvl)+(35*vit)+5*(lvl-61)*vit*(1+lifeB);
-		if(lvl>=60)
-			return 36+(4*lvl)+(35*getVitality())+(4*(lvl-60)*getVitality())*(1+lifeB);
-		if(lvl>=35)
-			return 36+(4*lvl)+((lvl-25)*getVitality())*(1+lifeB);
+		if(lvl>65)
+			vitaMultiplier=5*(lvl-65)+55;
+		if(lvl<=65)
+			vitaMultiplier=4*(lvl-60)+35;
+		if(lvl<=60)
+			vitaMultiplier=lvl-25;
 		if(lvl<35)
-			return 36+(4*lvl)+(10*getVitality())*(1+lifeB);
+			vitaMultiplier=10;
 		
-		return 0;
+		double vitality = vit*vitaMultiplier;
+		
+		double hpLevel=36+(4*lvl);
+	
+		return (vitality+hpLevel)*(1+lifeB);
 	}
 	
-	
-	private double getHP(int levelMonster)
+	private double getHealing()
 	{
-		double armorReduction=getArmorReduction(levelMonster);
-		double classReduction=hero.getClassReduction();
-		double dodgeReduction=getDodge();
-		double resistReduction=getResistance(null);
 		
-		return getHealthPool() / (1-armorReduction)*(1-resistReduction)*(1-dodgeReduction)*(1+classReduction);//*(1-Any other dmg reduction you want)
+		double lifePerHit=filter("Hitpoints_On_Hit",null)*(attackSpeedMain/(attackSpeedOff==0?1:attackSpeedOff));
+		double healthGlobBonus=filter("Health_Globe_Bonus_Health",null);
+		double lifePerSecond=filter("Hitpoints_Regen_Per_Second",null);
+		
+		double lifeOnKill=filter("Hitpoints_On_Kill",null)*0.16;
+		
+		double lifeSteal=0; //not working on 70 level;
+		
+		
+		return lifePerHit+healthGlobBonus+lifePerSecond+lifeOnKill+lifeSteal;
 	}
+	
+	
+	private double getToughness(int levelMonster)
+	{
+		double armorReduction=getArmor();
+		double resistReduction=getResistanceAverage();
+		double dodgeReduction=getDodge()/100;
+		double armorReductionPercent = armorReduction/((50*levelMonster)+armorReduction);
+		double resistReductionPercent = resistReduction/((5*levelMonster)+resistReduction);
+		double classReduction = hero.getClassReduction()/100;
+		double buffReduction = filter("Decrease_Damage_All",null);
+		
+		
+		double totalReductionPercent =1-((1-dodgeReduction)*(1-armorReductionPercent)*(1-resistReductionPercent)*(1-classReduction)*(1-buffReduction));
+		
+		return (getHealthPool()/(1-totalReductionPercent));
+	
+	}
+	
 	
 	private void init()
 	{
@@ -208,9 +249,7 @@ public class StuffCalculator{
 		for(Item i : stuffs.values())
 		{
 			if(i.isWeapon())
-			{
 				countweapon+=1;
-			}
 			
 			if(i.isSetObjects())
 			{
@@ -277,6 +316,12 @@ public class StuffCalculator{
 		}
 	}
 	
+	public int getNbWeapon()
+	{
+		return countweapon;
+	}
+	
+	
 	public Map<KEY,Double> calculate()
 	{
 		double bonusDual=(countweapon==2)?0.15:0;
@@ -299,8 +344,8 @@ public class StuffCalculator{
 		
 		double compagnonBonus=0; // ou 0.3 pour l'enchanteresse
 				
-		double attackSpeedMain=(1+bonusAsArmor+bonusDual)*(mainI*1+compagnonBonus+bonusWeapon);
-		double attackSpeedOff=0;
+		attackSpeedMain=(1+bonusAsArmor+bonusDual)*(mainI*1+compagnonBonus+bonusWeapon);
+		attackSpeedOff=0;
 
 		if(countweapon==2)
 			attackSpeedOff=(1+bonusAsArmor+bonusDual)*(offI*1+compagnonBonus+bonusWeapon);
@@ -346,8 +391,9 @@ public class StuffCalculator{
 		mapResultat.put(KEY.MH_DAMAGE,format(hitDmgMAIN));
 		mapResultat.put(KEY.OH_DAMAGE,format(hitDmgOFF));
 		mapResultat.put(KEY.VITALITY,format(vitality));
-		mapResultat.put(KEY.LIFE,format(getHealthPool()));
-		mapResultat.put(KEY.EHP, format(getHP(hero.getLevel().intValue())));
+		mapResultat.put(KEY.HP,format(getHealthPool()));
+		mapResultat.put(KEY.TOUGHNESS, format(getToughness(hero.getLevel().intValue())));
+		mapResultat.put(KEY.HEALING, format(getHealing()));
 		mapResultat.put(KEY.ARMOR,format(armor));
 		mapResultat.put(KEY.DODGECHANCE,format(dodgeChance));
 		mapResultat.put(KEY.BONUS_ELITE, format(getEliteDamageBonus()*100));
@@ -369,7 +415,7 @@ public class StuffCalculator{
 		mapResultat.put(KEY.RESISTANCE_POISON, format(getResistance(ELEMENTS.Poison)));
 		mapResultat.put(KEY.RESISTANCE_LIGHTNING, format(getResistance(ELEMENTS.Lightning)));
 		mapResultat.put(KEY.RESISTANCE_ARCANE, format(getResistance(ELEMENTS.Arcane)));
-	
+		
 		
 		
 	return mapResultat;
@@ -560,15 +606,11 @@ public class StuffCalculator{
 				   		stuffs2.put(EnumerationStuff.OFF_HAND, null);
 				
 		StuffCalculator calc2=new StuffCalculator(stuffs2, hero);
-						calc2.calculeBuff();
 						calc2.calculate();
 						
 		return calc2;
 	}
 	
-	public static void main(String[] args) {
-		System.out.println(format(12345.67));
-	}
 	
 	public static double format(double val)
 	{
