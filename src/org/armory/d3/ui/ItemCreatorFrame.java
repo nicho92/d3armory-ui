@@ -38,16 +38,11 @@ import ca.odell.glazedlists.matchers.TextMatcherEditor;
 import ca.odell.glazedlists.swing.AutoCompleteSupport;
 
 import com.pihen.d3restapi.beans.Attributs;
-import com.pihen.d3restapi.beans.AttributsContainer;
 import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.MinMaxBonus;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.RawsAttributeFactory;
 import com.pihen.d3restapi.service.util.StuffCalculator;
-
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 
 public class ItemCreatorFrame extends javax.swing.JDialog {
 	private JPanel panneauGauche;
