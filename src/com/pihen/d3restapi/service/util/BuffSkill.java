@@ -24,6 +24,17 @@ public class BuffSkill {
 		
 		
 //CRUSADER
+		if(a.getSkill().getId().equals("fervor"))
+		{
+			if(sc.getNbWeapon()<2)
+			{
+				buffs.put("Attacks_Per_Second_Percent"+PREFIX+a, new MinMaxBonus(0.15));
+				buffs.put("Power_Cooldown_Reduction_Percent_All"+PREFIX+a, new MinMaxBonus(0.15));
+			}
+		}
+		
+		
+		
 		if(a.getSkill().getId().equals("finery"))
 		{
 			
@@ -31,21 +42,28 @@ public class BuffSkill {
 			double strength=sc.getPrimaryStatUnbuffedValue();
 			for(Item i : sc.getAllItems())
 			{
+				if(i!=null)
 				for(Gem g : i.getGems())
 			
 					if(g.getItem()!=null)
 						gem=gem+1;
 			}
 			gem = gem*(1.5/100);
-			System.out.println(gem);
-			System.out.println(strength);
 			buffs.put("Strength"+PREFIX+a, new MinMaxBonus(strength*gem));
 		}
 		
+				
+//WIZARD
+		if(a.getSkill().getId().equals("evocation"))
+		{
+			buffs.put("Power_Cooldown_Reduction_Percent_All"+PREFIX+a, new MinMaxBonus(0.20));
+		}
+		if(a.getSkill().getId().equals("blur"))
+		{
+			buffs.put("Decrease_Damage_All"+PREFIX+a, new MinMaxBonus(0.17));
+		}
 		
-		
-		
-		
+		/*		
 // BARBARE
 		/*
 		if(a.getSkill().getId().equals("weapons-master"))

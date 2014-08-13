@@ -44,8 +44,8 @@ public class ParangonPanel extends JPanel {
 		StuffCalculator calc = new StuffCalculator(D3ArmoryControler.getInstance().getCalculator().getStuffs(),D3ArmoryControler.getInstance().getSelectedHero(false));
 						calc.addBonus(att, new MinMaxBonus(val));
 						
-		double val2=calc.calculate().get(KEY.EHP);
-		double val1=D3ArmoryControler.getInstance().getCalculator().calculate().get(KEY.EHP);
+		double val2=calc.calculate().get(KEY.TOUGHNESS);
+		double val1=D3ArmoryControler.getInstance().getCalculator().calculate().get(KEY.TOUGHNESS);
 		double diff = val2-val1;
 		label.setText("+"+StuffCalculator.format(diff)+ " (+"+ StuffCalculator.format(((val2 - val1) / val1 ) * 100)+"%)");
 	

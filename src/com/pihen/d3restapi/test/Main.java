@@ -7,7 +7,6 @@ import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.service.configuration.Configuration;
 import com.pihen.d3restapi.service.remote.RemoteService;
 import com.pihen.d3restapi.service.remote.SpringRemoteService;
-import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.StuffCalculator;
 import com.pihen.d3restapi.service.util.StuffCalculator.KEY;
 
@@ -24,13 +23,13 @@ public class Main {
 		
 		RemoteService<Profile> profileService = new SpringRemoteService(Profile.class);
 		RemoteService<Hero> heroService = new SpringRemoteService(Hero.class);
-		
-		
 		Profile profile = profileService.receiveEntity(conf);
-			
-		Hero hero = profile.getHeroes().get(1);
-					conf.setHeroId(
-							hero.getId());
+		
+		
+		
+		for(int i=0;i<6;i++){
+		Hero hero = profile.getHeroes().get(i);
+					conf.setHeroId(hero.getId());
 		D3ArmoryControler.getInstance().setConf(conf);
 		hero = heroService.receiveEntity(conf);
 		//hero= D3ArmoryControler.getInstance().loadHero(new File("Cynyda"));
@@ -38,12 +37,14 @@ public class Main {
 					calc.calculate();
 					
 					System.out.println("HERO : " + hero.getName() + " " + hero.getLevel() + " ("+ hero.getParagonLevel()+")");
-					System.out.println("----------------------------------");
 					for(KEY k : calc.getStats().keySet())
 					{
-						System.out.println(k + "--> " + calc.getStats().get(k));
+						if(k.equals(KEY.HEALING))
+							System.out.println(k + "--> " + calc.getStats().get(k));
 					}
-				
+		
+					System.out.println("----------------------------------");
 		}
+	}
 }
 

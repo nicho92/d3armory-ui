@@ -164,7 +164,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JScrollPane panneauTableauDescription;
 	private JTable tableauDescriptionItems;
 	private JScrollPane detailsPanel;
-
+	private JTable tableauCalculator;
 	
 	public ListeHeroModel getListeHerosModel() {
 		return listeHerosModel;
@@ -837,7 +837,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		panneauDessinHero.repaint();
 	}
 	
-	private String formatRessourceVisibleValue(double number) {
+	public static String formatRessourceVisibleValue(double number) {
 		if(number<1000)
 			return String.valueOf(number);
 		
@@ -995,7 +995,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SkillLabel getLblSkill7()
 	{
 		if(labSkilL7==null){
-			labSkilL7 = new SkillLabel(false);
+			labSkilL7 = new SkillLabel(true);
 			labSkilL7.setBounds(42, 528, 64, 64);
 		}
 		return labSkilL7;
@@ -1003,7 +1003,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SkillLabel getLblSkill8()
 	{
 		if(labSkilL8==null){
-			labSkilL8 = new SkillLabel(false);
+			labSkilL8 = new SkillLabel(true);
 			labSkilL8.setBounds(108, 528, 64, 64);
 		}
 		return labSkilL8;
@@ -1011,7 +1011,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SkillLabel getLblSkill9()
 	{
 		if(labSkilL9==null){
-			labSkilL9 = new SkillLabel(false);
+			labSkilL9 = new SkillLabel(true);
 			labSkilL9.setBounds(174, 528, 64, 64);
 		}
 		return labSkilL9;
@@ -1020,7 +1020,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private SkillLabel getLblSkill10()
 	{
 		if(labSkilL10==null){
-			labSkilL10 = new SkillLabel(false);
+			labSkilL10 = new SkillLabel(true);
 			labSkilL10.setBounds(240, 528, 64, 64);
 		}
 		return labSkilL10;
@@ -1523,15 +1523,28 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JScrollPane getPanneauDetails() {
 		if(detailsPanel==null){
 			detailsPanel=new JScrollPane();
-			CalculatorModel mod = new CalculatorModel();
-			sorter = new TableRowSorter(mod);
-			JTable tableauCalculator=new JTable(mod);
-			tableauCalculator.setRowSorter(sorter);
-			detailsPanel.setViewportView(tableauCalculator);
+			detailsPanel.setViewportView(getTableauDetailsCalc());
 		}
 		return detailsPanel;
 	}
 	
+
+
+	public JTable getTableauDetailsCalc() {
+		
+		if(tableauCalculator==null)
+		{
+			CalculatorModel mod = new CalculatorModel();
+			sorter = new TableRowSorter(mod);
+			tableauCalculator=new JTable(mod);
+			tableauCalculator.setRowSorter(sorter);
+			return (tableauCalculator);
+		}
+		else
+		{
+			return tableauCalculator;
+		}
+	}
 
 
 	private JPanel getPanneauParangon() {

@@ -15,6 +15,7 @@ import javax.swing.border.LineBorder;
 
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.SwingMainFrame;
+import org.armory.d3.ui.model.CalculatorModel;
 
 import com.pihen.d3restapi.beans.SkillRune;
 import com.pihen.d3restapi.service.util.BuffSkill;
@@ -112,6 +113,9 @@ public class SkillLabel extends JLabel implements MouseListener {
 		
 		D3ArmoryControler.getInstance().getCalculator().calculate();
 		((SwingMainFrame)this.getTopLevelAncestor()).getTableauDetailsModel().fireTableDataChanged();
+		((CalculatorModel)(((SwingMainFrame)this.getTopLevelAncestor()).getTableauDetailsCalc().getModel())).fireTableDataChanged();
+		
+		
 		repaint();
 	}
 
