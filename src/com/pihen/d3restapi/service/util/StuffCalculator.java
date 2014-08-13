@@ -209,13 +209,12 @@ public class StuffCalculator{
 		double lifePerHit=filter("Hitpoints_On_Hit",null)*(attackSpeedMain/(attackSpeedOff==0?1:attackSpeedOff));
 		double healthGlobBonus=filter("Health_Globe_Bonus_Health",null);
 		double lifePerSecond=filter("Hitpoints_Regen_Per_Second",null);
-		
+		double lifePerRessource=0;//TODO
 		double lifeOnKill=filter("Hitpoints_On_Kill",null)*0.16;
 		
 		double lifeSteal=0; //not working on 70 level;
 		
-		
-		return lifePerHit+healthGlobBonus+lifePerSecond+lifeOnKill+lifeSteal;
+	return (lifePerHit+healthGlobBonus+lifePerSecond+lifeOnKill+lifeSteal)/4;
 	}
 	
 	
@@ -332,6 +331,7 @@ public class StuffCalculator{
 
 		
 		double mainI=0;
+		System.out.println(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId());
 		if(stuffs.get(EnumerationStuff.MAIN_HAND)!=null)
 			mainI=weaponDefaultAS.get(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId()); //AS de base du type arme MAIN
 		
@@ -339,7 +339,7 @@ public class StuffCalculator{
 		if(countweapon==2)
 			offI=weaponDefaultAS.get(stuffs.get(EnumerationStuff.OFF_HAND).getType().getId()); //AS de base du type arme OFF
 		
-		double bonusAsArmor = filter("Attacks_Per_Second_Percent", null) + filter("Attacks_Per_Second_Percent","BUFF");
+		double bonusAsArmor = filter("Attacks_Per_Second_Percent", null);
 		double bonusWeapon = filter("Attacks_Per_Second_Item_Bonus", null);
 		
 		double compagnonBonus=0; // ou 0.3 pour l'enchanteresse
@@ -360,7 +360,7 @@ public class StuffCalculator{
 		{
 			weaponDmgMain=minMaxDmg/2+(stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne()+stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne())/2;
 			weaponDmgMain = weaponDmgMain * (1+ filter("Damage_Weapon_Percent_Bonus#Physical",null));
-					}
+		}
 		double weaponDmgOff=0;
 		
 		if(countweapon==2)
@@ -371,12 +371,6 @@ public class StuffCalculator{
 		
 		double hitDmgMAIN=statDamage*ccDamage*weaponDmgMain;
 		double hitDmgOFF=statDamage*ccDamage*weaponDmgOff;
-		
-	
-		
-		double vitality = getVitality();
-		double armor = getArmor();
-		double dodgeChance = getDodge();
 		
 		double dps=getDamage(stat_base,chance_cc,degat_cc,1+bonusAsArmor,minMaxDmg,0);
 		double elementdps = getElemDamage(stat_base,chance_cc,degat_cc,1+bonusAsArmor,minMaxDmg,0);
@@ -390,12 +384,12 @@ public class StuffCalculator{
 		mapResultat.put(KEY.DAMAGE_CRIT_DAMAGE,format(degat_cc*100));
 		mapResultat.put(KEY.MH_DAMAGE,format(hitDmgMAIN));
 		mapResultat.put(KEY.OH_DAMAGE,format(hitDmgOFF));
-		mapResultat.put(KEY.VITALITY,format(vitality));
+		mapResultat.put(KEY.VITALITY,format(getVitality()));
 		mapResultat.put(KEY.HP,format(getHealthPool()));
 		mapResultat.put(KEY.TOUGHNESS, format(getToughness(hero.getLevel().intValue())));
 		mapResultat.put(KEY.HEALING, format(getHealing()));
-		mapResultat.put(KEY.ARMOR,format(armor));
-		mapResultat.put(KEY.DODGECHANCE,format(dodgeChance));
+		mapResultat.put(KEY.ARMOR,format(getArmor()));
+		mapResultat.put(KEY.DODGECHANCE,format( getDodge()));
 		mapResultat.put(KEY.BONUS_ELITE, format(getEliteDamageBonus()*100));
 		mapResultat.put(KEY.BONUS_HOLY,format(getElementalDamageBonus(ELEMENTS.Holy)*100));
 		mapResultat.put(KEY.BONUS_FIRE,format(getElementalDamageBonus(ELEMENTS.Fire)*100));
