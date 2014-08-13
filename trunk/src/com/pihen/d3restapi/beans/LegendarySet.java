@@ -89,7 +89,7 @@ public class LegendarySet implements Serializable {
 	}
 
 	public boolean equals(Object lgs) {
-		return ((LegendarySet)lgs).getSlug().equals(this.getSlug());
+			return ((LegendarySet)lgs).getSlug().equals(this.getSlug());
 	}
 	
 	public int hashCode()

@@ -732,7 +732,6 @@ public class StuffCalculator{
 			
 			if(k.startsWith(stat)||stat.equals(""))
 			{
-				
 				if(elementfilter==null)
 				{
 					total=total+ statsCalculator.get(k).getMoyenne();
@@ -749,6 +748,5 @@ public class StuffCalculator{
 		
 		return total;	
 	}
-
 
 	}

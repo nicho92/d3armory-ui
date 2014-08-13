@@ -226,6 +226,30 @@ public class ParangonPanel extends JPanel {
 		gbc_lblVitalityValue.gridy = 8;
 		add(lblVitalityValue, gbc_lblVitalityValue);
 		
+		JLabel lblArmor = new JLabel("Armor");
+		lblArmor.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblArmor = new GridBagConstraints();
+		gbc_lblArmor.insets = new Insets(0, 0, 5, 5);
+		gbc_lblArmor.gridx = 0;
+		gbc_lblArmor.gridy = 9;
+		add(lblArmor, gbc_lblArmor);
+		
+		final JSpinner spinner_5 = new JSpinner();
+		GridBagConstraints gbc_spinner_5 = new GridBagConstraints();
+		gbc_spinner_5.fill = GridBagConstraints.HORIZONTAL;
+		gbc_spinner_5.insets = new Insets(0, 0, 5, 5);
+		gbc_spinner_5.gridx = 1;
+		gbc_spinner_5.gridy = 9;
+		add(spinner_5, gbc_spinner_5);
+		
+		final JLabel lblArmorValue = new JLabel("");
+		lblArmorValue.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblArmorValue = new GridBagConstraints();
+		gbc_lblArmorValue.insets = new Insets(0, 0, 5, 0);
+		gbc_lblArmorValue.gridx = 2;
+		gbc_lblArmorValue.gridy = 9;
+		add(lblArmorValue, gbc_lblArmorValue);
+		
 		spinner.addChangeListener(new ChangeListener() {
 			
 			public void stateChanged(ChangeEvent e) {
@@ -270,6 +294,15 @@ public class ParangonPanel extends JPanel {
 				double val = Double.parseDouble(spinner_4.getValue().toString());
 				String att = "Vitality_PARANGON";
 				updateEHP(att, val,lblVitalityValue);
+			}
+		});
+		
+		spinner_5.addChangeListener(new ChangeListener() {
+			
+			public void stateChanged(ChangeEvent e) {
+				double val = Double.parseDouble(spinner_5.getValue().toString());
+				String att = "Armor_PARANGON";
+				updateEHP(att, val,lblArmorValue);
 			}
 		});
 		
