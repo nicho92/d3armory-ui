@@ -20,11 +20,30 @@ import com.pihen.d3restapi.beans.SkillRune;
 public class StuffCalculator{
 	
 	public static enum KEY { PRIMARY_STAT, BONUS_ATTACK_SPEED,ATTACK_PER_SECONDS, ATTACK_SPEED_MAINHAND, ATTACK_SPEED_OFFHAND, HEALING, CRIT_CHANCE,CRIT_DAMAGE,DAMAGE_MAIN_HAND,DAMAGE_OFFHAND,VITALITY,TOUGHNESS, HP,ARMOR,BONUS_ELITE, DPS,DPS_ELEMENTAL, DODGECHANCE,BONUS_FIRE,BONUS_COLD,BONUS_POISON,BONUS_HOLY,BONUS_ARCANE,BONUS_LIGHTNING,BONUS_PHYSICAL, COOLDOWN_REDUCTION, DPS_ELITE, RESISTANCE_ALL, RESISTANCE_PHYSICAL, RESISTANCE_FIRE, RESISTANCE_POISON, RESISTANCE_COLD, RESISTANCE_LIGHTNING, RESISTANCE_ARCANE};
-	public static enum ELEMENTS { Fire, Cold, Holy,Poison,Arcane,Lightning,Physical};
+	public static enum ELEMENTS {Arcane,Cold,Fire,Holy,Lightning,Physical,Poison};
+	public static enum SITUATIONAL { Ranged, Melee, Elites}
 	
 	private int monsterLevel;
-	private String situation;
+	double armorReduction;
+	double resistReduction;
+	double dodgeReduction;
+	double armorReductionPercent;
+	double resistReductionPercent;
+	double buffReduction;
+	double totalReductionPercent;
 	
+	public double getTotalReductionPercent() {
+		return totalReductionPercent;
+	}
+
+	public int getMonsterLevel() {
+		return monsterLevel;
+	}
+
+	public void setMonsterLevel(int monsterLevel) {
+		this.monsterLevel = monsterLevel;
+	}
+
 	public Hero getHero() {
 		return hero;
 	}
@@ -45,6 +64,7 @@ public class StuffCalculator{
 
 	
 	private Map<KEY,Double> mapResultat ;
+	private double classReduction;
 	
 
 	public void setStatCalculator(Map<String, MinMaxBonus> bonusItem) {
@@ -141,7 +161,7 @@ public class StuffCalculator{
 		return val/6;
 	}
 	
-	public double getResistance(ELEMENTS e)//TODO
+	public double getResistance(ELEMENTS e)
 	{
 		double baseValue=0;
 		
@@ -222,23 +242,32 @@ public class StuffCalculator{
 	}
 	
 	
-	private double getToughness(int levelMonster)
+	public double getToughness()
 	{
-		double armorReduction=getArmor();
-		double resistReduction=getResistanceAverage();
-		double dodgeReduction=getDodge()/100;
-		double armorReductionPercent = armorReduction/((50*levelMonster)+armorReduction);
-		double resistReductionPercent = resistReduction/((5*levelMonster)+resistReduction);
-		double classReduction = hero.getClassReduction();
-		double buffReduction = filter("Decrease_Damage_All",null);
-		
-		
-		double totalReductionPercent =1-((1-dodgeReduction)*(1-armorReductionPercent)*(1-resistReductionPercent)*(1-classReduction)*(1-buffReduction));
-		
+		armorReduction=getArmor();
+		resistReduction=getResistanceAverage();
+		dodgeReduction=getDodge()/100;
+		armorReductionPercent = armorReduction/((50*monsterLevel)+armorReduction);
+		resistReductionPercent = resistReduction/((5*monsterLevel)+resistReduction);
+		classReduction = hero.getClassReduction();
+		buffReduction = filter("Decrease_Damage_All",null);
+		totalReductionPercent =1-((1-dodgeReduction)*(1-armorReductionPercent)*(1-resistReductionPercent)*(1-classReduction)*(1-buffReduction));
 		return (getHealthPool()/(1-totalReductionPercent));
 	
 	}
 	
+	
+	public double getSituationalDR(ELEMENTS e, SITUATIONAL s)
+	{
+		getToughness();
+		double situationalReduction=0;
+		situationalReduction=filter("Damage_Percent_Reduction_From_"+s,null);
+		resistReduction=getResistance(e);
+		armorReductionPercent = armorReduction/((50*monsterLevel)+armorReduction);
+		resistReductionPercent = resistReduction/((5*monsterLevel)+resistReduction);
+		return 1-((1-dodgeReduction)*(1-armorReductionPercent)*(1-resistReductionPercent)*(1-classReduction)*(1-buffReduction)*(1-situationalReduction));
+		
+	}
 	
 	private void init()
 	{
@@ -389,7 +418,7 @@ public class StuffCalculator{
 		mapResultat.put(KEY.DAMAGE_OFFHAND,format(hitDmgOFF));
 		mapResultat.put(KEY.VITALITY,format(getVitality()));
 		mapResultat.put(KEY.HP,format(getHealthPool()));
-		mapResultat.put(KEY.TOUGHNESS, format(getToughness(monsterLevel)));
+		mapResultat.put(KEY.TOUGHNESS, format(getToughness()));
 		mapResultat.put(KEY.HEALING, format(getHealing()));
 		mapResultat.put(KEY.ARMOR,format(getArmor()));
 		mapResultat.put(KEY.DODGECHANCE,format( getDodge()));

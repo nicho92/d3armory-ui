@@ -256,7 +256,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 									public void actionPerformed(ActionEvent evt) {
 										Attributs a = (Attributs)cboAttributs.getSelectedItem();
 										
-										
+										String oldValue="0-0";
 										if(a.getLibelle().startsWith("+X-X"))
 										{
 											String key_min="Damage_Weapon_Min";
@@ -272,7 +272,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 												String element = a.getId().split("#")[1];
 												double min=0;
 												double max=0;
-												String oldValue="0-0";
+												
 												try{
 												 min = getItem().getAttributesRaw().get(key_min+"#"+element).getMoyenne();
 												 max = getItem().getAttributesRaw().get(key_delta+"#"+element).getMoyenne();
@@ -301,7 +301,12 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 										}
 										else
 										{
-											a.setValue(new MinMaxBonus(Double.parseDouble(JOptionPane.showInputDialog("Value",a.getValue()))));
+											int pourcent = 1;
+											if(a.getLibelle().contains("%"))
+												pourcent=100;
+											
+											
+											a.setValue(new MinMaxBonus(Double.parseDouble(JOptionPane.showInputDialog("Value",a.getValue()))/pourcent));
 											getItem().addAttributs(a);
 										}
 											

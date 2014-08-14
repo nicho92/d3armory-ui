@@ -19,12 +19,12 @@ public class D3ServerCommunicationException extends IOException {
 
 	private RemoteEntity errorEntity;
 
-	/**
-	 * Creates the entity with a given cause.
-	 * 
-	 * @param errorEntity
-	 *            The cause message from the server.
-	 */
+	public D3ServerCommunicationException()
+	{
+		super();
+	}
+	
+	
 	public D3ServerCommunicationException(RemoteEntity errorEntity) {
 		this.errorEntity = errorEntity;
 	}
