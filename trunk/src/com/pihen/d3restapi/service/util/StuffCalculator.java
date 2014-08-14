@@ -138,7 +138,7 @@ public class StuffCalculator{
 		return val/6;
 	}
 	
-	private double getResistance(ELEMENTS e)//TODO
+	public double getResistance(ELEMENTS e)//TODO
 	{
 		double baseValue=0;
 		
@@ -167,8 +167,7 @@ public class StuffCalculator{
 		double strength = (baseValue + filter("Strength",null));
 		return filter("Armor",null) + strength;
 	}
-	
-	private double getDodge()
+	public double getDodge()
 	{
 		double dext = 0;
 		if(hero.equals("demon-hunter")|| hero.equals("monk"))
@@ -176,7 +175,7 @@ public class StuffCalculator{
 		else
 			dext=getSecondaryBaseValue()+filter("Dexterity",null);
 		
-		return dext / (0.00031*Math.pow(hero.getLevel().intValue(), 3) + 0.0186*Math.pow(hero.getLevel().intValue(),2) + 0.25*hero.getLevel().intValue() + 1.93);
+		return dext / (0.00031*Math.pow(hero.getLevel().intValue(), 3) + 0.0186*Math.pow(hero.getLevel().intValue(),2) + 0.25*hero.getLevel().intValue() + 1.93) + filter("Increase_Dodge_Percent",BuffSkill.PREFIX);
 	}
 	
 	private double getHealthPool()
@@ -203,7 +202,7 @@ public class StuffCalculator{
 		return (vitality+hpLevel)*(1+lifeB);
 	}
 	
-	private double getHealing()
+	private double getHealing()//TODO
 	{
 		
 		double lifePerHit=filter("Hitpoints_On_Hit",null)*(attackSpeedMain/(attackSpeedOff==0?1:attackSpeedOff));
@@ -225,7 +224,7 @@ public class StuffCalculator{
 		double dodgeReduction=getDodge()/100;
 		double armorReductionPercent = armorReduction/((50*levelMonster)+armorReduction);
 		double resistReductionPercent = resistReduction/((5*levelMonster)+resistReduction);
-		double classReduction = hero.getClassReduction()/100;
+		double classReduction = hero.getClassReduction();
 		double buffReduction = filter("Decrease_Damage_All",null);
 		
 		
@@ -252,7 +251,7 @@ public class StuffCalculator{
 			
 			if(i.isSetObjects())
 			{
-				piecesbyset.put(i.getSet(),LegendarySet.getStuffSetsNbPieces(stuffs.values(), i.getSet()));
+				piecesbyset.put(i.getSet(),new LegendarySet().getStuffSetsNbPieces(stuffs.values(), i.getSet()));
 			}
 			
 			
@@ -331,7 +330,6 @@ public class StuffCalculator{
 
 		
 		double mainI=0;
-		System.out.println(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId());
 		if(stuffs.get(EnumerationStuff.MAIN_HAND)!=null)
 			mainI=weaponDefaultAS.get(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId()); //AS de base du type arme MAIN
 		

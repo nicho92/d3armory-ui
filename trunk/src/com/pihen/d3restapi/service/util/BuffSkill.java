@@ -7,9 +7,10 @@ import com.pihen.d3restapi.beans.Gem;
 import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.MinMaxBonus;
 import com.pihen.d3restapi.beans.SkillRune;
+import com.pihen.d3restapi.service.util.StuffCalculator.ELEMENTS;
 
 public class BuffSkill {
-	private static String PREFIX="_SKILLS_";
+	public final static String PREFIX="_SKILLS_";
 	private static Map<String,MinMaxBonus> buffs; 
 		
 	public static Map<String,MinMaxBonus> getBuff(SkillRune a, StuffCalculator sc) {
@@ -62,6 +63,51 @@ public class BuffSkill {
 		{
 			buffs.put("Decrease_Damage_All"+PREFIX+a, new MinMaxBonus(0.17));
 		}
+
+		
+		
+//MONK
+		
+		if(a.getSkill().getId().equals("beacon-of-ytar"))
+		{
+			buffs.put("Power_Cooldown_Reduction_Percent_All"+PREFIX+a, new MinMaxBonus(0.20));
+		}
+		if(a.getSkill().getId().equals("sixth-sense"))
+		{
+			double critChance = sc.getCritChance()*100;
+			double multi = 42.5;
+			buffs.put("Increase_Dodge_Percent"+PREFIX+a, new MinMaxBonus((critChance*multi)/100));
+		}
+		if(a.getSkill().getId().equals("seize-the-initiative"))
+		{
+			double dext = sc.getPrimaryStatUnbuffedValue();
+			double multi = 30;
+			buffs.put("Armor"+PREFIX+a, new MinMaxBonus((dext*multi)/100));
+		}
+		if(a.getSkill().getId().equals("one-with-everything"))
+		{
+			double val=0;
+			double max=val;
+			ELEMENTS maxE=null;
+			for(ELEMENTS e:ELEMENTS.values())
+			{	
+				val = sc.getResistance(e);
+				if(val>max)
+				{
+					max=val;
+					maxE=e;
+				}
+			}
+			
+			for(ELEMENTS e:ELEMENTS.values())
+			{	
+				if(e!=maxE)
+					buffs.put("Resistance#"+e+PREFIX+a, new MinMaxBonus(sc.getResistance(maxE)-sc.getResistance(e)));
+			}
+			
+			
+		}
+		
 		
 		/*		
 // BARBARE
