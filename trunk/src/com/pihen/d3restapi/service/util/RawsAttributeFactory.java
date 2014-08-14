@@ -37,11 +37,17 @@ public class RawsAttributeFactory  {
 		itemAttributes.add(new Attributs("Hitpoints_Max_Percent_Bonus_Item","+X% life"));
 		itemAttributes.add(new Attributs("Power_Cooldown_Reduction_Percent_All","Reduce Cooldown of all skills by X%"));
 		itemAttributes.add(new Attributs("Sockets" ,"X Sockets",false)); 
+		itemAttributes.add(new Attributs("Damage_Percent_Reduction_From_Elites" ,"Reduces damage from elites by X%"));
+		itemAttributes.add(new Attributs("Damage_Percent_Reduction_From_Melee" ,"Reduces damage from melee attacks by X%"));
+		itemAttributes.add(new Attributs("Damage_Percent_Reduction_From_Ranged" ,"Reduces damage from ranged attacks by X%"));
+		
+		
+		
 		for(ELEMENTS e: ELEMENTS.values())
 		{
 			itemAttributes.add(new Attributs("Resistance#"+e ,"+X " +e+" Resistance"));
 			itemAttributes.add(new Attributs("Damage_Dealt_Percent_Bonus#"+e,e+" Skills deal X% more damage"));
-				itemAttributes.add(new Attributs("Damage_Weapon_Min#"+e ,"+X-X "+e+" Damage"));
+			itemAttributes.add(new Attributs("Damage_Weapon_Min#"+e ,"+X-X "+e+" Damage"));
 		}
 		itemAttributes.add(new Attributs("Damage_Min#Physical","+X-X Damage"));
 	
