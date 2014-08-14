@@ -20,6 +20,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.FlowLayout;
+import javax.swing.JCheckBox;
 
 public class EHPPanel extends JPanel {
 	private JTable table;
@@ -62,6 +63,21 @@ public class EHPPanel extends JPanel {
 			}
 		});
 		panneauHaut.add(comboBox);
+		
+		final JCheckBox chckbxElites = new JCheckBox("Elites ?");
+		chckbxElites.setBackground(Color.BLACK);
+		chckbxElites.setForeground(Color.WHITE);
+		panneauHaut.add(chckbxElites);
+		
+		chckbxElites.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				((EHPCalculatorModel)table.getModel()).setElite(chckbxElites.isSelected());
+				((EHPCalculatorModel)table.getModel()).getCalculator().calculate();
+				((EHPCalculatorModel)table.getModel()).fireTableDataChanged();
+			}
+		});
+		
 		
 		JScrollPane scrollPane = new JScrollPane();
 		panneauSplit.setRightComponent(scrollPane);
