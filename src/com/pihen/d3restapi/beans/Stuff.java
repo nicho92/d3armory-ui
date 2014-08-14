@@ -1,6 +1,8 @@
 package com.pihen.d3restapi.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 
@@ -131,6 +133,28 @@ public class Stuff implements Serializable{
 		this.neck = neck;
 	}
 
+	public List<Item> getItems()
+	{
+		List<Item> list = new ArrayList<Item>();
+		list.add(getNeck());
+		list.add(getWaist());
+		list.add(getBracers());
+		list.add(getFeet());
+		list.add(getHands());
+		list.add(getHead());
+		list.add(getLegs());
+		list.add(getMainHand());
+		list.add(getOffHand());
+		list.add(getLeftFinger());
+		list.add(getRightFinger());
+		list.add(getShoulders());
+		list.add(getTorso());
+		return list;
+		
+	}
+	
+	
+	
 	public Item get(EnumerationStuff e)
 	{
 		switch (e) 

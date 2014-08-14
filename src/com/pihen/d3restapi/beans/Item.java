@@ -1,6 +1,5 @@
 package com.pihen.d3restapi.beans;
 
-import java.awt.Color;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ import com.pihen.d3restapi.service.annotation.DataType;
 import com.pihen.d3restapi.service.annotation.RemoteConfiguration;
 import com.pihen.d3restapi.service.annotation.RemoteData;
 import com.pihen.d3restapi.service.remote.RemoteEntity;
-import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.RawsAttributeFactory;
 
 /**
@@ -102,7 +100,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	public boolean equals(Object item) {
 		if(item!=null)
 		{
-			return getName().equals(((Item)item).getName());
+			return getName().equalsIgnoreCase(((Item)item).getName());
 		}
 		
 		return false;
@@ -477,7 +475,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 
 	public String toString()
 	{
-		return getType() +" - " + getName();
+		return getName();
 	}
 
 	
@@ -507,7 +505,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 			weaponDefaultAS.put("Flail1H", 1.4);
 			weaponDefaultAS.put("Flail2H", 1.15);
 			weaponDefaultAS.put("CombatStaff", 1.15);
-			weaponDefaultAS.put("None", 0.0);
+			weaponDefaultAS.put(null, 0.0);
 		return weaponDefaultAS;
 	}
 	

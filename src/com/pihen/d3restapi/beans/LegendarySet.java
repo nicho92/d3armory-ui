@@ -11,10 +11,10 @@ public class LegendarySet implements Serializable {
 	private List<Ranks> ranks;
 	private List<Item> items;
 	
+	private int nbPiece=0;
 	
-	public static int getStuffSetsNbPieces(Collection<Item> stuff,LegendarySet set)
+	public int getStuffSetsNbPieces(Collection<Item> stuff,LegendarySet set)
 	{
-		int nbPiece=0;
 		int ringRoyale=0;
 		for(Item z : stuff)
 		{
