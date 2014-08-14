@@ -32,6 +32,7 @@ public class StuffCalculator{
 	double buffReduction;
 	double totalReductionPercent;
 	
+
 	public double getTotalReductionPercent() {
 		return totalReductionPercent;
 	}
@@ -178,7 +179,7 @@ public class StuffCalculator{
 			return(baseValue + intel + filter("Resistance_All",null));
 	}
 	
-	private double getArmor()
+	public double getArmor()
 	{
 		
 		double baseValue=0;
@@ -265,7 +266,10 @@ public class StuffCalculator{
 		resistReduction=getResistance(e);
 		armorReductionPercent = armorReduction/((50*monsterLevel)+armorReduction);
 		resistReductionPercent = resistReduction/((5*monsterLevel)+resistReduction);
-		double elitReduction=filter("Damage_Percent_Reduction_From_Elites",null);
+		double elitReduction=0;
+		
+		if(elite)
+			elitReduction=filter("Damage_Percent_Reduction_From_Elites",null);
 		
 		return 1-((1-dodgeReduction)*(1-armorReductionPercent)*(1-resistReductionPercent)*(1-classReduction)*(1-buffReduction)*(1-situationalReduction)*(1-elitReduction));
 		

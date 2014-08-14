@@ -177,7 +177,12 @@ public class ItemsDetailModel extends DefaultTableModel {
 				}
 				if(column==7)
 				{
-					return StuffCalculator.format(calc.filter(i,"Damage_Percent_Bonus_Vs_Elites", null)*100);
+					double val = StuffCalculator.format(calc.filter(i, "Damage_Percent_Bonus_Vs_Elites",null)*100);
+					
+					if( EnumerationStuff.values()[row].equals(EnumerationStuff.MAIN_HAND))
+						if(i.getGems().size()>0)
+							val+=StuffCalculator.format(calc.filter(i.getGems().get(0).getAttributesRaw(), "Damage_Percent_Bonus_Vs_Elites",null)*100);
+					return val;
 				}
 				if(column==8)
 				{
