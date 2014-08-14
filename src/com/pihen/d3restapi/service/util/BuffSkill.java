@@ -84,6 +84,28 @@ public class BuffSkill {
 			double multi = 30;
 			buffs.put("Armor"+PREFIX+a, new MinMaxBonus((dext*multi)/100));
 		}
+		
+		if(a.getSkill().getId().equals("harmony")) //2.1 test
+		{
+			double multi=0.30;
+			
+			for(Item i : sc.getAllItems())
+			{
+				for(ELEMENTS e : ELEMENTS.values())
+				{
+					String k="Resistance#"+e;
+					
+					if(i.getAttributesRaw().containsKey(k))
+					{
+						double val = i.getAttributesRaw().get(k).getMoyenne();
+						buffs.put("Resistance_all"+PREFIX+i.getName(),new MinMaxBonus(val*multi));
+					}
+				}
+			}
+			
+		}
+		
+		
 		if(a.getSkill().getId().equals("one-with-everything"))
 		{
 			double val=0;
@@ -109,18 +131,19 @@ public class BuffSkill {
 		}
 		
 		
-		/*		
+			
 // BARBARE
-		/*
+		
 		if(a.getSkill().getId().equals("weapons-master"))
 		{
-			if(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Sword")||stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Dagger"))
+			if(sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Sword")||sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Dagger"))
 				buffs.put("Damage_Weapon_Percent_Bonus#Physical_BUFF_"+a, new MinMaxBonus(0.08));
-			if(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Mace")||stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Axe"))
+			if(sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Mace")||sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Axe"))
 				buffs.put("Crit_Percent_Bonus_BUFF_"+a, new MinMaxBonus(0.05));
-			if(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Polearm")||stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Spear"))
+			if(sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Polearm")||sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Spear"))
 				buffs.put("Attacks_Per_Second_Percent_BUFF_"+a, new MinMaxBonus(0.8));
 		}
+		/*
 		if(a.getSkill().getId().equals("battle-rage"))
 		{
 			buffs.put("Crit_Percent_BUFF_"+a, new MinMaxBonus(0.03));
@@ -141,11 +164,6 @@ public class BuffSkill {
 		{
 			buffs.put("Damage_Weapon_Percent_Bonus#BUFF_"+a, new MinMaxBonus(0.30));
 		}
-		if(a.getSkill().getId().equals("ruthless"))
-		{
-			buffs.put("Crit_Damage_BUFF_"+a, new MinMaxBonus(0.5));
-			buffs.put("Crit_Percent_Bonus_BUFF_"+a, new MinMaxBonus(0.05));
-		}
 		if(a.getSkill().getId().equals("wrath-of-the-berserker"))
 		{
 			buffs.put("Attacks_Per_Second_Percent_BUFF_"+a, new MinMaxBonus(0.25));
@@ -161,7 +179,6 @@ public class BuffSkill {
 			buffs.put("Crit_Percent_Bonus_BUFF_"+a, new MinMaxBonus(0.1));
 			buffs.put("Movement_Scalar_BUFF_"+a, new MinMaxBonus(0.2));
 			buffs.put("Damage_Weapon_Percent_Bonus#Physical_BUFF_"+a, new MinMaxBonus(1));
-			//TODO ADD dodge
 		}
 		
 		if(a.getSkill().getId().equals("war-cry"))

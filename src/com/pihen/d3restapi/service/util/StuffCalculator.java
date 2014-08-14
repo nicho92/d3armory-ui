@@ -1,7 +1,6 @@
 package com.pihen.d3restapi.service.util;
 
 import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -20,8 +19,11 @@ import com.pihen.d3restapi.beans.SkillRune;
 
 public class StuffCalculator{
 	
-	public static enum KEY { PRIMARY_STAT, BONUS_ATTACK_SPEED,ATTACK_PER_SECONDS, AS_MH, AS_OH, HEALING, DAMAGE_CRIT_CHANCE,DAMAGE_CRIT_DAMAGE,MH_DAMAGE,OH_DAMAGE,VITALITY,TOUGHNESS, HP,ARMOR,BONUS_ELITE, DPS,DPS_ELEMENTAL, DODGECHANCE,BONUS_FIRE,BONUS_COLD,BONUS_POISON,BONUS_HOLY,BONUS_ARCANE,BONUS_LIGHTNING,BONUS_PHYSICAL, COOLDOWN_REDUCTION, DPS_ELITE, RESISTANCE_ALL, RESISTANCE_PHYSICAL, RESISTANCE_FIRE, RESISTANCE_POISON, RESISTANCE_COLD, RESISTANCE_LIGHTNING, RESISTANCE_ARCANE};
+	public static enum KEY { PRIMARY_STAT, BONUS_ATTACK_SPEED,ATTACK_PER_SECONDS, ATTACK_SPEED_MAINHAND, ATTACK_SPEED_OFFHAND, HEALING, CRIT_CHANCE,CRIT_DAMAGE,DAMAGE_MAIN_HAND,DAMAGE_OFFHAND,VITALITY,TOUGHNESS, HP,ARMOR,BONUS_ELITE, DPS,DPS_ELEMENTAL, DODGECHANCE,BONUS_FIRE,BONUS_COLD,BONUS_POISON,BONUS_HOLY,BONUS_ARCANE,BONUS_LIGHTNING,BONUS_PHYSICAL, COOLDOWN_REDUCTION, DPS_ELITE, RESISTANCE_ALL, RESISTANCE_PHYSICAL, RESISTANCE_FIRE, RESISTANCE_POISON, RESISTANCE_COLD, RESISTANCE_LIGHTNING, RESISTANCE_ARCANE};
 	public static enum ELEMENTS { Fire, Cold, Holy,Poison,Arcane,Lightning,Physical};
+	
+	private int monsterLevel;
+	private String situation;
 	
 	public Hero getHero() {
 		return hero;
@@ -66,6 +68,7 @@ public class StuffCalculator{
 		Iterator<EnumerationStuff> keys = stuff.keySet().iterator();
 		mapResultat = new HashMap<KEY, Double>();
 		statsCalculator = new HashMap<String,MinMaxBonus>();
+		monsterLevel=hero.getLevel().intValue();
 		while(keys.hasNext())
 		{
 			EnumerationStuff key=keys.next();
@@ -159,7 +162,7 @@ public class StuffCalculator{
 	{
 		
 		double baseValue=0;
-		if(hero.getClazz().equals("barbarian")||hero.getClazz().equals("crusader"))
+		if(hero.getClazz().equals("barbarian")||hero.getClazz().equals("crusader")) //2.1 -> hero.equals("demon-hunter")|| hero.equals("monk")
 			baseValue=getPrimaryBaseValue();
 		else
 			baseValue=getSecondaryBaseValue();
@@ -167,7 +170,9 @@ public class StuffCalculator{
 		double strength = (baseValue + filter("Strength",null));
 		return filter("Armor",null) + strength;
 	}
-	public double getDodge()
+	
+	
+	public double getDodge() //TODO modify for 2.1 patch
 	{
 		double dext = 0;
 		if(hero.equals("demon-hunter")|| hero.equals("monk"))
@@ -376,15 +381,15 @@ public class StuffCalculator{
 		
 		mapResultat.put(KEY.PRIMARY_STAT,stat_base);
 		mapResultat.put(KEY.BONUS_ATTACK_SPEED,format(bonusAsArmor*100));
-		mapResultat.put(KEY.AS_MH,format(attackSpeedMain));
-		mapResultat.put(KEY.AS_OH,format(attackSpeedOff));
-		mapResultat.put(KEY.DAMAGE_CRIT_CHANCE, format(chance_cc*100));
-		mapResultat.put(KEY.DAMAGE_CRIT_DAMAGE,format(degat_cc*100));
-		mapResultat.put(KEY.MH_DAMAGE,format(hitDmgMAIN));
-		mapResultat.put(KEY.OH_DAMAGE,format(hitDmgOFF));
+		mapResultat.put(KEY.ATTACK_SPEED_MAINHAND,format(attackSpeedMain));
+		mapResultat.put(KEY.ATTACK_SPEED_OFFHAND,format(attackSpeedOff));
+		mapResultat.put(KEY.CRIT_CHANCE, format(chance_cc*100));
+		mapResultat.put(KEY.CRIT_DAMAGE,format(degat_cc*100));
+		mapResultat.put(KEY.DAMAGE_MAIN_HAND,format(hitDmgMAIN));
+		mapResultat.put(KEY.DAMAGE_OFFHAND,format(hitDmgOFF));
 		mapResultat.put(KEY.VITALITY,format(getVitality()));
 		mapResultat.put(KEY.HP,format(getHealthPool()));
-		mapResultat.put(KEY.TOUGHNESS, format(getToughness(hero.getLevel().intValue())));
+		mapResultat.put(KEY.TOUGHNESS, format(getToughness(monsterLevel)));
 		mapResultat.put(KEY.HEALING, format(getHealing()));
 		mapResultat.put(KEY.ARMOR,format(getArmor()));
 		mapResultat.put(KEY.DODGECHANCE,format( getDodge()));
