@@ -11,6 +11,9 @@ import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -39,6 +42,7 @@ import ca.odell.glazedlists.swing.AutoCompleteSupport;
 
 import com.pihen.d3restapi.beans.Attributs;
 import com.pihen.d3restapi.beans.Item;
+import com.pihen.d3restapi.beans.LegendarySet;
 import com.pihen.d3restapi.beans.MinMaxBonus;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.RawsAttributeFactory;
@@ -75,8 +79,10 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 	private DetailsDPSModel tableauSpecItemModel;
 	private EnumerationStuff gear;
 	private JTable stuffcalcTable;
+	private JLabel lblNewLabel;
+	private JComboBox cboLegendarySet;
 
-
+	StuffCalculator b;
 	
 	public ItemCreatorFrame(Item i,EnumerationStuff e) {
 		super();
@@ -132,7 +138,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								panneauHaut.add(lblType);
 								lblType.setText("Type :");
 							}
-							{
+							
 								ComboBoxModel cboTypeModel = 
 										new DefaultComboBoxModel( Item.getWeaponDefaultAS().keySet().toArray(new String[Item.getWeaponDefaultAS().size()]) );
 								
@@ -159,17 +165,14 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 										refreshItem();
 									}
 								});
-							}
-							{
+							
+							
 								lblQuality = new JLabel();
 								panneauHaut.add(lblQuality);
 								lblQuality.setText("Quality :");
-							}
-							{
+							
+							
 								ComboBoxModel cboQualityModel = new DefaultComboBoxModel(new String[] {"Normal", "Magical","Rare","Legendary","Legendary Set"});
-								cboQuality = new JComboBox();
-								cboQuality.setModel(cboQualityModel);
-								panneauHaut.add(cboQuality);
 								
 								if(getItem().getDisplayColor()==null)
 								{
@@ -179,21 +182,68 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								{
 									cboQualityModel.setSelectedItem(getItem().getRarity());
 								}
-								
-								cboQuality.setPreferredSize(new java.awt.Dimension(148, 75));
-								cboQuality.addActionListener(new ActionListener() {
-									public void actionPerformed(ActionEvent evt) {
-										getItem().setTypeOfObject(((JComboBox)evt.getSource()).getSelectedItem().toString());
-										refreshItem();
+							
+							cboQuality = new JComboBox();
+							cboQuality.setModel(cboQualityModel);
+							panneauHaut.add(cboQuality);
+							
+							cboQuality.setPreferredSize(new java.awt.Dimension(148, 75));
+							cboQuality.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent evt) {
+									String choice =((JComboBox)evt.getSource()).getSelectedItem().toString();
+									getItem().setTypeOfObject(choice);
+									
+									if(choice.equalsIgnoreCase("Legendary Set"))
+									{
+										cboLegendarySet.setEnabled(true);
 									}
-								});
+									else
+									{
+										cboLegendarySet.setEnabled(false);
+										getItem().setSet(null);	
+									}
+									
+									
+									refreshItem();
+								}
+							});
+							{
+								lblNewLabel = new JLabel("Legendary Set");
+								panneauHaut.add(lblNewLabel);
 							}
 							{
+								
+							}
+							
+							
+							
+							List<Item> l = D3ArmoryControler.getInstance().getCalculator().getAllItems();
+							Set<LegendarySet> slugs = new HashSet<LegendarySet>(); 
+							
+							for(Item i : l)
+								if(i.isSetObjects())
+									slugs.add(i.getSet());
+							
+							
+							cboLegendarySet = new JComboBox(slugs.toArray());
+							
+							cboLegendarySet.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent evt) {
+									LegendarySet choice = (LegendarySet)((JComboBox)evt.getSource()).getSelectedItem();
+									
+									getItem().setSet(choice);									
+									refreshItem();
+								}
+							});
+							
+							if(getItem().isSetObjects())
+								cboLegendarySet.setEnabled(true);
+							else
+								cboLegendarySet.setEnabled(false);
+								panneauHaut.add(cboLegendarySet);
 								lblAttributes = new JLabel();
 								panneauHaut.add(lblAttributes);
 								lblAttributes.setText("Attributs :");
-							}
-							{
 								cboAttributs = new JComboBox<Attributs>();
 								cboAttributs.setEditable(true);
 								panneauHaut.add(cboAttributs);
@@ -262,8 +312,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 										refreshItem();
 									}
 								});
-						}
-							
+						
 							
 								lblArmor = new JLabel("Armor :");
 								panneauHaut.add(lblArmor);
@@ -280,7 +329,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 										refreshItem();
 									}
 								});
-								lblDPS = new JLabel("MIN MAX / AS : ");
+								lblDPS = new JLabel("MIN-MAX / AS : ");
 								panneauHaut.add(lblDPS);
 								lblDPS.setName("lblDPS");
 								panneauDPS = new JPanel();
@@ -417,7 +466,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 					
 				
 					{
-						itemPanelDetails = new ItemPanelDetails();
+						itemPanelDetails = new ItemPanelDetails(b);
 						getContentPane().add(itemPanelDetails, BorderLayout.CENTER);
 						itemPanelDetails.setPreferredSize(new Dimension(420, 398));
 						itemPanelDetails.setFlavEnable(false);
@@ -444,17 +493,18 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 	}
 	
 	protected void refreshItem() {
+		
 			getItem().generateDisplayableAttributs();
-			itemPanelDetails.showItem(getItem());
+
 			
 			StuffCalculator a = D3ArmoryControler.getInstance().getCalculator();
-			StuffCalculator b = a.compareStuffWithItem(gear, getItem());
-			
+			b = a.compareStuffWithItem(gear, getItem());
+			itemPanelDetails.setCalculator(b);
 		
 			((StuffComparaisonModel)this.stuffcalcTable.getModel()).setStuffCalc(a,b);
 			
 			((StuffComparaisonModel)this.stuffcalcTable.getModel()).fireTableDataChanged();
-			
+			itemPanelDetails.showItem(getItem());
 			btnSauvegarder.setEnabled(true);
 	}
 	
