@@ -860,7 +860,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			return String.valueOf(number);
 		
 	    String r = new DecimalFormat("##0E0").format(number);
-	    r = r.replaceAll("E[0-9]", "k");
+	    r = r.replaceAll("E[0-9]", "K");
 	    return r.length()>4 ?  r.replaceAll("\\.[0-9]+", "") : r;
 	}
 	

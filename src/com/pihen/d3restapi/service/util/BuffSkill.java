@@ -8,6 +8,7 @@ import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.MinMaxBonus;
 import com.pihen.d3restapi.beans.SkillRune;
 import com.pihen.d3restapi.service.util.StuffCalculator.ELEMENTS;
+import com.pihen.d3restapi.service.util.StuffCalculator.KEY;
 
 public class BuffSkill {
 	public final static String PREFIX="_SKILLS_";
@@ -136,13 +137,23 @@ public class BuffSkill {
 		
 		if(a.getSkill().getId().equals("weapons-master"))
 		{
+			if(sc.getStuffs().get(EnumerationStuff.MAIN_HAND)!=null){
 			if(sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Sword")||sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Dagger"))
 				buffs.put("Damage_Weapon_Percent_Bonus#Physical_BUFF_"+a, new MinMaxBonus(0.08));
 			if(sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Mace")||sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Axe"))
 				buffs.put("Crit_Percent_Bonus_BUFF_"+a, new MinMaxBonus(0.05));
 			if(sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Polearm")||sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Spear"))
 				buffs.put("Attacks_Per_Second_Percent_BUFF_"+a, new MinMaxBonus(0.8));
+			}
 		}
+		if(a.getSkill().getId().equals("tough-as-nails"))
+		{
+			buffs.put("Armor"+PREFIX+a, new MinMaxBonus(sc.getArmor()*.25));
+		}
+		
+		
+		
+		
 		/*
 		if(a.getSkill().getId().equals("battle-rage"))
 		{
