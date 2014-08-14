@@ -1,16 +1,16 @@
 package org.armory.d3.ui.components;
 
-import javax.swing.JPanel;
-
 import java.awt.Color;
-import java.awt.GridBagLayout;
-
-import javax.swing.JLabel;
-
+import java.awt.Font;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
@@ -19,10 +19,8 @@ import javax.swing.event.ChangeListener;
 import org.armory.d3.services.D3ArmoryControler;
 
 import com.pihen.d3restapi.beans.MinMaxBonus;
-import com.pihen.d3restapi.service.remote.exception.D3ServerCommunicationException;
 import com.pihen.d3restapi.service.util.StuffCalculator;
 import com.pihen.d3restapi.service.util.StuffCalculator.KEY;
-import javax.swing.JComboBox;
 
 public class ParangonPanel extends JPanel {
 	
@@ -57,12 +55,13 @@ public class ParangonPanel extends JPanel {
 		setBackground(Color.BLACK);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{130, 269, 122, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		JLabel lblDamage = new JLabel("DAMAGE");
+		lblDamage.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblDamage.setOpaque(true);
 		lblDamage.setBackground(new Color(128, 0, 0));
 		lblDamage.setForeground(Color.WHITE);
@@ -74,7 +73,7 @@ public class ParangonPanel extends JPanel {
 		gbc_lblDamage.gridy = 1;
 		add(lblDamage, gbc_lblDamage);
 		
-		JLabel lblPrimaryBaseStat = new JLabel("Primary Base Stat");
+		JLabel lblPrimaryBaseStat = new JLabel("Primary Stat");
 		lblPrimaryBaseStat.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblPrimaryBaseStat = new GridBagConstraints();
 		gbc_lblPrimaryBaseStat.insets = new Insets(0, 0, 5, 5);
@@ -177,29 +176,18 @@ public class ParangonPanel extends JPanel {
 		gbc_lblASValue.gridy = 5;
 		add(lblASValue, gbc_lblASValue);
 		
-		JLabel lblEhp = new JLabel("EHP");
+		JLabel lblEhp = new JLabel("TOUGHNESS");
+		lblEhp.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblEhp.setOpaque(true);
 		lblEhp.setForeground(Color.WHITE);
 		lblEhp.setBackground(new Color(60, 179, 113));
 		GridBagConstraints gbc_lblEhp = new GridBagConstraints();
-		gbc_lblEhp.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEhp.insets = new Insets(0, 0, 5, 0);
 		gbc_lblEhp.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblEhp.gridwidth = 2;
+		gbc_lblEhp.gridwidth = 3;
 		gbc_lblEhp.gridx = 0;
 		gbc_lblEhp.gridy = 7;
 		add(lblEhp, gbc_lblEhp);
-		
-		
-//		int level = D3ArmoryControler.getInstance().getSelectedHero(false).getLevel().intValue();
-//		String[] items = {level + " - Hero Level", level+3+" - Elite Level", level+9 + "-Uber Level"};
-		JComboBox cboEnemyLevel = new JComboBox();
-		
-		GridBagConstraints gbc_cboEnemyLevel = new GridBagConstraints();
-		gbc_cboEnemyLevel.insets = new Insets(0, 0, 5, 0);
-		gbc_cboEnemyLevel.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cboEnemyLevel.gridx = 2;
-		gbc_cboEnemyLevel.gridy = 7;
-		add(cboEnemyLevel, gbc_cboEnemyLevel);
 		
 		JLabel lblVitality = new JLabel("Vitality");
 		lblVitality.setForeground(Color.WHITE);
@@ -235,6 +223,7 @@ public class ParangonPanel extends JPanel {
 		add(lblArmor, gbc_lblArmor);
 		
 		final JSpinner spinner_5 = new JSpinner();
+		spinner_5.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		GridBagConstraints gbc_spinner_5 = new GridBagConstraints();
 		gbc_spinner_5.fill = GridBagConstraints.HORIZONTAL;
 		gbc_spinner_5.insets = new Insets(0, 0, 5, 5);
@@ -249,6 +238,83 @@ public class ParangonPanel extends JPanel {
 		gbc_lblArmorValue.gridx = 2;
 		gbc_lblArmorValue.gridy = 9;
 		add(lblArmorValue, gbc_lblArmorValue);
+		
+		JLabel lblLife = new JLabel("% life");
+		lblLife.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblLife = new GridBagConstraints();
+		gbc_lblLife.insets = new Insets(0, 0, 5, 5);
+		gbc_lblLife.gridx = 0;
+		gbc_lblLife.gridy = 10;
+		add(lblLife, gbc_lblLife);
+		
+		final JSpinner spinner_6 = new JSpinner();
+		spinner_6.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		GridBagConstraints gbc_spinner_6 = new GridBagConstraints();
+		gbc_spinner_6.fill = GridBagConstraints.HORIZONTAL;
+		gbc_spinner_6.insets = new Insets(0, 0, 5, 5);
+		gbc_spinner_6.gridx = 1;
+		gbc_spinner_6.gridy = 10;
+		add(spinner_6, gbc_spinner_6);
+		
+		final JLabel lblLifeValue = new JLabel("");
+		lblLifeValue.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblLifeValue = new GridBagConstraints();
+		gbc_lblLifeValue.insets = new Insets(0, 0, 5, 0);
+		gbc_lblLifeValue.gridx = 2;
+		gbc_lblLifeValue.gridy = 10;
+		add(lblLifeValue, gbc_lblLifeValue);
+		
+		JLabel lblResistance = new JLabel("Resistance");
+		lblResistance.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblResistance = new GridBagConstraints();
+		gbc_lblResistance.insets = new Insets(0, 0, 5, 5);
+		gbc_lblResistance.gridx = 0;
+		gbc_lblResistance.gridy = 11;
+		add(lblResistance, gbc_lblResistance);
+		
+		final JSpinner spinner_7 = new JSpinner();
+		spinner_7.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		GridBagConstraints gbc_spinner_7 = new GridBagConstraints();
+		gbc_spinner_7.fill = GridBagConstraints.HORIZONTAL;
+		gbc_spinner_7.insets = new Insets(0, 0, 5, 5);
+		gbc_spinner_7.gridx = 1;
+		gbc_spinner_7.gridy = 11;
+		add(spinner_7, gbc_spinner_7);
+		
+		final JLabel lblResistValue = new JLabel("");
+		lblResistValue.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblResistValue = new GridBagConstraints();
+		gbc_lblResistValue.insets = new Insets(0, 0, 5, 0);
+		gbc_lblResistValue.gridx = 2;
+		gbc_lblResistValue.gridy = 11;
+		add(lblResistValue, gbc_lblResistValue);
+		
+		JButton btnAddTo = new JButton("Add 1 to all");
+		GridBagConstraints gbc_btnAddTo = new GridBagConstraints();
+		gbc_btnAddTo.insets = new Insets(0, 0, 0, 5);
+		gbc_btnAddTo.gridx = 1;
+		gbc_btnAddTo.gridy = 12;
+		add(btnAddTo, gbc_btnAddTo);
+		
+		btnAddTo.addActionListener(new ActionListener() {
+ 
+            public void actionPerformed(ActionEvent e)
+            {
+                spinner.setValue(((Integer)spinner.getValue())+1);
+                spinner_1.setValue(((Integer)spinner_1.getValue())+1);
+                spinner_2.setValue(((Integer)spinner_2.getValue())+1);
+                spinner_3.setValue(((Integer)spinner_3.getValue())+1);
+                spinner_4.setValue(((Integer)spinner_4.getValue())+1);
+                spinner_5.setValue(((Integer)spinner_5.getValue())+1);
+                spinner_6.setValue(((Integer)spinner_6.getValue())+1);
+                spinner_7.setValue(((Integer)spinner_7.getValue())+1);
+            }
+        });      
+		
+		
+		
+		
+		
 		
 		spinner.addChangeListener(new ChangeListener() {
 			
@@ -303,6 +369,24 @@ public class ParangonPanel extends JPanel {
 				double val = Double.parseDouble(spinner_5.getValue().toString());
 				String att = "Armor_PARANGON";
 				updateEHP(att, val,lblArmorValue);
+			}
+		});
+		
+		spinner_6.addChangeListener(new ChangeListener() {
+			
+			public void stateChanged(ChangeEvent e) {
+				double val = Double.parseDouble(spinner_6.getValue().toString());
+				String att = "Hitpoints_Max_Percent_Bonus_Item_PARANGON";
+				updateEHP(att, val/100,lblLifeValue);
+			}
+		});
+		
+		spinner_7.addChangeListener(new ChangeListener() {
+			
+			public void stateChanged(ChangeEvent e) {
+				double val = Double.parseDouble(spinner_7.getValue().toString());
+				String att = "Resistance_All_PARANGON";
+				updateEHP(att, val,lblResistValue);
 			}
 		});
 		

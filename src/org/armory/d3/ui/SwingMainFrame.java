@@ -49,6 +49,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import org.armory.d3.services.D3ArmoryControler;
+import org.armory.d3.ui.components.EHPPanel;
 import org.armory.d3.ui.components.FollowersPanel;
 import org.armory.d3.ui.components.FormatedJLabel;
 import org.armory.d3.ui.components.HeroCellRenderer;
@@ -60,6 +61,7 @@ import org.armory.d3.ui.components.SkillLabel;
 import org.armory.d3.ui.components.SocketLabel;
 import org.armory.d3.ui.components.StuffComparCellRenderer;
 import org.armory.d3.ui.model.CalculatorModel;
+import org.armory.d3.ui.model.EHPCalculatorModel;
 import org.armory.d3.ui.model.ListeHeroModel;
 import org.armory.d3.ui.model.ItemsDetailModel;
 import org.armory.d3.ui.model.TableauExpertModel;
@@ -165,6 +167,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JTable tableauDescriptionItems;
 	private JScrollPane detailsPanel;
 	private JTable tableauCalculator;
+	private EHPPanel ehpPanel;
 	
 	public ListeHeroModel getListeHerosModel() {
 		return listeHerosModel;
@@ -331,7 +334,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						helpMenuItem = new JMenuItem("About");
 						jMenu5.add(helpMenuItem);
 						
-						helpMenuItem.setName("helpMenuItem");
 						helpMenuItem.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 									AboutFrame f = new AboutFrame();
@@ -387,7 +389,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			    		  panelItemDetails.setCalculator(D3ArmoryControler.getInstance().getCalculator());
 			    		  
 			    		  int index = getOngletPane().getSelectedIndex();
-							if(index==3)
+							if(index==4)
 							{
 								loadFollowers();
 							}
@@ -405,7 +407,10 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			lblstatbar.setText("Loading Item"); 
 			loadItems();
 			lblstatbar.setText("");
+			
 			getTableauDescriptionItems().setModel(new ItemsDetailModel());
+			getPanneauEHP().getTable().setModel(new EHPCalculatorModel(D3ArmoryControler.getInstance().getCalculator()));
+			
 			
 		} catch (D3ServerCommunicationException e) {
 			e.printStackTrace();
@@ -938,10 +943,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				getListeHerosModel().addElement(h);
 			}
 			
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
 		} catch (D3ServerCommunicationException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -1505,7 +1508,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			ongletPane.setPreferredSize(new java.awt.Dimension(0, 0));
 			ongletPane.addTab("Blizzard Profil", null, getPanneauInfoHero(), null);
 			ongletPane.addTab("Items", null, getPanneauTableauDescription(), null);
-			ongletPane.addTab("DPS/EHP", null,getPanneauDetails(),null);
+			ongletPane.addTab("Informations", null,getPanneauDetails(),null);
+			ongletPane.addTab("Detailed EHP", null,getPanneauEHP(),null);
 			ongletPane.addTab("Followers", null, getFollowersPanel(), null);
 			ongletPane.addTab("Parangon", null,getPanneauParangon(),null);
 			ongletPane.addTab("Expert", null, getPanneauTableau(), null);
@@ -1515,7 +1519,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					
 					JTabbedPane sourceTabbedPane = (JTabbedPane) e.getSource();
 					int index = sourceTabbedPane.getSelectedIndex();
-					if(index==3)
+					if(index==4)
 					{		getLblstatbar().setText("Loading Followers");
 						try {
 							loadFollowers();
@@ -1533,6 +1537,14 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	}
 	
 	
+	private EHPPanel getPanneauEHP() {
+		if(ehpPanel==null){
+			ehpPanel=new EHPPanel();
+		}
+		return ehpPanel;
+	}
+
+
 	private JScrollPane getPanneauDetails() {
 		if(detailsPanel==null){
 			detailsPanel=new JScrollPane();

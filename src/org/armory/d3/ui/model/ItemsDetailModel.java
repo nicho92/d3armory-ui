@@ -132,7 +132,7 @@ public class ItemsDetailModel extends DefaultTableModel {
 			}
 			else
 			{
-				Item i = calc.getStuffs().get(EnumerationStuff.getValueAt(row));
+				Item i = calc.getStuffs().get(EnumerationStuff.values()[row]);
 				
 				if(column==0)
 				{
@@ -140,7 +140,7 @@ public class ItemsDetailModel extends DefaultTableModel {
 				}
 				if(column==1)
 				{
-					return calc.getStuffs().get(EnumerationStuff.getValueAt(row)).getName();
+					return calc.getStuffs().get(EnumerationStuff.values()[row]).getName();
 				}
 				if(column==2)//stat de base, avec la récuperation des gems.
 				{
