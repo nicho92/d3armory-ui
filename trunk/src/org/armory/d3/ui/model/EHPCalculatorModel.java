@@ -11,6 +11,7 @@ import com.pihen.d3restapi.service.util.StuffCalculator.SITUATIONAL;
 public class EHPCalculatorModel extends DefaultTableModel {
 
 	StuffCalculator calc;
+	private boolean isElite;
 
 	public EHPCalculatorModel(StuffCalculator mod) {
 		calc=mod;
@@ -36,10 +37,10 @@ public class EHPCalculatorModel extends DefaultTableModel {
 			return "Resistance Reduction";
 		
 		if(column==2)
-			return "Melee Damage";
+			return "Melee Damage Reduction";
 		
 		if(column==3)
-			return "Ranged Damage";
+			return "Ranged Damage Reduction";
 		
 		return "";
 	}
@@ -70,18 +71,24 @@ public class EHPCalculatorModel extends DefaultTableModel {
 		if(column==2)
 		{
 			calc.calculate();
-			return calc.format(calc.getSituationalDR(ELEMENTS.values()[row],SITUATIONAL.Melee)*100) +"%";
+			return calc.format(calc.getSituationalDR(ELEMENTS.values()[row],SITUATIONAL.Melee,isElite)*100) +"%";
 			
 		}
 		if(column==3)
 		{
 			calc.calculate();
-			return calc.format(calc.getSituationalDR(ELEMENTS.values()[row],SITUATIONAL.Ranged)*100) +"%";
+			return calc.format(calc.getSituationalDR(ELEMENTS.values()[row],SITUATIONAL.Ranged,isElite)*100) +"%";
 		}
 		
 		
 		
 		return null;
+	}
+
+
+	public void setElite(boolean selected) {
+		this.isElite=selected;
+		
 	}
 	
 	
