@@ -383,6 +383,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			    		  chargementHero();
 			    		  Thread.sleep(1000);
 			    		  getLblLoader().setIcon(null);
+			    		  
+			    		  panelItemDetails.setCalculator(D3ArmoryControler.getInstance().getCalculator());
+			    		  
 			    		  int index = getOngletPane().getSelectedIndex();
 							if(index==3)
 							{

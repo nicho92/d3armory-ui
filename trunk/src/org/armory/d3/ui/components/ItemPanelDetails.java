@@ -26,6 +26,7 @@ import com.pihen.d3restapi.beans.DisplayableItemAttributs;
 import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.LegendarySet;
 import com.pihen.d3restapi.beans.Ranks;
+import com.pihen.d3restapi.service.util.StuffCalculator;
 
 
 public class ItemPanelDetails extends JPanel {
@@ -45,15 +46,27 @@ public class ItemPanelDetails extends JPanel {
 	private SocketLabel lblSock2;
 	private SocketLabel lblSock3;
 	private boolean flavEnable=true;
-	
+	private StuffCalculator calc;
 	
 	public void setFlavEnable(boolean flavEnable) {
 		this.flavEnable = flavEnable;
 	}
 
-
-
 	public ItemPanelDetails()
+	{
+		init();
+	}
+	public ItemPanelDetails(StuffCalculator calc)
+	{
+		init();
+		this.calc=calc;
+	}
+
+	public void setCalculator(StuffCalculator cal)
+	{
+		calc=cal;
+	}
+	private void init()
 	{
 		this.setLayout(null);
 		this.add(getLblNomItem());
@@ -69,11 +82,9 @@ public class ItemPanelDetails extends JPanel {
 		this.add(getLblSock3());
 		this.add(getLblDetailSet());
 		this.add(getLblItemLevel());
-		
 		this.setBackground(Color.BLACK);
-		
-		}
-
+	}
+	
 	public void paintComponent(Graphics g)
 	{
 		 super.paintComponent(g);
@@ -198,11 +209,21 @@ public class ItemPanelDetails extends JPanel {
 		}
 		getLblDetailItem().applyText();
 		
-		
-		//Affichage des sockets
 		updateSocketLabel();
 		
+		updateSetPanel();
+	
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 		
+	}
+	
+	
+	
+	private void updateSetPanel() {
+
 		//Affichage panneau set legendaire
 		if(item.isSetObjects())
 		{
@@ -212,12 +233,12 @@ public class ItemPanelDetails extends JPanel {
 			List<Item> sets = item.getSet().getItems();
 			for(Item i:sets)
 			{
-				if(D3ArmoryControler.getInstance().getCalculator().getAllItems().contains(i))
+				if(calc.getAllItems().contains(i))
 					tempset.append("&nbsp;&nbsp;&nbsp;<font color='#02FF00'>" + i.getName()+"</font><br/>");
 				else
 					tempset.append("&nbsp;&nbsp;&nbsp;" + i.getName()+"<br/>");
 			}
-			int nbstuff= LegendarySet.getStuffSetsNbPieces(D3ArmoryControler.getInstance().getCalculator().getAllItems(),item.getSet());
+			int nbstuff=new LegendarySet().getStuffSetsNbPieces(calc.getAllItems(),item.getSet());
 			
 			for(int z=0;z<item.getSet().getRanks().size();z++ )
 			{
@@ -252,14 +273,11 @@ public class ItemPanelDetails extends JPanel {
 			getLblDetailSet().setText("");
 		}
 		
-
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
 		
 	}
-	
+
+
+
 	private void updateSocketLabel() {
 		if(item.nbSockets()>0)
 		{

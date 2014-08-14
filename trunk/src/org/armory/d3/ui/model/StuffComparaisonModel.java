@@ -22,7 +22,6 @@ public class StuffComparaisonModel extends DefaultTableModel{
 
 	@Override
 	public Object getValueAt(int row, int column) {
-		
 		try{
 		if(column==0)
 		{
