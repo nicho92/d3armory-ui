@@ -251,7 +251,7 @@ public class StuffCalculator{
 		armorReductionPercent = armorReduction/((50*monsterLevel)+armorReduction);
 		resistReductionPercent = resistReduction/((5*monsterLevel)+resistReduction);
 		classReduction = hero.getClassReduction();
-		buffReduction = filter("Decrease_Damage_All",null);
+		buffReduction = filter("Damage_Percent_Reduction_From_All",null);
 		totalReductionPercent =1-((1-dodgeReduction)*(1-armorReductionPercent)*(1-resistReductionPercent)*(1-classReduction)*(1-buffReduction));
 		return (getHealthPool()/(1-totalReductionPercent));
 	
@@ -266,6 +266,7 @@ public class StuffCalculator{
 		resistReduction=getResistance(e);
 		armorReductionPercent = armorReduction/((50*monsterLevel)+armorReduction);
 		resistReductionPercent = resistReduction/((5*monsterLevel)+resistReduction);
+		buffReduction = filter("Damage_Percent_Reduction_From_All",null)+filter("Damage_Percent_Reduction_From_Type",e.toString());
 		double elitReduction=0;
 		
 		if(elite)

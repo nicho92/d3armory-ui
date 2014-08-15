@@ -381,9 +381,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			new Thread(new Runnable() {
 			      public void run() {
 			    	  try {	
+			    		  
 			    		  getLblLoader().setIcon(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/loading.gif")));
 			    		  chargementHero();
 			    		  Thread.sleep(1000);
+			    		  
 			    		  getLblLoader().setIcon(null);
 			    		  
 			    		  panelItemDetails.setCalculator(D3ArmoryControler.getInstance().getCalculator());
@@ -1537,7 +1539,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	}
 	
 	
-	private EHPPanel getPanneauEHP() {
+	public EHPPanel getPanneauEHP() {
 		if(ehpPanel==null){
 			ehpPanel=new EHPPanel();
 		}

@@ -2,6 +2,7 @@ package com.pihen.d3restapi.test;
 
 import org.armory.d3.services.D3ArmoryControler;
 
+import com.pihen.d3restapi.beans.Attributs;
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.beans.Skill;
@@ -29,9 +30,7 @@ public class Main {
 		
 		
 		
-	//	for(int i=0;i<6;i++)
-		
-		int i=5;
+		for(int i=0;i<6;i++)
 		{
 		Hero hero = profile.getHeroes().get(i);
 					conf.setHeroId(hero.getId());
@@ -42,20 +41,22 @@ public class Main {
 				  harmo.setSkill(new Skill());
 				  harmo.getSkill().setTooltipUrl("skill/harmony");
 				  harmo.getSkill().setName("Harmony PTR 2.1");
-				  hero.getSkills().getPassive().set(1, harmo); //remplace old everything
-				  
-				  
-		System.out.println(hero.getSkills().getPassive());
+	    //hero.getSkills().getPassive().set(1, harmo); //remplace old everything
+		//System.out.println(hero.getSkills().getPassive());
 				  
 		StuffCalculator calc = new StuffCalculator(D3ArmoryControler.getInstance().initStuffHero(hero),hero);
 						calc.calculate();
+						
+	//	D3ArmoryControler.getInstance().saveHero(hero);				
 					
 		System.out.println("HERO : " + hero.getName() + " " + hero.getLevel() + " ("+ hero.getParagonLevel()+")");
-		for(KEY k : calc.getStats().keySet())
-		{
-				if(k.equals(KEY.TOUGHNESS))
-					System.out.println(k + "--> " + calc.getStats().get(k));
-		}
+		System.out.println(hero.getItems().getMainHand().getRealMin() + " "+  hero.getItems().getMainHand().getRealMax() + " " + hero.getItems().getMainHand().getRealDPS());
+	//	System.out.println(hero.getItems().getMainHand().getMinDamage() + " "+  hero.getItems().getMainHand().getMaxDamage() + " " + hero.getItems().getMainHand().getDps());
+//		for(KEY k : calc.getStats().keySet())
+//		{
+//			if(k.equals(KEY.TOUGHNESS))
+//					System.out.println(k + "--> " + calc.getStats().get(k));
+//		}
 		System.out.println("----------------------------------");
 		}
 	}

@@ -137,18 +137,44 @@ public class D3ArmoryControler {
 	public Map<EnumerationStuff,Item> initStuffHero(Hero hero)
 	{
 		Item head = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getHead());
+		hero.getItems().setHead(head);
+		
 		Item foot = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getFeet());
+		hero.getItems().setFeet(foot);
+		
 		Item shoulders = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getShoulders());
+		hero.getItems().setShoulders(shoulders);
+			
 		Item gants = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getHands());
+		hero.getItems().setHands(gants);
+		
 		Item bracers = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getBracers());
+		hero.getItems().setBracers(bracers);
+		
 		Item legs = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getLegs());
+		hero.getItems().setLegs(legs);
+		
 		Item neck = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getNeck());
+		hero.getItems().setNeck(neck);
+		
 		Item belt = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getWaist());
-		Item ringright = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getLeftFinger());
-		Item ringleft = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getRightFinger());
+		hero.getItems().setWaist(belt);
+		
+		Item ringright = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getRightFinger());
+		hero.getItems().setRightFinger(ringright);
+		
+		Item ringleft = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getLeftFinger());
+		hero.getItems().setLeftFinger(ringleft);
+		
 		Item mainHand = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getMainHand());
+		hero.getItems().setMainHand(mainHand);
+		
 		Item offhand = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getOffHand());
+		hero.getItems().setOffHand(offhand);
+		
 		Item torso = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getTorso());
+		hero.getItems().setTorso(torso);
+		
 		
 		Map<EnumerationStuff,Item>stuffs = new HashMap<EnumerationStuff, Item>();
 								  stuffs.put(EnumerationStuff.HEAD, head);

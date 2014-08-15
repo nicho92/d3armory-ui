@@ -147,20 +147,11 @@ public class ItemPanelDetails extends JPanel {
 			getLblDetailWeapon().setText("");
 			
 		}
-		else if(item.isWeapon()){
-			double mindmg=item.getMinDamage().getMoyenne();
-			double maxdmg=item.getMaxDamage().getMoyenne();
-			String element = item.getEnchantedWeapon();
-			double multiplicateur=1;
-			if(item.getAttributesRaw().get("Damage_Weapon_Percent_Bonus#Physical")!=null)
-				multiplicateur=multiplicateur+item.getAttributesRaw().get("Damage_Weapon_Percent_Bonus#Physical").getMoyenne();;
-					
-			if(!element.equals(""))
-				{
-					mindmg+=item.getAttributesRaw().get("Damage_Weapon_Min#"+element).getMoyenne()*multiplicateur;
-					maxdmg+=(item.getAttributesRaw().get("Damage_Weapon_Min#"+element).getMoyenne()+item.getAttributesRaw().get("Damage_Weapon_Delta#"+element).getMoyenne())*multiplicateur;
-					
-				}
+		else 
+		if(item.isWeapon()){
+			double mindmg=item.getRealMin();
+			double maxdmg=item.getRealMax();
+			
 			getLblStatArmorDPS().setText(new DecimalFormat("#0.0").format(item.getRealDPS()));
 			getLblTypeItemAD().setText("Damage Per Second");
 					
