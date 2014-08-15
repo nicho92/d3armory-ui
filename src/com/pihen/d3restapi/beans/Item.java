@@ -67,25 +67,64 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		attributesRaw=new HashMap<String, MinMaxBonus >();
 	}
 
-	public double getRealDPS()
+	public double getRealMin()
 	{
-		
-		double mindmg=getMinDamage().getMoyenne();
-		double maxdmg=getMaxDamage().getMoyenne();
-		
-		String element = getEnchantedWeapon();
+		boolean isCross= (getAttributesRaw().get("Crossbow")!=null);
 		double multiplicateur=1;
+		double mindmg=0;
+		String element = getEnchantedWeapon();
 		
 		if(getAttributesRaw().get("Damage_Weapon_Percent_Bonus#Physical")!=null)
-			multiplicateur=multiplicateur+getAttributesRaw().get("Damage_Weapon_Percent_Bonus#Physical").getMoyenne();;
-				
-		if(!element.equals(""))
-			{
-				mindmg+=getAttributesRaw().get("Damage_Weapon_Min#"+element).getMoyenne()*multiplicateur;
-				maxdmg+=(getAttributesRaw().get("Damage_Weapon_Min#"+element).getMoyenne()+getAttributesRaw().get("Damage_Weapon_Delta#"+element).getMoyenne())*multiplicateur;
-				
-			}
+			multiplicateur=multiplicateur+getAttributesRaw().get("Damage_Weapon_Percent_Bonus#Physical").getMoyenne();
+		
+		if(isCross)
+		{
+			mindmg = (getAttributesRaw().get("Damage_Weapon_Min#Physical").getMoyenne() + getAttributesRaw().get("Damage_Weapon_Bonus_Min_X1#Physical").getMoyenne())*multiplicateur;
+			
+			if(element!="")
+				mindmg += getAttributesRaw().get("Damage_Weapon_Min#"+element).getMoyenne()*multiplicateur;
+		}
+		else
+		{
+			mindmg = getAttributesRaw().get("Damage_Weapon_Min#Physical").getMoyenne()*multiplicateur;
+			if(element!="")
+				mindmg += getAttributesRaw().get("Damage_Weapon_Min#"+element).getMoyenne()*multiplicateur;
+		}
+		
+		
+		return mindmg;
+	}
 	
+	public double getRealMax()
+	{
+		boolean isCross= (getAttributesRaw().get("Crossbow")!=null);
+		double multiplicateur=1;
+		double maxdmg=0;
+		String element = getEnchantedWeapon();
+		
+		if(getAttributesRaw().get("Damage_Weapon_Percent_Bonus#Physical")!=null)
+			multiplicateur=multiplicateur+getAttributesRaw().get("Damage_Weapon_Percent_Bonus#Physical").getMoyenne();
+		
+		if(isCross)
+		{
+			maxdmg=getRealMin()+((getAttributesRaw().get("Damage_Weapon_Delta#Physical").getMoyenne() + getAttributesRaw().get("Damage_Weapon_Bonus_Delta_X1#Physical").getMoyenne())*multiplicateur);
+			if(element!="")
+				maxdmg += getAttributesRaw().get("Damage_Weapon_Delta#"+element).getMoyenne()*multiplicateur;
+		}
+		else
+		{
+			maxdmg=getRealMin()+(getAttributesRaw().get("Damage_Weapon_Delta#Physical").getMoyenne()*multiplicateur);
+			if(element!="")
+				maxdmg += getAttributesRaw().get("Damage_Weapon_Delta#"+element).getMoyenne()*multiplicateur;
+
+		}
+		return maxdmg;
+	}
+	
+	public double getRealDPS()
+	{
+		double mindmg=getRealMin();
+		double maxdmg=getRealMax();
 		return ((mindmg+maxdmg)/2)*getAttacksPerSecond().getMoyenne();
 	}
 	

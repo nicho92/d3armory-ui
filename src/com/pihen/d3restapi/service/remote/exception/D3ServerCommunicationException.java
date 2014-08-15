@@ -19,9 +19,9 @@ public class D3ServerCommunicationException extends IOException {
 
 	private RemoteEntity errorEntity;
 
-	public D3ServerCommunicationException()
+	public D3ServerCommunicationException(String message)
 	{
-		super();
+		super(message);
 	}
 	
 	

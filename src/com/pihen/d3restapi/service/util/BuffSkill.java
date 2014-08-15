@@ -62,7 +62,7 @@ public class BuffSkill {
 		}
 		if(a.getSkill().getId().equals("blur"))
 		{
-			buffs.put("Decrease_Damage_All"+PREFIX+a, new MinMaxBonus(0.17));
+			buffs.put("Damage_Percent_Reduction_From_All"+PREFIX+a, new MinMaxBonus(0.17));
 		}
 
 		
@@ -150,96 +150,15 @@ public class BuffSkill {
 		{
 			buffs.put("Armor"+PREFIX+a, new MinMaxBonus(sc.getArmor()*.25));
 		}
-		
-		
-		
-		
-		/*
-		if(a.getSkill().getId().equals("battle-rage"))
+		if(a.getSkill().getId().equals("superstition"))
 		{
-			buffs.put("Crit_Percent_BUFF_"+a, new MinMaxBonus(0.03));
-			buffs.put("Damage_Weapon_Percent_Bonus#Physical_BUFF_"+a, new MinMaxBonus(0.15));
+			for(ELEMENTS e: ELEMENTS.values())
+			{
+				if(!e.equals(ELEMENTS.Physical))
+					if(!e.equals(ELEMENTS.Holy))
+						buffs.put("Damage_Percent_Reduction_From_Type#"+e+PREFIX+a,new MinMaxBonus(0.20));
+			}
 		}
-		if(a.getSkill().getId().equals("battle-rage-a"))
-		{
-			buffs.put("Crit_Percent_BUFF_"+a, new MinMaxBonus(0.03));
-			buffs.put("Damage_Weapon_Percent_Bonus#Physical_BUFF_"+a, new MinMaxBonus(0.30));
-		}
-
-		if(a.getSkill().getId().equals("berserker-rage"))
-		{
-			buffs.put("Damage_Weapon_Percent_Bonus#Physical_BUFF_"+a, new MinMaxBonus(0.25));
-		}
-		
-		if(a.getSkill().getId().equals("brawler"))
-		{
-			buffs.put("Damage_Weapon_Percent_Bonus#BUFF_"+a, new MinMaxBonus(0.30));
-		}
-		if(a.getSkill().getId().equals("wrath-of-the-berserker"))
-		{
-			buffs.put("Attacks_Per_Second_Percent_BUFF_"+a, new MinMaxBonus(0.25));
-			buffs.put("Crit_Percent_Bonus_BUFF_"+a, new MinMaxBonus(0.1));
-			buffs.put("Crit_Percent_Bonus_BUFF_"+a, new MinMaxBonus(0.1));
-			buffs.put("Movement_Scalar_BUFF_"+a, new MinMaxBonus(0.2));
-			//TODO ADD dodge
-		}
-		
-		if(a.getSkill().getId().equals("wrath-of-the-berserker-d"))//INSANITY
-		{
-			buffs.put("Attacks_Per_Second_Percent_BUFF_"+a, new MinMaxBonus(0.25));
-			buffs.put("Crit_Percent_Bonus_BUFF_"+a, new MinMaxBonus(0.1));
-			buffs.put("Movement_Scalar_BUFF_"+a, new MinMaxBonus(0.2));
-			buffs.put("Damage_Weapon_Percent_Bonus#Physical_BUFF_"+a, new MinMaxBonus(1));
-		}
-		
-		if(a.getSkill().getId().equals("war-cry"))
-		{
-			buffs.put("Armor_BUFF_"+a, new MinMaxBonus(0.20));
-			buffs.put("Resistance_All_BUFF_"+a, new MinMaxBonus(20));
-		}
-
-
-		if(a.getSkill().getId().equals("tough-as-nails"))
-		{
-			buffs.put("Armor_BUFF_"+a, new MinMaxBonus(0.25));
-			//TODO ADD Epine damage
-		}
-		
-		//DEMON HUNTER 
-		if(a.getSkill().getId().equals("archery"))
-		{
-			if(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Crossbow"))
-				buffs.put("Crit_Damage_Percent_BUFF_"+a, new MinMaxBonus(0.5));
-			if(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("HandXbow"))
-				buffs.put("Crit_Percent_Bonus_BUFF_"+a, new MinMaxBonus(0.1));
-			if(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Bow"))
-				buffs.put("Damage_Weapon_Percent_Bonus#Physical_BUFF_"+a, new MinMaxBonus(0.03));
-		}
-	
-		/*
-		 * DEMON HUNTER
-		 *  if(a.getSkill().getId().equals("tactical-advantage")
-			if(a.getSkill().getId().equals("perfectionist")
-			if(a.getSkill().getId().equals("night-stalker")
-			
-		   WIZARD
-		 *  if(a.getSkill().getId().equals("critical-mass)
-			if(a.getSkill().getId().equals("paralysis)
-			if(a.getSkill().getId().equals("cold-blooded)
-		 * 
-		 * 
-		 *WITCH DOCTOR
-		 * if(a.getSkill().getId().equals("circle-of-life)
-		   if(a.getSkill().getId().equals("grave-injustice)
-		   if(a.getSkill().getId().equals("gruesome-feast)
-
-		 * MONK
-		 *  if(a.getSkill().getId().equals(combination-strike)
-			if(a.getSkill().getId().equals(one-with-everything)
-			if(a.getSkill().getId().equals(seize-the-initiative)
-		 * 
-		 * */
-		
 		
 		
 		/*COMPANION
