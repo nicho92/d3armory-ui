@@ -383,12 +383,15 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			    	  try {	
 			    		  
 			    		  getLblLoader().setIcon(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/loading.gif")));
+			    		  lblstatbar.setText("Loading Item"); 
 			    		  chargementHero();
+			    		  lblstatbar.setText("Loading Item OK");
 			    		  Thread.sleep(1000);
-			    		  
 			    		  getLblLoader().setIcon(null);
-			    		  
+			    		  lblstatbar.setText("Initialisation Calculator");
 			    		  panelItemDetails.setCalculator(D3ArmoryControler.getInstance().getCalculator());
+			    		  lblstatbar.setText("");
+			    		  
 			    		  
 			    		  int index = getOngletPane().getSelectedIndex();
 							if(index==4)
@@ -406,9 +409,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	public void chargementHero(){
 		 try {
-			lblstatbar.setText("Loading Item"); 
+			
 			loadItems();
-			lblstatbar.setText("");
 			
 			getTableauDescriptionItems().setModel(new ItemsDetailModel());
 			getPanneauEHP().getTable().setModel(new EHPCalculatorModel(D3ArmoryControler.getInstance().getCalculator()));
@@ -660,7 +662,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lbl5.applyText();
 		getPanneauInfoHero().add(lbl5);
 	
-		lblstatbar.setText("Loading : skills");
 		getLblSkill1().setSkillRune(hero.getSkills().getActive().get(0));
 		getLblSkill2().setSkillRune(hero.getSkills().getActive().get(1));
 				

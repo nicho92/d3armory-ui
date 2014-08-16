@@ -142,7 +142,7 @@ public class ItemPanelDetails extends JPanel {
 		getLblTypeItemAD().setForeground(Color.GRAY);
 		
 		if(item.isArmor()){
-			getLblStatArmorDPS().setText(new DecimalFormat("#0").format(item.getArmor().getMoyenne()));
+			getLblStatArmorDPS().setText(new DecimalFormat("#0").format(item.getRealArmor()));
 			getLblTypeItemAD().setText("Armor");
 			getLblDetailWeapon().setText("");
 			

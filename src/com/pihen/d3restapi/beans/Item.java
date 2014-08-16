@@ -69,6 +69,9 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 
 	public double getRealMin()
 	{
+		if(!isWeapon())
+			return 0;
+		
 		boolean isCross= (getAttributesRaw().get("Crossbow")!=null);
 		double multiplicateur=1;
 		double mindmg=0;
@@ -79,7 +82,11 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		
 		if(isCross)
 		{
-			mindmg = (getAttributesRaw().get("Damage_Weapon_Min#Physical").getMoyenne() + getAttributesRaw().get("Damage_Weapon_Bonus_Min_X1#Physical").getMoyenne())*multiplicateur;
+			double bowbonus=0;
+			if(getAttributesRaw().get("Damage_Weapon_Bonus_Min_X1#Physical")!=null)
+				bowbonus=getAttributesRaw().get("Damage_Weapon_Bonus_Min_X1#Physical").getMoyenne();
+			
+			mindmg = (getAttributesRaw().get("Damage_Weapon_Min#Physical").getMoyenne() + bowbonus)*multiplicateur;
 			
 			if(element!="")
 				mindmg += getAttributesRaw().get("Damage_Weapon_Min#"+element).getMoyenne()*multiplicateur;
@@ -97,6 +104,9 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	
 	public double getRealMax()
 	{
+		if(!isWeapon())
+			return 0;
+		
 		boolean isCross= (getAttributesRaw().get("Crossbow")!=null);
 		double multiplicateur=1;
 		double maxdmg=0;
@@ -107,7 +117,13 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		
 		if(isCross)
 		{
-			maxdmg=getRealMin()+((getAttributesRaw().get("Damage_Weapon_Delta#Physical").getMoyenne() + getAttributesRaw().get("Damage_Weapon_Bonus_Delta_X1#Physical").getMoyenne())*multiplicateur);
+			double bowbonus=0;
+			if(getAttributesRaw().get("Damage_Weapon_Bonus_Delta_X1#Physical")!=null)
+				bowbonus=getAttributesRaw().get("Damage_Weapon_Bonus_Delta_X1#Physical").getMoyenne();
+	
+			
+			
+			maxdmg=getRealMin()+((getAttributesRaw().get("Damage_Weapon_Delta#Physical").getMoyenne() + bowbonus)*multiplicateur);
 			if(element!="")
 				maxdmg += getAttributesRaw().get("Damage_Weapon_Delta#"+element).getMoyenne()*multiplicateur;
 		}
@@ -257,6 +273,11 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		attributesRaw.put(titre, b);
 	}
 
+	public double getRealArmor()
+	{
+		return getAttributesRaw().get("Armor_Item").getMoyenne();
+	}
+	
 	public MinMaxBonus getArmor() {
 		return armor;
 	}

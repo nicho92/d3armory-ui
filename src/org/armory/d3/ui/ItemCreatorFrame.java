@@ -34,6 +34,7 @@ import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.components.ItemPanelDetails;
 import org.armory.d3.ui.components.StuffComparCellRenderer;
 import org.armory.d3.ui.model.DetailsDPSModel;
+import org.armory.d3.ui.model.ListeGemsModel;
 import org.armory.d3.ui.model.StuffComparaisonModel;
 
 import ca.odell.glazedlists.GlazedLists;
@@ -117,10 +118,10 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 							panneauHaut.setLayout(panneauHautLayout);
 							panneauGauche.add(panneauHaut, BorderLayout.CENTER);
 							
-							panneauHautLayout.setHgap(5);
+							panneauHautLayout.setHgap(1);
 							panneauHautLayout.setVgap(5);
 							panneauHautLayout.setColumns(2);
-							panneauHautLayout.setRows(7);
+							panneauHautLayout.setRows(8);
 								lblName = new JLabel("Name :");
 								panneauHaut.add(lblName);
 							{
@@ -220,10 +221,11 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 							List<Item> l = D3ArmoryControler.getInstance().getCalculator().getAllItems();
 							Set<LegendarySet> slugs = new HashSet<LegendarySet>(); 
 							
-							for(Item i : l)
-								if(i.isSetObjects())
-									slugs.add(i.getSet());
-							
+							for(Item i : l){
+								if(i!=null)
+									if(i.isSetObjects())
+										slugs.add(i.getSet());
+							}
 							
 							cboLegendarySet = new JComboBox(slugs.toArray());
 							
@@ -376,6 +378,27 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 									txtAS = new JTextField(String.valueOf(getItem().getAttacksPerSecond()));
 									panneauDPS.add(txtAS);
 									txtAS.setPreferredSize(new java.awt.Dimension(47, 23));
+									
+									JLabel lblGems = new JLabel("Gems :");
+									panneauHaut.add(lblGems);
+									
+									JPanel panneauGems = new JPanel();
+									FlowLayout flowLayout = (FlowLayout) panneauGems.getLayout();
+									flowLayout.setAlignment(FlowLayout.LEFT);
+									panneauHaut.add(panneauGems);
+									
+									ListeGemsModel mod1 = new ListeGemsModel();
+									mod1.setItem(getItem());
+								
+									
+									JComboBox cboGem1 = new JComboBox(mod1);
+									panneauGems.add(cboGem1);
+									
+									JComboBox cboGem2 = new JComboBox(mod1);
+									panneauGems.add(cboGem2);
+									
+									JComboBox cboGem3 = new JComboBox(mod1);
+									panneauGems.add(cboGem3);
 									txtAS.addKeyListener(new KeyAdapter() {
 										public void keyReleased(KeyEvent evt) {
 											getItem().setAttacksPerSecond(new MinMaxBonus(Double.valueOf(txtAS.getText())));
@@ -446,7 +469,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 										refreshItem();
 									}
 								});
-								panel.setLayout(new GridLayout(2, 1, 0, 0));
+								panel.setLayout(new GridLayout(2, 2, 0, 0));
 								panel.add(btnClear);
 								btnSauvegarder = new JButton();
 								panel.add(btnSauvegarder);
