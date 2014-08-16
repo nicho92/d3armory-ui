@@ -473,7 +473,7 @@ public class StuffCalculator{
 
 	public ELEMENTS getElementalOrientation()
 	{
-		ELEMENTS ret=null;
+		ELEMENTS ret=ELEMENTS.Physical;
 		double temp=0;
 		double max=0;
 		for(ELEMENTS e:ELEMENTS.values())
@@ -556,17 +556,17 @@ public class StuffCalculator{
 		if(stuffs.get(EnumerationStuff.MAIN_HAND)!=null)
 		{
 			elementM = stuffs.get(EnumerationStuff.MAIN_HAND).getEnchantedWeapon();
-			mindmgM=stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne();
-			maxdmgM=stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne();
+			mindmgM=stuffs.get(EnumerationStuff.MAIN_HAND).getRealMin();
+			maxdmgM=stuffs.get(EnumerationStuff.MAIN_HAND).getRealMax();
 
 		}
 		
 		
-		if(!elementM.equals(""))
-		{
-			mindmgM+=stuffs.get(EnumerationStuff.MAIN_HAND).getAttributesRaw().get("Damage_Weapon_Min#"+elementM).getMoyenne();
-			maxdmgM+=stuffs.get(EnumerationStuff.MAIN_HAND).getAttributesRaw().get("Damage_Weapon_Min#"+elementM).getMoyenne()+stuffs.get(EnumerationStuff.MAIN_HAND).getAttributesRaw().get("Damage_Weapon_Delta#"+elementM).getMoyenne();
-		}
+//		if(!elementM.equals(""))
+//		{
+//			mindmgM+=stuffs.get(EnumerationStuff.MAIN_HAND).getAttributesRaw().get("Damage_Weapon_Min#"+elementM).getMoyenne();
+//			maxdmgM+=stuffs.get(EnumerationStuff.MAIN_HAND).getAttributesRaw().get("Damage_Weapon_Min#"+elementM).getMoyenne()+stuffs.get(EnumerationStuff.MAIN_HAND).getAttributesRaw().get("Damage_Weapon_Delta#"+elementM).getMoyenne();
+//		}
 		
 		if(countweapon==1)
 		{
@@ -576,14 +576,14 @@ public class StuffCalculator{
 		else if(stuffs.get(EnumerationStuff.OFF_HAND)!=null)
 		{
 			String elementO = stuffs.get(EnumerationStuff.OFF_HAND).getEnchantedWeapon();
-			double mindmgO=stuffs.get(EnumerationStuff.OFF_HAND).getMinDamage().getMoyenne();
-			double maxdmgO=stuffs.get(EnumerationStuff.OFF_HAND).getMaxDamage().getMoyenne();
+			double mindmgO=stuffs.get(EnumerationStuff.OFF_HAND).getRealMin();
+			double maxdmgO=stuffs.get(EnumerationStuff.OFF_HAND).getRealMax();
 			
-			if(!elementO.equals(""))
-			{
-				mindmgO+=stuffs.get(EnumerationStuff.OFF_HAND).getAttributesRaw().get("Damage_Weapon_Min#"+elementO).getMoyenne();
-				maxdmgO+=stuffs.get(EnumerationStuff.OFF_HAND).getAttributesRaw().get("Damage_Weapon_Min#"+elementO).getMoyenne()+stuffs.get(EnumerationStuff.OFF_HAND).getAttributesRaw().get("Damage_Weapon_Delta#"+elementO).getMoyenne();
-			}
+//			if(!elementO.equals(""))
+//			{
+//				mindmgO+=stuffs.get(EnumerationStuff.OFF_HAND).getAttributesRaw().get("Damage_Weapon_Min#"+elementO).getMoyenne();
+//				maxdmgO+=stuffs.get(EnumerationStuff.OFF_HAND).getAttributesRaw().get("Damage_Weapon_Min#"+elementO).getMoyenne()+stuffs.get(EnumerationStuff.OFF_HAND).getAttributesRaw().get("Damage_Weapon_Delta#"+elementO).getMoyenne();
+//			}
 			
 			n = (2 * minMaxDmg + mindmgM + maxdmgM +mindmgO + maxdmgO)/ 2;
 		}
