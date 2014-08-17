@@ -64,6 +64,7 @@ import org.armory.d3.ui.model.CalculatorModel;
 import org.armory.d3.ui.model.EHPCalculatorModel;
 import org.armory.d3.ui.model.ListeHeroModel;
 import org.armory.d3.ui.model.ItemsDetailModel;
+import org.armory.d3.ui.model.LootHtmlTableModel;
 import org.armory.d3.ui.model.TableauExpertModel;
 import org.jdesktop.application.Application;
 
@@ -77,6 +78,7 @@ import com.pihen.d3restapi.beans.SkillRune;
 import com.pihen.d3restapi.service.remote.exception.D3ServerCommunicationException;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.StuffCalculator;
+import com.pihen.d3restapi.test.IncGamerLootParser;
 
 
 public class SwingMainFrame extends javax.swing.JFrame {
@@ -168,6 +170,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JScrollPane detailsPanel;
 	private JTable tableauCalculator;
 	private EHPPanel ehpPanel;
+	private JPanel lootPanel;
+	private JTable lootTable;
 	
 	public ListeHeroModel getListeHerosModel() {
 		return listeHerosModel;
@@ -1516,6 +1520,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			ongletPane.addTab("Followers", null, getFollowersPanel(), null);
 			ongletPane.addTab("Parangon", null,getPanneauParangon(),null);
 			ongletPane.addTab("Expert", null, getPanneauTableau(), null);
+			ongletPane.addTab("Loot Drop Rate", null, getPanneauLoot(), null);
+			
+			
 			ongletPane.addChangeListener(new ChangeListener() {
 				
 				public void stateChanged(ChangeEvent e) {//on charge les followers lors du clique sur l'onglet
@@ -1540,6 +1547,51 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	}
 	
 	
+	private JPanel getPanneauLoot() {
+		if(lootPanel==null){
+			lootPanel=new JPanel();
+			BorderLayout panneauTableauLayout = new BorderLayout();
+			lootPanel.setLayout(panneauTableauLayout);
+			lootTable = new JTable();
+			LootHtmlTableModel mod = new LootHtmlTableModel();
+			lootTable.setModel(mod);
+			
+			final TableRowSorter sorter = new TableRowSorter(mod);
+			final JTextField txtFilter = new JTextField("Filter");
+			
+			txtFilter.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent evt) {
+					txtFilter.setText("");
+				}
+			});
+			
+			txtFilter.addActionListener(new ActionListener() {
+			      public void actionPerformed(ActionEvent e) {
+			          String text = txtFilter.getText();
+			          if (text.length() == 0) {
+			            sorter.setRowFilter(null);
+			          } else {
+			            sorter.setRowFilter(RowFilter.regexFilter(text));
+			          }
+			        }
+			      });
+			
+			
+			
+			
+			JScrollPane lootScrollPanel = new JScrollPane();
+					lootPanel.add(txtFilter,BorderLayout.NORTH);
+					lootPanel.add(lootScrollPanel,BorderLayout.CENTER);
+				
+				
+				
+				lootScrollPanel.setViewportView(lootTable);
+				return lootPanel;
+			}
+		return lootPanel;
+	}
+
+
 	public EHPPanel getPanneauEHP() {
 		if(ehpPanel==null){
 			ehpPanel=new EHPPanel();

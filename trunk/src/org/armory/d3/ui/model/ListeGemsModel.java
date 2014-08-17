@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
+import com.pihen.d3restapi.beans.AttributsContainer;
+import com.pihen.d3restapi.beans.DisplayableItemAttributs;
 import com.pihen.d3restapi.beans.Gem;
 import com.pihen.d3restapi.beans.Item;
 
@@ -21,6 +23,8 @@ public class ListeGemsModel extends DefaultComboBoxModel<Gem>{
 	
 	public ListeGemsModel() {
 		gems=new ArrayList<Gem>();
+		Gem g = new Gem();
+		gems.add(g);
 	}
 	
 	public Gem getElementAt(int i) {
