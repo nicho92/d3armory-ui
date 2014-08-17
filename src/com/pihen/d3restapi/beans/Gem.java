@@ -32,7 +32,7 @@ public class Gem implements Serializable{
 	
 	public String toString()
 	{
-		return item.getName() + " "+ attributes;
+		return item + " "+ attributes;
 	}
 	
 //	public final static String[] getTypes()

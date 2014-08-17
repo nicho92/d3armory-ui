@@ -32,6 +32,7 @@ import org.armory.d3.ui.SwingMainFrame;
 
 import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
+import com.pihen.d3restapi.test.IncGamerLootParser;
 
 
 public class ItemLabel extends JLabel implements MouseListener {
@@ -63,8 +64,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 	public void setItem(Item i,EnumerationStuff e) {
 		this.item = i;
 		this.gear = e;
-		//this.setToolTipText(i.getAttributes().toString());
-	
+		
 	}
 
 	
@@ -225,7 +225,6 @@ public class ItemLabel extends JLabel implements MouseListener {
 		
 		if(item!=null)
 			D3ArmoryControler.getInstance().setSelectedItem(item);
-		 
 	}
 
 	public void mouseExited(MouseEvent e) {

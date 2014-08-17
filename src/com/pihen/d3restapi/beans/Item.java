@@ -72,7 +72,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		if(!isWeapon())
 			return 0;
 		
-		boolean isCross= (getAttributesRaw().get("Crossbow")!=null);
+		boolean isCross= (getAttributesRaw().get("Damage_Weapon_Bonus_Min_X1#Physical")!=null);
 		double multiplicateur=1;
 		double mindmg=0;
 		String element = getEnchantedWeapon();
@@ -107,7 +107,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		if(!isWeapon())
 			return 0;
 		
-		boolean isCross= (getAttributesRaw().get("Crossbow")!=null);
+		boolean isCross= (getAttributesRaw().get("Damage_Weapon_Bonus_Min_X1#Physical")!=null);
 		double multiplicateur=1;
 		double maxdmg=0;
 		String element = getEnchantedWeapon();
