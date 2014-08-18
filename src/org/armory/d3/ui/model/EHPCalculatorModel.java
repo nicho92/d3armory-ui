@@ -2,8 +2,6 @@ package org.armory.d3.ui.model;
 
 import javax.swing.table.DefaultTableModel;
 
-import org.armory.d3.services.D3ArmoryControler;
-
 import com.pihen.d3restapi.service.util.StuffCalculator;
 import com.pihen.d3restapi.service.util.StuffCalculator.ELEMENTS;
 import com.pihen.d3restapi.service.util.StuffCalculator.SITUATIONAL;

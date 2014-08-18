@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import org.armory.d3.services.D3ArmoryControler;
 
 import com.pihen.d3restapi.beans.Hero;
-import com.pihen.d3restapi.service.remote.exception.D3ServerCommunicationException;
 
 
 

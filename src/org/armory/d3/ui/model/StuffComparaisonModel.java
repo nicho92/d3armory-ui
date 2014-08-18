@@ -1,7 +1,6 @@
 package org.armory.d3.ui.model;
 
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 
 import com.pihen.d3restapi.service.util.StuffCalculator;
 

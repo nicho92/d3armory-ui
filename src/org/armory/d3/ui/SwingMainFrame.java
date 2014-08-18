@@ -2,7 +2,6 @@ package org.armory.d3.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -44,8 +43,6 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import org.armory.d3.services.D3ArmoryControler;
@@ -59,11 +56,10 @@ import org.armory.d3.ui.components.ItemPanelDetails;
 import org.armory.d3.ui.components.ParangonPanel;
 import org.armory.d3.ui.components.SkillLabel;
 import org.armory.d3.ui.components.SocketLabel;
-import org.armory.d3.ui.components.StuffComparCellRenderer;
 import org.armory.d3.ui.model.CalculatorModel;
 import org.armory.d3.ui.model.EHPCalculatorModel;
-import org.armory.d3.ui.model.ListeHeroModel;
 import org.armory.d3.ui.model.ItemsDetailModel;
+import org.armory.d3.ui.model.ListeHeroModel;
 import org.armory.d3.ui.model.LootHtmlTableModel;
 import org.armory.d3.ui.model.TableauExpertModel;
 import org.jdesktop.application.Application;
@@ -72,13 +68,11 @@ import com.pihen.d3restapi.beans.Follower;
 import com.pihen.d3restapi.beans.FollowersList;
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.Item;
-import com.pihen.d3restapi.beans.ItemType;
 import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.beans.SkillRune;
 import com.pihen.d3restapi.service.remote.exception.D3ServerCommunicationException;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.StuffCalculator;
-import com.pihen.d3restapi.test.IncGamerLootParser;
 
 
 public class SwingMainFrame extends javax.swing.JFrame {
@@ -1416,7 +1410,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					lblNom = new ItemLabel();
 					panneauDessinHero.add(lblNom);
 					lblNom.setBounds(466, 80, 314, 43);
-					lblNom.setName("lblNom");
 					lblNom.setHorizontalAlignment(JLabel.CENTER);
 				}
 				{
@@ -1485,7 +1478,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JTextField getTxtFiltrage() {
 		if(txtFiltrage == null) {
 			txtFiltrage = new JTextField();
-			txtFiltrage.setName("txtFiltrage");
 			txtFiltrage.setPreferredSize(new java.awt.Dimension(993, 22));
 
 			txtFiltrage.addMouseListener(new MouseAdapter() {
@@ -1558,7 +1550,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			
 			final TableRowSorter sorter = new TableRowSorter(mod);
 			final JTextField txtFilter = new JTextField("Filter");
-			
+			 lootTable.setRowSorter(sorter);
+			 
 			txtFilter.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent evt) {
 					txtFilter.setText("");
@@ -1569,15 +1562,13 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			      public void actionPerformed(ActionEvent e) {
 			          String text = txtFilter.getText();
 			          if (text.length() == 0) {
-			            sorter.setRowFilter(null);
+			        	sorter.setRowFilter(null);
 			          } else {
-			            sorter.setRowFilter(RowFilter.regexFilter(text));
+			        	sorter.setRowFilter(RowFilter.regexFilter(text));
 			          }
+			         
 			        }
 			      });
-			
-			
-			
 			
 			JScrollPane lootScrollPanel = new JScrollPane();
 					lootPanel.add(txtFilter,BorderLayout.NORTH);
