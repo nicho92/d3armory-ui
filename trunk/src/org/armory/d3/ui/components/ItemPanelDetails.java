@@ -19,8 +19,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
-import org.armory.d3.services.D3ArmoryControler;
-
 import com.pihen.d3restapi.beans.AttributsContainer;
 import com.pihen.d3restapi.beans.DisplayableItemAttributs;
 import com.pihen.d3restapi.beans.Item;
@@ -277,13 +275,14 @@ public class ItemPanelDetails extends JPanel {
 			lblSock1.setItem(item,0);
 			if(item.getGems().size()>0)
 			{
+				
 				if(item.getType().getId().startsWith("Helm_"))
 					lblSock1.setText(item.getGems().get(0).getAttributes().getSecondary().get(0).getText());
 				else	
 					lblSock1.setText(item.getGems().get(0).getAttributes().getPrimary().get(0).getText());
 			}
 			else
-				lblSock1.setText("            vide");
+				lblSock1.setText("            empty");
 		}
 		else
 		{
@@ -297,7 +296,7 @@ public class ItemPanelDetails extends JPanel {
 			if(item.getGems().size()>1)
 				lblSock2.setText(item.getGems().get(1).getAttributes().getPrimary().get(0).getText());
 			else
-				lblSock2.setText("            vide");
+				lblSock2.setText("            empty");
 		}
 		else
 		{
@@ -311,7 +310,7 @@ public class ItemPanelDetails extends JPanel {
 			if(item.getGems().size()>2)
 				lblSock3.setText(item.getGems().get(2).getAttributes().getPrimary().get(0).getText());
 			else
-				lblSock3.setText("            vide");
+				lblSock3.setText("            empty");
 		}
 		else
 		{

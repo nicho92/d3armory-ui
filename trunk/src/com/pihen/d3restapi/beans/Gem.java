@@ -32,13 +32,14 @@ public class Gem implements Serializable{
 	
 	public String toString()
 	{
-		return item + " "+ attributes;
+		return item.toString();
 	}
 	
-//	public final static String[] getTypes()
-//	{
-//		return new String[]{"Chipped","Flawed","Normal","Flawless","Perfect","Radiant","Square","Flawless Square","Perfect Square","Radiant Square","Star","Flawless Star","Perfect Star","Marquise"};
-//	}
-//	
+	public final static String[] getTypes()
+	{
+		return new String[]{"Chipped","Flawed","Normal","Flawless","Perfect","Radiant","Square","Flawless Square","Perfect Square","Radiant Square","Star","Flawless Star","Perfect Star","Marquise","Flawless Imperial","Royal","Flawless Royal"};
+	}
+	
+	public static enum TYPES {Amethyst,Diamond,Emerald,Ruby,Topaz};
 	
 }

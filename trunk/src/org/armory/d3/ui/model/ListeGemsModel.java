@@ -1,47 +1,33 @@
 package org.armory.d3.ui.model;
 
-import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.ListCellRenderer;
 
-import com.pihen.d3restapi.beans.AttributsContainer;
-import com.pihen.d3restapi.beans.DisplayableItemAttributs;
 import com.pihen.d3restapi.beans.Gem;
+import com.pihen.d3restapi.beans.Gem.TYPES;
 import com.pihen.d3restapi.beans.Item;
+import com.pihen.d3restapi.service.util.GemsFactory;
 
 public class ListeGemsModel extends DefaultComboBoxModel<Gem>{
-
-
-	private Item i;
-	private List<Gem> gems;
+	Item it;
 	
-	
+	public void setItem(Item i)
+	{
+		this.it=i;
+	}
 	public ListeGemsModel() {
-		gems=new ArrayList<Gem>();
-		Gem g = new Gem();
-		gems.add(g);
+		
 	}
 	
 	public Gem getElementAt(int i) {
-		return gems.get(i); 
+		return GemsFactory.getGems(TYPES.Amethyst,it).get(i);
 	}
 
 	public int getSize() {
-		return gems.size();
+		return GemsFactory.getGems(TYPES.Amethyst,it).size();
 	}
 
-	public Gem get(int i) {
-		return gems.get(i); 
-	}
-
-	public void setItem(Item item) {
-		i=item;
-		
-	}
 	
 }

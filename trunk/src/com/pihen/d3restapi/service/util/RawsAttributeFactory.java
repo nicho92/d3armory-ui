@@ -40,9 +40,7 @@ public class RawsAttributeFactory  {
 		itemAttributes.add(new Attributs("Damage_Percent_Reduction_From_Elites" ,"Reduces damage from elites by X%"));
 		itemAttributes.add(new Attributs("Damage_Percent_Reduction_From_Melee" ,"Reduces damage from melee attacks by X%"));
 		itemAttributes.add(new Attributs("Damage_Percent_Reduction_From_Ranged" ,"Reduces damage from ranged attacks by X%"));
-		
-		
-		
+
 		for(ELEMENTS e: ELEMENTS.values())
 		{
 			itemAttributes.add(new Attributs("Resistance#"+e ,"+X " +e+" Resistance"));

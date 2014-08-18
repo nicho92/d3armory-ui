@@ -7,8 +7,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.pihen.d3restapi.beans.Item;
-
 public class IncGamerLootParser {
 	
 	public static String html = "http://diablo.incgamers.com/forums/threads/legendary-drop-rates-data-torment-drop.858143/";

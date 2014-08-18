@@ -8,7 +8,6 @@ import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.MinMaxBonus;
 import com.pihen.d3restapi.beans.SkillRune;
 import com.pihen.d3restapi.service.util.StuffCalculator.ELEMENTS;
-import com.pihen.d3restapi.service.util.StuffCalculator.KEY;
 
 public class BuffSkill {
 	public final static String PREFIX="_SKILLS_";
