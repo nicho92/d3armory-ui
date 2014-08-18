@@ -33,14 +33,6 @@ public class Main {
 					conf.setHeroId(hero.getId());
 		D3ArmoryControler.getInstance().setConf(conf);
 		hero = heroService.receiveEntity(conf);
-	//	hero=D3ArmoryControler.getInstance().loadHero(new File("Cynyda"));
-//		SkillRune harmo = new SkillRune();
-//				  harmo.setSkill(new Skill());
-//				  harmo.getSkill().setTooltipUrl("skill/harmony");
-//				  harmo.getSkill().setName("Harmony PTR 2.1");
-//	    hero.getSkills().getPassive().set(1, harmo); //remplace old everything
-//		System.out.println(hero.getSkills().getPassive());
-				  
 		StuffCalculator calc = new StuffCalculator(D3ArmoryControler.getInstance().initStuffHero(hero),hero);
 						calc.calculate();
 						

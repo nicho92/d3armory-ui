@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.SplashScreen;
@@ -629,6 +630,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		D3ArmoryControler.getInstance().setSelectedHero(hero);
 		hero=D3ArmoryControler.getInstance().getHeroDetails(hero);
 		lblNom.setText(hero.getName());
+		
 		getPanneauInfoHero().removeAll();
 		lblInformationClasseNiveau.setText(hero.getClazz() +" Level : " + hero.getLevel());
 		lblParangonLevel.setText("("+hero.getParagonLevel()+")");
@@ -1408,6 +1410,10 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				
 				{
 					lblNom = new ItemLabel();
+					lblNom.setForeground(new Color(255, 255, 255));
+					Font ft = new Font("Palatino Linotype",Font.BOLD,36);
+					lblNom.setFont(ft);
+					
 					panneauDessinHero.add(lblNom);
 					lblNom.setBounds(466, 80, 314, 43);
 					lblNom.setHorizontalAlignment(JLabel.CENTER);
