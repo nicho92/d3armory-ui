@@ -2,14 +2,21 @@ package org.armory.d3.ui.components;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
+import java.util.List;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JToolTip;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
@@ -19,7 +26,7 @@ import org.armory.d3.ui.model.CalculatorModel;
 import org.armory.d3.ui.model.EHPCalculatorModel;
 
 import com.pihen.d3restapi.beans.SkillRune;
-import com.pihen.d3restapi.service.util.BuffSkill;
+import com.pihen.d3restapi.service.util.SkillsFactory;
 
 public class SkillLabel extends JLabel implements MouseListener {
 
@@ -61,14 +68,13 @@ public class SkillLabel extends JLabel implements MouseListener {
 			return super.getBorder(); 
 	}
 
-
-
 	public Icon getIcon(){
 		if(skill != null)
 			try {
 				URL url = new URL("http://media.blizzard.com/d3/icons/skills/"+size+"/"+skill.getSkill().getIcon()+".png");
 				return new ImageIcon(url);
 			} catch (Exception e1) {
+				e1.printStackTrace();
 				return new ImageIcon();
 			}
 			return super.getIcon();
@@ -101,22 +107,61 @@ public class SkillLabel extends JLabel implements MouseListener {
 
 
 
-	public void mouseClicked(MouseEvent arg0) {
+	public void mouseClicked(MouseEvent me) {
+		
+		
+		if(SwingUtilities.isRightMouseButton(me))
+		{
+			
+			JMenu mnu = new JMenu("Change " + skill.getSkill().getName() + " with");
+			JPopupMenu popupMenu = new JPopupMenu();
+			popupMenu.add(mnu);
+			
+			List<SkillRune> list = SkillsFactory.getSkillsFor(D3ArmoryControler.getInstance().getSelectedHero(false).getClazz());
+			
+			for(final SkillRune r : list)
+			{
+				
+				JMenuItem jmi = new JMenuItem(r.getSkill().getName());
+				jmi.addActionListener(new ActionListener() {
+					
+					public void actionPerformed(ActionEvent e) {
+						D3ArmoryControler.getInstance().getCalculator().removeBonus(SkillsFactory.getBuff(skill, D3ArmoryControler.getInstance().getCalculator()).keySet());
+						setSkillRune(r);
+						repaint();
+						D3ArmoryControler.getInstance().getCalculator().addBonus(SkillsFactory.getBuff(skill, D3ArmoryControler.getInstance().getCalculator()));
+						D3ArmoryControler.getInstance().getCalculator().calculate();
+						
+						
+						((SwingMainFrame)getTopLevelAncestor()).getTableauDetailsModel().fireTableDataChanged();
+						((CalculatorModel)((SwingMainFrame)getTopLevelAncestor()).getTableauDetailsCalc().getModel()).fireTableDataChanged();
+					}
+				});
+				if(!r.getSkill().getName().equals(skill.getSkill().getName()))
+					mnu.add(jmi);
+			}
+			popupMenu.show(me.getComponent(),me.getX(), me.getY());
+			
+			return;
+		}
+
+		
+		
+		
 		if(enabled)
 			enabled=false;
 		else
 			enabled=true;
 		
 		if(enabled)
-			D3ArmoryControler.getInstance().getCalculator().addBonus(BuffSkill.getBuff(skill, D3ArmoryControler.getInstance().getCalculator()));
+			D3ArmoryControler.getInstance().getCalculator().addBonus(SkillsFactory.getBuff(skill, D3ArmoryControler.getInstance().getCalculator()));
 		else
-			D3ArmoryControler.getInstance().getCalculator().removeBonus(BuffSkill.getBuff(skill, D3ArmoryControler.getInstance().getCalculator()).keySet());
+			D3ArmoryControler.getInstance().getCalculator().removeBonus(SkillsFactory.getBuff(skill, D3ArmoryControler.getInstance().getCalculator()).keySet());
 		
 		D3ArmoryControler.getInstance().getCalculator().calculate();
 		((SwingMainFrame)this.getTopLevelAncestor()).getTableauDetailsModel().fireTableDataChanged();
 		((EHPCalculatorModel)((SwingMainFrame)this.getTopLevelAncestor()).getPanneauEHP().getTable().getModel()).fireTableDataChanged();
 		((CalculatorModel)(((SwingMainFrame)this.getTopLevelAncestor()).getTableauDetailsCalc().getModel())).fireTableDataChanged();
-		
 		
 		repaint();
 	}
