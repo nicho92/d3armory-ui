@@ -343,6 +343,7 @@ public class ItemPanelDetails extends JPanel {
 	public JLabel getLblIcon() {
 		if(lblIcon == null) {
 			lblIcon = new JLabel() {
+				
 				 public void paint( Graphics g )
 				  {
 					 if(item!=null){

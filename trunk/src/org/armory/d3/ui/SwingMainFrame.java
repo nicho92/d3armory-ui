@@ -1753,6 +1753,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			        int row = tableauDescriptionItems.rowAtPoint(evt.getPoint());
 			        Item i = ((ItemsDetailModel)tableauDescriptionItems.getModel()).getItemAt(row);
 			        getPanelItemDetails().showItem(i);
+			        ItemLabel lab = new ItemLabel();
+			        lab.setItem(i, null);
+			        getPanelItemDetails().getLblIcon().setIcon(lab.getIcon());
+			        getPanelItemDetails().getLblIcon().repaint();
+			        
 			        getPanelItemDetails().repaint(); 
 			        
 			        
