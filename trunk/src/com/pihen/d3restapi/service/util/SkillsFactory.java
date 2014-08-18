@@ -19,18 +19,20 @@ public class SkillsFactory {
 	
 	public static List<SkillRune> getSkillsFor(String clazz)
 	{
-		switch(clazz)
-		{
-			case "barbarian": return barbFactorySkills();
-			case "monk": return monkFactorySkills();
-			case "wizard": return wizardFactorySkills();
-			case "crusader": return crusaderFactorySkills();
-			case "witch-doctor": return witchdoctorFactorySkills();
-			case "demon-hunter": return demonhunterFactorySkills();
-			default : return null;
-		}
+		if("barbarian".equals(clazz))
+				return barbFactorySkills();
+		if("monk".equals(clazz))
+				return monkFactorySkills();
+		if("wizard".equals(clazz))
+				return wizardFactorySkills();
+		if("crusader".equals(clazz))
+			return crusaderFactorySkills();
+		if("witch-doctor".equals(clazz))
+			return witchdoctorFactorySkills();
+		if("demon-hunter".equals(clazz))
+			return demonhunterFactorySkills();
 		
-		
+		return null;
 	}
 	
 	private static List<SkillRune> demonhunterFactorySkills() {
