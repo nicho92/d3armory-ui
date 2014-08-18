@@ -123,6 +123,9 @@ public class SkillLabel extends JLabel implements MouseListener {
 			{
 				
 				JMenuItem jmi = new JMenuItem(r.getSkill().getName());
+				SkillLabel l = new SkillLabel(r);
+				l.setSize(SkillLabel.SMALL);
+				jmi.setIcon(l.getIcon());
 				jmi.addActionListener(new ActionListener() {
 					
 					public void actionPerformed(ActionEvent e) {
@@ -131,8 +134,6 @@ public class SkillLabel extends JLabel implements MouseListener {
 						repaint();
 						D3ArmoryControler.getInstance().getCalculator().addBonus(SkillsFactory.getBuff(skill, D3ArmoryControler.getInstance().getCalculator()));
 						D3ArmoryControler.getInstance().getCalculator().calculate();
-						
-						
 						((SwingMainFrame)getTopLevelAncestor()).getTableauDetailsModel().fireTableDataChanged();
 						((CalculatorModel)((SwingMainFrame)getTopLevelAncestor()).getTableauDetailsCalc().getModel()).fireTableDataChanged();
 					}

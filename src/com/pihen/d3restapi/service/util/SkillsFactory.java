@@ -658,7 +658,7 @@ public class SkillsFactory {
 			sk.setSkill(new Skill());
 			sk.getSkill().setTooltipUrl("skill/dominance");
 			sk.getSkill().setName("Dominance");
-			sk.getSkill().setIcon("x1_wizard_passive_dominance");
+			sk.getSkill().setIcon("x1_wizard_passive_arcaneaegis");
 			sk.getSkill().setDescription("Killing an enemy grants a shield that absorbs 12379 damage for 3 seconds. This effect can stack up to 10 times.\nRefreshing Dominance will set the shield to its maximum possible potency and each stack will increase its total duration by 0.5 seconds.");
 			sk.getSkill().setLevel(50);
 		skills.add(sk);	
