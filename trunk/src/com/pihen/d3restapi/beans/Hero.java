@@ -1,6 +1,7 @@
 package com.pihen.d3restapi.beans;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.google.gson.annotations.SerializedName;
 import com.pihen.d3restapi.service.annotation.RemoteConfiguration;
@@ -221,6 +222,13 @@ public class Hero extends RemoteEntity implements Serializable {
 		
 		
 		return 0.0;
+	}
+
+
+	public Date getLastUpdatedDate() {
+		Date d = new Date();
+		d.setTime(getLastUpdated().longValue()*1000);
+		return d;
 	}
 
 }
