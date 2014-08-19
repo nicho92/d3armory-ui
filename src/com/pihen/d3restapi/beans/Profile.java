@@ -5,13 +5,7 @@ import java.util.List;
 import com.pihen.d3restapi.service.annotation.RemoteConfiguration;
 import com.pihen.d3restapi.service.remote.RemoteEntity;
 
-/**
- * Retrieves CareerProfile battletag-name ::= <regional battletag allowed
- * characters> battletag-code ::= <integer> url ::= <host> "/api/d3/profile/"
- * <battletag-name> "-" <battletag-code> "/"
- * 
- * @author NoTiCe
- */
+
 @RemoteConfiguration(url = "http://<host>/api/d3/profile/<battletag-name>-<battletag-code>/?locale=<local>")
 public class Profile extends RemoteEntity {
 

@@ -368,6 +368,20 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	}
 	
 	public JList getListeHeros() {
+		if(listeHeros==null)
+		{
+			listeHeros=new JList<Hero>();
+			listeHeros.setCellRenderer(new HeroCellRenderer());
+			listeHeros.setBackground(Color.BLACK);
+			listeHeros.setSize(130, 812);
+			listeHeros.setPreferredSize(new Dimension(150,812));
+			listeHeros.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent evt) {
+						listeHerosMouseClicked(evt);
+				}
+			});
+		}
+		
 		return listeHeros;
 	}
 	
@@ -673,17 +687,29 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		int nbpassif =hero.getSkills().getPassive().size();
 		
 		if(hero.getSkills().getPassive().get(0)!=null)
+		{
 			getLblSkill7().setSkillRune(hero.getSkills().getPassive().get(0));
+			getLblSkill7().initRightClick();
+		}
 		
 		if(hero.getSkills().getPassive().get(1)!=null)
+		{
 			getLblSkill8().setSkillRune(hero.getSkills().getPassive().get(1));
+			getLblSkill8().initRightClick();
+		}
 		
 		if(hero.getSkills().getPassive().get(2)!=null)
+		{
 			getLblSkill9().setSkillRune(hero.getSkills().getPassive().get(2));
+			getLblSkill9().initRightClick();
+		}
 		
 		if(nbpassif>3)
 			if(hero.getSkills().getPassive().get(3)!=null)
+			{
 				getLblSkill10().setSkillRune(hero.getSkills().getPassive().get(3));
+				getLblSkill10().initRightClick();
+			}
 		
 		Item head = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHead());
 		lblHead.setItem(head,EnumerationStuff.HEAD);
@@ -850,9 +876,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		else
 			getLblRessources().setText(""+hero.getStats().getPrimaryResource());
 		
-		Date d = new Date();
-		d.setTime(hero.getLastUpdated().longValue()*1000);
-		getLblLastUpdate().setText(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(d));
+		
+		getLblLastUpdate().setText(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(hero.getLastUpdatedDate()));
 		
 		
 		panneauDessinHero.repaint();
@@ -1331,19 +1356,10 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				splitTagsHeroes.add(scrollHeros, JSplitPane.RIGHT);
 				{
 					listeHerosModel = new ListeHeroModel(); 
-					listeHeros = new JList();
-					scrollHeros.setViewportView(getListeHeros());
+					listeHeros = getListeHeros();
+					scrollHeros.setViewportView(listeHeros);
 					listeHeros.setModel(listeHerosModel);
 					
-					listeHeros.setCellRenderer(new HeroCellRenderer());
-					listeHeros.setName("listeHeros");
-					listeHeros.setSize(130, 812);
-					listeHeros.setPreferredSize(new Dimension(150,812));
-					listeHeros.addMouseListener(new MouseAdapter() {
-						public void mouseClicked(MouseEvent evt) {
-								listeHerosMouseClicked(evt);
-						}
-					});
 				}
 			}
 		}

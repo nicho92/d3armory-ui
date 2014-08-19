@@ -487,8 +487,6 @@ public class StuffCalculator{
 			}
 		}
 		return ret;
-	
-		
 	}
 	
 	private double getElemDamage(double stat_base, double chance_cc,double ccDamage, double bonusAS, double minMaxDmg, int s)

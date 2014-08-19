@@ -33,6 +33,7 @@ public class SkillLabel extends JLabel implements MouseListener {
 	private SkillRune skill;
 	private boolean enabled=true;
 	private String size;
+	private JPopupMenu popupMenu;
 	public static final String SMALL = "21";
 	public static final String LARGE = "64";
 	
@@ -106,6 +107,37 @@ public class SkillLabel extends JLabel implements MouseListener {
     }
 
 
+	public void initRightClick() {
+		JMenu mnu = new JMenu("Change " + skill.getSkill().getName() + " with");
+		popupMenu = new JPopupMenu();
+		popupMenu.add(mnu);
+		
+		List<SkillRune> list = SkillsFactory.getSkillsFor(D3ArmoryControler.getInstance().getSelectedHero(false).getClazz());
+		
+		for(final SkillRune r : list)
+		{
+			
+			JMenuItem jmi = new JMenuItem(r.getSkill().getName());
+			SkillLabel l = new SkillLabel(r);
+			l.setSize(SkillLabel.SMALL);
+			jmi.setIcon(l.getIcon());
+			jmi.addActionListener(new ActionListener() {
+				
+				public void actionPerformed(ActionEvent e) {
+					D3ArmoryControler.getInstance().getCalculator().removeBonus(SkillsFactory.getBuff(skill, D3ArmoryControler.getInstance().getCalculator()).keySet());
+					setSkillRune(r);
+					repaint();
+					D3ArmoryControler.getInstance().getCalculator().addBonus(SkillsFactory.getBuff(skill, D3ArmoryControler.getInstance().getCalculator()));
+					D3ArmoryControler.getInstance().getCalculator().calculate();
+					((SwingMainFrame)getTopLevelAncestor()).getTableauDetailsModel().fireTableDataChanged();
+					((CalculatorModel)((SwingMainFrame)getTopLevelAncestor()).getTableauDetailsCalc().getModel()).fireTableDataChanged();
+				}
+			});
+			if(!r.getSkill().getName().equals(skill.getSkill().getName()))
+				mnu.add(jmi);
+		}
+		
+	}
 
 	public void mouseClicked(MouseEvent me) {
 		
@@ -113,40 +145,13 @@ public class SkillLabel extends JLabel implements MouseListener {
 		if(SwingUtilities.isRightMouseButton(me))
 		{
 			
-			JMenu mnu = new JMenu("Change " + skill.getSkill().getName() + " with");
-			JPopupMenu popupMenu = new JPopupMenu();
-			popupMenu.add(mnu);
 			
-			List<SkillRune> list = SkillsFactory.getSkillsFor(D3ArmoryControler.getInstance().getSelectedHero(false).getClazz());
-			
-			for(final SkillRune r : list)
-			{
-				
-				JMenuItem jmi = new JMenuItem(r.getSkill().getName());
-				SkillLabel l = new SkillLabel(r);
-				l.setSize(SkillLabel.SMALL);
-				jmi.setIcon(l.getIcon());
-				jmi.addActionListener(new ActionListener() {
-					
-					public void actionPerformed(ActionEvent e) {
-						D3ArmoryControler.getInstance().getCalculator().removeBonus(SkillsFactory.getBuff(skill, D3ArmoryControler.getInstance().getCalculator()).keySet());
-						setSkillRune(r);
-						repaint();
-						D3ArmoryControler.getInstance().getCalculator().addBonus(SkillsFactory.getBuff(skill, D3ArmoryControler.getInstance().getCalculator()));
-						D3ArmoryControler.getInstance().getCalculator().calculate();
-						((SwingMainFrame)getTopLevelAncestor()).getTableauDetailsModel().fireTableDataChanged();
-						((CalculatorModel)((SwingMainFrame)getTopLevelAncestor()).getTableauDetailsCalc().getModel()).fireTableDataChanged();
-					}
-				});
-				if(!r.getSkill().getName().equals(skill.getSkill().getName()))
-					mnu.add(jmi);
-			}
 			popupMenu.show(me.getComponent(),me.getX(), me.getY());
 			
 			return;
 		}
 
-		
+		//else left click button
 		
 		
 		if(enabled)
@@ -198,6 +203,7 @@ public class SkillLabel extends JLabel implements MouseListener {
 	public void setSize(String size) {
 		this.size = size;
 	}
+
 	
 	
 	
