@@ -60,7 +60,7 @@ public class SkillsFactory {
 			sk.setSkill(new Skill());
 			sk.getSkill().setTooltipUrl("skill/blood-vengeance");
 			sk.getSkill().setName("Blood Vengeance");
-			sk.getSkill().setIcon("demonhunter_passive_bloodvengeance");
+			sk.getSkill().setIcon("demonhunter_passive_vengeance");
 			sk.getSkill().setDescription("Your maximum Hatred is increased by 25. In addition, gain 30 Hatred and 3 Discipline when you are healed by a health globe.");
 			sk.getSkill().setLevel(13);
 		skills.add(sk);
@@ -344,7 +344,7 @@ public class SkillsFactory {
 			sk.setSkill(new Skill());
 			sk.getSkill().setTooltipUrl("skill/creeping-death");
 			sk.getSkill().setName("Creeping Death");
-			sk.getSkill().setIcon("x1_witchdoctor_passive_creepingdeath");
+			sk.getSkill().setIcon("witchdoctor_passive_creepingdeath");
 			sk.getSkill().setDescription("Your Haunt, Locust Swarm and the damage amplification from Piranhas last almost forever.");
 			sk.getSkill().setLevel(64);
 		skills.add(sk);		
@@ -355,7 +355,7 @@ public class SkillsFactory {
 			sk.setSkill(new Skill());
 			sk.getSkill().setTooltipUrl("skill/physical-attunement");
 			sk.getSkill().setName("Physical Attunement");
-			sk.getSkill().setIcon("x1_witchdoctor_passive_physicalattunement");
+			sk.getSkill().setIcon("witchdoctor_passive_physicalattunement");
 			sk.getSkill().setDescription("You gain 70 Physical Resistance for every enemy within 20 yards.\nThe range of this effect is increased by your gold pickup radius.");
 			sk.getSkill().setLevel(66);
 		skills.add(sk);		
@@ -365,7 +365,7 @@ public class SkillsFactory {
 			sk.setSkill(new Skill());
 			sk.getSkill().setTooltipUrl("skill/midnight-feast");
 			sk.getSkill().setName("Midnight Feast");
-			sk.getSkill().setIcon("x1_witchdoctor_passive_midnightfeast");
+			sk.getSkill().setIcon("witchdoctor_passive_midnightfeast");
 			sk.getSkill().setDescription("You can have 1 additional Zombie Dog summoned at one time. The damage of your Zombie Dogs and Gargantuan is increased 50%.");
 			sk.getSkill().setLevel(68);
 		skills.add(sk);		
@@ -427,7 +427,7 @@ public class SkillsFactory {
 			sk.setSkill(new Skill());
 			sk.getSkill().setTooltipUrl("skill/fanaticism");
 			sk.getSkill().setName("Fanaticism");
-			sk.getSkill().setIcon("x1_crusader_passive_fanaticism");
+			sk.getSkill().setIcon("x1_crusader_passive_nephalemmajesty");
 			sk.getSkill().setDescription("Increase the attack speed of Punish, Slash, Smite and Justice by 15%.");
 			sk.getSkill().setLevel(20);
 		skills.add(sk);
@@ -1034,7 +1034,7 @@ public class SkillsFactory {
 				sk.setSkill(new Skill());
 				sk.getSkill().setTooltipUrl("skill/earthen-might");
 				sk.getSkill().setName("Earthen Might");
-				sk.getSkill().setIcon("X1_barbarian_passive_earthenmight");
+				sk.getSkill().setIcon("x1_barbarian_passive_earthenmight");
 				sk.getSkill().setDescription("Gain 30 Fury when activating Avalanche or Earthquake.");
 				sk.getSkill().setLevel(64);
 				skills.add(sk);
@@ -1044,7 +1044,7 @@ public class SkillsFactory {
 				sk.setSkill(new Skill());
 				sk.getSkill().setTooltipUrl("skill/sword-and-board");
 				sk.getSkill().setName("Sword and Board");
-				sk.getSkill().setIcon("X1_barbarian_passive_swordandboard");
+				sk.getSkill().setIcon("x1_barbarian_passive_swordandboard");
 				sk.getSkill().setDescription("Blocking an attack generates 6 Fury.");
 				sk.getSkill().setLevel(66);
 				skills.add(sk);
@@ -1053,7 +1053,7 @@ public class SkillsFactory {
 				sk.setSkill(new Skill());
 				sk.getSkill().setTooltipUrl("skill/rampage");
 				sk.getSkill().setName("Rampage");
-				sk.getSkill().setIcon("X1_barbarian_passive_rampage");
+				sk.getSkill().setIcon("x1_barbarian_passive_rampage");
 				sk.getSkill().setDescription("Increase Strength by 1% for 8 seconds after killing or assisting in killing an enemy. This effect stacks up to 25 times.");
 				sk.getSkill().setLevel(68);
 				skills.add(sk);
