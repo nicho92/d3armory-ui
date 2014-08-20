@@ -69,7 +69,11 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 
 	public double getRealBlockChance()
 	{
-		return getAttributesRaw().get("Block_Chance_Item").getMoyenne();
+		double bonus=0;
+		if(getAttributesRaw().get("Block_Chance_Bonus_Item")!=null)
+			bonus=getAttributesRaw().get("Block_Chance_Bonus_Item").getMoyenne();
+			
+		return getAttributesRaw().get("Block_Chance_Item").getMoyenne()+bonus;
 	}
 	public double getRealMin()
 	{
@@ -406,6 +410,10 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		return tooltipParams.split("/")[1];
 	}
 	
+	public boolean isShield()
+	{
+		return blockChance!=null;
+	}
 	
 	public boolean isWeapon() {
 		return dps!=null;

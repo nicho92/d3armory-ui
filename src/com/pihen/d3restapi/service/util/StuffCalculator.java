@@ -19,7 +19,7 @@ import com.pihen.d3restapi.beans.SkillRune;
 
 public class StuffCalculator{
 	
-	public static enum KEY { PRIMARY_STAT, BONUS_ATTACK_SPEED,ATTACK_PER_SECONDS, ATTACK_SPEED_MAINHAND, ATTACK_SPEED_OFFHAND, HEALING, CRIT_CHANCE,CRIT_DAMAGE,DAMAGE_MAIN_HAND,DAMAGE_OFFHAND,VITALITY,TOUGHNESS, HP,ARMOR,BONUS_ELITE, DPS,DPS_ELEMENTAL, DODGECHANCE,BONUS_FIRE,BONUS_COLD,BONUS_POISON,BONUS_HOLY,BONUS_ARCANE,BONUS_LIGHTNING,BONUS_PHYSICAL, COOLDOWN_REDUCTION, DPS_ELITE, RESISTANCE_ALL, RESISTANCE_PHYSICAL, RESISTANCE_FIRE, RESISTANCE_POISON, RESISTANCE_COLD, RESISTANCE_LIGHTNING, RESISTANCE_ARCANE};
+	public static enum KEY { PRIMARY_STAT, THORNS, BONUS_ATTACK_SPEED,ATTACK_PER_SECONDS,BLOCK_CHANCE, ATTACK_SPEED_MAINHAND, ATTACK_SPEED_OFFHAND, HEALING, CRIT_CHANCE,CRIT_DAMAGE,DAMAGE_MAIN_HAND,DAMAGE_OFFHAND,VITALITY,TOUGHNESS, HP,ARMOR,BONUS_ELITE, DPS,DPS_ELEMENTAL, DODGECHANCE,BONUS_FIRE,BONUS_COLD,BONUS_POISON,BONUS_HOLY,BONUS_ARCANE,BONUS_LIGHTNING,BONUS_PHYSICAL, COOLDOWN_REDUCTION, DPS_ELITE, RESISTANCE_ALL, RESISTANCE_PHYSICAL, RESISTANCE_FIRE, RESISTANCE_POISON, RESISTANCE_COLD, RESISTANCE_LIGHTNING, RESISTANCE_ARCANE};
 	public static enum ELEMENTS {Arcane,Cold,Fire,Holy,Lightning,Physical,Poison};
 	public static enum SITUATIONAL { Ranged, Melee, Elites}
 	
@@ -82,7 +82,7 @@ public class StuffCalculator{
 		this.stuffs = stuffs;
 	}
 
-	public StuffCalculator(Map<EnumerationStuff,Item> stuff, Hero hero) {
+	public StuffCalculator(Map<EnumerationStuff,Item> stuff, Hero hero) {//TODO ne recupere pas les skills
 		stuffs= new HashMap<EnumerationStuff,Item>();
 		this.hero= hero;
 		this.skills=hero.getSkills();
@@ -125,6 +125,10 @@ public class StuffCalculator{
 			return filter("Damage_Dealt_Percent_Bonus",null);
 	}
 	
+	public double getBlockChance()
+	{
+		return filter("Block_Chance",null);
+	}
 	
 	public double getPrimaryStatUnbuffedValue()
 	{
@@ -181,7 +185,6 @@ public class StuffCalculator{
 	
 	public double getArmor()
 	{
-		
 		double baseValue=0;
 		if(hero.getClazz().equals("barbarian")||hero.getClazz().equals("crusader")) //2.1 -> hero.equals("demon-hunter")|| hero.equals("monk")
 			baseValue=getPrimaryBaseValue();
@@ -189,7 +192,7 @@ public class StuffCalculator{
 			baseValue=getSecondaryBaseValue();
 	
 		double strength = (baseValue + filter("Strength",null));
-		return filter("Armor",null) + strength;
+		return filter("Armor_Item",null) + strength;
 	}
 	
 	
@@ -256,7 +259,13 @@ public class StuffCalculator{
 		return (getHealthPool()/(1-totalReductionPercent));
 	
 	}
-	
+
+	public double getThorns() {
+		
+		
+		return (getPrimaryStatUnbuffedValue()*0.25) + filter("Thorns_Fixed",null);
+	}
+
 	
 	public double getSituationalDR(ELEMENTS e, SITUATIONAL s,boolean elite)
 	{
@@ -448,11 +457,13 @@ public class StuffCalculator{
 		mapResultat.put(KEY.RESISTANCE_POISON, format(getResistance(ELEMENTS.Poison)));
 		mapResultat.put(KEY.RESISTANCE_LIGHTNING, format(getResistance(ELEMENTS.Lightning)));
 		mapResultat.put(KEY.RESISTANCE_ARCANE, format(getResistance(ELEMENTS.Arcane)));
-		
+		mapResultat.put(KEY.BLOCK_CHANCE, format(getBlockChance()*100));
+		mapResultat.put(KEY.THORNS, format(getThorns()));
 		
 		
 	return mapResultat;
 	}
+	
 	
 	public Map<KEY,Double> getStats()
 	{
