@@ -86,8 +86,8 @@ public class BuffCalculator {
 		
 		if(a.getSkill().getId().equals("indestructible"))
 		{
-			buffs.put("Hitpoints_On_Kill"+PREFIX+a, new MinMaxBonus(82526));
-			buffs.put("Damage_Weapon_Percent_Bonus#Physical"+PREFIX+a, new MinMaxBonus(0.35));
+			//buffs.put("Hitpoints_On_Kill"+PREFIX+a, new MinMaxBonus(82526));
+			//buffs.put("Damage_Weapon_Percent_Bonus#Physical"+PREFIX+a, new MinMaxBonus(0.35));
 		}
 		
 		if(a.getSkill().getId().equals("holy-cause"))
@@ -103,14 +103,58 @@ public class BuffCalculator {
 			buffs.put("Heal_Bonus"+PREFIX+a, new MinMaxBonus(1+(healthGlobBonus/100)));
 		}
 		
-		if(a.getSkill().getId().equals("divine-forteress"))
+		if(a.getSkill().getId().equals("divine-fortress"))
 		{
+			double bonus=0;
+			if(sc.getStuffs().get(EnumerationStuff.OFF_HAND)!=null)
+				if(sc.getStuffs().get(EnumerationStuff.OFF_HAND).isShield())
+					bonus=sc.getStuffs().get(EnumerationStuff.OFF_HAND).getRealBlockChance();
+			double armor = sc.getArmor();
+			buffs.put("Armor_Item"+PREFIX+a, new MinMaxBonus(armor*bonus));
 			
 		}
-		
-		
-		
-				
+		if(a.getSkill().getId().equals("lord-commander"))
+		{
+			buffs.put("Power_Cooldown_Reduction_Percent#X1_Crusader_SteedCharge"+PREFIX+a, new MinMaxBonus(0.25));
+			buffs.put("Power_Cooldown_Reduction_Percent#X1_Crusader_Bombardment"+PREFIX+a, new MinMaxBonus(0.35));
+			buffs.put("Power_Damage_Percent_Bonus#X1_Crusader_Phalanx"+PREFIX+a, new MinMaxBonus(0.20));
+		}
+		if(a.getSkill().getId().equals("hold-your-ground"))
+		{
+			buffs.put("Increase_Dodge_Percent"+PREFIX+a, new MinMaxBonus(0-sc.getDodge()));
+			buffs.put("Block_Chance_Bonus_Item"+PREFIX+a, new MinMaxBonus(0.15));
+		}
+		if(a.getSkill().getId().equals("long-arm-of-the-law"))
+		{
+		}
+		if(a.getSkill().getId().equals("iron-maiden"))
+		{
+			double val=sc.getThorns()*0.50;
+			buffs.put("Thorns_Fixed#Physical"+PREFIX+a,new MinMaxBonus(val));
+		}
+		if(a.getSkill().getId().equals("renewal"))
+		{
+			//buffs.put("Hitpoints_On_Block"+PREFIX+a, new MinMaxBonus(12379));
+			
+		}
+		if(a.getSkill().getId().equals("blunt"))
+		{
+			if(sc.getHero().getSkills().getActive().get(0).getSkill().getId().equals("justice") || 
+					sc.getHero().getSkills().getActive().get(0).getSkill().getId().equals("blessed-hammer"))
+						buffs.put("Damage_Weapon_Percent_Bonus#Physical"+PREFIX+a, new MinMaxBonus(0.20));
+
+			
+		}
+		if(a.getSkill().getId().equals("towering-shield"))
+		{
+			if(sc.getHero().getSkills().getActive().get(0).getSkill().getId().equals("punish") || 
+					sc.getHero().getSkills().getActive().get(0).getSkill().getId().equals("shield-bash") || 
+						sc.getHero().getSkills().getActive().get(0).getSkill().getId().equals("blessed-shield"))
+							buffs.put("Damage_Weapon_Percent_Bonus#Physical"+PREFIX+a, new MinMaxBonus(0.20));
+
+			buffs.put("Power_Cooldown_Reduction_Percent#X1_Crusader_Shieldglare"+PREFIX+a, new MinMaxBonus(0.30));
+			
+		}
 //WIZARD
 		if(a.getSkill().getId().equals("evocation"))
 		{

@@ -146,10 +146,10 @@ public class ItemPanelDetails extends JPanel {
 			getLblDetailWeapon().setText("");
 			
 			
-			if(item.getType().getId().endsWith("Shield"))
+			if(item.isShield())//getType().getId().endsWith("Shield"))
 			{
 				getLblDetailWeapon().init();
-				getLblDetailWeapon().addText("+"+new DecimalFormat("#0.0").format(item.getRealBlockChance()*100)+" % Chance to Block<br/> "+new DecimalFormat("#0").format(item.getRealBlockMin())+"-"+new DecimalFormat("#0").format(item.getRealBlockMax())+" Block Amount","gray","white");
+				getLblDetailWeapon().addText("+"+new DecimalFormat("#0.0").format(item.getRealBlockChance()*100)+" % Chance to Block<br/> "+new DecimalFormat("#0").format(item.getRealBlockMin())+" - "+new DecimalFormat("#0").format(item.getRealBlockMax())+" Block Amount","gray","white");
 				getLblDetailWeapon().applyText();
 			}
 			

@@ -108,7 +108,7 @@ public class SkillLabel extends JLabel implements MouseListener {
     }
 
 
-	public void initRightClick() {
+	public void initRightClick(final int position) {
 		JMenu mnu = new JMenu("Change " + skill.getSkill().getName() + " with");
 		popupMenu = new JPopupMenu();
 		popupMenu.add(mnu);
@@ -127,6 +127,8 @@ public class SkillLabel extends JLabel implements MouseListener {
 				public void actionPerformed(ActionEvent e) {
 					D3ArmoryControler.getInstance().getCalculator().removeBonus(BuffCalculator.getBuff(skill, D3ArmoryControler.getInstance().getCalculator()).keySet());
 					setSkillRune(r);
+					D3ArmoryControler.getInstance().getSelectedHero(false).getSkills().getPassive().set(position, r);
+					
 					repaint();
 					D3ArmoryControler.getInstance().getCalculator().addBonus(BuffCalculator.getBuff(skill, D3ArmoryControler.getInstance().getCalculator()));
 					D3ArmoryControler.getInstance().getCalculator().calculate();
@@ -146,16 +148,11 @@ public class SkillLabel extends JLabel implements MouseListener {
 		
 		if(SwingUtilities.isRightMouseButton(me))
 		{
-			
-			
 			popupMenu.show(me.getComponent(),me.getX(), me.getY());
-			
 			return;
 		}
-
 		//else left click button
-		
-		
+
 		if(enabled)
 			enabled=false;
 		else
