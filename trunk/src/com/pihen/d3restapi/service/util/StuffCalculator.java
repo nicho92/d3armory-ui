@@ -201,7 +201,7 @@ public class StuffCalculator{
 		else
 			dext=getSecondaryBaseValue()+filter("Dexterity",null);
 		
-		return dext / (0.00031*Math.pow(hero.getLevel().intValue(), 3) + 0.0186*Math.pow(hero.getLevel().intValue(),2) + 0.25*hero.getLevel().intValue() + 1.93) + filter("Increase_Dodge_Percent",SkillsFactory.PREFIX);
+		return dext / (0.00031*Math.pow(hero.getLevel().intValue(), 3) + 0.0186*Math.pow(hero.getLevel().intValue(),2) + 0.25*hero.getLevel().intValue() + 1.93) + filter("Increase_Dodge_Percent",BuffCalculator.PREFIX);
 	}
 	
 	private double getHealthPool()
@@ -350,7 +350,7 @@ public class StuffCalculator{
 			List<SkillRune> sr = cont.getPassive();
 			for(SkillRune s : sr)
 			{
-				statsCalculator.putAll(SkillsFactory.getBuff(s,this));
+				statsCalculator.putAll(BuffCalculator.getBuff(s,this));
 			}
 		}
 	}

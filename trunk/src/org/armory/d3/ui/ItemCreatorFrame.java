@@ -10,6 +10,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,6 +50,8 @@ import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.RawsAttributeFactory;
 import com.pihen.d3restapi.service.util.StuffCalculator;
 
+import javax.swing.JCheckBox;
+
 public class ItemCreatorFrame extends javax.swing.JDialog {
 	private JPanel panneauGauche;
 	private ItemPanelDetails itemPanelDetails;
@@ -84,6 +87,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 	private JComboBox cboLegendarySet;
 
 	StuffCalculator b;
+	private JCheckBox chk2h;
 	
 	public ItemCreatorFrame(Item i,EnumerationStuff e) {
 		super();
@@ -346,14 +350,19 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								
 								panneauDPSLayout.setAlignment(FlowLayout.LEFT);
 								{
-									txtMin = new JTextField(""+getItem().getMinDamage());
+									try{
+										txtMin = new JTextField(""+new DecimalFormat("#0").format(getItem().getMinDamage().getMoyenne()));
+									}
+									catch(Exception e)
+									{
+										txtMin = new JTextField("");
+									}
 									panneauDPS.add(txtMin);
 									txtMin.setPreferredSize(new java.awt.Dimension(43, 23));
 									txtMin.addKeyListener(new KeyAdapter() {
 										public void keyReleased(KeyEvent evt) {
 											
 											getItem().setMinDamage(new MinMaxBonus(Double.valueOf(txtMin.getText())));
-											//getItem().addAttributesRaw("Damage_Weapon_Min#Physical", new MinMaxBonus(Double.valueOf(txtMin.getText())));
 											getItem().setDps(new MinMaxBonus(calcWeaponDPS(Double.valueOf(txtMin.getText()),Double.valueOf(txtMax.getText()),Double.valueOf(txtAS.getText()))));
 											refreshItem();
 										}
@@ -362,7 +371,11 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								
 								
 								{
-									txtMax = new JTextField(""+getItem().getMaxDamage());
+									try {
+										txtMax = new JTextField(""+new DecimalFormat("#0").format(getItem().getMaxDamage().getMoyenne()));
+									} catch (Exception e) {
+										txtMax=new JTextField("");
+									}
 									panneauDPS.add(txtMax);
 									txtMax.setPreferredSize(new java.awt.Dimension(45, 23));
 									txtMax.addKeyListener(new KeyAdapter() {
@@ -375,9 +388,23 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 									});
 								}
 								{
-									txtAS = new JTextField(String.valueOf(getItem().getAttacksPerSecond()));
+									try {
+										txtAS = new JTextField(String.valueOf(new DecimalFormat("#0.00").format(getItem().getAttacksPerSecond().getMoyenne())));
+									} catch (Exception e1) {
+										txtAS = new JTextField("");
+									}
 									panneauDPS.add(txtAS);
 									txtAS.setPreferredSize(new java.awt.Dimension(47, 23));
+									
+									chk2h = new JCheckBox("2H ?");
+									chk2h.setSelected(getItem().getType().getTwoHanded());
+									chk2h.addActionListener(new ActionListener() {
+										public void actionPerformed(ActionEvent e) {
+											getItem().getType().setTwoHanded(chk2h.isSelected());
+											refreshItem();
+										}
+									});
+									panneauDPS.add(chk2h);
 									
 									JLabel lblGems = new JLabel("Gems :");
 									panneauHaut.add(lblGems);
