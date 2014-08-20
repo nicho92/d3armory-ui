@@ -109,7 +109,7 @@ public class SkillLabel extends JLabel implements MouseListener {
 
 
 	public void initRightClick(final int position) {
-		JMenu mnu = new JMenu("Change " + skill.getSkill().getName() + " with");
+		JMenu mnu = new JMenu("Change skill with");
 		popupMenu = new JPopupMenu();
 		popupMenu.add(mnu);
 		

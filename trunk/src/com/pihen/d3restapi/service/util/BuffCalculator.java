@@ -139,22 +139,73 @@ public class BuffCalculator {
 		}
 		if(a.getSkill().getId().equals("blunt"))
 		{
-			if(sc.getHero().getSkills().getActive().get(0).getSkill().getId().equals("justice") || 
-					sc.getHero().getSkills().getActive().get(0).getSkill().getId().equals("blessed-hammer"))
-						buffs.put("Damage_Weapon_Percent_Bonus#Physical"+PREFIX+a, new MinMaxBonus(0.20));
-
-			
+			buffs.put("Power_Damage_Percent_Bonus#X1_Crusader_justice"+PREFIX+a, new MinMaxBonus(0.20));
+			buffs.put("Power_Damage_Percent_Bonus#X1_Crusader_blessedhammer"+PREFIX+a, new MinMaxBonus(0.20));
 		}
 		if(a.getSkill().getId().equals("towering-shield"))
 		{
-			if(sc.getHero().getSkills().getActive().get(0).getSkill().getId().equals("punish") || 
-					sc.getHero().getSkills().getActive().get(0).getSkill().getId().equals("shield-bash") || 
-						sc.getHero().getSkills().getActive().get(0).getSkill().getId().equals("blessed-shield"))
-							buffs.put("Damage_Weapon_Percent_Bonus#Physical"+PREFIX+a, new MinMaxBonus(0.20));
-
+			buffs.put("Power_Damage_Percent_Bonus#X1_Crusader_punish"+PREFIX+a, new MinMaxBonus(0.20));
+			buffs.put("Power_Damage_Percent_Bonus#X1_Crusader_shieldbash"+PREFIX+a, new MinMaxBonus(0.20));
+			buffs.put("Power_Damage_Percent_Bonus#X1_Crusader_blessedshield"+PREFIX+a, new MinMaxBonus(0.20));
 			buffs.put("Power_Cooldown_Reduction_Percent#X1_Crusader_Shieldglare"+PREFIX+a, new MinMaxBonus(0.30));
 			
 		}
+
+		// BARBARE
+		
+		if(a.getSkill().getId().equals("pound-of-flesh"))
+		{
+			double met = sc.filter("Health_Globe_Bonus_Health",null);
+			buffs.put("Health_Globe_Bonus_Health"+PREFIX+a, new MinMaxBonus(met*0.50));
+	
+		}
+		if(a.getSkill().getId().equals("ruthless"))
+		{
+			buffs.put("Damage_Weapon_Percent_Bonus#Physical"+PREFIX+a, new MinMaxBonus(0.40));
+		}
+		if(a.getSkill().getId().equals("tough-as-nails"))
+		{
+			buffs.put("Armor"+PREFIX+a, new MinMaxBonus(sc.getArmor()*.25));
+		}
+		if(a.getSkill().getId().equals("nervesofsteel"))
+		{
+			double bonus=0.50;
+			double vita = sc.getVitality();
+			buffs.put("Armor_Item"+PREFIX+a, new MinMaxBonus(vita*bonus));
+		}
+		if(a.getSkill().getId().equals("superstition"))
+		{
+			for(ELEMENTS e: ELEMENTS.values())
+			{
+				if(!e.equals(ELEMENTS.Physical))
+					if(!e.equals(ELEMENTS.Holy))
+						buffs.put("Damage_Percent_Reduction_From_Type#"+e+PREFIX+a,new MinMaxBonus(0.20));
+			}
+		}
+		if(a.getSkill().getId().equals("weapons-master"))
+		{
+			if(sc.getStuffs().get(EnumerationStuff.MAIN_HAND)!=null)
+			{
+				if(sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Sword")||sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Dagger"))
+					buffs.put("Damage_Weapon_Percent_Bonus#Physical"+PREFIX+a, new MinMaxBonus(0.08));
+				else if(sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Mace")||sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Axe"))
+					buffs.put("Crit_Percent_Bonus"+PREFIX+a, new MinMaxBonus(0.05));
+				else if(sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Polearm")||sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Spear"))
+					buffs.put("Attacks_Per_Second_Percent"+PREFIX+a, new MinMaxBonus(0.8));
+				else if(sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("MightyWeapon"))
+					buffs.put("Resource_Heals_Percent_On_Hit",new MinMaxBonus(1));//mighty
+			}
+		}		
+		if(a.getSkill().getId().equals("berserker-rage")){
+			//buffs.put("Damage_Weapon_Percent_Bonus#Physical"+PREFIX+a, new MinMaxBonus(0.40));
+		}
+		
+		
+		
+		
+		
+		
+		
 //WIZARD
 		if(a.getSkill().getId().equals("evocation"))
 		{
@@ -233,33 +284,7 @@ public class BuffCalculator {
 		
 		
 			
-// BARBARE
-		
-		if(a.getSkill().getId().equals("weapons-master"))
-		{
-			if(sc.getStuffs().get(EnumerationStuff.MAIN_HAND)!=null){
-			if(sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Sword")||sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Dagger"))
-				buffs.put("Damage_Weapon_Percent_Bonus#Physical"+PREFIX+a, new MinMaxBonus(0.08));
-			if(sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Mace")||sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Axe"))
-				buffs.put("Crit_Percent_Bonus"+PREFIX+a, new MinMaxBonus(0.05));
-			if(sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Polearm")||sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Spear"))
-				buffs.put("Attacks_Per_Second_Percent"+PREFIX+a, new MinMaxBonus(0.8));
-			}
-		}
-		if(a.getSkill().getId().equals("tough-as-nails"))
-		{
-			buffs.put("Armor"+PREFIX+a, new MinMaxBonus(sc.getArmor()*.25));
-		}
-		if(a.getSkill().getId().equals("superstition"))
-		{
-			for(ELEMENTS e: ELEMENTS.values())
-			{
-				if(!e.equals(ELEMENTS.Physical))
-					if(!e.equals(ELEMENTS.Holy))
-						buffs.put("Damage_Percent_Reduction_From_Type#"+e+PREFIX+a,new MinMaxBonus(0.20));
-			}
-		}
-		
+
 		
 		/*COMPANION
 		case "FOCUSEDMIND" : buffs.put("Attacks_Per_Second_Item_Bonus_BUFF"+skill, new MinMaxBonus(0.03));
