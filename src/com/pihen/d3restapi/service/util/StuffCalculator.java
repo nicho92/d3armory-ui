@@ -150,7 +150,7 @@ public class StuffCalculator{
 		return filter("Damage_Percent_Bonus_Vs_Elites", null);
 	}
 	
-	private int getVitality()
+	public int getVitality()
 	{
 		return (int)(7+(2*hero.getLevel().intValue())+ filter("Vitality", null));
 	}
