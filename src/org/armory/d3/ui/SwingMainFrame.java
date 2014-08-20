@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -283,7 +282,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 							JMenuItem it = new JMenuItem(e.toString());
 							it.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent evt) {
-									
 										if(D3ArmoryControler.getInstance().getSelectedHero(false)!=null)
 											new ItemCreatorFrame(new Item(), e).setVisible(true);
 									
@@ -404,7 +402,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			    		  lblstatbar.setText("Initialisation Calculator");
 			    		  panelItemDetails.setCalculator(D3ArmoryControler.getInstance().getCalculator());
 			    		  lblstatbar.setText("");
-			    		  
 			    		  
 			    		  int index = getOngletPane().getSelectedIndex();
 							if(index==4)

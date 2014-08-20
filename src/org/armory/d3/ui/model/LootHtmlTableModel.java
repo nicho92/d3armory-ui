@@ -36,6 +36,10 @@ public class LootHtmlTableModel extends DefaultTableModel{
 		        	 
 		         }
 		      } catch (Exception e) {
+		    	  String[] s = new String[8];
+		    	  list = new ArrayList<String[]>();
+		    	  list.add(s);
+		    	  
 		         e.printStackTrace();
 		      }
 	  }

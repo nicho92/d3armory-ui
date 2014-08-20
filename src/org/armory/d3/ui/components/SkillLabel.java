@@ -26,6 +26,7 @@ import org.armory.d3.ui.model.CalculatorModel;
 import org.armory.d3.ui.model.EHPCalculatorModel;
 
 import com.pihen.d3restapi.beans.SkillRune;
+import com.pihen.d3restapi.service.util.BuffCalculator;
 import com.pihen.d3restapi.service.util.SkillsFactory;
 
 public class SkillLabel extends JLabel implements MouseListener {
@@ -124,17 +125,17 @@ public class SkillLabel extends JLabel implements MouseListener {
 			jmi.addActionListener(new ActionListener() {
 				
 				public void actionPerformed(ActionEvent e) {
-					D3ArmoryControler.getInstance().getCalculator().removeBonus(SkillsFactory.getBuff(skill, D3ArmoryControler.getInstance().getCalculator()).keySet());
+					D3ArmoryControler.getInstance().getCalculator().removeBonus(BuffCalculator.getBuff(skill, D3ArmoryControler.getInstance().getCalculator()).keySet());
 					setSkillRune(r);
 					repaint();
-					D3ArmoryControler.getInstance().getCalculator().addBonus(SkillsFactory.getBuff(skill, D3ArmoryControler.getInstance().getCalculator()));
+					D3ArmoryControler.getInstance().getCalculator().addBonus(BuffCalculator.getBuff(skill, D3ArmoryControler.getInstance().getCalculator()));
 					D3ArmoryControler.getInstance().getCalculator().calculate();
 					((SwingMainFrame)getTopLevelAncestor()).getTableauDetailsModel().fireTableDataChanged();
 					((CalculatorModel)((SwingMainFrame)getTopLevelAncestor()).getTableauDetailsCalc().getModel()).fireTableDataChanged();
 				}
 			});
-			if(!r.getSkill().getName().equals(skill.getSkill().getName()))
-				mnu.add(jmi);
+			
+			 mnu.add(jmi);
 		}
 		
 	}
@@ -160,9 +161,9 @@ public class SkillLabel extends JLabel implements MouseListener {
 			enabled=true;
 		
 		if(enabled)
-			D3ArmoryControler.getInstance().getCalculator().addBonus(SkillsFactory.getBuff(skill, D3ArmoryControler.getInstance().getCalculator()));
+			D3ArmoryControler.getInstance().getCalculator().addBonus(BuffCalculator.getBuff(skill, D3ArmoryControler.getInstance().getCalculator()));
 		else
-			D3ArmoryControler.getInstance().getCalculator().removeBonus(SkillsFactory.getBuff(skill, D3ArmoryControler.getInstance().getCalculator()).keySet());
+			D3ArmoryControler.getInstance().getCalculator().removeBonus(BuffCalculator.getBuff(skill, D3ArmoryControler.getInstance().getCalculator()).keySet());
 		
 		D3ArmoryControler.getInstance().getCalculator().calculate();
 		((SwingMainFrame)this.getTopLevelAncestor()).getTableauDetailsModel().fireTableDataChanged();

@@ -273,9 +273,9 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		attributesRaw.put(titre, b);
 	}
 
-	public double getRealArmor()
+	public MinMaxBonus getRealArmor()
 	{
-		return getAttributesRaw().get("Armor_Item").getMoyenne();
+		return getAttributesRaw().get("Armor_Item");
 	}
 	
 	public MinMaxBonus getArmor() {
@@ -408,7 +408,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	}
 
 	public boolean isArmor() {
-		return armor!=null;
+		return getAttributesRaw().get("Armor_Item")!=null;
 	}
 	
 
