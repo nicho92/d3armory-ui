@@ -14,8 +14,6 @@ public class BuffCalculator {
 	public final static String PREFIX="_SKILLS_";
 	private static Map<String,MinMaxBonus> buffs; 
 	
-
-
 	public static Map<String,MinMaxBonus> getBuff(SkillRune a, StuffCalculator sc) {
 		
 		buffs = new HashMap<String, MinMaxBonus>();
@@ -54,6 +52,63 @@ public class BuffCalculator {
 			gem = gem*(1.5/100);
 			buffs.put("Strength"+PREFIX+a, new MinMaxBonus(strength*gem));
 		}
+		
+		if(a.getSkill().getId().equals("vigilant"))
+		{
+				for(ELEMENTS e: ELEMENTS.values())
+				{
+					if(!e.equals(ELEMENTS.Physical))
+						if(!e.equals(ELEMENTS.Holy))
+							buffs.put("Damage_Percent_Reduction_From_Type#"+e+PREFIX+a,new MinMaxBonus(0.20));
+				}
+				buffs.put("Hitpoints_Regen_Per_Second"+PREFIX+a,new MinMaxBonus(2063));
+				
+		}
+		
+		if(a.getSkill().getId().equals("righteousness"))
+		{
+			buffs.put("Resource_Max_Bonus#Faith"+PREFIX+a,new MinMaxBonus(30));
+			//buffs.put("Resource_Generation#Faith"+PREFIX+a,new MinMaxBonus(3));
+		}
+		
+		if(a.getSkill().getId().equals("insurmontable"))
+		{
+			//buffs.put("Resource_Generation#Faith"+PREFIX+a,new MinMaxBonus(6));
+		}
+		
+		if(a.getSkill().getId().equals("fanaticism"))
+		{
+			if(sc.getHero().getSkills().getActive().get(0).getSkill().getId().equals("punish") || 
+					sc.getHero().getSkills().getActive().get(0).getSkill().getId().equals("slash") ||
+						sc.getHero().getSkills().getActive().get(0).getSkill().getId().equals("smite"))
+								buffs.put("Attacks_Per_Second_Percent"+PREFIX+a, new MinMaxBonus(0.15));
+		}
+		
+		if(a.getSkill().getId().equals("indestructible"))
+		{
+			buffs.put("Hitpoints_On_Kill"+PREFIX+a, new MinMaxBonus(82526));
+			buffs.put("Damage_Weapon_Percent_Bonus#Physical"+PREFIX+a, new MinMaxBonus(0.35));
+		}
+		
+		if(a.getSkill().getId().equals("holy-cause"))
+		{
+			//buffs.put("Hitpoint_Regeneration_By_Type_Damage#Holy"+PREFIX+a, new MinMaxBonus(0.01));
+			buffs.put("Damage_Weapon_Percent_Bonus#Physical"+PREFIX+a, new MinMaxBonus(0.10));
+		}
+		
+		if(a.getSkill().getId().equals("wrathful"))
+		{
+			buffs.put("Spending_Resource_Heals_Percent#Faith"+PREFIX+a, new MinMaxBonus(825));
+			double healthGlobBonus=sc.filter("Health_Globe_Bonus_Health",null);
+			buffs.put("Heal_Bonus"+PREFIX+a, new MinMaxBonus(1+(healthGlobBonus/100)));
+		}
+		
+		if(a.getSkill().getId().equals("divine-forteress"))
+		{
+			
+		}
+		
+		
 		
 				
 //WIZARD
@@ -140,11 +195,11 @@ public class BuffCalculator {
 		{
 			if(sc.getStuffs().get(EnumerationStuff.MAIN_HAND)!=null){
 			if(sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Sword")||sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Dagger"))
-				buffs.put("Damage_Weapon_Percent_Bonus#Physical_BUFF_"+a, new MinMaxBonus(0.08));
+				buffs.put("Damage_Weapon_Percent_Bonus#Physical"+PREFIX+a, new MinMaxBonus(0.08));
 			if(sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Mace")||sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Axe"))
-				buffs.put("Crit_Percent_Bonus_BUFF_"+a, new MinMaxBonus(0.05));
+				buffs.put("Crit_Percent_Bonus"+PREFIX+a, new MinMaxBonus(0.05));
 			if(sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Polearm")||sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Spear"))
-				buffs.put("Attacks_Per_Second_Percent_BUFF_"+a, new MinMaxBonus(0.8));
+				buffs.put("Attacks_Per_Second_Percent"+PREFIX+a, new MinMaxBonus(0.8));
 			}
 		}
 		if(a.getSkill().getId().equals("tough-as-nails"))

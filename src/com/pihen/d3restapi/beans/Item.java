@@ -46,7 +46,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	//todo socketEffects
 	private Item transmogItem;
 	
-	
+	private MinMaxBonus blockChance;
 	private MinMaxBonus dps;
 	private MinMaxBonus attacksPerSecond;
 	private MinMaxBonus minDamage;
@@ -67,6 +67,10 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		attributesRaw=new HashMap<String, MinMaxBonus >();
 	}
 
+	public double getRealBlockChance()
+	{
+		return getAttributesRaw().get("Block_Chance_Item").getMoyenne();
+	}
 	public double getRealMin()
 	{
 		if(!isWeapon())
@@ -568,5 +572,28 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 			weaponDefaultAS.put(null, 0.0);
 		return weaponDefaultAS;
 	}
+
+	public MinMaxBonus getBlockChance() {
+		return blockChance;
+	}
+
+	public void setBlockChance(MinMaxBonus blockChance) {
+		this.blockChance = blockChance;
+	}
+
+	public double getRealBlockMax() {
+		if(getAttributesRaw().get("Block_Amount_Item_Delta")!=null)
+			return getRealBlockMin()+getAttributesRaw().get("Block_Amount_Item_Delta").getMoyenne();
+		
+		return 0;
+	}
+	
+	public double getRealBlockMin() {
+		if(getAttributesRaw().get("Block_Amount_Item_Min")!=null)
+			return getAttributesRaw().get("Block_Amount_Item_Min").getMoyenne();
+		
+		return 0;
+	}
+
 	
 }
