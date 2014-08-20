@@ -60,7 +60,10 @@ public class D3ArmoryControler {
 		this.conf = conf;
 	}
 
-	
+	public void updateStatUI()
+	{
+		//todo global update ui component with new calcul
+	}
 	
 	public Profile getProfil(String profile) throws D3ServerCommunicationException
 	{

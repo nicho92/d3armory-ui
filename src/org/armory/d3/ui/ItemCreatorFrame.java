@@ -361,7 +361,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 									txtMin.setPreferredSize(new java.awt.Dimension(43, 23));
 									txtMin.addKeyListener(new KeyAdapter() {
 										public void keyReleased(KeyEvent evt) {
-											
+											//TODO difference between elemental damage and default physical damage
 											getItem().setMinDamage(new MinMaxBonus(Double.valueOf(txtMin.getText())));
 											getItem().setDps(new MinMaxBonus(calcWeaponDPS(Double.valueOf(txtMin.getText()),Double.valueOf(txtMax.getText()),Double.valueOf(txtAS.getText()))));
 											refreshItem();
