@@ -139,10 +139,19 @@ public class ItemPanelDetails extends JPanel {
 		
 		getLblTypeItemAD().setForeground(Color.GRAY);
 		
-		if(item.isArmor()){
+		if(item.isArmor())
+		{
 			getLblStatArmorDPS().setText(new DecimalFormat("#0").format(item.getRealArmor().getMoyenne()));
 			getLblTypeItemAD().setText("Armor");
 			getLblDetailWeapon().setText("");
+			
+			
+			if(item.getType().getId().endsWith("Shield"))
+			{
+				getLblDetailWeapon().init();
+				getLblDetailWeapon().addText("+"+new DecimalFormat("#0.0").format(item.getRealBlockChance()*100)+" % Chance to Block<br/> "+new DecimalFormat("#0").format(item.getRealBlockMin())+"-"+new DecimalFormat("#0").format(item.getRealBlockMax())+" Block Amount","gray","white");
+				getLblDetailWeapon().applyText();
+			}
 			
 		}
 		else 
@@ -158,15 +167,15 @@ public class ItemPanelDetails extends JPanel {
 			getLblDetailWeapon().addText(new DecimalFormat("#0").format(mindmg)+" - "+new DecimalFormat("#0").format(maxdmg)+" points de degats<br/> "+new DecimalFormat("#0.00").format(item.getAttacksPerSecond().getMoyenne())+" vitesse d'attaque","gray","white");
 			getLblDetailWeapon().applyText();
 		}
-		else
-		{
-			getLblStatArmorDPS().setText("");
-			getLblTypeItemAD().setText("");
-			getLblDetailWeapon().setText("");
-			getLblDetailWeapon().init();
-			getLblDetailWeapon().addText("", "", "");
-			getLblDetailWeapon().applyText();
-		}
+//		else
+//		{
+//			getLblStatArmorDPS().setText("");
+//			getLblTypeItemAD().setText("");
+//			getLblDetailWeapon().setText("");
+//			getLblDetailWeapon().init();
+//			getLblDetailWeapon().addText("", "", "");
+//			getLblDetailWeapon().applyText();
+//		}
 		
 		
 		List<DisplayableItemAttributs> prim = item.getAttributes().getPrimary();
