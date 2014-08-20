@@ -1,0 +1,44 @@
+<head>
+
+<script src="tooltips.js"></script>
+<script>
+
+function get(name){
+   if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+      return decodeURIComponent(name[1]);
+}
+
+var idItem = "CogBCI3c_P4NEgcIBBXv-kGJHTiywNUdcYt38B0gjTdUHZsGAMsdZiMGUB2BgcbEMIsCOKECQABQElgEYNUCaisKDAgAEJmv4aeAgIDgCBIbCOSu0qgKEgcIBBWFJ5SxMIsCOABAAVgEkAEAgAFGpQEgjTdUrQHmFdsNtQF_-U5duAGs5rDxCMABARihlPDrDlAKWACgAaGU8OsOoAHhlYDhDqAB37XU-wWgAYCX8vcBoAGei9qUBqAB8sj_qw8";
+			//get('itemID');
+
+
+var b = Bnet.D3.Tooltips;
+b.registerDataOld = b.registerData;
+
+b.registerData = function(data) {
+ var c = document.body.children;
+ s = c[c.length-1].src;
+ data.params.key=idItem;//s.substr(0,s.indexOf('?')).substr(s.lastIndexOf('/')+1);
+ this.registerDataOld(data);
+
+var str = "";
+var rechCount = c.length;
+for(i = 1; i < rechCount; i++)	{
+	str += c[i].innerHTML;
+}
+var elem = document.getElementById('item');
+ elem.innerHTML=str;
+}
+
+
+</script>
+</head>
+
+
+<a 
+ href="http://eu.battle.net/d3/en/item/CogBCI3c_P4NEgcIBBXv-kGJHTiywNUdcYt38B0gjTdUHZsGAMsdZiMGUB2BgcbEMIsCOKECQABQElgEYNUCaisKDAgAEJmv4aeAgIDgCBIbCOSu0qgKEgcIBBWFJ5SxMIsCOABAAVgEkAEAgAFGpQEgjTdUrQHmFdsNtQF_-U5duAGs5rDxCMABARihlPDrDlAKWACgAaGU8OsOoAHhlYDhDqAB37XU-wWgAYCX8vcBoAGei9qUBqAB8sj_qw8
+" onclick="return false">Item</a>
+
+
+
+<div id="item">
