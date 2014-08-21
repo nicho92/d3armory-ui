@@ -151,7 +151,7 @@ public class BuffCalculator {
 			
 		}
 
-		// BARBARE
+// BARBARE
 		
 		if(a.getSkill().getId().equals("pound-of-flesh"))
 		{
@@ -163,25 +163,14 @@ public class BuffCalculator {
 		{
 			buffs.put("Damage_Weapon_Percent_Bonus#Physical"+PREFIX+a, new MinMaxBonus(0.40));
 		}
-		if(a.getSkill().getId().equals("tough-as-nails"))
-		{
-			buffs.put("Armor"+PREFIX+a, new MinMaxBonus(sc.getArmor()*.25));
-		}
+		
 		if(a.getSkill().getId().equals("nervesofsteel"))
 		{
 			double bonus=0.50;
 			double vita = sc.getVitality();
 			buffs.put("Armor_Item"+PREFIX+a, new MinMaxBonus(vita*bonus));
 		}
-		if(a.getSkill().getId().equals("superstition"))
-		{
-			for(ELEMENTS e: ELEMENTS.values())
-			{
-				if(!e.equals(ELEMENTS.Physical))
-					if(!e.equals(ELEMENTS.Holy))
-						buffs.put("Damage_Percent_Reduction_From_Type#"+e+PREFIX+a,new MinMaxBonus(0.20));
-			}
-		}
+		
 		if(a.getSkill().getId().equals("weapons-master"))
 		{
 			if(sc.getStuffs().get(EnumerationStuff.MAIN_HAND)!=null)
@@ -199,10 +188,73 @@ public class BuffCalculator {
 		if(a.getSkill().getId().equals("berserker-rage")){
 			//buffs.put("Damage_Weapon_Percent_Bonus#Physical"+PREFIX+a, new MinMaxBonus(0.40));
 		}
+		if(a.getSkill().getId().equals("bloodthirst")){
+			buffs.put("Spending_Resource_Heals_Percent#Fury"+PREFIX+a, new MinMaxBonus(578));
+			double met = sc.filter("Health_Globe_Bonus_Health",null);
+			buffs.put("Hitpoints_On_Skills"+PREFIX+a, new MinMaxBonus(met*0.01));
+		}
+		if(a.getSkill().getId().equals("animosity")){
+			//fury generation
+		}
+		if(a.getSkill().getId().equals("superstition"))
+		{
+			for(ELEMENTS e: ELEMENTS.values())
+			{
+				if(!e.equals(ELEMENTS.Physical))
+					if(!e.equals(ELEMENTS.Holy))
+						buffs.put("Damage_Percent_Reduction_From_Type#"+e+PREFIX+a,new MinMaxBonus(0.20));
+			}
+		}
+		if(a.getSkill().getId().equals("tough-as-nails"))
+		{
+			buffs.put("Armor"+PREFIX+a, new MinMaxBonus(sc.getArmor()*.25));
+		}
 		
+		if(a.getSkill().getId().equals("no-escape"))
+		{
+			buffs.put("Power_Cooldown_Reduction_Percent#X1_Barbarian_WeaponThrow"+PREFIX+a, new MinMaxBonus(0.25));
+			buffs.put("Power_Cooldown_Reduction_Percent#X1_Barbarian_AncientSpear"+PREFIX+a, new MinMaxBonus(0.25));
+		}
 		
+		if(a.getSkill().getId().equals("relentless"))
+		{
+			//
+		}
 		
+		if(a.getSkill().getId().equals("brawler"))
+		{
+			//buffs.put("Damage_Weapon_Percent_Bonus#Physical"+PREFIX+a, new MinMaxBonus(0.20));
+		}
 		
+		if(a.getSkill().getId().equals("juggernaut"))
+		{
+			//
+		}
+		
+		if(a.getSkill().getId().equals("unforgiving"))
+		{
+			//
+		}
+		
+		if(a.getSkill().getId().equals("boon-of-bulkathos"))
+		{
+			buffs.put("Power_Cooldown_Reduction_Percent#X1_Barbarian_Earthquake"+PREFIX+a, new MinMaxBonus(0.15));
+			buffs.put("Power_Cooldown_Reduction_Percent#X1_Barbarian_Calloftheancient"+PREFIX+a, new MinMaxBonus(0.30));
+			buffs.put("Power_Cooldown_Reduction_Percent#X1_Barbarian_Wrathoftheberserker"+PREFIX+a, new MinMaxBonus(0.30));
+		}
+		if(a.getSkill().getId().equals("earthen-might"))
+		{
+		}
+		if(a.getSkill().getId().equals("earthen-might"))
+		{
+		}
+		if(a.getSkill().getId().equals("sword-and-board"))
+		{
+		}
+		
+		if(a.getSkill().getId().equals("rampage"))
+		{
+		}
 		
 		
 		
@@ -298,3 +350,4 @@ public class BuffCalculator {
 	}
 	
 }
+

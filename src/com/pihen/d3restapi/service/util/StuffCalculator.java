@@ -239,7 +239,7 @@ public class StuffCalculator{
 		double lifePerSecond=filter("Hitpoints_Regen_Per_Second",null);
 		double lifePerRessource=filter("Spending_Resource_Heals_Percent",null);//TODO
 		double lifeOnKill=filter("Hitpoints_On_Kill",null)*0.16;
-		double lifeOnBuff=filter("",null);
+		//double lifeOnBuff=filter("Hitpoints_On_Skills",null);
 		double lifeSteal=0; //not working on 70 level;
 		
 	return (lifePerHit+healthGlobBonus+lifePerSecond+lifeOnKill+lifeSteal+lifePerRessource)/5;
