@@ -75,6 +75,8 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 			
 		return getAttributesRaw().get("Block_Chance_Item").getMoyenne()+bonus;
 	}
+	
+	
 	public double getRealMin()
 	{
 		if(!isWeapon())
@@ -85,8 +87,14 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		double mindmg=0;
 		String element = getEnchantedWeapon();
 		
+		boolean asRubySocket=getGems().get(0).getAttributesRaw().get("Damage_Weapon_Bonus_Flat#Physical")!=null;
+		
+		
 		if(getAttributesRaw().get("Damage_Weapon_Percent_Bonus#Physical")!=null)
 			multiplicateur=multiplicateur+getAttributesRaw().get("Damage_Weapon_Percent_Bonus#Physical").getMoyenne();
+		
+		if(asRubySocket)
+			mindmg=getGems().get(0).getAttributesRaw().get("Damage_Weapon_Bonus_Flat#Physical").getMoyenne();
 		
 		if(isCross)
 		{
@@ -94,14 +102,15 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 			if(getAttributesRaw().get("Damage_Weapon_Bonus_Min_X1#Physical")!=null)
 				bowbonus=getAttributesRaw().get("Damage_Weapon_Bonus_Min_X1#Physical").getMoyenne();
 			
-			mindmg = (getAttributesRaw().get("Damage_Weapon_Min#Physical").getMoyenne() + bowbonus)*multiplicateur;
+			
+			mindmg += (getAttributesRaw().get("Damage_Weapon_Min#Physical").getMoyenne() + bowbonus)*multiplicateur;
 			
 			if(element!="")
 				mindmg += getAttributesRaw().get("Damage_Weapon_Min#"+element).getMoyenne()*multiplicateur;
 		}
 		else
 		{
-			mindmg = getAttributesRaw().get("Damage_Weapon_Min#Physical").getMoyenne()*multiplicateur;
+			mindmg += getAttributesRaw().get("Damage_Weapon_Min#Physical").getMoyenne()*multiplicateur;
 			if(element!="")
 				mindmg += getAttributesRaw().get("Damage_Weapon_Min#"+element).getMoyenne()*multiplicateur;
 		}
@@ -116,12 +125,18 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 			return 0;
 		
 		boolean isCross= (getAttributesRaw().get("Damage_Weapon_Bonus_Min_X1#Physical")!=null);
+		boolean asRubySocket=getGems().get(0).getAttributesRaw().get("Damage_Weapon_Bonus_Flat#Physical")!=null;
+
 		double multiplicateur=1;
 		double maxdmg=0;
 		String element = getEnchantedWeapon();
 		
 		if(getAttributesRaw().get("Damage_Weapon_Percent_Bonus#Physical")!=null)
 			multiplicateur=multiplicateur+getAttributesRaw().get("Damage_Weapon_Percent_Bonus#Physical").getMoyenne();
+		
+		if(asRubySocket)
+			maxdmg=getGems().get(0).getAttributesRaw().get("Damage_Weapon_Bonus_Flat#Physical").getMoyenne();
+
 		
 		if(isCross)
 		{
@@ -131,13 +146,13 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	
 			
 			
-			maxdmg=getRealMin()+((getAttributesRaw().get("Damage_Weapon_Delta#Physical").getMoyenne() + bowbonus)*multiplicateur);
+			maxdmg+=getRealMin()+((getAttributesRaw().get("Damage_Weapon_Delta#Physical").getMoyenne() + bowbonus)*multiplicateur);
 			if(element!="")
 				maxdmg += getAttributesRaw().get("Damage_Weapon_Delta#"+element).getMoyenne()*multiplicateur;
 		}
 		else
 		{
-			maxdmg=getRealMin()+(getAttributesRaw().get("Damage_Weapon_Delta#Physical").getMoyenne()*multiplicateur);
+			maxdmg+=getRealMin()+(getAttributesRaw().get("Damage_Weapon_Delta#Physical").getMoyenne()*multiplicateur);
 			if(element!="")
 				maxdmg += getAttributesRaw().get("Damage_Weapon_Delta#"+element).getMoyenne()*multiplicateur;
 
