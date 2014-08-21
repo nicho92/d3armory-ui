@@ -76,7 +76,7 @@ public class SkillLabel extends JLabel implements MouseListener {
 				URL url = new URL("http://media.blizzard.com/d3/icons/skills/"+size+"/"+skill.getSkill().getIcon()+".png");
 				return new ImageIcon(url);
 			} catch (Exception e1) {
-				e1.printStackTrace();
+				//e1.printStackTrace();
 				return new ImageIcon();
 			}
 			return super.getIcon();
