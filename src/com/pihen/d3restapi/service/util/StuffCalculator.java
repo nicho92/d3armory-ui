@@ -261,8 +261,6 @@ public class StuffCalculator{
 	}
 
 	public double getThorns() {
-		
-		
 		return (getPrimaryStatUnbuffedValue()*0.25) + filter("Thorns_Fixed",null);
 	}
 
@@ -315,7 +313,7 @@ public class StuffCalculator{
 					Iterator<String> keysg = g.getAttributesRaw().keySet().iterator();
 					String cleg = keysg.next();
 					compteur++;
-					statsCalculator.put(cleg +"_GEM_"+i.getName().replaceAll(" ", "-")+"_"+compteur, g.getAttributesRaw().get(cleg));
+					statsCalculator.put(cleg +"_GEM_"+i.getName().replaceAll(" ", "-")+"-"+compteur, g.getAttributesRaw().get(cleg));
 				}
 			}
 			//fin des gems
