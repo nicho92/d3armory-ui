@@ -62,11 +62,13 @@ public class TableauExpertModel extends DefaultTableModel {
 		Map<String,MinMaxBonus> map = D3ArmoryControler.getInstance().getCalculator().getStatAttributs();
 		Object[] entries= map.entrySet().toArray();
 	        Map.Entry<String, MinMaxBonus> entry=(Map.Entry)entries[row];
-	        int pos = entry.getKey().lastIndexOf("_");
+	       // int pos = entry.getKey().lastIndexOf("_");
+	        
+	        String ret = entry.getKey().replaceAll("_SET_", "_").replaceAll("_GEM_", "_").replaceAll(BuffCalculator.PREFIX, "_");
+	        int pos = ret.lastIndexOf("_");
+	        ret = ret.substring(0, pos);
 	        
 	        if (column==0) {
-	        	String ret = entry.getKey().replaceAll(BuffCalculator.PREFIX, "_").substring(0, pos);
-	
 	        	return ret;
 	        } 
 	        else if (column==1) { // column==1
@@ -75,9 +77,8 @@ public class TableauExpertModel extends DefaultTableModel {
 	        else if (column==2) { // column==1
 	            return entry.getValue().getMoyenne();
 	        } 
-	        
 	        else {
-	            throw new IndexOutOfBoundsException("MapTableModel provides a 2-column table, column-index "+column+" is illegal.");
+	            return null;
 	        } 
         
 	}
