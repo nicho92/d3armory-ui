@@ -192,7 +192,7 @@ public class StuffCalculator{
 			baseValue=getSecondaryBaseValue();
 	
 		double strength = (baseValue + filter("Strength",null));
-		return filter("Armor_Item",null) + strength;
+		return filter("Armor",null) + strength;
 	}
 	
 	
