@@ -90,10 +90,11 @@ public class SocketLabel extends JLabel {
 			else
 				hasSocket=false;			
 				
-			if(item.getGems().size()>0)
+			try{		
 				setSocket(item.getGems().get(i));
-			else
+			}catch(Exception e){
 				setSocket(null);
+			}
 		}
 		else
 		{
