@@ -39,6 +39,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.event.ChangeEvent;
@@ -141,7 +142,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private ParangonPanel parangonPanel;
 	private DefaultComboBoxModel listeTagsModel;
 	private DefaultRowSorter sorter;
-	
+	private LootHtmlTableModel mod ;
 	private ListeHeroModel listeHerosModel;
 	private TableauExpertModel tableaudetailModel;
 	private JMenuItem jmiLocal;
@@ -1564,8 +1565,16 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			BorderLayout panneauTableauLayout = new BorderLayout();
 			lootPanel.setLayout(panneauTableauLayout);
 			lootTable = new JTable();
-			LootHtmlTableModel mod = new LootHtmlTableModel();
+			mod = new LootHtmlTableModel();
+		
 			lootTable.setModel(mod);
+			
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					mod.init();
+					mod.fireTableDataChanged();
+				}
+			});
 			
 			final TableRowSorter sorter = new TableRowSorter(mod);
 			final JTextField txtFilter = new JTextField("Filter");

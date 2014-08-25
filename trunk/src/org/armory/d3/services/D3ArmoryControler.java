@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -361,9 +362,6 @@ public class D3ArmoryControler {
 		File f = new File(SERIALISATION_DIR);
 		return f.listFiles();
 	}
-	
-	
-	
-	
+
 	
 }
