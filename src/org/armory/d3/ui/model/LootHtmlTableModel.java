@@ -1,5 +1,6 @@
 package org.armory.d3.ui.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,10 +10,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-public class LootHtmlTableModel extends DefaultTableModel{
+public class LootHtmlTableModel extends DefaultTableModel implements Serializable{
 	
 	public static String html = "http://diablo.incgamers.com/forums/threads/legendary-drop-rates-data-torment-drop.858143/";
-	private List<String[]> list ;
+	private List<String[]> list = new ArrayList<String[]>();
 	
 	public void init() {
 		      try {
@@ -20,21 +21,33 @@ public class LootHtmlTableModel extends DefaultTableModel{
 		         Elements tableElements = doc.select("table");
 		         Elements tableRowElements = tableElements.select(":not(thead) tr");
 		         list = new ArrayList<String[]>();
-		         
-		         
-		         for (int i = 1; i<tableRowElements.size();i++) // on ne prend pas la premiere ligne en compte
-		         {
-		        	 Elements rowItems = tableRowElements.get(i).select("td");
-		        	 String tab[] = new String[8];
-		        	 for(int j=0;j<rowItems.size();j++)
-		        	 {
-		        		 if(!rowItems.get(0).text().startsWith("Item"))
-			        			 if(rowItems.size()>1)
-			        				 tab[j]=rowItems.get(j).text();
-		        	 }
-		        	 list.add(tab);
-		        	 
-		         }
+		         boolean add=false;
+		         String typeval = "";
+	        	        for (int i = 1; i<tableRowElements.size();i++) // on ne prend pas la premiere ligne en compte
+				         {
+				        	 Elements rowItems = tableRowElements.get(i).select("td");
+				        	 String tab[] = new String[9];
+				        	 for(int j=0;j<rowItems.size();j++)
+				        	 { 
+				        		 if(!rowItems.get(0).text().startsWith("Item") && !rowItems.get(0).text().startsWith("[") && !rowItems.get(0).text().startsWith(" "))
+				        		 {
+			        				 if(rowItems.size()>1)
+			        				 {
+			        					 tab[j+1]=rowItems.get(j).text().replace("\\*", "");
+			        					 tab[0]=typeval;
+			        					 add=true;
+		        				 	 }
+			        				 else
+			        				 {
+			        					 typeval=rowItems.get(0).text();
+			        				 }
+			        			}
+				        	 }
+				        	 if(add)
+				        		 list.add(tab);
+				       
+				        	 add=false;
+				         }
 		      } catch (Exception e) {
 		    	  String[] s = new String[8];
 		    	  list = new ArrayList<String[]>();
@@ -48,14 +61,15 @@ public class LootHtmlTableModel extends DefaultTableModel{
 	public String getColumnName(int column) {
 		switch (column)
 		{
-		case 0: return "Item";
-		case 1 : return "Torment Only";
-		case 2 : return "demon-hunter";
-		case 3 : return "barbare";
-		case 4 : return "wizard";
-		case 5 : return "witch-doctor";
-		case 6 : return "monk";
-		case 7 : return "crusader";
+		case 0: return "Type";
+		case 1: return "Item";
+		case 2 : return "Torment Only";
+		case 3 : return "demon-hunter";
+		case 4 : return "barbare";
+		case 5 : return "wizard";
+		case 6 : return "witch-doctor";
+		case 7 : return "monk";
+		case 8 : return "crusader";
 		default : return "";
 		}
 	}
@@ -64,7 +78,7 @@ public class LootHtmlTableModel extends DefaultTableModel{
 	@Override
 	public int getRowCount() {
 		if(list==null)
-			init();
+			return 0;
 		
 		return list.size();
 	}
@@ -77,7 +91,7 @@ public class LootHtmlTableModel extends DefaultTableModel{
 	
 	@Override
 	public int getColumnCount() {
-		return 8;
+		return 9;
 	}
 
 	
