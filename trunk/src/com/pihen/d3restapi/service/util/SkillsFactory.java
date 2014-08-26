@@ -210,7 +210,7 @@ public class SkillsFactory {
 			sk.getSkill().setTooltipUrl("skill/circle-of-life");
 			sk.getSkill().setName("Circle of Life");
 			sk.getSkill().setIcon("witchdoctor_passive_circleoflife");
-			sk.getSkill().setDescription("When an enemy dies within 20 yards, there is a 30% chance that a Zombie Dog will automatically emerge.\nThe range of this effect is increased by your gold pickup radius.");
+			sk.getSkill().setDescription("When an enemy dies within 20 yards, there is a 15% chance that a Zombie Dog will automatically emerge.\nThe range of this effect is increased by your gold pickup radius.");
 			sk.getSkill().setLevel(10);
 		skills.add(sk);
 		
@@ -347,7 +347,7 @@ public class SkillsFactory {
 			sk.getSkill().setTooltipUrl("skill/physical-attunement");
 			sk.getSkill().setName("Physical Attunement");
 			sk.getSkill().setIcon("witchdoctor_passive_physicalattunement");
-			sk.getSkill().setDescription("You gain 70 Physical Resistance for every enemy within 20 yards.\nThe range of this effect is increased by your gold pickup radius.");
+			sk.getSkill().setDescription("You gain 70 Physical Resistance for 25 enemy maximum within 20 yards.\nThe range of this effect is increased by your gold pickup radius.");
 			sk.getSkill().setLevel(66);
 		skills.add(sk);		
 
