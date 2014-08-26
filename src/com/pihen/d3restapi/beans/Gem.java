@@ -35,7 +35,7 @@ public class Gem implements Serializable{
 		return item.toString();
 	}
 	
-	public final static String[] getTypes()
+	public final static String[] getQuality()
 	{
 		return new String[]{"Chipped","Flawed","Normal","Flawless","Perfect","Radiant","Square","Flawless Square","Perfect Square","Radiant Square","Star","Flawless Star","Perfect Star","Marquise","Flawless Imperial","Royal","Flawless Royal"};
 	}
