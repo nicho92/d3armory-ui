@@ -186,25 +186,27 @@ public class StuffCalculator{
 	public double getArmor()
 	{
 		double baseValue=0;
-		if(hero.getClazz().equals("barbarian")||hero.getClazz().equals("crusader")) //2.1 -> hero.equals("demon-hunter")|| hero.equals("monk")
+		if(hero.getClazz().equals("barbarian")||hero.getClazz().equals("crusader")||hero.getClazz().equals("monk")||hero.getClazz().equals("demon-hunter")) //2.1 -> hero.equals("demon-hunter")|| hero.equals("monk")
 			baseValue=getPrimaryBaseValue();
 		else
 			baseValue=getSecondaryBaseValue();
 	
-		double strength = (baseValue + filter("Strength",null));
+		double strength = (baseValue + filter("Strength",null) + filter("Dexterity",null));
 		return filter("Armor",null) + strength;
 	}
 	
 	
 	public double getDodge() //TODO modify for 2.1 patch
 	{
-		double dext = 0;
-		if(hero.equals("demon-hunter")|| hero.equals("monk"))
-			dext=getPrimaryBaseValue();
-		else
-			dext=getSecondaryBaseValue()+filter("Dexterity",null);
-		
-		return dext / (0.00031*Math.pow(hero.getLevel().intValue(), 3) + 0.0186*Math.pow(hero.getLevel().intValue(),2) + 0.25*hero.getLevel().intValue() + 1.93) + filter("Increase_Dodge_Percent",BuffCalculator.PREFIX);
+//		double dext = 0;
+//		if(hero.equals("demon-hunter")|| hero.equals("monk"))
+//			dext=getPrimaryBaseValue();
+//		else
+//			dext=getSecondaryBaseValue()+filter("Dexterity",null);
+//		
+//		return dext / (0.00031*Math.pow(hero.getLevel().intValue(), 3) + 0.0186*Math.pow(hero.getLevel().intValue(),2) + 0.25*hero.getLevel().intValue() + 1.93) + filter("Increase_Dodge_Percent",BuffCalculator.PREFIX);
+	
+		return 0;
 	}
 	
 	private double getHealthPool()
@@ -250,12 +252,12 @@ public class StuffCalculator{
 	{
 		armorReduction=getArmor();
 		resistReduction=getResistanceAverage();
-		dodgeReduction=getDodge()/100;
+		//dodgeReduction=getDodge()/100;
 		armorReductionPercent = armorReduction/((50*monsterLevel)+armorReduction);
 		resistReductionPercent = resistReduction/((5*monsterLevel)+resistReduction);
 		classReduction = hero.getClassReduction();
 		buffReduction = filter("Damage_Percent_Reduction_From_All",null);
-		totalReductionPercent =1-((1-dodgeReduction)*(1-armorReductionPercent)*(1-resistReductionPercent)*(1-classReduction)*(1-buffReduction));
+		totalReductionPercent =1-(/*(1-dodgeReduction)* */(1-armorReductionPercent)*(1-resistReductionPercent)*(1-classReduction)*(1-buffReduction));
 		return (getHealthPool()/(1-totalReductionPercent));
 	
 	}
