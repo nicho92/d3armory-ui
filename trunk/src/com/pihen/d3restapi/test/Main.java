@@ -26,8 +26,8 @@ public class Main {
 		Profile profile = profileService.receiveEntity(conf);
 		
 		
-		
-		for(int i=0;i<8;i++)
+		int i=0;
+		//for(int i=0;i<8;i++)
 		{
 		Hero hero = profile.getHeroes().get(i);
 					conf.setHeroId(hero.getId());
@@ -36,16 +36,13 @@ public class Main {
 		StuffCalculator calc = new StuffCalculator(D3ArmoryControler.getInstance().initStuffHero(hero),hero);
 						calc.calculate();
 						
-		D3ArmoryControler.getInstance().saveHero(hero);				
-					
 		System.out.println("HERO : " + hero.getName() + " " + hero.getLevel() + " ("+ hero.getParagonLevel()+")");
-		System.out.println(hero.getItems().getMainHand().getRealMin() + " "+  hero.getItems().getMainHand().getRealMax() + " " + hero.getItems().getMainHand().getRealDPS());
-		System.out.println(hero.getItems().getMainHand().getMinDamage() + " "+  hero.getItems().getMainHand().getMaxDamage() + " " + hero.getItems().getMainHand().getDps());
-		for(KEY k : calc.getStats().keySet())
-		{
-			if(k.equals(KEY.TOUGHNESS))
-					System.out.println(k + "--> " + calc.getStats().get(k));
-		}
+		
+//		for(KEY k : calc.getStats().keySet())
+//		{
+//			if(k.equals(KEY.TOUGHNESS))
+//					System.out.println(k + "--> " + calc.getStats().get(k));
+//		}
 		System.out.println("----------------------------------");
 		}
 	}

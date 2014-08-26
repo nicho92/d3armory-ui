@@ -14,11 +14,11 @@ public class GemsFactory {
 	{
 		List<Gem> list = new ArrayList<Gem>();
 		
-		for(int i=Gem.getQuality().length-1;i>=0;i--)
+		for(int i=Gem.QUALITIES().length-1;i>=0;i--)
 		{
 			Gem g = new Gem();
 			Item it = new Item();
-			it.setName(Gem.getQuality()[i]);
+			it.setName(Gem.QUALITIES()[i]);
 			g.setItem(it);
 			
 			list.add(g);
@@ -32,6 +32,18 @@ public class GemsFactory {
 
  public static void main(String[] args) {
 	System.out.println(getGems(Gem.TYPES.Amethyst,null));
-}
+	System.out.println(Gem.QUALITIES().length);
+ }
+ 
+ 
+ 
+ 
+ public double calculateGems(List<Gem> init, Gem finalz)
+ {
+	 return 0;
+ }
+ 
+ 
+ 
 	
 }
