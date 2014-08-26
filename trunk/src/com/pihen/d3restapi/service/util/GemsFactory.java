@@ -14,11 +14,11 @@ public class GemsFactory {
 	{
 		List<Gem> list = new ArrayList<Gem>();
 		
-		for(int i=Gem.getTypes().length-1;i>=0;i--)
+		for(int i=Gem.getQuality().length-1;i>=0;i--)
 		{
 			Gem g = new Gem();
 			Item it = new Item();
-			it.setName(Gem.getTypes()[i]);
+			it.setName(Gem.getQuality()[i]);
 			g.setItem(it);
 			
 			list.add(g);
