@@ -198,15 +198,15 @@ public class StuffCalculator{
 	
 	public double getDodge() //TODO modify for 2.1 patch
 	{
-//		double dext = 0;
-//		if(hero.equals("demon-hunter")|| hero.equals("monk"))
-//			dext=getPrimaryBaseValue();
-//		else
-//			dext=getSecondaryBaseValue()+filter("Dexterity",null);
-//		
-//		return dext / (0.00031*Math.pow(hero.getLevel().intValue(), 3) + 0.0186*Math.pow(hero.getLevel().intValue(),2) + 0.25*hero.getLevel().intValue() + 1.93) + filter("Increase_Dodge_Percent",BuffCalculator.PREFIX);
+		double dext = 0;
+		if(hero.equals("demon-hunter")|| hero.equals("monk"))
+			dext=getPrimaryBaseValue();
+		else
+			dext=getSecondaryBaseValue()+filter("Dexterity",null);
+		
+		return /*dext /*/ (0.00031*Math.pow(hero.getLevel().intValue(), 3) + 0.0186*Math.pow(hero.getLevel().intValue(),2) + 0.25*hero.getLevel().intValue() + 1.93) + filter("Increase_Dodge_Percent",BuffCalculator.PREFIX);
 	
-		return 0;
+		
 	}
 	
 	private double getHealthPool()
