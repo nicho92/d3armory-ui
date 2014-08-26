@@ -98,7 +98,7 @@ public class BuffCalculator {
 		
 		if(a.getSkill().getId().equals("wrathful"))
 		{
-			buffs.put("Spending_Resource_Heals_Percent#Faith"+PREFIX+a, new MinMaxBonus(825));
+			buffs.put("Spending_Resource_Heals_Percent#Faith"+PREFIX+a, new MinMaxBonus(1341));
 			double healthGlobBonus=sc.filter("Health_Globe_Bonus_Health",null);
 			buffs.put("Heal_Bonus"+PREFIX+a, new MinMaxBonus(1+(healthGlobBonus/100)));
 		}
@@ -182,7 +182,7 @@ public class BuffCalculator {
 				else if(sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Polearm")||sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("Spear"))
 					buffs.put("Attacks_Per_Second_Percent"+PREFIX+a, new MinMaxBonus(0.8));
 				else if(sc.getStuffs().get(EnumerationStuff.MAIN_HAND).getType().getId().startsWith("MightyWeapon"))
-					buffs.put("Resource_Heals_Percent_On_Hit",new MinMaxBonus(1));//mighty
+					buffs.put("Resource_Heals_Percent_On_Hit",new MinMaxBonus(2));//mighty
 			}
 		}		
 		if(a.getSkill().getId().equals("berserker-rage")){
@@ -284,9 +284,7 @@ public class BuffCalculator {
 		}
 		if(a.getSkill().getId().equals("seize-the-initiative"))
 		{
-			double dext = sc.getPrimaryStatUnbuffedValue();
-			double multi = 30;
-			buffs.put("Armor"+PREFIX+a, new MinMaxBonus((dext*multi)/100));
+			
 		}
 		
 		if(a.getSkill().getId().equals("harmony")) //2.1 test
@@ -346,6 +344,10 @@ public class BuffCalculator {
 			
 		
 	*/
+		
+	//TODO DemonHunter Skills
+		
+		
 		return buffs;
 	}
 	

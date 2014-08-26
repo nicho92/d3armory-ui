@@ -124,7 +124,7 @@ public class SkillsFactory {
 			sk.getSkill().setTooltipUrl("skill/perfectionist");
 			sk.getSkill().setName("Perfectionist");
 			sk.getSkill().setIcon("demonhunter_passive_perfectionist");
-			sk.getSkill().setDescription("Reduce the Discipline cost of all skills by 10%. Increase your Life, Armor, and resistance to all elements by 10%.\nDiscipline is used to fuel many of your tactical and defensive skills.");
+			sk.getSkill().setDescription("Reduce the Discipline cost of all skills by 10%. Increase your armor and resistance to all elements by 10%.\nDiscipline is used to fuel many of your tactical and defensive skills.");
 			sk.getSkill().setLevel(35);
 		skills.add(sk);
 					
@@ -178,7 +178,7 @@ public class SkillsFactory {
 			sk.getSkill().setTooltipUrl("skill/awareness");
 			sk.getSkill().setName("Awareness");
 			sk.getSkill().setIcon("x1_demonhunter_passive_awareness");
-			sk.getSkill().setDescription("Your Armor is increased by 30% of your Dexterity");
+			sk.getSkill().setDescription("you vanish and regenerate 50% life for 2 seconds when recieving fatal damage");
 			sk.getSkill().setLevel(66);
 		skills.add(sk);
 		
@@ -446,7 +446,7 @@ public class SkillsFactory {
 			sk.getSkill().setTooltipUrl("skill/wrathful");
 			sk.getSkill().setName("Wrathful");
 			sk.getSkill().setIcon("x1_crusader_passive_wrathful");
-			sk.getSkill().setDescription("Each point of Wrath spent heals you for 825 Life.\nHeal amount is increased by 1% of your Health Globe Healing Bonus.");
+			sk.getSkill().setDescription("Each point of Wrath spent heals you for 1341 Life.\nHeal amount is increased by 1% of your Health Globe Healing Bonus.");
 			sk.getSkill().setLevel(30);
 		skills.add(sk);
 	
@@ -723,7 +723,7 @@ public class SkillsFactory {
 			sk.getSkill().setTooltipUrl("skill/resolve");
 			sk.getSkill().setName("Resolve");
 			sk.getSkill().setIcon("monk_passive_resolve");
-			sk.getSkill().setDescription("Damage you deal reduces enemy damage by 20% for 2.5 seconds.");
+			sk.getSkill().setDescription("Damage you deal reduces enemy damage by 20% for 4 seconds.");
 			sk.getSkill().setLevel(10);
 		skills.add(sk);
 	
@@ -741,7 +741,7 @@ public class SkillsFactory {
 			sk.getSkill().setTooltipUrl("skill/exalted-soul");
 			sk.getSkill().setName("Exalted soul");
 			sk.getSkill().setIcon("monk_passive_exaltedsoul");
-			sk.getSkill().setDescription("Increase maximum Spirit by 100 and increase Spirit Regeneration by 2 per second.\nSpirit fuels your defensive and offensive abilities.");
+			sk.getSkill().setDescription("Increase maximum Spirit by 50 and increase Spirit Regeneration by 4 per second.\nSpirit fuels your defensive and offensive abilities.");
 			sk.getSkill().setLevel(13);
 		skills.add(sk);
 		
@@ -750,7 +750,7 @@ public class SkillsFactory {
 			sk.getSkill().setTooltipUrl("skill/transcendence");
 			sk.getSkill().setName("Transcendence");
 			sk.getSkill().setIcon("monk_passive_transcendence");
-			sk.getSkill().setDescription("Every point of Spirit spent heals you for 248 Life.\nHeal amount is increased by 0.4% of your Health Globe Healing Bonus.");
+			sk.getSkill().setDescription("Every point of Spirit spent heals you for 429 Life.\nHeal amount is increased by 0.4% of your Health Globe Healing Bonus.");
 			sk.getSkill().setLevel(16);
 		skills.add(sk);
 
@@ -759,7 +759,7 @@ public class SkillsFactory {
 			sk.getSkill().setTooltipUrl("skill/chant-of-resonance");
 			sk.getSkill().setName("Chant of resonance");
 			sk.getSkill().setIcon("monk_passive_chantofresonance");
-			sk.getSkill().setDescription("The Spirit costs of Mantra activation effects are reduced by 50% and you gain 2 Spirit every second when you have a Mantra learned.");
+			sk.getSkill().setDescription("The Spirit costs of Mantra activation effects are reduced by 50% and you gain 4 Spirit every second when you have a Mantra learned.");
 			sk.getSkill().setLevel(20);
 		skills.add(sk);
 		
@@ -768,7 +768,7 @@ public class SkillsFactory {
 			sk.getSkill().setTooltipUrl("skill/seize-the-initiative");
 			sk.getSkill().setName("Seize the Initiative");
 			sk.getSkill().setIcon("monk_passive_seizetheinitiative");
-			sk.getSkill().setDescription("Your Armor is increased by 30% of your Dexterity");
+			sk.getSkill().setDescription("Damage dealt to enemies above 75% Life will now increase your Attack Speed by 30% for 4 seconds");
 			sk.getSkill().setLevel(20);
 		skills.add(sk);
 	
@@ -777,7 +777,7 @@ public class SkillsFactory {
 			sk.getSkill().setTooltipUrl("skill/the-guardians-path");
 			sk.getSkill().setName("The Guardian's Path");
 			sk.getSkill().setIcon("monk_passive_theguardianspath");
-			sk.getSkill().setDescription("While dual-wielding, you gain a 15% chance to dodge incoming attacks. While using a two-handed weapon, all Spirit generation is increased by 35%.");
+			sk.getSkill().setDescription("While dual-wielding, you gain a 35% chance to dodge incoming attacks. While using a two-handed weapon, all Spirit generation is increased by 15%.");
 			sk.getSkill().setLevel(24);
 		skills.add(sk);
 
@@ -786,7 +786,7 @@ public class SkillsFactory {
 			sk.getSkill().setTooltipUrl("skill/sixth-sense");
 			sk.getSkill().setName("Sixth Sense");
 			sk.getSkill().setIcon("monk_passive_sixthsense");
-			sk.getSkill().setDescription("Your dodge chance is increased by an amount equal to 42.5% of your Critical Hit Chance.");
+			sk.getSkill().setDescription("Reduces all non-Physical damage taken by 25%");
 			sk.getSkill().setLevel(27);
 		skills.add(sk);
 
@@ -797,6 +797,15 @@ public class SkillsFactory {
 			sk.getSkill().setName("Provocation");
 			sk.getSkill().setIcon("monk_passive_pacifism");
 			sk.getSkill().setDescription("The duration of control-impairing effects on you are reduced by 25%.\nWhenever you are hit by a Stun, Freeze, Fear, Immobilize or Charm, you gain 15% increased damage for 10 seconds.");
+			sk.getSkill().setLevel(30);
+		skills.add(sk);
+		
+		sk = new SkillRune();
+			sk.setSkill(new Skill());
+			sk.getSkill().setTooltipUrl("skill/determination");
+			sk.getSkill().setName("Determination PTR 2.1");
+			sk.getSkill().setIcon("monk_passive_pacifism");
+			sk.getSkill().setDescription("Your damage is increased by 4% for each enemy within 12 yards of you up to a maximum of 20%");
 			sk.getSkill().setLevel(30);
 		skills.add(sk);
 
@@ -815,6 +824,15 @@ public class SkillsFactory {
 			sk.getSkill().setName("Guiding Light");
 			sk.getSkill().setIcon("monk_passive_guidinglight");
 			sk.getSkill().setDescription("Your heals and shields grant increased damage equal to the percentage of Life missing, up to a maximum of 30%, for 10 seconds.");
+			sk.getSkill().setLevel(40);
+		skills.add(sk);
+		
+		sk = new SkillRune();
+			sk.setSkill(new Skill());
+			sk.getSkill().setTooltipUrl("skill/alacrity");
+			sk.getSkill().setName("Alacrity PTR 2.1");
+			sk.getSkill().setIcon("monk_passive_guidinglight");
+			sk.getSkill().setDescription("Increase the attack speed of Spirit Generators by 15%");
 			sk.getSkill().setLevel(40);
 		skills.add(sk);
 
@@ -909,7 +927,7 @@ public class SkillsFactory {
 				sk.getSkill().setTooltipUrl("skill/weaponsmaster");
 				sk.getSkill().setName("Weapons Master");
 				sk.getSkill().setIcon("barbarian_passive_weaponsmaster");
-				sk.getSkill().setDescription("Gain a bonus based on the weapon type of your main hand weapon:\nSwords/Daggers: 8% increased damage\nMaces/Axes: 5% Critical Hit Chance\nPolearms/Spears: 8% attack speed,\nMighty Weapons: 1 Fury per hit");
+				sk.getSkill().setDescription("Gain a bonus based on the weapon type of your main hand weapon:\nSwords/Daggers: 8% increased damage\nMaces/Axes: 5% Critical Hit Chance\nPolearms/Spears: 8% attack speed,\nMighty Weapons: 2 Fury per hit");
 				sk.getSkill().setLevel(16);
 				skills.add(sk);
 				
@@ -918,7 +936,7 @@ public class SkillsFactory {
 				sk.getSkill().setTooltipUrl("skill/inspiring-presence");
 				sk.getSkill().setName("Inspiring Presence");
 				sk.getSkill().setIcon("barbarian_passive_inspiringpresence");
-				sk.getSkill().setDescription("The duration of your shouts is doubled. After using a shout you and all allies within 100 yards regenerate 1% of maximum Life per second for 60 seconds.\nYour shouts are:\n Battle Rage\n Threatening Shout\n War Cry");
+				sk.getSkill().setDescription("The duration of your shouts is doubled. After using a shout you and all allies within 100 yards regenerate 2% of maximum Life per second for 60 seconds.\nYour shouts are:\n Battle Rage\n Threatening Shout\n War Cry");
 				sk.getSkill().setLevel(16);
 				skills.add(sk);
 
@@ -927,7 +945,7 @@ public class SkillsFactory {
 				sk.getSkill().setTooltipUrl("skill/berserker-rage");
 				sk.getSkill().setName("Berserker Rage");
 				sk.getSkill().setIcon("barbarian_passive_berserkerrage");
-				sk.getSkill().setDescription("You deal 25% additional damage while at maximum Fury.");
+				sk.getSkill().setDescription("You deal 25% additional damage while at or above 95% Fury.");
 				sk.getSkill().setLevel(20);
 				skills.add(sk);
 	
@@ -979,10 +997,10 @@ public class SkillsFactory {
 				sk = new SkillRune();
 				sk.setSkill(new Skill());
 				sk.getSkill().setTooltipUrl("skill/relentless");
-				sk.getSkill().setName("Relentless");
+				sk.getSkill().setName("Relentless Assault");
 				sk.getSkill().setIcon("barbarian_passive_relentless");
-				sk.getSkill().setDescription("While below 35% Life, all skills cost 75% less Fury and all damage taken is reduced by 50%.");
-				sk.getSkill().setLevel(40);
+				sk.getSkill().setDescription("You deal 20% more damage to enemies that are Blind, Frozen, or Stunned");
+				sk.getSkill().setLevel(30);
 				skills.add(sk);
 				
 				sk = new SkillRune();
