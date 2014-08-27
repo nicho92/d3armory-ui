@@ -9,7 +9,11 @@ public class Gem implements Serializable{
 	private Item item;
 	private AttributsContainer attributes;
 	private Map<String, MinMaxBonus > attributesRaw;
-	
+	private boolean isGem;
+	private boolean isJewel;
+	private Number jewelRank;
+	private Number jewelSecondaryEffectUnlockRank;
+	private String jewelSecondaryEffect;
 	
 	public Map<String, MinMaxBonus> getAttributesRaw() {
 		return attributesRaw;
@@ -30,6 +34,37 @@ public class Gem implements Serializable{
 		this.attributes = attributes;
 	}
 	
+	public boolean isGem() {
+		return isGem;
+	}
+	public void setGem(boolean isGem) {
+		this.isGem = isGem;
+	}
+	public boolean isJewel() {
+		return isJewel;
+	}
+	public void setJewel(boolean isJewel) {
+		this.isJewel = isJewel;
+	}
+	public Number getJewelRank() {
+		return jewelRank;
+	}
+	public void setJewelRank(Number jewelRank) {
+		this.jewelRank = jewelRank;
+	}
+	public Number getJewelSecondaryEffectUnlockRank() {
+		return jewelSecondaryEffectUnlockRank;
+	}
+	public void setJewelSecondaryEffectUnlockRank(
+			Number jewelSecondaryEffectUnlockRank) {
+		this.jewelSecondaryEffectUnlockRank = jewelSecondaryEffectUnlockRank;
+	}
+	public String getJewelSecondaryEffect() {
+		return jewelSecondaryEffect;
+	}
+	public void setJewelSecondaryEffect(String jewelSecondaryEffect) {
+		this.jewelSecondaryEffect = jewelSecondaryEffect;
+	}
 	public String toString()
 	{
 		return item.toString();
