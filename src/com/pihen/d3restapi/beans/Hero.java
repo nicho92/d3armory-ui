@@ -52,6 +52,7 @@ public class Hero extends RemoteEntity implements Serializable {
 		this.seasonal = seasonal;
 	}
 
+	
 
 	public double getClassReduction()
 	{
