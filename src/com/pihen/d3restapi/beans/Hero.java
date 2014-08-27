@@ -20,6 +20,8 @@ public class Hero extends RemoteEntity implements Serializable {
 	private Long paragonLevel;
 	private boolean hardcore;
     private boolean seasonal;
+    private Number seasonCreated;
+    
 	private HeroSkillContainer skills;
 	@SerializedName("items") private Stuff stuff;
 	private FollowersList followers;
@@ -87,6 +89,16 @@ public class Hero extends RemoteEntity implements Serializable {
 		return "";
 	}
 	
+
+	public Number getSeasonCreated() {
+		return seasonCreated;
+	}
+
+
+	public void setSeasonCreated(Number seasonCreated) {
+		this.seasonCreated = seasonCreated;
+	}
+
 
 	public boolean isDead() {
 		return dead;

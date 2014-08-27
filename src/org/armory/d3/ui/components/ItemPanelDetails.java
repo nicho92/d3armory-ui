@@ -285,13 +285,26 @@ public class ItemPanelDetails extends JPanel {
 			if(item.getGems().size()>0)
 			{
 				
-				if(item.getGems().get(0).getAttributes().getSecondary().size()>0)
-					lblSock1.setText(item.getGems().get(0).getAttributes().getSecondary().get(0).getText());
-				else	
-					lblSock1.setText(item.getGems().get(0).getAttributes().getPrimary().get(0).getText());
+				if(!item.getGems().get(0).isJewel())
+				{
+					lblSock1.setForeground(Color.WHITE);
+					lblSock1.setSize(300, 30);
+					if(item.getGems().get(0).getAttributes().getSecondary().size()>0)
+						lblSock1.setText(item.getGems().get(0).getAttributes().getSecondary().get(0).getText());
+					else	
+						lblSock1.setText(item.getGems().get(0).getAttributes().getPrimary().get(0).getText());
+				}
+				else
+				{
+					lblSock1.setForeground(new Color(223,116,1));
+					lblSock1.setSize(350, 40);
+					lblSock1.setText("<html>"+item.getGems().get(0).getItem().getName()+":<br/>"  + item.getGems().get(0).getAttributes().getPassive().get(0).getText()+"</html>");
+				}
 			}
 			else
+			{
 				lblSock1.setText("            empty");
+			}
 		}
 		else
 		{
@@ -482,7 +495,7 @@ public class ItemPanelDetails extends JPanel {
 		if(lblSock1==null) 
 		{
 			lblSock1 = new SocketLabel(JLabel.LEFT);
-			lblSock1.setBounds(12, 350+30, 300, 30);
+			lblSock1.setBounds(12, 380, 300, 30);
 			lblSock1.setForeground(Color.white);
 		}
 		

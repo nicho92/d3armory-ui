@@ -51,8 +51,27 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	private MinMaxBonus attacksPerSecond;
 	private MinMaxBonus minDamage;
 	private MinMaxBonus maxDamage;
+	private Number seasonRequiredToDrop;
+	private boolean isSeasonRequiredToDrop;
 	
 	
+	
+	public Number getSeasonRequiredToDrop() {
+		return seasonRequiredToDrop;
+	}
+
+	public void setSeasonRequiredToDrop(Number seasonRequiredToDrop) {
+		this.seasonRequiredToDrop = seasonRequiredToDrop;
+	}
+
+	public boolean isSeasonRequiredToDrop() {
+		return isSeasonRequiredToDrop;
+	}
+
+	public void setSeasonRequiredToDrop(boolean isSeasonRequiredToDrop) {
+		this.isSeasonRequiredToDrop = isSeasonRequiredToDrop;
+	}
+
 	private LegendarySet set;
 	
 	

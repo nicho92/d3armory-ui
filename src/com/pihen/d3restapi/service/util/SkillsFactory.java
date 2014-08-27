@@ -707,12 +707,11 @@ public class SkillsFactory {
 	private static List<SkillRune> monkFactorySkills() {
 		List<SkillRune> skills = new ArrayList<SkillRune>();
 		
-		
 		SkillRune sk = new SkillRune();
 			sk.setSkill(new Skill());
 			sk.getSkill().setTooltipUrl("skill/harmony");
-			sk.getSkill().setName("Harmony 2.1 PTR");
-			sk.getSkill().setIcon("monk_passive_onewitheverything");
+			sk.getSkill().setName("Harmony");
+			sk.getSkill().setIcon("p1_monk_passive_harmony");
 			sk.getSkill().setDescription("40% of your single elemental resistances from items instead increases your resistance to all elements.");
 			sk.getSkill().setLevel(45);
 		skills.add(sk);
@@ -830,19 +829,10 @@ public class SkillsFactory {
 		sk = new SkillRune();
 			sk.setSkill(new Skill());
 			sk.getSkill().setTooltipUrl("skill/alacrity");
-			sk.getSkill().setName("Alacrity PTR 2.1");
+			sk.getSkill().setName("Alacrity");
 			sk.getSkill().setIcon("monk_passive_guidinglight");
 			sk.getSkill().setDescription("Increase the attack speed of Spirit Generators by 15%");
 			sk.getSkill().setLevel(40);
-		skills.add(sk);
-
-		sk = new SkillRune();
-			sk.setSkill(new Skill());
-			sk.getSkill().setTooltipUrl("skill/one-with-everything");
-			sk.getSkill().setName("One With Everything");
-			sk.getSkill().setIcon("monk_passive_onewitheverything");
-			sk.getSkill().setDescription("Your resistance to all elements is equal to your highest elemental resistance.");
-			sk.getSkill().setLevel(45);
 		skills.add(sk);
 
 		sk = new SkillRune();

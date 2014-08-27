@@ -18,9 +18,25 @@ public class Profile extends RemoteEntity {
 	private Number paragonLevel;
 	private Number paragonLevelHardcore;
 	private String battleTag;
+	private Number paragonLevelSeason;
+	private Number paragonLevelSeasonHardcore;
 	
-	
-	
+	public Number getParagonLevelSeason() {
+		return paragonLevelSeason;
+	}
+
+	public void setParagonLevelSeason(Number paragonLevelSeason) {
+		this.paragonLevelSeason = paragonLevelSeason;
+	}
+
+	public Number getParagonLevelSeasonHardcore() {
+		return paragonLevelSeasonHardcore;
+	}
+
+	public void setParagonLevelSeasonHardcore(Number paragonLevelSeasonHardcore) {
+		this.paragonLevelSeasonHardcore = paragonLevelSeasonHardcore;
+	}
+
 	public Number getParagonLevel() {
 		return paragonLevel;
 	}
