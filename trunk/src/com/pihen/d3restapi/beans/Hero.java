@@ -19,7 +19,7 @@ public class Hero extends RemoteEntity implements Serializable {
 	private Number level;
 	private Long paragonLevel;
 	private boolean hardcore;
-
+    private boolean seasonal;
 	private HeroSkillContainer skills;
 	@SerializedName("items") private Stuff stuff;
 	private FollowersList followers;
@@ -41,6 +41,16 @@ public class Hero extends RemoteEntity implements Serializable {
 	@SerializedName("last-updated")	private Long lastUpdated;
 
 	
+	public boolean getSeasonal() {
+		return seasonal;
+	}
+
+
+	public void setSeasonal(boolean seasonal) {
+		this.seasonal = seasonal;
+	}
+
+
 	public double getClassReduction()
 	{
 		if("demon-hunter".equals(getClazz())) 
