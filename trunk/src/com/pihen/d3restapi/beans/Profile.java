@@ -20,7 +20,36 @@ public class Profile extends RemoteEntity {
 	private String battleTag;
 	private Number paragonLevelSeason;
 	private Number paragonLevelSeasonHardcore;
+	private Number highestDifficulty;
+	private Number highestHardcoreLevel;
+	private Season seasonalProfiles;
 	
+	
+	public Number getHighestDifficulty() {
+		return highestDifficulty;
+	}
+
+	public void setHighestDifficulty(Number highestDifficulty) {
+		this.highestDifficulty = highestDifficulty;
+	}
+
+	public Season getSeasonalProfiles() {
+		return seasonalProfiles;
+	}
+
+	public void setSeasonalProfiles(Season seasonalProfiles) {
+		this.seasonalProfiles = seasonalProfiles;
+	}
+
+	public Number getHighestHardcoreLevel() {
+		return highestHardcoreLevel;
+	}
+
+	public void setHighestHardcoreLevel(Number highestHardcoreLevel) {
+		this.highestHardcoreLevel = highestHardcoreLevel;
+	}
+
+
 	public Number getParagonLevelSeason() {
 		return paragonLevelSeason;
 	}
