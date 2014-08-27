@@ -250,6 +250,7 @@ public class StuffCalculator{
 	
 	public double getToughness()
 	{
+		//1/(1-Armor Reduction%) * 1/(1-AllRes Reduction%) * Life
 		armorReduction=getArmor();
 		resistReduction=getResistanceAverage();
 		//dodgeReduction=getDodge()/100;
@@ -257,7 +258,8 @@ public class StuffCalculator{
 		resistReductionPercent = resistReduction/((5*monsterLevel)+resistReduction);
 		classReduction = hero.getClassReduction();
 		buffReduction = filter("Damage_Percent_Reduction_From_All",null);
-		totalReductionPercent =1-(/*(1-dodgeReduction)* */(1-armorReductionPercent)*(1-resistReductionPercent)*(1-classReduction)*(1-buffReduction));
+		totalReductionPercent =1-((1-armorReductionPercent)*(1-resistReductionPercent)*(1-classReduction)*(1-buffReduction));
+		
 		return (getHealthPool()/(1-totalReductionPercent));
 	
 	}
@@ -281,7 +283,7 @@ public class StuffCalculator{
 		if(elite)
 			elitReduction=filter("Damage_Percent_Reduction_From_Elites",null);
 		
-		return 1-((1-dodgeReduction)*(1-armorReductionPercent)*(1-resistReductionPercent)*(1-classReduction)*(1-buffReduction)*(1-situationalReduction)*(1-elitReduction));
+		return 1-(/*(1-dodgeReduction)**/(1-armorReductionPercent)*(1-resistReductionPercent)*(1-classReduction)*(1-buffReduction)*(1-situationalReduction)*(1-elitReduction));
 		
 	}
 	
@@ -741,13 +743,21 @@ public class StuffCalculator{
 		return total;
 	}
 	
-	public double filter(Item i,String stat,String elementfilter) {
+	public double filter(Item i,String stat,String elementfilter) { // add gems
 		
 		if(i==null)
 			return 0;
 		
 		double total=0.0;
 			Map<String, MinMaxBonus> attributes = i.getAttributesRaw();
+			int ind=0;
+			for(Gem g : i.getGems())
+			{
+				for(String k : g.getAttributesRaw().keySet())
+				{
+					attributes.put(k+"_GEM_"+(ind++), g.getAttributesRaw().get(k));
+				}
+			}	
 				Iterator<String> keyIt = attributes.keySet().iterator();
 				while(keyIt.hasNext())
 				{
