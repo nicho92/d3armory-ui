@@ -93,7 +93,7 @@ public class ItemsDetailModel extends DefaultTableModel {
 				}
 				
 			}
-			if(row==EnumerationStuff.values().length+1)
+			if(row==EnumerationStuff.values().length+1) // POUR LES SET
 			{
 				if(column==0)
 					return "SET BONUS";
@@ -145,11 +145,7 @@ public class ItemsDetailModel extends DefaultTableModel {
 				if(column==2)//stat de base, avec la récuperation des gems.
 				{
 					String statLabel = calc.getHero().getPrimaryStat();
-					double gemstat =0;
-					for(Gem g: i.getGems())
-						gemstat+=calc.filter(g.getAttributesRaw(), statLabel, null);
-					
-					return calc.filter(i, statLabel, null)+gemstat;
+					return calc.filter(i, statLabel, null);
 				}
 				if(column==3)
 				{
@@ -158,9 +154,6 @@ public class ItemsDetailModel extends DefaultTableModel {
 				if(column==4)
 				{
 					double val=StuffCalculator.format(calc.filter(i, "Crit_Damage", null)*100);
-					if(i.isWeapon())
-						if(i.getGems().size()>0)
-							val+=calc.filter(i.getGems().get(0).getAttributesRaw(), "Crit_Damage", null)*100;
 					return val;
 				}	
 				if(column==5)
@@ -178,19 +171,11 @@ public class ItemsDetailModel extends DefaultTableModel {
 				if(column==7)
 				{
 					double val = StuffCalculator.format(calc.filter(i, "Damage_Percent_Bonus_Vs_Elites",null)*100);
-					
-					if( EnumerationStuff.values()[row].equals(EnumerationStuff.MAIN_HAND))
-						if(i.getGems().size()>0)
-							val+=StuffCalculator.format(calc.filter(i.getGems().get(0).getAttributesRaw(), "Damage_Percent_Bonus_Vs_Elites",null)*100);
 					return val;
 				}
 				if(column==8)
 				{
 					double val = StuffCalculator.format(calc.filter(i, "Power_Cooldown_Reduction_Percent_All",null)*100);
-					
-					if( EnumerationStuff.values()[row].equals(EnumerationStuff.HEAD))
-						if(i.getGems().size()>0)
-							val+=StuffCalculator.format(calc.filter(i.getGems().get(0).getAttributesRaw(), "Power_Cooldown_Reduction_Percent_All",null)*100);
 					return val;
 				}
 				if(column==9)

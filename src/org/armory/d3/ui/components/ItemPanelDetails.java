@@ -25,6 +25,7 @@ import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.LegendarySet;
 import com.pihen.d3restapi.beans.Ranks;
 import com.pihen.d3restapi.service.util.StuffCalculator;
+import java.awt.Component;
 
 
 public class ItemPanelDetails extends JPanel {
@@ -297,8 +298,13 @@ public class ItemPanelDetails extends JPanel {
 				else
 				{
 					lblSock1.setForeground(new Color(223,116,1));
-					lblSock1.setSize(350, 40);
-					lblSock1.setText("<html>"+item.getGems().get(0).getItem().getName()+":<br/>"  + item.getGems().get(0).getAttributes().getPassive().get(0).getText()+"</html>");
+					lblSock1.setSize(450, 80);
+					String val = "<html><b>"+item.getGems().get(0).getItem().getName()+"</b>:<br/>";
+					
+					for( DisplayableItemAttributs s : item.getGems().get(0).getAttributes().getPassive())
+							val+="* "+s.getText()+"<br>";
+						
+					lblSock1.setText(val+"</html>");
 				}
 			}
 			else
@@ -495,6 +501,7 @@ public class ItemPanelDetails extends JPanel {
 		if(lblSock1==null) 
 		{
 			lblSock1 = new SocketLabel(JLabel.LEFT);
+		//	lblSock1.setAlignmentX(Component.CENTER_ALIGNMENT);
 			lblSock1.setBounds(12, 380, 300, 30);
 			lblSock1.setForeground(Color.white);
 		}
