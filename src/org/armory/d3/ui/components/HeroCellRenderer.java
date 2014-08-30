@@ -30,13 +30,22 @@ public class HeroCellRenderer implements ListCellRenderer
 					Image dead =new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/dead.png")).getImage();
 					g.drawImage(dead, getWidth()-60, 5, null);
 				}
+				if(hero.getSeasonal())
+				{
+					Image season=new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/season.png")).getImage();
+					g.drawImage(season, getWidth()-25, 15, null);
+					
+				}
+				
 			}
 		};
 		
 		String levels = hero.getLevel() +" ";
-				if(hero.getParagonLevel()>0)
+		
+		if(hero.getSeasonal()==false)
+		{		if(hero.getParagonLevel()>0)
 					levels=levels+ "<font color='#A591C2'>(" + hero.getParagonLevel()+")</font>";
-					
+		}
 		lab.setText("<html>"+ hero.getName() + " " + levels);
 		lab.setOpaque(true);
 		lab.setBackground(Color.black);
