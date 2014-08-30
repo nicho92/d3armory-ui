@@ -642,8 +642,9 @@ public class StuffCalculator{
 	   Map<EnumerationStuff,Item> stuffs2 = new HashMap<EnumerationStuff,Item>();
 								   stuffs2.putAll(getStuffs());
 								   stuffs2.put(g, i);
+	
 								   
-	   if(i.isWeapon())
+		if(i.isWeapon())
 		   if(i.getType().getTwoHanded())
 			   if(stuffs2.get(EnumerationStuff.OFF_HAND)!=null)
 				   if(stuffs2.get(EnumerationStuff.OFF_HAND).isWeapon())
@@ -651,7 +652,7 @@ public class StuffCalculator{
 				
 		StuffCalculator calc2=new StuffCalculator(stuffs2, hero);
 						calc2.calculate();
-						
+		
 		return calc2;
 	}
 	
@@ -750,14 +751,6 @@ public class StuffCalculator{
 		
 		double total=0.0;
 			Map<String, MinMaxBonus> attributes = i.getAttributesRaw();
-			int ind=0;
-			for(Gem g : i.getGems())
-			{
-				for(String k : g.getAttributesRaw().keySet())
-				{
-					attributes.put(k+"_GEM_"+(ind++), g.getAttributesRaw().get(k));
-				}
-			}	
 				Iterator<String> keyIt = attributes.keySet().iterator();
 				while(keyIt.hasNext())
 				{
@@ -805,6 +798,30 @@ public class StuffCalculator{
 		}
 		
 		return total;	
+	}
+	
+
+	public double getGemValue(Item i,String stat) { // add gems
+		
+		if(i==null)
+			return 0;
+		
+		if(i.getGems().size()==0)
+			return 0;
+		
+			double total=0.0;
+			for(Gem g : i.getGems())
+			{
+				for(String k : g.getAttributesRaw().keySet())
+				{
+					if(k.startsWith(stat)||stat.equals(""))
+					{
+						total+=g.getAttributesRaw().get(k).getMoyenne();
+					}
+					
+				}
+			}	
+		return total;
 	}
 
 	}
