@@ -165,7 +165,7 @@ public class ItemPanelDetails extends JPanel {
 					
 			
 			getLblDetailWeapon().init();
-			getLblDetailWeapon().addText(new DecimalFormat("#0").format(mindmg)+" - "+new DecimalFormat("#0").format(maxdmg)+" points de degats<br/> "+new DecimalFormat("#0.00").format(item.getAttacksPerSecond().getMoyenne())+" vitesse d'attaque","gray","white");
+			getLblDetailWeapon().addText(new DecimalFormat("#0").format(mindmg)+" - "+new DecimalFormat("#0").format(maxdmg)+" points de degats<br/> "+new DecimalFormat("#0.00").format(item.getRealAttacksPerSecond().getMoyenne())+" vitesse d'attaque","gray","white");
 			getLblDetailWeapon().applyText();
 		}
 //		else
@@ -281,8 +281,8 @@ public class ItemPanelDetails extends JPanel {
 		if(item.nbSockets()>0)
 		{
 			lblSock1.setVisible(true);
-			
 			lblSock1.setItem(item,0);
+			
 			if(item.getGems().size()>0)
 			{
 				
@@ -299,7 +299,7 @@ public class ItemPanelDetails extends JPanel {
 				{
 					lblSock1.setForeground(new Color(223,116,1));
 					lblSock1.setSize(450, 80);
-					String val = "<html><b>"+item.getGems().get(0).getItem().getName()+"</b>:<br/>";
+					String val = "<html><b>"+item.getGems().get(0).getItem().getName()+"</b> ("+item.getGems().get(0).getJewelRank()+"):<br/>";
 					
 					for( DisplayableItemAttributs s : item.getGems().get(0).getAttributes().getPassive())
 							val+="* "+s.getText()+"<br>";

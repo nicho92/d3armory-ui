@@ -112,8 +112,8 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 						asRubySocket=true;
 		
 		
-		if(getAttributesRaw().get("Damage_Weapon_Percent_Bonus#Physical")!=null)
-			multiplicateur=multiplicateur+getAttributesRaw().get("Damage_Weapon_Percent_Bonus#Physical").getMoyenne();
+		if(getAttributesRaw().get("Damage_Weapon_Percent_All")!=null)
+			multiplicateur=multiplicateur+getAttributesRaw().get("Damage_Weapon_Percent_All").getMoyenne();
 		
 		if(asRubySocket)
 			mindmg=getGems().get(0).getAttributesRaw().get("Damage_Weapon_Bonus_Flat#Physical").getMoyenne();
@@ -152,8 +152,8 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		double maxdmg=0;
 		String element = getEnchantedWeapon();
 		
-		if(getAttributesRaw().get("Damage_Weapon_Percent_Bonus#Physical")!=null)
-			multiplicateur=multiplicateur+getAttributesRaw().get("Damage_Weapon_Percent_Bonus#Physical").getMoyenne();
+		if(getAttributesRaw().get("Damage_Weapon_Percent_All")!=null)
+			multiplicateur=multiplicateur+getAttributesRaw().get("Damage_Weapon_Percent_All").getMoyenne();
 
 		if(isCross)
 		{
@@ -186,10 +186,10 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	
 	
 	public int nbSockets(){
-		if(attributesRaw.get("Sockets")==null)
+		if(gems==null)
 			return 0;
 		else
-			return attributesRaw.get("Sockets").getMax().intValue();
+			return gems.size();
 	}
 	
 	public boolean equals(Object item) {
@@ -270,6 +270,10 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 
 	public MinMaxBonus getAttacksPerSecond() {
 		return attacksPerSecond;
+	}
+	
+	public MinMaxBonus getRealAttacksPerSecond() {
+		return getAttributesRaw().get("Attacks_Per_Second_Item");
 	}
 
 	public void setAttacksPerSecond(MinMaxBonus attacksPerSecond) {

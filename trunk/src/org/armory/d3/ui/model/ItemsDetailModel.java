@@ -145,15 +145,15 @@ public class ItemsDetailModel extends DefaultTableModel {
 				if(column==2)//stat de base, avec la récuperation des gems.
 				{
 					String statLabel = calc.getHero().getPrimaryStat();
-					return calc.filter(i, statLabel, null);
+					return calc.filter(i, statLabel, null) + calc.getGemValue(i, statLabel);
 				}
 				if(column==3)
 				{
-					return StuffCalculator.format(calc.filter(i, "Crit_Percent", null)*100);
+					return StuffCalculator.format((calc.filter(i, "Crit_Percent", null)+ calc.getGemValue(i, "Crit_Percent"))*100);
 				}
 				if(column==4)
 				{
-					double val=StuffCalculator.format(calc.filter(i, "Crit_Damage", null)*100);
+					double val=StuffCalculator.format((calc.filter(i, "Crit_Damage", null)+ calc.getGemValue(i, "Crit_Damage"))*100);
 					return val;
 				}	
 				if(column==5)
@@ -166,21 +166,21 @@ public class ItemsDetailModel extends DefaultTableModel {
 				}
 				if(column==6)
 				{
-					return StuffCalculator.format(calc.filter(i, "Vitality", null));
+					return StuffCalculator.format(calc.filter(i, "Vitality", null)+ calc.getGemValue(i, "Vitality"));
 				}
 				if(column==7)
 				{
-					double val = StuffCalculator.format(calc.filter(i, "Damage_Percent_Bonus_Vs_Elites",null)*100);
+					double val = StuffCalculator.format((calc.filter(i, "Damage_Percent_Bonus_Vs_Elites",null)+ calc.getGemValue(i, "Damage_Percent_Bonus_Vs_Elites"))*100);
 					return val;
 				}
 				if(column==8)
 				{
-					double val = StuffCalculator.format(calc.filter(i, "Power_Cooldown_Reduction_Percent_All",null)*100);
+					double val = StuffCalculator.format((calc.filter(i, "Power_Cooldown_Reduction_Percent_All",null)+ calc.getGemValue(i, "Power_Cooldown_Reduction_Percent_All"))*100);
 					return val;
 				}
 				if(column==9)
 				{
-					return StuffCalculator.format(calc.filter(i,"Damage_Dealt_Percent_Bonus", calc.getElementalOrientation().toString())*100);
+					return StuffCalculator.format((calc.filter(i,"Damage_Dealt_Percent_Bonus", calc.getElementalOrientation().toString())+ calc.getGemValue(i, "Damage_Dealt_Percent_Bonus"))*100);
 				}
 
 			}

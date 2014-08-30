@@ -7,6 +7,7 @@ import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.service.configuration.Configuration;
 import com.pihen.d3restapi.service.remote.RemoteService;
 import com.pihen.d3restapi.service.remote.SpringRemoteService;
+import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.StuffCalculator;
 import com.pihen.d3restapi.service.util.StuffCalculator.KEY;
 
@@ -26,7 +27,7 @@ public class Main {
 		Profile profile = profileService.receiveEntity(conf);
 		
 		
-		int i=0;
+		int i=2;
 		//for(int i=0;i<8;i++)
 		{
 		Hero hero = profile.getHeroes().get(i);
@@ -37,6 +38,8 @@ public class Main {
 						calc.calculate();
 						
 		System.out.println("HERO : " + hero.getName() + " " + hero.getLevel() + " ("+ hero.getParagonLevel()+")");
+		
+		System.out.println(calc.getStuffs().get(EnumerationStuff.MAIN_HAND).getItemID());		
 		
 //		for(KEY k : calc.getStats().keySet())
 //		{

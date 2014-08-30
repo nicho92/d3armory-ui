@@ -32,7 +32,7 @@ public class RawsAttributeFactory  {
 		itemAttributes.add(new Attributs("Attacks_Per_Second_Item_Percent" ,"Increases Attack Speed by X%"));
 		itemAttributes.add(new Attributs("Crit_Percent_Bonus_Capped" ,"Critical Hit Chance increased by X%"));
 		itemAttributes.add(new Attributs("Crit_Damage_Percent" ,"Critical Hit Damage increased by X%"));
-		itemAttributes.add(new Attributs("Damage_Weapon_Percent_Bonus#Physical" ,"+X% Damage"));
+		itemAttributes.add(new Attributs("Damage_Weapon_Percent_All" ,"+X% Damage"));
 		itemAttributes.add(new Attributs("Damage_Percent_Bonus_Vs_Elites","Increases damage against elites by X%"));
 		itemAttributes.add(new Attributs("Hitpoints_Max_Percent_Bonus_Item","+X% life"));
 		itemAttributes.add(new Attributs("Power_Cooldown_Reduction_Percent_All","Reduce Cooldown of all skills by X%"));
