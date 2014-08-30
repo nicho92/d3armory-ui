@@ -142,18 +142,19 @@ public class ItemPanelDetails extends JPanel {
 		
 		if(item.isArmor())
 		{
-			getLblStatArmorDPS().setText(new DecimalFormat("#0").format(item.getRealArmor().getMoyenne()));
-			getLblTypeItemAD().setText("Armor");
-			getLblDetailWeapon().setText("");
-			
-			
+
+
+            getLblStatArmorDPS().setText(new DecimalFormat("#0").format(item.getRealArmor().getMoyenne()));
+            getLblTypeItemAD().setText("Armor");
+            getLblDetailWeapon().setText("");
+            
+          
 			if(item.isShield())//getType().getId().endsWith("Shield"))
 			{
 				getLblDetailWeapon().init();
 				getLblDetailWeapon().addText("+"+new DecimalFormat("#0.0").format(item.getRealBlockChance()*100)+" % Chance to Block<br/> "+new DecimalFormat("#0").format(item.getRealBlockMin())+" - "+new DecimalFormat("#0").format(item.getRealBlockMax())+" Block Amount","gray","white");
 				getLblDetailWeapon().applyText();
 			}
-			
 		}
 		else 
 		if(item.isWeapon()){

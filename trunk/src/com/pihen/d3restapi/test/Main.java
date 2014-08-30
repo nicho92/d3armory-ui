@@ -27,7 +27,7 @@ public class Main {
 		Profile profile = profileService.receiveEntity(conf);
 		
 		
-		int i=2;
+		int i=1;
 		//for(int i=0;i<8;i++)
 		{
 		Hero hero = profile.getHeroes().get(i);
@@ -39,7 +39,9 @@ public class Main {
 						
 		System.out.println("HERO : " + hero.getName() + " " + hero.getLevel() + " ("+ hero.getParagonLevel()+")");
 		
-		System.out.println(calc.getStuffs().get(EnumerationStuff.MAIN_HAND).getItemID());		
+		System.out.println(calc.getStuffs().get(EnumerationStuff.OFF_HAND).getItemID());		
+		System.out.println(calc.getStuffs().get(EnumerationStuff.OFF_HAND).isShield());
+		
 		
 //		for(KEY k : calc.getStats().keySet())
 //		{
