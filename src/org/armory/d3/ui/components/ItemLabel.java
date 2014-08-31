@@ -111,8 +111,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 		}
 		return super.getIcon();
 	}
-	
-	
+		
 	public Icon getIcon() {
 		return getIcon(disabled,size);
 	}
@@ -174,6 +173,12 @@ public class ItemLabel extends JLabel implements MouseListener {
 					{
 			    		Image i = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/bg-transmog.gif")).getImage();
 			    		g2d.drawImage(i, this.getWidth()-13, 0, null);
+					}
+			    	
+			    	if(item.isSocketAddedByGift())
+					{
+			    		Image i = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/gift.png")).getImage();
+			    		g2d.drawImage(i, this.getWidth()-30, this.getHeight()-30, null);
 					}
 						
 			    	

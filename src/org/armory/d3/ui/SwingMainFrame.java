@@ -39,7 +39,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.event.ChangeEvent;
@@ -50,6 +49,7 @@ import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.components.EHPPanel;
 import org.armory.d3.ui.components.FollowersPanel;
 import org.armory.d3.ui.components.FormatedJLabel;
+import org.armory.d3.ui.components.GemEvolutionChancePanel;
 import org.armory.d3.ui.components.HeroCellRenderer;
 import org.armory.d3.ui.components.HeroPanel;
 import org.armory.d3.ui.components.ItemLabel;
@@ -1533,6 +1533,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			ongletPane.addTab("Parangon", null,getPanneauParangon(),null);
 			ongletPane.addTab("Expert", null, getPanneauTableau(), null);
 			ongletPane.addTab("Loot Drop Rate", null, getPanneauLoot(), null);
+			ongletPane.addTab("Legendary Gem Evolution", null, new GemEvolutionChancePanel(), null);
 			
 			
 			ongletPane.addChangeListener(new ChangeListener() {
