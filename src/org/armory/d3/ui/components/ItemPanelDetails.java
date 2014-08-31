@@ -287,7 +287,7 @@ public class ItemPanelDetails extends JPanel {
 			if(item.getGems().size()>0)
 			{
 				
-				if(!item.getGems().get(0).isJewel())
+				if(!item.getGems().get(0).isJewel())//TODO text a faire évoluer pour les gem levelup
 				{
 					lblSock1.setForeground(Color.WHITE);
 					lblSock1.setSize(300, 30);
@@ -295,6 +295,9 @@ public class ItemPanelDetails extends JPanel {
 						lblSock1.setText(item.getGems().get(0).getAttributes().getSecondary().get(0).getText());
 					else	
 						lblSock1.setText(item.getGems().get(0).getAttributes().getPrimary().get(0).getText());
+					
+					
+					
 				}
 				else
 				{
@@ -302,11 +305,28 @@ public class ItemPanelDetails extends JPanel {
 					lblSock1.setSize(450, 80);
 					String val = "<html><b>"+item.getGems().get(0).getItem().getName()+"</b> ("+item.getGems().get(0).getJewelRank()+"):<br/>";
 					
-					for( DisplayableItemAttributs s : item.getGems().get(0).getAttributes().getPassive())
-							val+="* "+s.getText()+"<br>";
+					val+="* "+item.getGems().get(0).getAttributes().getPassive().get(0).getText()+"<br>";
+					
+					if(item.getGems().get(0).getJewelRank().intValue()<item.getGems().get(0).getJewelSecondaryEffectUnlockRank().intValue())
+						val+="<font color='red'>* "+item.getGems().get(0).getAttributes().getPassive().get(1).getText()+"</font><br>";
+					else
+						val+="* "+item.getGems().get(0).getAttributes().getPassive().get(1).getText()+"<br>";
+					
+					
+//					for( DisplayableItemAttributs s : item.getGems().get(0).getAttributes().getPassive())
+//					{
+//						
+//						if(item.getGems().get(0).getJewelRank().intValue()<item.getGems().get(0).getJewelSecondaryEffectUnlockRank().intValue())
+//							val+="<font color='red'>* "+s.getText()+"</font><br>";
+//						else
+//							val+="* "+s.getText()+"<br>";
+//					}
 						
 					lblSock1.setText(val+"</html>");
+				
+					
 				}
+				
 			}
 			else
 			{

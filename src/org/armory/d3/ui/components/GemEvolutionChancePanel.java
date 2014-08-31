@@ -6,42 +6,23 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JButton;
-import javax.swing.ListSelectionModel;
 
-import org.armory.d3.ui.model.ItemsDetailModel;
-
-import com.pihen.d3restapi.beans.Item;
+import com.pihen.d3restapi.service.util.LegendaryGemEvolutionChance;
 
 public class GemEvolutionChancePanel extends JPanel {
 	private JTable evolChangeTab;
 	private JTextField txtNiveauGem;
 	private JTextField txtgriftLevel;
 
-	public static int getChance(int lvlRift, int lvlgem)
-	{
-		int result = lvlRift - lvlgem;
-		if (result >= 10) result = 100;
-			else if (result >=  9) result =  90;
-			else if (result >=  8) result =  80;
-			else if (result >=  7) result =  70;
-			else if (result >=  0) result =  60;
-			else if (result >= -1) result =  30;
-			else if (result >= -2) result =  15;
-			else if (result >= -3) result =   8;
-			else if (result >= -4) result =   4;
-			else if (result >= -5) result =   2;
-			else if (result >= -6) result =   1;
-			else result = 0;
-		return result;
-	}
 	
 	public GemEvolutionChancePanel() {
 		setLayout(new BorderLayout(0, 0));
@@ -86,7 +67,7 @@ public class GemEvolutionChancePanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				int lvlRift = Integer.parseInt(txtgriftLevel.getText());
 				int lvlgem = Integer.parseInt(txtNiveauGem.getText());
-				lblResultat.setText("1="+GemEvolutionChancePanel.getChance(lvlRift, lvlgem) +"% 2=" + GemEvolutionChancePanel.getChance(lvlRift-1, lvlgem)+ "% 3="+GemEvolutionChancePanel.getChance(lvlRift-2, lvlgem)+"%");
+				lblResultat.setText("1="+LegendaryGemEvolutionChance.getChance(lvlRift, lvlgem) +"% 2=" + LegendaryGemEvolutionChance.getChance(lvlRift-1, lvlgem)+ "% 3="+LegendaryGemEvolutionChance.getChance(lvlRift-2, lvlgem)+"%");
 			    evolChangeTab.changeSelection(lvlgem, lvlRift, true, false);				
 			}
 		});
@@ -119,7 +100,7 @@ class LegendaryGemChanceModel extends DefaultTableModel
 		tableau = new int[lvlMax][lvlRift];
 			for(int lvlg=0;lvlg<lvlMax;lvlg++)
 				for(int lvlr=1;lvlr<lvlRift;lvlr++)
-					tableau[lvlr][lvlg]=GemEvolutionChancePanel.getChance(lvlr, lvlg);
+					tableau[lvlr][lvlg]=LegendaryGemEvolutionChance.getChance(lvlr, lvlg);
 					
 				
 	}	

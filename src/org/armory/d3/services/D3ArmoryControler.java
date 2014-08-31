@@ -44,6 +44,8 @@ public class D3ArmoryControler {
 	private String local;
 	private Item selectedItem;
 	
+	
+	
 
 	public static D3ArmoryControler getInstance()
 	{
