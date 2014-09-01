@@ -421,7 +421,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	public void chargementHero(){
 		 try {
 			
-			loadItems();
+			initHeroItems();
 			
 			getTableauDescriptionItems().setModel(new ItemsDetailModel());
 			getPanneauEHP().getTable().setModel(new EHPCalculatorModel(D3ArmoryControler.getInstance().getCalculator()));
@@ -637,17 +637,17 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	
 	
-	private void loadItems() throws D3ServerCommunicationException
+	private void initHeroItems() throws D3ServerCommunicationException
 	{
 		D3ArmoryControler.getInstance().setSelectedHero(hero);
 		hero=D3ArmoryControler.getInstance().getHeroDetails(hero);
-		lblNom.setText(hero.getName());
 		
+		lblNom.setText(hero.getName());
 		getPanneauInfoHero().removeAll();
 		lblInformationClasseNiveau.setText(hero.getClazz() +" Level : " + hero.getLevel());
 		lblParangonLevel.setText("("+hero.getParagonLevel()+")");
 		lblParangonLevel.setBounds(749, 20, 51, 16);
-
+		lblParangonLevel.setForeground(new Color(165,145,194));
 		
 		FormatedJLabel lbl1 = new FormatedJLabel();
 		lbl1.addText(getDetailHero(0), "white","#BDA6CD");
