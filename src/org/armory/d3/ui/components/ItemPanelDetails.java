@@ -142,8 +142,7 @@ public class ItemPanelDetails extends JPanel {
 		
 		if(item.isArmor())
 		{
-
-
+			
             getLblStatArmorDPS().setText(new DecimalFormat("#0").format(item.getRealArmor().getMoyenne()));
             getLblTypeItemAD().setText("Armor");
             getLblDetailWeapon().setText("");
@@ -156,8 +155,7 @@ public class ItemPanelDetails extends JPanel {
 				getLblDetailWeapon().applyText();
 			}
 		}
-		else 
-		if(item.isWeapon()){
+		else if(item.isWeapon()){
 			double mindmg=item.getRealMin();
 			double maxdmg=item.getRealMax();
 			
@@ -169,15 +167,15 @@ public class ItemPanelDetails extends JPanel {
 			getLblDetailWeapon().addText(new DecimalFormat("#0").format(mindmg)+" - "+new DecimalFormat("#0").format(maxdmg)+" points de degats<br/> "+new DecimalFormat("#0.00").format(item.getRealAttacksPerSecond().getMoyenne())+" vitesse d'attaque","gray","white");
 			getLblDetailWeapon().applyText();
 		}
-//		else
-//		{
-//			getLblStatArmorDPS().setText("");
-//			getLblTypeItemAD().setText("");
-//			getLblDetailWeapon().setText("");
-//			getLblDetailWeapon().init();
-//			getLblDetailWeapon().addText("", "", "");
-//			getLblDetailWeapon().applyText();
-//		}
+		else
+		{
+			getLblStatArmorDPS().setText("");
+			getLblTypeItemAD().setText("");
+			getLblDetailWeapon().setText("");
+			getLblDetailWeapon().init();
+			getLblDetailWeapon().addText("", "", "");
+			getLblDetailWeapon().applyText();
+		}
 		
 		
 		List<DisplayableItemAttributs> prim = item.getAttributes().getPrimary();
