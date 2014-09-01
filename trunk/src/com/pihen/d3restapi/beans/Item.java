@@ -192,10 +192,13 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	
 	
 	public int nbSockets(){
-		if(gems==null)
+		if(getAttributesRaw().get("Sockets")!=null)
+			return getAttributesRaw().get("Sockets").getMoyenne().intValue();
+		else if(gems==null)
 			return 0;
 		else
 			return gems.size();
+		
 	}
 	
 	public boolean equals(Object item) {
