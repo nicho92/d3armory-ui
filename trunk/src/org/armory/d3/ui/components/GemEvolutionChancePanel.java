@@ -17,12 +17,12 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.pihen.d3restapi.service.util.LegendaryGemEvolutionChance;
+import java.awt.Dimension;
 
 public class GemEvolutionChancePanel extends JPanel {
 	private JTable evolChangeTab;
 	private JTextField txtNiveauGem;
 	private JTextField txtgriftLevel;
-
 	
 	public GemEvolutionChancePanel() {
 		setLayout(new BorderLayout(0, 0));
@@ -62,7 +62,8 @@ public class GemEvolutionChancePanel extends JPanel {
 		evolChangeTab.setColumnSelectionAllowed(true);
 		evolChangeTab.setDefaultRenderer(Object.class, new ColorCellChanceRenderer());
 		panneauScrollTableau.setViewportView(evolChangeTab);
-		
+	
+			
 		btnCalculate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int lvlRift = Integer.parseInt(txtgriftLevel.getText());
