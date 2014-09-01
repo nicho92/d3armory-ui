@@ -49,6 +49,7 @@ import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.components.EHPPanel;
 import org.armory.d3.ui.components.FollowersPanel;
 import org.armory.d3.ui.components.FormatedJLabel;
+import org.armory.d3.ui.components.GemCalculatorPanel;
 import org.armory.d3.ui.components.GemEvolutionChancePanel;
 import org.armory.d3.ui.components.HeroCellRenderer;
 import org.armory.d3.ui.components.HeroPanel;
@@ -373,7 +374,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			listeHeros.setCellRenderer(new HeroCellRenderer());
 			listeHeros.setBackground(Color.BLACK);
 			listeHeros.setSize(130, 812);
-			listeHeros.setPreferredSize(new Dimension(150,812));
+			listeHeros.setPreferredSize(new Dimension(145,812));
 			listeHeros.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent evt) {
 						listeHerosMouseClicked(evt);
@@ -1368,7 +1369,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(panelItemDetails == null) {
 			panelItemDetails = new ItemPanelDetails();
 			panelItemDetails.setLayout(null);
-			panelItemDetails.setPreferredSize(new java.awt.Dimension(0, 0));
+			//panelItemDetails.setPreferredSize(new java.awt.Dimension(0, 0));
 		}
 		return panelItemDetails;
 	}
@@ -1525,15 +1526,16 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(ongletPane == null) {
 			ongletPane = new JTabbedPane();
 			ongletPane.setPreferredSize(new java.awt.Dimension(0, 0));
-			ongletPane.addTab("Blizzard Profil", null, getPanneauInfoHero(), null);
-			ongletPane.addTab("Items", null, getPanneauTableauDescription(), null);
-			ongletPane.addTab("Informations", null,getPanneauDetails(),null);
-			ongletPane.addTab("Detailed EHP", null,getPanneauEHP(),null);
-			ongletPane.addTab("Followers", null, getFollowersPanel(), null);
-			ongletPane.addTab("Parangon", null,getPanneauParangon(),null);
-			ongletPane.addTab("Expert", null, getPanneauTableau(), null);
-			ongletPane.addTab("Loot Drop Rate", null, getPanneauLoot(), null);
-			ongletPane.addTab("Legendary Gem Evolution", null, new GemEvolutionChancePanel(), null);
+			ongletPane.addTab("Blizzard Profil", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/blizz.jpg")), getPanneauInfoHero(), null);
+			ongletPane.addTab("Items", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/item.png")), getPanneauTableauDescription(), null);
+			ongletPane.addTab("Informations", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/stats.gif")),getPanneauDetails(),null);
+			ongletPane.addTab("Detailed EHP", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/stats.gif")),getPanneauEHP(),null);
+			ongletPane.addTab("Followers", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/follower.png")), getFollowersPanel(), null);
+			ongletPane.addTab("Parangon", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/parangon.png")),getPanneauParangon(),null);
+			ongletPane.addTab("Expert", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/expert.png")), getPanneauTableau(), null);
+			ongletPane.addTab("Loot Drop Rate", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/loot.png")), getPanneauLoot(), null);
+			ongletPane.addTab("Legendary Gem Evolution", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/leggem.png")), new GemEvolutionChancePanel(), null);
+			ongletPane.addTab("Gem Calculator", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/gem.png")), new GemCalculatorPanel(), null);
 			
 			
 			ongletPane.addChangeListener(new ChangeListener() {
@@ -1682,7 +1684,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			e.printStackTrace();
 		}
 		SwingUtilities.updateComponentTreeUI(this);
-
 	}
 	
 	private JLabel getLblLastUpdate() {
