@@ -8,7 +8,7 @@ public class GemCalculatorPanel extends JPanel {
 
 	
 	public GemCalculatorPanel() {
-	this.add(new JLabel("Futur version ;)"));
+	this.add(new JLabel("Maybe later ;)"));
 	}
 	
 }
