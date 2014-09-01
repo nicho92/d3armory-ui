@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.swing.table.DefaultTableModel;
 
+import com.pihen.d3restapi.beans.Gem;
 import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.MinMaxBonus;
 
@@ -11,12 +12,29 @@ public class DetailsDPSModel extends DefaultTableModel {
 
 	private Item item ;
 	
+	 
+	 
+	public DetailsDPSModel()
+	{
+		
+	}
+	
 	public Item getItem() {
 		return item;
 	}
 
 	public void setItem(Item item) {
 		this.item = item;
+
+//		if(item!=null)
+//		{
+//			for(Gem g:item.getGems())
+//				for(String k: g.getAttributesRaw().keySet())
+//					item.getAttributesRaw().put(k+"_GEM_", g.getAttributesRaw().get(k));
+//		}
+			
+		 	
+		
 	}
 
 	
@@ -58,8 +76,8 @@ public class DetailsDPSModel extends DefaultTableModel {
 
 	public Object getValueAt(int row, int column) {
 		
-		 Object[] entries=item.getAttributesRaw().entrySet().toArray();
-	        Map.Entry entry=(Map.Entry)entries[row];
+		   Object[] entries=item.getAttributesRaw().entrySet().toArray();
+	       Map.Entry entry=(Map.Entry)entries[row];
 
 	        if (column==0) {
 	            return entry.getKey();
