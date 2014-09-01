@@ -188,14 +188,22 @@ public class ItemPanelDetails extends JPanel {
 			getLblDetailItem().addText("Primaire ","white","white");
 			for(DisplayableItemAttributs i : prim)
 			{
-				getLblDetailItem().addText(i.getText(), i.getColor(), "#BDA6CD");
+				String roll="";
+				if(i.getAffixType().equals("enchant"))
+					roll="*";
+				
+				getLblDetailItem().addText(roll+ " " +i.getText(), i.getColor(), "#BDA6CD");
 			}
 		}
 		if(sec!=null){
 			getLblDetailItem().addText("Secondaire ","white","white");
 			for(DisplayableItemAttributs i : sec)
 			{
-				getLblDetailItem().addText(i.getText(), i.getColor(), "#BDA6CD");
+				String roll="";
+				if(i.getAffixType().equals("enchant"))
+					roll="*";
+				
+				getLblDetailItem().addText(roll +" " +i.getText(), i.getColor(), "#BDA6CD");
 			}
 		}
 		if(pass !=null){
