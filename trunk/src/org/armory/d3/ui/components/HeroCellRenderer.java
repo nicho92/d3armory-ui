@@ -46,6 +46,12 @@ public class HeroCellRenderer implements ListCellRenderer
 		{		if(hero.getParagonLevel()>0)
 					levels=levels+ "<font color='#A591C2'>(" + hero.getParagonLevel()+")</font>";
 		}
+		else
+		{
+			if(hero.getParagonLevel()>0)
+				levels=levels+ "<font color='#A591C2'>(" + hero.getParagonLevel()+")</font>";
+			
+		}
 		lab.setText("<html>"+ hero.getName() + " " + levels);
 		lab.setOpaque(true);
 		lab.setBackground(Color.black);

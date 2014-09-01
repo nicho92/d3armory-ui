@@ -97,7 +97,8 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	
 	public boolean isSocketAddedByGift()
 	{
-		return (getAttributesRaw().get("Sockets")==null && getGems().size()>0);
+			return (getAttributesRaw().get("Sockets")==null && getGems().size()==1);
+		
 	}
 	
 	
@@ -339,7 +340,10 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	}
 
 	public List<Gem> getGems() {
-		return gems;
+		if(gems!=null)
+			return gems;
+		else
+			return new ArrayList<Gem>();
 	}
 
 	public void setGems(List<Gem> gems) {
