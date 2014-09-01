@@ -189,8 +189,9 @@ public class ItemPanelDetails extends JPanel {
 			for(DisplayableItemAttributs i : prim)
 			{
 				String roll="";
-				if(i.getAffixType().equals("enchant"))
-					roll="*";
+				if(i.getAffixType()!=null)
+					if(i.getAffixType().equals("enchant"))
+						roll="*";
 				
 				getLblDetailItem().addText(roll+ " " +i.getText(), i.getColor(), "#BDA6CD");
 			}
