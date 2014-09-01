@@ -13,6 +13,7 @@ import com.pihen.d3restapi.service.annotation.RemoteConfiguration;
 import com.pihen.d3restapi.service.annotation.RemoteData;
 import com.pihen.d3restapi.service.remote.RemoteEntity;
 import com.pihen.d3restapi.service.util.RawsAttributeFactory;
+import com.pihen.d3restapi.service.util.StuffCalculator;
 
 /**
  * Represents a single item, with links to the resources.
