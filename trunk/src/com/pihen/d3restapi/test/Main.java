@@ -17,8 +17,8 @@ public class Main {
 	
 	public static void main(String[] args) throws Exception  {
 		Configuration conf = new Configuration();
-					  conf.setBattleTag("nicho92");
-					  conf.setBattleTagCode(new Long(2603));
+					  conf.setBattleTag("wacha");
+					  conf.setBattleTagCode(new Long(2223));
 					  conf.setHost("eu.battle.net");
 					  conf.setLocal("fr_FR");
 		
@@ -27,7 +27,7 @@ public class Main {
 		Profile profile = profileService.receiveEntity(conf);
 		
 		
-		int i=1;
+		int i=0;
 		//for(int i=0;i<8;i++)
 		{
 		Hero hero = profile.getHeroes().get(i);
@@ -39,8 +39,7 @@ public class Main {
 						
 		System.out.println("HERO : " + hero.getName() + " " + hero.getLevel() + " ("+ hero.getParagonLevel()+")");
 		
-		System.out.println(calc.getStuffs().get(EnumerationStuff.OFF_HAND).getItemID());		
-		System.out.println(calc.getStuffs().get(EnumerationStuff.OFF_HAND).isShield());
+		System.out.println(calc.getStuffs().get(EnumerationStuff.RING_RIGHT).isArmor());		
 		
 		
 //		for(KEY k : calc.getStats().keySet())
