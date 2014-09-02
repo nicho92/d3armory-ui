@@ -93,12 +93,12 @@ public class GemEvolutionChancePanel extends JPanel {
 class LegendaryGemChanceModel extends DefaultTableModel
 {
 	private int lvlMax=51;
-	private int lvlRift=51;
+	private int lvlRift=101;
 	private int[][] tableau;
 	
 	public LegendaryGemChanceModel()
 	{
-		tableau = new int[lvlMax][lvlRift];
+		tableau = new int[lvlRift][lvlMax];
 			for(int lvlg=0;lvlg<lvlMax;lvlg++)
 				for(int lvlr=1;lvlr<lvlRift;lvlr++)
 					tableau[lvlr][lvlg]=LegendaryGemEvolutionChance.getChance(lvlr, lvlg);
