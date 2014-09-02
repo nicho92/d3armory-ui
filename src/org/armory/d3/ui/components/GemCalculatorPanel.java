@@ -3,10 +3,15 @@ package org.armory.d3.ui.components;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+
 import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+
 import javax.swing.JComboBox;
+
+import com.pihen.d3restapi.beans.Gem;
+
 import java.awt.Insets;
 
 public class GemCalculatorPanel extends JPanel {
@@ -29,7 +34,7 @@ public class GemCalculatorPanel extends JPanel {
 	gbc_lblGemeInitial.gridy = 1;
 	this.add(lblGemeInitial, gbc_lblGemeInitial);
 	
-	JComboBox cboFromGem = new JComboBox();
+	JComboBox cboFromGem = new JComboBox(Gem.QUALITIES());
 	GridBagConstraints gbc_cboFromGem = new GridBagConstraints();
 	gbc_cboFromGem.insets = new Insets(0, 0, 5, 0);
 	gbc_cboFromGem.fill = GridBagConstraints.HORIZONTAL;
@@ -45,7 +50,8 @@ public class GemCalculatorPanel extends JPanel {
 	gbc_lblNewLabel.gridy = 2;
 	add(lblNewLabel, gbc_lblNewLabel);
 	
-	JComboBox cboToGem = new JComboBox();
+	JComboBox cboToGem = new JComboBox(Gem.QUALITIES());
+	cboToGem.setSelectedIndex(Gem.QUALITIES().length-1);
 	GridBagConstraints gbc_cboToGem = new GridBagConstraints();
 	gbc_cboToGem.insets = new Insets(0, 0, 5, 0);
 	gbc_cboToGem.fill = GridBagConstraints.HORIZONTAL;
