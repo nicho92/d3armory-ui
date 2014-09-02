@@ -150,7 +150,7 @@ class ColorCellChanceRenderer extends DefaultTableCellRenderer
         {
         	cell.setBackground(new Color(239,238,238));
         }
-        else
+        else if (column<51)
         {
 	        if(val<=8)
 	        	cell.setBackground(new Color(252,82,82));
@@ -162,6 +162,10 @@ class ColorCellChanceRenderer extends DefaultTableCellRenderer
 	        	cell.setBackground(new Color(123,252,63));
 	        if(val>90)
 	        	cell.setBackground(new Color(22,223,35));
+        }
+        else
+        {
+        	cell.setBackground(Color.GRAY);
         }
          return cell;
     }
