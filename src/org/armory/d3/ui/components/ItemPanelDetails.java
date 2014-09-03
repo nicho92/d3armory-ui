@@ -302,9 +302,6 @@ public class ItemPanelDetails extends JPanel {
 						lblSock1.setText(item.getGems().get(0).getAttributes().getSecondary().get(0).getText());
 					else	
 						lblSock1.setText(item.getGems().get(0).getAttributes().getPrimary().get(0).getText());
-					
-					
-					
 				}
 				else
 				{
@@ -318,20 +315,8 @@ public class ItemPanelDetails extends JPanel {
 						val+="<font color='red'>* "+item.getGems().get(0).getAttributes().getPassive().get(1).getText()+"</font><br>";
 					else
 						val+="* "+item.getGems().get(0).getAttributes().getPassive().get(1).getText()+"<br>";
-					
-					
-//					for( DisplayableItemAttributs s : item.getGems().get(0).getAttributes().getPassive())
-//					{
-//						
-//						if(item.getGems().get(0).getJewelRank().intValue()<item.getGems().get(0).getJewelSecondaryEffectUnlockRank().intValue())
-//							val+="<font color='red'>* "+s.getText()+"</font><br>";
-//						else
-//							val+="* "+s.getText()+"<br>";
-//					}
-						
+
 					lblSock1.setText(val+"</html>");
-				
-					
 				}
 				
 			}
