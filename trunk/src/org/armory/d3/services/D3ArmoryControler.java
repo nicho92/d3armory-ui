@@ -200,10 +200,13 @@ public class D3ArmoryControler {
 		return stuffs;
 	}
 	
-	
-	
-	
 	public List<String> getListTags()
+	{
+		return getListTags(null);
+	}
+	
+	
+	public List<String> getListTags(String region)
 	{
 		//lecture du fichier texte	
 		List<String> liste = new ArrayList<String>();
@@ -213,7 +216,14 @@ public class D3ArmoryControler {
 					BufferedReader br=new BufferedReader(ipsr);
 					String ligne;
 					while ((ligne=br.readLine())!=null){
-						liste.add(ligne);
+						
+						if(region==null)
+							liste.add(ligne);
+						else
+						{
+							if(ligne.endsWith(region))
+								liste.add(ligne);
+						}
 					}
 					br.close(); 
 				}		
