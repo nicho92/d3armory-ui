@@ -7,7 +7,16 @@ import com.google.gson.annotations.SerializedName;
 
 public class Season implements Serializable{
 
-	@SerializedName("0") private SeasonalProfile season0;
+	private SeasonalProfile season0;
+	private SeasonalProfile season1;
+	
+	public SeasonalProfile getSeason1() {
+		return season1;
+	}
+
+	public void setSeason1(SeasonalProfile season1) {
+		this.season1 = season1;
+	}
 
 	public SeasonalProfile getSeason0() {
 		return season0;
