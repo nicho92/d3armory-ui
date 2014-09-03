@@ -933,6 +933,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		{
 			temp.append("DPS : " + hero.getStats().getDamage() +" <br/>");
 			temp.append("Elites Kill : " + hero.getKills().getElites() +" <br/>");
+			temp.append("Saison : " + hero.getSeasonCreated() +" <br/>");
 			
 		}
 		
