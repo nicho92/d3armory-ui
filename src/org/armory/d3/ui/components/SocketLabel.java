@@ -63,12 +63,13 @@ public class SocketLabel extends JLabel {
 				 int x = (this.getWidth() - i.getWidth(null)) / 2;
 				 int y = (this.getHeight() - i.getHeight(null)) / 2;
 				 
+				
 				 if(position==JLabel.LEFT)
 				 {
-					 if(gem.isGem())
-						g2d.drawImage(i, -5, 0, null);//TODO Position du socket
-					 else
-						 g2d.drawImage(i, -5, 24, null);//TODO Position du socket
+						 if(gem.isGem())
+							g2d.drawImage(i, -5, 0, null);//TODO Position du socket
+						 else
+							 g2d.drawImage(i, -5, 24, null);//TODO Position du socket
 				 }
 				 else
 				 {
