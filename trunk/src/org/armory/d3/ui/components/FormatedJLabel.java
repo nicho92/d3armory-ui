@@ -47,6 +47,11 @@ public class FormatedJLabel extends JLabel {
 		setHtmlText(text +" <br/> ",t,numColor);
 	}
 	
+	public String getHtmlText()
+	{
+		return temp.append("</html>").toString();
+	}
+	
 	public void applyText()
 	{
 		temp.append("</HTML>");
