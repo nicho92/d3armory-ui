@@ -43,9 +43,9 @@ public class LocaleManagerFrame extends javax.swing.JFrame {
 			{
 				//TODO code pour la gestion locale
 
-				
-				ComboBoxModel cboListeLocalModel = new DefaultComboBoxModel(SimpleDateFormat.getAvailableLocales());
-				
+				String[] locales = {"EN_us","FR_fr","ES_es","DE_de","IT_it"};
+				//ComboBoxModel cboListeLocalModel = new DefaultComboBoxModel(SimpleDateFormat.getAvailableLocales());
+				ComboBoxModel cboListeLocalModel = new DefaultComboBoxModel(locales);
 								
 				cboListeLocal = new JComboBox();
 				getContentPane().add(cboListeLocal);
