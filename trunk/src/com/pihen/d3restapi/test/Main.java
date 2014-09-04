@@ -38,16 +38,10 @@ public class Main {
 						calc.calculate();
 						
 		System.out.println("HERO : " + hero.getName() + " " + hero.getLevel() + " ("+ hero.getParagonLevel()+")");
-		
-		System.out.println(calc.getStuffs().get(EnumerationStuff.RING_RIGHT).isArmor());		
-		
-		
-//		for(KEY k : calc.getStats().keySet())
-//		{
-//			if(k.equals(KEY.TOUGHNESS))
-//					System.out.println(k + "--> " + calc.getStats().get(k));
-//		}
+		System.out.println(calc.getStuffs().get(EnumerationStuff.RING_RIGHT));		
 		System.out.println("----------------------------------");
+		System.out.println(D3ArmoryControler.getInstance().getListTags("us"));
+		
 		}
 	}
 }

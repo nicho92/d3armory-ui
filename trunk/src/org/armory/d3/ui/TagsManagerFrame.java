@@ -13,8 +13,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 import org.armory.d3.services.D3ArmoryControler;
+import org.armory.d3.ui.components.ListeTagTree;
 import org.jdesktop.application.Application;
 
 
@@ -27,12 +30,12 @@ public class TagsManagerFrame extends javax.swing.JFrame {
 	private JLabel lblbattleTag;
 	private JButton btnSave;
 	private JPanel panneauBas;
-	private DefaultComboBoxModel tagsList;
+	private ListeTagTree tagsList;
 	
-	public TagsManagerFrame(DefaultComboBoxModel listeTagsModel) {
+	public TagsManagerFrame(ListeTagTree listeTagTree) {
 		super();
 		initGUI();
-		tagsList = listeTagsModel;
+		tagsList = listeTagTree;
 	}
 	private void initGUI() {
 		try {
@@ -108,7 +111,14 @@ public class TagsManagerFrame extends javax.swing.JFrame {
 	private void btnSaveActionPerformed(ActionEvent evt)
 	{
 		D3ArmoryControler.getInstance().addTags(txtTag.getText(), cboListServer.getSelectedItem().toString());
-		tagsList.addElement(txtTag.getText()+"#"+cboListServer.getSelectedItem().toString());
+		DefaultMutableTreeNode root = (DefaultMutableTreeNode)((DefaultTreeModel)tagsList.getModel()).getRoot();
+		for(int i=0;i<root.getChildCount();i++)
+		{
+			DefaultMutableTreeNode node = (DefaultMutableTreeNode)((DefaultTreeModel)tagsList.getModel()).getChild(root, i);
+			if(node.toString().equalsIgnoreCase(cboListServer.getSelectedItem().toString()))
+				node.add(new DefaultMutableTreeNode(txtTag.getText()+"#"+cboListServer.getSelectedItem().toString()));
+		}
+		((DefaultTreeModel)tagsList.getModel()).reload();
 		this.dispose();
 	}
 	
