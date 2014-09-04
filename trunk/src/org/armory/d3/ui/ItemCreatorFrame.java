@@ -21,6 +21,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultRowSorter;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -49,8 +50,6 @@ import com.pihen.d3restapi.beans.MinMaxBonus;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.RawsAttributeFactory;
 import com.pihen.d3restapi.service.util.StuffCalculator;
-
-import javax.swing.JCheckBox;
 
 public class ItemCreatorFrame extends javax.swing.JDialog {
 	private JPanel panneauGauche;
