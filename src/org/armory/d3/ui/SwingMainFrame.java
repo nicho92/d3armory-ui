@@ -30,7 +30,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
@@ -43,7 +42,10 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.table.TableRowSorter;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.components.EHPPanel;
@@ -55,6 +57,7 @@ import org.armory.d3.ui.components.HeroCellRenderer;
 import org.armory.d3.ui.components.HeroPanel;
 import org.armory.d3.ui.components.ItemLabel;
 import org.armory.d3.ui.components.ItemPanelDetails;
+import org.armory.d3.ui.components.ListeTagTree;
 import org.armory.d3.ui.components.ParangonPanel;
 import org.armory.d3.ui.components.SkillLabel;
 import org.armory.d3.ui.components.SocketLabel;
@@ -131,7 +134,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private ItemLabel lblParangonLevel;
 	private ItemLabel lblInformationClasseNiveau;
 	private ItemLabel lblNom;
-	private JList<String> listeTags;
 	private JScrollPane scrollTags;
 	private JSplitPane jSplitPane1;
 	private JMenuItem exitMenuItem;
@@ -141,7 +143,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JMenu jMenu3;
 	private JMenuBar jMenuBar1;
 	private ParangonPanel parangonPanel;
-	private DefaultComboBoxModel listeTagsModel;
 	private DefaultRowSorter sorter;
 	private LootHtmlTableModel mod ;
 	private ListeHeroModel listeHerosModel;
@@ -168,6 +169,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private EHPPanel ehpPanel;
 	private JPanel lootPanel;
 	private JTable lootTable;
+	private ListeTagTree tagsTree;
 	
 	public ListeHeroModel getListeHerosModel() {
 		return listeHerosModel;
@@ -940,42 +942,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		return temp.toString();
 	}
 
-	private void listeTagMouseClicked(MouseEvent evt) {
-		if(SwingUtilities.isRightMouseButton(evt))
-		{
-			listeTags.setSelectedIndex(listeTags.locationToIndex(evt.getPoint()));
-			JPopupMenu popupMenu = new JPopupMenu();
-			JMenuItem mnu = new JMenuItem("Delete");
-			mnu.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					D3ArmoryControler.getInstance().removeTags(listeTags.getSelectedIndex());
-					listeTags.removeAll();
-					listeTags.setModel( new DefaultComboBoxModel(D3ArmoryControler.getInstance().getListTags().toArray()));
-				}
-			});
-			popupMenu.add(mnu);
-			popupMenu.show(evt.getComponent(),evt.getX(), evt.getY());
-			return;
-		}
-
-		String selected_row = ((JList) evt.getSource()).getSelectedValue().toString();
-		String[] parser = selected_row.split("#");
-		try {
-			
-			D3ArmoryControler.getInstance().loadLocal();
-			Profile p = D3ArmoryControler.getInstance().getProfil(parser[2]+".battle.net", parser[0], Long.parseLong(parser[1]));
-			
-			getListeHeros().removeAll();
-			for(Hero h : p.getHeroes())
-			{
-				getListeHerosModel().addElement(h);
-			}
-			
-		} catch (D3ServerCommunicationException e) {
-			JOptionPane.showMessageDialog(this, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
-		}
-	}
-	
 	private JLabel getLblLoader()
 	{
 		if(lblLoader==null){
@@ -1314,7 +1280,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	}
 	
 	private void newFileMenuItemActionPerformed(ActionEvent evt) {
-		TagsManagerFrame f = new TagsManagerFrame(listeTagsModel);
+		TagsManagerFrame f = new TagsManagerFrame(getListeTagTree());
 		f.setVisible(true);
 	}
 	
@@ -1322,15 +1288,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		LocaleManagerFrame f = new LocaleManagerFrame();
 		f.setVisible(true);
 	}
-	
-//	protected void newItemCreatorActionPerformed(ActionEvent evt) {
-//		ongletPane.setSelectedComponent(getPanneauDPS());
-//		ItemCreatorFrame f = new ItemCreatorFrame();
-//		f.setVisible(true);
-//		
-//		
-//	}
-	
+
 	private JSplitPane getSplitTagsHeroes() {
 		if(splitTagsHeroes == null) {
 			splitTagsHeroes = new JSplitPane();
@@ -1338,18 +1296,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				scrollTags = new JScrollPane();
 				splitTagsHeroes.add(scrollTags, JSplitPane.LEFT);
 				scrollTags.setSize(250, 788);
-				{
-					listeTagsModel = new DefaultComboBoxModel(D3ArmoryControler.getInstance().getListTags().toArray());
-					listeTags = new JList();
-					scrollTags.setViewportView(listeTags);
-					listeTags.setModel(listeTagsModel);
-					listeTags.addMouseListener(new MouseAdapter() {
-						public void mouseClicked(MouseEvent evt) {
-							listeTagMouseClicked(evt);
-						}
-					});
-					
-				}
+				scrollTags.setViewportView(getListeTagTree());
+				
 			}
 			{
 				scrollHeros = new JScrollPane();
@@ -1366,6 +1314,44 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		return splitTagsHeroes;
 	}
 	
+	private ListeTagTree getListeTagTree() {
+		if(tagsTree ==null)
+			tagsTree =new ListeTagTree();
+			tagsTree.addTreeSelectionListener(new TreeSelectionListener() {
+				
+				@Override
+				public void valueChanged(TreeSelectionEvent e) {
+					 DefaultMutableTreeNode node = (DefaultMutableTreeNode)tagsTree.getLastSelectedPathComponent();
+					 if (node == null)
+						 return;
+					 
+				    if (node.isLeaf()) {
+					    String region = node.getPath()[1].toString();
+					    String selected_row = node.getPath()[2].toString()+"#"+region;
+						String[] parser = selected_row.split("#");
+						try {
+							
+							D3ArmoryControler.getInstance().loadLocal();
+							Profile p = D3ArmoryControler.getInstance().getProfil(parser[2]+".battle.net", parser[0], Long.parseLong(parser[1]));
+							
+							getListeHeros().removeAll();
+							for(Hero h : p.getHeroes())
+							{
+								getListeHerosModel().addElement(h);
+							}
+							
+						} catch (D3ServerCommunicationException ex) {
+							JOptionPane.showMessageDialog(null, ex,"ERREUR",JOptionPane.ERROR_MESSAGE);
+						}
+					    } 
+					 
+				}
+			});
+		
+		return tagsTree;
+	}
+
+
 	public ItemPanelDetails getPanelItemDetails() {
 		if(panelItemDetails == null) {
 			panelItemDetails = new ItemPanelDetails();
@@ -1770,6 +1756,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		}
 		return panneauTableauDescription;
 	}
+	
 	private JTable getTableauDescriptionItems() {
 		if (tableauDescriptionItems == null) {
 			tableauDescriptionItems = new JTable();
