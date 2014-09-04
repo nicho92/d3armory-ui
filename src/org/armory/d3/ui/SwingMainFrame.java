@@ -1338,6 +1338,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 							for(Hero h : p.getHeroes())
 							{
 								getListeHerosModel().addElement(h);
+								listeHeros.revalidate();
 							}
 							
 						} catch (D3ServerCommunicationException ex) {

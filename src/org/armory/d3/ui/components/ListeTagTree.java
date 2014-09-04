@@ -53,7 +53,10 @@ public class ListeTagTree extends JTree {
 				}
 			}
 		));
-		//add(tree);
+		
+		for (int i = 0; i < getRowCount(); i++) {
+	         expandRow(i);
+	}
 		
 	
 	}
