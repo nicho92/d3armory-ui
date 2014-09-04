@@ -373,10 +373,10 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(listeHeros==null)
 		{
 			listeHeros=new JList<Hero>();
+			listeHeros.setValueIsAdjusting(true);
 			listeHeros.setCellRenderer(new HeroCellRenderer());
 			listeHeros.setBackground(Color.BLACK);
-			listeHeros.setSize(130, 812);
-			listeHeros.setPreferredSize(new Dimension(145,812));
+			//listeHeros.setPreferredSize(new Dimension(145,812));
 			listeHeros.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent evt) {
 						listeHerosMouseClicked(evt);
