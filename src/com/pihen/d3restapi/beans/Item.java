@@ -98,7 +98,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	
 	public boolean isSocketAddedByGift()
 	{
-			return (getAttributesRaw().get("Sockets")==null && getGems().size()==1);
+			return (isWeapon() && getAttributes().getPrimary().size()>3);
 		
 	}
 	
@@ -188,7 +188,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	{
 		double mindmg=getRealMin();
 		double maxdmg=getRealMax();
-		return ((mindmg+maxdmg)/2)*getAttacksPerSecond().getMoyenne();
+		return ((mindmg+maxdmg)/2)*getRealAttacksPerSecond();
 	}
 	
 	
@@ -282,8 +282,13 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		return attacksPerSecond;
 	}
 	
-	public MinMaxBonus getRealAttacksPerSecond() {
-		return getAttributesRaw().get("Attacks_Per_Second_Item");
+	public double getRealAttacksPerSecond() {
+		
+		double bonus = 1;
+		if(getAttributesRaw().get("Attacks_Per_Second_Item_Percent")!=null)
+			bonus = 1+getAttributesRaw().get("Attacks_Per_Second_Item_Percent").getMoyenne();
+		
+		return getAttributesRaw().get("Attacks_Per_Second_Item").getMoyenne()*bonus;
 	}
 
 	public void setAttacksPerSecond(MinMaxBonus attacksPerSecond) {
