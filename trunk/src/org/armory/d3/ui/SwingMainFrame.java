@@ -1517,7 +1517,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			ongletPane.addTab("Blizzard Profil", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/blizz.jpg")), getPanneauInfoHero(), null);
 			ongletPane.addTab("Items", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/item.png")), getPanneauTableauDescription(), null);
 			ongletPane.addTab("Informations", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/stats.gif")),getPanneauDetails(),null);
-			ongletPane.addTab("Detailed EHP", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/stats.gif")),getPanneauEHP(),null);
+			ongletPane.addTab("Detailed EHP", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/ehp.png")),getPanneauEHP(),null);
 			ongletPane.addTab("Followers", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/follower.png")), getFollowersPanel(), null);
 			ongletPane.addTab("Parangon", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/parangon.png")),getPanneauParangon(),null);
 			ongletPane.addTab("Expert", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/expert.png")), getPanneauTableau(), null);
