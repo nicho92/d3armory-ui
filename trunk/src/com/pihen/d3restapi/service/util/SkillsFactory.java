@@ -802,7 +802,7 @@ public class SkillsFactory {
 		sk = new SkillRune();
 			sk.setSkill(new Skill());
 			sk.getSkill().setTooltipUrl("skill/determination");
-			sk.getSkill().setName("Determination PTR 2.1");
+			sk.getSkill().setName("Determination");
 			sk.getSkill().setIcon("monk_passive_pacifism");
 			sk.getSkill().setDescription("Your damage is increased by 4% for each enemy within 12 yards of you up to a maximum of 20%");
 			sk.getSkill().setLevel(30);
