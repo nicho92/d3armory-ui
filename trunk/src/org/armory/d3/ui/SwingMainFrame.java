@@ -65,7 +65,7 @@ import org.armory.d3.ui.model.CalculatorModel;
 import org.armory.d3.ui.model.EHPCalculatorModel;
 import org.armory.d3.ui.model.ItemsDetailModel;
 import org.armory.d3.ui.model.ListeHeroModel;
-import org.armory.d3.ui.model.LootHtmlTableModel;
+import org.armory.d3.ui.model.LootXlsTableModel;
 import org.armory.d3.ui.model.TableauExpertModel;
 import org.jdesktop.application.Application;
 
@@ -144,7 +144,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JMenuBar jMenuBar1;
 	private ParangonPanel parangonPanel;
 	private DefaultRowSorter sorter;
-	private LootHtmlTableModel mod ;
+	private LootXlsTableModel mod ;
 	private ListeHeroModel listeHerosModel;
 	private TableauExpertModel tableaudetailModel;
 	private JMenuItem jmiLocal;
@@ -1556,7 +1556,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			BorderLayout panneauTableauLayout = new BorderLayout();
 			lootPanel.setLayout(panneauTableauLayout);
 			lootTable = new JTable();
-			mod = new LootHtmlTableModel();
+			mod = new LootXlsTableModel();
 		
 			lootTable.setModel(mod);
 			
