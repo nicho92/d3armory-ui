@@ -74,6 +74,21 @@ public class D3ArmoryControler {
 		return getProfil(val[2], val[0], Long.parseLong(val[1]));
 	}
 	
+	
+	public Configuration getConfiguration(String host, String tagName,Long tagID)
+	{
+		Configuration conf = new Configuration();
+		  conf.setBattleTag(tagName);
+		  conf.setBattleTagCode(tagID);
+		  conf.setHost(host);
+		  conf.setLocal(local);
+		  if(local==null)
+			  conf.setLocal("en_US");
+		  
+		  return conf;
+	}
+	
+	
 	public Profile getProfil(String host, String tagName,Long tagID) throws D3ServerCommunicationException
 	{
 		  conf = new Configuration();
@@ -84,7 +99,7 @@ public class D3ArmoryControler {
 		  if(local==null)
 			  conf.setLocal("en_US");
 		  profileService = new SpringRemoteService(Profile.class);
-		  profil = profileService.receiveEntity(conf);
+		  Profile profil = profileService.receiveEntity(conf);
 		  return profil;
 	}
 	
@@ -373,6 +388,11 @@ public class D3ArmoryControler {
 	{
 		File f = new File(SERIALISATION_DIR);
 		return f.listFiles();
+	}
+
+	public void setProfile(Profile p) {
+		profil=p;
+		
 	}
 
 	
