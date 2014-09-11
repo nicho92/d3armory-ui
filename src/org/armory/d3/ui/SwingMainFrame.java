@@ -54,6 +54,7 @@ import org.armory.d3.ui.components.FormatedJLabel;
 import org.armory.d3.ui.components.GemCalculatorPanel;
 import org.armory.d3.ui.components.GemEvolutionChancePanel;
 import org.armory.d3.ui.components.HeroCellRenderer;
+import org.armory.d3.ui.components.HeroComparatorPanel;
 import org.armory.d3.ui.components.HeroPanel;
 import org.armory.d3.ui.components.ItemLabel;
 import org.armory.d3.ui.components.ItemPanelDetails;
@@ -401,7 +402,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			    		  lblstatbar.setText("Loading Item"); 
 			    		  chargementHero();
 			    		  lblstatbar.setText("Loading Item OK");
-			    		  Thread.sleep(1000);
 			    		  getLblLoader().setIcon(null);
 			    		  lblstatbar.setText("Initialisation Calculator");
 			    		  panelItemDetails.setCalculator(D3ArmoryControler.getInstance().getCalculator());
@@ -637,8 +637,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		getFollowersPanel().repaint();
 		
 	}
-	
-	
 	
 	private void initHeroItems() throws D3ServerCommunicationException
 	{
@@ -1333,7 +1331,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 							
 							D3ArmoryControler.getInstance().loadLocal();
 							Profile p = D3ArmoryControler.getInstance().getProfil(parser[2]+".battle.net", parser[0], Long.parseLong(parser[1]));
-							
+							D3ArmoryControler.getInstance().setProfile(p);
 							getListeHeros().removeAll();
 							for(Hero h : p.getHeroes())
 							{
@@ -1524,6 +1522,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			ongletPane.addTab("Loot Drop Rate", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/loot.png")), getPanneauLoot(), null);
 			ongletPane.addTab("Legendary Gem Evolution", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/leggem.png")), new GemEvolutionChancePanel(), null);
 			ongletPane.addTab("Gem Calculator", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/gem.png")), new GemCalculatorPanel(), null);
+			ongletPane.addTab("Hero Comparator", new HeroComparatorPanel());
 			
 			
 			ongletPane.addChangeListener(new ChangeListener() {

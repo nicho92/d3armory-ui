@@ -225,7 +225,7 @@ public class Hero extends RemoteEntity implements Serializable {
 	
 	public String toString()
 	{
-		return name;
+		return name + " ("+getClazz()+")";
 	}
 
 

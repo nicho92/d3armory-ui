@@ -10,6 +10,7 @@ import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.service.configuration.Configuration;
 import com.pihen.d3restapi.service.remote.RemoteService;
 import com.pihen.d3restapi.service.remote.SpringRemoteService;
+import com.pihen.d3restapi.service.remote.exception.D3ServerCommunicationException;
 
 public class HeroComparator {
 
@@ -19,42 +20,26 @@ public class HeroComparator {
 		private StuffCalculator calculator1;
 		private StuffCalculator calculator2;
 		
-		
-	
 		public void recalculate()
 		{
 			calculator1.calculate();
 			calculator2.calculate();
 		}
 		
-		public void initComparator(Configuration conf1, Configuration conf2,Hero h1,Hero h2) throws Exception  {
 		
-			RemoteService<Profile> profileService = new SpringRemoteService(Profile.class);
-			RemoteService<Hero> heroService = new SpringRemoteService(Hero.class);
-		
-			Profile profile = profileService.receiveEntity(conf1);
-			Profile profile2 = profileService.receiveEntity(conf2);
-		
-			D3ArmoryControler.getInstance().setConf(conf1);
-			hero1 = D3ArmoryControler.getInstance().getHeroDetails(profile.getHeroes().get(3));
-			Map<EnumerationStuff,Item> map1= D3ArmoryControler.getInstance().initStuffHero(hero1);
+		public void initComparatedHero(D3ArmoryControler arm,Hero two) throws D3ServerCommunicationException
+		{
 			
-			D3ArmoryControler.getInstance().setConf(conf2);
-			hero2 = D3ArmoryControler.getInstance().getHeroDetails(profile2.getHeroes().get(0));
+			hero1 = D3ArmoryControler.getInstance().getHeroDetails(D3ArmoryControler.getInstance().getSelectedHero(false));
+			hero2 = arm.getHeroDetails(two);
+			
+			Map<EnumerationStuff,Item> map1=D3ArmoryControler.getInstance().initStuffHero(hero1);
 			Map<EnumerationStuff,Item> map2=D3ArmoryControler.getInstance().initStuffHero(hero2);
 			
 			calculator1 = new StuffCalculator(map1, hero1);
 			calculator2 = new StuffCalculator(map2, hero2);
-			
-			D3ArmoryControler.getInstance().setConf(conf1);
-			
-			recalculate();
-			
+		}
 		
-	}
-
-
-
 		public Hero getHero1() {
 			return hero1;
 		}
@@ -99,6 +84,12 @@ public class HeroComparator {
 
 		public void setCalculator2(StuffCalculator calculator2) {
 			this.calculator2 = calculator2;
+		}
+
+
+		public void initComparator(Configuration conf, Configuration conf2) {
+			// TODO Auto-generated method stub
+			
 		}
 
 
