@@ -24,7 +24,6 @@ public class StuffComparCellRenderer extends JLabel implements TableCellRenderer
 	
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
     {
-		
 		this.setForeground(Color.WHITE);
 		this.setText(String.valueOf(value));
 		
@@ -44,9 +43,13 @@ public class StuffComparCellRenderer extends JLabel implements TableCellRenderer
 			if(table.getValueAt(row, column).toString().startsWith("+")){
 		        this.setForeground(Color.GREEN);
 	        } 
-	        
+			else
 	        if(table.getValueAt(row, column).toString().startsWith("-")){
 	        	 this.setForeground(Color.RED);
+	        }
+	        else
+	        {
+	        	this.setForeground(Color.white);
 	        }
 		}
         return this;
