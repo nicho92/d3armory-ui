@@ -1,15 +1,18 @@
 package org.armory.d3.ui.components;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultRowSorter;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import org.armory.d3.services.D3ArmoryControler;
 
@@ -58,8 +61,11 @@ public class HeroComparatorPanel extends JPanel {
 					c = new D3ArmoryControler();
 					c.setConf(conf);
 					Profile p = c.getProfil(tag[2]+".battle.net", tag[0], Long.parseLong(tag[1]));
+					cboListHero.removeAll();
 					for(Hero h : p.getHeroes())
+					{
 						cboListHero.addItem(h);
+					}
 					
 					
 				} catch (Exception e) {
@@ -81,7 +87,10 @@ public class HeroComparatorPanel extends JPanel {
 					
 					tableStatComparator.setModel(new StatComparatorModel(comparator.getCalculator1(), comparator.getCalculator2()));
 					tableStatComparator.setDefaultRenderer(Object.class, new StuffComparCellRenderer());
-					
+					tableStatComparator.setBackground(Color.BLACK);
+					DefaultRowSorter sorter = new TableRowSorter(tableStatComparator.getModel());
+					sorter.toggleSortOrder(0);
+					tableStatComparator.setRowSorter(sorter);
 					
 				} catch (Exception e1) {
 					e1.printStackTrace();
@@ -137,14 +146,15 @@ class StatComparatorModel extends DefaultTableModel
 		if(column==3)
 		{
 			double vala = one.getStats().get(StuffCalculator.KEY.values()[row]);
-			double valb=two.getStats().get(StuffCalculator.KEY.values()[row]);
+			double valb= two.getStats().get(StuffCalculator.KEY.values()[row]);
 			
-			if((Double)getValueAt(row, 2)>(Double)getValueAt(row, 1))
+			if((Double)getValueAt(row, 1)>(Double)getValueAt(row, 2))
 				return "+"+StuffCalculator.format(valb-vala)+ " ("+StuffCalculator.format(((valb - vala) / valb ) * 100)+"%)";
-			
-			if((Double)getValueAt(row, 2)<(Double)getValueAt(row, 1))
+			else
+			if((Double)getValueAt(row, 1)<(Double)getValueAt(row, 2))
 				return "-"+StuffCalculator.format(valb-vala)+ " ("+StuffCalculator.format(((valb - vala) / valb ) * 100)+"%)";
-		
+			else
+				return "0";
 		}
 		
 		

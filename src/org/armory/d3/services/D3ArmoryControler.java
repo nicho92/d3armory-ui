@@ -231,13 +231,14 @@ public class D3ArmoryControler {
 					BufferedReader br=new BufferedReader(ipsr);
 					String ligne;
 					while ((ligne=br.readLine())!=null){
-						
-						if(region==null)
-							liste.add(ligne);
-						else
-						{
-							if(ligne.endsWith(region))
+						if(ligne!=null)
+						{	if(region==null)
 								liste.add(ligne);
+							else
+							{
+								if(ligne.endsWith(region))
+									liste.add(ligne);
+							}
 						}
 					}
 					br.close(); 
