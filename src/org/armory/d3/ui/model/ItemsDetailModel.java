@@ -14,6 +14,16 @@ public class ItemsDetailModel extends DefaultTableModel {
 
 	StuffCalculator calc;
 
+	public StuffCalculator getCalc() {
+		return calc;
+	}
+
+
+	public void setCalc(StuffCalculator calc) {
+		this.calc = calc;
+	}
+
+
 	public ItemsDetailModel() {
 		calc=D3ArmoryControler.getInstance().getCalculator();
 	}
@@ -97,7 +107,6 @@ public class ItemsDetailModel extends DefaultTableModel {
 			{
 				if(column==0)
 					return "SET BONUS";
-				
 				
 				if(column==2)
 					return calc.filter(calc.getHero().getPrimaryStat(), "SET");
