@@ -1512,6 +1512,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(ongletPane == null) {
 			ongletPane = new JTabbedPane();
 			ongletPane.setPreferredSize(new java.awt.Dimension(0, 0));
+		
 			ongletPane.addTab("Blizzard Profil", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/blizz.jpg")), getPanneauInfoHero(), null);
 			ongletPane.addTab("Items", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/item.png")), getPanneauTableauDescription(), null);
 			ongletPane.addTab("Informations", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/stats.gif")),getPanneauDetails(),null);
@@ -1524,9 +1525,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			ongletPane.addTab("Gem Calculator", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/gem.png")), new GemCalculatorPanel(), null);
 			ongletPane.addTab("Hero Comparator", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/herocomp.png")), new HeroComparatorPanel(),null);
 			
-			
 			ongletPane.addChangeListener(new ChangeListener() {
-				
 				public void stateChanged(ChangeEvent e) {//on charge les followers lors du clique sur l'onglet
 					
 					JTabbedPane sourceTabbedPane = (JTabbedPane) e.getSource();

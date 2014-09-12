@@ -15,21 +15,27 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 import org.armory.d3.services.D3ArmoryControler;
+import org.armory.d3.ui.model.ItemsDetailModel;
 
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.service.configuration.Configuration;
+import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.HeroComparator;
 import com.pihen.d3restapi.service.util.StuffCalculator;
 
+import javax.swing.JLabel;
+import javax.swing.JSplitPane;
+
 public class HeroComparatorPanel extends JPanel {
 	private JTable tableStatComparator;
-	private JTable tableStuffComparator;
+	private JTable tableStuffComparator1;
 
 	
 	private Configuration conf;
 	private HeroComparator comparator;
 	D3ArmoryControler c;
+	private JTable tableStuffComparator2;
 	
 	public HeroComparatorPanel() {
 		setLayout(new BorderLayout(0, 0));
@@ -43,11 +49,25 @@ public class HeroComparatorPanel extends JPanel {
 		tableStatComparator = new JTable();
 		scrollPane.setViewportView(tableStatComparator);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		tabbedPane.addTab("Stuff Comparator", null, scrollPane_1, null);
-		tableStuffComparator = new JTable();
-		scrollPane_1.setViewportView(tableStuffComparator);
+		JSplitPane splitPane = new JSplitPane();
 		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		tableStuffComparator1 = new JTable();
+		tableStuffComparator1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		scrollPane_1.setViewportView(tableStuffComparator1);
+
+		JScrollPane scrollPane_2 = new JScrollPane();
+			tableStuffComparator2 = new JTable();
+			tableStuffComparator2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		scrollPane_2.setViewportView(tableStuffComparator2);
+		
+		splitPane.setLeftComponent(scrollPane_2);
+		splitPane.setRightComponent(scrollPane_1);
+		
+		
+		tabbedPane.addTab("Stuff Comparator", null, splitPane, null);
+		
+	
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.NORTH);
 		
@@ -92,17 +112,43 @@ public class HeroComparatorPanel extends JPanel {
 					sorter.toggleSortOrder(0);
 					tableStatComparator.setRowSorter(sorter);
 					
+					
+					//tableStuffComparator.setModel(new ItemComparatorModel(comparator.getCalculator1(), comparator.getCalculator2()));
+					ItemsDetailModel mod1 = new ItemsDetailModel();
+					mod1.setCalc(comparator.getCalculator1());
+							tableStuffComparator1.setModel(mod1);
+							tableStuffComparator1.setBackground(Color.BLACK);
+							tableStuffComparator1.setForeground(Color.WHITE);
+							DefaultRowSorter sorter2 = new TableRowSorter(tableStuffComparator1.getModel());
+							sorter2.toggleSortOrder(0);
+							tableStuffComparator1.setRowSorter(sorter2);
+					
+					
+					ItemsDetailModel mod2 = new ItemsDetailModel();
+					mod1.setCalc(comparator.getCalculator2());
+					tableStuffComparator2.setModel(mod2);
+					tableStuffComparator2.setBackground(Color.BLACK);
+					tableStuffComparator2.setForeground(Color.WHITE);
+					
+					DefaultRowSorter sorter3 = new TableRowSorter(tableStuffComparator2.getModel());
+					sorter3.toggleSortOrder(0);
+					tableStuffComparator2.setRowSorter(sorter3);
+					
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
 			}
 		});
 		
+		JLabel lblCompareWith = new JLabel("Compare with : ");
+		panel.add(lblCompareWith);
+		
 		panel.add(cboListTag);
 		panel.add(cboListHero);
 	}
 
 }
+
 
 
 class StatComparatorModel extends DefaultTableModel
