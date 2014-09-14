@@ -40,7 +40,7 @@ public class HeroComparatorPanel extends JPanel {
 	public HeroComparatorPanel() {
 		setLayout(new BorderLayout(0, 0));
 		final JComboBox cboListHero = new JComboBox();
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
 		add(tabbedPane, BorderLayout.CENTER);
 		
 		JScrollPane scrollPane = new JScrollPane();
