@@ -197,6 +197,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	    if(!repconf.exists())
 	    {
 	    	repconf.mkdir();
+	    	new File(repconf.getAbsolutePath()+"/builds").mkdir();
 	    	new File(repconf.getAbsolutePath()+"/items").mkdir();
 	    	new File(repconf.getAbsolutePath()+"/heroes").mkdir();
 	    	new File(repconf.getAbsolutePath()+"/local.d3armory").createNewFile();
