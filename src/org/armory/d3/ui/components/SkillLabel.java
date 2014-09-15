@@ -133,6 +133,7 @@ public class SkillLabel extends JLabel implements MouseListener {
 					D3ArmoryControler.getInstance().getCalculator().addBonus(BuffCalculator.getBuff(skill, D3ArmoryControler.getInstance().getCalculator()));
 					D3ArmoryControler.getInstance().getCalculator().calculate();
 					((SwingMainFrame)getTopLevelAncestor()).getTableauDetailsModel().fireTableDataChanged();
+					((SwingMainFrame)getTopLevelAncestor()).getMnuSaveBuild().setEnabled(true);
 					((CalculatorModel)((SwingMainFrame)getTopLevelAncestor()).getTableauDetailsCalc().getModel()).fireTableDataChanged();
 					((EHPCalculatorModel)((SwingMainFrame)getTopLevelAncestor()).getPanneauEHP().getTable().getModel()).fireTableDataChanged();
 				}

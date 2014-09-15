@@ -73,6 +73,7 @@ import org.jdesktop.application.Application;
 import com.pihen.d3restapi.beans.Follower;
 import com.pihen.d3restapi.beans.FollowersList;
 import com.pihen.d3restapi.beans.Hero;
+import com.pihen.d3restapi.beans.HeroSkillContainer;
 import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.beans.SkillRune;
@@ -139,6 +140,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JSplitPane jSplitPane1;
 	private JMenuItem exitMenuItem;
 	private JSeparator jSeparator2;
+	private JMenuItem mnuSaveBuild;
 	private JMenuItem newFileMenuItem;
 	private JMenu jmiItemCreator;
 	private JMenu jMenu3;
@@ -262,7 +264,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				{
 					jMenu3 = new JMenu();
 					jMenuBar1.add(jMenu3);
-					jMenu3.setText("Application");
+					jMenu3.setText("File");
 					{
 						newFileMenuItem = new JMenuItem();
 						jMenu3.add(newFileMenuItem);
@@ -297,7 +299,21 @@ public class SwingMainFrame extends javax.swing.JFrame {
 							jmiItemCreator.add(it);
 
 						}
-							
+						mnuSaveBuild=new JMenuItem("Save Build");
+						mnuSaveBuild.setEnabled(false);
+						
+						mnuSaveBuild.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								JOptionPane pane = new JOptionPane();
+								String name = pane.showInputDialog("Build name ?");
+								HeroSkillContainer hsc = D3ArmoryControler.getInstance().getSelectedHero(false).getSkills();
+								hsc.setNameBuild(name);
+								D3ArmoryControler.getInstance().saveBuild(hsc);
+								mnuSaveBuild.setEnabled(false);
+						}
+					});
+						
+						jMenu3.add(mnuSaveBuild);	
 						
 					}
 					{
@@ -354,6 +370,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		}
 	}
 	
+	public JMenuItem getMnuSaveBuild() {
+		return mnuSaveBuild;
+	}
+
+
 	public HeroPanel getPanneauDessinHero() {
 		return panneauDessinHero;
 	}
@@ -429,7 +450,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			
 			getTableauDescriptionItems().setModel(new ItemsDetailModel());
 			getPanneauEHP().getTable().setModel(new EHPCalculatorModel(D3ArmoryControler.getInstance().getCalculator()));
-			
+			getMnuSaveBuild().setEnabled(true);
 			
 		} catch (D3ServerCommunicationException e) {
 			e.printStackTrace();
