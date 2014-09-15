@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.pihen.d3restapi.beans.Hero;
+import com.pihen.d3restapi.beans.HeroSkillContainer;
 import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.service.configuration.Configuration;
@@ -33,6 +34,7 @@ public class D3ArmoryControler {
 	private static String LOCALE_FILE=System.getProperty("user.home")+"/d3conf/local.d3armory";
 	private static String SERIALISATION_DIR=System.getProperty("user.home")+"/d3conf/items";
 	private static String SERIALISATION_HERO_DIR=System.getProperty("user.home")+"/d3conf/heroes";
+	private static String SERIALISATION_BUILD_DIR=System.getProperty("user.home")+"/d3conf/builds";
 	
 	
 	private static D3ArmoryControler instance;
@@ -396,5 +398,31 @@ public class D3ArmoryControler {
 		
 	}
 
+	public void saveBuild(HeroSkillContainer i)
+	{
+		try{
+			FileOutputStream fos = new FileOutputStream(SERIALISATION_BUILD_DIR +"/"+i.getNameBuild()+".d3build");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(i);
+			oos.flush();
+			oos.close();
+		}
+		catch (java.io.IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public HeroSkillContainer loadBuild(File f)
+	{
+		try{
+			FileInputStream fos = new FileInputStream(SERIALISATION_BUILD_DIR +"/"+f.getName()+".d3build");
+			ObjectInputStream ois  = new ObjectInputStream(fos);
+			return (HeroSkillContainer)ois.readObject();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	
 }
