@@ -11,6 +11,16 @@ public class HeroSkillContainer implements Serializable {
 	private static final long serialVersionUID = -2283076437248119519L;
 	private List<SkillRune> active;
 	private List<SkillRune> passive;
+	private String nameBuild;//private data for d3armory-ui
+	
+	
+	public String getNameBuild() {
+		return nameBuild;
+	}
+
+	public void setNameBuild(String nameBuild) {
+		this.nameBuild = nameBuild;
+	}
 
 	public List<SkillRune> getActive() {
 		return active;
