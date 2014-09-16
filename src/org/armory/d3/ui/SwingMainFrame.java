@@ -2,6 +2,7 @@ package org.armory.d3.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -14,6 +15,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -363,7 +366,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					jMenu5 = new JMenu("?");
 					jMenuBar1.add(jMenu5);
 					jMenu5.setName("jMenu5");
-					{
 						helpMenuItem = new JMenuItem("About");
 						jMenu5.add(helpMenuItem);
 						
@@ -374,7 +376,22 @@ public class SwingMainFrame extends javax.swing.JFrame {
 									f.setLocationRelativeTo(null);
 							}
 						});
-					}
+						
+						JMenuItem report = new JMenuItem("Report Bug");
+						jMenu5.add(report);
+						report.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								try {
+									Desktop.getDesktop().browse(new URI("https://code.google.com/p/d3armory-ui/issues/list"));
+								} catch (Exception e) {
+									
+									JOptionPane.showMessageDialog(null, e.getMessage(),"Erreur",JOptionPane.ERROR_MESSAGE);
+
+								}
+						}
+					});
+						
+						
 				}
 			}
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
