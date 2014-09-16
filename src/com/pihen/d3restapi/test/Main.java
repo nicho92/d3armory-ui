@@ -1,12 +1,13 @@
 package com.pihen.d3restapi.test;
 
-import java.io.File;
+import java.util.List;
 
 import org.armory.d3.services.D3ArmoryControler;
 
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.HeroSkillContainer;
 import com.pihen.d3restapi.beans.Profile;
+import com.pihen.d3restapi.beans.SkillRune;
 import com.pihen.d3restapi.service.configuration.Configuration;
 import com.pihen.d3restapi.service.remote.RemoteService;
 import com.pihen.d3restapi.service.remote.SpringRemoteService;
@@ -31,8 +32,16 @@ public class Main {
           //Hero hero = profile.getHeroes().get(0);
           
           
-          HeroSkillContainer build = D3ArmoryControler.getInstance().loadBuild(new File("Sentry 2.1"));
-          System.out.println(build.getActive());
+          List<HeroSkillContainer> builds = D3ArmoryControler.getInstance().loadBuilds();
+
+          for(HeroSkillContainer build: builds)
+          { 
+        	  System.out.println("--"+build.getNameBuild() +"-" + build.getClassBuild());
+        	  for(SkillRune r : build.getActive())
+        		  System.out.println(r.getSkill() + " " + r.getRune());
+          }
+          
+
           
 //
 //	Configuration conf2 = new Configuration();

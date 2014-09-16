@@ -197,16 +197,29 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	    File repconf = new File(System.getProperty("user.home")+"/d3conf");
 	    
 	    if(!repconf.exists())
-	    {
 	    	repconf.mkdir();
+	    
+    	if(!new File(repconf.getAbsolutePath()+"/builds").exists())
 	    	new File(repconf.getAbsolutePath()+"/builds").mkdir();
-	    	new File(repconf.getAbsolutePath()+"/items").mkdir();
-	    	new File(repconf.getAbsolutePath()+"/heroes").mkdir();
-	    	new File(repconf.getAbsolutePath()+"/local.d3armory").createNewFile();
-	    	new File(repconf.getAbsolutePath()+"/tags.d3armory").createNewFile();
-	    	D3ArmoryControler.getInstance().setLocal("en_EN");
+
+    	if(!new File(repconf.getAbsolutePath()+"/items").exists())
+    	    new File(repconf.getAbsolutePath()+"/items").mkdir();
+    	
+    	if(!new File(repconf.getAbsolutePath()+"/heroes").exists())	
+    		new File(repconf.getAbsolutePath()+"/heroes").mkdir();
+    	
+    	if(!new File(repconf.getAbsolutePath()+"/local.d3armory").exists())
+    	{
+    		new File(repconf.getAbsolutePath()+"/local.d3armory").createNewFile();
+    		D3ArmoryControler.getInstance().setLocal("en_EN");
+    	}
+    	
+    	if(!new File(repconf.getAbsolutePath()+"/tags.d3armory").exists())	
+    		new File(repconf.getAbsolutePath()+"/tags.d3armory").createNewFile();
+	    	
+    	
 	    }
-	    }
+	   
 	    catch(IOException e)
 	    {
 	    
@@ -308,6 +321,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 								String name = pane.showInputDialog("Build name ?");
 								HeroSkillContainer hsc = D3ArmoryControler.getInstance().getSelectedHero(false).getSkills();
 								hsc.setNameBuild(name);
+								hsc.setClassBuild(D3ArmoryControler.getInstance().getSelectedHero(false).getClazz());
 								D3ArmoryControler.getInstance().saveBuild(hsc);
 								mnuSaveBuild.setEnabled(false);
 						}
