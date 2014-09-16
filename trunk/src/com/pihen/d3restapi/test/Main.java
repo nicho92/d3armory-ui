@@ -37,7 +37,7 @@ public class Main {
           for(HeroSkillContainer build: builds)
           { 
         	  System.out.println("--"+build.getNameBuild() +"-" + build.getClassBuild());
-        	  for(SkillRune r : build.getActive())
+        	  for(SkillRune r : build.getPassive())
         		  System.out.println(r.getSkill() + " " + r.getRune());
           }
           
