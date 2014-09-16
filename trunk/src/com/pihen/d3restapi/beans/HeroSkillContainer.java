@@ -12,8 +12,16 @@ public class HeroSkillContainer implements Serializable {
 	private List<SkillRune> active;
 	private List<SkillRune> passive;
 	private String nameBuild;//private data for d3armory-ui
+	private String classBuild;//private data for d3armory-ui
 	
-	
+	public String getClassBuild() {
+		return classBuild;
+	}
+
+	public void setClassBuild(String classBuild) {
+		this.classBuild = classBuild;
+	}
+
 	public String getNameBuild() {
 		return nameBuild;
 	}

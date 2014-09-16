@@ -411,6 +411,7 @@ public class D3ArmoryControler {
 			e.printStackTrace();
 		}
 	}
+	
 	public HeroSkillContainer loadBuild(File f)
 	{
 		try{
@@ -423,6 +424,18 @@ public class D3ArmoryControler {
 			return null;
 		}
 	}
+	
+	public List<HeroSkillContainer> loadBuilds()
+	{
+		File f = new File(SERIALISATION_BUILD_DIR);
+		List<HeroSkillContainer> skills = new ArrayList<HeroSkillContainer>();
+		
+		for (File fb : f.listFiles())
+			skills.add(loadBuild(new File(fb.getAbsolutePath().substring(0, fb.getAbsolutePath().indexOf(".d3build")))));
+		
+			return skills;
+	}
+	
 	
 	
 }
