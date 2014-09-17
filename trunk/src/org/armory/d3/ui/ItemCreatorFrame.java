@@ -394,9 +394,15 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 									}
 									panneauDPS.add(txtAS);
 									txtAS.setPreferredSize(new java.awt.Dimension(47, 23));
-									
 									chk2h = new JCheckBox("2H ?");
+									if(getItem().getType()!=null)
+									{
 									chk2h.setSelected(getItem().getType().getTwoHanded());
+									}
+									else
+									{
+										chk2h.setSelected(false);
+									}
 									chk2h.addActionListener(new ActionListener() {
 										public void actionPerformed(ActionEvent e) {
 											getItem().getType().setTwoHanded(chk2h.isSelected());
