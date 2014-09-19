@@ -290,9 +290,10 @@ public class BuffCalculator {
 		if(a.getSkill().getId().equals("harmony")) //2.1 test
 		{
 			double multi=0.40;
-			
 			for(Item i : sc.getAllItems())
 			{
+				
+				if(i!=null)
 				for(ELEMENTS e : ELEMENTS.values())
 				{
 					String k="Resistance#"+e;
