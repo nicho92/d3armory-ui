@@ -147,13 +147,15 @@ public class ItemPanelDetails extends JPanel {
             getLblTypeItemAD().setText("Armor");
             getLblDetailWeapon().setText("");
             
-          
-			if(item.isShield())//getType().getId().endsWith("Shield"))
-			{
-				getLblDetailWeapon().init();
-				getLblDetailWeapon().addText("+"+new DecimalFormat("#0.0").format(item.getRealBlockChance()*100)+" % Chance to Block<br/> "+new DecimalFormat("#0").format(item.getRealBlockMin())+" - "+new DecimalFormat("#0").format(item.getRealBlockMax())+" Block Amount","gray","white");
-				getLblDetailWeapon().applyText();
-			}
+            
+		}
+		else
+		if(item.isShield())//getType().getId().endsWith("Shield"))
+		{
+			getLblStatArmorDPS().setText(new DecimalFormat("#0").format(item.getRealArmor().getMoyenne()));
+			getLblDetailWeapon().init();
+			getLblDetailWeapon().addText("+"+new DecimalFormat("#0.0").format(item.getRealBlockChance()*100)+" % Chance to Block<br/> "+new DecimalFormat("#0").format(item.getRealBlockMin())+" - "+new DecimalFormat("#0").format(item.getRealBlockMax())+" Block Amount","gray","white");
+			getLblDetailWeapon().applyText();
 		}
 		else if(item.isWeapon()){
 			double mindmg=item.getRealMin();
