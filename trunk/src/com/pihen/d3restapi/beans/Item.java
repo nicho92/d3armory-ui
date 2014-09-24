@@ -98,7 +98,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	
 	public boolean isSocketAddedByGift()
 	{
-			return (isWeapon() && getAttributes().getPrimary().size()>3);
+			return false; //(isWeapon() && getAttributes().getPrimary().size()>4); need precision
 		
 	}
 	
