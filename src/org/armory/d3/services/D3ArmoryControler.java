@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.tree.DefaultMutableTreeNode;
+
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.HeroSkillContainer;
 import com.pihen.d3restapi.beans.Item;
@@ -88,6 +90,25 @@ public class D3ArmoryControler {
 			  conf.setLocal("en_US");
 		  
 		  return conf;
+	}
+	public XP getEndSeasonParangonLevelHC(int i) {
+		XPCalculator xpc = new XPCalculator();
+        
+        long newXP =0;
+        
+        if(profil.getSeasonalProfiles().getSeason1()!=null)
+        {
+        	long xp0 = xpc.getXPByLevel(profil.getParagonLevelHardcore().intValue()).getTotalExp();
+        	long xp1 = 0;
+      
+        	if(profil.getSeasonalProfiles().getSeason1().getParagonLevelHardcore()!=null)
+        		xp1=xpc.getXPByLevel(profil.getSeasonalProfiles().getSeason1().getParagonLevelHardcore().intValue()).getTotalExp();
+        	
+        	newXP = xp0 + xp1;
+        	return xpc.getXPByTotalXP(newXP);
+        }
+        
+        return new XP(profil.getParagonLevelHardcore().intValue(), 0, 0);
 	}
 	
 	public XP getEndSeasonParangonLevelSC(int season)
@@ -457,6 +478,7 @@ public class D3ArmoryControler {
 		
 			return skills;
 	}
+
 	
 
 	
