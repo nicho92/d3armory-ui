@@ -30,15 +30,9 @@ public class Main {
           Profile profile = profileService.receiveEntity(conf);
           
           XPCalculator xpc = new XPCalculator();
+          long newXP = xpc.getXPByLevel(profile.getParagonLevel().intValue()).getTotalExp() + xpc.getXPByLevel(profile.getSeasonalProfiles().getSeason1().getParagonLevel().intValue()).getTotalExp();
           
-          
-          System.out.println("NSAISON: " + xpc.getXPByLevel(profile.getParagonLevel().intValue()));
-          Hero hero = profile.getHeroes().get(6);
-          System.out.println("SAISON: " + xpc.getXPByLevel(hero.getParagonLevel().intValue()));	
-
-          long newXP = xpc.getXPByLevel(profile.getParagonLevel().intValue()).getTotalExp()+ xpc.getXPByLevel(hero.getParagonLevel().intValue()).getTotalExp();
-          System.out.println("NSAISON END:" + xpc.getXPByTotalXP(newXP));
-          	
+          	System.out.println(xpc.getXPByTotalXP(newXP));
     
 //          
 //          List<HeroSkillContainer> builds = D3ArmoryControler.getInstance().loadBuilds();
