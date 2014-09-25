@@ -12,13 +12,13 @@ import com.pihen.d3restapi.beans.XP;
 public class XPCalculator {
 
 	Map<Integer,XP> lvlList ;
-	public static void main(String[] args) {
-		XPCalculator xp = new XPCalculator();
-		System.out.println(xp.getXPByLevel(538).getTotalExp());
-	}
 	
 	public XP getXPByLevel(int level)
 	{
+		
+		if(level<1)
+			return new XP(0, 0, 0);
+		
 		return lvlList.get(level);
 	}
 	
