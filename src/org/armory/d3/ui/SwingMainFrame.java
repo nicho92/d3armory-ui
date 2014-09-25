@@ -3,7 +3,6 @@ package org.armory.d3.ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Desktop;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -16,13 +15,11 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultRowSorter;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -61,6 +58,7 @@ import org.armory.d3.ui.components.HeroComparatorPanel;
 import org.armory.d3.ui.components.HeroPanel;
 import org.armory.d3.ui.components.ItemLabel;
 import org.armory.d3.ui.components.ItemPanelDetails;
+import org.armory.d3.ui.components.LadderPanel;
 import org.armory.d3.ui.components.ListeTagTree;
 import org.armory.d3.ui.components.ParangonPanel;
 import org.armory.d3.ui.components.SkillLabel;
@@ -68,6 +66,7 @@ import org.armory.d3.ui.components.SocketLabel;
 import org.armory.d3.ui.model.CalculatorModel;
 import org.armory.d3.ui.model.EHPCalculatorModel;
 import org.armory.d3.ui.model.ItemsDetailModel;
+import org.armory.d3.ui.model.LadderModel;
 import org.armory.d3.ui.model.ListeHeroModel;
 import org.armory.d3.ui.model.LootXlsTableModel;
 import org.armory.d3.ui.model.TableauExpertModel;
@@ -78,6 +77,7 @@ import com.pihen.d3restapi.beans.FollowersList;
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.HeroSkillContainer;
 import com.pihen.d3restapi.beans.Item;
+import com.pihen.d3restapi.beans.Ladder;
 import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.beans.SkillRune;
 import com.pihen.d3restapi.service.remote.exception.D3ServerCommunicationException;
@@ -176,6 +176,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JPanel lootPanel;
 	private JTable lootTable;
 	private ListeTagTree tagsTree;
+	private LadderPanel ladderPanel;
 	
 	public ListeHeroModel getListeHerosModel() {
 		return listeHerosModel;
@@ -1577,6 +1578,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			ongletPane.addTab("Legendary Gem Evolution", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/leggem.png")), new GemEvolutionChancePanel(), null);
 			ongletPane.addTab("Gem Calculator", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/gem.png")), new GemCalculatorPanel(), null);
 			ongletPane.addTab("Hero Comparator", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/herocomp.png")), new HeroComparatorPanel(),null);
+			ongletPane.addTab("Ladder", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/ranking.png")), getLadderPanel(),null);
 			
 			ongletPane.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent e) {//on charge les followers lors du clique sur l'onglet
@@ -1808,6 +1810,40 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		}
 		return panneauTableauDescription;
 	}
+	
+	private LadderPanel getLadderPanel()
+	{
+		if(ladderPanel==null)
+			ladderPanel=new LadderPanel();
+		
+		
+		ladderPanel.getLadderTable().addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+		        int row = ladderPanel.getLadderTable().rowAtPoint(evt.getPoint());
+		        Ladder i = ((LadderModel)ladderPanel.getLadderTable().getModel()).getLadderAt(row);
+		       String selected_row = i.getProfile();
+				String[] parser = selected_row.split("#");
+				try {
+					
+					D3ArmoryControler.getInstance().loadLocal();
+					Profile p = D3ArmoryControler.getInstance().getProfil(parser[2]+".battle.net", parser[0], Long.parseLong(parser[1]));
+					D3ArmoryControler.getInstance().setProfile(p);
+					getListeHeros().removeAll();
+					for(Hero h : p.getHeroes())
+					{
+						getListeHerosModel().addElement(h);
+						listeHeros.revalidate();
+					}
+					
+				} catch (D3ServerCommunicationException ex) {
+					JOptionPane.showMessageDialog(null, ex,"ERREUR",JOptionPane.ERROR_MESSAGE);
+				}
+			    } 
+		});
+		
+		return ladderPanel;
+	}
+	
 	
 	private JTable getTableauDescriptionItems() {
 		if (tableauDescriptionItems == null) {

@@ -91,6 +91,7 @@ public class D3ArmoryControler {
 		  
 		  return conf;
 	}
+	
 	public XP getEndSeasonParangonLevelHC(int i) {
 		XPCalculator xpc = new XPCalculator();
         
