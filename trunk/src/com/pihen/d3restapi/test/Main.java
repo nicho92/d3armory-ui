@@ -3,6 +3,7 @@ package com.pihen.d3restapi.test;
 import java.util.List;
 
 import org.armory.d3.services.D3ArmoryControler;
+import org.armory.d3.services.XPCalculator;
 
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.HeroSkillContainer;
@@ -28,19 +29,27 @@ public class Main {
           RemoteService<Hero> heroService = new SpringRemoteService(Hero.class);
           Profile profile = profileService.receiveEntity(conf);
           
+          XPCalculator xpc = new XPCalculator();
           
-          //Hero hero = profile.getHeroes().get(0);
           
-          
-          List<HeroSkillContainer> builds = D3ArmoryControler.getInstance().loadBuilds();
+          System.out.println("NSAISON: " + xpc.getXPByLevel(profile.getParagonLevel().intValue()));
+          Hero hero = profile.getHeroes().get(6);
+          System.out.println("SAISON: " + xpc.getXPByLevel(hero.getParagonLevel().intValue()));	
 
-          for(HeroSkillContainer build: builds)
-          { 
-        	  System.out.println("--"+build.getNameBuild() +"-" + build.getClassBuild());
-        	  for(SkillRune r : build.getPassive())
-        		  System.out.println(r.getSkill() + " " + r.getRune());
-          }
-          
+          long newXP = xpc.getXPByLevel(profile.getParagonLevel().intValue()).getTotalExp()+ xpc.getXPByLevel(hero.getParagonLevel().intValue()).getTotalExp();
+          System.out.println("NSAISON END:" + xpc.getXPByTotalXP(newXP));
+          	
+    
+//          
+//          List<HeroSkillContainer> builds = D3ArmoryControler.getInstance().loadBuilds();
+//
+//          for(HeroSkillContainer build: builds)
+//          { 
+//        	  System.out.println("--"+build.getNameBuild() +"-" + build.getClassBuild());
+//        	  for(SkillRune r : build.getPassive())
+//        		  System.out.println(r.getSkill() + " " + r.getRune());
+//          }
+//          
 
           
 //
