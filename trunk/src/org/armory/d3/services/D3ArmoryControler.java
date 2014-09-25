@@ -92,14 +92,23 @@ public class D3ArmoryControler {
 	
 	public XP getEndSeasonParangonLevelSC(int season)
 	{
-		 XPCalculator xpc = new XPCalculator();
-      
-		 System.out.println("SAISON: " + xpc.getXPByLevel(profil.getParagonLevel().intValue()));	
-
-         profil.getSeasonalProfiles().getSeason1().getParagonLevel();
+		XPCalculator xpc = new XPCalculator();
          
-         long newXP = xpc.getXPByLevel(profil.getParagonLevel().intValue()).getTotalExp() + xpc.getXPByLevel(profil.getSeasonalProfiles().getSeason1().getParagonLevel().intValue()).getTotalExp();
-         return xpc.getXPByTotalXP(newXP);
+        long newXP =0;
+        
+        if(profil.getSeasonalProfiles().getSeason1()!=null)
+        {
+        	long xp0 = xpc.getXPByLevel(profil.getParagonLevel().intValue()).getTotalExp();
+        	long xp1 = 0;
+      
+        	if(profil.getSeasonalProfiles().getSeason1().getParagonLevel()!=null)
+        		xp1=xpc.getXPByLevel(profil.getSeasonalProfiles().getSeason1().getParagonLevel().intValue()).getTotalExp();
+        	
+        	newXP = xp0 + xp1;
+        	return xpc.getXPByTotalXP(newXP);
+        }
+        
+        return new XP(profil.getParagonLevel().intValue(), 0, 0);
          	
 	}
 	
