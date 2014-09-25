@@ -11,7 +11,7 @@ import org.jsoup.select.Elements;
 public class GriftLadderSniffer {
 
 	public GriftLadderSniffer() throws IOException {
-		String html = "http://eu.battle.net/d3/fr/rankings/era/1/rift-barbarian";
+		String html = "http://eu.battle.net/d3/fr/rankings/era/1/rift-dh";
 		//http://eu.battle.net/d3/fr/rankings/era/1/rift-crusader
 		
 		
@@ -21,10 +21,10 @@ public class GriftLadderSniffer {
         while(it.hasNext())
         {
         	Element e = it.next();
-        	System.out.println(e.select("td").html());
-        	System.out.println(e.select("td").html());
-        	System.out.println(e.select("td").html());
-        	System.out.println(e.select("td").html());
+	        	System.out.println(e.select("td").html());
+	        	System.out.println(e.select("td").select("strong").select("a").html());
+	        	System.out.println(e.select("td").html());
+	        	System.out.println(e.select("td").html());
         	
 //        	if(!e.html().equals(""))
 //        	{
