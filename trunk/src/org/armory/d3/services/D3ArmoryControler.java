@@ -11,7 +11,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +20,7 @@ import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.HeroSkillContainer;
 import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.Profile;
+import com.pihen.d3restapi.beans.XP;
 import com.pihen.d3restapi.service.configuration.Configuration;
 import com.pihen.d3restapi.service.remote.RemoteService;
 import com.pihen.d3restapi.service.remote.SpringRemoteService;
@@ -88,6 +88,19 @@ public class D3ArmoryControler {
 			  conf.setLocal("en_US");
 		  
 		  return conf;
+	}
+	
+	public XP getEndSeasonParangonLevelSC(int season)
+	{
+		 XPCalculator xpc = new XPCalculator();
+      
+		 System.out.println("SAISON: " + xpc.getXPByLevel(profil.getParagonLevel().intValue()));	
+
+         profil.getSeasonalProfiles().getSeason1().getParagonLevel();
+         
+         long newXP = xpc.getXPByLevel(profil.getParagonLevel().intValue()).getTotalExp() + xpc.getXPByLevel(profil.getSeasonalProfiles().getSeason1().getParagonLevel().intValue()).getTotalExp();
+         return xpc.getXPByTotalXP(newXP);
+         	
 	}
 	
 	
@@ -436,6 +449,7 @@ public class D3ArmoryControler {
 			return skills;
 	}
 	
+
 	
 	
 }
