@@ -32,7 +32,7 @@ public class LadderPanel extends JPanel {
 		panneauHaut.add(cboRegion);
 		
 		final JComboBox cboClazz = new JComboBox();
-		cboClazz.setModel(new DefaultComboBoxModel(new String[] {"dh", "crusader", "barbarian", "wd", "monk", "wizzard"}));
+		cboClazz.setModel(new DefaultComboBoxModel(new String[] {"dh", "crusader", "barbarian", "wd", "monk", "wizard"}));
 		panneauHaut.add(cboClazz);
 		
 		final JCheckBox boxSeason = new JCheckBox("Season ?");
