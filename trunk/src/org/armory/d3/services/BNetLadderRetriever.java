@@ -39,22 +39,27 @@ public class BNetLadderRetriever {
 		if(season)
 			sea="season";
 		
+		if(clazz.equals("2")||clazz.equals("3")||clazz.equals("4"))
+			clazz="team-"+clazz;
+		
 		
 		String html = "http://"+region+".battle.net/d3/en/rankings/"+sea+"/1/rift-"+hc+clazz;
-		
 		Document doc = Jsoup.connect(html).get();
 		Elements tableElements = doc.getElementsByTag("tbody").select("tr");
 		Iterator<Element> it = tableElements.listIterator();
 		ladders = new LinkedHashMap<Integer,Ladder>();
 		int i=0;
+		int rank=1;
         while(it.hasNext() && i<500)
         {
         	Element e = it.next();
-
         	
-        	String rk=e.getElementsByClass("cell-Rank").html().trim();
-	        int rank =Integer.parseInt(rk.substring(0, rk.indexOf(".")));
-	        
+        	String rk=e.getElementsByClass("cell-Rank").text().trim();
+        
+        	if(rk.indexOf(".")!=-1)
+        		rank =Integer.parseInt(rk.substring(0, rk.indexOf(".")));
+        	
+        	
 	        String tag = e.getElementsByClass("cell-BattleTag").first().text().trim();
 	        
 	        String url=e.getElementsByClass("cell-BattleTag").select("a").attr("href");
@@ -62,11 +67,14 @@ public class BNetLadderRetriever {
 	        
 	        int levelRift= Integer.parseInt(e.getElementsByClass("cell-RiftLevel").html().trim());
 	        
-	        String time = e.getElementsByClass("cell-CompletedTime").html().trim();
+	        String time = e.getElementsByClass("cell-RiftTime").html().trim();
+	        
+	        String date = e.getElementsByClass("cell-CompletedTime").html().trim();
 	        	Ladder l = new Ladder();
 	        		l.setLevelRift(levelRift);
 	        		l.setRank(rank);
 	        		l.setTime(time);
+	        		l.setDate(date);
 	        		l.setName(tag);
 	        		l.setProfile(profile.replaceAll("-", "#")+"#"+region);
         	ladders.put(i++, l);
@@ -76,7 +84,7 @@ public class BNetLadderRetriever {
 	
 	public static void main(String[] args) {
 		try {
-			new BNetLadderRetriever("us","crusader",false,true).init();
+			new BNetLadderRetriever("eu","3",false,true).init();
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
