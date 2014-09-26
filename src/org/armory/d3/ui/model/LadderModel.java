@@ -26,7 +26,7 @@ public class LadderModel extends DefaultTableModel
 	
 	@Override
 	public int getColumnCount() {
-		return 4;
+		return 5;
 	}
 	
 	@Override
@@ -36,7 +36,8 @@ public class LadderModel extends DefaultTableModel
 		case 0 : return "Rank";
 		case 1 : return "Tag";
 		case 2 : return "Level";
-		case 4 : return "Time";
+		case 3 : return "Time";
+		case 4 : return "Date";
 		default : return "";
 		}
 	}
@@ -55,6 +56,7 @@ public class LadderModel extends DefaultTableModel
 		case 1 : return bNetLadder.getLadders().get(row).getProfile();
 		case 2 : return bNetLadder.getLadders().get(row).getLevelRift();
 		case 3 : return bNetLadder.getLadders().get(row).getTime();
+		case 4 : return bNetLadder.getLadders().get(row).getDate();
 		default : return "";
 		
 		}
