@@ -6,6 +6,7 @@ public class Ladder {
 		private int levelRift;
 		private String profile;
 		private String time;
+		private String date;
 		private String name;
 		
 		public String getName() {
@@ -39,8 +40,11 @@ public class Ladder {
 			this.time = time;
 		}
 		
-		@Override
-		public String toString() {
-		return getProfile();
+		public void setDate(String date) {
+			this.date=date;
+		}
+		
+		public String getDate() {
+			return date;
 		}
 }
