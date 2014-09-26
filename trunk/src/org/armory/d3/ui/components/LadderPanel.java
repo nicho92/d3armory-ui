@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultRowSorter;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -13,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.TableRowSorter;
 
 import org.armory.d3.services.BNetLadderRetriever;
 import org.armory.d3.ui.model.LadderModel;
@@ -45,8 +47,6 @@ public class LadderPanel extends JPanel {
 		panneauHaut.add(btnGetLadder);
 		JScrollPane pane = new JScrollPane();
 		ladderTable = new JTable();
-		
-		
 		ladderTable.setColumnSelectionAllowed(false);
 		ladderTable.setRowSelectionAllowed(true);
 		
@@ -64,6 +64,12 @@ public class LadderPanel extends JPanel {
 					LadderModel d = new LadderModel(ret);
 					
 					ladderTable.setModel(d);
+					
+					DefaultRowSorter sorter = new TableRowSorter(d);
+					ladderTable.setRowSorter(sorter);
+				
+					
+					
 				} catch (IOException e1) {
 					JOptionPane.showMessageDialog(null, e1,"ERROR",JOptionPane.ERROR_MESSAGE);
 				}
