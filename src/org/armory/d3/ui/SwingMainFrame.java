@@ -1821,7 +1821,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 		        int row = ladderPanel.getLadderTable().rowAtPoint(evt.getPoint());
 		        Ladder i = ((LadderModel)ladderPanel.getLadderTable().getModel()).getLadderAt(row);
-		       String selected_row = i.getProfile();
+		        String selected_row = i.getProfile();
 				String[] parser = selected_row.split("#");
 				try {
 					
