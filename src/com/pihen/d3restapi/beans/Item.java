@@ -469,7 +469,8 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	
 	public boolean isShield()
 	{
-		return blockChance!=null;
+		//return blockChance!=null;
+		return getAttributesRaw().get("Block_Chance_Item")!=null;
 	}
 	
 	public boolean isWeapon() {
