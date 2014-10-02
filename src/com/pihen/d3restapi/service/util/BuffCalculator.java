@@ -267,6 +267,17 @@ public class BuffCalculator {
 		{
 			buffs.put("Damage_Percent_Reduction_From_All"+PREFIX+a, new MinMaxBonus(0.17));
 		}
+		if(a.getSkill().getId().equals("glass-cannon"))
+		{
+			buffs.put("Damage_Weapon_Percent_Bonus#Physical"+PREFIX+a, new MinMaxBonus(0.15));
+			buffs.put("Armor_Item"+PREFIX+a, new MinMaxBonus(1- (sc.getArmor()*0.10)));
+			for(ELEMENTS e: ELEMENTS.values())
+			{
+				if(!e.equals(ELEMENTS.Holy))
+					buffs.put("Resistance#"+e+PREFIX+a,new MinMaxBonus(1- (sc.getResistance(e)*0.10)));
+			}
+			
+		}
 
 		
 		
@@ -307,33 +318,7 @@ public class BuffCalculator {
 			}
 			
 		}
-		
-		
-		if(a.getSkill().getId().equals("one-with-everything"))
-		{
-			double val=0;
-			double max=val;
-			ELEMENTS maxE=null;
-			for(ELEMENTS e:ELEMENTS.values())
-			{	
-				val = sc.getResistance(e);
-				if(val>max)
-				{
-					max=val;
-					maxE=e;
-				}
-			}
 			
-			for(ELEMENTS e:ELEMENTS.values())
-			{	
-				if(e!=maxE)
-					buffs.put("Resistance#"+e+PREFIX+a, new MinMaxBonus(sc.getResistance(maxE)-sc.getResistance(e)));
-			}
-			
-			
-		}
-		
-		
 			
 
 		
@@ -346,7 +331,7 @@ public class BuffCalculator {
 		
 	*/
 		
-	//TODO DemonHunter Skills
+	//TODO DemonHunter / Witch Doctor / monk Skills
 		
 		
 		return buffs;
