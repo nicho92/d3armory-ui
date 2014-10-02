@@ -298,6 +298,7 @@ public class StuffCalculator{
 		
 		for(Item i : stuffs.values())
 		{
+			LegendaryAffixe.applyLegendaryAffixes(i);
 			if(i.isWeapon())
 				countweapon+=1;
 			

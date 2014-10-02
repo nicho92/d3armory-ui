@@ -7,10 +7,15 @@ import java.awt.event.ActionListener;
 
 import javax.swing.DefaultRowSorter;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -119,23 +124,22 @@ public class HeroComparatorPanel extends JPanel {
 							tableStuffComparator1.setModel(mod1);
 							tableStuffComparator1.setBackground(Color.BLACK);
 							tableStuffComparator1.setForeground(Color.WHITE);
-							DefaultRowSorter sorter2 = new TableRowSorter(tableStuffComparator1.getModel());
-							sorter2.toggleSortOrder(0);
-							tableStuffComparator1.setRowSorter(sorter2);
-					
-					
+//							DefaultRowSorter sorter2 = new TableRowSorter(tableStuffComparator1.getModel());
+//							sorter2.toggleSortOrder(0);
+//							tableStuffComparator1.setRowSorter(sorter2);
+
 					ItemsDetailModel mod2 = new ItemsDetailModel();
 					mod1.setCalc(comparator.getCalculator2());
 					tableStuffComparator2.setModel(mod2);
 					tableStuffComparator2.setBackground(Color.BLACK);
 					tableStuffComparator2.setForeground(Color.WHITE);
 					
-					DefaultRowSorter sorter3 = new TableRowSorter(tableStuffComparator2.getModel());
-					sorter3.toggleSortOrder(0);
-					tableStuffComparator2.setRowSorter(sorter3);
+//					//DefaultRowSorter sorter3 = new TableRowSorter(tableStuffComparator2.getModel());
+//					//sorter3.toggleSortOrder(0);
+//					tableStuffComparator2.setRowSorter(sorter2);
 					
 				} catch (Exception e1) {
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, e1,"ERROR",JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

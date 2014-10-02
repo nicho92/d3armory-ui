@@ -17,7 +17,7 @@ public class RSSReader {
      * Parser le fichier XML
      * @param feedurl URL du flux RSS
      */
-    public String parse() {
+    public String updateD3armoryRssParser() {
         try {
         	String feedurl="https://code.google.com/feeds/p/d3armory-ui/svnchanges/basic";
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
