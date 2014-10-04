@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -1649,6 +1650,30 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				
 				
 				lootScrollPanel.setViewportView(lootTable);
+				
+				
+				lootTable.addMouseListener(new java.awt.event.MouseAdapter() {
+				
+					public void mouseClicked(java.awt.event.MouseEvent evt) {
+						 int row = lootTable.rowAtPoint(evt.getPoint());
+						 String id = (String)lootTable.getValueAt(row, 1);
+						 Item i = new Item();
+						 
+						 i.setTooltipParams("item/"+id.replaceAll(" ", "-").replace("'", "").trim().toLowerCase());
+						 i = D3ArmoryControler.getInstance().getItemDetails(i);
+						 ItemLabel lab = new ItemLabel();
+					        lab.setItem(i, null);
+					        getPanelItemDetails().getLblIcon().setIcon(lab.getIcon());
+					        getPanelItemDetails().getLblIcon().repaint();
+						 getPanelItemDetails().showItem(i);
+					}    
+				
+				
+				
+				});
+				
+				
+				
 				return lootPanel;
 			}
 		return lootPanel;
