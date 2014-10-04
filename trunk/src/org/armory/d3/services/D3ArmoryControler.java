@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.JOptionPane;
 
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.HeroSkillContainer;
@@ -196,6 +196,7 @@ public class D3ArmoryControler {
 		try {
 			return itemService.receiveEntity(conf);
 		} catch (D3ServerCommunicationException e) {
+			JOptionPane.showMessageDialog(null, e,"ERROR",JOptionPane.ERROR_MESSAGE);
 			return null;
 		}
 	}

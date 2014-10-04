@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Paint;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Icon;
@@ -19,13 +20,14 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+import com.pihen.d3restapi.beans.Affixes;
+import com.pihen.d3restapi.beans.AffixesContainer;
 import com.pihen.d3restapi.beans.AttributsContainer;
 import com.pihen.d3restapi.beans.DisplayableItemAttributs;
 import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.LegendarySet;
 import com.pihen.d3restapi.beans.Ranks;
 import com.pihen.d3restapi.service.util.StuffCalculator;
-import java.awt.Component;
 
 
 public class ItemPanelDetails extends JPanel {
@@ -112,6 +114,85 @@ public class ItemPanelDetails extends JPanel {
 		try{
 			
 		this.item=item;
+		updateHeader();
+		
+		
+		if(item.getRandomAffixes().size()>0)
+		{
+			AttributsContainer ac = new AttributsContainer();
+			ac.setPassive(item.getAttributes().getPassive());
+			ac.setPrimary(item.getAttributes().getPrimary());
+			ac.setSecondary(item.getAttributes().getSecondary());
+			
+				for(AffixesContainer affxs : item.getRandomAffixes())
+				{
+						ac.getPrimary().addAll(affxs.getOneOf().get(0).getAttributes().getPrimary());
+						ac.getSecondary().addAll(affxs.getOneOf().get(1).getAttributes().getPrimary());
+						//ac.getPassive().addAll(affxs.getOneOf().get(2).getAttributes().getPrimary());
+				}
+				
+				item.setAttributes(ac);
+		}
+			
+			
+			
+			
+		updateItemContent();
+		
+		updateSocketLabel();
+		
+		updateSetPanel();
+	
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		
+	}
+	
+	private void updateItemContent()
+	{
+		List<DisplayableItemAttributs> prim = item.getAttributes().getPrimary();
+		List<DisplayableItemAttributs> sec = item.getAttributes().getSecondary();
+		List<DisplayableItemAttributs> pass = item.getAttributes().getPassive();
+		
+		getLblDetailItem().init();
+		
+		if(prim !=null){
+			getLblDetailItem().addText("Primaire ","white","white");
+			for(DisplayableItemAttributs i : prim)
+			{
+				String roll="";
+				if(i.getAffixType()!=null)
+					if(i.getAffixType().equals("enchant"))
+						roll="*";
+				
+				getLblDetailItem().addText(roll+ " " +i.getText(), i.getColor(), "#BDA6CD");
+			}
+		}
+		if(sec!=null){
+			getLblDetailItem().addText("Secondaire ","white","white");
+			for(DisplayableItemAttributs i : sec)
+			{
+				String roll="";
+				if(i.getAffixType().equals("enchant"))
+					roll="*";
+				
+				getLblDetailItem().addText(roll +" " +i.getText(), i.getColor(), "#BDA6CD");
+			}
+		}
+		if(pass !=null){
+			getLblDetailItem().addText("Passif ","white","white");
+			for(DisplayableItemAttributs i : pass)
+			{
+				getLblDetailItem().addText(i.getText(), i.getColor(), "#BDA6CD");
+			}
+		}
+		getLblDetailItem().applyText();
+	}
+	
+	private void updateHeader()
+	{
 		getLblNomItem().setText(item.getName());
 		getLblNomItem().setForeground(ItemLabel.toColor(item.getDisplayColor()));
 		getLblNomItem().setFont(new Font("Palatino Linotype", Font.BOLD, 18));
@@ -179,57 +260,7 @@ public class ItemPanelDetails extends JPanel {
 			getLblDetailWeapon().applyText();
 		}
 		
-		
-		List<DisplayableItemAttributs> prim = item.getAttributes().getPrimary();
-		List<DisplayableItemAttributs> sec = item.getAttributes().getSecondary();
-		List<DisplayableItemAttributs> pass = item.getAttributes().getPassive();
-		
-		getLblDetailItem().init();
-		
-		if(prim !=null){
-			getLblDetailItem().addText("Primaire ","white","white");
-			for(DisplayableItemAttributs i : prim)
-			{
-				String roll="";
-				if(i.getAffixType()!=null)
-					if(i.getAffixType().equals("enchant"))
-						roll="*";
-				
-				getLblDetailItem().addText(roll+ " " +i.getText(), i.getColor(), "#BDA6CD");
-			}
-		}
-		if(sec!=null){
-			getLblDetailItem().addText("Secondaire ","white","white");
-			for(DisplayableItemAttributs i : sec)
-			{
-				String roll="";
-				if(i.getAffixType().equals("enchant"))
-					roll="*";
-				
-				getLblDetailItem().addText(roll +" " +i.getText(), i.getColor(), "#BDA6CD");
-			}
-		}
-		if(pass !=null){
-			getLblDetailItem().addText("Passif ","white","white");
-			for(DisplayableItemAttributs i : pass)
-			{
-				getLblDetailItem().addText(i.getText(), i.getColor(), "#BDA6CD");
-			}
-		}
-		getLblDetailItem().applyText();
-		
-		updateSocketLabel();
-		
-		updateSetPanel();
-	
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-		
 	}
-	
-	
 	
 	private void updateSetPanel() {
 
@@ -284,8 +315,6 @@ public class ItemPanelDetails extends JPanel {
 		
 		
 	}
-
-
 
 	private void updateSocketLabel() {
 		if(item.nbSockets()>0)
