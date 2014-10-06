@@ -8,11 +8,13 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.SplashScreen;
+import java.awt.SystemTray;
+import java.awt.Toolkit;
+import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -178,6 +180,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JTable lootTable;
 	private ListeTagTree tagsTree;
 	private LadderPanel ladderPanel;
+	TrayIcon trayIcon = new TrayIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/org/armory/d3/ui/resources/tab/herocomp.png")));
+	final SystemTray tray = SystemTray.getSystemTray();
+
+	static SwingMainFrame inst ;
+	
 	
 	public ListeHeroModel getListeHerosModel() {
 		return listeHerosModel;
@@ -231,14 +238,16 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	    	JOptionPane.showMessageDialog(null, e);
 	    }
 	        
-		SwingUtilities.invokeLater(new Runnable() {
+	    SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SwingMainFrame inst = new SwingMainFrame();
+				inst = new SwingMainFrame();
 				inst.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				inst.setLocationRelativeTo(null);
 				inst.setVisible(true);
 			}
 		});
+		
+		
 	}
 	
 	public SwingMainFrame() {
@@ -248,6 +257,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	}
 	
 	private void initGUI() {
+		
+		
+		
 		try {
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.setTitle("Diablo III -ROS- Manager");
@@ -397,7 +409,21 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				}
 			}
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
-
+			
+			if (SystemTray.isSupported()) {
+				tray.add(trayIcon);
+				trayIcon.displayMessage("D3 Armory Calculator","Application started",TrayIcon.MessageType.INFO);
+				trayIcon.addActionListener(new ActionListener() {
+					
+					public void actionPerformed(ActionEvent e) {
+						if(!SwingMainFrame.inst.isVisible())
+							SwingMainFrame.inst.setVisible(true);
+						else
+							SwingMainFrame.inst.setVisible(false);
+					}
+				});
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
