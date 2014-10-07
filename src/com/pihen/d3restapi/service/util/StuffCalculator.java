@@ -19,7 +19,7 @@ import com.pihen.d3restapi.beans.SkillRune;
 
 public class StuffCalculator{
 	
-	public static enum KEY { PRIMARY_STAT, THORNS, BONUS_ATTACK_SPEED,ATTACK_PER_SECONDS,BLOCK_CHANCE, ATTACK_SPEED_MAINHAND, ATTACK_SPEED_OFFHAND, HEALING, CRIT_CHANCE,CRIT_DAMAGE,DAMAGE_MAIN_HAND,DAMAGE_OFFHAND,VITALITY,TOUGHNESS, HP,ARMOR,BONUS_ELITE, DPS,DPS_ELEMENTAL, DODGECHANCE,BONUS_FIRE,BONUS_COLD,BONUS_POISON,BONUS_HOLY,BONUS_ARCANE,BONUS_LIGHTNING,BONUS_PHYSICAL, COOLDOWN_REDUCTION, DPS_ELITE, RESISTANCE_ALL, RESISTANCE_PHYSICAL, RESISTANCE_FIRE, RESISTANCE_POISON, RESISTANCE_COLD, RESISTANCE_LIGHTNING, RESISTANCE_ARCANE};
+	public static enum KEY { PRIMARY_STAT, THORNS, BONUS_ATTACK_SPEED,ATTACK_PER_SECONDS,BLOCK_CHANCE, ATTACK_SPEED_PETS, ATTACK_SPEED_MAINHAND, ATTACK_SPEED_OFFHAND, HEALING, CRIT_CHANCE,CRIT_DAMAGE,DAMAGE_MAIN_HAND,DAMAGE_OFFHAND,VITALITY,TOUGHNESS, HP,ARMOR,BONUS_ELITE, DPS,DPS_ELEMENTAL, DODGECHANCE,BONUS_FIRE,BONUS_COLD,BONUS_POISON,BONUS_HOLY,BONUS_ARCANE,BONUS_LIGHTNING,BONUS_PHYSICAL, COOLDOWN_REDUCTION, DPS_ELITE, RESISTANCE_ALL, RESISTANCE_PHYSICAL, RESISTANCE_FIRE, RESISTANCE_POISON, RESISTANCE_COLD, RESISTANCE_LIGHTNING, RESISTANCE_ARCANE};
 	public static enum ELEMENTS {Arcane,Cold,Fire,Holy,Lightning,Physical,Poison};
 	public static enum SITUATIONAL { Ranged, Melee, Elites}
 	
@@ -166,6 +166,7 @@ public class StuffCalculator{
 		return val/6;
 	}
 	
+
 	public double getResistance(ELEMENTS e)
 	{
 		double baseValue=0;
@@ -331,7 +332,6 @@ public class StuffCalculator{
 				statsCalculator.put(cle+"_"+i.getName().replaceAll(" ", "-"), i.getAttributesRaw().get(cle));
 				
 			}
-			
 		}//fin de boucle sur les items
 		
 		//on ajoute les bonus de set
@@ -353,6 +353,11 @@ public class StuffCalculator{
 			}
 		}
 		calculeBuff();
+		
+	
+				
+		
+		
 	}
 	
 	private void calculeBuff()
@@ -365,6 +370,14 @@ public class StuffCalculator{
 				statsCalculator.putAll(BuffCalculator.getBuff(s,this));
 			}
 		}
+	}
+	
+	public double getPetAS() // Tasker and Theo
+	{
+		if(filter("Item_Power_Passive#ItemPassive_Unique_Ring_554_x1",null)>0)
+			return 1+filter("Item_Power_Passive#ItemPassive_Unique_Ring_554_x1",null);
+		else
+			return 1;
 	}
 	
 	public int getNbWeapon()
@@ -462,7 +475,7 @@ public class StuffCalculator{
 		mapResultat.put(KEY.RESISTANCE_ARCANE, format(getResistance(ELEMENTS.Arcane)));
 		mapResultat.put(KEY.BLOCK_CHANCE, format(getBlockChance()*100));
 		mapResultat.put(KEY.THORNS, format(getThorns()));
-		
+		mapResultat.put(KEY.ATTACK_SPEED_PETS, format(mapResultat.get(KEY.ATTACK_PER_SECONDS)*getPetAS()));
 		
 	return mapResultat;
 	}
