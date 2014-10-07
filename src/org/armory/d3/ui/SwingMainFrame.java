@@ -244,6 +244,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				inst.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				inst.setLocationRelativeTo(null);
 				inst.setVisible(true);
+				inst.toFront();
 			}
 		});
 		
