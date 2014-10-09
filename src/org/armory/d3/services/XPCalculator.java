@@ -19,6 +19,10 @@ public class XPCalculator {
 		if(level<1)
 			return new XP(0, 0, 0);
 		
+		if(level>1000)
+			return new XP(0,0,0);
+		
+		
 		return lvlList.get(level);
 	}
 	
