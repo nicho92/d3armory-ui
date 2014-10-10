@@ -1687,7 +1687,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						 Item i = new Item();
 						 
 						 i.setTooltipParams("item/"+id.replaceAll("-","").replace(",", "").replace("'", "").replaceAll(" ", "-").trim().toLowerCase());
-						 System.out.println(i.getItemID());
+						 
 						 i = D3ArmoryControler.getInstance().getItemDetails(i);
 						 ItemLabel lab = new ItemLabel();
 					        lab.setItem(i, null);
