@@ -1686,7 +1686,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						 String id = (String)lootTable.getValueAt(row, 1);
 						 Item i = new Item();
 						 
-						 i.setTooltipParams("item/"+id.replaceAll("-","").replaceAll(" ", "-").replace("'", "").trim().toLowerCase());
+						 i.setTooltipParams("item/"+id.replaceAll("-","").replace(",", "").replace("'", "").replaceAll(" ", "-").trim().toLowerCase());
+						 System.out.println(i.getItemID());
 						 i = D3ArmoryControler.getInstance().getItemDetails(i);
 						 ItemLabel lab = new ItemLabel();
 					        lab.setItem(i, null);
