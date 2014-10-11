@@ -1016,7 +1016,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			temp.append("DPS : " + hero.getStats().getDamage() +" <br/>");
 			temp.append("Elites Kill : " + hero.getKills().getElites() +" <br/>");
 			temp.append("Saison : " + hero.getSeasonCreated() +" <br/>");
-			temp.append("End Season Parangon : " + D3ArmoryControler.getInstance().getEndSeasonParangonLevelSC(1).getLevel() +" <br/>");
+			
+			if(D3ArmoryControler.getInstance().getCurrentProfil().getParagonLevel().intValue()<=1000)
+				temp.append("End Season Parangon : " + D3ArmoryControler.getInstance().getEndSeasonParangonLevelSC(1).getLevel() +" <br/>");
 			//temp.append("End HC Season Parangon : " + D3ArmoryControler.getInstance().getEndSeasonParangonLevelHC(1).getLevel() +" <br/>");
 		}
 		return temp.toString();
