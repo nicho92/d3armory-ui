@@ -15,12 +15,12 @@ public class XPCalculator {
 	
 	public XP getXPByLevel(int level)
 	{
-		
 		if(level<1)
 			return new XP(0, 0, 0);
 		
-		if(level>1000)
+		if(level>1000){
 			return lvlList.get(1000);
+		}
 		
 		
 		return lvlList.get(level);
