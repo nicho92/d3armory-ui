@@ -1687,9 +1687,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						 int row = lootTable.rowAtPoint(evt.getPoint());
 						 String id = (String)lootTable.getValueAt(row, 1);
 						 Item i = new Item();
-						 
+						
 						 i.setTooltipParams("item/"+id.replaceAll("-","").replace(",", "").replace("'", "").replaceAll(" ", "-").trim().toLowerCase());
-						 
 						 i = D3ArmoryControler.getInstance().getItemDetails(i);
 						 ItemLabel lab = new ItemLabel();
 					        lab.setItem(i, null);
