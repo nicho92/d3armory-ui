@@ -78,7 +78,7 @@ public class SocketLabel extends JLabel {
 				 
 				} 
 				catch (Exception e1) {
-					e1.printStackTrace();
+					//e1.printStackTrace();
 				}
 		}
 		super.paint( g );
