@@ -86,6 +86,7 @@ import com.pihen.d3restapi.beans.SkillRune;
 import com.pihen.d3restapi.service.remote.exception.D3ServerCommunicationException;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.StuffCalculator;
+import java.awt.Dimension;
 
 
 public class SwingMainFrame extends javax.swing.JFrame {
@@ -283,7 +284,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						scrollFicheHeros = new JScrollPane();
 						splitPanneauFicheHero.add(scrollFicheHeros, JSplitPane.RIGHT);
 						splitPanneauFicheHero.add(getSplitPanneauTableauHero(), JSplitPane.LEFT);
-						scrollFicheHeros.setSize(250, 815);
 						scrollFicheHeros.setViewportView(getPanelItemDetails());
 					}
 				}
@@ -1042,7 +1042,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		}
 		return labSkilL1;
 	}
-	
 	private SkillLabel getLblSkill2()
 	{
 		if(labSkilL2==null){
@@ -1083,7 +1082,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		}
 		return labSkilL6;
 	}
-	
 	private SkillLabel getLblSkill7()
 	{
 		if(labSkilL7==null){
@@ -1108,7 +1106,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		}
 		return labSkilL9;
 	}
-	
 	private SkillLabel getLblSkill10()
 	{
 		if(labSkilL10==null){
@@ -1438,6 +1435,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	public ItemPanelDetails getPanelItemDetails() {
 		if(panelItemDetails == null) {
 			panelItemDetails = new ItemPanelDetails();
+			panelItemDetails.setMaximumSize(new Dimension(0, 0));
 			panelItemDetails.setLayout(null);
 			//panelItemDetails.setPreferredSize(new java.awt.Dimension(0, 0));
 		}
@@ -1450,13 +1448,10 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			{
 				panneauDessinHero = new HeroPanel();
 				splitPanneauTableauHero.setOrientation(JSplitPane.VERTICAL_SPLIT);
-				splitPanneauTableauHero.setPreferredSize(new java.awt.Dimension(980, 612));
-				splitPanneauTableauHero.setSize(980, 645);
 				splitPanneauTableauHero.add(panneauDessinHero, JSplitPane.TOP);
 				splitPanneauTableauHero.add(getOngletPane(), JSplitPane.BOTTOM);
 
 				panneauDessinHero.setLayout(null);
-				panneauDessinHero.setSize(994, 645);
 				panneauDessinHero.setName("panneauDessinHero");
 				panneauDessinHero.setPreferredSize(new java.awt.Dimension(1000, 645));
 				panneauDessinHero.add(getLblHead());
@@ -1597,7 +1592,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			ongletPane = new JTabbedPane();
 			ongletPane.setPreferredSize(new java.awt.Dimension(0, 0));
 		
-			ongletPane.addTab("Blizzard Profil", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/blizz.jpg")), getPanneauInfoHero(), null);
+			ongletPane.addTab("Blizzard Profil", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/blizz.jpg")), getPanneauInfoHero(), null); //Jlabel block
 			ongletPane.addTab("Items", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/item.png")), getPanneauTableauDescription(), null);
 			ongletPane.addTab("Informations", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/stats.gif")),getPanneauDetails(),null);
 			ongletPane.addTab("Detailed EHP", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/ehp.png")),getPanneauEHP(),null);
@@ -1606,7 +1601,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			ongletPane.addTab("Expert", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/expert.png")), getPanneauTableau(), null);
 			ongletPane.addTab("Loot Drop Rate", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/loot.png")), getPanneauLoot(), null);
 			ongletPane.addTab("Legendary Gem Evolution", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/leggem.png")), new GemEvolutionChancePanel(), null);
-			ongletPane.addTab("Gem Calculator", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/gem.png")), new GemCalculatorPanel(), null);
+		//	ongletPane.addTab("Gem Calculator", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/gem.png")), new GemCalculatorPanel(), null);
 			ongletPane.addTab("Hero Comparator", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/herocomp.png")), new HeroComparatorPanel(),null);
 			ongletPane.addTab("Ladder", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/ranking.png")), getLadderPanel(),null);
 			
@@ -1712,6 +1707,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	public EHPPanel getPanneauEHP() {
 		if(ehpPanel==null){
 			ehpPanel=new EHPPanel();
+			ehpPanel.setMinimumSize(new Dimension(0, 0));
 		}
 		return ehpPanel;
 	}
@@ -1720,6 +1716,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JScrollPane getPanneauDetails() {
 		if(detailsPanel==null){
 			detailsPanel=new JScrollPane();
+			detailsPanel.setMinimumSize(new Dimension(0, 0));
 			detailsPanel.setViewportView(getTableauDetailsCalc());
 		}
 		return detailsPanel;
@@ -1747,7 +1744,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JPanel getPanneauParangon() {
 		if(parangonPanel==null){
 			parangonPanel=new ParangonPanel();
-		}
+					}
 		return parangonPanel;
 	}
 
@@ -1755,7 +1752,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	public JPanel getPanneauInfoHero() {
 		if(panneauInfoHero == null) {
 			panneauInfoHero = new JPanel() {
-				
+			
 				protected void paintComponent(Graphics g) {
 					super.paintComponent(g);
 					Image bg = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/bottom.jpg")).getImage();
@@ -1763,6 +1760,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 
 				}
 			};
+			panneauInfoHero.setMinimumSize(new Dimension(0,0));
 			panneauInfoHero.setBackground(Color.black);
 			panneauInfoHero.setLayout(new FlowLayout());
 			
@@ -1859,6 +1857,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JScrollPane getPanneauTableauDescription() {
 		if (panneauTableauDescription == null) {
 			panneauTableauDescription = new JScrollPane();
+			panneauTableauDescription.setPreferredSize(new Dimension(0, 0));
 			panneauTableauDescription.setViewportView(getTableauDescriptionItems());
 			
 		}
