@@ -1,6 +1,7 @@
 package org.armory.d3.ui.components;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -53,6 +54,7 @@ public class ParangonPanel extends JPanel {
 	
 	public ParangonPanel() {
 		setBackground(Color.BLACK);
+		setMinimumSize(new Dimension(0,0));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{130, 269, 122, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};

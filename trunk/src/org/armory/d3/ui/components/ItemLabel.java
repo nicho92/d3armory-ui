@@ -223,6 +223,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 		if(item==null)
 			return;
 		
+		//System.out.println(item.getItemID());
 		((SwingMainFrame)this.getTopLevelAncestor()).getPanelItemDetails().showItem(item);
 		((SwingMainFrame)this.getTopLevelAncestor()).getPanelItemDetails().getLblIcon().setIcon(this.getIcon(false,SIZE_LARGE));
 		((SwingMainFrame)this.getTopLevelAncestor()).getPanelItemDetails().repaint();
