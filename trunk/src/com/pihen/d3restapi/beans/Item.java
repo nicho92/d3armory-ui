@@ -96,6 +96,12 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		return getAttributesRaw().get("Block_Chance_Item").getMoyenne()+bonus;
 	}
 	
+	public boolean isAncientItem()
+	{
+		
+		return (getAttributesRaw().get("Ancient_Rank")!=null);
+	}
+	
 	public boolean isSocketAddedByGift()
 	{
 			return (isWeapon() && getAttributesRaw().get("ConsumableAddSockets")!=null);
