@@ -343,13 +343,13 @@ public class StuffCalculator{
 				statsCalculator.put("Damage_Percent_Bonus_Vs_Elites_LEG_", i.getAttributesRaw().get("Item_Power_Passive#ItemPassive_Unique_Ring_571_x1"));
 		
 			if(i.getAttributesRaw().get("Gem_Attributes_Multiplier")!=null)
-				if(i.getGems()!=null)
+				if(i.getGems().size()>0)
 				{
-					double bonus = i.getAttributesRaw().get("Gem_Attributes_Multiplier").getMoyenne();
-					String k = i.getGems().get(0).getAttributesRaw().keySet().iterator().next();
-					double value = i.getGems().get(0).getAttributesRaw().get(k).getMoyenne();
+						double bonus = i.getAttributesRaw().get("Gem_Attributes_Multiplier").getMoyenne();
+						String k = i.getGems().get(0).getAttributesRaw().keySet().iterator().next();
+						double value = i.getGems().get(0).getAttributesRaw().get(k).getMoyenne();
+						statsCalculator.put(k+"_LEG_", new MinMaxBonus( value*bonus) );
 					
-					statsCalculator.put(k+"_LEG_", new MinMaxBonus( value*bonus) );
 				}
 			
 			

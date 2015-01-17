@@ -114,7 +114,7 @@ public class ItemPanelDetails extends JPanel {
 		try{
 			
 		this.item=item;
-		System.out.println(item.getItemID());
+	//	System.out.println(item.getItemID());
 		updateHeader();
 		
 		
