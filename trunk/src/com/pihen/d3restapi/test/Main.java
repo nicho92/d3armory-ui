@@ -51,9 +51,10 @@ public class Main {
                conf.setHeroId(h.getId());
                h=heroService.receiveEntity(conf);
                StuffCalculator calc = new StuffCalculator(D3ArmoryControler.getInstance().initStuffHero(h),h);
+               calc.calculate();
+               System.out.println(calc.getStatAttributs().get(StuffCalculator.KEY.DOT_DAMAGE));
                
-               System.out.println(calc.getCritDamage());
-               //forula dot : (30) * (0.8) * ((MinDmg+MaxDmg)/2) * (1+INT/100) * (1+CC*CD/10,000) * (Buffs)
+              
                
                
                
