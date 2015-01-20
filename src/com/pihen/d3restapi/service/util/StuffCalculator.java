@@ -19,7 +19,7 @@ import com.pihen.d3restapi.beans.SkillRune;
 
 public class StuffCalculator{
 	
-	public static enum KEY { PRIMARY_STAT, THORNS, BONUS_ATTACK_SPEED,ATTACK_PER_SECONDS,BLOCK_CHANCE, ATTACK_SPEED_PETS, ATTACK_SPEED_MAINHAND, ATTACK_SPEED_OFFHAND, HEALING, CRIT_CHANCE,CRIT_DAMAGE,DAMAGE_MAIN_HAND,DAMAGE_OFFHAND,VITALITY,TOUGHNESS, HP,ARMOR,BONUS_ELITE, DPS,DPS_ELEMENTAL, DODGECHANCE,BONUS_FIRE,BONUS_COLD,BONUS_POISON,BONUS_HOLY,BONUS_ARCANE,BONUS_LIGHTNING,BONUS_PHYSICAL, COOLDOWN_REDUCTION, DPS_ELITE, RESISTANCE_ALL, RESISTANCE_PHYSICAL, RESISTANCE_FIRE, RESISTANCE_POISON, RESISTANCE_COLD, RESISTANCE_LIGHTNING, RESISTANCE_ARCANE};
+	public static enum KEY { DOT_DAMAGE,PRIMARY_STAT, THORNS, BONUS_ATTACK_SPEED,ATTACK_PER_SECONDS,BLOCK_CHANCE, ATTACK_SPEED_PETS, ATTACK_SPEED_MAINHAND, ATTACK_SPEED_OFFHAND, HEALING, CRIT_CHANCE,CRIT_DAMAGE,DAMAGE_MAIN_HAND,DAMAGE_OFFHAND,VITALITY,TOUGHNESS, HP,ARMOR,BONUS_ELITE, DPS,DPS_ELEMENTAL, DODGECHANCE,BONUS_FIRE,BONUS_COLD,BONUS_POISON,BONUS_HOLY,BONUS_ARCANE,BONUS_LIGHTNING,BONUS_PHYSICAL, COOLDOWN_REDUCTION, DPS_ELITE, RESISTANCE_ALL, RESISTANCE_PHYSICAL, RESISTANCE_FIRE, RESISTANCE_POISON, RESISTANCE_COLD, RESISTANCE_LIGHTNING, RESISTANCE_ARCANE};
 	public static enum ELEMENTS {Arcane,Cold,Fire,Holy,Lightning,Physical,Poison};
 	public static enum SITUATIONAL { Ranged, Melee, Elites}
 	
@@ -32,6 +32,14 @@ public class StuffCalculator{
 	double buffReduction;
 	double totalReductionPercent;
 	
+
+	public double getMindmgM() {
+		return mindmgM;
+	}
+
+	public double getMaxdmgM() {
+		return maxdmgM;
+	}
 
 	public double getTotalReductionPercent() {
 		return totalReductionPercent;
@@ -66,6 +74,8 @@ public class StuffCalculator{
 	
 	private Map<KEY,Double> mapResultat ;
 	private double classReduction;
+	private double mindmgM;
+	private double maxdmgM;
 	
 
 	public void setStatCalculator(Map<String, MinMaxBonus> bonusItem) {
@@ -82,7 +92,7 @@ public class StuffCalculator{
 		this.stuffs = stuffs;
 	}
 
-	public StuffCalculator(Map<EnumerationStuff,Item> stuff, Hero hero) {//TODO ne recupere pas les skills
+	public StuffCalculator(Map<EnumerationStuff,Item> stuff, Hero hero) { //TODO ne recupere pas les skills
 		stuffs= new HashMap<EnumerationStuff,Item>();
 		this.hero= hero;
 		this.skills=hero.getSkills();
@@ -498,6 +508,8 @@ public class StuffCalculator{
 		mapResultat.put(KEY.BLOCK_CHANCE, format(getBlockChance()*100));
 		mapResultat.put(KEY.THORNS, format(getThorns()));
 		mapResultat.put(KEY.ATTACK_SPEED_PETS, format(mapResultat.get(KEY.ATTACK_PER_SECONDS)*getPetAS()));
+		mapResultat.put(KEY.DOT_DAMAGE, format((30) * (0.8) * ((getMindmgM()+getMaxdmgM())/2) * (1+stat_base/100) * (1+(chance_cc*100)*(degat_cc*100)/10.000)));
+        
 		
 	return mapResultat;
 	}
@@ -598,8 +610,8 @@ public class StuffCalculator{
 		double n=0;
 	
 		String elementM="";
-		double mindmgM=0;
-		double maxdmgM=0;
+		 mindmgM=0;
+		 maxdmgM=0;
 		if(stuffs.get(EnumerationStuff.MAIN_HAND)!=null)
 		{
 			elementM = stuffs.get(EnumerationStuff.MAIN_HAND).getEnchantedWeapon();
