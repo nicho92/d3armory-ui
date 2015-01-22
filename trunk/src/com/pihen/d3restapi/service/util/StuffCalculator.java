@@ -473,7 +473,7 @@ public class StuffCalculator{
 
 		
 		mapResultat.put(KEY.PRIMARY_STAT,stat_base);
-		mapResultat.put(KEY.BONUS_ATTACK_SPEED,format(bonusAsArmor*100));
+		mapResultat.put(KEY.BONUS_ATTACK_SPEED,format(bonusAsArmor*100)); 
 		mapResultat.put(KEY.ATTACK_SPEED_MAINHAND,format(attackSpeedMain));
 		mapResultat.put(KEY.ATTACK_SPEED_OFFHAND,format(attackSpeedOff));
 		mapResultat.put(KEY.CRIT_CHANCE, format(chance_cc*100));
