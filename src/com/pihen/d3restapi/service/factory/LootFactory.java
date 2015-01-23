@@ -1,6 +1,11 @@
 package com.pihen.d3restapi.service.factory;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 
@@ -43,7 +48,7 @@ public class LootFactory {
 		calculateColumnNumber();
 	}
 	
-	public String filterItemClazz()
+	public String filterItemClazz() //filtre les items accessible pour la classe.
 	{
 		Set<String> typeItem = new HashSet<String>();
 		for(int i=0;i<tableLoot.getRowCount();i++)
@@ -59,18 +64,47 @@ public class LootFactory {
 		
 	}
 	
+	public Map<String,Double> getGenerateItem(String type) // filtrer les item par type et > 0;
+	{
+		Map<String,Double> lootedItemTable=new HashMap<String,Double>();
+		for(int i=0;i<tableLoot.getRowCount();i++)
+		{
+			if(tableLoot.getValueAt(i,columnType).toString().equalsIgnoreCase(type))
+			{
+				if(!tableLoot.getValueAt(i, columnPourcent).toString().equalsIgnoreCase("0.00%"))
+					lootedItemTable.put(tableLoot.getValueAt(i,columnNameItem).toString(), Double.parseDouble(tableLoot.getValueAt(i, columnPourcent).toString().replaceAll("%", "").trim()));
+			}
+		}
+		return lootedItemTable;
+	}
+	
 	public Item generateItem()
 	{
-		System.out.println(filterItemClazz());
-
+		//Map<String,Double> lootedItemTable= getGenerateItem(filterItemClazz());
+		Map<String,Double> lootedItemTable= getGenerateItem("amulet");
 		
-		int ligneItem  =(int)new Random().nextInt(tableLoot.getRowCount())+1;
-		String name = (String)tableLoot.getValueAt(ligneItem, columnNameItem);
+		for(String k : lootedItemTable.keySet())
+		{
+			lootedItemTable.put(k, lootedItemTable.get(k)*new Random().nextInt(100));
+		}
 		
+		Collections.max(
+				lootedItemTable.entrySet(), 
+                new Comparator<Entry<String,Double>>(){
+                    public int compare(Entry<String,Double> o1, Entry<String,Double> o2) {
+                        return o1.getValue() > o2.getValue()? 1:-1;
+                    }
+                }).getKey();
+		
+		String name=lootedItemTable.keySet().toArray()[(int)new Random().nextInt((int)lootedItemTable.keySet().size())].toString();
 		Item i = new Item();
 			i.setTooltipParams("item/"+name.replaceAll("-","").replace(",", "").replace("'", "").replaceAll(" ", "-").trim().toLowerCase());
 			i = D3ArmoryControler.getInstance().getItemDetails(i);	
 		
+			
+			
+			
+			
 		return i;
 	}
 	
