@@ -38,6 +38,7 @@ public class LootXlsTableModel extends DefaultTableModel implements Serializable
 		    	 e.printStackTrace();
 		      }
 	  }
+
 	
 	@Override
 	public String getColumnName(int column) {
