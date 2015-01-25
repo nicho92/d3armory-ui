@@ -68,7 +68,7 @@ public class Main {
 				
 				public void actionPerformed(ActionEvent e) {
 					 Item i = fact.generateItem();	
-	            	 System.out.println(i.getRandomAffixes());
+	            	 System.out.println(i.getName() + " " + i.getRequiredLevel() + " " + i.getRandomAffixes());
 					
 				}
 			});

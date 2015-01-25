@@ -176,7 +176,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								lblQuality.setText("Quality :");
 							
 							
-								ComboBoxModel cboQualityModel = new DefaultComboBoxModel(new String[] {"Normal", "Magical","Rare","Legendary","Legendary Set"});
+								ComboBoxModel cboQualityModel = new DefaultComboBoxModel(new String[] {"Normal", "Magical","Rare","Legendary","Legendary Set","Ancient Legendary","Ancient Legendary Set"});
 								
 								if(getItem().getDisplayColor()==null)
 								{
@@ -197,7 +197,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 									String choice =((JComboBox)evt.getSource()).getSelectedItem().toString();
 									getItem().setTypeOfObject(choice);
 									
-									if(choice.equalsIgnoreCase("Legendary Set"))
+									if(choice.contains("Set"))
 									{
 										cboLegendarySet.setEnabled(true);
 									}
