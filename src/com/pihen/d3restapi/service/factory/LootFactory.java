@@ -27,16 +27,19 @@ public class LootFactory {
 	private void calculateColumnNumber()
 	{
 		
-		String name = h.getClazz();
-		switch (name) {
-		case "demon-hunter": columnPourcent=2;break;
-		case "barbare":columnPourcent=3;break;
-		case "wizard" : columnPourcent=4;break;
-		case "witch-doctor" : columnPourcent=5;break;
-		case "monk": columnPourcent=6;break;
-		case "crusader" : columnPourcent=7;break;
-		default:break;
-		}
+		if( h.getClazz().equals("demon-hunter")) 
+				columnPourcent=2;
+		if( h.getClazz().equals("barbare")) 
+			columnPourcent=3;
+		if( h.getClazz().equals("wizard")) 
+			columnPourcent=4;
+		if( h.getClazz().equals( "witch-doctor")) 
+			columnPourcent=5;
+		if( h.getClazz().equals( "monk")) 
+			columnPourcent=6;
+		if( h.getClazz().equals( "crusader")) 
+			columnPourcent=7;
+		
 	}
 	
 	
