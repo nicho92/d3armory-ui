@@ -19,13 +19,14 @@ public class BNetLadderRetriever {
 	private String clazz;
 	private boolean season;
 	private boolean hardcore;
+	private String era="1";
 	
-	
-	public BNetLadderRetriever(String region,String clazz,boolean season,boolean hardcore) throws IOException {
+	public BNetLadderRetriever(String region,String clazz,boolean season,boolean hardcore,String era) throws IOException {
 		this.region=region;
 		this.clazz=clazz;
 		this.season=season;
 		this.hardcore=hardcore;
+		this.era=era;
 	}
 	
 
@@ -43,7 +44,7 @@ public class BNetLadderRetriever {
 			clazz="team-"+clazz;
 		
 		
-		String html = "http://"+region+".battle.net/d3/en/rankings/"+sea+"/1/rift-"+hc+clazz;
+		String html = "http://"+region+".battle.net/d3/en/rankings/"+sea+"/"+era+"/rift-"+hc+clazz;
 		Document doc = Jsoup.connect(html).get();
 		Elements tableElements = doc.getElementsByTag("tbody").select("tr");
 		Iterator<Element> it = tableElements.listIterator();
@@ -82,16 +83,6 @@ public class BNetLadderRetriever {
         
 	}
 	
-	public static void main(String[] args) {
-		try {
-			new BNetLadderRetriever("eu","3",false,true).init();
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 	public Map<Integer, Ladder> getLadders() {
 		return ladders;
 	}
