@@ -18,6 +18,7 @@ import javax.swing.table.TableRowSorter;
 
 import org.armory.d3.services.BNetLadderRetriever;
 import org.armory.d3.ui.model.LadderModel;
+import javax.swing.JLabel;
 
 public class LadderPanel extends JPanel {
 	private JTable ladderTable;
@@ -36,6 +37,12 @@ public class LadderPanel extends JPanel {
 		final JComboBox cboClazz = new JComboBox();
 		cboClazz.setModel(new DefaultComboBoxModel(new String[] {"dh", "crusader", "barbarian", "wd", "monk", "wizard","2","3","4"}));
 		panneauHaut.add(cboClazz);
+		
+		final JComboBox cboErea = new JComboBox();
+		cboErea.setModel(new DefaultComboBoxModel(new String[] {"Era", "1", "2"}));
+		cboErea.setSelectedIndex(1);
+		
+		panneauHaut.add(cboErea);
 		
 		final JCheckBox boxSeason = new JCheckBox("Season ?");
 		panneauHaut.add(boxSeason);
@@ -59,7 +66,7 @@ public class LadderPanel extends JPanel {
 				
 				
 				try {
-					ret = new BNetLadderRetriever(cboRegion.getSelectedItem().toString(), cboClazz.getSelectedItem().toString(), boxSeason.isSelected(), boxHc.isSelected());
+					ret = new BNetLadderRetriever(cboRegion.getSelectedItem().toString(), cboClazz.getSelectedItem().toString(), boxSeason.isSelected(), boxHc.isSelected(),cboErea.getSelectedItem().toString());
 					ret.init();
 					LadderModel d = new LadderModel(ret);
 					
