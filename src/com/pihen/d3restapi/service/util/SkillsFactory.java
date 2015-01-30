@@ -79,7 +79,7 @@ public class SkillsFactory {
 			sk.getSkill().setTooltipUrl("skill/night-stalker");
 			sk.getSkill().setName("Night Stalker");
 			sk.getSkill().setIcon("demonhunter_passive_nightstalker");
-			sk.getSkill().setDescription("Critical Hits have a chance to restore 1 Discipline.\nDiscipline is used to fuel many of your tactical and defensive skills.");
+			sk.getSkill().setDescription("Your primary skills generate an additional 4 Hatred.");
 			sk.getSkill().setLevel(20);
 		skills.add(sk);
 		
@@ -133,7 +133,7 @@ public class SkillsFactory {
 			sk.getSkill().setTooltipUrl("skill/custom-engineering");
 			sk.getSkill().setName("Custom Engineering");
 			sk.getSkill().setIcon("demonhunter_passive_customengineering");
-			sk.getSkill().setDescription("Increase the duration of your Caltrops, Marked for Death, Spike Trap, and Sentry by 100%.\nIncrease the maximum number of Sentries to 3 and Spike Traps to 6.");
+			sk.getSkill().setDescription("Increase the duration of your Caltrops, Marked for Death, Spike Trap, and Sentry by 100%.\nIncrease the maximum number and charges of Sentries to 3 and Spike Traps to 6.");
 			sk.getSkill().setLevel(40);
 		skills.add(sk);
 		
