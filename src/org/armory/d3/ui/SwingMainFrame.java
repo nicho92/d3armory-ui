@@ -84,8 +84,10 @@ import com.pihen.d3restapi.beans.Ladder;
 import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.beans.SkillRune;
 import com.pihen.d3restapi.service.remote.exception.D3ServerCommunicationException;
+import com.pihen.d3restapi.service.util.D3ProgressLeaderBoard;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.StuffCalculator;
+
 import java.awt.Dimension;
 
 
@@ -756,6 +758,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lbl5.addText(getDetailHero(4), "white","#BDA6CD");
 		lbl5.applyText();
 		getPanneauInfoHero().add(lbl5);
+		
+		FormatedJLabel lbl6 = new FormatedJLabel();
+		lbl6.addText(getDetailHero(5), "white","#BDA6CD");
+		lbl6.applyText();
+		getPanneauInfoHero().add(lbl6);
 	
 		getLblSkill1().setSkillRune(hero.getSkills().getActive().get(0));
 		getLblSkill2().setSkillRune(hero.getSkills().getActive().get(1));
@@ -1017,8 +1024,24 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			temp.append("Elites Kill : " + hero.getKills().getElites() +" <br/>");
 			temp.append("Saison : " + hero.getSeasonCreated() +" <br/>");
 			
-			if(D3ArmoryControler.getInstance().getCurrentProfil().getParagonLevel().intValue()<=1000)
+			if(D3ArmoryControler.getInstance().getCurrentProfil().getParagonLevel().intValue()<=1000) //TODO calculate > 1 000 parangon 
 				temp.append("End Season Parangon : " + D3ArmoryControler.getInstance().getEndSeasonParangonLevelSC(1).getLevel() +" <br/>");
+			
+			
+		}
+		if(val==5)
+		{
+			temp.append("D3Progress Ladder <br/>");
+			try{
+			D3ProgressLeaderBoard leadbord = new D3ProgressLeaderBoard(D3ArmoryControler.getInstance().getConf(),D3ArmoryControler.getInstance().getSelectedHero(false));
+				temp.append("Parangon World : " + leadbord.getWorldParangonLevel()+" <br/>");
+				temp.append("Parangon Region: " + leadbord.getRegionalParangonLevel()+" <br/>");
+			}
+			catch(Exception e)
+			{
+				
+			}
+		
 			//temp.append("End HC Season Parangon : " + D3ArmoryControler.getInstance().getEndSeasonParangonLevelHC(1).getLevel() +" <br/>");
 		}
 		return temp.toString();
