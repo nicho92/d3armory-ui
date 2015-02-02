@@ -34,6 +34,13 @@ public class Configuration extends LinkedHashMap<String, Object> {
 		put(ITEM_ID,itemID);
 	}
 	
+	public String getZone()
+	{
+		if(get(HOST_TAG)!=null)
+			return ((String)get(HOST_TAG)).substring(0, get(HOST_TAG).toString().indexOf("."));
+		else
+			return "";
+	}
 	
 	/**
 	 * Default constructor, creates an empty configuration.
