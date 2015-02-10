@@ -9,6 +9,7 @@ public class Season implements Serializable{
 
 	private SeasonalProfile season0;
 	private SeasonalProfile season1;
+	private SeasonalProfile season2;
 	
 	public SeasonalProfile getSeason1() {
 		return season1;
@@ -24,5 +25,13 @@ public class Season implements Serializable{
 
 	public void setSeason0(SeasonalProfile season0) {
 		this.season0 = season0;
+	}
+
+	public SeasonalProfile getSeason2() {
+		return season2;
+	}
+
+	public void setSeason2(SeasonalProfile season2) {
+		this.season2 = season2;
 	}
 }
