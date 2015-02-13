@@ -1036,6 +1036,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			D3ProgressLeaderBoard leadbord = new D3ProgressLeaderBoard(D3ArmoryControler.getInstance().getConf(),D3ArmoryControler.getInstance().getSelectedHero(false));
 				temp.append("Parangon World : " + leadbord.getWorldParangonLevel()+" <br/>");
 				temp.append("Parangon Region: " + leadbord.getRegionalParangonLevel()+" <br/>");
+				temp.append("DPS World : " + leadbord.getWorldDPS()+" <br/>");
+				temp.append("DPS Region: " + leadbord.getRegionalDPS()+" <br/>");
 			}
 			catch(Exception e)
 			{
