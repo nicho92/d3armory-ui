@@ -64,6 +64,7 @@ import org.armory.d3.ui.components.ItemLabel;
 import org.armory.d3.ui.components.ItemPanelDetails;
 import org.armory.d3.ui.components.LadderPanel;
 import org.armory.d3.ui.components.ListeTagTree;
+import org.armory.d3.ui.components.LootFactoryPanel;
 import org.armory.d3.ui.components.ParangonPanel;
 import org.armory.d3.ui.components.SkillLabel;
 import org.armory.d3.ui.components.SocketLabel;
@@ -185,6 +186,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private LadderPanel ladderPanel;
 	TrayIcon trayIcon = new TrayIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/org/armory/d3/ui/resources/tab/herocomp.png")));
 	final SystemTray tray = SystemTray.getSystemTray();
+	private LootFactoryPanel lootFactoryPanel;
 
 	static SwingMainFrame inst ;
 	
@@ -489,6 +491,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			    		  getLblLoader().setIcon(null);
 			    		  lblstatbar.setText("Initialisation Calculator");
 			    		  panelItemDetails.setCalculator(D3ArmoryControler.getInstance().getCalculator());
+			    		  lootFactoryPanel.init(getPanelItemDetails());
 			    		  lblstatbar.setText("");
 			    		  
 			    		  int index = getOngletPane().getSelectedIndex();
@@ -1629,6 +1632,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		//	ongletPane.addTab("Gem Calculator", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/gem.png")), new GemCalculatorPanel(), null);
 			ongletPane.addTab("Hero Comparator", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/herocomp.png")), new HeroComparatorPanel(),null);
 			ongletPane.addTab("Ladder", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/ranking.png")), getLadderPanel(),null);
+			ongletPane.addTab("Loot Factory", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/kadala.png")), getLootFactoryPanel(),null);
 			
 			ongletPane.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent e) {//on charge les followers lors du clique sur l'onglet
@@ -1870,6 +1874,13 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			stateBar.add(getLblstatbar());
 		}
 		return stateBar;
+	}
+	
+	public JPanel getLootFactoryPanel() {
+		if(lootFactoryPanel == null) {
+			lootFactoryPanel = new LootFactoryPanel();
+		}
+		return lootFactoryPanel;
 	}
 	
 	public JLabel getLblstatbar() {
