@@ -1,5 +1,6 @@
 package org.armory.d3.ui.components;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +17,7 @@ public class LootFactoryPanel extends JPanel {
 	
 	public LootFactoryPanel() {
 		setLayout(new GridLayout(10, 5));
+		setMinimumSize(new Dimension(0,0));
 	}
 	
 	
