@@ -26,10 +26,9 @@ public class LootFactory {
 	
 	private void calculateColumnNumber()
 	{
-		
 		if( h.getClazz().equals("demon-hunter")) 
 			columnPourcent=2;
-		if( h.getClazz().equals("barbare")) 
+		if( h.getClazz().equals("barbarian")) 
 			columnPourcent=3;
 		if( h.getClazz().equals("wizard")) 
 			columnPourcent=4;
