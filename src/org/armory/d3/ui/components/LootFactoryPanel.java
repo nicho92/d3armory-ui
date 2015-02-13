@@ -16,7 +16,7 @@ import com.pihen.d3restapi.service.factory.LootFactory;
 public class LootFactoryPanel extends JPanel {
 	
 	public LootFactoryPanel() {
-		setLayout(new GridLayout(10, 5));
+		///setLayout(new GridLayout(10, 5));
 		setMinimumSize(new Dimension(0,0));
 	}
 	
