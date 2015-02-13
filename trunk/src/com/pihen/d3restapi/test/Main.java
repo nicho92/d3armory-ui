@@ -1,5 +1,6 @@
 package com.pihen.d3restapi.test;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
@@ -58,21 +59,31 @@ public class Main {
           Hero h = profile.getHeroes().get(2);
                conf.setHeroId(h.getId());
                h=heroService.receiveEntity(conf);
+               
             final   LootFactory fact = new LootFactory(h);
          
-               JFrame f = new JFrame();
+               JFrame f = new JFrame("Kadala");
                f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                f.setSize(100,50);
-               JButton b = new JButton();
-               b.addActionListener(new ActionListener() {
-				
-				public void actionPerformed(ActionEvent e) {
-					 Item i = fact.generateItem();	
-	            	 System.out.println(i.getName() + " " + i.getRequiredLevel() + " " + i.getRandomAffixes());
-					
-				}
-			});
-               f.getContentPane().add(b);
+               
+               for(String s : fact.getItemsType())
+               {
+            	    JButton b = new JButton(s);
+                   
+                    b.addActionListener(new ActionListener() {
+     				
+     				public void actionPerformed(ActionEvent e) {
+     					 Item i = fact.generateItem(((JButton)e.getSource()).getText());	
+     	            	 System.out.println(i.getName());
+     					
+     				}
+     			});
+                    f.setSize(800, 600);
+                    f.getContentPane().setLayout(new GridLayout(10, 5));
+                    f.getContentPane().add(b);
+               }
+               
+           
                f.setVisible(true);
                
 //               StuffCalculator calc = new StuffCalculator(D3ArmoryControler.getInstance().initStuffHero(h),h);
