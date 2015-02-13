@@ -51,6 +51,7 @@ import javax.swing.table.TableRowSorter;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.armory.d3.services.D3ArmoryControler;
+import org.armory.d3.services.D3ProgressLeaderBoard;
 import org.armory.d3.ui.components.EHPPanel;
 import org.armory.d3.ui.components.FollowersPanel;
 import org.armory.d3.ui.components.FormatedJLabel;
@@ -84,7 +85,6 @@ import com.pihen.d3restapi.beans.Ladder;
 import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.beans.SkillRune;
 import com.pihen.d3restapi.service.remote.exception.D3ServerCommunicationException;
-import com.pihen.d3restapi.service.util.D3ProgressLeaderBoard;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.StuffCalculator;
 

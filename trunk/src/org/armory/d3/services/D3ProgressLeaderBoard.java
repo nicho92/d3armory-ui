@@ -1,8 +1,7 @@
-package com.pihen.d3restapi.service.util;
+package org.armory.d3.services;
 
 import java.io.IOException;
 
-import org.armory.d3.services.D3ArmoryControler;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -34,7 +33,7 @@ public class D3ProgressLeaderBoard
                h=heroService.receiveEntity(conf);
 		
 		D3ProgressLeaderBoard classement = new D3ProgressLeaderBoard(conf,h);
-		System.out.println(classement.getRegionalParangonLevel());
+		System.out.println(h.getName() +"  "+ classement.getRegionalDPS());
 	}
 	
 	
@@ -50,13 +49,23 @@ public class D3ProgressLeaderBoard
 	
 	public String getWorldParangonLevel()
 	{
-	return doc.select("tbody").select("td").select("table").select("td").get(1).text();	
+		return doc.select("tbody").select("td").select("table").select("td").get(1).text();	
 	}
 	
 	public String getRegionalParangonLevel()
 	{
-		//System.out.println(doc.select("tbody").select("td").select("table").select("td"));
 		return doc.select("tbody").select("td").select("table").select("td").get(3).text();	
 	}
+	
+	public String getWorldDPS()
+	{
+		return doc.select("tbody").select("td").select("table").get(2).select("td").get(1).text();
+	}
+	
+	public String getRegionalDPS()
+	{
+		return doc.select("tbody").select("td").select("table").get(2).select("td").get(4).text();
+	}
+	
 	
 }
