@@ -28,7 +28,7 @@ public class LootFactory {
 	{
 		
 		if( h.getClazz().equals("demon-hunter")) 
-				columnPourcent=2;
+			columnPourcent=2;
 		if( h.getClazz().equals("barbare")) 
 			columnPourcent=3;
 		if( h.getClazz().equals("wizard")) 
@@ -51,7 +51,7 @@ public class LootFactory {
 		calculateColumnNumber();
 	}
 	
-	public String filterItemClazz() //filtre les items accessible pour la classe.
+	public String randomTypeItemClazz() //filtre les items accessible pour la classe.
 	{
 		Set<String> typeItem = new HashSet<String>();
 		for(int i=0;i<tableLoot.getRowCount();i++)
@@ -67,6 +67,21 @@ public class LootFactory {
 		
 	}
 	
+	public Set<String> getItemsType()
+	{
+		Set<String> typeItem = new HashSet<String>();
+		for(int i=0;i<tableLoot.getRowCount();i++)
+		{
+			String pc = (String)tableLoot.getValueAt(i, columnPourcent);
+			if(!pc.equalsIgnoreCase("0.00%"))
+			{
+				typeItem.add((String)tableLoot.getValueAt(i, columnType));
+			}
+		}
+		return typeItem;
+	}
+	
+	
 	public Map<String,Double> getGenerateItem(String type) // filtrer les item par type et > 0;
 	{
 		Map<String,Double> lootedItemTable=new HashMap<String,Double>();
@@ -81,11 +96,14 @@ public class LootFactory {
 		return lootedItemTable;
 	}
 	
-	public Item generateItem()
+	public Item generateItem(String item)
 	{
-		//Map<String,Double> lootedItemTable= getGenerateItem(filterItemClazz());
-		Map<String,Double> lootedItemTable= getGenerateItem("amulet");
-		
+		Map<String,Double> lootedItemTable;
+		if (item==null)
+			lootedItemTable= getGenerateItem(randomTypeItemClazz());
+		else
+			lootedItemTable= getGenerateItem(item);
+			
 		for(String k : lootedItemTable.keySet())
 		{
 			lootedItemTable.put(k, lootedItemTable.get(k)*new Random().nextInt(100));
