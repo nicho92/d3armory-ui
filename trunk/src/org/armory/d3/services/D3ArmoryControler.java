@@ -33,11 +33,12 @@ import com.pihen.d3restapi.service.util.StuffCalculator;
 
 public class D3ArmoryControler {
 
-	public static String TAG_FILE=System.getProperty("user.home")+"/d3conf/tags.d3armory";
-	public static String CONF_FILE=System.getProperty("user.home")+"/d3conf/local.d3armory";
-	public static String SERIALISATION_DIR=System.getProperty("user.home")+"/d3conf/items";
-	public static String SERIALISATION_HERO_DIR=System.getProperty("user.home")+"/d3conf/heroes";
-	public static String SERIALISATION_BUILD_DIR=System.getProperty("user.home")+"/d3conf/builds";
+	public static String CONF_DIR=System.getProperty("user.home")+"/d3conf/";
+	public static String TAG_FILE=CONF_DIR+"tags.d3armory";
+	public static String CONF_FILE=CONF_DIR+"local.d3armory";
+	public static String SERIALISATION_DIR=CONF_DIR+"/items";
+	public static String SERIALISATION_HERO_DIR=CONF_DIR+"/heroes";
+	public static String SERIALISATION_BUILD_DIR=CONF_DIR+"/builds";
 	
 	
 	private static D3ArmoryControler instance;

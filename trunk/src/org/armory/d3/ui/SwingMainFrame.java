@@ -211,19 +211,19 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	   
 	    try{    
 	    	
-	    File repconf = new File(System.getProperty("user.home")+"/d3conf");
+	    File repconf = new File(D3ArmoryControler.CONF_DIR);
 	    
 	    if(!repconf.exists())
 	    	repconf.mkdir();
 	    
-    	if(!new File(repconf.getAbsolutePath()+"/builds").exists())
-	    	new File(repconf.getAbsolutePath()+"/builds").mkdir();
+    	if(!new File(D3ArmoryControler.SERIALISATION_BUILD_DIR).exists())
+	    	new File(D3ArmoryControler.SERIALISATION_BUILD_DIR).mkdir();
 
-    	if(!new File(repconf.getAbsolutePath()+"/items").exists())
-    	    new File(repconf.getAbsolutePath()+"/items").mkdir();
+    	if(!new File(D3ArmoryControler.SERIALISATION_DIR).exists())
+    	    new File(D3ArmoryControler.SERIALISATION_DIR).mkdir();
     	
-    	if(!new File(repconf.getAbsolutePath()+"/heroes").exists())	
-    		new File(repconf.getAbsolutePath()+"/heroes").mkdir();
+    	if(!new File(D3ArmoryControler.SERIALISATION_HERO_DIR).exists())	
+    		new File(D3ArmoryControler.SERIALISATION_HERO_DIR).mkdir();
     	
     	if(!new File(D3ArmoryControler.CONF_FILE).exists())
     	{
