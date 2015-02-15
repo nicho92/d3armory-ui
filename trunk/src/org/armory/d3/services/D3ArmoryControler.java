@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.swing.JOptionPane;
 
@@ -32,11 +33,11 @@ import com.pihen.d3restapi.service.util.StuffCalculator;
 
 public class D3ArmoryControler {
 
-	private static String TAG_FILE=System.getProperty("user.home")+"/d3conf/tags.d3armory";
-	private static String LOCALE_FILE=System.getProperty("user.home")+"/d3conf/local.d3armory";
-	private static String SERIALISATION_DIR=System.getProperty("user.home")+"/d3conf/items";
-	private static String SERIALISATION_HERO_DIR=System.getProperty("user.home")+"/d3conf/heroes";
-	private static String SERIALISATION_BUILD_DIR=System.getProperty("user.home")+"/d3conf/builds";
+	public static String TAG_FILE=System.getProperty("user.home")+"/d3conf/tags.d3armory";
+	public static String CONF_FILE=System.getProperty("user.home")+"/d3conf/local.d3armory";
+	public static String SERIALISATION_DIR=System.getProperty("user.home")+"/d3conf/items";
+	public static String SERIALISATION_HERO_DIR=System.getProperty("user.home")+"/d3conf/heroes";
+	public static String SERIALISATION_BUILD_DIR=System.getProperty("user.home")+"/d3conf/builds";
 	
 	
 	private static D3ArmoryControler instance;
@@ -335,10 +336,11 @@ public class D3ArmoryControler {
 	public String loadLocal()
 	{
 		try {
-			InputStream ips=new FileInputStream(LOCALE_FILE); 
+			InputStream ips=new FileInputStream(CONF_FILE); 
 			InputStreamReader ipsr=new InputStreamReader(ips);
-			BufferedReader br=new BufferedReader(ipsr);
-			local = br.readLine().trim();
+			Properties p = new Properties();
+			p.load(ipsr);
+			local = p.getProperty("local");
 			return local;
 		} catch (IOException e) {
 			return "en_US";
@@ -348,8 +350,8 @@ public class D3ArmoryControler {
 	public void setLocal(String local)
 	{
 		try {
-			FileWriter fw= new FileWriter(LOCALE_FILE);
-			fw.write(local);
+			FileWriter fw= new FileWriter(CONF_FILE);
+			fw.write("local="+local);
 			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
