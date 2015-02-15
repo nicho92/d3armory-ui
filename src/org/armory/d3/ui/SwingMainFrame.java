@@ -225,14 +225,14 @@ public class SwingMainFrame extends javax.swing.JFrame {
     	if(!new File(repconf.getAbsolutePath()+"/heroes").exists())	
     		new File(repconf.getAbsolutePath()+"/heroes").mkdir();
     	
-    	if(!new File(repconf.getAbsolutePath()+"/local.d3armory").exists())
+    	if(!new File(D3ArmoryControler.CONF_FILE).exists())
     	{
-    		new File(repconf.getAbsolutePath()+"/local.d3armory").createNewFile();
+    		new File(D3ArmoryControler.CONF_FILE).createNewFile();
     		D3ArmoryControler.getInstance().setLocal("en_EN");
     	}
     	
-    	if(!new File(repconf.getAbsolutePath()+"/tags.d3armory").exists())	
-    		new File(repconf.getAbsolutePath()+"/tags.d3armory").createNewFile();
+    	if(!new File(D3ArmoryControler.TAG_FILE).exists())	
+    		new File(D3ArmoryControler.TAG_FILE).createNewFile();
 	    	
     	
 	    }
