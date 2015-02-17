@@ -58,8 +58,8 @@ public class XPCalculator {
 	    	  while(ligne!=null)
 	    	  {
 	    		  int level = Integer.parseInt(ligne.split(";")[0]);
-	    		  long xpLvl = Long.parseLong(ligne.split(";")[1].replaceAll(",", ""));
-	    		  long xpTot=  Long.parseLong(ligne.split(";")[2].replaceAll(",", ""));
+	    		  long xpLvl = Long.parseLong(ligne.split(";")[1].replaceAll(" ", ""));
+	    		  long xpTot=  Long.parseLong(ligne.split(";")[2].replaceAll(" ", ""));
 	    		  lvlList.put(k++,new XP(level,xpLvl,xpTot));
 	    		  ligne=br.readLine();
 	    	  }

@@ -99,13 +99,13 @@ public class D3ArmoryControler {
         
         long newXP =0;
         
-        if(profil.getSeasonalProfiles().getSeason1()!=null)
+        if(profil.getSeasonalProfiles().getSeason2()!=null)
         {
         	long xp0 = xpc.getXPByLevel(profil.getParagonLevelHardcore().intValue()).getTotalExp();
         	long xp1 = 0;
       
-        	if(profil.getSeasonalProfiles().getSeason1().getParagonLevelHardcore()!=null)
-        		xp1=xpc.getXPByLevel(profil.getSeasonalProfiles().getSeason1().getParagonLevelHardcore().intValue()).getTotalExp();
+        	if(profil.getSeasonalProfiles().getSeason2().getParagonLevelHardcore()!=null)
+        		xp1=xpc.getXPByLevel(profil.getSeasonalProfiles().getSeason2().getParagonLevelHardcore().intValue()).getTotalExp();
         	
         	newXP = xp0 + xp1;
         	return xpc.getXPByTotalXP(newXP);
@@ -120,13 +120,13 @@ public class D3ArmoryControler {
          
         long newXP =0;
         
-        if(profil.getSeasonalProfiles().getSeason1()!=null)
+        if(profil.getSeasonalProfiles().getSeason2()!=null)
         {
         	long xp0 = xpc.getXPByLevel(profil.getParagonLevel().intValue()).getTotalExp();
         	long xp1 = 0;
       
-        	if(profil.getSeasonalProfiles().getSeason1().getParagonLevel()!=null)
-        		xp1=xpc.getXPByLevel(profil.getSeasonalProfiles().getSeason1().getParagonLevel().intValue()).getTotalExp();
+        	if(profil.getSeasonalProfiles().getSeason2().getParagonLevel()!=null)
+        		xp1=xpc.getXPByLevel(profil.getSeasonalProfiles().getSeason2().getParagonLevel().intValue()).getTotalExp();
         	
         	newXP = xp0 + xp1;
         	return xpc.getXPByTotalXP(newXP);
