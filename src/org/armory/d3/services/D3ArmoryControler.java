@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -356,6 +357,33 @@ public class D3ArmoryControler {
 			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public void setSeason(String s)
+	{
+		try {
+			FileOutputStream fos = new FileOutputStream(CONF_FILE); 
+			Properties prop = new Properties();
+			prop.put("season", s);
+			prop.store(fos, ""+new Date());
+			fos.flush();
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	public int getSeason()
+	{
+		try {
+			InputStream ips=new FileInputStream(CONF_FILE); 
+			InputStreamReader ipsr=new InputStreamReader(ips);
+			Properties p = new Properties();
+			p.load(ipsr);
+			local = p.getProperty("season");
+			return Integer.parseInt(local);
+		} catch (IOException e) {
+			return 0;
 		}
 	}
 	
