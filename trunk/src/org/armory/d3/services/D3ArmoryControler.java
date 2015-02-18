@@ -352,11 +352,15 @@ public class D3ArmoryControler {
 	public void setLocal(String local)
 	{
 		try {
-			FileWriter fw= new FileWriter(CONF_FILE);
-			fw.write("local="+local);
-			fw.close();
+			FileOutputStream fos = new FileOutputStream(CONF_FILE); 
+			Properties prop = new Properties();
+			InputStreamReader ipsr=new InputStreamReader(new FileInputStream(CONF_FILE));
+			prop.load(ipsr);
+			prop.put("local", local);
+			prop.store(fos, ""+new Date());
+			fos.flush();
 		} catch (IOException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -365,6 +369,8 @@ public class D3ArmoryControler {
 		try {
 			FileOutputStream fos = new FileOutputStream(CONF_FILE); 
 			Properties prop = new Properties();
+			InputStreamReader ipsr=new InputStreamReader(new FileInputStream(CONF_FILE));
+			prop.load(ipsr);
 			prop.put("season", s);
 			prop.store(fos, ""+new Date());
 			fos.flush();
@@ -373,17 +379,18 @@ public class D3ArmoryControler {
 		}
 	}
 	
-	public int getSeason()
+	public String getSeason()
 	{
 		try {
 			InputStream ips=new FileInputStream(CONF_FILE); 
 			InputStreamReader ipsr=new InputStreamReader(ips);
 			Properties p = new Properties();
 			p.load(ipsr);
-			local = p.getProperty("season");
-			return Integer.parseInt(local);
+			String season = p.getProperty("season");
+			return season;
 		} catch (IOException e) {
-			return 0;
+			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
+			return "0";
 		}
 	}
 	

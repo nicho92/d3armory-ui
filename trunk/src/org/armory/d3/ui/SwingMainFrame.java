@@ -318,6 +318,17 @@ public class SwingMainFrame extends javax.swing.JFrame {
 								newLocalActionPerformed(evt);
 							}
 						});
+						
+						JMenuItem jmiSeason = new JMenuItem();
+						jMenu3.add(jmiSeason);
+						jmiSeason.setText("Season");
+						jmiSeason.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								String s = JOptionPane.showInputDialog("Season number ?",D3ArmoryControler.getInstance().getSeason());
+								D3ArmoryControler.getInstance().setSeason(s);
+							}
+						});
+						
 						jmiItemCreator=new JMenu("Item Creator");
 						jMenu3.add(jmiItemCreator);
 						for(final EnumerationStuff e : EnumerationStuff.values())
