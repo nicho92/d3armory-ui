@@ -17,7 +17,9 @@ import javax.swing.JTable;
 import javax.swing.table.TableRowSorter;
 
 import org.armory.d3.services.BNetLadderRetriever;
+import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.model.LadderModel;
+
 import javax.swing.JLabel;
 
 public class LadderPanel extends JPanel {
@@ -40,7 +42,8 @@ public class LadderPanel extends JPanel {
 		
 		final JComboBox cboErea = new JComboBox();
 		cboErea.setModel(new DefaultComboBoxModel(new String[] {"Era", "1", "2"}));
-		cboErea.setSelectedIndex(1);
+		cboErea.setSelectedItem(D3ArmoryControler.getInstance().getSeason());
+		//TODO
 		
 		panneauHaut.add(cboErea);
 		
