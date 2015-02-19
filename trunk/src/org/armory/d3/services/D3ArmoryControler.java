@@ -358,7 +358,8 @@ public class D3ArmoryControler {
 			prop.load(ipsr);
 			prop.put("local", local);
 			prop.store(fos, ""+new Date());
-			fos.flush();
+		//	fos.flush();
+			fos.close();
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
 		}
@@ -373,7 +374,8 @@ public class D3ArmoryControler {
 			prop.load(ipsr);
 			prop.put("season", s);
 			prop.store(fos, ""+new Date());
-			fos.flush();
+		//	fos.flush();
+			fos.close();
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
 		}
