@@ -12,13 +12,14 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
 import javax.swing.JOptionPane;
+
+import org.apache.commons.configuration.PropertiesConfiguration;
 
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.HeroSkillContainer;
@@ -339,6 +340,7 @@ public class D3ArmoryControler {
 	{
 		try {
 			InputStream ips=new FileInputStream(CONF_FILE); 
+			
 			InputStreamReader ipsr=new InputStreamReader(ips);
 			Properties p = new Properties();
 			p.load(ipsr);
@@ -352,15 +354,12 @@ public class D3ArmoryControler {
 	public void setLocal(String local)
 	{
 		try {
-			FileOutputStream fos = new FileOutputStream(CONF_FILE); 
-			Properties prop = new Properties();
-			InputStreamReader ipsr=new InputStreamReader(new FileInputStream(CONF_FILE));
-			prop.load(ipsr);
-			prop.put("local", local);
-			prop.store(fos, ""+new Date());
-		//	fos.flush();
-			fos.close();
-		} catch (IOException e) {
+			PropertiesConfiguration prop = new PropertiesConfiguration();
+			prop.setFile(new File(CONF_FILE));
+			prop.load();
+			prop.setProperty("local", local);
+			prop.save();
+		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
 		}
 	}
@@ -368,15 +367,12 @@ public class D3ArmoryControler {
 	public void setSeason(String s)
 	{
 		try {
-			FileOutputStream fos = new FileOutputStream(CONF_FILE); 
-			Properties prop = new Properties();
-			InputStreamReader ipsr=new InputStreamReader(new FileInputStream(CONF_FILE));
-			prop.load(ipsr);
-			prop.put("season", s);
-			prop.store(fos, ""+new Date());
-		//	fos.flush();
-			fos.close();
-		} catch (IOException e) {
+			PropertiesConfiguration prop = new PropertiesConfiguration();
+			prop.setFile(new File(CONF_FILE));
+			prop.load();
+			prop.setProperty("season", s);
+			prop.save();
+		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
 		}
 	}
