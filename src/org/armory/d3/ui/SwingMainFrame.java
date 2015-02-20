@@ -527,11 +527,17 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	public void chargementHero(){
 		 try {
 			
+//			if(D3ArmoryControler.getInstance().loadHero(new File(hero.getName())).getLastUpdated())
+					{
+				
+					}
+			
 			initHeroItems();
 			
 			getTableauDescriptionItems().setModel(new ItemsDetailModel());
 			getPanneauEHP().getTable().setModel(new EHPCalculatorModel(D3ArmoryControler.getInstance().getCalculator()));
 			getMnuSaveBuild().setEnabled(true);
+			D3ArmoryControler.getInstance().saveHero(hero);
 			
 		} catch (D3ServerCommunicationException e) {
 			e.printStackTrace();
