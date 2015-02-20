@@ -385,6 +385,9 @@ public class D3ArmoryControler {
 			Properties p = new Properties();
 			p.load(ipsr);
 			String season = p.getProperty("season");
+			if(season==null)
+				return "0";
+			
 			return season;
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
