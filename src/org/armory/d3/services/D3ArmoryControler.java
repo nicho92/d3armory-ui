@@ -520,6 +520,31 @@ public class D3ArmoryControler {
 			return skills;
 	}
 
+	public void setLook(String look) {
+		try {
+			PropertiesConfiguration prop = new PropertiesConfiguration();
+			prop.setFile(new File(CONF_FILE));
+			prop.load();
+			prop.setProperty("look", look);
+			prop.save();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
+		}
+		
+	}
+
+	public String getLook() {
+		try {
+			InputStream ips=new FileInputStream(CONF_FILE); 
+			InputStreamReader ipsr=new InputStreamReader(ips);
+			Properties p = new Properties();
+			p.load(ipsr);
+			return p.getProperty("look");
+		} catch (IOException e) {
+			return null;
+		}
+	}
+
 	
 
 	
