@@ -329,7 +329,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						jmiSeason.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								String s = JOptionPane.showInputDialog("Season number ?",D3ArmoryControler.getInstance().getSeason());
-								D3ArmoryControler.getInstance().setSeason(s);
+								if(s!=null)
+									D3ArmoryControler.getInstance().setSeason(s);
 							}
 						});
 						
