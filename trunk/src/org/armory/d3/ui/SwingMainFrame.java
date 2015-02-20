@@ -246,7 +246,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	    SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				inst = new SwingMainFrame();
-				inst.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+				String look = D3ArmoryControler.getInstance().getLook();
+						if(look==null)
+							inst.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+						else
+							inst.setLookAndFeel(look);
 				inst.setLocationRelativeTo(null);
 				inst.setVisible(true);
 				inst.toFront();
@@ -388,7 +392,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 							it.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
 									setLookAndFeel(it.getText());
-									
+									D3ArmoryControler.getInstance().setLook(it.getText());
 								}
 							});
 						jMenu4.add(it);
