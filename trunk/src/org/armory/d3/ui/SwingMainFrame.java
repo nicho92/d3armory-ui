@@ -212,6 +212,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	    try{    
 	    	
 	    File repconf = new File(D3ArmoryControler.CONF_DIR);
+	    System.out.println(repconf);
 	    
 	    if(!repconf.exists())
 	    	repconf.mkdir();
