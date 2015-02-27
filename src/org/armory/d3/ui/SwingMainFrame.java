@@ -527,18 +527,26 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	public void chargementHero(){
 		 try {
-			
-//			if(D3ArmoryControler.getInstance().loadHero(new File(hero.getName())).getLastUpdated())
-					{
-				
-					}
-			
+//			Hero cached = D3ArmoryControler.getInstance().loadHero(new File(hero.getName()));
+//			 if(cached!=null)
+//				if(hero.getLastUpdated().intValue()<=cached.getLastUpdated().intValue())
+//				{
+//					lblstatbar.setText("Loading from cache");
+//					D3ArmoryControler.getInstance().setSelectedHero(cached);
+//					hero=cached;
+//				}
+//				else
+//				{
+//					lblstatbar.setText("Loading from Battle.Net");
+//					initHeroItems();
+//					D3ArmoryControler.getInstance().saveHero(hero);
+//				}
+//			
 			initHeroItems();
-			
 			getTableauDescriptionItems().setModel(new ItemsDetailModel());
 			getPanneauEHP().getTable().setModel(new EHPCalculatorModel(D3ArmoryControler.getInstance().getCalculator()));
 			getMnuSaveBuild().setEnabled(true);
-			D3ArmoryControler.getInstance().saveHero(hero);
+			
 			
 		} catch (D3ServerCommunicationException e) {
 			e.printStackTrace();
@@ -753,77 +761,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		D3ArmoryControler.getInstance().setSelectedHero(hero);
 		hero=D3ArmoryControler.getInstance().getHeroDetails(hero);
 		
-		lblNom.setText(hero.getName());
-		getPanneauInfoHero().removeAll();
-		lblInformationClasseNiveau.setText(hero.getClazz() +" Level : " + hero.getLevel());
-		lblParangonLevel.setText("("+hero.getParagonLevel()+")");
-		lblParangonLevel.setBounds(749, 20, 51, 16);
-		lblParangonLevel.setForeground(new Color(165,145,194));
-		
-		FormatedJLabel lbl1 = new FormatedJLabel();
-		lbl1.addText(getDetailHero(0), "white","#BDA6CD");
-		lbl1.applyText();
-		getPanneauInfoHero().add(lbl1);
-		
-		FormatedJLabel lbl2 = new FormatedJLabel();
-		lbl2.addText(getDetailHero(1), "white","#BDA6CD");
-		lbl2.applyText();
-		getPanneauInfoHero().add(lbl2);
-		
-		FormatedJLabel lbl3 = new FormatedJLabel();
-		lbl3.addText(getDetailHero(2), "white","#BDA6CD");
-		lbl3.applyText();
-		getPanneauInfoHero().add(lbl3);
-		
-		FormatedJLabel lbl4 = new FormatedJLabel();
-		lbl4.addText(getDetailHero(3), "white","#BDA6CD");
-		lbl4.applyText();
-		getPanneauInfoHero().add(lbl4);
-		
-		FormatedJLabel lbl5 = new FormatedJLabel();
-		lbl5.addText(getDetailHero(4), "white","#BDA6CD");
-		lbl5.applyText();
-		getPanneauInfoHero().add(lbl5);
-		
-		FormatedJLabel lbl6 = new FormatedJLabel();
-		lbl6.addText(getDetailHero(5), "white","#BDA6CD");
-		lbl6.applyText();
-		getPanneauInfoHero().add(lbl6);
-	
-		getLblSkill1().setSkillRune(hero.getSkills().getActive().get(0));
-		getLblSkill2().setSkillRune(hero.getSkills().getActive().get(1));
-				
-		getLblSkill3().setSkillRune(hero.getSkills().getActive().get(2));
-		getLblSkill4().setSkillRune(hero.getSkills().getActive().get(3));
-		getLblSkill5().setSkillRune(hero.getSkills().getActive().get(4));
-		getLblSkill6().setSkillRune(hero.getSkills().getActive().get(5));
-		
-		int nbpassif =hero.getSkills().getPassive().size();
-		
-		if(hero.getSkills().getPassive().get(0)!=null)
-		{
-			getLblSkill7().setSkillRune(hero.getSkills().getPassive().get(0));
-			getLblSkill7().initRightClick(0);
-		}
-		
-		if(hero.getSkills().getPassive().get(1)!=null)
-		{
-			getLblSkill8().setSkillRune(hero.getSkills().getPassive().get(1));
-			getLblSkill8().initRightClick(1);
-		}
-		
-		if(hero.getSkills().getPassive().get(2)!=null)
-		{
-			getLblSkill9().setSkillRune(hero.getSkills().getPassive().get(2));
-			getLblSkill9().initRightClick(2);
-		}
-		
-		if(nbpassif>3)
-			if(hero.getSkills().getPassive().get(3)!=null)
-			{
-				getLblSkill10().setSkillRune(hero.getSkills().getPassive().get(3));
-				getLblSkill10().initRightClick(3);
-			}
 		
 		Item head = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHead());
 		lblHead.setItem(head,EnumerationStuff.HEAD);
@@ -911,6 +848,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			if(torso.nbSockets()>2)
 			{
 				lblSocketTorso1.setItem(torso,0);
+				
 				lblSocketTorso2.setItem(torso,1);
 				lblSocketTorso3.setItem(torso,2);
 			}
@@ -993,10 +931,86 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		
 		getLblLastUpdate().setText(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(hero.getLastUpdatedDate()));
 		
-		
+		initHeroInfoPanel();
 		panneauDessinHero.repaint();
 	}
+
 	
+	private void initHeroInfoPanel()
+	{
+		lblNom.setText(hero.getName());
+		getPanneauInfoHero().removeAll();
+		lblInformationClasseNiveau.setText(hero.getClazz() +" Level : " + hero.getLevel());
+		lblParangonLevel.setText("("+hero.getParagonLevel()+")");
+		lblParangonLevel.setBounds(749, 20, 51, 16);
+		lblParangonLevel.setForeground(new Color(165,145,194));
+		
+		FormatedJLabel lbl1 = new FormatedJLabel();
+		lbl1.addText(getDetailHero(0), "white","#BDA6CD");
+		lbl1.applyText();
+		getPanneauInfoHero().add(lbl1);
+		
+		FormatedJLabel lbl2 = new FormatedJLabel();
+		lbl2.addText(getDetailHero(1), "white","#BDA6CD");
+		lbl2.applyText();
+		getPanneauInfoHero().add(lbl2);
+		
+		FormatedJLabel lbl3 = new FormatedJLabel();
+		lbl3.addText(getDetailHero(2), "white","#BDA6CD");
+		lbl3.applyText();
+		getPanneauInfoHero().add(lbl3);
+		
+		FormatedJLabel lbl4 = new FormatedJLabel();
+		lbl4.addText(getDetailHero(3), "white","#BDA6CD");
+		lbl4.applyText();
+		getPanneauInfoHero().add(lbl4);
+		
+		FormatedJLabel lbl5 = new FormatedJLabel();
+		lbl5.addText(getDetailHero(4), "white","#BDA6CD");
+		lbl5.applyText();
+		getPanneauInfoHero().add(lbl5);
+		
+		FormatedJLabel lbl6 = new FormatedJLabel();
+		lbl6.addText(getDetailHero(5), "white","#BDA6CD");
+		lbl6.applyText();
+		getPanneauInfoHero().add(lbl6);
+	
+		getLblSkill1().setSkillRune(hero.getSkills().getActive().get(0));
+		getLblSkill2().setSkillRune(hero.getSkills().getActive().get(1));
+				
+		getLblSkill3().setSkillRune(hero.getSkills().getActive().get(2));
+		getLblSkill4().setSkillRune(hero.getSkills().getActive().get(3));
+		getLblSkill5().setSkillRune(hero.getSkills().getActive().get(4));
+		getLblSkill6().setSkillRune(hero.getSkills().getActive().get(5));
+		
+		int nbpassif =hero.getSkills().getPassive().size();
+		
+		if(hero.getSkills().getPassive().get(0)!=null)
+		{
+			getLblSkill7().setSkillRune(hero.getSkills().getPassive().get(0));
+			getLblSkill7().initRightClick(0);
+		}
+		
+		if(hero.getSkills().getPassive().get(1)!=null)
+		{
+			getLblSkill8().setSkillRune(hero.getSkills().getPassive().get(1));
+			getLblSkill8().initRightClick(1);
+		}
+		
+		if(hero.getSkills().getPassive().get(2)!=null)
+		{
+			getLblSkill9().setSkillRune(hero.getSkills().getPassive().get(2));
+			getLblSkill9().initRightClick(2);
+		}
+		
+		if(nbpassif>3)
+			if(hero.getSkills().getPassive().get(3)!=null)
+			{
+				getLblSkill10().setSkillRune(hero.getSkills().getPassive().get(3));
+				getLblSkill10().initRightClick(3);
+			}
+		
+	}
 	public static String formatRessourceVisibleValue(double number) {
 		if(number<1000)
 			return String.valueOf(number);
