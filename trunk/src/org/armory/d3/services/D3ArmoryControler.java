@@ -439,7 +439,7 @@ public class D3ArmoryControler {
 			return (Hero)ois.readObject();
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return null;
 		}
 	}
