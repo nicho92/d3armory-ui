@@ -141,9 +141,9 @@ public class ItemLabel extends JLabel implements MouseListener {
 					if("green".equals(item.getDisplayColor()))
 					{
 						if(item.isAncientItem())
-							return new LineBorder(new Color(129,247,129), 1, true);
-						else
 							return new LineBorder(new Color(173,255,47), 1, true);
+						else
+							return new LineBorder(new Color(129,247,129), 1, true);
 							
 					}
 					if("blue".equals(item.getDisplayColor()))
