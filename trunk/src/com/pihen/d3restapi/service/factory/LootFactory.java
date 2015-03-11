@@ -56,7 +56,7 @@ public class LootFactory {
 		for(int i=0;i<tableLoot.getRowCount();i++)
 		{
 			String pc = (String)tableLoot.getValueAt(i, columnPourcent);
-			if(!pc.equalsIgnoreCase("0.00%"))
+			if(!pc.equalsIgnoreCase("0%"))
 			{
 				typeItem.add((String)tableLoot.getValueAt(i, columnType));
 			}
@@ -72,7 +72,7 @@ public class LootFactory {
 		for(int i=0;i<tableLoot.getRowCount();i++)
 		{
 			String pc = (String)tableLoot.getValueAt(i, columnPourcent);
-			if(!pc.equalsIgnoreCase("0.00%"))
+			if(!pc.equalsIgnoreCase("0%"))
 			{
 				typeItem.add((String)tableLoot.getValueAt(i, columnType));
 			}
@@ -88,7 +88,7 @@ public class LootFactory {
 		{
 			if(tableLoot.getValueAt(i,columnType).toString().equalsIgnoreCase(type))
 			{
-				if(!tableLoot.getValueAt(i, columnPourcent).toString().equalsIgnoreCase("0.00%"))
+				if(!tableLoot.getValueAt(i, columnPourcent).toString().equalsIgnoreCase("0%"))
 					lootedItemTable.put(tableLoot.getValueAt(i,columnNameItem).toString(), Double.parseDouble(tableLoot.getValueAt(i, columnPourcent).toString().replaceAll("%", "").trim()));
 			}
 		}
