@@ -191,6 +191,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	static SwingMainFrame inst ;
 	
 	
+	
 	public ListeHeroModel getListeHerosModel() {
 		return listeHerosModel;
 	}
