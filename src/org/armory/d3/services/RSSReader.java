@@ -19,7 +19,7 @@ public class RSSReader {
      */
     public String updateD3armoryRssParser() {
         try {
-        	String feedurl="https://code.google.com/feeds/p/d3armory-ui/svnchanges/basic";
+        	String feedurl="https://github.com/nicho92/d3armory-ui/commits/master.atom";
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             URL url = new URL(feedurl);
             Document doc = builder.parse(url.openStream());

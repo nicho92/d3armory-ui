@@ -543,6 +543,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 //				}
 //			
 			initHeroItems();
+			D3ArmoryControler.getInstance().saveHero(hero);
 			getTableauDescriptionItems().setModel(new ItemsDetailModel());
 			getPanneauEHP().getTable().setModel(new EHPCalculatorModel(D3ArmoryControler.getInstance().getCalculator()));
 			getMnuSaveBuild().setEnabled(true);
