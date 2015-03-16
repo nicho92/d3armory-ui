@@ -527,7 +527,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	public void chargementHero(){
 		 try {
-//			Hero cached = D3ArmoryControler.getInstance().loadHero(new File(hero.getName()));
+//			Hero cached = D3ArmoryControler.getInstance().loadHero(hero.getId());
 //			 if(cached!=null)
 //				if(hero.getLastUpdated().intValue()<=cached.getLastUpdated().intValue())
 //				{

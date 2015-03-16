@@ -420,7 +420,7 @@ public class D3ArmoryControler {
 	public void saveHero(Hero i)
 	{
 		try{
-			FileOutputStream fos = new FileOutputStream(SERIALISATION_HERO_DIR +"/"+i.getName()+".d3hero");
+			FileOutputStream fos = new FileOutputStream(SERIALISATION_HERO_DIR +"/"+i.getId()+".d3hero");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(i);
 			oos.flush();
@@ -431,12 +431,15 @@ public class D3ArmoryControler {
 		}
 	}
 	
-	public Hero loadHero(File f)
+	public Hero loadHero(Number number)
 	{
 		try{
-			FileInputStream fos = new FileInputStream(SERIALISATION_HERO_DIR +"/"+f.getName()+".d3hero");
+			
+			File f = new File(SERIALISATION_HERO_DIR +"/"+number+".d3hero");
+			FileInputStream fos = new FileInputStream(f);
 			ObjectInputStream ois  = new ObjectInputStream(fos);
-			return (Hero)ois.readObject();
+			Hero h = (Hero)ois.readObject();
+			return h;
 		}
 		catch (Exception e) {
 			//e.printStackTrace();
