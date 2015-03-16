@@ -1,23 +1,16 @@
 package com.pihen.d3restapi.test;
 
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Random;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.armory.d3.services.D3ArmoryControler;
 
 import com.pihen.d3restapi.beans.Hero;
-import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.service.configuration.Configuration;
-import com.pihen.d3restapi.service.factory.LootFactory;
 import com.pihen.d3restapi.service.remote.RemoteService;
 import com.pihen.d3restapi.service.remote.SpringRemoteService;
-import com.pihen.d3restapi.service.util.StuffCalculator;
 
 
 public class Main {
@@ -60,17 +53,7 @@ public class Main {
 //               StuffCalculator calc = new StuffCalculator(D3ArmoryControler.getInstance().initStuffHero(h),h);
 //               calc.calculate();
 //               System.out.println(calc.getStatAttributs().get(StuffCalculator.KEY.DOT_DAMAGE));
-               
-              
-               
-               
-               
-               
-               
-          
-          
-          
-
+    
 	
 	}
 	

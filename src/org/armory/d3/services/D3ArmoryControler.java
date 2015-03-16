@@ -422,6 +422,7 @@ public class D3ArmoryControler {
 		try{
 			FileOutputStream fos = new FileOutputStream(SERIALISATION_HERO_DIR +"/"+i.getId()+".d3hero");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			
 			oos.writeObject(i);
 			oos.flush();
 			oos.close();

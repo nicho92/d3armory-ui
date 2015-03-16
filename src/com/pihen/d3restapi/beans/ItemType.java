@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class ItemType implements Serializable {
 
+
+	private static final long serialVersionUID = 4940049017774518737L;
+	
+	
 		private Boolean twoHanded;
 		private String id;
 		
@@ -24,5 +28,9 @@ public class ItemType implements Serializable {
 		public String toString()
 		{
 			return getId(); 
+		}
+		
+		public ItemType(){
+			
 		}
 }
