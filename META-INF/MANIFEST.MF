@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Rsrc-Class-Path: ./ jnlp.jar appFramework-1.0.jar spring-web-3.0.3.REL
- EASE.jar gson-2.2.4.jar spring.jar commons-logging-1.1.1.jar spring-c
+ EASE.jar gson-2.3.1.jar spring.jar commons-logging-1.1.1.jar spring-c
  ore-3.0.5.RELEASE.jar glazedlists_java15-1.9.0.jar jsoup-1.7.3.jar commons-lang-2.6.jar commons-configuration-1.10.jar
 Class-Path: .
 Rsrc-Main-Class: org.armory.d3.ui.SwingMainFrame
