@@ -253,6 +253,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 							inst.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 						else
 							inst.setLookAndFeel(look);
+						
+						
 				inst.setLocationRelativeTo(null);
 				inst.setVisible(true);
 				inst.toFront();
@@ -1202,6 +1204,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			}
 		
 	}
+	
+	
 	public static String formatRessourceVisibleValue(double number) {
 		if(number<1000)
 			return String.valueOf(number);
