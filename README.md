@@ -31,45 +31,45 @@ https://github.com/nicho92/d3armory-ui/blob/master/executable/d3armory2.jar?raw=
 Download java : http://www.oracle.com/technetwork/java/javase/downloads/index.html
 
 Main Interface
-![https://d3armory-ui.googlecode.com/svn/trunk/wiki/application.png](https://d3armory-ui.googlecode.com/svn/trunk/wiki/application.png)
+![https://raw.githubusercontent.com/nicho92/d3armory-ui/master/wiki/application.png](https://raw.githubusercontent.com/nicho92/d3armory-ui/master/wiki/application.png)
 
 Compare Item :
-![https://d3armory-ui.googlecode.com/svn/trunk/wiki/comparator.png](https://d3armory-ui.googlecode.com/svn/trunk/wiki/comparator.png)
+![https://raw.githubusercontent.com/nicho92/d3armory-ui/master/wiki/comparator.png](https://raw.githubusercontent.com/nicho92/d3armory-ui/master/wiki/comparator.png)
 
 
 
 See detailed information
 
-![https://d3armory-ui.googlecode.com/svn/trunk/wiki/item.png](https://d3armory-ui.googlecode.com/svn/trunk/wiki/item.png)
+![https://raw.githubusercontent.com/nicho92/d3armory-ui/master/wiki/item.png](https://raw.githubusercontent.com/nicho92/d3armory-ui/master/wiki/item.png)
 
-![https://d3armory-ui.googlecode.com/svn/trunk/wiki/followers.png](https://d3armory-ui.googlecode.com/svn/trunk/wiki/followers.png)
+![https://raw.githubusercontent.com/nicho92/d3armory-ui/master/wiki/followers.png](https://raw.githubusercontent.com/nicho92/d3armory-ui/master/wiki/followers.png)
 
-![https://d3armory-ui.googlecode.com/svn/trunk/wiki/detailledEHP.png](https://d3armory-ui.googlecode.com/svn/trunk/wiki/detailledEHP.png)
+![https://raw.githubusercontent.com/nicho92/d3armory-ui/master/wiki/detailledEHP.png](https://raw.githubusercontent.com/nicho92/d3armory-ui/master/wiki/detailledEHP.png)
 
-![https://d3armory-ui.googlecode.com/svn/trunk/wiki/manageBuff.png](https://d3armory-ui.googlecode.com/svn/trunk/wiki/manageBuff.png)
+![https://raw.githubusercontent.com/nicho92/d3armory-ui/master/wiki/manageBuff.png](https://raw.githubusercontent.com/nicho92/d3armory-ui/master/wiki/manageBuff.png)
 
-![https://d3armory-ui.googlecode.com/svn/trunk/wiki/dps.png](https://d3armory-ui.googlecode.com/svn/trunk/wiki/dps.png)
+![https://raw.githubusercontent.com/nicho92/d3armory-ui/master/wiki/dps.png](https://raw.githubusercontent.com/nicho92/d3armory-ui/master/wiki/dps.png)
 
 
 Create your own item, and save it !
 
-![https://d3armory-ui.googlecode.com/svn/trunk/wiki/createItem.png](https://d3armory-ui.googlecode.com/svn/trunk/wiki/createItem.png)
+![https://raw.githubusercontent.com/nicho92/d3armory-ui/master/wiki/createItem.png](https://raw.githubusercontent.com/nicho92/d3armory-ui/master/wiki/createItem.png)
 
 
 Manage your buff skills :
 
-![https://d3armory-ui.googlecode.com/svn/trunk/wiki/manageSkills.png](https://d3armory-ui.googlecode.com/svn/trunk/wiki/manageSkills.png)
+![https://raw.githubusercontent.com/nicho92/d3armory-ui/master/wiki/manageSkills.png](https://raw.githubusercontent.com/nicho92/d3armory-ui/master/wiki/manageSkills.png)
 and you can see in live their buff modification for your items
 
 
 Manage your parangon points :
 
-![https://d3armory-ui.googlecode.com/svn/trunk/wiki/manageParangon.png](https://d3armory-ui.googlecode.com/svn/trunk/wiki/manageParangon.png)
+![https://raw.githubusercontent.com/nicho92/d3armory-ui/master/wiki/manageParangon.png](https://raw.githubusercontent.com/nicho92/d3armory-ui/master/wiki/manageParangon.png)
 
 
 2.1 compatibility !
-![https://d3armory-ui.googlecode.com/svn/trunk/wiki/newGems.png](https://d3armory-ui.googlecode.com/svn/trunk/wiki/newGems.png)
+![https://raw.githubusercontent.com/nicho92/d3armory-ui/master/wiki/newGems.png](https://raw.githubusercontent.com/nicho92/d3armory-ui/master/wiki/newGems.png)
 
 
 LadderBoard profil browser !
-![https://d3armory-ui.googlecode.com/svn/trunk/wiki/ladder.png](https://d3armory-ui.googlecode.com/svn/trunk/wiki/ladder.png)
+![https://raw.githubusercontent.com/nicho92/d3armory-ui/master/wiki/ladder.png](https://raw.githubusercontent.com/nicho92/d3armory-ui/master/wiki/ladder.png)
