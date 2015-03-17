@@ -18,11 +18,11 @@ Features :
 > Loot drop rate Information
 > EHP Calculator
 > LadderBoard browser
-
+> Build Comparator
 > complete reforge of [D3armoryJava](https://github.com/kovmarci86/d3-armory)
 
 next feature:
-> Build Comparator
+> cached hero
 
 You can download Beta Binaries here :
 https://github.com/nicho92/d3armory-ui/blob/master/executable/d3armory2.jar?raw=true
