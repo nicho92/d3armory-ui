@@ -528,30 +528,31 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	public synchronized void chargementHero(){
 		 try {
-			Hero cached = D3ArmoryControler.getInstance().loadHero(hero.getId());
-			 if(cached!=null)
-			 {
-				if(cached.getLastUpdated().intValue()>=hero.getLastUpdated().intValue())
-				{
-					System.out.println("Loading from cache");
-					initHeroCachedItem();
-					D3ArmoryControler.getInstance().setSelectedHero(cached);
-					hero=cached;
-				}
-				else
-				{
-					System.out.println("old cache : reLoading from Battle.Net");
-					initHeroItems();
-					D3ArmoryControler.getInstance().saveHero(hero);
-				}
-			 }
-			 else
-			 {
-				 System.out.println("No cache : Loading from Battle.Net");
-			 initHeroItems();
-			 D3ArmoryControler.getInstance().saveHero(hero);
-			 }
-			 
+//			Hero cached = D3ArmoryControler.getInstance().loadHero(hero.getId());
+//			 if(cached!=null)
+//			 {
+//				if(cached.getLastUpdated().intValue()>=hero.getLastUpdated().intValue())
+//				{
+//					System.out.println("Loading from cache");
+//					initHeroCachedItem();
+//					D3ArmoryControler.getInstance().setSelectedHero(cached);
+//					hero=cached;
+//				}
+//				else
+//				{
+//					System.out.println("old cache : reLoading from Battle.Net");
+//					initHeroItems();
+//					D3ArmoryControler.getInstance().saveHero(hero);
+//				}
+//			 }
+//			 else
+//			 {
+//				 System.out.println("No cache : Loading from Battle.Net");
+//			 initHeroItems();
+//			 D3ArmoryControler.getInstance().saveHero(hero);
+//			 }
+		 initHeroItems();
+		 D3ArmoryControler.getInstance().saveHero(hero);
 			getTableauDescriptionItems().setModel(new ItemsDetailModel());
 			getPanneauEHP().getTable().setModel(new EHPCalculatorModel(D3ArmoryControler.getInstance().getCalculator()));
 			getMnuSaveBuild().setEnabled(true);
