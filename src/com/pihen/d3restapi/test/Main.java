@@ -11,6 +11,7 @@ import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.service.configuration.Configuration;
 import com.pihen.d3restapi.service.remote.RemoteService;
 import com.pihen.d3restapi.service.remote.SpringRemoteService;
+import com.pihen.d3restapi.service.util.EnumerationStuff;
 
 
 public class Main {
@@ -53,7 +54,10 @@ public class Main {
 //               StuffCalculator calc = new StuffCalculator(D3ArmoryControler.getInstance().initStuffHero(h),h);
 //               calc.calculate();
 //               System.out.println(calc.getStatAttributs().get(StuffCalculator.KEY.DOT_DAMAGE));
-    
+          Hero h = D3ArmoryControler.getInstance().loadHero(17403375);
+          	System.out.println(h.getItems().get(EnumerationStuff.MAIN_HAND));
+          
+          
 	
 	}
 	

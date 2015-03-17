@@ -2,19 +2,21 @@ package com.pihen.d3restapi.beans;
 
 import java.io.Serializable;
 
-public class ItemType implements Serializable {
+import com.pihen.d3restapi.service.remote.RemoteEntity;
+
+public class ItemType extends RemoteEntity implements Serializable {
 
 
 	private static final long serialVersionUID = 4940049017774518737L;
 	
 	
-		private Boolean twoHanded;
+		private boolean twoHanded;
 		private String id;
 		
-		public Boolean getTwoHanded() {
+		public boolean getTwoHanded() {
 			return twoHanded;
 		}
-		public void setTwoHanded(Boolean twoHanded) {
+		public void setTwoHanded(boolean twoHanded) {
 			this.twoHanded = twoHanded;
 		}
 		public String getId() {

@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 
 import org.apache.commons.configuration.PropertiesConfiguration;
 
+import com.google.gson.Gson;
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.HeroSkillContainer;
 import com.pihen.d3restapi.beans.Item;
@@ -422,7 +423,8 @@ public class D3ArmoryControler {
 		try{
 			FileOutputStream fos = new FileOutputStream(SERIALISATION_HERO_DIR +"/"+i.getId()+".d3hero");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			
+		//	Gson GSON = new Gson();
+		//	System.out.println(GSON.toJson(i));
 			oos.writeObject(i);
 			oos.flush();
 			oos.close();
