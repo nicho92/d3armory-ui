@@ -419,7 +419,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						report.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								try {
-									Desktop.getDesktop().browse(new URI("https://code.google.com/p/d3armory-ui/issues/list"));
+									Desktop.getDesktop().browse(new URI("https://github.com/nicho92/d3armory-ui/issues"));
 								} catch (Exception e) {
 									
 									JOptionPane.showMessageDialog(null, e.getMessage(),"Erreur",JOptionPane.ERROR_MESSAGE);

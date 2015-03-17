@@ -16,26 +16,7 @@ public class D3ProgressLeaderBoard
 
 	Document doc ;
 	
-	public static void main(String[] args) throws IOException {
-		Configuration conf = new Configuration();
-		  conf.setBattleTag("nicho92");
-		  conf.setBattleTagCode(new Long(2603));
-		  conf.setHost("eu.battle.net");
-		  conf.setLocal("fr_FR");
-		  
-		  RemoteService<Profile> profileService = new SpringRemoteService(Profile.class);
-          RemoteService<Hero> heroService = new SpringRemoteService(Hero.class);
-          Profile profile = profileService.receiveEntity(conf);
-          
-          D3ArmoryControler.getInstance().setConf(conf);
-          Hero h = profile.getHeroes().get(2);
-               conf.setHeroId(h.getId());
-               h=heroService.receiveEntity(conf);
-		
-		D3ProgressLeaderBoard classement = new D3ProgressLeaderBoard(conf,h);
-		System.out.println(h.getName() +"  "+ classement.getRegionalDPS());
-	}
-	
+
 	
 	public D3ProgressLeaderBoard(Configuration conf,Hero h) throws IOException {
 		

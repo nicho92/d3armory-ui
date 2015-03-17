@@ -22,7 +22,7 @@ public class LootXlsTableModel extends DefaultTableModel implements Serializable
 		      try {
 		    	  
 		    	//  FileReader fr = new FileReader(getClass().getResource("/org/armory/d3/ui/resources/loot.csv").getFile());
-		    	  InputStreamReader fr = new InputStreamReader( new URL("https://d3armory-ui.googlecode.com/svn/trunk/src/org/armory/d3/ui/resources/data/loot.csv").openStream(),"ISO-8859-1");
+		    	  InputStreamReader fr = new InputStreamReader( new URL("https://raw.githubusercontent.com/nicho92/d3armory-ui/master/src/org/armory/d3/ui/resources/data/loot.csv").openStream(),"ISO-8859-1");
 	
 		    	  
 		    	  BufferedReader br = new BufferedReader(fr);

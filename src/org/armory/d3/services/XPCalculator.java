@@ -48,7 +48,7 @@ public class XPCalculator {
 	
 	public void init() {
 	      try {
-	    	  InputStreamReader fr = new InputStreamReader( new URL("https://d3armory-ui.googlecode.com/svn/trunk/src/org/armory/d3/ui/resources/data/XP.csv").openStream(),"ISO-8859-1");
+	    	  InputStreamReader fr = new InputStreamReader( new URL("https://raw.githubusercontent.com/nicho92/d3armory-ui/master/src/org/armory/d3/ui/resources/data/XP.csv").openStream(),"ISO-8859-1");
 	    	  lvlList = new LinkedHashMap<Integer,XP>();
 	    	  
 	    	  BufferedReader br = new BufferedReader(fr);
