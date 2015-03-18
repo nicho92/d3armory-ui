@@ -15,12 +15,7 @@ import com.pihen.d3restapi.service.remote.RemoteEntity;
 import com.pihen.d3restapi.service.util.RawsAttributeFactory;
 import com.pihen.d3restapi.service.util.StuffCalculator;
 
-/**
- * Represents a single item, with links to the resources.
- * 
- * @author NoTiCe
- * 
- */
+
 @RemoteConfiguration(url = "http://<host>/api/d3/data/item/<item-id>?locale=<local>")
 public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	
