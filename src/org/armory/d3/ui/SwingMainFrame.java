@@ -823,15 +823,15 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lblSocketNeck.setItem(neck,0);
 		hero.getItems().setNeck(neck);
 		
-		Item ringright = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLeftFinger());
-		lblRingRight.setItem(ringright,EnumerationStuff.RING_RIGHT);
-		lblSocketRightRing.setItem(ringright,0);
-		hero.getItems().setRightFinger(ringright);
-		
-		Item ringleft = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getRightFinger());
-		lblRingLeft.setItem(ringleft,EnumerationStuff.RING_LEFT);
-		lblSocketLeftRing.setItem(ringleft,0);
+		Item ringleft = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLeftFinger());
+		lblRingRight.setItem(ringleft,EnumerationStuff.RING_LEFT);
+		lblSocketRightRing.setItem(ringleft,0);
 		hero.getItems().setLeftFinger(ringleft);
+		
+		Item ringright = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getRightFinger());
+		lblRingLeft.setItem(ringright,EnumerationStuff.RING_LEFT);
+		lblSocketLeftRing.setItem(ringright,0);
+		hero.getItems().setRightFinger(ringright);
 
 		Item mainHand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getMainHand());
 		Item offhand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getOffHand());
