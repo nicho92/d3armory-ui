@@ -3,6 +3,7 @@ package org.armory.d3.ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -50,12 +51,13 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.table.TableRowSorter;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.services.D3ProgressLeaderBoard;
 import org.armory.d3.ui.components.EHPPanel;
 import org.armory.d3.ui.components.FollowersPanel;
 import org.armory.d3.ui.components.FormatedJLabel;
-import org.armory.d3.ui.components.GemCalculatorPanel;
 import org.armory.d3.ui.components.GemEvolutionChancePanel;
 import org.armory.d3.ui.components.HeroCellRenderer;
 import org.armory.d3.ui.components.HeroComparatorPanel;
@@ -89,8 +91,6 @@ import com.pihen.d3restapi.service.remote.exception.D3ServerCommunicationExcepti
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.StuffCalculator;
 
-import java.awt.Dimension;
-
 
 public class SwingMainFrame extends javax.swing.JFrame {
 
@@ -98,7 +98,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JMenu jMenu5;
 	private HeroPanel panneauDessinHero;
 	private JScrollPane scrollFicheHeros;
-	private JList listeHeros;
+	private JList<Hero> listeHeros;
 	private JScrollPane scrollHeros;
 	private JSplitPane splitPanneauFicheHero;
 	private ItemLabel lblTorso;
@@ -190,12 +190,13 @@ public class SwingMainFrame extends javax.swing.JFrame {
 
 	static SwingMainFrame inst ;
 	
-	
+	static final Logger logger = LogManager.getLogger(SwingMainFrame.class.getName());
 	
 	public ListeHeroModel getListeHerosModel() {
 		return listeHerosModel;
 	}
 
+	
 	
 	public static void main(String[] args) {
 		
@@ -205,7 +206,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	        try {
 				Thread.sleep(3000);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				logger.error(e);
 			}
 	        splash.close();
 	        }
@@ -213,10 +214,13 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	    try{    
 	    	
 	    File repconf = new File(D3ArmoryControler.CONF_DIR);
-	    System.out.println(repconf);
+	    logger.debug("Configuration directory " + repconf );
 	    
 	    if(!repconf.exists())
+	    {
+	    	logger.debug("Creating directory " + repconf );
 	    	repconf.mkdir();
+	    }
 	    
     	if(!new File(D3ArmoryControler.SERIALISATION_BUILD_DIR).exists())
 	    	new File(D3ArmoryControler.SERIALISATION_BUILD_DIR).mkdir();
@@ -235,13 +239,10 @@ public class SwingMainFrame extends javax.swing.JFrame {
     	
     	if(!new File(D3ArmoryControler.TAG_FILE).exists())	
     		new File(D3ArmoryControler.TAG_FILE).createNewFile();
-	    	
-    	
 	    }
-	   
 	    catch(IOException e)
 	    {
-	    
+	    	logger.error(e);
 	    	JOptionPane.showMessageDialog(null, e);
 	    }
 	        
@@ -275,6 +276,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		
 		
 		try {
+			logger.debug("Lancement de l'application");
+			
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.setTitle("Diablo III -ROS- Manager");
 			this.setIconImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/icone.jpg")).getImage());
@@ -421,9 +424,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						report.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								try {
-									Desktop.getDesktop().browse(new URI("https://github.com/nicho92/d3armory-ui/issues"));
+									Desktop.getDesktop().browse(new URI(D3ArmoryControler.SOURCE_REPOSITORY));
 								} catch (Exception e) {
-									
+									logger.error(e);
 									JOptionPane.showMessageDialog(null, e.getMessage(),"Erreur",JOptionPane.ERROR_MESSAGE);
 
 								}
@@ -450,7 +453,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			}
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 	}
 	
@@ -483,10 +486,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			listeHeros.setValueIsAdjusting(true);
 			listeHeros.setCellRenderer(new HeroCellRenderer());
 			listeHeros.setBackground(Color.BLACK);
-			//listeHeros.setPreferredSize(new Dimension(145,812));
 			listeHeros.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent evt) {
-						listeHerosMouseClicked(evt);
+					listeHerosMouseClicked(evt);
 				}
 			});
 		}
@@ -503,13 +505,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			new Thread(new Runnable() {
 			      public void run() {
 			    	  try {	
-			    		  
 			    		  getLblLoader().setIcon(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/loading.gif")));
 			    		  lblstatbar.setText("Loading Item"); 
 			    		  chargementHero();
 			    		  lblstatbar.setText("Loading Item OK");
 			    		  getLblLoader().setIcon(null);
-			    		  lblstatbar.setText("Initialisation Calculator");
 			    		  panelItemDetails.setCalculator(D3ArmoryControler.getInstance().getCalculator());
 			    		  lootFactoryPanel.init(getPanelItemDetails());
 			    		  lblstatbar.setText("");
@@ -522,7 +522,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			    		  
 			    		} 
 			    	  catch (Exception e) {
-			  			e.printStackTrace();
+			    		  logger.error(e);
+			    		  e.printStackTrace();
 			  		}
 			      }
 			  }).start();
@@ -530,29 +531,30 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	public synchronized void chargementHero(){
 		 try {
-//			Hero cached = D3ArmoryControler.getInstance().loadHero(hero.getId());
-//			 if(cached!=null)
-//			 {
-//				if(cached.getLastUpdated().intValue()>=hero.getLastUpdated().intValue())
-//				{
-//					System.out.println("Loading from cache");
-//					initHeroCachedItem();
-//					D3ArmoryControler.getInstance().setSelectedHero(cached);
-//					hero=cached;
-//				}
-//				else
-//				{
-//					System.out.println("old cache : reLoading from Battle.Net");
-//					initHeroItems();
-//					D3ArmoryControler.getInstance().saveHero(hero);
-//				}
-//			 }
-//			 else
-//			 {
-//				 System.out.println("No cache : Loading from Battle.Net");
-//			 initHeroItems();
-//			 D3ArmoryControler.getInstance().saveHero(hero);
-//			 }
+			logger.debug("Chargement du hero " + hero);
+			Hero cached = D3ArmoryControler.getInstance().loadHero(hero.getId());
+			 if(cached!=null)
+			 {
+				if(cached.getLastUpdated().intValue()>=hero.getLastUpdated().intValue())
+				{
+					logger.debug("Loading from cache");
+					initHeroCachedItem();
+					D3ArmoryControler.getInstance().setSelectedHero(cached);
+					hero=cached;
+				}
+				else
+				{
+					logger.debug("old cache : reLoading from Battle.Net");
+					initHeroItems();
+					D3ArmoryControler.getInstance().saveHero(hero);
+				}
+			 }
+			 else
+			 {
+			 logger.debug("No cache : Loading from Battle.Net");
+			 initHeroItems();
+			 D3ArmoryControler.getInstance().saveHero(hero);
+			 }
 		 initHeroItems();
 		 D3ArmoryControler.getInstance().saveHero(hero);
 			getTableauDescriptionItems().setModel(new ItemsDetailModel());
@@ -561,7 +563,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			
 			
 		} catch (D3ServerCommunicationException e) {
-			e.printStackTrace();
+			  logger.error(e.getStackTrace());
 		}
 	}
 	
@@ -801,8 +803,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 
 		Item mainHand = hero.getItems().getMainHand();
 		Item offhand = hero.getItems().getOffHand();
-		
-		
+
 		lblMainHand.setItem(mainHand,EnumerationStuff.MAIN_HAND);
 		lblSocketMainHand.setItem(mainHand,0);
 		
@@ -813,8 +814,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				lblSocketMainHand2.setItem(mainHand,1);
 			else
 				lblSocketMainHand2.setItem(null,1);
-			
-			System.out.println(mainHand.getType());
 			
 			if(mainHand.getType().getTwoHanded() && hero.getItems().getOffHand()==null)
 			{
@@ -952,39 +951,51 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private void initHeroItems() throws D3ServerCommunicationException
 	{
-		D3ArmoryControler.getInstance().setSelectedHero(hero);
+		
+		logger.debug("Chargement des items");
+		
 		hero=D3ArmoryControler.getInstance().getHeroDetails(hero);
 		
+		D3ArmoryControler.getInstance().setSelectedHero(hero);
 		
 		Item head = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHead());
 		lblHead.setItem(head,EnumerationStuff.HEAD);
+		hero.getItems().setHead(head);
 		lblSocketHead.setItem(head,0);
 				
 		Item foot = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getFeet());
 		lblFoot.setItem(foot,EnumerationStuff.FEET);
 		lblSocketBoot.setItem(foot,0);
+		hero.getItems().setFeet(foot);
 		
 		Item gants = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHands());
 		lblGants.setItem(gants,EnumerationStuff.GANT);
 		lblSocketGants.setItem(gants,0);
+		hero.getItems().setHands(gants);
+		
 		
 		Item neck = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getNeck());
 		lblNeck.setItem(neck,EnumerationStuff.NECK);
 		lblSocketNeck.setItem(neck,0);
+		hero.getItems().setNeck(neck);
 		
 		Item ringright = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLeftFinger());
 		lblRingRight.setItem(ringright,EnumerationStuff.RING_RIGHT);
 		lblSocketRightRing.setItem(ringright,0);
+		hero.getItems().setRightFinger(ringright);
 		
 		Item ringleft = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getRightFinger());
 		lblRingLeft.setItem(ringleft,EnumerationStuff.RING_LEFT);
 		lblSocketLeftRing.setItem(ringleft,0);
-		
+		hero.getItems().setLeftFinger(ringleft);
 
 		Item mainHand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getMainHand());
 		Item offhand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getOffHand());
 		lblMainHand.setItem(mainHand,EnumerationStuff.MAIN_HAND);
 		lblSocketMainHand.setItem(mainHand,0);
+		
+		hero.getItems().setMainHand(mainHand);
+		hero.getItems().setOffHand(offhand);
 		
 		lblOffHand.setDisabled(false);
 		if(mainHand!=null)
@@ -1014,6 +1025,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 
 		Item torso = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getTorso());
 		lblTorso.setItem(torso,EnumerationStuff.TORSO);
+		hero.getItems().setTorso(torso);
+		
 		if(torso!=null)
 		{
 			if(torso.nbSockets()==0)
@@ -1056,6 +1069,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		
 		Item legs = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLegs());
 		lblLegs.setItem(legs,EnumerationStuff.LEGS);
+		hero.getItems().setLegs(legs);
 		
 		if(legs!=null)
 		{
@@ -1084,10 +1098,15 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		
 		Item shoulders= D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getShoulders());
 		lblShoulders.setItem(shoulders,EnumerationStuff.SHOULDERS);
+		hero.getItems().setShoulders(shoulders);
+		
 		Item bracers = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getBracers());
 		lblBracers.setItem(bracers,EnumerationStuff.BRACER);
+		hero.getItems().setBracers(bracers);
+		
 		Item belt = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getWaist());
 		lblbelt.setItem(belt,EnumerationStuff.BELT);
+		hero.getItems().setWaist(belt);
 		
 		stuffs = new HashMap<EnumerationStuff, Item>();
 		  stuffs.put(EnumerationStuff.HEAD, head);
@@ -1103,9 +1122,12 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		  stuffs.put(EnumerationStuff.MAIN_HAND, mainHand);
 		  stuffs.put(EnumerationStuff.OFF_HAND, offhand);
 		  stuffs.put(EnumerationStuff.FEET, foot);
-		
-		D3ArmoryControler.getInstance().initCalculator(stuffs);
-		
+		  
+		  
+		  logger.debug("Calculate Stats Formulas");
+		  D3ArmoryControler.getInstance().initCalculator(stuffs);
+		  
+		  
 		((TableauExpertModel)getTableauExpert().getModel()).fireTableDataChanged();
 		
 		if(hero.isHardcore())
@@ -1124,13 +1146,16 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		
 		getLblLastUpdate().setText(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(hero.getLastUpdatedDate()));
 		
+		
 		initHeroInfoPanel();
 		panneauDessinHero.repaint();
+		logger.debug("Fin de chargement des items");
 	}
 
 	
 	private void initHeroInfoPanel()
 	{
+		logger.debug("Init panel");
 		lblNom.setText(hero.getName());
 		getPanneauInfoHero().removeAll();
 		lblInformationClasseNiveau.setText(hero.getClazz() +" Level : " + hero.getLevel());
@@ -1202,7 +1227,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				getLblSkill10().setSkillRune(hero.getSkills().getPassive().get(3));
 				getLblSkill10().initRightClick(3);
 			}
-		
+		logger.debug("Fin d'initialisation du panel");
 	}
 	
 	
@@ -1272,7 +1297,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			}
 			catch(Exception e)
 			{
-				
+				logger.error(e);
 			}
 		
 			//temp.append("End HC Season Parangon : " + D3ArmoryControler.getInstance().getEndSeasonParangonLevelHC(1).getLevel() +" <br/>");
@@ -1872,7 +1897,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						try {
 							loadFollowers();
 						} catch (D3ServerCommunicationException e1) {
-							e1.printStackTrace();
+							logger.error(e1);
 						}
 							getLblstatbar().setText("");
 						
@@ -2031,7 +2056,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		try {
 			UIManager.setLookAndFeel(lookAndFeel);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 		SwingUtilities.updateComponentTreeUI(this);
 	}

@@ -26,6 +26,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.ItemCreatorFrame;
 import org.armory.d3.ui.SwingMainFrame;
@@ -42,7 +44,9 @@ public class ItemLabel extends JLabel implements MouseListener {
     public static String SIZE_LARGE="large";
     public static String SIZE_SMALL="small";
     private String size;
-    
+	static final Logger logger = LogManager.getLogger(ItemLabel.class.getName());
+
+	
     public ItemLabel()
     {
     	size=SIZE_LARGE;
@@ -132,7 +136,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 					if("orange".equals(item.getDisplayColor()))
 					{
 						if(item.isAncientItem())
-							return new LineBorder(Color.YELLOW, 1, true);
+							return new LineBorder(new Color(255,177,124), 1, true);
 						else
 							return new LineBorder(new Color(223,116,1), 1, true);
 					}
@@ -144,7 +148,6 @@ public class ItemLabel extends JLabel implements MouseListener {
 							return new LineBorder(new Color(173,255,47), 1, true);
 						else
 							return new LineBorder(new Color(129,247,129), 1, true);
-							
 					}
 					if("blue".equals(item.getDisplayColor()))
 							return new LineBorder(new Color(30,144,255), 1, true);
@@ -234,7 +237,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 		if(item==null)
 			return;
 		
-		//System.out.println(item.getItemID());
+		logger.debug("show - " + item + " URL -> " + item.getItemID());
 		((SwingMainFrame)this.getTopLevelAncestor()).getPanelItemDetails().showItem(item);
 		((SwingMainFrame)this.getTopLevelAncestor()).getPanelItemDetails().getLblIcon().setIcon(this.getIcon(false,SIZE_LARGE));
 		((SwingMainFrame)this.getTopLevelAncestor()).getPanelItemDetails().repaint();

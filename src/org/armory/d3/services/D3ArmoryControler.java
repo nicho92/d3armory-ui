@@ -20,6 +20,8 @@ import java.util.Properties;
 import javax.swing.JOptionPane;
 
 import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.pihen.d3restapi.beans.Hero;
@@ -42,7 +44,7 @@ public class D3ArmoryControler {
 	public static String SERIALISATION_DIR=CONF_DIR+"/items";
 	public static String SERIALISATION_HERO_DIR=CONF_DIR+"/heroes";
 	public static String SERIALISATION_BUILD_DIR=CONF_DIR+"/builds";
-	
+	public static String SOURCE_REPOSITORY="https://github.com/nicho92/d3armory-ui/issues";
 	
 	private static D3ArmoryControler instance;
 	public Configuration conf;
@@ -53,14 +55,18 @@ public class D3ArmoryControler {
 	private String local;
 	private Item selectedItem;
 	
-	
+	static final Logger logger = LogManager.getLogger(D3ArmoryControler.class.getName());
+
 	
 
 	public static D3ArmoryControler getInstance()
 	{
-		if(instance==null)
-			instance = new D3ArmoryControler();
 		
+		if(instance==null)
+		{
+			logger.debug("Initialisation Singleton Controler");
+			instance = new D3ArmoryControler();
+		}
 		return instance;
 	}
 	
@@ -183,8 +189,7 @@ public class D3ArmoryControler {
 			try {
 				selected = getHeroDetails(selected.getId().longValue());
 			} catch (D3ServerCommunicationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error(e);
 			}
 		
 		return selected;
@@ -201,6 +206,7 @@ public class D3ArmoryControler {
 		try {
 			return itemService.receiveEntity(conf);
 		} catch (D3ServerCommunicationException e) {
+			logger.error(e);
 			JOptionPane.showMessageDialog(null, e,"ERROR",JOptionPane.ERROR_MESSAGE);
 			return null;
 		}
@@ -275,7 +281,7 @@ public class D3ArmoryControler {
 	
 	public List<String> getListTags(String region)
 	{
-		//lecture du fichier texte	
+		
 		List<String> liste = new ArrayList<String>();
 				try{
 					InputStream ips=new FileInputStream(TAG_FILE); 
@@ -293,10 +299,11 @@ public class D3ArmoryControler {
 							}
 						}
 					}
+					logger.debug("Tags "+region+ " :" + liste.size() +" tags");
 					br.close(); 
 				}		
 				catch (Exception e){
-					e.printStackTrace();
+					logger.error(e);
 				}
 				return liste;
 	}
@@ -306,9 +313,11 @@ public class D3ArmoryControler {
 		try {
 			FileWriter fw= new FileWriter(TAG_FILE,true);
 			fw.write("\n"+code+"#"+server+"\n");
+			logger.debug("Add Tag " + code+"#"+server);
+			
 			fw.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 		
 	}
@@ -333,7 +342,7 @@ public class D3ArmoryControler {
             out.close();
  
         } catch (Exception e) {
-            e.printStackTrace();
+        	logger.error(e);
         }
 	}
 
@@ -346,8 +355,10 @@ public class D3ArmoryControler {
 			Properties p = new Properties();
 			p.load(ipsr);
 			local = p.getProperty("local");
+			logger.debug("Get local =" + local);
 			return local;
 		} catch (IOException e) {
+			logger.error(e);
 			return "en_US";
 		}
 	}
@@ -360,7 +371,9 @@ public class D3ArmoryControler {
 			prop.load();
 			prop.setProperty("local", local);
 			prop.save();
+			logger.debug("Set local =" + local);
 		} catch (Exception e) {
+			logger.error(e);
 			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
 		}
 	}
@@ -373,7 +386,9 @@ public class D3ArmoryControler {
 			prop.load();
 			prop.setProperty("season", s);
 			prop.save();
+			logger.debug("set season =" + s);
 		} catch (Exception e) {
+			logger.error(e);
 			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
 		}
 	}
@@ -389,8 +404,10 @@ public class D3ArmoryControler {
 			if(season==null)
 				return "0";
 			
+			logger.debug("get season =" + season );
 			return season;
 		} catch (IOException e) {
+			logger.error(e);
 			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
 			return "0";
 		}
@@ -423,32 +440,68 @@ public class D3ArmoryControler {
 		try{
 			FileOutputStream fos = new FileOutputStream(SERIALISATION_HERO_DIR +"/"+i.getId()+".d3hero");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
-		//	Gson GSON = new Gson();
-		//	System.out.println(GSON.toJson(i));
 			oos.writeObject(i);
 			oos.flush();
 			oos.close();
 		}
 		catch (java.io.IOException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 	}
 	
 	public Hero loadHero(Number number)
 	{
 		try{
-			
-			File f = new File(SERIALISATION_HERO_DIR +"/"+number+".d3hero");
-			FileInputStream fos = new FileInputStream(f);
+			FileInputStream fos = new FileInputStream(SERIALISATION_HERO_DIR +"/"+number+".d3hero");
 			ObjectInputStream ois  = new ObjectInputStream(fos);
-			Hero h = (Hero)ois.readObject();
-			return h;
+			return (Hero)ois.readObject();
 		}
 		catch (Exception e) {
-			//e.printStackTrace();
+			logger.error(e);
 			return null;
 		}
 	}
+	
+	
+	
+	
+//	public void saveHero(Hero i)
+//	{
+//		try{
+//			File f = new File(SERIALISATION_HERO_DIR +"/"+i.getId()+".d3hero");
+//			logger.debug("save hero =" + SERIALISATION_HERO_DIR +"/"+i.getId()+".d3hero -> " + i  );
+//			Gson GSON = new Gson();
+//			FileWriter fw = new FileWriter(f.getAbsoluteFile());
+//			BufferedWriter bw = new BufferedWriter(fw);
+//			bw.write(GSON.toJson(i));
+//			bw.close();
+//			
+//		}
+//		catch (java.io.IOException e) {
+//			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
+//			logger.error(e);
+//		}
+//	}
+//	
+//	public Hero loadHero(Number number)
+//	{
+//		try{
+//			
+//			File f = new File(SERIALISATION_HERO_DIR +"/"+number+".d3hero");
+//			InputStream fos = new FileInputStream(f);
+//			String sHero = new BufferedReader(new InputStreamReader(fos)).readLine();
+//			Gson GSON = new Gson();
+//			Hero h = GSON.fromJson(sHero, Hero.class);
+//			logger.debug("load hero =" + SERIALISATION_HERO_DIR +"/"+number+".d3hero -> " + h );
+//			return h;
+//		}
+//		catch (Exception e) {
+//			//JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
+//			logger.error(e);
+//			e.printStackTrace();
+//			return null;
+//		}
+//	}
 	
 	public void saveItem(Item i)
 	{
@@ -460,7 +513,7 @@ public class D3ArmoryControler {
 			oos.close();
 		}
 		catch (java.io.IOException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 	}
 	
@@ -472,7 +525,7 @@ public class D3ArmoryControler {
 			return (Item)ois.readObject();
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e);
 			return null;
 		}
 	}
@@ -498,7 +551,7 @@ public class D3ArmoryControler {
 			oos.close();
 		}
 		catch (java.io.IOException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 	}
 	
@@ -510,7 +563,7 @@ public class D3ArmoryControler {
 			return (HeroSkillContainer)ois.readObject();
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e);
 			return null;
 		}
 	}
@@ -534,6 +587,7 @@ public class D3ArmoryControler {
 			prop.setProperty("look", look);
 			prop.save();
 		} catch (Exception e) {
+			logger.error(e);
 			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
 		}
 		
@@ -547,6 +601,7 @@ public class D3ArmoryControler {
 			p.load(ipsr);
 			return p.getProperty("look");
 		} catch (IOException e) {
+			logger.error(e);
 			return null;
 		}
 	}

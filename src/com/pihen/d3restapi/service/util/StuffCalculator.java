@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.armory.d3.ui.SwingMainFrame;
+
 import com.pihen.d3restapi.beans.Gem;
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.HeroSkillContainer;
@@ -32,6 +36,7 @@ public class StuffCalculator{
 	double buffReduction;
 	double totalReductionPercent;
 	
+	static final Logger logger = LogManager.getLogger(StuffCalculator.class.getName());
 
 	public double getMindmgM() {
 		return mindmgM;
