@@ -531,32 +531,33 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	public synchronized void chargementHero(){
 		 try {
-			logger.debug("Chargement du hero " + hero);
-			Hero cached = D3ArmoryControler.getInstance().loadHero(hero.getId());
-			 if(cached!=null)
-			 {
-				if(cached.getLastUpdated().intValue()>=hero.getLastUpdated().intValue())
-				{
-					logger.debug("Loading from cache");
-					initHeroCachedItem();
-					D3ArmoryControler.getInstance().setSelectedHero(cached);
-					hero=cached;
-				}
-				else
-				{
-					logger.debug("old cache : reLoading from Battle.Net");
-					initHeroItems();
-					D3ArmoryControler.getInstance().saveHero(hero);
-				}
-			 }
-			 else
+			 logger.debug("Chargement du hero " + hero);
+//			 Hero cached = D3ArmoryControler.getInstance().loadHero(hero.getId());
+//			 if(cached!=null)
+//			 {
+//				if(cached.getLastUpdated().intValue()>=hero.getLastUpdated().intValue())
+//				{
+//					logger.debug("Loading from cache");
+//					initHeroItems(true);
+//					D3ArmoryControler.getInstance().setSelectedHero(cached);
+//					hero=cached;
+//				}
+//				else
+//				{
+//					logger.debug("old cache : reLoading from Battle.Net");
+//					initHeroItems(false);
+//					D3ArmoryControler.getInstance().saveHero(hero);
+//				}
+//			 }
+//			 else
 			 {
 			 logger.debug("No cache : Loading from Battle.Net");
-			 initHeroItems();
+			 initHeroItems(false);
 			 D3ArmoryControler.getInstance().saveHero(hero);
 			 }
-		 initHeroItems();
-		 D3ArmoryControler.getInstance().saveHero(hero);
+			
+			 
+			//D3ArmoryControler.getInstance().saveHero(hero);
 			getTableauDescriptionItems().setModel(new ItemsDetailModel());
 			getPanneauEHP().getTable().setModel(new EHPCalculatorModel(D3ArmoryControler.getInstance().getCalculator()));
 			getMnuSaveBuild().setEnabled(true);
@@ -770,211 +771,54 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		
 	}
 	
-	private void initHeroCachedItem() throws D3ServerCommunicationException
+	private void initHeroItems(boolean iscache) throws D3ServerCommunicationException
 	{
-		D3ArmoryControler.getInstance().setSelectedHero(hero);
+		
+		logger.debug("Chargement des items cache = " + iscache);
+		
 		hero=D3ArmoryControler.getInstance().getHeroDetails(hero);
 		
+		D3ArmoryControler.getInstance().setSelectedHero(hero);
 		
-		Item head = hero.getItems().getHead();
-		lblHead.setItem(head,EnumerationStuff.HEAD);
-		lblSocketHead.setItem(head,0);
-				
-		Item foot = hero.getItems().getFeet();
-		lblFoot.setItem(foot,EnumerationStuff.FEET);
-		lblSocketBoot.setItem(foot,0);
-		
-		Item gants = hero.getItems().getHands();
-		lblGants.setItem(gants,EnumerationStuff.GANT);
-		lblSocketGants.setItem(gants,0);
-		
-		Item neck = hero.getItems().getNeck();
-		lblNeck.setItem(neck,EnumerationStuff.NECK);
-		lblSocketNeck.setItem(neck,0);
-		
-		Item ringright = hero.getItems().getRightFinger();
-		lblRingRight.setItem(ringright,EnumerationStuff.RING_RIGHT);
-		lblSocketRightRing.setItem(ringright,0);
-		
-		Item ringleft = hero.getItems().getLeftFinger();
-		lblRingLeft.setItem(ringleft,EnumerationStuff.RING_LEFT);
-		lblSocketLeftRing.setItem(ringleft,0);
-		
-
-		Item mainHand = hero.getItems().getMainHand();
-		Item offhand = hero.getItems().getOffHand();
-
-		lblMainHand.setItem(mainHand,EnumerationStuff.MAIN_HAND);
-		lblSocketMainHand.setItem(mainHand,0);
-		
-		lblOffHand.setDisabled(false);
-		if(mainHand!=null)
-		{
-			if(mainHand.nbSockets()==2)
-				lblSocketMainHand2.setItem(mainHand,1);
-			else
-				lblSocketMainHand2.setItem(null,1);
-			
-			if(mainHand.getType().getTwoHanded() && hero.getItems().getOffHand()==null)
-			{
-				lblOffHand.setItem(hero.getItems().getMainHand(),EnumerationStuff.OFF_HAND);
-				lblOffHand.setDisabled(true);
-			}
-			else
-			{	
-				lblOffHand.setItem(offhand,EnumerationStuff.OFF_HAND);
-				lblSocketOffHand.setItem(offhand,0);
-			}
-		}	
-		
-		if(offhand!=null)
-		{
-			lblOffHand.setItem(offhand,EnumerationStuff.OFF_HAND);
-			lblSocketOffHand.setItem(offhand,0);
-		}
-
-		Item torso = hero.getItems().getTorso();
-		lblTorso.setItem(torso,EnumerationStuff.TORSO);
-		if(torso!=null)
-		{
-			if(torso.nbSockets()==0)
-			{
-				lblSocketTorso1.setItem(torso,0);
-				lblSocketTorso2.setItem(torso,0);
-				lblSocketTorso3.setItem(torso,0);
-			}
-			
-			if(torso.nbSockets()==1)
-			{
-				lblSocketTorso1.setItem(torso,0);
-				lblSocketTorso2.setItem(null,0);
-				lblSocketTorso3.setItem(null,0);
-			}
-			
-			
-			if(torso.nbSockets()==2)
-			{
-				lblSocketTorso1.setItem(torso,0);
-				lblSocketTorso2.setItem(torso,1);
-				lblSocketTorso3.setItem(null,0);
-			}
-			
-			if(torso.nbSockets()>2)
-			{
-				lblSocketTorso1.setItem(torso,0);
-				
-				lblSocketTorso2.setItem(torso,1);
-				lblSocketTorso3.setItem(torso,2);
-			}
-		}
+		Item head ;
+		if(iscache)
+			head=hero.getItems().getHead();
 		else
-		{
-			lblSocketTorso1.setItem(null,0);
-			lblSocketTorso2.setItem(null,0);
-			lblSocketTorso3.setItem(null,0);
-		}
-		
-		
-		Item legs = hero.getItems().getLegs();
-		lblLegs.setItem(legs,EnumerationStuff.LEGS);
-		
-		if(legs!=null)
-		{
-			if(legs.nbSockets()==0)
-			{
-				lblSocketLegs1.setItem(legs,0);
-				lblSocketLegs2.setItem(legs,0);
-			}
-			if(legs.nbSockets()==1)
-			{
-				lblSocketLegs1.setItem(legs,0);
-				lblSocketLegs2.setItem(null,0);
-			}
-			
-			if(legs.nbSockets()==2)
-			{
-				lblSocketLegs1.setItem(legs,0);
-				lblSocketLegs2.setItem(legs,1);
-			}
-		}
-		else
-		{
-			lblSocketLegs1.setItem(null,0);
-			lblSocketLegs2.setItem(null,0);
-		}
-		
-		Item shoulders= hero.getItems().getShoulders();
-		lblShoulders.setItem(shoulders,EnumerationStuff.SHOULDERS);
-		Item bracers = hero.getItems().getBracers();
-		lblBracers.setItem(bracers,EnumerationStuff.BRACER);
-		Item belt = hero.getItems().getWaist();
-		lblbelt.setItem(belt,EnumerationStuff.BELT);
-		
-		stuffs = new HashMap<EnumerationStuff, Item>();
-		  stuffs.put(EnumerationStuff.HEAD, head);
-		  stuffs.put(EnumerationStuff.SHOULDERS, shoulders);
-		  stuffs.put(EnumerationStuff.NECK, neck);
-		  stuffs.put(EnumerationStuff.TORSO, torso);
-		  stuffs.put(EnumerationStuff.GANT, gants);
-		  stuffs.put(EnumerationStuff.BRACER, bracers);
-		  stuffs.put(EnumerationStuff.BELT, belt);
-		  stuffs.put(EnumerationStuff.LEGS, legs);
-		  stuffs.put(EnumerationStuff.RING_RIGHT, ringright);
-		  stuffs.put(EnumerationStuff.RING_LEFT, ringleft);
-		  stuffs.put(EnumerationStuff.MAIN_HAND, mainHand);
-		  stuffs.put(EnumerationStuff.OFF_HAND, offhand);
-		  stuffs.put(EnumerationStuff.FEET, foot);
-		
-		D3ArmoryControler.getInstance().initCalculator(stuffs);
-		
-		((TableauExpertModel)getTableauExpert().getModel()).fireTableDataChanged();
-		
-		if(hero.isHardcore())
-			lblHarcore.setText("Hardcore");
-		else
-			lblHarcore.setText("");
-		
-		
-		getLblLife().setText(formatRessourceVisibleValue(hero.getStats().getLife()));
-		
-		if(hero.getClazz().equals("demon-hunter"))
-			getLblRessources().setText("<html>"+hero.getStats().getPrimaryResource()+"<br/>"+hero.getStats().getSecondaryResource()+"<html>");
-		else
-			getLblRessources().setText(""+hero.getStats().getPrimaryResource());
-		
-		
-		getLblLastUpdate().setText(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(hero.getLastUpdatedDate()) +"(cached)");
-		
-		initHeroInfoPanel();
-		panneauDessinHero.repaint();
-	}
+			head = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHead());
 	
-	private void initHeroItems() throws D3ServerCommunicationException
-	{
-		
-		logger.debug("Chargement des items");
-		
-		hero=D3ArmoryControler.getInstance().getHeroDetails(hero);
-		
-		D3ArmoryControler.getInstance().setSelectedHero(hero);
-		
-		Item head = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHead());
 		lblHead.setItem(head,EnumerationStuff.HEAD);
 		hero.getItems().setHead(head);
 		lblSocketHead.setItem(head,0);
 				
-		Item foot = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getFeet());
+		Item foot;
+		if(iscache)
+			foot=hero.getItems().getFeet();
+		else
+			foot= D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getFeet());
+		
 		lblFoot.setItem(foot,EnumerationStuff.FEET);
 		lblSocketBoot.setItem(foot,0);
 		hero.getItems().setFeet(foot);
 		
-		Item gants = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHands());
+		
+		
+		Item gants ;
+		if(iscache)
+			gants=hero.getItems().getHands();
+		else
+			gants= D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHands());
+		
 		lblGants.setItem(gants,EnumerationStuff.GANT);
 		lblSocketGants.setItem(gants,0);
 		hero.getItems().setHands(gants);
 		
 		
-		Item neck = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getNeck());
+		Item neck;
+		if(iscache)
+			neck=hero.getItems().getNeck();
+		else
+			neck= D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getNeck());
+		
 		lblNeck.setItem(neck,EnumerationStuff.NECK);
 		lblSocketNeck.setItem(neck,0);
 		hero.getItems().setNeck(neck);
