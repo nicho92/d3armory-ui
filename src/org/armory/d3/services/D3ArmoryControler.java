@@ -47,6 +47,9 @@ public class D3ArmoryControler {
 	public static String SERIALISATION_BUILD_DIR=CONF_DIR+"/builds";
 	public static String SOURCE_REPOSITORY="https://github.com/nicho92/d3armory-ui/issues";
 	public static String APP_VERSION="https://raw.githubusercontent.com/nicho92/d3armory-ui/master/src/version";
+	public static String APP_DOWNLOAD="https://github.com/nicho92/d3armory-ui/tree/master/executable";
+	
+	
 	
 	private static D3ArmoryControler instance;
 	public Configuration conf;

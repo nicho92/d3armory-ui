@@ -187,7 +187,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	TrayIcon trayIcon = new TrayIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/org/armory/d3/ui/resources/tab/herocomp.png")));
 	final SystemTray tray = SystemTray.getSystemTray();
 	private LootFactoryPanel lootFactoryPanel;
-
+	private String msgUpdate="";
+	
 	static SwingMainFrame inst ;
 	
 	static final Logger logger = LogManager.getLogger(SwingMainFrame.class.getName());
@@ -441,11 +442,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			if (SystemTray.isSupported()) {
 				tray.add(trayIcon);
 				
-				String message="";
-				if(D3ArmoryControler.getInstance().hasUpdateVersionApp())
-					message = "New Version Available !!";
 				
-				trayIcon.displayMessage("D3 Armory Calculator","Application started\n"+message,TrayIcon.MessageType.INFO);
+				if(D3ArmoryControler.getInstance().hasUpdateVersionApp())
+					msgUpdate = "New Version Available !!";
+				
+				trayIcon.displayMessage("D3 Armory Calculator","Application started\n"+msgUpdate,TrayIcon.MessageType.INFO);
 				trayIcon.addActionListener(new ActionListener() {
 					
 					public void actionPerformed(ActionEvent e) {
@@ -456,6 +457,22 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					}
 				});
 			}
+			JMenu mnuUpdate = new JMenu(msgUpdate);
+			JMenuItem mnuDlUpdate = new JMenuItem("Download new Version");
+			mnuUpdate.add(mnuDlUpdate);
+			mnuDlUpdate.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+					try {
+						Desktop.getDesktop().browse(new URI(D3ArmoryControler.APP_DOWNLOAD));
+					} catch (Exception e) {
+						logger.error(e);
+						JOptionPane.showMessageDialog(null, e.getMessage(),"Erreur",JOptionPane.ERROR_MESSAGE);
+
+					}
+				}
+			});
+			
+			jMenuBar1.add(mnuUpdate);	
 			
 		} catch (Exception e) {
 			logger.error(e);
