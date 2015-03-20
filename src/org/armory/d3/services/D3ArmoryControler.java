@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +46,7 @@ public class D3ArmoryControler {
 	public static String SERIALISATION_HERO_DIR=CONF_DIR+"/heroes";
 	public static String SERIALISATION_BUILD_DIR=CONF_DIR+"/builds";
 	public static String SOURCE_REPOSITORY="https://github.com/nicho92/d3armory-ui/issues";
+	public static String APP_VERSION="https://raw.githubusercontent.com/nicho92/d3armory-ui/master/version";
 	
 	private static D3ArmoryControler instance;
 	public Configuration conf;
@@ -54,6 +56,12 @@ public class D3ArmoryControler {
 	private StuffCalculator calculator;
 	private String local;
 	private Item selectedItem;
+	
+	
+	
+	public static double ACTUAL_VERSION=1.584;
+
+	
 	
 	static final Logger logger = LogManager.getLogger(D3ArmoryControler.class.getName());
 
@@ -145,6 +153,21 @@ public class D3ArmoryControler {
          	
 	}
 	
+	public boolean hasUpdateVersionApp()
+	{
+		
+		 try {
+	    	  InputStreamReader fr = new InputStreamReader( new URL(APP_VERSION).openStream(),"ISO-8859-1");
+	    	  BufferedReader br = new BufferedReader(fr);
+	    	 String version =  br.readLine();
+	    	 return ACTUAL_VERSION<Double.parseDouble(version.trim());
+		 }
+		 catch(Exception e)
+		 {
+			 logger.error(e);
+			 return false;
+		 }
+	}
 	
 	public Profile getProfil(String host, String tagName,Long tagID) throws D3ServerCommunicationException
 	{

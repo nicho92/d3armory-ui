@@ -18,17 +18,17 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 	
-	Configuration conf = new Configuration();
-		  conf.setBattleTag("nicho92");
-		  conf.setBattleTagCode(new Long(2603));
-		  conf.setHost("eu.battle.net");
-		  conf.setLocal("fr_FR");
-		  
-		  RemoteService<Profile> profileService = new SpringRemoteService(Profile.class);
-          RemoteService<Hero> heroService = new SpringRemoteService(Hero.class);
-          Profile profile = profileService.receiveEntity(conf);
-          
-          D3ArmoryControler.getInstance().setConf(conf);
+//	Configuration conf = new Configuration();
+//		  conf.setBattleTag("nicho92");
+//		  conf.setBattleTagCode(new Long(2603));
+//		  conf.setHost("eu.battle.net");
+//		  conf.setLocal("fr_FR");
+//		  
+//		  RemoteService<Profile> profileService = new SpringRemoteService(Profile.class);
+//          RemoteService<Hero> heroService = new SpringRemoteService(Hero.class);
+//          Profile profile = profileService.receiveEntity(conf);
+//          
+//          D3ArmoryControler.getInstance().setConf(conf);
 //          for(Hero h : profile.getHeroes())
 //          {
 //        	  conf.setHeroId(h.getId());
@@ -54,8 +54,7 @@ public class Main {
 //               StuffCalculator calc = new StuffCalculator(D3ArmoryControler.getInstance().initStuffHero(h),h);
 //               calc.calculate();
 //               System.out.println(calc.getStatAttributs().get(StuffCalculator.KEY.DOT_DAMAGE));
-          Hero h = D3ArmoryControler.getInstance().loadHero(17403375);
-          	System.out.println(h.getItems().get(EnumerationStuff.MAIN_HAND));
+				System.out.println(D3ArmoryControler.getInstance().hasUpdateVersionApp());
           
           
 	

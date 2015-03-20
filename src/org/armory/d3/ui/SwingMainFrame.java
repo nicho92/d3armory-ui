@@ -255,7 +255,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						else
 							inst.setLookAndFeel(look);
 						
-						
 				inst.setLocationRelativeTo(null);
 				inst.setVisible(true);
 				inst.toFront();
@@ -393,6 +392,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					
 					JMenu jMenu4 = new JMenu("Look");
 					jMenuBar1.add(jMenu4);
+					
 					
 					for(LookAndFeelInfo ui : UIManager.getInstalledLookAndFeels())
 					{
@@ -1899,6 +1899,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	{
 		try {
 			UIManager.setLookAndFeel(lookAndFeel);
+			//UIManager.setLookAndFeel(new Plastic3DLookAndFeel());
 		} catch (Exception e) {
 			logger.error(e);
 		}
