@@ -440,7 +440,12 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			
 			if (SystemTray.isSupported()) {
 				tray.add(trayIcon);
-				trayIcon.displayMessage("D3 Armory Calculator","Application started",TrayIcon.MessageType.INFO);
+				
+				String message="";
+				if(D3ArmoryControler.getInstance().hasUpdateVersionApp())
+					message = "New Version Available !!";
+				
+				trayIcon.displayMessage("D3 Armory Calculator","Application started\n"+message,TrayIcon.MessageType.INFO);
 				trayIcon.addActionListener(new ActionListener() {
 					
 					public void actionPerformed(ActionEvent e) {

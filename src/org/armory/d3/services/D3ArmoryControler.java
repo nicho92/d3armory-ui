@@ -155,11 +155,13 @@ public class D3ArmoryControler {
 	
 	public boolean hasUpdateVersionApp()
 	{
-		
+		logger.debug("Actual Version " + ACTUAL_VERSION);
 		 try {
 	    	  InputStreamReader fr = new InputStreamReader( new URL(APP_VERSION).openStream(),"ISO-8859-1");
 	    	  BufferedReader br = new BufferedReader(fr);
 	    	 String version =  br.readLine();
+	    	 logger.debug("Last commited Version " + version.trim());
+	    	 
 	    	 return ACTUAL_VERSION<Double.parseDouble(version.trim());
 		 }
 		 catch(Exception e)
