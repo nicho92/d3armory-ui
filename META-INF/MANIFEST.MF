@@ -6,5 +6,4 @@ Rsrc-Class-Path: ./ appFramework-1.0.jar commons-configuration-1.10.ja
 Class-Path: .
 Rsrc-Main-Class: org.armory.d3.ui.SwingMainFrame
 Main-Class: org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader
-
 SplashScreen-Image: splash.png
