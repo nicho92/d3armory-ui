@@ -46,7 +46,7 @@ public class D3ArmoryControler {
 	public static String SERIALISATION_HERO_DIR=CONF_DIR+"/heroes";
 	public static String SERIALISATION_BUILD_DIR=CONF_DIR+"/builds";
 	public static String SOURCE_REPOSITORY="https://github.com/nicho92/d3armory-ui/issues";
-	public static String APP_VERSION="https://raw.githubusercontent.com/nicho92/d3armory-ui/master/version";
+	public static String APP_VERSION="https://raw.githubusercontent.com/nicho92/d3armory-ui/master/src/version";
 	
 	private static D3ArmoryControler instance;
 	public Configuration conf;
@@ -56,11 +56,6 @@ public class D3ArmoryControler {
 	private StuffCalculator calculator;
 	private String local;
 	private Item selectedItem;
-	
-	
-	
-	public static double ACTUAL_VERSION=1.584;
-
 	
 	
 	static final Logger logger = LogManager.getLogger(D3ArmoryControler.class.getName());
@@ -155,14 +150,19 @@ public class D3ArmoryControler {
 	
 	public boolean hasUpdateVersionApp()
 	{
-		logger.debug("Actual Version " + ACTUAL_VERSION);
-		 try {
+		try {
+		
+		InputStream in = getClass().getResourceAsStream("/version"); 
+		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+			double actualversion = Double.parseDouble(reader.readLine().trim()); 
+			logger.debug("Actual Version " + actualversion);
+		 
 	    	  InputStreamReader fr = new InputStreamReader( new URL(APP_VERSION).openStream(),"ISO-8859-1");
 	    	  BufferedReader br = new BufferedReader(fr);
 	    	 String version =  br.readLine();
 	    	 logger.debug("Last commited Version " + version.trim());
 	    	 
-	    	 return ACTUAL_VERSION<Double.parseDouble(version.trim());
+	    	 return actualversion<Double.parseDouble(version.trim());
 		 }
 		 catch(Exception e)
 		 {
