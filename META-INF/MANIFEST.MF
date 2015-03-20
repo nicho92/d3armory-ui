@@ -1,7 +1,10 @@
 Manifest-Version: 1.0
-Rsrc-Class-Path: ./ jnlp.jar appFramework-1.0.jar spring-web-4.1.5.RELEASE.jar gson-2.3.1.jar commons-logging-1.1.1.jar spring-core-4.1.5.RELEASE.jar
-glazedlists_java15-1.9.0.jar jsoup-1.7.3.jar commons-lang-2.6.jar commons-configuration-1.10.jar log4j-1.2.17.jar
+Rsrc-Class-Path: ./ appFramework-1.0.jar commons-configuration-1.10.ja
+ r commons-lang-2.6.jar commons-logging-1.1.1.jar glazedlists_java15-1
+ .9.0.jar gson-2.3.1.jar jnlp.jar jsoup-1.7.3.jar log4j-1.2.17.jar spr
+ ing-core-4.1.5.RELEASE.jar spring-web-4.1.5.RELEASE.jar
 Class-Path: .
 Rsrc-Main-Class: org.armory.d3.ui.SwingMainFrame
 Main-Class: org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader
+
 SplashScreen-Image: splash.png
