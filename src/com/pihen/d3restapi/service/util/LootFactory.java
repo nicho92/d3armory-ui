@@ -9,6 +9,8 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.model.LootXlsTableModel;
 
@@ -19,6 +21,10 @@ public class LootFactory {
 
 	private LootXlsTableModel tableLoot;
 	private Hero h;
+	
+	static final Logger logger = LogManager.getLogger(LootFactory.class.getName());
+
+	
 	
 	int columnPourcent;
 	int columnNameItem=1;
@@ -89,7 +95,7 @@ public class LootFactory {
 			if(tableLoot.getValueAt(i,columnType).toString().equalsIgnoreCase(type))
 			{
 				if(!tableLoot.getValueAt(i, columnPourcent).toString().equalsIgnoreCase("0%"))
-					lootedItemTable.put(tableLoot.getValueAt(i,columnNameItem).toString(), Double.parseDouble(tableLoot.getValueAt(i, columnPourcent).toString().replaceAll("%", "").trim()));
+					lootedItemTable.put(tableLoot.getValueAt(i,columnNameItem).toString(), Double.parseDouble(tableLoot.getValueAt(i, columnPourcent).toString().replaceAll("%", "").trim())/100);
 			}
 		}
 		return lootedItemTable;
@@ -97,6 +103,7 @@ public class LootFactory {
 	
 	public Item generateItem(String item)
 	{
+		logger.debug("Init loot table");
 		Map<String,Double> lootedItemTable;
 		if (item==null)
 			lootedItemTable= getGenerateItem(randomTypeItemClazz());
@@ -116,6 +123,7 @@ public class LootFactory {
                     }
                 }).getKey();
 		
+		logger.debug("Loot Table : " + lootedItemTable);
 		String name=lootedItemTable.keySet().toArray()[(int)new Random().nextInt((int)lootedItemTable.keySet().size())].toString();
 		Item i = new Item();
 			i.setTooltipParams("item/"+name.replaceAll("-","").replace(",", "").replace("'", "").replaceAll(" ", "-").trim().toLowerCase());

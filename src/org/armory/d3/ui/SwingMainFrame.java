@@ -1635,7 +1635,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				
 				panneauDessinHero.add(getLblLoader());
 				
-				
+					
 				{
 					lblNom = new ItemLabel();
 					lblNom.setForeground(new Color(255, 255, 255));

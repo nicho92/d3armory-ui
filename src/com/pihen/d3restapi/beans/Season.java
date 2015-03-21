@@ -34,7 +34,6 @@ public class Season implements Serializable{
     	Method m = this.getClass().getMethod("getSeason"+season, new Class[] {});
     	logger.debug("Call dynamic season method" + m);	
     	Object ret = m.invoke(D3ArmoryControler.getInstance().getCurrentProfil().getSeasonalProfiles());
-    	logger.debug(ret);
     	return (SeasonalProfile)ret;
 	}
 	
