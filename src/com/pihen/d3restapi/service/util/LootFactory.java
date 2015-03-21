@@ -1,4 +1,4 @@
-package com.pihen.d3restapi.service.factory;
+package com.pihen.d3restapi.service.util;
 
 import java.util.Collections;
 import java.util.Comparator;

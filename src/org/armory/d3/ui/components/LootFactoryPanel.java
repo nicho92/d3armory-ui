@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import org.armory.d3.services.D3ArmoryControler;
 
 import com.pihen.d3restapi.beans.Item;
-import com.pihen.d3restapi.service.factory.LootFactory;
+import com.pihen.d3restapi.service.util.LootFactory;
 
 public class LootFactoryPanel extends JPanel {
 	
