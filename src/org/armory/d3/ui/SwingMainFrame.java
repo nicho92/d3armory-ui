@@ -1108,7 +1108,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private String getDetailHero(int val) {
 		StringBuffer temp = new StringBuffer();
-		
+		try{
 		if(val==0){
 			temp.append("Strength : " + hero.getStats().getStrength() +" <br/>");
 			temp.append("Intel : " + hero.getStats().getIntelligence() +" <br/>");
@@ -1149,24 +1149,25 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			temp.append("DPS : " + hero.getStats().getDamage() +" <br/>");
 			temp.append("Elites Kill : " + hero.getKills().getElites() +" <br/>");
 			temp.append("Saison : " + hero.getSeasonCreated() +" <br/>");
-			temp.append("End Season Parangon : " + D3ArmoryControler.getInstance().getEndSeasonParangonLevelSC(2).getLevel() +" <br/>");
+			temp.append("End Season Parangon : " + D3ArmoryControler.getInstance().getEndSeasonParangonLevelSC(D3ArmoryControler.getInstance().getSeason()).getLevel() +" <br/>");
 		}
 		if(val==5)
 		{
 			temp.append("D3Progress Ladder <br/>");
-			try{
+			
 			D3ProgressLeaderBoard leadbord = new D3ProgressLeaderBoard(D3ArmoryControler.getInstance().getConf(),D3ArmoryControler.getInstance().getSelectedHero(false));
 				temp.append("Parangon World : " + leadbord.getWorldParangonLevel()+" <br/>");
 				temp.append("Parangon Region: " + leadbord.getRegionalParangonLevel()+" <br/>");
 				temp.append("DPS World : " + leadbord.getWorldDPS()+" <br/>");
 				temp.append("DPS Region: " + leadbord.getRegionalDPS()+" <br/>");
-			}
-			catch(Exception e)
-			{
-				logger.error(e);
-			}
+			
 		
 			//temp.append("End HC Season Parangon : " + D3ArmoryControler.getInstance().getEndSeasonParangonLevelHC(1).getLevel() +" <br/>");
+		}
+		}
+		catch(Exception e)
+		{
+			logger.error(e);
 		}
 		return temp.toString();
 	}

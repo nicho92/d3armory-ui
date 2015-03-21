@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -119,6 +120,7 @@ public class D3ArmoryControler {
         	long xp0 = xpc.getXPByLevel(profil.getParagonLevelHardcore().intValue()).getTotalExp();
         	long xp1 = 0;
       
+        	
         	if(profil.getSeasonalProfiles().getSeason2().getParagonLevelHardcore()!=null)
         		xp1=xpc.getXPByLevel(profil.getSeasonalProfiles().getSeason2().getParagonLevelHardcore().intValue()).getTotalExp();
         	
@@ -129,19 +131,18 @@ public class D3ArmoryControler {
         return new XP(profil.getParagonLevelHardcore().intValue(), 0, 0);
 	}
 	
-	public XP getEndSeasonParangonLevelSC(int season)
+	public XP getEndSeasonParangonLevelSC(String s) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException
 	{
 		XPCalculator xpc = new XPCalculator();
          
         long newXP =0;
-        
-        if(profil.getSeasonalProfiles().getSeason2()!=null)
+        if(profil.getSeasonalProfiles().getSeason(s)!=null)
         {
         	long xp0 = xpc.getXPByLevel(profil.getParagonLevel().intValue()).getTotalExp();
         	long xp1 = 0;
       
-        	if(profil.getSeasonalProfiles().getSeason2().getParagonLevel()!=null)
-        		xp1=xpc.getXPByLevel(profil.getSeasonalProfiles().getSeason2().getParagonLevel().intValue()).getTotalExp();
+        	if(profil.getSeasonalProfiles().getSeason(s).getParagonLevel()!=null)
+        		xp1=xpc.getXPByLevel(profil.getSeasonalProfiles().getSeason(s).getParagonLevel().intValue()).getTotalExp();
         	
         	newXP = xp0 + xp1;
         	return xpc.getXPByTotalXP(newXP);
