@@ -15,16 +15,26 @@ public class Season implements Serializable{
 	private SeasonalProfile season1;
 	private SeasonalProfile season2;
 	private SeasonalProfile season3;
+	private SeasonalProfile season4;
+	
+	public SeasonalProfile getSeason4() {
+		return season4;
+	}
+
+
+	public void setSeason4(SeasonalProfile season4) {
+		this.season4 = season4;
+	}
 
 	static final Logger logger = LogManager.getLogger(Season.class.getName());
 	
 	
 	public SeasonalProfile getSeason(String season) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException
 	{
-    	SeasonalProfile c = new SeasonalProfile();
     	Method m = this.getClass().getMethod("getSeason"+season, new Class[] {});
-    	logger.debug("Call dynamic season method" + m);
-    	Object ret = m.invoke(Season.class.newInstance());
+    	logger.debug("Call dynamic season method" + m);	
+    	Object ret = m.invoke(D3ArmoryControler.getInstance().getCurrentProfil().getSeasonalProfiles());
+    	logger.debug(ret);
     	return (SeasonalProfile)ret;
 	}
 	

@@ -134,15 +134,19 @@ public class D3ArmoryControler {
 	public XP getEndSeasonParangonLevelSC(String s) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException
 	{
 		XPCalculator xpc = new XPCalculator();
-         
+        logger.debug("Calcul end season " + s + " parangon");
         long newXP =0;
         if(profil.getSeasonalProfiles().getSeason(s)!=null)
         {
         	long xp0 = xpc.getXPByLevel(profil.getParagonLevel().intValue()).getTotalExp();
         	long xp1 = 0;
-      
+        	
+        	logger.debug("XP season0 = " + xp0);
+        	
         	if(profil.getSeasonalProfiles().getSeason(s).getParagonLevel()!=null)
         		xp1=xpc.getXPByLevel(profil.getSeasonalProfiles().getSeason(s).getParagonLevel().intValue()).getTotalExp();
+        	
+        	logger.debug("XP season = "+s + xp1);
         	
         	newXP = xp0 + xp1;
         	return xpc.getXPByTotalXP(newXP);
