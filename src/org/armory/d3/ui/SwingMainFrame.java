@@ -366,6 +366,21 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						
 						jMenu3.add(mnuSaveBuild);	
 						
+						
+						JMenuItem mnuClearCache = new JMenuItem("Clear cache");
+						mnuClearCache.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								for(File f : new File(D3ArmoryControler.SERIALISATION_HERO_DIR).listFiles())
+								{
+									f.delete();
+								}
+								JOptionPane.showMessageDialog(null, "Clear complete","Cache Cleaner",JOptionPane.INFORMATION_MESSAGE);
+						}
+					});
+						
+						jMenu3.add(mnuClearCache);
+						
+						
 					}
 					{
 						jSeparator2 = new JSeparator();
@@ -536,7 +551,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			    		  
 			    		} 
 			    	  catch (Exception e) {
-			    		  logger.error(e.getStackTrace());
+			    		  logger.error(e);
 			    		  e.printStackTrace();
 			  		}
 			      }
@@ -838,18 +853,38 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lblSocketNeck.setItem(neck,0);
 		hero.getItems().setNeck(neck);
 		
-		Item ringleft = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLeftFinger());
-		lblRingRight.setItem(ringleft,EnumerationStuff.RING_LEFT);
-		lblSocketRightRing.setItem(ringleft,0);
+		
+		Item ringleft;
+		if(iscache)	
+			ringleft=hero.getItems().getLeftFinger();
+		else
+			ringleft = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLeftFinger());
+		lblRingLeft.setItem(ringleft,EnumerationStuff.RING_LEFT);
+		lblSocketLeftRing.setItem(ringleft,0);
 		hero.getItems().setLeftFinger(ringleft);
 		
-		Item ringright = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getRightFinger());
-		lblRingLeft.setItem(ringright,EnumerationStuff.RING_LEFT);
-		lblSocketLeftRing.setItem(ringright,0);
+	
+		Item ringright;
+		if(iscache)	
+			ringright=hero.getItems().getRightFinger();
+		else
+			ringright= D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getRightFinger());
+		lblRingRight.setItem(ringright,EnumerationStuff.RING_RIGHT);
+		lblSocketRightRing.setItem(ringright,0);
 		hero.getItems().setRightFinger(ringright);
 
-		Item mainHand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getMainHand());
-		Item offhand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getOffHand());
+		Item mainHand;
+		if(iscache) //TODO WHY getType is null ???
+			mainHand=hero.getItems().get(EnumerationStuff.MAIN_HAND);
+		else	
+			mainHand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getMainHand());
+		Item offhand ;
+		
+		if(iscache)
+			offhand=hero.getItems().get(EnumerationStuff.OFF_HAND);
+		else
+			offhand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getOffHand());
+		
 		lblMainHand.setItem(mainHand,EnumerationStuff.MAIN_HAND);
 		lblSocketMainHand.setItem(mainHand,0);
 		
@@ -882,7 +917,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			lblSocketOffHand.setItem(offhand,0);
 		}
 
-		Item torso = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getTorso());
+		Item torso;
+		if(iscache)
+			torso=hero.getItems().getTorso();
+		else
+			torso = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getTorso());
 		lblTorso.setItem(torso,EnumerationStuff.TORSO);
 		hero.getItems().setTorso(torso);
 		
@@ -925,8 +964,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			lblSocketTorso3.setItem(null,0);
 		}
 		
-		
-		Item legs = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLegs());
+		Item legs ;
+		if(iscache)
+			legs=hero.getItems().getLegs();
+		else
+			legs = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getLegs());
 		lblLegs.setItem(legs,EnumerationStuff.LEGS);
 		hero.getItems().setLegs(legs);
 		
@@ -954,16 +996,27 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			lblSocketLegs1.setItem(null,0);
 			lblSocketLegs2.setItem(null,0);
 		}
-		
-		Item shoulders= D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getShoulders());
+		Item shoulders;
+		if(iscache)
+			shoulders = hero.getItems().getShoulders();
+		else
+			shoulders= D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getShoulders());
 		lblShoulders.setItem(shoulders,EnumerationStuff.SHOULDERS);
 		hero.getItems().setShoulders(shoulders);
 		
-		Item bracers = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getBracers());
+		Item bracers ;
+		if(iscache)
+			bracers = hero.getItems().getBracers();
+		else
+			bracers = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getBracers());
 		lblBracers.setItem(bracers,EnumerationStuff.BRACER);
 		hero.getItems().setBracers(bracers);
 		
-		Item belt = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getWaist());
+		Item belt;
+		if(iscache)
+			belt = hero.getItems().getWaist();
+		else
+			belt = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getWaist());
 		lblbelt.setItem(belt,EnumerationStuff.BELT);
 		hero.getItems().setWaist(belt);
 		
@@ -1002,8 +1055,12 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		else
 			getLblRessources().setText(""+hero.getStats().getPrimaryResource());
 		
-		
-		getLblLastUpdate().setText(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(hero.getLastUpdatedDate()));
+		String cachedMsg;
+		if(iscache)
+			cachedMsg="(cached)";
+		else
+			cachedMsg="";
+		getLblLastUpdate().setText(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(hero.getLastUpdatedDate())  + " " + cachedMsg);
 		
 		
 		initHeroInfoPanel();
