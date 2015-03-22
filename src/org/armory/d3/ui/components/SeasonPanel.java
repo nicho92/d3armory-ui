@@ -3,24 +3,18 @@ package org.armory.d3.ui.components;
 import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.DecimalFormat;
 
 import javax.swing.DefaultListModel;
-import javax.swing.DefaultListSelectionModel;
+import javax.swing.JEditorPane;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.ListModel;
-import javax.swing.ListSelectionModel;
 
 import org.armory.d3.services.D3ArmoryControler;
 
 import com.pihen.d3restapi.beans.Season;
 import com.pihen.d3restapi.beans.SeasonalProfile;
-import javax.swing.JEditorPane;
-import java.awt.Color;
 
 public class SeasonPanel extends JPanel {
 	private JList<SeasonalProfile> list;
@@ -73,12 +67,14 @@ public class SeasonPanel extends JPanel {
 	}
 
 	protected void showInfo(MouseEvent evt) {
+		
+		DecimalFormat df2 = new DecimalFormat( "#,###,###,##0" );
 		SeasonalProfile sp = (SeasonalProfile)((JList)evt.getSource()).getSelectedValue();
 		editorPane.setText("Parangon Level : " + sp.getParagonLevel()+ "\n" + 
 						   "HC Parangon : " + sp.getParagonLevelHardcore() +"\n" + 
-						   "Elites Kills : " + sp.getKills().getElites() +"\n"+
-						   "Monsters Kills : " + sp.getKills().getMonsters()+"\n"+
-						   "HC Monsters Kills : " + sp.getKills().getHardcoreMonsters()+"\n"
+						   "Elites Kills : " + df2.format(sp.getKills().getElites()) +"\n"+
+						   "Monsters Kills : " + df2.format(sp.getKills().getMonsters())+"\n"+
+						   "HC Monsters Kills : " + df2.format(sp.getKills().getHardcoreMonsters())+"\n"
 				);
 	}
 	

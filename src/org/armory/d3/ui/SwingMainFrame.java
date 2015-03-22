@@ -210,7 +210,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	        try {
 				Thread.sleep(3000);
 			} catch (InterruptedException e) {
-				logger.error(e);
+				logger.error(e.getStackTrace());
 			}
 	        splash.close();
 	        }
@@ -246,7 +246,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	    }
 	    catch(IOException e)
 	    {
-	    	logger.error(e);
+	    	logger.error(e.getStackTrace());
 	    	JOptionPane.showMessageDialog(null, e);
 	    }
 	        
@@ -419,7 +419,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 								try {
 									Desktop.getDesktop().browse(new URI(D3ArmoryControler.SOURCE_REPOSITORY));
 								} catch (Exception e) {
-									logger.error(e);
+									logger.error(e.getStackTrace());
 									JOptionPane.showMessageDialog(null, e,"Erreur",JOptionPane.ERROR_MESSAGE);
 
 								}
@@ -457,7 +457,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					try {
 						Desktop.getDesktop().browse(new URI(D3ArmoryControler.APP_DOWNLOAD));
 					} catch (Exception e) {
-						logger.error(e);
+						logger.error(e.getStackTrace());
 						JOptionPane.showMessageDialog(null, e.getMessage(),"Erreur",JOptionPane.ERROR_MESSAGE);
 
 					}
@@ -467,7 +467,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			jMenuBar1.add(mnuUpdate);	
 			
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error(e.getStackTrace());
 		}
 	}
 	
@@ -536,7 +536,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			    		  
 			    		} 
 			    	  catch (Exception e) {
-			    		  logger.error(e);
+			    		  logger.error(e.getStackTrace());
 			    		  e.printStackTrace();
 			  		}
 			      }
@@ -1160,7 +1160,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		}
 		catch(Exception e)
 		{
-			logger.error(e);
+			logger.error(e.getStackTrace());
 		}
 		return temp.toString();
 	}
@@ -1920,7 +1920,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			UIManager.setLookAndFeel(lookAndFeel);
 			//UIManager.setLookAndFeel(new Plastic3DLookAndFeel());
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error(e.getStackTrace());
 		}
 		SwingUtilities.updateComponentTreeUI(this);
 	}
