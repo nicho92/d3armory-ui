@@ -325,7 +325,7 @@ public class ItemPanelDetails extends JPanel {
 			if(item.getGems().size()>0)
 			{
 				
-				if(!item.getGems().get(0).isJewel())//TODO text a faire évoluer pour les gem levelup
+				if(!item.getGems().get(0).isJewel())
 				{
 					lblSock1.setForeground(Color.WHITE);
 					lblSock1.setSize(300, 30);
