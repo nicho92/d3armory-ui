@@ -1551,7 +1551,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						String[] parser = selected_row.split("#");
 						try {
 							
-							//D3ArmoryControler.getInstance().loadLocal();
+							D3ArmoryControler.getInstance().loadLocal();
 							Profile p = D3ArmoryControler.getInstance().getProfil(parser[2]+".battle.net", parser[0], Long.parseLong(parser[1]));
 							D3ArmoryControler.getInstance().setProfile(p);
 							getSeasonPanel().init(p.getSeasonalProfiles());
