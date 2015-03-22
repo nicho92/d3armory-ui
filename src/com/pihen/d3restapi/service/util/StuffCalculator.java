@@ -613,7 +613,7 @@ public class StuffCalculator{
 	private double dommageMoyen(double minMaxDmg) {
 		double n=0;
 	
-		String elementM="";
+		ELEMENTS elementM;
 		 mindmgM=0;
 		 maxdmgM=0;
 		if(stuffs.get(EnumerationStuff.MAIN_HAND)!=null)
@@ -638,7 +638,7 @@ public class StuffCalculator{
 		}
 		else if(stuffs.get(EnumerationStuff.OFF_HAND)!=null)
 		{
-			String elementO = stuffs.get(EnumerationStuff.OFF_HAND).getEnchantedWeapon();
+			ELEMENTS elementO = stuffs.get(EnumerationStuff.OFF_HAND).getEnchantedWeapon();
 			double mindmgO=stuffs.get(EnumerationStuff.OFF_HAND).getRealMin();
 			double maxdmgO=stuffs.get(EnumerationStuff.OFF_HAND).getRealMax();
 			

@@ -14,6 +14,7 @@ import com.pihen.d3restapi.service.annotation.RemoteData;
 import com.pihen.d3restapi.service.remote.RemoteEntity;
 import com.pihen.d3restapi.service.util.RawsAttributeFactory;
 import com.pihen.d3restapi.service.util.StuffCalculator;
+import com.pihen.d3restapi.service.util.StuffCalculator.ELEMENTS;
 
 
 @RemoteConfiguration(url = "http://<host>/api/d3/data/item/<item-id>?locale=<local>")
@@ -112,7 +113,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		boolean isCross= (getAttributesRaw().get("Damage_Weapon_Bonus_Min_X1#Physical")!=null);
 		double multiplicateur=1;
 		double mindmg=0;
-		String element = getEnchantedWeapon();
+		ELEMENTS element = getEnchantedWeapon();
 		
 		boolean asRubySocket=false;
 				if(getGems().size()>0)
@@ -135,13 +136,13 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 			
 			mindmg += (getAttributesRaw().get("Damage_Weapon_Min#Physical").getMoyenne() + bowbonus)*multiplicateur;
 			
-			if(element!="")
+			if(element!=null)
 				mindmg += getAttributesRaw().get("Damage_Weapon_Min#"+element).getMoyenne()*multiplicateur;
 		}
 		else
 		{
 			mindmg += getAttributesRaw().get("Damage_Weapon_Min#Physical").getMoyenne()*multiplicateur;
-			if(element!="")
+			if(element!=null)
 				mindmg += getAttributesRaw().get("Damage_Weapon_Min#"+element).getMoyenne()*multiplicateur;
 		}
 		
@@ -158,7 +159,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	
 		double multiplicateur=1;
 		double maxdmg=0;
-		String element = getEnchantedWeapon();
+		ELEMENTS element = getEnchantedWeapon();
 		
 		if(getAttributesRaw().get("Damage_Weapon_Percent_All")!=null)
 			multiplicateur=multiplicateur+getAttributesRaw().get("Damage_Weapon_Percent_All").getMoyenne();
@@ -172,13 +173,13 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 			
 			
 			maxdmg+=getRealMin()+((getAttributesRaw().get("Damage_Weapon_Delta#Physical").getMoyenne() + bowbonus)*multiplicateur);
-			if(element!="")
+			if(element!=null)
 				maxdmg += getAttributesRaw().get("Damage_Weapon_Delta#"+element).getMoyenne()*multiplicateur;
 		}
 		else
 		{
 			maxdmg+=getRealMin()+(getAttributesRaw().get("Damage_Weapon_Delta#Physical").getMoyenne()*multiplicateur);
-			if(element!="")
+			if(element!=null)
 				maxdmg += getAttributesRaw().get("Damage_Weapon_Delta#"+element).getMoyenne()*multiplicateur;
 
 		}
@@ -212,13 +213,13 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		return false;
 	}
 
-	public String getEnchantedWeapon()
+	public ELEMENTS getEnchantedWeapon()
 	{
 		if(!isWeapon())
-			return "";
+			return null;
 		
 		if(attributesRaw==null)
-			return "";
+			return null;
 		
 		Iterator<String> attributes = attributesRaw.keySet().iterator();
 		while(attributes.hasNext())
@@ -227,19 +228,19 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 			String att= attributes.next();
 			
 			if(att.contains("Damage_Weapon_Min#Poison"))
-				return "Poison";
+				return ELEMENTS.Poison;
 			if(att.contains("Damage_Weapon_Min#Arcane"))
-				return "Arcane";
+				return ELEMENTS.Arcane;
 			if(att.contains("Damage_Weapon_Min#Fire"))
-				return "Fire";
+				return ELEMENTS.Fire;
 			if(att.contains("Damage_Weapon_Min#Lightning"))
-				return "Lightning";
+				return ELEMENTS.Lightning;
 			if(att.contains("Damage_Weapon_Min#Holy"))
-				return "Holy";
+				return ELEMENTS.Holy;
 			if(att.contains("Damage_Weapon_Min#Cold"))
-				return "Cold";
+				return ELEMENTS.Cold;
 		}
-		return "";
+		return null;
 		
 	}
 	

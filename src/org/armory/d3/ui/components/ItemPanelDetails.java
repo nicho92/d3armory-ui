@@ -104,8 +104,8 @@ public class ItemPanelDetails extends JPanel {
 			 }
 			 else
 			 {
-				 if(!item.getEnchantedWeapon().equals(""))
-					 g2d.drawImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/"+item.getEnchantedWeapon().toLowerCase()+".jpg")).getImage(), 40, 85, null);
+				 if(!(item.getEnchantedWeapon()==null))
+					 g2d.drawImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/"+item.getEnchantedWeapon()+".jpg")).getImage(), 40, 85, null);
 			 }
 		 }
 	}
