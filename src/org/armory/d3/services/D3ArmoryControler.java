@@ -111,7 +111,7 @@ public class D3ArmoryControler {
 		  return conf;
 	}
 	
-	public XP getEndSeasonParangonLevelHC(String i) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
+	public XP getEndSeasonParangonLevelHC(int i) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
 		XPCalculator xpc = new XPCalculator();
         
         long newXP =0;
@@ -132,7 +132,7 @@ public class D3ArmoryControler {
         return new XP(profil.getParagonLevelHardcore().intValue(), 0, 0);
 	}
 	
-	public XP getEndSeasonParangonLevelSC(String s) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException
+	public XP getEndSeasonParangonLevelSC(int s) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException
 	{
 		XPCalculator xpc = new XPCalculator();
         logger.debug("Calcul end season " + s + " parangon");
@@ -412,19 +412,19 @@ public class D3ArmoryControler {
 		}
 	}
 	
-	public String getSeason()
+	public int getSeason()
 	{
 		 try {
 	    	  InputStreamReader fr = new InputStreamReader( new URL("https://raw.githubusercontent.com/nicho92/d3armory-ui/master/src/org/armory/d3/ui/resources/data/saison").openStream(),"ISO-8859-1");
 	    	  BufferedReader br = new BufferedReader(fr);
 	    	  String ligne= br.readLine();
 	    	  logger.debug("Actual Season " + ligne);
-	    	  return ligne.trim();
+	    	  return Integer.parseInt(ligne.trim());
 	      } catch (Exception e) {
 	    	
 	    	 JOptionPane.showMessageDialog(null, e.getStackTrace(), "Erreur",JOptionPane.ERROR_MESSAGE);
 	    	 logger.error(e.getStackTrace());
-	    	 return "0";
+	    	 return 0;
 	      }
 	}
 	

@@ -3,6 +3,8 @@ package com.pihen.d3restapi.beans;
 import java.io.Serializable;
 import java.util.List;
 
+import org.armory.d3.ui.components.ParangonPanel;
+
 
 public class SeasonalProfile implements Serializable {
 	private Number seasonId;
@@ -10,9 +12,17 @@ public class SeasonalProfile implements Serializable {
 	private Number paragonLevelHardcore;
 	private KillsInfo kills;
 	private TimePlayed timePlayed;
-	private Number highestDifficulty;
 	private Number highestHardcoreLevel;
 	//progression: {
+	
+	
+	public String toString()
+	{
+		return "Season "+ seasonId;
+	}
+	
+	
+	
 	public Number getSeasonId() {
 		return seasonId;
 	}
@@ -42,12 +52,6 @@ public class SeasonalProfile implements Serializable {
 	}
 	public void setTimePlayed(TimePlayed timePlayed) {
 		this.timePlayed = timePlayed;
-	}
-	public Number getHighestDifficulty() {
-		return highestDifficulty;
-	}
-	public void setHighestDifficulty(Number highestDifficulty) {
-		this.highestDifficulty = highestDifficulty;
 	}
 	public Number getHighestHardcoreLevel() {
 		return highestHardcoreLevel;

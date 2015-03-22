@@ -58,6 +58,7 @@ import org.armory.d3.services.D3ProgressLeaderBoard;
 import org.armory.d3.ui.components.EHPPanel;
 import org.armory.d3.ui.components.FollowersPanel;
 import org.armory.d3.ui.components.FormatedJLabel;
+import org.armory.d3.ui.components.GemCalculatorPanel;
 import org.armory.d3.ui.components.GemEvolutionChancePanel;
 import org.armory.d3.ui.components.HeroCellRenderer;
 import org.armory.d3.ui.components.HeroComparatorPanel;
@@ -68,6 +69,7 @@ import org.armory.d3.ui.components.LadderPanel;
 import org.armory.d3.ui.components.ListeTagTree;
 import org.armory.d3.ui.components.LootFactoryPanel;
 import org.armory.d3.ui.components.ParangonPanel;
+import org.armory.d3.ui.components.SeasonPanel;
 import org.armory.d3.ui.components.SkillLabel;
 import org.armory.d3.ui.components.SocketLabel;
 import org.armory.d3.ui.model.CalculatorModel;
@@ -188,6 +190,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	final SystemTray tray = SystemTray.getSystemTray();
 	private LootFactoryPanel lootFactoryPanel;
 	private String msgUpdate="";
+	private SeasonPanel seasonPanel;
 	
 	static SwingMainFrame inst ;
 	
@@ -571,6 +574,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			//D3ArmoryControler.getInstance().saveHero(hero);
 			getTableauDescriptionItems().setModel(new ItemsDetailModel());
 			getPanneauEHP().getTable().setModel(new EHPCalculatorModel(D3ArmoryControler.getInstance().getCalculator()));
+			
 			getMnuSaveBuild().setEnabled(true);
 			
 			
@@ -1547,9 +1551,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						String[] parser = selected_row.split("#");
 						try {
 							
-							D3ArmoryControler.getInstance().loadLocal();
+							//D3ArmoryControler.getInstance().loadLocal();
 							Profile p = D3ArmoryControler.getInstance().getProfil(parser[2]+".battle.net", parser[0], Long.parseLong(parser[1]));
 							D3ArmoryControler.getInstance().setProfile(p);
+							getSeasonPanel().init(p.getSeasonalProfiles());
+							
 							getListeHeros().removeAll();
 							for(Hero h : p.getHeroes())
 							{
@@ -1732,13 +1738,14 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			ongletPane.addTab("Blizzard Profil", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/blizz.jpg")), getPanneauInfoHero(), null); //Jlabel block
 			ongletPane.addTab("Items", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/item.png")), getPanneauTableauDescription(), null);
 			ongletPane.addTab("Informations", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/stats.gif")),getPanneauDetails(),null);
+			ongletPane.addTab("Season", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/season.png")),getSeasonPanel(),null);
 			ongletPane.addTab("Detailed EHP", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/ehp.png")),getPanneauEHP(),null);
 			ongletPane.addTab("Followers", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/follower.png")), getFollowersPanel(), null);
 			ongletPane.addTab("Parangon", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/parangon.png")),getPanneauParangon(),null);
 			ongletPane.addTab("Expert", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/expert.png")), getPanneauTableau(), null);
 			ongletPane.addTab("Loot Drop Rate", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/loot.png")), getPanneauLoot(), null);
 			ongletPane.addTab("Legendary Gem Evolution", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/leggem.png")), new GemEvolutionChancePanel(), null);
-		//	ongletPane.addTab("Gem Calculator", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/gem.png")), new GemCalculatorPanel(), null);
+			ongletPane.addTab("Gem Calculator", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/gem.png")), new GemCalculatorPanel(), null);
 			ongletPane.addTab("Hero Comparator", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/herocomp.png")), new HeroComparatorPanel(),null);
 			ongletPane.addTab("Ladder", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/ranking.png")), getLadderPanel(),null);
 			ongletPane.addTab("Loot Factory", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/kadala.png")), getLootFactoryPanel(),null);
@@ -1975,6 +1982,15 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		}
 		return panelFollowers;
 	}
+	
+	public SeasonPanel getSeasonPanel()
+	{
+			if(seasonPanel==null)
+				seasonPanel=new SeasonPanel();
+			
+			return seasonPanel;
+	}
+	
 	
 	public JPanel getStateBar() {
 		if(stateBar == null) {

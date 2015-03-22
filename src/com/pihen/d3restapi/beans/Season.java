@@ -29,7 +29,7 @@ public class Season implements Serializable{
 	static final Logger logger = LogManager.getLogger(Season.class.getName());
 	
 	
-	public SeasonalProfile getSeason(String season) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException
+	public SeasonalProfile getSeason(int season) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException
 	{
     	Method m = this.getClass().getMethod("getSeason"+season, new Class[] {});
     	logger.debug("Call dynamic season method" + m);	
