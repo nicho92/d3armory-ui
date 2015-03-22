@@ -5,6 +5,7 @@ import java.io.File;
 import org.armory.d3.services.D3ArmoryControler;
 
 import com.pihen.d3restapi.beans.Hero;
+import com.pihen.d3restapi.beans.Item;
 
 
 public class Main {
@@ -16,9 +17,10 @@ public class Main {
 		{
 			Long number = Long.parseLong(f.getName().substring(0, f.getName().lastIndexOf(".")));
 			Hero h = D3ArmoryControler.getInstance().loadHero(number);
-			System.out.println(h);
-			System.out.println(h.getItems().getMainHand().getType());
-			
+			System.out.println("******"+h);
+			for(Item i : h.getItems().getItems())
+				if(i!=null)
+					System.out.println(i);
 		}
 	}
 	
