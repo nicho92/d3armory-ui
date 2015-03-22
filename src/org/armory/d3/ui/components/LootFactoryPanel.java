@@ -1,10 +1,13 @@
 package org.armory.d3.ui.components;
 
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.RGBImageFilter;
+import java.net.URL;
 
+import javax.swing.GrayFilter;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -30,8 +33,31 @@ public class LootFactoryPanel extends JPanel {
 		
 		for(String s : fact.getItemsType())
         {
-     	    JButton b = new JButton(s);
-            
+     	   JButton b = new JButton(s);
+     	   ImageIcon i=null;
+     	   String uri="";
+     	   System.out.println(s);
+     	    switch (s){
+     	    	case "Amulet" : uri="http://media.blizzard.com/d3/icons/items/large/unique_amulet_006_x1_demonhunter_male.png";break;
+     	    	case "Ring" : uri="http://media.blizzard.com/d3/icons/items/large/unique_ring_019_x1_demonhunter_male.png";break;
+     	    	case "Two-Handed Mace" : uri="http://media.blizzard.com/d3/icons/items/small/unique_mace_2h_103_x1_demonhunter_male.png";break;
+     	    	case "Boots" : uri="http://media.blizzard.com/d3/icons/items/small/unique_boots_013_x1_demonhunter_male.png";break;
+     	    	case "Bracers" : uri="http://media.blizzard.com/d3/icons/items/small/unique_bracer_009_x1_demonhunter_male.png";break;
+     	    	case "Dagger":
+     	    	case "Helm":uri="http://media.blizzard.com/d3/icons/items/small/unique_helm_008_x1_demonhunter_male.png";break;
+     	    	case "Shield":
+     	    	case "Shoulders":uri="http://media.blizzard.com/d3/icons/items/small/unique_shoulder_003_p1_demonhunter_male.png";break;
+     	    	case "Two-Handed Flail": uri="http://media.blizzard.com/d3/icons/items/small/unique_flail_2h_102_x1_demonhunter_male.png";break;
+     	    	case "Crusader Shield": uri="http://media.blizzard.com/d3/icons/items/small/unique_crushield_102_x1_demonhunter_male.png";break;
+     	    }
+     	    	try {
+     				URL url = new URL(uri);
+     				i=new ImageIcon(url);
+     				i = new ImageIcon(GrayFilter.createDisabledImage(i.getImage()));
+     			} catch (Exception e1) {
+     				e1.printStackTrace();
+     			}
+     	    	b.setIcon(i);
              b.addActionListener(new ActionListener() {
 				
 				public void actionPerformed(ActionEvent e) {
@@ -50,7 +76,6 @@ public class LootFactoryPanel extends JPanel {
 		
 	}
 
-	
-}
 
+}
 
