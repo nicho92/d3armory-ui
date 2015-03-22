@@ -15,6 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -110,19 +111,19 @@ public class D3ArmoryControler {
 		  return conf;
 	}
 	
-	public XP getEndSeasonParangonLevelHC(int i) {
+	public XP getEndSeasonParangonLevelHC(String i) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
 		XPCalculator xpc = new XPCalculator();
         
         long newXP =0;
         
-        if(profil.getSeasonalProfiles().getSeason2()!=null)
+        if(profil.getSeasonalProfiles().getSeason(i)!=null)
         {
         	long xp0 = xpc.getXPByLevel(profil.getParagonLevelHardcore().intValue()).getTotalExp();
         	long xp1 = 0;
       
         	
-        	if(profil.getSeasonalProfiles().getSeason2().getParagonLevelHardcore()!=null)
-        		xp1=xpc.getXPByLevel(profil.getSeasonalProfiles().getSeason2().getParagonLevelHardcore().intValue()).getTotalExp();
+        	if(profil.getSeasonalProfiles().getSeason(i).getParagonLevelHardcore()!=null)
+        		xp1=xpc.getXPByLevel(profil.getSeasonalProfiles().getSeason(i).getParagonLevelHardcore().intValue()).getTotalExp();
         	
         	newXP = xp0 + xp1;
         	return xpc.getXPByTotalXP(newXP);
@@ -174,7 +175,7 @@ public class D3ArmoryControler {
 		 }
 		 catch(Exception e)
 		 {
-			 logger.error(e);
+			 logger.error(e.getStackTrace());
 			 return false;
 		 }
 	}
@@ -222,7 +223,7 @@ public class D3ArmoryControler {
 			try {
 				selected = getHeroDetails(selected.getId().longValue());
 			} catch (D3ServerCommunicationException e) {
-				logger.error(e);
+				logger.error(e.getStackTrace());
 			}
 		
 		return selected;
@@ -239,7 +240,7 @@ public class D3ArmoryControler {
 		try {
 			return itemService.receiveEntity(conf);
 		} catch (D3ServerCommunicationException e) {
-			logger.error(e);
+			logger.error(e.getStackTrace());
 			JOptionPane.showMessageDialog(null, e,"ERROR",JOptionPane.ERROR_MESSAGE);
 			return null;
 		}
@@ -336,7 +337,7 @@ public class D3ArmoryControler {
 					br.close(); 
 				}		
 				catch (Exception e){
-					logger.error(e);
+					logger.error(e.getStackTrace());
 				}
 				return liste;
 	}
@@ -350,7 +351,7 @@ public class D3ArmoryControler {
 			
 			fw.close();
 		} catch (IOException e) {
-			logger.error(e);
+			logger.error(e.getStackTrace());
 		}
 		
 	}
@@ -375,7 +376,7 @@ public class D3ArmoryControler {
             out.close();
  
         } catch (Exception e) {
-        	logger.error(e);
+        	logger.error(e.getStackTrace());
         }
 	}
 
@@ -391,7 +392,7 @@ public class D3ArmoryControler {
 			logger.debug("Get local =" + local);
 			return local;
 		} catch (IOException e) {
-			logger.error(e);
+			logger.error(e.getStackTrace());
 			return "en_US";
 		}
 	}
@@ -406,44 +407,25 @@ public class D3ArmoryControler {
 			prop.save();
 			logger.debug("Set local =" + local);
 		} catch (Exception e) {
-			logger.error(e);
-			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
-		}
-	}
-	
-	public void setSeason(String s)
-	{
-		try {
-			PropertiesConfiguration prop = new PropertiesConfiguration();
-			prop.setFile(new File(CONF_FILE));
-			prop.load();
-			prop.setProperty("season", s);
-			prop.save();
-			logger.debug("set season =" + s);
-		} catch (Exception e) {
-			logger.error(e);
+			logger.error(e.getStackTrace());
 			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
 	public String getSeason()
 	{
-		try {
-			InputStream ips=new FileInputStream(CONF_FILE); 
-			InputStreamReader ipsr=new InputStreamReader(ips);
-			Properties p = new Properties();
-			p.load(ipsr);
-			String season = p.getProperty("season");
-			if(season==null)
-				return "0";
-			
-			logger.debug("get season =" + season );
-			return season;
-		} catch (IOException e) {
-			logger.error(e);
-			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
-			return "0";
-		}
+		 try {
+	    	  InputStreamReader fr = new InputStreamReader( new URL("https://raw.githubusercontent.com/nicho92/d3armory-ui/master/src/org/armory/d3/ui/resources/data/saison").openStream(),"ISO-8859-1");
+	    	  BufferedReader br = new BufferedReader(fr);
+	    	  String ligne= br.readLine();
+	    	  logger.debug("Actual Season " + ligne);
+	    	  return ligne.trim();
+	      } catch (Exception e) {
+	    	
+	    	 JOptionPane.showMessageDialog(null, e.getStackTrace(), "Erreur",JOptionPane.ERROR_MESSAGE);
+	    	 logger.error(e.getStackTrace());
+	    	 return "0";
+	      }
 	}
 	
 	public boolean initCalculator(Map<EnumerationStuff, Item> stuff) {
@@ -478,7 +460,7 @@ public class D3ArmoryControler {
 			oos.close();
 		}
 		catch (java.io.IOException e) {
-			logger.error(e);
+			logger.error(e.getStackTrace());
 		}
 	}
 	
@@ -490,7 +472,7 @@ public class D3ArmoryControler {
 			return (Hero)ois.readObject();
 		}
 		catch (Exception e) {
-			logger.error(e);
+			logger.error(e.getStackTrace());
 			return null;
 		}
 	}
@@ -512,7 +494,7 @@ public class D3ArmoryControler {
 //		}
 //		catch (java.io.IOException e) {
 //			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
-//			logger.error(e);
+//			logger.error(e.getStackTrace());
 //		}
 //	}
 //	
@@ -530,7 +512,7 @@ public class D3ArmoryControler {
 //		}
 //		catch (Exception e) {
 //			//JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
-//			logger.error(e);
+//			logger.error(e.getStackTrace());
 //			e.printStackTrace();
 //			return null;
 //		}
@@ -546,7 +528,7 @@ public class D3ArmoryControler {
 			oos.close();
 		}
 		catch (java.io.IOException e) {
-			logger.error(e);
+			logger.error(e.getStackTrace());
 		}
 	}
 	
@@ -558,7 +540,7 @@ public class D3ArmoryControler {
 			return (Item)ois.readObject();
 		}
 		catch (Exception e) {
-			logger.error(e);
+			logger.error(e.getStackTrace());
 			return null;
 		}
 	}
@@ -584,7 +566,7 @@ public class D3ArmoryControler {
 			oos.close();
 		}
 		catch (java.io.IOException e) {
-			logger.error(e);
+			logger.error(e.getStackTrace());
 		}
 	}
 	
@@ -596,7 +578,7 @@ public class D3ArmoryControler {
 			return (HeroSkillContainer)ois.readObject();
 		}
 		catch (Exception e) {
-			logger.error(e);
+			logger.error(e.getStackTrace());
 			return null;
 		}
 	}
@@ -620,7 +602,7 @@ public class D3ArmoryControler {
 			prop.setProperty("look", look);
 			prop.save();
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error(e.getStackTrace());
 			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
 		}
 		
@@ -634,7 +616,7 @@ public class D3ArmoryControler {
 			p.load(ipsr);
 			return p.getProperty("look");
 		} catch (IOException e) {
-			logger.error(e);
+			logger.error(e.getStackTrace());
 			return null;
 		}
 	}

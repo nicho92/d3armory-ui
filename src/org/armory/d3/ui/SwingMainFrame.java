@@ -330,17 +330,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 							}
 						});
 						
-						JMenuItem jmiSeason = new JMenuItem();
-						jMenu3.add(jmiSeason);
-						jmiSeason.setText("Season");
-						jmiSeason.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent evt) {
-								String s = JOptionPane.showInputDialog("Season number ?",D3ArmoryControler.getInstance().getSeason());
-								if(s!=null)
-									D3ArmoryControler.getInstance().setSeason(s);
-							}
-						});
-						
 						jmiItemCreator=new JMenu("Item Creator");
 						jMenu3.add(jmiItemCreator);
 						for(final EnumerationStuff e : EnumerationStuff.values())
@@ -428,7 +417,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 									Desktop.getDesktop().browse(new URI(D3ArmoryControler.SOURCE_REPOSITORY));
 								} catch (Exception e) {
 									logger.error(e);
-									JOptionPane.showMessageDialog(null, e.getMessage(),"Erreur",JOptionPane.ERROR_MESSAGE);
+									JOptionPane.showMessageDialog(null, e,"Erreur",JOptionPane.ERROR_MESSAGE);
 
 								}
 						}
