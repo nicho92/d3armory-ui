@@ -544,7 +544,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			    		  lblstatbar.setText("");
 			    		  
 			    		  int index = getOngletPane().getSelectedIndex();
-							if(index==4)
+							if(index==5)
 							{
 								loadFollowers();
 							}
@@ -1811,8 +1811,10 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				public void stateChanged(ChangeEvent e) {//on charge les followers lors du clique sur l'onglet
 					
 					JTabbedPane sourceTabbedPane = (JTabbedPane) e.getSource();
-					int index = sourceTabbedPane.getSelectedIndex();
-					if(index==4)
+					System.out.println(sourceTabbedPane.getSelectedIndex());
+					
+					int index=sourceTabbedPane.getSelectedIndex();
+					if(index==5)
 					{		getLblstatbar().setText("Loading Followers");
 						try {
 							loadFollowers();
