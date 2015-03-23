@@ -425,14 +425,21 @@ public class D3ArmoryControler {
 		}
 	}
 	
+	private int season=-1;
 	public int getSeason()
 	{
+		
 		 try {
-	    	  InputStreamReader fr = new InputStreamReader( new URL("https://raw.githubusercontent.com/nicho92/d3armory-ui/master/src/org/armory/d3/ui/resources/data/saison").openStream(),"ISO-8859-1");
-	    	  BufferedReader br = new BufferedReader(fr);
-	    	  String ligne= br.readLine();
-	    	  logger.debug("Actual Season " + ligne);
-	    	  return Integer.parseInt(ligne.trim());
+			 if(season==-1){
+		    	  InputStreamReader fr = new InputStreamReader( new URL("https://raw.githubusercontent.com/nicho92/d3armory-ui/master/src/org/armory/d3/ui/resources/data/saison").openStream(),"ISO-8859-1");
+		    	  BufferedReader br = new BufferedReader(fr);
+		    	  String ligne= br.readLine();
+		    	  logger.debug("Actual Season " + ligne);
+		    	  season=Integer.parseInt(ligne.trim());
+			 }
+	    	 return season;
+
+			 
 	      } catch (Exception e) {
 	    	
 	    	 JOptionPane.showMessageDialog(null, e.getStackTrace(), "Erreur",JOptionPane.ERROR_MESSAGE);
