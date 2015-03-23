@@ -342,6 +342,19 @@ public class D3ArmoryControler {
 				return liste;
 	}
 	
+	public void addTags(String battletag)
+	{
+		try {
+			FileWriter fw= new FileWriter(TAG_FILE,true);
+			fw.write("\n"+battletag+"\n");
+			logger.debug("Add Tag " + battletag);
+			
+			fw.close();
+		} catch (IOException e) {
+			logger.error(e.getStackTrace());
+		}
+		
+	}
 	public void addTags(String code,String server)
 	{
 		try {

@@ -1,8 +1,11 @@
 package org.armory.d3.ui.components;
 
 import java.awt.BorderLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 import javax.swing.DefaultComboBoxModel;
@@ -10,17 +13,18 @@ import javax.swing.DefaultRowSorter;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.TableRowSorter;
 
 import org.armory.d3.services.BNetLadderRetriever;
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.model.LadderModel;
-
-import javax.swing.JLabel;
 
 public class LadderPanel extends JPanel {
 	private JTable ladderTable;
@@ -59,6 +63,37 @@ public class LadderPanel extends JPanel {
 		ladderTable = new JTable();
 		ladderTable.setColumnSelectionAllowed(false);
 		ladderTable.setRowSelectionAllowed(true);
+		
+		final JPopupMenu popupMenu = new JPopupMenu();
+		JMenuItem menuItemAdd = new JMenuItem("Add Tag");
+		
+		menuItemAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+			String tag = ladderTable.getValueAt(ladderTable.getSelectedRow(),1).toString();
+			D3ArmoryControler.getInstance().addTags(tag);
+			
+			}
+		});
+		popupMenu.add(menuItemAdd);
+		
+		ladderTable.addMouseListener(new MouseAdapter() {
+			
+			public void mouseClicked(MouseEvent event) {
+				 Point point = event.getPoint();
+			     int currentRow = ladderTable.rowAtPoint(point);
+			     ladderTable.setRowSelectionInterval(currentRow, currentRow);
+			     
+			     if(SwingUtilities.isRightMouseButton(event))
+			     {
+			    	 popupMenu.show(ladderTable, (int)point.getX(), (int)point.getY());
+			     }
+			     
+			     
+			}
+		});
+		
+		
+		
 		
 		pane.setViewportView(ladderTable);
 		add(pane, BorderLayout.CENTER);
