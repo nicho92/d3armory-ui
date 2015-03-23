@@ -13,13 +13,15 @@ import org.w3c.dom.NodeList;
 
 public class RSSReader {
 
+	public static enum TYPERSS {ATOM,FEED};
+	
     /**
      * Parser le fichier XML
      * @param feedurl URL du flux RSS
      */
-    public String updateD3armoryRssParser() {
+    public String updateD3armoryRssParser(String rss) {
         try {
-        	String feedurl="https://github.com/nicho92/d3armory-ui/commits/master.atom";
+        	String feedurl=rss;
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             URL url = new URL(feedurl);
             Document doc = builder.parse(url.openStream());
@@ -29,6 +31,7 @@ public class RSSReader {
             StringBuffer temp = new StringBuffer();
             	
             nodes = doc.getElementsByTagName("entry");
+           
             for (int i = 0; i < nodes.getLength(); i++) {
                 element = (Element) nodes.item(i);
                 String date = readNode(element, "updated").substring(0,readNode(element, "updated").lastIndexOf("T"));
@@ -43,6 +46,35 @@ public class RSSReader {
         } 
 		
     }
+    
+    
+    public String getRss(String rss) {
+        try {
+        	String feedurl=rss;
+            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            URL url = new URL(feedurl);
+            Document doc = builder.parse(url.openStream());
+            NodeList nodes = null;
+            Element element = null;
+         
+            StringBuffer temp = new StringBuffer();
+            	
+            nodes = doc.getElementsByTagName("item");
+           
+            for (int i = 0; i < nodes.getLength(); i++) {
+                element = (Element) nodes.item(i);
+                String title = readNode(element, "title");
+               	temp.append(title).append("\n");
+            } //for
+            return temp.toString();
+        } catch (Exception ex) {
+        	System.out.println(ex);
+        	return null;
+        } 
+		
+    }
+    
+    
 
     /**
      * Méthode permettant de retourner ce que contient d'un noeud

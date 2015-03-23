@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
+import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.services.RSSReader;
 
 
@@ -42,7 +43,7 @@ public class AboutFrame extends javax.swing.JFrame {
 					jScrollPane1.setViewportView(lblInfo);
 					lblInfo.setContentType("text/html");
 					lblInfo.setEditable(false);
-					lblInfo.setText("Nicolas Pihen - " +GregorianCalendar.getInstance().get(Calendar.YEAR)+" - <a href='mailto:nicolas.pihen@gmail.com'>nicolas.pihen@gmail.com</a><br/>" + new RSSReader().updateD3armoryRssParser());
+					lblInfo.setText("Nicolas Pihen - " +GregorianCalendar.getInstance().get(Calendar.YEAR)+" - <a href='mailto:nicolas.pihen@gmail.com'>nicolas.pihen@gmail.com</a><br/>" + new RSSReader().updateD3armoryRssParser(D3ArmoryControler.RSS));
 					lblInfo.setPreferredSize(new java.awt.Dimension(459, 116));
 					lblInfo.setCaretPosition(0);
 				}

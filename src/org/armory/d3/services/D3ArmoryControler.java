@@ -50,7 +50,7 @@ public class D3ArmoryControler {
 	public static String SOURCE_REPOSITORY="https://github.com/nicho92/d3armory-ui/issues";
 	public static String APP_VERSION="https://raw.githubusercontent.com/nicho92/d3armory-ui/master/src/version";
 	public static String APP_DOWNLOAD="https://github.com/nicho92/d3armory-ui/tree/master/executable";
-	
+	public static String RSS="https://github.com/nicho92/d3armory-ui/commits/master.atom";
 	
 	
 	private static D3ArmoryControler instance;
