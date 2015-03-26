@@ -198,7 +198,7 @@ public class ItemsDetailModel extends DefaultTableModel {
 	{
 		return null;
 	}
-	
+		
 	}
 
 		
