@@ -49,7 +49,7 @@ public class LootFactoryPanel extends JPanel {
      	    	case "Bracers" : uri="http://media.blizzard.com/d3/icons/items/small/unique_bracer_009_x1_demonhunter_male.png";break;
      	    	case "Dagger": uri="http://media.blizzard.com/d3/icons/items/small/unique_dagger_003_x1_demonhunter_male.png";break;
      	    	case "Helm":uri="http://media.blizzard.com/d3/icons/items/small/unique_helm_008_x1_demonhunter_male.png";break;
-     	    	case "Shield":uri="http://media.blizzard.com/d3/icons/items/small/shield_106_demonhunter_male.png";break;
+     	    	case "Shield":uri="http://media.blizzard.com/d3/icons/items/small/unique_shield_009_x1_demonhunter_male.png";break;
      	    	case "Axe" : uri="http://media.blizzard.com/d3/icons/items/small/unique_axe_1h_001_x1_demonhunter_male.png";break;
      	    	case "Belt" : uri="http://media.blizzard.com/d3/icons/items/small/unique_barbbelt_009_x1_demonhunter_male.png";break;
      	    	case "Shoulders":uri="http://media.blizzard.com/d3/icons/items/small/unique_shoulder_003_p1_demonhunter_male.png";break;
@@ -57,6 +57,11 @@ public class LootFactoryPanel extends JPanel {
      	    	case "Crusader Shield": uri="http://media.blizzard.com/d3/icons/items/small/unique_crushield_102_x1_demonhunter_male.png";break;
      	    	case "GeneralUtility" : uri="http://media.blizzard.com/d3/icons/items/small/consumable_add_sockets_1_demonhunter_male.png";break;
      	    	case "Quiver" : uri="http://media.blizzard.com/d3/icons/items/small/unique_quiver_102_x1_demonhunter_male.png";break;
+     	    	case "Sword":uri="http://media.blizzard.com/d3/icons/items/small/unique_sword_1h_102_x1_demonhunter_male.png";break;
+     	    	case "Two-Handed Sword":uri="http://media.blizzard.com/d3/icons/items/small/unique_sword_2h_007_x1_demonhunter_male.png";break;
+     	    	case "Potion":uri="http://media.blizzard.com/d3/icons/items/small/healthpotionlegendary_07_demonhunter_male.png";break;
+     	    	case "Fist Weapon":uri="http://media.blizzard.com/d3/icons/items/small/unique_fist_011_x1_demonhunter_male.png";break;
+     	    	case "Two-Handed Axe":uri="http://media.blizzard.com/d3/icons/items/small/unique_axe_2h_009_x1_demonhunter_male.png";break;
      	    }
      	    	try {
      				URL url = new URL(uri);

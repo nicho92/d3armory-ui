@@ -1811,7 +1811,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				public void stateChanged(ChangeEvent e) {//on charge les followers lors du clique sur l'onglet
 					
 					JTabbedPane sourceTabbedPane = (JTabbedPane) e.getSource();
-					System.out.println(sourceTabbedPane.getSelectedIndex());
+					
 					
 					int index=sourceTabbedPane.getSelectedIndex();
 					if(index==5)
