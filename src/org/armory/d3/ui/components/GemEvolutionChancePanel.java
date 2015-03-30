@@ -92,7 +92,7 @@ public class GemEvolutionChancePanel extends JPanel {
 
 class LegendaryGemChanceModel extends DefaultTableModel
 {
-	private int lvlMax=51;
+	private int lvlMax=71;
 	private int lvlRift=101;
 	private int[][] tableau;
 	

@@ -49,7 +49,7 @@ public class SpringGsonConverter<T> implements HttpMessageConverter<T> {
 		return Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON });
 	}
 
-	public T read(Class<? extends T> clazz, HttpInputMessage message) throws IOException, HttpMessageNotReadableException {
+	public T read(Class<? extends T> clazz, HttpInputMessage message) throws IOException, HttpMessageNotReadableException,IllegalStateException {
 	
 		
 		Reader jsonReader = new InputStreamReader(message.getBody(),"UTF-8");
