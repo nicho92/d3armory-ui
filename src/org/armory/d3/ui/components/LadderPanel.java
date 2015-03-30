@@ -7,12 +7,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultRowSorter;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -45,10 +48,15 @@ public class LadderPanel extends JPanel {
 		panneauHaut.add(cboClazz);
 		
 		final JComboBox cboErea = new JComboBox();
-		cboErea.setModel(new DefaultComboBoxModel(new String[] {"Era", "1", "2"}));
-		cboErea.setSelectedItem(D3ArmoryControler.getInstance().getSeason());
-		//TODO
 		
+		
+		List<String> seasons = new ArrayList<String>();
+		for(int i=D3ArmoryControler.getInstance().getSeason();i>=1;i--)
+			seasons.add(String.valueOf(i));
+
+		cboErea.setModel(new DefaultComboBoxModel(seasons.toArray()));
+		//TODO
+		panneauHaut.add(new JLabel("Era : "));
 		panneauHaut.add(cboErea);
 		
 		final JCheckBox boxSeason = new JCheckBox("Season ?");
