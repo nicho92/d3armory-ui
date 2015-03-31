@@ -641,6 +641,10 @@ public class D3ArmoryControler {
 		}
 	}
 
+	public String refactorItem(String id) {
+		return id.replaceAll("-","").replace(",", "").replace("'", "").replaceAll("\\.", "").replaceAll(" ", "-").trim().toLowerCase();
+	}
+
 	
 
 	

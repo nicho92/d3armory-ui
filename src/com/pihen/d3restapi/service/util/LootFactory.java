@@ -126,7 +126,7 @@ public class LootFactory {
 		logger.debug("Loot Table : " + lootedItemTable);
 		String name=lootedItemTable.keySet().toArray()[(int)new Random().nextInt((int)lootedItemTable.keySet().size())].toString();
 		Item i = new Item();
-			i.setTooltipParams("item/"+name.replaceAll("-","").replace(",", "").replace("'", "").replaceAll(" ", "-").trim().toLowerCase());
+			i.setTooltipParams("item/"+D3ArmoryControler.getInstance().refactorItem(name));
 			i = D3ArmoryControler.getInstance().getItemDetails(i);	
 		
 			
