@@ -14,6 +14,8 @@ import org.apache.log4j.Logger;
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.model.LootXlsTableModel;
 
+import com.pihen.d3restapi.beans.Affixes;
+import com.pihen.d3restapi.beans.AffixesContainer;
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.Item;
 
@@ -104,7 +106,6 @@ public class LootFactory {
 	
 	public Item generateItem(String item)
 	{
-		logger.debug("Init loot table");
 		Map<String,Double> lootedItemTable;
 		if (item==null)
 			lootedItemTable= getGenerateItem(randomTypeItemClazz());
@@ -129,10 +130,6 @@ public class LootFactory {
 		Item i = new Item();
 			i.setTooltipParams("item/"+D3ArmoryControler.getInstance().refactorItem(name));
 			i = D3ArmoryControler.getInstance().getItemDetails(i);	
-		
-			
-			
-			
 			
 		return i;
 	}

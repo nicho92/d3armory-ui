@@ -82,6 +82,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 
 	
 	public Icon getIcon(boolean off,String size) {
+		
 		setHorizontalAlignment(JLabel.CENTER);
 		setVerticalAlignment(JLabel.CENTER);
 
