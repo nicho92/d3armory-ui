@@ -333,9 +333,8 @@ public class D3ArmoryControler {
 							}
 						}
 					}
-					
-					br.close();
-				
+					logger.debug("Tags : " + liste.size() +" in file");
+					br.close(); 
 				}		
 				catch (Exception e){
 					logger.error(e.getStackTrace());
