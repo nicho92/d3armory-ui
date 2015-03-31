@@ -538,7 +538,7 @@ public class ItemPanelDetails extends JPanel {
 	private FormatedJLabel getLblDetailItem() {
 		if(lblDetailItem == null) {
 			lblDetailItem = new FormatedJLabel();
-			lblDetailItem.setBounds(12, 238, 325, 200);
+			lblDetailItem.setBounds(20, 237, 325, 264);
 			lblDetailItem.setName("lblDetailItem");
 		}
 		return lblDetailItem;
@@ -549,7 +549,7 @@ public class ItemPanelDetails extends JPanel {
 		{
 			lblSock1 = new SocketLabel(JLabel.LEFT);
 		//	lblSock1.setAlignmentX(Component.CENTER_ALIGNMENT);
-			lblSock1.setBounds(12, 380, 300, 30);
+			lblSock1.setBounds(20, 451, 300, 30);
 			lblSock1.setForeground(Color.white);
 		}
 		
@@ -560,7 +560,7 @@ public class ItemPanelDetails extends JPanel {
 		if(lblSock2==null) 
 		{
 			lblSock2 = new SocketLabel(JLabel.LEFT);
-			lblSock2.setBounds(12, 350+60, 300, 30);
+			lblSock2.setBounds(20, 481, 300, 30);
 			lblSock2.setForeground(Color.white);
 		}
 		
@@ -571,7 +571,7 @@ public class ItemPanelDetails extends JPanel {
 		if(lblSock3==null) 
 		{
 			lblSock3 = new SocketLabel(JLabel.LEFT);
-			lblSock3.setBounds(12, 350+90, 300, 30);
+			lblSock3.setBounds(20, 511, 300, 30);
 			lblSock3.setForeground(Color.white);
 		}
 		return lblSock3;
@@ -583,7 +583,7 @@ public class ItemPanelDetails extends JPanel {
 		if(lblDetailSet==null)
 		{
 			lblDetailSet = new FormatedJLabel();
-			lblDetailSet.setBounds(12, 480, 360,300);
+			lblDetailSet.setBounds(10, 564, 360,300);
 			lblDetailSet.setForeground(Color.WHITE);
 		}
 		
