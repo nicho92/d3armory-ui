@@ -568,6 +568,10 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	
 	public void setTypeOfObject(String type)
 	{
+		if (type.equalsIgnoreCase("Ancient Legendary"))
+			setDisplayColor("orange");
+		if (type.equalsIgnoreCase("Ancient Legendary Set"))
+			setDisplayColor("green");
 		if (type.equalsIgnoreCase("Legendary"))
 			setDisplayColor("orange");
 		if (type.equalsIgnoreCase("Rare"))

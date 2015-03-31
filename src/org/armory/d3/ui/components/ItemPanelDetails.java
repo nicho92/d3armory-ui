@@ -125,11 +125,13 @@ public class ItemPanelDetails extends JPanel {
 			ac.setSecondary(item.getAttributes().getSecondary());
 			
 				for(AffixesContainer affxs : item.getRandomAffixes())
-				{
-						ac.getPrimary().addAll(affxs.getOneOf().get(0).getAttributes().getPrimary());
-						ac.getSecondary().addAll(affxs.getOneOf().get(1).getAttributes().getPrimary());
-						//ac.getPassive().addAll(affxs.getOneOf().get(2).getAttributes().getPrimary());
-				}
+					for(Affixes a : affxs.getOneOf())
+						ac.getPrimary().addAll(a.getAttributes().getPrimary());
+					
+					//	ac.getPrimary().addAll(affxs.getOneOf().get(0).getAttributes().getPrimary());
+					//	ac.getSecondary().addAll(affxs.getOneOf().get(1).getAttributes().getPrimary());
+					//ac.getPassive().addAll(affxs.getOneOf().get(2).getAttributes().getPrimary());
+				
 				
 				item.setAttributes(ac);
 		}
@@ -189,6 +191,7 @@ public class ItemPanelDetails extends JPanel {
 			}
 		}
 		getLblDetailItem().applyText();
+		getLblDetailItem();
 	}
 	
 	private void updateHeader()
