@@ -29,6 +29,7 @@ public class LootFactory {
 	int columnPourcent;
 	int columnNameItem=1;
 	int columnType=0;
+	int columngear=8;
 	
 	private void calculateColumnNumber()
 	{
