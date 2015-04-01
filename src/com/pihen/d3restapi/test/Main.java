@@ -8,6 +8,7 @@ import com.pihen.d3restapi.beans.Affixes;
 import com.pihen.d3restapi.beans.AffixesContainer;
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.Item;
+import com.pihen.d3restapi.beans.MinMaxBonus;
 import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.service.configuration.Configuration;
 import com.pihen.d3restapi.service.remote.RemoteService;
@@ -37,18 +38,31 @@ public class Main {
 			hero = heroService.receiveEntity(conf);
 			
 			LootFactory fact = new LootFactory(hero);
-			Item i = fact.generateItem("helm");
+			Item i = fact.getItemById("Andariel's Visage");
 			
+			//i=D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getMainHand());
 			System.out.println(i + " (" + i.getItemLevel() + ")");
-			System.out.println(i.getRandomAffixes().size());
 			for(AffixesContainer ac : i.getRandomAffixes())
 			{
-				Affixes a = ac.getOneOf().get(new Random().nextInt(ac.getOneOf().size()));
-				System.out.println(a.getAttributes().getPrimary());
 				
+				for(Affixes a : ac.getOneOf())
+				{
+					a = ac.getOneOf().get(new Random().nextInt(ac.getOneOf().size()));
+					for (String k : a.getAttributesRaw().keySet())
+					{
+					Random rand = new Random();
+					Double min = a.getAttributesRaw().get(k).getMin();
+					Double max = a.getAttributesRaw().get(k).getMax();
+					int val = rand.nextInt((int) (((max - min) + 1) + min));
+					
+					MinMaxBonus mmb = new MinMaxBonus(val);
+					i.getAttributesRaw().put(k, mmb);
+					}
+				}
 			}
 			
-			
+			for(String k : i.getAttributesRaw().keySet())
+				System.out.println(k +" " + i.getAttributesRaw().get(k));
 			
 			
 			

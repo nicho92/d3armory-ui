@@ -90,7 +90,7 @@ public class LootFactory {
 	}
 	
 	
-	public Map<String,Double> getGenerateItem(String type) // filtrer les item par type et > 0;
+	public Map<String,Double> generateLootTable(String type) // filtrer les item par type et > 0;
 	{
 		Map<String,Double> lootedItemTable=new HashMap<String,Double>();
 		for(int i=0;i<tableLoot.getRowCount();i++)
@@ -108,9 +108,9 @@ public class LootFactory {
 	{
 		Map<String,Double> lootedItemTable;
 		if (item==null)
-			lootedItemTable= getGenerateItem(randomTypeItemClazz());
+			lootedItemTable= generateLootTable(randomTypeItemClazz());
 		else
-			lootedItemTable= getGenerateItem(item);
+			lootedItemTable= generateLootTable(item);
 			
 		for(String k : lootedItemTable.keySet())
 		{
@@ -127,10 +127,18 @@ public class LootFactory {
 		
 		logger.debug("Loot Table : " + lootedItemTable);
 		String name=lootedItemTable.keySet().toArray()[(int)new Random().nextInt((int)lootedItemTable.keySet().size())].toString();
-		Item i = new Item();
-			i.setTooltipParams("item/"+D3ArmoryControler.getInstance().refactorItem(name));
-			i = D3ArmoryControler.getInstance().getItemDetails(i);	
+		
+		Item i = getItemById(name);
 			
+		return i;
+	}
+	
+	public Item getItemById(String tooltip)
+	{
+		tooltip = D3ArmoryControler.getInstance().refactorItem(tooltip);
+		Item i = new Item();
+		i.setTooltipParams("item/"+tooltip);
+		i = D3ArmoryControler.getInstance().getItemDetails(i);	
 		return i;
 	}
 	
