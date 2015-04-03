@@ -104,7 +104,6 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		
 	}
 	
-	
 	public double getRealMin()
 	{
 		if(!isWeapon())

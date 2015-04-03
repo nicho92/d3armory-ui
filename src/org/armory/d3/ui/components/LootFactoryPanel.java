@@ -68,7 +68,7 @@ public class LootFactoryPanel extends JPanel {
      				i=new ImageIcon(url);
      				i = new ImageIcon(GrayFilter.createDisabledImage(i.getImage()));
      			} catch (Exception e1) {
-     				e1.printStackTrace();
+     				//e1.printStackTrace();
      			}
      	    	b.setIcon(i);
              b.addActionListener(new ActionListener() {
