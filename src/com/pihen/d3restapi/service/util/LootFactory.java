@@ -183,7 +183,7 @@ public class LootFactory {
 					mmb.setValue(val);
 					
 					if(i.isAncientItem())
-						if(k.endsWith("_Item"))
+						if(k.endsWith("_Item")||k.startsWith("Resistance_")||k.startsWith("Damage_Weapon_Min")||k.startsWith("Damage_Dealt_Percent_Bonus"))
 							mmb.setValue(mmb.getMoyenne()+(mmb.getMoyenne()*30/100));
 					
 					

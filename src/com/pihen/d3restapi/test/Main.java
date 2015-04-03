@@ -43,7 +43,7 @@ public class Main {
 			hero = heroService.receiveEntity(conf);
 			
 			LootFactory fact = new LootFactory(hero);
-			Item i = fact.getItemById("The witching hour");
+			Item i = fact.getItemById("armor of the kind regent");
 			
 			System.out.println(i.getAttributesRaw());
 			D3ArmoryControler.getInstance().saveItem(i);
