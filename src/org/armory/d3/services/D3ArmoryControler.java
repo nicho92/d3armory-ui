@@ -190,8 +190,16 @@ public class D3ArmoryControler {
 		  if(local==null)
 			  conf.setLocal("en_US");
 		  profileService = new SpringRemoteService(Profile.class);
-		  Profile profil = profileService.receiveEntity(conf);
-		  return profil;
+		  try
+		  {
+			  Profile profil = profileService.receiveEntity(conf);
+			  return profil;
+		  }
+		  catch(Exception e)
+		  {
+			  JOptionPane.showMessageDialog(null, e);
+			  return null;
+		  }
 	}
 	
 	public Profile getCurrentProfil()
