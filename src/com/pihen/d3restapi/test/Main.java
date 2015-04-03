@@ -1,11 +1,15 @@
 package com.pihen.d3restapi.test;
 
+import java.text.DecimalFormat;
+import java.text.AttributedCharacterIterator.Attribute;
 import java.util.Random;
 
 import org.armory.d3.services.D3ArmoryControler;
 
+import com.google.gson.Gson;
 import com.pihen.d3restapi.beans.Affixes;
 import com.pihen.d3restapi.beans.AffixesContainer;
+import com.pihen.d3restapi.beans.Attributs;
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.MinMaxBonus;
@@ -14,6 +18,7 @@ import com.pihen.d3restapi.service.configuration.Configuration;
 import com.pihen.d3restapi.service.remote.RemoteService;
 import com.pihen.d3restapi.service.remote.SpringRemoteService;
 import com.pihen.d3restapi.service.util.LootFactory;
+import com.pihen.d3restapi.service.util.RawsAttributeFactory;
 
 
 public class Main {
@@ -38,33 +43,10 @@ public class Main {
 			hero = heroService.receiveEntity(conf);
 			
 			LootFactory fact = new LootFactory(hero);
-			Item i = fact.getItemById("Andariel's Visage");
+			Item i = fact.getItemById("The witching hour");
 			
-			//i=D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getMainHand());
-			System.out.println(i + " (" + i.getItemLevel() + ")");
-			for(AffixesContainer ac : i.getRandomAffixes())
-			{
-				
-				for(Affixes a : ac.getOneOf())
-				{
-					a = ac.getOneOf().get(new Random().nextInt(ac.getOneOf().size()));
-					for (String k : a.getAttributesRaw().keySet())
-					{
-					Random rand = new Random();
-					Double min = a.getAttributesRaw().get(k).getMin();
-					Double max = a.getAttributesRaw().get(k).getMax();
-					int val = rand.nextInt((int) (((max - min) + 1) + min));
-					
-					MinMaxBonus mmb = new MinMaxBonus(val);
-					i.getAttributesRaw().put(k, mmb);
-					}
-				}
-			}
-			
-			for(String k : i.getAttributesRaw().keySet())
-				System.out.println(k +" " + i.getAttributesRaw().get(k));
-			
-			
+			System.out.println(i.getAttributesRaw());
+			D3ArmoryControler.getInstance().saveItem(i);
 			
 			
 /*TEST CACHED HERO FILES		

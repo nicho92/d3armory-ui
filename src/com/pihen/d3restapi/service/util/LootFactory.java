@@ -1,5 +1,6 @@
 package com.pihen.d3restapi.service.util;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -16,8 +17,11 @@ import org.armory.d3.ui.model.LootXlsTableModel;
 
 import com.pihen.d3restapi.beans.Affixes;
 import com.pihen.d3restapi.beans.AffixesContainer;
+import com.pihen.d3restapi.beans.Attributs;
+import com.pihen.d3restapi.beans.DisplayableItemAttributs;
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.Item;
+import com.pihen.d3restapi.beans.MinMaxBonus;
 
 public class LootFactory {
 
@@ -139,6 +143,71 @@ public class LootFactory {
 		Item i = new Item();
 		i.setTooltipParams("item/"+tooltip);
 		i = D3ArmoryControler.getInstance().getItemDetails(i);	
+		
+		
+		
+		int ancient = new Random().nextInt(100);
+		if (ancient >= 90)//10% ancien droprate
+		{
+			i.addAttributesRaw("Ancient_Rank", new MinMaxBonus(1));
+			i.setTypeName("Ancient " + i.getTypeName());
+			
+		}
+		
+		
+		//for fixed attributes
+		for(String key : i.getAttributesRaw().keySet())
+		{
+					Random rand = new Random();
+					Double min = i.getAttributesRaw().get(key).getMin();
+					Double max = i.getAttributesRaw().get(key).getMax();
+					double val = min + (max - min) * rand.nextDouble();
+					
+					MinMaxBonus mmb = new MinMaxBonus(val);
+					
+					i.getAttributesRaw().put(key, mmb);
+		}
+		
+		//for random attributes
+		for(AffixesContainer ac : i.getRandomAffixes())
+		{
+			Affixes a = ac.getOneOf().get(new Random().nextInt(ac.getOneOf().size()));
+			{
+				for (String k : a.getAttributesRaw().keySet())
+				{
+					Random rand = new Random();
+					Double min = a.getAttributesRaw().get(k).getMin();
+					Double max = a.getAttributesRaw().get(k).getMax();
+					double val = min + (max - min) * rand.nextDouble();
+					MinMaxBonus mmb = new MinMaxBonus((int)val);
+					mmb.setValue(val);
+					
+					if(i.isAncientItem())
+						if(k.endsWith("_Item"))
+							mmb.setValue(mmb.getMoyenne()+(mmb.getMoyenne()*30/100));
+					
+					
+					i.getAttributesRaw().put(k, mmb);
+				}
+			}
+		}
+		
+		RawsAttributeFactory facto = new RawsAttributeFactory();
+		for(String key : i.getAttributesRaw().keySet())
+		{
+			Attributs att = facto.getAttribut(key);
+			
+			if(att!=null)
+			{
+				att.setValue(i.getAttributesRaw().get(key));
+				i.addAttributs(att);
+			}
+		}
+		
+		i.generateDisplayableAttributs();
+		i.setRandomAffixes(new ArrayList<AffixesContainer>());
+		
+		
 		return i;
 	}
 	
