@@ -270,10 +270,13 @@ public class ItemLabel extends JLabel implements MouseListener {
 			JMenuItem itNewItem = new JMenuItem("New Item");
 				itNewItem.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
-						Item i = new Item();
 						
+					
+						Item i = new Item();
+
 						if(item!=null)
 							i =  (Item) item.clone();
+						
 						initWindowBuilder(i,gear);
 					}
 				}

@@ -145,7 +145,7 @@ public class LootFactory {
 		i = D3ArmoryControler.getInstance().getItemDetails(i);	
 		
 		
-		
+		Number level = D3ArmoryControler.getInstance().getSelectedHero(false).getLevel().intValue();
 		int ancient = new Random().nextInt(100);
 		if (ancient >= 90)//10% ancien droprate
 		{
@@ -164,7 +164,6 @@ public class LootFactory {
 					double val = min + (max - min) * rand.nextDouble();
 					
 					MinMaxBonus mmb = new MinMaxBonus(val);
-					
 					i.getAttributesRaw().put(key, mmb);
 		}
 		
@@ -179,14 +178,9 @@ public class LootFactory {
 					Double min = a.getAttributesRaw().get(k).getMin();
 					Double max = a.getAttributesRaw().get(k).getMax();
 					double val = min + (max - min) * rand.nextDouble();
+
 					MinMaxBonus mmb = new MinMaxBonus((int)val);
 					mmb.setValue(val);
-					
-					if(i.isAncientItem())
-						if(k.endsWith("_Item")||k.startsWith("Resistance_")||k.startsWith("Damage_Weapon_Min")||k.startsWith("Damage_Dealt_Percent_Bonus"))
-							mmb.setValue(mmb.getMoyenne()+(mmb.getMoyenne()*30/100));
-					
-					
 					i.getAttributesRaw().put(k, mmb);
 				}
 			}
@@ -195,14 +189,24 @@ public class LootFactory {
 		RawsAttributeFactory facto = new RawsAttributeFactory();
 		for(String key : i.getAttributesRaw().keySet())
 		{
+			//
+			
 			Attributs att = facto.getAttribut(key);
 			
 			if(att!=null)
 			{
+					if(key.endsWith("_Item")||key.startsWith("Resistance_")||key.startsWith("Damage_Weapon_Min")||key.startsWith("Damage_Dealt_Percent_Bonus"))
+					{
+						if(i.isAncientItem())
+							i.getAttributesRaw().get(key).setValue(i.getAttributesRaw().get(key).getMoyenne()+(i.getAttributesRaw().get(key).getMoyenne()*30/100));
+					}
+			
 				att.setValue(i.getAttributesRaw().get(key));
 				i.addAttributs(att);
 			}
 		}
+		
+		i.setItemLevel(level);
 		
 		i.generateDisplayableAttributs();
 		i.setRandomAffixes(new ArrayList<AffixesContainer>());

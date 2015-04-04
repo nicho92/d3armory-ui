@@ -567,7 +567,8 @@ public class D3ArmoryControler {
 			return (Item)ois.readObject();
 		}
 		catch (Exception e) {
-			logger.error(e.getStackTrace());
+			JOptionPane.showMessageDialog(null, e,"ERROR",JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
 			return null;
 		}
 	}
