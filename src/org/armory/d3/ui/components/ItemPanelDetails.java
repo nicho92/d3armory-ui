@@ -157,7 +157,6 @@ public class ItemPanelDetails extends JPanel {
 		List<DisplayableItemAttributs> prim = item.getAttributes().getPrimary();
 		List<DisplayableItemAttributs> sec = item.getAttributes().getSecondary();
 		List<DisplayableItemAttributs> pass = item.getAttributes().getPassive();
-		
 		getLblDetailItem().init();
 		
 		if(prim !=null){

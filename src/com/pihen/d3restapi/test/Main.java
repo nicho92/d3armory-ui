@@ -1,27 +1,13 @@
 package com.pihen.d3restapi.test;
 
-import java.awt.BorderLayout;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import org.armory.d3.services.D3ArmoryControler;
-import org.armory.d3.ui.components.ItemPanelDetails;
-import org.armory.d3.ui.components.LootFactoryPanel;
-
-import com.pihen.d3restapi.beans.Hero;
-import com.pihen.d3restapi.beans.Item;
-import com.pihen.d3restapi.beans.Profile;
-import com.pihen.d3restapi.service.configuration.Configuration;
-import com.pihen.d3restapi.service.remote.RemoteService;
-import com.pihen.d3restapi.service.remote.SpringRemoteService;
-import com.pihen.d3restapi.service.util.LootFactory;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-  
+  /*
 		Configuration conf = new Configuration();
 		  conf.setBattleTag("nicho92");
 		  conf.setBattleTagCode(new Long(2603));
@@ -64,7 +50,7 @@ public class Main {
 //			
 //			
 //			f.setVisible(true);
-			
+		*/	
 /*TEST CACHED HERO FILES		
 		for(File f : new File(D3ArmoryControler.SERIALISATION_HERO_DIR).listFiles())
 		{
@@ -81,6 +67,10 @@ public class Main {
 //		RSSReader read = new RSSReader();
 //		System.out.println(read.getRss("http://www.diablofans.com/news.rss"));
 //		System.out.println(read.getRss("http://eu.battle.net/d3/fr/feed/news"));
+		
+		
+		
+		String pass = "Augmente les dégâts infligés aux élites de 40–50%";
 		
 		
 	}

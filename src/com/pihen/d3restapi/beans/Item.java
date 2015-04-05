@@ -104,6 +104,15 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		
 	}
 	
+	public String getPowerPassive()
+	{
+		for(String k : getAttributesRaw().keySet())
+			if(k.startsWith("Item_Power_Passive"))
+				return k;
+		
+		return null;
+	}
+	
 	public double getRealMin()
 	{
 		if(!isWeapon())

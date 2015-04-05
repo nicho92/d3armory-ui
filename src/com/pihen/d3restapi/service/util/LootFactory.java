@@ -1,12 +1,16 @@
 package com.pihen.d3restapi.service.util;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.Random;
 import java.util.Set;
 
@@ -208,12 +212,39 @@ public class LootFactory {
 		
 		i.setItemLevel(level);
 		
+		List<DisplayableItemAttributs> pass = i.getAttributes().getPassive();
+		
+		if(pass.size()>0){
+		Pattern pat = Pattern.compile("(\\d+)–(\\d+)");
+		Matcher m = pat.matcher(pass.get(0).getText());
+		
+		if (m.find()) {
+			String val = m.group(0);
+			int pour=1;
+			if(pass.get(0).getText().contains("%"))
+				pour=100;
+			
+			pass.get(0).setText(pass.get(0).getText().replaceAll(val, format(i.getAttributesRaw().get(i.getPowerPassive()).getMoyenne()*pour)));
+
+		}
+		
+		}
+			
+		
 		i.generateDisplayableAttributs();
-	
+		
+		i.getAttributes().setPassive(pass);
+		
 		i.setRandomAffixes(new ArrayList<AffixesContainer>());
 		
 		
 		return i;
+	}
+	
+	public static String format(double val)
+	{
+		return new DecimalFormat("#").format(val);
+		
 	}
 	
 	public double getCoeff(double value,int level)
