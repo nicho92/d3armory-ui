@@ -209,10 +209,20 @@ public class LootFactory {
 		i.setItemLevel(level);
 		
 		i.generateDisplayableAttributs();
+	
 		i.setRandomAffixes(new ArrayList<AffixesContainer>());
 		
 		
 		return i;
 	}
+	
+	public double getCoeff(double value,int level)
+	{
+		if(level == 70)
+			return value;
+		
+		return value;
+	}
+	
 	
 }

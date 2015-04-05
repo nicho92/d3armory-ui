@@ -1,24 +1,21 @@
 package com.pihen.d3restapi.test;
 
-import java.text.DecimalFormat;
-import java.text.AttributedCharacterIterator.Attribute;
-import java.util.Random;
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import org.armory.d3.services.D3ArmoryControler;
+import org.armory.d3.ui.components.ItemPanelDetails;
+import org.armory.d3.ui.components.LootFactoryPanel;
 
-import com.google.gson.Gson;
-import com.pihen.d3restapi.beans.Affixes;
-import com.pihen.d3restapi.beans.AffixesContainer;
-import com.pihen.d3restapi.beans.Attributs;
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.Item;
-import com.pihen.d3restapi.beans.MinMaxBonus;
 import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.service.configuration.Configuration;
 import com.pihen.d3restapi.service.remote.RemoteService;
 import com.pihen.d3restapi.service.remote.SpringRemoteService;
 import com.pihen.d3restapi.service.util.LootFactory;
-import com.pihen.d3restapi.service.util.RawsAttributeFactory;
 
 
 public class Main {
@@ -41,13 +38,32 @@ public class Main {
 					hero.getId());	
 			D3ArmoryControler.getInstance().setConf(conf);
 			hero = heroService.receiveEntity(conf);
+			D3ArmoryControler.getInstance().setSelectedHero(hero);
 			
 			LootFactory fact = new LootFactory(hero);
-			Item i = fact.getItemById("armor of the kind regent");
-			
+			Item i = fact.getItemById("sunwukos crown");
+//			
 			System.out.println(i.getAttributesRaw());
-			D3ArmoryControler.getInstance().saveItem(i);
+//			D3ArmoryControler.getInstance().saveItem(i);
 			
+//			JFrame f = new JFrame();
+//			f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//			f.setSize(400, 300);
+//			LootFactoryPanel panel = new LootFactoryPanel();
+//			ItemPanelDetails detail = new ItemPanelDetails();
+//			detail.setSize(150, 300);
+//			JPanel pane = new JPanel();
+//			pane.setLayout(new BorderLayout());
+//			pane.add(panel, BorderLayout.CENTER);
+//			pane.add(detail,BorderLayout.EAST);
+//			
+//			panel.init(detail);
+//			
+//			
+//			f.getContentPane().add(pane);
+//			
+//			
+//			f.setVisible(true);
 			
 /*TEST CACHED HERO FILES		
 		for(File f : new File(D3ArmoryControler.SERIALISATION_HERO_DIR).listFiles())

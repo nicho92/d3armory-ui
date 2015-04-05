@@ -41,6 +41,8 @@ public class LegendarySet implements Serializable {
 		if(nbPiece>=ranks.size())
 			nbPiece=ranks.size();
 			
+		if(nbPiece==-1)
+			nbPiece=0;
 		return ranks.subList(0, nbPiece);
 	}
 	

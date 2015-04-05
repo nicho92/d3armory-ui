@@ -13,13 +13,18 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import org.armory.d3.services.D3ArmoryControler;
+import org.armory.d3.ui.ItemCreatorFrame;
+import org.armory.d3.ui.SwingMainFrame;
 
 import com.pihen.d3restapi.beans.Item;
+import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.LootFactory;
+
 import java.awt.GridLayout;
 
 public class LootFactoryPanel extends JPanel {
-	
+	 Item lootedItem ;
+	 
 	public LootFactoryPanel() {
 		///setLayout(new GridLayout(10, 5));
 		setMinimumSize(new Dimension(0,0));
@@ -74,19 +79,33 @@ public class LootFactoryPanel extends JPanel {
              b.addActionListener(new ActionListener() {
 				
 				public void actionPerformed(ActionEvent e) {
-					 Item i = fact.generateItem(((JButton)e.getSource()).getText());	
-	            	 itemPanelDetails.showItem(i);
+					 lootedItem = fact.generateItem(((JButton)e.getSource()).getText());	
+	            	 itemPanelDetails.showItem(lootedItem);
+	            	 
 	            	 ItemLabel lab = new ItemLabel();
-				        lab.setItem(i, null);
+				        lab.setItem(lootedItem, null);
 				        itemPanelDetails.getLblIcon().setIcon(lab.getIcon());
 				        itemPanelDetails.getLblIcon().repaint();
-					
 				}
 			});
            
             add(b);
+            
+           
         }
-		
+		 JButton tryButton = new JButton("Gear IT !");
+         tryButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ItemCreatorFrame itemBuilderFrame = new ItemCreatorFrame(lootedItem,EnumerationStuff.MAIN_HAND);
+					 ItemLabel lab = new ItemLabel();
+				        lab.setItem(lootedItem, null);
+				        itemBuilderFrame.getItemPanelDetails().getLblIcon().setIcon(lab.getIcon());
+				        itemBuilderFrame.getItemPanelDetails().getLblIcon().repaint();
+				     
+				}
+			});
+         
+         add(tryButton);
 	}
 
 
