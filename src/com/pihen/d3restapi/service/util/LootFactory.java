@@ -143,11 +143,16 @@ public class LootFactory {
 	
 	public Item getItemById(String tooltip)
 	{
+		
+		//TODO bugfix on Bombardier's Rucksack name
+		
+		if(tooltip.equals("Bombadier's Rucksack"))
+			tooltip="Bombardier's Rucksack";
+		
 		tooltip = D3ArmoryControler.getInstance().refactorItem(tooltip);
 		Item i = new Item();
 		i.setTooltipParams("item/"+tooltip);
 		i = D3ArmoryControler.getInstance().getItemDetails(i);	
-		
 		
 		Number level = D3ArmoryControler.getInstance().getSelectedHero(false).getLevel().intValue();
 		int ancient = new Random().nextInt(100);
