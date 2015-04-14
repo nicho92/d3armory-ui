@@ -38,7 +38,7 @@ public class LootFactory {
 	
 	int columnPourcent;
 	int columnNameItem=0;
-	int columnType=1;
+	int columnType=2;
 	int columngear=8;
 	
 	private void calculateColumnNumber()
@@ -55,7 +55,6 @@ public class LootFactory {
 			columnPourcent=7;
 		if( h.getClazz().equals( "crusader")) 
 			columnPourcent=9;
-		
 	}
 	
 	

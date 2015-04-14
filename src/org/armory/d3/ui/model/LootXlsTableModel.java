@@ -26,6 +26,7 @@ public class LootXlsTableModel extends DefaultTableModel implements Serializable
 	
 		    	  
 		    	  BufferedReader br = new BufferedReader(fr);
+		    	  br.readLine(); //first line with title
 		    	  String ligne= br.readLine();
 		    	  while(ligne!=null)
 		    	  {

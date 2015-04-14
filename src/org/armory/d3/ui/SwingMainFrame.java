@@ -1884,7 +1884,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				
 					public void mouseClicked(java.awt.event.MouseEvent evt) {
 						 int row = lootTable.rowAtPoint(evt.getPoint());
-						 String id = (String)lootTable.getValueAt(row, 1);
+						 String id = (String)lootTable.getValueAt(row, 0);
 						 Item i = new Item();
 						
 						 i.setTooltipParams("item/"+D3ArmoryControler.getInstance().refactorItem(id));
