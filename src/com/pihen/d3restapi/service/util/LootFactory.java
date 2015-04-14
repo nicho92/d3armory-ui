@@ -37,24 +37,24 @@ public class LootFactory {
 	
 	
 	int columnPourcent;
-	int columnNameItem=1;
-	int columnType=0;
+	int columnNameItem=0;
+	int columnType=1;
 	int columngear=8;
 	
 	private void calculateColumnNumber()
 	{
 		if( h.getClazz().equals("demon-hunter")) 
-			columnPourcent=2;
-		if( h.getClazz().equals("barbarian")) 
-			columnPourcent=3;
-		if( h.getClazz().equals("wizard")) 
-			columnPourcent=4;
-		if( h.getClazz().equals( "witch-doctor")) 
-			columnPourcent=5;
-		if( h.getClazz().equals( "monk")) 
 			columnPourcent=6;
-		if( h.getClazz().equals( "crusader")) 
+		if( h.getClazz().equals("barbarian")) 
+			columnPourcent=8;
+		if( h.getClazz().equals("wizard")) 
+			columnPourcent=10;
+		if( h.getClazz().equals( "witch-doctor")) 
+			columnPourcent=11;
+		if( h.getClazz().equals( "monk")) 
 			columnPourcent=7;
+		if( h.getClazz().equals( "crusader")) 
+			columnPourcent=9;
 		
 	}
 	

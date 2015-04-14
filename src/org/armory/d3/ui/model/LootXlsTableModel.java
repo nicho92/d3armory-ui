@@ -32,8 +32,6 @@ public class LootXlsTableModel extends DefaultTableModel implements Serializable
 		    		  list.add(ligne.split(";"));
 		    		  ligne=br.readLine();
 		    	  }
-		    	  
-		    	  
 		      } catch (Exception e) {
 		    	 e.printStackTrace();
 		      }
@@ -44,14 +42,18 @@ public class LootXlsTableModel extends DefaultTableModel implements Serializable
 	public String getColumnName(int column) {
 		switch (column)
 		{
-		case 0: return "Type";
-		case 1: return "Item";
-		case 2 : return "demon-hunter";
-		case 3 : return "barbare";
-		case 4 : return "wizard";
-		case 5 : return "witch-doctor";
-		case 6 : return "monk";
-		case 7 : return "crusader";
+		case 0 : return "Item";
+		case 1 : return "Type";
+		case 2 : return "Type Kadala";
+		case 3 : return "Harcore Only";
+		case 4 : return "Torment Only";
+		case 5 : return "Season";
+		case 6 : return "demon-hunter";
+		case 7 : return "monk";
+		case 8 : return "barbarian";
+		case 9 : return "crusader";
+		case 10 : return "wizard";
+		case 11 : return "witch-doctor";
 		default : return "";
 		}
 	}
@@ -73,7 +75,7 @@ public class LootXlsTableModel extends DefaultTableModel implements Serializable
 	
 	@Override
 	public int getColumnCount() {
-		return 8;
+		return 12;
 	}
 
 	
