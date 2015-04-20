@@ -1,13 +1,16 @@
 package com.pihen.d3restapi.test;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.pihen.d3restapi.beans.Hero;
+import com.pihen.d3restapi.beans.Profile;
+import com.pihen.d3restapi.service.configuration.Configuration;
+import com.pihen.d3restapi.service.remote.RemoteService;
+import com.pihen.d3restapi.service.remote.SpringRemoteService;
 
 
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-  /*
+ 
 		Configuration conf = new Configuration();
 		  conf.setBattleTag("nicho92");
 		  conf.setBattleTagCode(new Long(2603));
@@ -18,7 +21,9 @@ public class Main {
 		 RemoteService<Hero> heroService = new SpringRemoteService(Hero.class);
 			
 		 Profile profile = profileService.receiveEntity(conf);
-			
+		 
+		 System.out.println(profile.getTimePlayed());
+/*			
 			Hero hero = profile.getHeroes().get(0);
 			conf.setHeroId(
 					hero.getId());	

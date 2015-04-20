@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -89,6 +90,7 @@ import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.Ladder;
 import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.beans.SkillRune;
+import com.pihen.d3restapi.beans.TimePlayed;
 import com.pihen.d3restapi.service.remote.exception.D3ServerCommunicationException;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.StuffCalculator;
@@ -1104,8 +1106,13 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lbl5.applyText();
 		getPanneauInfoHero().add(lbl5);
 		
+		FormatedJLabel lbl7 = new FormatedJLabel();
+		lbl7.addText(getDetailHero(5), "white","#BDA6CD");
+		lbl7.applyText();
+		getPanneauInfoHero().add(lbl7);
+		
 		FormatedJLabel lbl6 = new FormatedJLabel();
-		lbl6.addText(getDetailHero(5), "white","#BDA6CD");
+		lbl6.addText(getDetailHero(6), "white","#BDA6CD");
 		lbl6.applyText();
 		getPanneauInfoHero().add(lbl6);
 	
@@ -1203,6 +1210,18 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		}
 		if(val==5)
 		{
+			temp.append("Time Played <br/>");
+			
+			TimePlayed tp = D3ArmoryControler.getInstance().getCurrentProfil().getTimePlayed();
+			
+			for(String s : tp.getPercentClazz().keySet())
+			{
+				temp.append(s + ": " + StuffCalculator.format(tp.getPercentClazz().get(s)) +" %<br/>");
+			}
+			//temp.append("End HC Season Parangon : " + D3ArmoryControler.getInstance().getEndSeasonParangonLevelHC(1).getLevel() +" <br/>");
+		}
+		if(val==6)
+		{
 			temp.append("D3Progress Ladder <br/>");
 			
 			D3ProgressLeaderBoard leadbord = new D3ProgressLeaderBoard(D3ArmoryControler.getInstance().getConf(),D3ArmoryControler.getInstance().getSelectedHero(false));
@@ -1214,6 +1233,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		
 			//temp.append("End HC Season Parangon : " + D3ArmoryControler.getInstance().getEndSeasonParangonLevelHC(1).getLevel() +" <br/>");
 		}
+		
+		
+		
 		}
 		catch(Exception e)
 		{

@@ -50,8 +50,6 @@ public class SpringGsonConverter<T> implements HttpMessageConverter<T> {
 	}
 
 	public T read(Class<? extends T> clazz, HttpInputMessage message) throws IOException, HttpMessageNotReadableException,IllegalStateException {
-	
-		
 		Reader jsonReader = new InputStreamReader(message.getBody(),"UTF-8");
 		T resultObject = gson.fromJson(jsonReader, clazz);
 		checkErrorEntity(resultObject);

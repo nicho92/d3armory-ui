@@ -1,5 +1,8 @@
 package com.pihen.d3restapi.beans;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.google.gson.annotations.SerializedName;
 
 public class TimePlayed {
@@ -65,6 +68,24 @@ public class TimePlayed {
 	public String toString()
 	{
 		return "barb :" + barbarian + " wd " + witchDoctor + " wz :" + wizard + " cru: " + crusader + " mk: "+ monk +" dh: "+ demonHunter;
+	}
+	
+	
+	public Map<String,Double> getPercentClazz()
+	{
+		double total = barbarian.doubleValue()+ witchDoctor.doubleValue()+wizard.doubleValue()+crusader.doubleValue()+monk.doubleValue()+demonHunter.doubleValue();
+		Map<String,Double> list = new HashMap<String,Double>();
+		
+		list.put("barbarian",(getBarbarian().doubleValue()/total)*100);
+		
+		list.put("witch-doctor" ,(getWitchDoctor().doubleValue()/total)*100);
+		list.put( "wizard" ,(getWizard().doubleValue()/total)*100);
+		list.put( "crusader",(getCrusader().doubleValue()/total)*100);
+		list.put( "monk", (getMonk().doubleValue()/total)*100);
+		list.put( "demon-hunter", (getDemonHunter().doubleValue()/total)*100);
+		
+		return list;
+	
 	}
 	
 }
