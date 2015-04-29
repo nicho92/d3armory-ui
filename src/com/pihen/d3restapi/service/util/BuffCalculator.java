@@ -36,6 +36,10 @@ public class BuffCalculator {
 				}
 		}
 		
+		if(a.getSkill().getId().equals("heavenly-strength")){
+			buffs.put("Damage_Weapon_Percent_Bonus#Physical"+PREFIX+a, new MinMaxBonus(-0.20));
+		}
+		
 		if(a.getSkill().getId().equals("finery"))
 		{
 			
@@ -144,9 +148,9 @@ public class BuffCalculator {
 		}
 		if(a.getSkill().getId().equals("towering-shield"))
 		{
-			buffs.put("Power_Damage_Percent_Bonus#X1_Crusader_punish"+PREFIX+a, new MinMaxBonus(0.20));
-			buffs.put("Power_Damage_Percent_Bonus#X1_Crusader_shieldbash"+PREFIX+a, new MinMaxBonus(0.20));
-			buffs.put("Power_Damage_Percent_Bonus#X1_Crusader_blessedshield"+PREFIX+a, new MinMaxBonus(0.20));
+			buffs.put("Power_Damage_Percent_Bonus#X1_Crusader_Punish"+PREFIX+a, new MinMaxBonus(0.20));
+			buffs.put("Power_Damage_Percent_Bonus#X1_Crusader_Shieldbash"+PREFIX+a, new MinMaxBonus(0.20));
+			buffs.put("Power_Damage_Percent_Bonus#X1_Crusader_Blessedshield"+PREFIX+a, new MinMaxBonus(0.20));
 			buffs.put("Power_Cooldown_Reduction_Percent#X1_Crusader_Shieldglare"+PREFIX+a, new MinMaxBonus(0.30));
 			
 		}

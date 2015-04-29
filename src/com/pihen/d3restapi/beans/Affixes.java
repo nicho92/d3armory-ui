@@ -7,8 +7,7 @@ public class Affixes implements Serializable{
 
 	private AttributsContainer attributes;
 	private Map<String, MinMaxBonus > attributesRaw;
-	
-	
+		
 	public AttributsContainer getAttributes() {
 		return attributes;
 	}
