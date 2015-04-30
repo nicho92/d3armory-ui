@@ -509,7 +509,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		return scrollHeros;
 	}
 	
-	public JList getListeHeros() {
+	public JList<Hero> getListeHeros() {
 		if(listeHeros==null)
 		{
 			listeHeros=new JList<Hero>();
@@ -1707,8 +1707,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				
 				
 				panneauDessinHero.add(getLblLoader());
-				
-					
 				{
 					lblNom = new ItemLabel();
 					lblNom.setForeground(new Color(255, 255, 255));

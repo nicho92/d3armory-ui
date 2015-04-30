@@ -2,7 +2,9 @@ package com.pihen.d3restapi.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 
@@ -151,6 +153,28 @@ public class Stuff implements Serializable{
 		list.add(getTorso());
 		return list;
 		
+	}
+	
+	public Map<EnumerationStuff, Item> getItemsMap()
+	{
+		Map<EnumerationStuff,Item > map = new HashMap<EnumerationStuff, Item>();
+		
+				map.put(EnumerationStuff.NECK,getNeck());	
+				map.put(EnumerationStuff.BELT,getWaist());
+				map.put(EnumerationStuff.BRACER,getBracers());
+				map.put(EnumerationStuff.FEET,getFeet());
+				map.put(EnumerationStuff.GANT,getHands());
+				map.put(EnumerationStuff.HEAD,getHead());
+				map.put(EnumerationStuff.LEGS,getLegs());
+				map.put(EnumerationStuff.MAIN_HAND,getMainHand());
+				map.put(EnumerationStuff.OFF_HAND,getOffHand());
+				map.put(EnumerationStuff.RING_LEFT,getLeftFinger());
+				map.put(EnumerationStuff.RING_RIGHT,getRightFinger());
+				map.put(EnumerationStuff.SHOULDERS,getShoulders());
+				map.put(EnumerationStuff.TORSO,getTorso());
+		
+		
+		return map;
 	}
 	
 	

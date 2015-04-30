@@ -1,10 +1,15 @@
 package com.pihen.d3restapi.test;
 
+import org.armory.d3.services.D3ArmoryControler;
+
 import com.pihen.d3restapi.beans.Hero;
+import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.service.configuration.Configuration;
 import com.pihen.d3restapi.service.remote.RemoteService;
 import com.pihen.d3restapi.service.remote.SpringRemoteService;
+import com.pihen.d3restapi.service.util.LootFactory;
+import com.pihen.d3restapi.service.util.StuffCalculator;
 
 
 public class Main {
@@ -21,20 +26,30 @@ public class Main {
 		 RemoteService<Hero> heroService = new SpringRemoteService(Hero.class);
 			
 		 Profile profile = profileService.receiveEntity(conf);
-		 
-		 System.out.println(profile.getTimePlayed());
-/*			
+	
+		
 			Hero hero = profile.getHeroes().get(0);
 			conf.setHeroId(
 					hero.getId());	
 			D3ArmoryControler.getInstance().setConf(conf);
 			hero = heroService.receiveEntity(conf);
 			D3ArmoryControler.getInstance().setSelectedHero(hero);
+			D3ArmoryControler.getInstance().initStuffHero(hero);
+			D3ArmoryControler.getInstance().initCalculator(hero.getItems().getItemsMap());
+			StuffCalculator calc = D3ArmoryControler.getInstance().getCalculator();
 			
-			LootFactory fact = new LootFactory(hero);
-			Item i = fact.getItemById("sunwukos crown");
-//			
-			System.out.println(i.getAttributesRaw());
+			
+			System.out.println(calc.filter("Power", null));
+//			LootFactory fact = new LootFactory(hero);
+//			Item i = fact.getItemById("sunwukos crown");
+			
+			
+			
+			
+			
+			
+			
+			
 //			D3ArmoryControler.getInstance().saveItem(i);
 			
 //			JFrame f = new JFrame();
@@ -55,7 +70,7 @@ public class Main {
 //			
 //			
 //			f.setVisible(true);
-		*/	
+			
 /*TEST CACHED HERO FILES		
 		for(File f : new File(D3ArmoryControler.SERIALISATION_HERO_DIR).listFiles())
 		{
@@ -76,7 +91,7 @@ public class Main {
 		
 		
 		String pass = "Augmente les dégâts infligés aux élites de 40–50%";
-		
+	
 		
 	}
 	
