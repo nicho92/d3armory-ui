@@ -64,7 +64,7 @@ public class LadderModel extends DefaultTableModel
 		case 2 : return bNetLadder.getLadders().get(row).getLevelRift();
 		case 3 : return bNetLadder.getLadders().get(row).getTime();
 		case 4 : return bNetLadder.getLadders().get(row).getDate();
-		case 6 : return bNetLadder.getLadders().get(row).getIcon();
+		case 5 : return bNetLadder.getLadders().get(row).getIcon();
 		default : return "";
 		
 		}
@@ -78,7 +78,7 @@ public class LadderModel extends DefaultTableModel
 	
 	@Override
 	public Class<?> getColumnClass(int c) {
-		if(c==6)
+		if(c==5)
 			return ImageIcon.class;
 		else
 			return String.class;
