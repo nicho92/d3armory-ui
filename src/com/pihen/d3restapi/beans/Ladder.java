@@ -1,5 +1,8 @@
 package com.pihen.d3restapi.beans;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 public class Ladder {
 
 		private int rank;
@@ -8,7 +11,16 @@ public class Ladder {
 		private String time;
 		private String date;
 		private String name;
+		private ImageIcon icon;
 		
+		
+		
+		public ImageIcon getIcon() {
+			return icon;
+		}
+		public void setIcon(ImageIcon icon) {
+			this.icon = icon;
+		}
 		public String getName() {
 			return name;
 		}

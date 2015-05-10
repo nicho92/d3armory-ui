@@ -1,9 +1,13 @@
 package org.armory.d3.services;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import javax.swing.GrayFilter;
+import javax.swing.ImageIcon;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -20,6 +24,7 @@ public class BNetLadderRetriever {
 	private boolean season;
 	private boolean hardcore;
 	private String era="1";
+		
 	
 	public BNetLadderRetriever(String region,String clazz,boolean season,boolean hardcore,String era) throws IOException {
 		this.region=region;
@@ -69,6 +74,12 @@ public class BNetLadderRetriever {
 	        int levelRift= Integer.parseInt(e.getElementsByClass("cell-RiftLevel").html().trim());
 	        
 	        String time = e.getElementsByClass("cell-RiftTime").html().trim();
+	        ImageIcon ic;
+	        try {
+				 ic = new ImageIcon(new URL(e.getElementsByClass("class-portrait").first().attr("src")));
+			} catch (Exception e1) {
+				ic = new ImageIcon();
+			}
 	        
 	        String date = e.getElementsByClass("cell-CompletedTime").html().trim();
 	        	Ladder l = new Ladder();
@@ -78,6 +89,7 @@ public class BNetLadderRetriever {
 	        		l.setDate(date);
 	        		l.setName(tag);
 	        		l.setProfile(profile.replaceAll("-", "#")+"#"+region);
+	        		l.setIcon(ic);
         	ladders.put(i++, l);
         }
         

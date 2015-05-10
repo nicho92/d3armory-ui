@@ -1,7 +1,13 @@
 package org.armory.d3.ui.model;
 
+import java.awt.Component;
 import java.io.IOException;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import org.armory.d3.services.BNetLadderRetriever;
@@ -26,7 +32,7 @@ public class LadderModel extends DefaultTableModel
 	
 	@Override
 	public int getColumnCount() {
-		return 5;
+		return 6;
 	}
 	
 	@Override
@@ -38,6 +44,7 @@ public class LadderModel extends DefaultTableModel
 		case 2 : return "Level";
 		case 3 : return "Time";
 		case 4 : return "Date";
+		case 5 : return "class";
 		default : return "";
 		}
 	}
@@ -57,6 +64,7 @@ public class LadderModel extends DefaultTableModel
 		case 2 : return bNetLadder.getLadders().get(row).getLevelRift();
 		case 3 : return bNetLadder.getLadders().get(row).getTime();
 		case 4 : return bNetLadder.getLadders().get(row).getDate();
+		case 6 : return bNetLadder.getLadders().get(row).getIcon();
 		default : return "";
 		
 		}
@@ -65,6 +73,15 @@ public class LadderModel extends DefaultTableModel
 	@Override
 	public boolean isCellEditable(int row, int column) {
 		return false;
+	}
+	
+	
+	@Override
+	public Class<?> getColumnClass(int c) {
+		if(c==6)
+			return ImageIcon.class;
+		else
+			return String.class;
 	}
 	
 }
