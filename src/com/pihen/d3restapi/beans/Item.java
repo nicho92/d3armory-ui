@@ -51,8 +51,18 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	private Number seasonRequiredToDrop;
 	private boolean isSeasonRequiredToDrop;
 	
+	double maxdmg;
+	double mindmg;
 	
 	
+	public void setRealMaxdmg(double maxdmg) {
+		this.maxdmg = maxdmg;
+	}
+
+	public void setRealMindmg(double mindmg) {
+		this.mindmg = mindmg;
+	}
+
 	public Number getSeasonRequiredToDrop() {
 		return seasonRequiredToDrop;
 	}
@@ -120,7 +130,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		
 		boolean isCross= (getAttributesRaw().get("Damage_Weapon_Bonus_Min_X1#Physical")!=null);
 		double multiplicateur=1;
-		double mindmg=0;
+		mindmg=0;
 		ELEMENTS element = getEnchantedWeapon();
 		
 		boolean asRubySocket=false;
@@ -166,7 +176,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		boolean isCross= (getAttributesRaw().get("Damage_Weapon_Bonus_Min_X1#Physical")!=null);
 	
 		double multiplicateur=1;
-		double maxdmg=0;
+		maxdmg=0;
 		ELEMENTS element = getEnchantedWeapon();
 		
 		if(getAttributesRaw().get("Damage_Weapon_Percent_All")!=null)

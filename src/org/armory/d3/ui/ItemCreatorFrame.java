@@ -350,7 +350,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								panneauDPSLayout.setAlignment(FlowLayout.LEFT);
 								{
 									try{
-										txtMin = new JTextField(""+new DecimalFormat("#0").format(getItem().getMinDamage().getMoyenne()));
+										txtMin = new JTextField(""+new DecimalFormat("#0").format(getItem().getRealMin()));
 									}
 									catch(Exception e)
 									{
@@ -371,7 +371,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								
 								{
 									try {
-										txtMax = new JTextField(""+new DecimalFormat("#0").format(getItem().getMaxDamage().getMoyenne()));
+										txtMax = new JTextField(""+new DecimalFormat("#0").format(getItem().getRealMax()));
 									} catch (Exception e) {
 										txtMax=new JTextField("");
 									}
@@ -388,7 +388,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								}
 								{
 									try {
-										txtAS = new JTextField(String.valueOf(new DecimalFormat("#0.00").format(getItem().getAttacksPerSecond().getMoyenne())));
+										txtAS = new JTextField(String.valueOf(new DecimalFormat("#0.00").format(getItem().getRealAttacksPerSecond())));
 									} catch (Exception e1) {
 										txtAS = new JTextField("");
 									}
