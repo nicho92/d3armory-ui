@@ -107,7 +107,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 			{
 				{
 					panneauTotalGauche = new JPanel();
-					getContentPane().add(panneauTotalGauche, BorderLayout.WEST);
+					getContentPane().add(panneauTotalGauche, BorderLayout.CENTER);
 					panneauTotalGauche.setLayout(new BorderLayout(0, 0));
 					{
 						panneauGauche = new JPanel();
@@ -527,7 +527,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 				
 					{
 						itemPanelDetails = new ItemPanelDetails(b);
-						getContentPane().add(itemPanelDetails, BorderLayout.CENTER);
+						getContentPane().add(itemPanelDetails, BorderLayout.EAST);
 						itemPanelDetails.setPreferredSize(new Dimension(420, 398));
 						itemPanelDetails.setFlavEnable(false);
 					}
