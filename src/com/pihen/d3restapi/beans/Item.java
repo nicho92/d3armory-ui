@@ -40,10 +40,14 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	private Map<String, MinMaxBonus > attributesRaw;
 	private List<AffixesContainer> randomAffixes;
 	private List<Gem> gems;
-	//todo socketEffects
+	//TODO socketEffects
+	private String blockChance;
+	private String damageRange;
+	private String[] setItemsEquipped;
 	private Item transmogItem;
 	
-	private MinMaxBonus blockChance;
+	private String description;
+	
 	private MinMaxBonus dps;
 	private MinMaxBonus attacksPerSecond;
 	private MinMaxBonus minDamage;
@@ -55,6 +59,22 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	double mindmg;
 	
 	
+	public String[] getSetItemsEquipped() {
+		return setItemsEquipped;
+	}
+
+	public void setSetItemsEquipped(String[] setItemsEquipped) {
+		this.setItemsEquipped = setItemsEquipped;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public void setRealMaxdmg(double maxdmg) {
 		this.maxdmg = maxdmg;
 	}
@@ -664,12 +684,21 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		return weaponDefaultAS;
 	}
 
-	public MinMaxBonus getBlockChance() {
+
+	public String getBlockChance() {
 		return blockChance;
 	}
 
-	public void setBlockChance(MinMaxBonus blockChance) {
+	public void setBlockChance(String blockChance) {
 		this.blockChance = blockChance;
+	}
+
+	public String getDamageRange() {
+		return damageRange;
+	}
+
+	public void setDamageRange(String damageRange) {
+		this.damageRange = damageRange;
 	}
 
 	public double getRealBlockMax() {
