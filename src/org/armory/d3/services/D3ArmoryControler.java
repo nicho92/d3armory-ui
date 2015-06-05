@@ -247,7 +247,7 @@ public class D3ArmoryControler {
 		conf.setItemId(i.getItemID());
 		try {
 			return itemService.receiveEntity(conf);
-		} catch (D3ServerCommunicationException e) {
+		} catch (Exception e) {
 			logger.error(e.getStackTrace());
 			JOptionPane.showMessageDialog(null, e,"ERROR",JOptionPane.ERROR_MESSAGE);
 			return null;

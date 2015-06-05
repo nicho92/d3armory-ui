@@ -41,7 +41,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	private List<AffixesContainer> randomAffixes;
 	private List<Gem> gems;
 	//TODO socketEffects
-	private String blockChance;
+	//private String blockChance;
 	private String damageRange;
 	private String[] setItemsEquipped;
 	private Item transmogItem;
@@ -684,14 +684,14 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		return weaponDefaultAS;
 	}
 
-
+/*
 	public String getBlockChance() {
 		return blockChance;
 	}
 
 	public void setBlockChance(String blockChance) {
 		this.blockChance = blockChance;
-	}
+	}*/
 
 	public String getDamageRange() {
 		return damageRange;
