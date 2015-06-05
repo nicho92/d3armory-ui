@@ -46,6 +46,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	private String[] setItemsEquipped;
 	private Item transmogItem;
 	
+	
 	private String description;
 	
 	private MinMaxBonus dps;
