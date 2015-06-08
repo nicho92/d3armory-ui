@@ -43,12 +43,13 @@ public class AboutFrame extends javax.swing.JFrame {
 					jScrollPane1.setViewportView(lblInfo);
 					lblInfo.setContentType("text/html");
 					lblInfo.setEditable(false);
-					lblInfo.setText("Nicolas Pihen - " +GregorianCalendar.getInstance().get(Calendar.YEAR)+" - <a href='mailto:nicolas.pihen@gmail.com'>nicolas.pihen@gmail.com</a><br/>" + new RSSReader().updateD3armoryRssParser(D3ArmoryControler.RSS));
+					lblInfo.setText("Nicolas Pihen - " +GregorianCalendar.getInstance().get(Calendar.YEAR)+" - <a href='mailto:nicolas.pihen@gmail.com'>nicolas.pihen@gmail.com</a> version: "+ D3ArmoryControler.getInstance().getActualVersion()+"<br/>" + new RSSReader().updateD3armoryRssParser(D3ArmoryControler.RSS));
 					lblInfo.setPreferredSize(new java.awt.Dimension(459, 116));
 					lblInfo.setCaretPosition(0);
 				}
 			}
 			this.setSize(475, 311);
+			this.setTitle("About");
 		} catch (Exception e) {
 		    e.printStackTrace();
 		}

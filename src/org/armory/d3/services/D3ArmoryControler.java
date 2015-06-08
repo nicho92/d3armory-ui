@@ -157,13 +157,26 @@ public class D3ArmoryControler {
          	
 	}
 	
-	public boolean hasUpdateVersionApp()
+	public double getActualVersion()
 	{
 		try {
-		
 		InputStream in = getClass().getResourceAsStream("/version"); 
 		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-			double actualversion = Double.parseDouble(reader.readLine().trim()); 
+		return Double.parseDouble(reader.readLine().trim());
+		}
+		catch(Exception e)
+		{
+			return 0;
+		}
+	}
+	
+	
+	public boolean hasUpdateVersionApp()
+	{
+		
+		try{
+		
+			double actualversion = getActualVersion();
 			logger.debug("Actual Version " + actualversion);
 		 
 	    	  InputStreamReader fr = new InputStreamReader( new URL(APP_VERSION).openStream(),"ISO-8859-1");
