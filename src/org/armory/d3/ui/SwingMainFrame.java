@@ -35,6 +35,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
@@ -107,7 +108,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JSplitPane splitPanneauFicheHero;
 	private ItemLabel lblTorso;
 	private SocketLabel lblSocketMainHand;
-	private JLabel lblstatbar;
+	private JProgressBar progressBar;
 	private JPanel stateBar;
 	private JLabel lblLife;
 	private JLabel lblLastUpdate;
@@ -282,7 +283,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		
 		try {
 			logger.debug("Lancement de l'application");
-			
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.setTitle("Diablo III -ROS- Manager");
 			this.setIconImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/icone.jpg")).getImage());
@@ -536,13 +536,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			      public void run() {
 			    	  try {	
 			    		  getLblLoader().setIcon(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/loading.gif")));
-			    		  lblstatbar.setText("Loading Item"); 
+			    		  
 			    		  chargementHero();
-			    		  lblstatbar.setText("Loading Item OK");
 			    		  getLblLoader().setIcon(null);
 			    		  panelItemDetails.setCalculator(D3ArmoryControler.getInstance().getCalculator());
 			    		  lootFactoryPanel.init(getPanelItemDetails());
-			    		  lblstatbar.setText("");
 			    		  
 			    		  int index = getOngletPane().getSelectedIndex();
 							if(index==5)
@@ -804,7 +802,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private void initHeroItems(boolean iscache) throws D3ServerCommunicationException
 	{
+		int val=1;
 		
+		progressBar.setValue(val);
 		logger.debug("Chargement des items cache = " + iscache);
 		
 		hero=D3ArmoryControler.getInstance().getHeroDetails(hero);
@@ -820,8 +820,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lblHead.setItem(head,EnumerationStuff.HEAD);
 		hero.getItems().setHead(head);
 		lblSocketHead.setItem(head,0);
-		lblstatbar.setText(String.valueOf(head));
-		
+	//	progressBar.setString(String.valueOf(head));
+		progressBar.setValue(val++);
 				
 		Item foot;
 		if(iscache)
@@ -832,8 +832,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lblFoot.setItem(foot,EnumerationStuff.FEET);
 		lblSocketBoot.setItem(foot,0);
 		hero.getItems().setFeet(foot);
-		lblstatbar.setText(String.valueOf(foot));
-		
+		//	progressBar.setString(String.valueOf(foot));
+		progressBar.setValue(val++);
 		
 		Item gants ;
 		if(iscache)
@@ -844,7 +844,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lblGants.setItem(gants,EnumerationStuff.GANT);
 		lblSocketGants.setItem(gants,0);
 		hero.getItems().setHands(gants);
-		lblstatbar.setText(String.valueOf(gants));
+		//	progressBar.setString(String.valueOf(gants));
+		progressBar.setValue(val++);
 		
 		Item neck;
 		if(iscache)
@@ -855,7 +856,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lblNeck.setItem(neck,EnumerationStuff.NECK);
 		lblSocketNeck.setItem(neck,0);
 		hero.getItems().setNeck(neck);
-		lblstatbar.setText(String.valueOf(neck));
+	//	progressBar.setString(String.valueOf(neck));
+		progressBar.setValue(val++);
+		
 		
 		Item ringleft;
 		if(iscache)	
@@ -865,8 +868,10 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lblRingLeft.setItem(ringleft,EnumerationStuff.RING_LEFT);
 		lblSocketLeftRing.setItem(ringleft,0);
 		hero.getItems().setLeftFinger(ringleft);
-		lblstatbar.setText(String.valueOf(ringleft));
-	
+	//	progressBar.setString(String.valueOf(ringleft));
+		progressBar.setValue(val++);
+		
+		
 		Item ringright;
 		if(iscache)	
 			ringright=hero.getItems().getRightFinger();
@@ -875,8 +880,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lblRingRight.setItem(ringright,EnumerationStuff.RING_RIGHT);
 		lblSocketRightRing.setItem(ringright,0);
 		hero.getItems().setRightFinger(ringright);
-		lblstatbar.setText(String.valueOf(ringright));
-		
+	//	progressBar.setString(String.valueOf(ringright));
+		progressBar.setValue(val++);
 		
 		Item mainHand;
 		if(iscache) //TODO WHY getType is null ???
@@ -884,8 +889,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		else	
 			mainHand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getMainHand());
 		
-		lblstatbar.setText(String.valueOf(mainHand));
-		
+	//	progressBar.setString(String.valueOf(mainHand));
+		progressBar.setValue(val++);
 		
 		Item offhand ;
 		if(iscache)
@@ -899,8 +904,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		hero.getItems().setMainHand(mainHand);
 		hero.getItems().setOffHand(offhand);
 		
-		lblstatbar.setText(String.valueOf(offhand));
-		
+	//	progressBar.setString(String.valueOf(offhand));
+		progressBar.setValue(val++);
 		
 		lblOffHand.setDisabled(false);
 		if(mainHand!=null)
@@ -974,7 +979,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			lblSocketTorso2.setItem(null,0);
 			lblSocketTorso3.setItem(null,0);
 		}
-		lblstatbar.setText(String.valueOf(torso));
+	//	progressBar.setString(String.valueOf(torso));
+		progressBar.setValue(val++);
+		
 		
 		Item legs ;
 		if(iscache)
@@ -1009,8 +1016,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			lblSocketLegs2.setItem(null,0);
 		}
 		
-		lblstatbar.setText(String.valueOf(legs));
-		
+	//	progressBar.setString(String.valueOf(legs));
+		progressBar.setValue(val++);
 		
 		Item shoulders;
 		if(iscache)
@@ -1019,7 +1026,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			shoulders= D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getShoulders());
 		lblShoulders.setItem(shoulders,EnumerationStuff.SHOULDERS);
 		hero.getItems().setShoulders(shoulders);
-		lblstatbar.setText(String.valueOf(shoulders));
+	//	progressBar.setString(String.valueOf(shoulders));
+		progressBar.setValue(val++);
+		
 		
 		Item bracers ;
 		if(iscache)
@@ -1028,8 +1037,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			bracers = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getBracers());
 		lblBracers.setItem(bracers,EnumerationStuff.BRACER);
 		hero.getItems().setBracers(bracers);
-		lblstatbar.setText(String.valueOf(bracers));
-		
+	//	progressBar.setString(String.valueOf(bracers));
+		progressBar.setValue(val++);
 		
 		Item belt;
 		if(iscache)
@@ -1038,8 +1047,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			belt = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getWaist());
 		lblbelt.setItem(belt,EnumerationStuff.BELT);
 		hero.getItems().setWaist(belt);
-		lblstatbar.setText(String.valueOf(belt));
-		
+	//	progressBar.setString(String.valueOf(belt));
+		progressBar.setValue(val++);
 		
 		stuffs = new HashMap<EnumerationStuff, Item>();
 		  stuffs.put(EnumerationStuff.HEAD, head);
@@ -1083,9 +1092,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			cachedMsg="";
 		getLblLastUpdate().setText(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(hero.getLastUpdatedDate())  + " " + cachedMsg);
 		
-		
 		initHeroInfoPanel();
 		panneauDessinHero.repaint();
+		
+		progressBar.setValue(0);
+		
 		logger.debug("Fin de chargement des items");
 	}
 
@@ -1854,13 +1865,14 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					
 					int index=sourceTabbedPane.getSelectedIndex();
 					if(index==5)
-					{		getLblstatbar().setText("Loading Followers");
+					{		progressBar.setString("Loading Followers");
 						try {
 							loadFollowers();
 						} catch (D3ServerCommunicationException e1) {
 							logger.error(e1);
 						}
-							getLblstatbar().setText("");
+						progressBar.setString("");
+						progressBar.setValue(0);
 						
 					}	
 					
@@ -2093,9 +2105,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	public JPanel getStateBar() {
 		if(stateBar == null) {
 			stateBar = new JPanel();
-			FlowLayout stateBarLayout = new FlowLayout();
+			BorderLayout stateBarLayout = new BorderLayout();
 			stateBar.setLayout(stateBarLayout);
-			stateBar.add(getLblstatbar());
+			stateBar.add(getLblstatbar(),BorderLayout.CENTER);
 		}
 		return stateBar;
 	}
@@ -2107,12 +2119,14 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		return lootFactoryPanel;
 	}
 	
-	public JLabel getLblstatbar() {
-		if(lblstatbar == null) {
-			lblstatbar = new JLabel();
-		
+	public JProgressBar getLblstatbar() {
+		if(progressBar == null) {
+			progressBar = new JProgressBar();
+			progressBar.setMinimum(0);
+			progressBar.setMaximum(13);
+			progressBar.setStringPainted(true);
 		}
-		return lblstatbar;
+		return progressBar;
 	}
 	private JScrollPane getPanneauTableauDescription() {
 		if (panneauTableauDescription == null) {
