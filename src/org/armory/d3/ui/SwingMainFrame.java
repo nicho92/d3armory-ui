@@ -820,6 +820,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lblHead.setItem(head,EnumerationStuff.HEAD);
 		hero.getItems().setHead(head);
 		lblSocketHead.setItem(head,0);
+		lblstatbar.setText(String.valueOf(head));
+		
 				
 		Item foot;
 		if(iscache)
@@ -830,7 +832,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lblFoot.setItem(foot,EnumerationStuff.FEET);
 		lblSocketBoot.setItem(foot,0);
 		hero.getItems().setFeet(foot);
-		
+		lblstatbar.setText(String.valueOf(foot));
 		
 		
 		Item gants ;
@@ -842,7 +844,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lblGants.setItem(gants,EnumerationStuff.GANT);
 		lblSocketGants.setItem(gants,0);
 		hero.getItems().setHands(gants);
-		
+		lblstatbar.setText(String.valueOf(gants));
 		
 		Item neck;
 		if(iscache)
@@ -853,7 +855,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lblNeck.setItem(neck,EnumerationStuff.NECK);
 		lblSocketNeck.setItem(neck,0);
 		hero.getItems().setNeck(neck);
-		
+		lblstatbar.setText(String.valueOf(neck));
 		
 		Item ringleft;
 		if(iscache)	
@@ -863,7 +865,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lblRingLeft.setItem(ringleft,EnumerationStuff.RING_LEFT);
 		lblSocketLeftRing.setItem(ringleft,0);
 		hero.getItems().setLeftFinger(ringleft);
-		
+		lblstatbar.setText(String.valueOf(ringleft));
 	
 		Item ringright;
 		if(iscache)	
@@ -873,14 +875,19 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lblRingRight.setItem(ringright,EnumerationStuff.RING_RIGHT);
 		lblSocketRightRing.setItem(ringright,0);
 		hero.getItems().setRightFinger(ringright);
-
+		lblstatbar.setText(String.valueOf(ringright));
+		
+		
 		Item mainHand;
 		if(iscache) //TODO WHY getType is null ???
 			mainHand=hero.getItems().get(EnumerationStuff.MAIN_HAND);
 		else	
 			mainHand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getMainHand());
-		Item offhand ;
 		
+		lblstatbar.setText(String.valueOf(mainHand));
+		
+		
+		Item offhand ;
 		if(iscache)
 			offhand=hero.getItems().get(EnumerationStuff.OFF_HAND);
 		else
@@ -891,6 +898,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		
 		hero.getItems().setMainHand(mainHand);
 		hero.getItems().setOffHand(offhand);
+		
+		lblstatbar.setText(String.valueOf(offhand));
+		
 		
 		lblOffHand.setDisabled(false);
 		if(mainHand!=null)
@@ -964,6 +974,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			lblSocketTorso2.setItem(null,0);
 			lblSocketTorso3.setItem(null,0);
 		}
+		lblstatbar.setText(String.valueOf(torso));
 		
 		Item legs ;
 		if(iscache)
@@ -997,6 +1008,10 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			lblSocketLegs1.setItem(null,0);
 			lblSocketLegs2.setItem(null,0);
 		}
+		
+		lblstatbar.setText(String.valueOf(legs));
+		
+		
 		Item shoulders;
 		if(iscache)
 			shoulders = hero.getItems().getShoulders();
@@ -1004,6 +1019,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			shoulders= D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getShoulders());
 		lblShoulders.setItem(shoulders,EnumerationStuff.SHOULDERS);
 		hero.getItems().setShoulders(shoulders);
+		lblstatbar.setText(String.valueOf(shoulders));
 		
 		Item bracers ;
 		if(iscache)
@@ -1012,6 +1028,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			bracers = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getBracers());
 		lblBracers.setItem(bracers,EnumerationStuff.BRACER);
 		hero.getItems().setBracers(bracers);
+		lblstatbar.setText(String.valueOf(bracers));
+		
 		
 		Item belt;
 		if(iscache)
@@ -1020,6 +1038,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			belt = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getWaist());
 		lblbelt.setItem(belt,EnumerationStuff.BELT);
 		hero.getItems().setWaist(belt);
+		lblstatbar.setText(String.valueOf(belt));
+		
 		
 		stuffs = new HashMap<EnumerationStuff, Item>();
 		  stuffs.put(EnumerationStuff.HEAD, head);
