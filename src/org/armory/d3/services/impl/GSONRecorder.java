@@ -115,6 +115,10 @@ public class GSONRecorder implements D3ObjectRecorder {
 			logger.debug("load hero =" + SERIALISATION_HERO_DIR +"/"+number+".d3heroG -> " + h );
 			return h;
 	}
+
+	public String getRecorderName() {
+		return "GSON Recorder";
+	}
 	
 
 }

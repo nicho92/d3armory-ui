@@ -218,42 +218,12 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			}
 	        splash.close();
 	        }
-	   
-	    try{    
-	    	
-	    File repconf = new File(D3ArmoryControler.CONF_DIR);
-	    logger.debug("Configuration directory " + repconf );
-	    
-	    if(!repconf.exists())
-	    {
-	    	logger.debug("Creating directory " + repconf );
-	    	repconf.mkdir();
-	    }
-	    
-    	if(!new File(D3ObjectRecorder.SERIALISATION_BUILD_DIR).exists())
-	    	new File(D3ObjectRecorder.SERIALISATION_BUILD_DIR).mkdir();
-
-    	if(!new File(D3ObjectRecorder.SERIALISATION_ITEM_DIR).exists())
-    	    new File(D3ObjectRecorder.SERIALISATION_ITEM_DIR).mkdir();
-    	
-    	if(!new File(D3ObjectRecorder.SERIALISATION_HERO_DIR).exists())	
-    		new File(D3ObjectRecorder.SERIALISATION_HERO_DIR).mkdir();
-    	
-    	if(!new File(D3ArmoryControler.CONF_FILE).exists())
-    	{
-    		new File(D3ArmoryControler.CONF_FILE).createNewFile();
-    		D3ArmoryControler.getInstance().setLocal("en_EN");
-    	}
-    	
-    	if(!new File(D3ArmoryControler.TAG_FILE).exists())	
-    		new File(D3ArmoryControler.TAG_FILE).createNewFile();
-	    }
-	    catch(IOException e)
-	    {
-	    	logger.error(e.getStackTrace());
-	    	JOptionPane.showMessageDialog(null, e);
-	    }
 	        
+	        
+	        
+	   D3ArmoryControler.getInstance().initEnv();
+	   
+	   
 	    SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				inst = new SwingMainFrame();

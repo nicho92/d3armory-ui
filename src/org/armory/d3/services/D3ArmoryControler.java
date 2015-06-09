@@ -73,7 +73,46 @@ public class D3ArmoryControler {
 		recorder=new GSONRecorder();
 	}
 	
+	
+	public void initEnv()
+	{
+		 try{    
+			 	logger.debug("Init environnement");
+			    File repconf = new File(CONF_DIR);
+			    logger.debug("Configuration directory " + repconf );
+			    
+			    if(!repconf.exists())
+			    {
+			    	logger.debug("Creating directory " + repconf );
+			    	repconf.mkdir();
+			    }
+			    
+		    	if(!new File(D3ObjectRecorder.SERIALISATION_BUILD_DIR).exists())
+			    	new File(D3ObjectRecorder.SERIALISATION_BUILD_DIR).mkdir();
 
+		    	if(!new File(D3ObjectRecorder.SERIALISATION_ITEM_DIR).exists())
+		    	    new File(D3ObjectRecorder.SERIALISATION_ITEM_DIR).mkdir();
+		    	
+		    	if(!new File(D3ObjectRecorder.SERIALISATION_HERO_DIR).exists())	
+		    		new File(D3ObjectRecorder.SERIALISATION_HERO_DIR).mkdir();
+		    	
+		    	if(!new File(CONF_FILE).exists())
+		    	{
+		    		new File(CONF_FILE).createNewFile();
+		    		D3ArmoryControler.getInstance().setLocal("en_EN");
+		    	}
+		    	
+		    	if(!new File(D3ArmoryControler.TAG_FILE).exists())	
+		    		new File(D3ArmoryControler.TAG_FILE).createNewFile();
+			    }
+			    catch(IOException e)
+			    {
+			    	logger.error(e.getStackTrace());
+			    	JOptionPane.showMessageDialog(null, e);
+			    }
+	}
+	
+	
 	public static D3ArmoryControler getInstance()
 	{
 		
@@ -450,6 +489,16 @@ public class D3ArmoryControler {
 			logger.error(e.getStackTrace());
 			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
 		}
+	}
+	
+	public void setRecorder(D3ObjectRecorder rc)
+	{
+		this.recorder=rc;
+	}
+	
+	public D3ObjectRecorder getRecorder()
+	{
+		return recorder;
 	}
 	
 	private int season=-1;

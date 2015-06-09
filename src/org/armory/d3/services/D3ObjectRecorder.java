@@ -32,5 +32,5 @@ public interface D3ObjectRecorder {
 	
 	public File[] getListeFileItem();
 	
-	
+	public String getRecorderName();
 }

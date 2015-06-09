@@ -104,4 +104,7 @@ public class SerializableRecorder implements D3ObjectRecorder {
 		});
 	}
 	
+	public String getRecorderName() {
+		return "Serializer Recorder";
+	}
 }
