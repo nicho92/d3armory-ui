@@ -533,43 +533,24 @@ public class D3ArmoryControler {
 		return id.replaceAll("-","").replace(",", "").replace("'", "").replaceAll("\\.", "").replaceAll(" ", "-").trim().toLowerCase();
 	}
 
-	public void saveItem(Item item) {
-		try {
+	
+	
+	public void saveItem(Item item) throws Exception {
 			recorder.saveItem(item);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
 	}
 
 
-	public void saveBuild(HeroSkillContainer hsc) {
-		try {
+	public void saveBuild(HeroSkillContainer hsc) throws Exception {
 			recorder.saveBuild(hsc);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
 	}
 
-	public void saveHero(Hero hero) {
-		try {
+	public void saveHero(Hero hero) throws Exception {
 			recorder.saveHero(hero);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
 	}
 
 
-	public Item loadItem(File f) {
-		try {
+	public Item loadItem(File f) throws Exception {
 			return recorder.loadItem(f);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-			
-		}
 	}
 
 

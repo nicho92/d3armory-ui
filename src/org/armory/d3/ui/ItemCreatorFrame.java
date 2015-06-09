@@ -508,7 +508,11 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								btnSauvegarder.setText("Save");
 								btnSauvegarder.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent evt) {
-										D3ArmoryControler.getInstance().saveItem(getItem());
+										try {
+											D3ArmoryControler.getInstance().saveItem(getItem());
+										} catch (Exception e) {
+											JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+										}
 										btnSauvegarder.setEnabled(false);
 									}
 								});

@@ -361,7 +361,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 								HeroSkillContainer hsc = D3ArmoryControler.getInstance().getSelectedHero(false).getSkills();
 								hsc.setNameBuild(name);
 								hsc.setClassBuild(D3ArmoryControler.getInstance().getSelectedHero(false).getClazz());
-								D3ArmoryControler.getInstance().saveBuild(hsc);
+								try {
+									D3ArmoryControler.getInstance().saveBuild(hsc);
+								} catch (Exception e) {
+									JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+								}
 								mnuSaveBuild.setEnabled(false);
 						}
 					});
@@ -579,11 +583,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 //				}
 //			 }
 //			 else
-			 {
+			
 			 logger.debug("No cache : Loading from Battle.Net");
 			 initHeroItems(false);
 			 D3ArmoryControler.getInstance().saveHero(hero);
-			 }
+			 
 			
 			 
 			//D3ArmoryControler.getInstance().saveHero(hero);
@@ -593,7 +597,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			getMnuSaveBuild().setEnabled(true);
 			
 			
-		} catch (D3ServerCommunicationException e) {
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
 			  logger.error(e.getStackTrace());
 		}
 	}

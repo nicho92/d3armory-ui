@@ -20,6 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
 import javax.swing.SwingUtilities;
@@ -303,9 +304,13 @@ public class ItemLabel extends JLabel implements MouseListener {
 			    m.add(a);
 		  		a.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					Item i = D3ArmoryControler.getInstance().loadItem(f);
-					initWindowBuilder(i,gear);
-					
+					Item i;
+					try {
+						i = D3ArmoryControler.getInstance().loadItem(f);
+						initWindowBuilder(i,gear);
+					} catch (Exception e1) {
+						JOptionPane.showMessageDialog(null, e1,"ERREUR",JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			});
 		  }
