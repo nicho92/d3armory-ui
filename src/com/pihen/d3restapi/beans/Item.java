@@ -673,7 +673,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 			weaponDefaultAS.put("Bow", 1.40);
 			weaponDefaultAS.put("Daibo", 1.10);
 			weaponDefaultAS.put("Crossbow", 1.10);
-			weaponDefaultAS.put("Mace2H", 0.90);
+			weaponDefaultAS.put("Mace2H", 1.0);
 			weaponDefaultAS.put("MightyWeapon2H", 1.00);
 			weaponDefaultAS.put("Polearm", 0.95);
 			weaponDefaultAS.put("Staff", 1.00);
