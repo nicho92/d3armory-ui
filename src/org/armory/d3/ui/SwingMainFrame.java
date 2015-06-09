@@ -56,6 +56,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.armory.d3.services.D3ArmoryControler;
+import org.armory.d3.services.D3ObjectRecorder;
 import org.armory.d3.services.D3ProgressLeaderBoard;
 import org.armory.d3.ui.components.EHPPanel;
 import org.armory.d3.ui.components.FollowersPanel;
@@ -229,14 +230,14 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	    	repconf.mkdir();
 	    }
 	    
-    	if(!new File(D3ArmoryControler.SERIALISATION_BUILD_DIR).exists())
-	    	new File(D3ArmoryControler.SERIALISATION_BUILD_DIR).mkdir();
+    	if(!new File(D3ObjectRecorder.SERIALISATION_BUILD_DIR).exists())
+	    	new File(D3ObjectRecorder.SERIALISATION_BUILD_DIR).mkdir();
 
-    	if(!new File(D3ArmoryControler.SERIALISATION_DIR).exists())
-    	    new File(D3ArmoryControler.SERIALISATION_DIR).mkdir();
+    	if(!new File(D3ObjectRecorder.SERIALISATION_ITEM_DIR).exists())
+    	    new File(D3ObjectRecorder.SERIALISATION_ITEM_DIR).mkdir();
     	
-    	if(!new File(D3ArmoryControler.SERIALISATION_HERO_DIR).exists())	
-    		new File(D3ArmoryControler.SERIALISATION_HERO_DIR).mkdir();
+    	if(!new File(D3ObjectRecorder.SERIALISATION_HERO_DIR).exists())	
+    		new File(D3ObjectRecorder.SERIALISATION_HERO_DIR).mkdir();
     	
     	if(!new File(D3ArmoryControler.CONF_FILE).exists())
     	{
@@ -371,7 +372,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						JMenuItem mnuClearCache = new JMenuItem("Clear cache");
 						mnuClearCache.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
-								for(File f : new File(D3ArmoryControler.SERIALISATION_HERO_DIR).listFiles())
+								for(File f : new File(D3ObjectRecorder.SERIALISATION_HERO_DIR).listFiles())
 								{
 									f.delete();
 								}

@@ -25,6 +25,8 @@ import javax.swing.JOptionPane;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.armory.d3.services.impl.GSONRecorder;
+import org.armory.d3.services.impl.SerializableRecorder;
 
 import com.google.gson.Gson;
 import com.pihen.d3restapi.beans.Hero;
@@ -44,9 +46,9 @@ public class D3ArmoryControler {
 	public static String CONF_DIR=System.getProperty("user.home")+"/d3conf/";
 	public static String TAG_FILE=CONF_DIR+"tags.d3armory";
 	public static String CONF_FILE=CONF_DIR+"local.d3armory";
-	public static String SERIALISATION_DIR=CONF_DIR+"/items";
-	public static String SERIALISATION_HERO_DIR=CONF_DIR+"/heroes";
-	public static String SERIALISATION_BUILD_DIR=CONF_DIR+"/builds";
+	
+	
+	
 	public static String SOURCE_REPOSITORY="https://github.com/nicho92/d3armory-ui/issues";
 	public static String APP_VERSION="https://raw.githubusercontent.com/nicho92/d3armory-ui/master/src/version";
 	public static String APP_DOWNLOAD="https://github.com/nicho92/d3armory-ui/tree/master/executable";
@@ -61,10 +63,15 @@ public class D3ArmoryControler {
 	private StuffCalculator calculator;
 	private String local;
 	private Item selectedItem;
-	
+	private D3ObjectRecorder recorder;
 	
 	static final Logger logger = LogManager.getLogger(D3ArmoryControler.class.getName());
 
+	
+	public D3ArmoryControler()
+	{
+		recorder=new GSONRecorder();
+	}
 	
 
 	public static D3ArmoryControler getInstance()
@@ -490,149 +497,9 @@ public class D3ArmoryControler {
 		
 	}
 	
-	public void saveHero(Hero i)
-	{
-		try{
-			FileOutputStream fos = new FileOutputStream(SERIALISATION_HERO_DIR +"/"+i.getId()+".d3hero");
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(i);
-			oos.flush();
-			oos.close();
-		}
-		catch (java.io.IOException e) {
-			logger.error(e.getStackTrace());
-		}
-	}
-	
-	public Hero loadHero(Number number)
-	{
-		try{
-			FileInputStream fos = new FileInputStream(SERIALISATION_HERO_DIR +"/"+number+".d3hero");
-			ObjectInputStream ois  = new ObjectInputStream(fos);
-			return (Hero)ois.readObject();
-		}
-		catch (Exception e) {
-			logger.error(e.getStackTrace());
-			return null;
-		}
-	}
-	
-	
-	
-	
-//	public void saveHero(Hero i)
-//	{
-//		try{
-//			File f = new File(SERIALISATION_HERO_DIR +"/"+i.getId()+".d3hero");
-//			logger.debug("save hero =" + SERIALISATION_HERO_DIR +"/"+i.getId()+".d3hero -> " + i  );
-//			Gson GSON = new Gson();
-//			FileWriter fw = new FileWriter(f.getAbsoluteFile());
-//			BufferedWriter bw = new BufferedWriter(fw);
-//			bw.write(GSON.toJson(i));
-//			bw.close();
-//			
-//		}
-//		catch (java.io.IOException e) {
-//			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
-//			logger.error(e.getStackTrace());
-//		}
-//	}
-//	
-//	public Hero loadHero(Number number)
-//	{
-//		try{
-//			
-//			File f = new File(SERIALISATION_HERO_DIR +"/"+number+".d3hero");
-//			InputStream fos = new FileInputStream(f);
-//			String sHero = new BufferedReader(new InputStreamReader(fos)).readLine();
-//			Gson GSON = new Gson();
-//			Hero h = GSON.fromJson(sHero, Hero.class);
-//			logger.debug("load hero =" + SERIALISATION_HERO_DIR +"/"+number+".d3hero -> " + h );
-//			return h;
-//		}
-//		catch (Exception e) {
-//			//JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
-//			logger.error(e.getStackTrace());
-//			e.printStackTrace();
-//			return null;
-//		}
-//	}
-	
-	public void saveItem(Item i)
-	{
-		try{
-			FileOutputStream fos = new FileOutputStream(SERIALISATION_DIR +"/"+i.getName()+".d3item");
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(i);
-			oos.flush();
-			oos.close();
-		}
-		catch (java.io.IOException e) {
-			logger.error(e.getStackTrace());
-		}
-	}
-	
-	public Item loadItem(File f)
-	{
-		try{
-			FileInputStream fos = new FileInputStream(SERIALISATION_DIR +"/"+f.getName());
-			ObjectInputStream ois  = new ObjectInputStream(fos);
-			return (Item)ois.readObject();
-		}
-		catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e,"ERROR",JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	public File[] getListeFileItem()
-	{
-		File f = new File(SERIALISATION_DIR);
-		return f.listFiles();
-	}
-
 	public void setProfile(Profile p) {
 		profil=p;
 		
-	}
-
-	public void saveBuild(HeroSkillContainer i)
-	{
-		try{
-			FileOutputStream fos = new FileOutputStream(SERIALISATION_BUILD_DIR +"/"+i.getNameBuild()+".d3build");
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(i);
-			oos.flush();
-			oos.close();
-		}
-		catch (java.io.IOException e) {
-			logger.error(e.getStackTrace());
-		}
-	}
-	
-	public HeroSkillContainer loadBuild(File f)
-	{
-		try{
-			FileInputStream fos = new FileInputStream(SERIALISATION_BUILD_DIR +"/"+f.getName()+".d3build");
-			ObjectInputStream ois  = new ObjectInputStream(fos);
-			return (HeroSkillContainer)ois.readObject();
-		}
-		catch (Exception e) {
-			logger.error(e.getStackTrace());
-			return null;
-		}
-	}
-	
-	public List<HeroSkillContainer> loadBuilds()
-	{
-		File f = new File(SERIALISATION_BUILD_DIR);
-		List<HeroSkillContainer> skills = new ArrayList<HeroSkillContainer>();
-		
-		for (File fb : f.listFiles())
-			skills.add(loadBuild(new File(fb.getAbsolutePath().substring(0, fb.getAbsolutePath().indexOf(".d3build")))));
-		
-			return skills;
 	}
 
 	public void setLook(String look) {
@@ -664,6 +531,50 @@ public class D3ArmoryControler {
 
 	public String refactorItem(String id) {
 		return id.replaceAll("-","").replace(",", "").replace("'", "").replaceAll("\\.", "").replaceAll(" ", "-").trim().toLowerCase();
+	}
+
+	public void saveItem(Item item) {
+		try {
+			recorder.saveItem(item);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+
+	public void saveBuild(HeroSkillContainer hsc) {
+		try {
+			recorder.saveBuild(hsc);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void saveHero(Hero hero) {
+		try {
+			recorder.saveHero(hero);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+
+	public Item loadItem(File f) {
+		try {
+			return recorder.loadItem(f);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+			
+		}
+	}
+
+
+	public File[] getListeFileItem() {
+		return recorder.getListeFileItem();
 	}
 
 	
