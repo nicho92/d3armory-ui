@@ -50,6 +50,7 @@ import com.pihen.d3restapi.beans.MinMaxBonus;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.RawsAttributeFactory;
 import com.pihen.d3restapi.service.util.StuffCalculator;
+import com.pihen.d3restapi.service.util.StuffCalculator.ELEMENTS;
 
 public class ItemCreatorFrame extends javax.swing.JDialog {
 	private JPanel panneauGauche;
@@ -360,9 +361,17 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 									txtMin.setPreferredSize(new java.awt.Dimension(43, 23));
 									txtMin.addKeyListener(new KeyAdapter() {
 										public void keyReleased(KeyEvent evt) {
-											//TODO difference between elemental damage and default physical damage
-											getItem().setMinDamage(new MinMaxBonus(Double.valueOf(txtMin.getText())));
-											getItem().setDps(new MinMaxBonus(calcWeaponDPS(Double.valueOf(txtMin.getText()),Double.valueOf(txtMax.getText()),Double.valueOf(txtAS.getText()))));
+											//TODO bugfix for native physical damage X1
+											ELEMENTS e = getItem().getEnchantedWeapon();
+											
+											double bonus = 0;
+											if(getItem().getAttributesRaw().get("Damage_Weapon_Percent_All")!=null)
+												bonus = getItem().getAttributesRaw().get("Damage_Weapon_Percent_All").getMoyenne();
+											
+											Double val = Double.parseDouble(txtMin.getText())/(1+bonus)-getItem().getAttributesRaw().get("Damage_Weapon_Min#Physical").getMoyenne();
+									
+											getItem().getAttributesRaw().put("Damage_Weapon_Min#"+e, new MinMaxBonus(val.intValue()));
+											
 											refreshItem();
 										}
 										
@@ -379,9 +388,25 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 									txtMax.setPreferredSize(new java.awt.Dimension(45, 23));
 									txtMax.addKeyListener(new KeyAdapter() {
 										public void keyReleased(KeyEvent evt) {
-											getItem().setMaxDamage(new MinMaxBonus(Double.valueOf(txtMax.getText())));
-											getItem().setDps(new MinMaxBonus(calcWeaponDPS(Double.valueOf(txtMin.getText()),Double.valueOf(txtMax.getText()),Double.valueOf(txtAS.getText()))));
-											//getItem().addAttributesRaw("Damage_Weapon_Delta#Physical", new MinMaxBonus(Double.valueOf(txtMax.getText())-Double.valueOf(txtMin.getText())));
+											
+											ELEMENTS e = getItem().getEnchantedWeapon();
+											double bonus = 0;
+											if(getItem().getAttributesRaw().get("Damage_Weapon_Percent_All")!=null)
+												bonus = getItem().getAttributesRaw().get("Damage_Weapon_Percent_All").getMoyenne();
+											
+											Double max = Double.parseDouble(txtMax.getText());
+																																	
+											double minP = getItem().getAttributesRaw().get("Damage_Weapon_Min#Physical").getMoyenne();
+											double minE = getItem().getAttributesRaw().get("Damage_Weapon_Min#"+e).getMoyenne();
+											
+											double deltaP = getItem().getAttributesRaw().get("Damage_Weapon_Delta#Physical").getMoyenne();
+											
+											Double val = max/(1+bonus)-(minP+minE)-deltaP;
+											
+											
+											getItem().getAttributesRaw().put("Damage_Weapon_Delta#"+e, new MinMaxBonus(val));
+									
+											
 											refreshItem();
 										}
 									});
