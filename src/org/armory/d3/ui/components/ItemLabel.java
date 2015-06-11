@@ -269,7 +269,8 @@ public class ItemLabel extends JLabel implements MouseListener {
 				popupMenu.add(new JMenuItem("Compare " + item.getType().getId() + " with"));
 			
 				popupMenu.add(new JSeparator());
-			JMenuItem itNewItem = new JMenuItem("New Item");
+			
+				JMenuItem itNewItem = new JMenuItem("New Item");
 				itNewItem.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						
@@ -283,8 +284,25 @@ public class ItemLabel extends JLabel implements MouseListener {
 					}
 				}
 				);
+				
+				JMenuItem itSaveItem = new JMenuItem("Save");
+				itSaveItem.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+
+						try {
+							D3ArmoryControler.getInstance().saveItem(item);
+						} catch (Exception e1) {
+							JOptionPane.showMessageDialog(null, e1,"ERREUR",JOptionPane.ERROR_MESSAGE);
+						}
+						
+					}
+				});
+				
+				
 			  popupMenu.add(itNewItem);
-			//  popupMenu.add(createMenu(listeTag));
+			  popupMenu.add(itSaveItem);
 			  popupMenu.add(createMenu(D3ArmoryControler.getInstance().getListeFileItem()));
 			  popupMenu.show(e.getComponent(),e.getX(), e.getY());
 		}

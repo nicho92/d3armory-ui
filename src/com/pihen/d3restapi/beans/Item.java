@@ -352,6 +352,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		this.maxDamage = maxDamage;
 	}
 
+	@Deprecated
 	public MinMaxBonus getDps() {
 		return dps;
 	}

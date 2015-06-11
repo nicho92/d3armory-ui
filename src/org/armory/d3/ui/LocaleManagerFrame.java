@@ -77,7 +77,7 @@ public class LocaleManagerFrame extends javax.swing.JFrame {
 	}
 	
 	private void btnValiderActionPerformed(ActionEvent evt) {
-		D3ArmoryControler.getInstance().setLocal(cboListeLocal.getSelectedItem().toString());
+		D3ArmoryControler.getInstance().setProperty("local",cboListeLocal.getSelectedItem().toString());
 		this.dispose();
 	}
 

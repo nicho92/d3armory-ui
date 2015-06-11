@@ -63,14 +63,13 @@ public class D3ArmoryControler {
 	private StuffCalculator calculator;
 	private String local;
 	private Item selectedItem;
-	private D3ObjectRecorder recorder;
 	
 	static final Logger logger = LogManager.getLogger(D3ArmoryControler.class.getName());
 
 	
 	public D3ArmoryControler()
 	{
-		recorder=new GSONRecorder();
+		
 	}
 	
 	
@@ -99,7 +98,9 @@ public class D3ArmoryControler {
 		    	if(!new File(CONF_FILE).exists())
 		    	{
 		    		new File(CONF_FILE).createNewFile();
-		    		D3ArmoryControler.getInstance().setLocal("en_EN");
+		    		D3ArmoryControler.getInstance().setProperty("local","en_EN");
+		    		D3ArmoryControler.getInstance().setProperty("recorder","org.armory.d3.services.impl.SerializableRecorder");
+		    		D3ArmoryControler.getInstance().setProperty("cache","false");
 		    	}
 		    	
 		    	if(!new File(D3ArmoryControler.TAG_FILE).exists())	
@@ -391,8 +392,11 @@ public class D3ArmoryControler {
 					String ligne;
 					while ((ligne=br.readLine())!=null){
 						if(ligne!=null)
-						{	if(region==null)
+						{	
+							if(region==null)
+							{
 								liste.add(ligne);
+							}
 							else
 							{
 								if(ligne.endsWith(region))
@@ -414,25 +418,16 @@ public class D3ArmoryControler {
 			FileWriter fw= new FileWriter(TAG_FILE,true);
 			fw.write("\n"+battletag+"\n");
 			logger.debug("Add Tag " + battletag);
-			
 			fw.close();
 		} catch (IOException e) {
 			logger.error(e.getStackTrace());
 		}
 		
 	}
+	
 	public void addTags(String code,String server)
 	{
-		try {
-			FileWriter fw= new FileWriter(TAG_FILE,true);
-			fw.write("\n"+code+"#"+server+"\n");
-			logger.debug("Add Tag " + code+"#"+server);
-			
-			fw.close();
-		} catch (IOException e) {
-			logger.error(e.getStackTrace());
-		}
-		
+			addTags("\n"+code+"#"+server+"\n");
 	}
 	
 	public void removeTags(int pos)
@@ -459,46 +454,48 @@ public class D3ArmoryControler {
         }
 	}
 
-	public String loadLocal()
+	public String getProperty(String k,String defaut)
 	{
 		try {
 			InputStream ips=new FileInputStream(CONF_FILE); 
-			
 			InputStreamReader ipsr=new InputStreamReader(ips);
 			Properties p = new Properties();
 			p.load(ipsr);
-			local = p.getProperty("local");
-			logger.debug("Get local =" + local);
+			local = p.getProperty(k);
+			logger.debug("Get "+k+" =" + local);
 			return local;
 		} catch (IOException e) {
 			logger.error(e.getStackTrace());
-			return "en_US";
+			return defaut;
 		}
 	}
 
-	public void setLocal(String local)
+	public void setProperty(String key,String value)
 	{
 		try {
 			PropertiesConfiguration prop = new PropertiesConfiguration();
 			prop.setFile(new File(CONF_FILE));
 			prop.load();
-			prop.setProperty("local", local);
+			prop.setProperty(key, value);
 			prop.save();
-			logger.debug("Set local =" + local);
+			logger.debug("set "+key+"=" + value);
 		} catch (Exception e) {
 			logger.error(e.getStackTrace());
 			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
-	public void setRecorder(D3ObjectRecorder rc)
-	{
-		this.recorder=rc;
-	}
-	
 	public D3ObjectRecorder getRecorder()
 	{
-		return recorder;
+		try {
+			D3ObjectRecorder rec = (D3ObjectRecorder)Class.forName(getProperty("recorder", "org.armory.d3.services.impl.SerializableRecorder")).newInstance();
+			logger.debug("loading recorder ="+ rec);
+			return rec;
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException e) {
+			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
+			return null;
+		}
 	}
 	
 	private int season=-1;
@@ -551,33 +548,6 @@ public class D3ArmoryControler {
 		
 	}
 
-	public void setLook(String look) {
-		try {
-			PropertiesConfiguration prop = new PropertiesConfiguration();
-			prop.setFile(new File(CONF_FILE));
-			prop.load();
-			prop.setProperty("look", look);
-			prop.save();
-		} catch (Exception e) {
-			logger.error(e.getStackTrace());
-			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
-		}
-		
-	}
-
-	public String getLook() {
-		try {
-			InputStream ips=new FileInputStream(CONF_FILE); 
-			InputStreamReader ipsr=new InputStreamReader(ips);
-			Properties p = new Properties();
-			p.load(ipsr);
-			return p.getProperty("look");
-		} catch (IOException e) {
-			logger.error(e.getStackTrace());
-			return null;
-		}
-	}
-
 	public String refactorItem(String id) {
 		return id.replaceAll("-","").replace(",", "").replace("'", "").replaceAll("\\.", "").replaceAll(" ", "-").trim().toLowerCase();
 	}
@@ -585,26 +555,26 @@ public class D3ArmoryControler {
 	
 	
 	public void saveItem(Item item) throws Exception {
-			recorder.saveItem(item);
+		getRecorder().saveItem(item);
 	}
 
 
 	public void saveBuild(HeroSkillContainer hsc) throws Exception {
-			recorder.saveBuild(hsc);
+		getRecorder().saveBuild(hsc);
 	}
 
 	public void saveHero(Hero hero) throws Exception {
-			recorder.saveHero(hero);
+		getRecorder().saveHero(hero);
 	}
 
 
 	public Item loadItem(File f) throws Exception {
-			return recorder.loadItem(f);
+			return getRecorder().loadItem(f);
 	}
 
 
 	public File[] getListeFileItem() {
-		return recorder.getListeFileItem();
+		return getRecorder().getListeFileItem();
 	}
 
 	

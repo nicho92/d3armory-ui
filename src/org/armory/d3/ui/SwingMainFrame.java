@@ -227,11 +227,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	    SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				inst = new SwingMainFrame();
-				String look = D3ArmoryControler.getInstance().getLook();
-						if(look==null)
-							inst.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-						else
-							inst.setLookAndFeel(look);
+				inst.setLookAndFeel(D3ArmoryControler.getInstance().getProperty("look", UIManager.getSystemLookAndFeelClassName()));
 						
 				inst.setLocationRelativeTo(null);
 				inst.setVisible(true);
@@ -384,7 +380,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 							it.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
 									setLookAndFeel(it.getText());
-									D3ArmoryControler.getInstance().setLook(it.getText());
+									D3ArmoryControler.getInstance().setProperty("look",it.getText());
 								}
 							});
 						jMenu4.add(it);
@@ -1636,7 +1632,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						String[] parser = selected_row.split("#");
 						try {
 							
-							D3ArmoryControler.getInstance().loadLocal();
+							D3ArmoryControler.getInstance().getProperty("local", "en_EN");
 							Profile p = D3ArmoryControler.getInstance().getProfil(parser[2]+".battle.net", parser[0], Long.parseLong(parser[1]));
 							D3ArmoryControler.getInstance().setProfile(p);
 							getSeasonPanel().init(p.getSeasonalProfiles());
@@ -2004,7 +2000,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	{
 		try {
 			UIManager.setLookAndFeel(lookAndFeel);
-			//UIManager.setLookAndFeel(new Plastic3DLookAndFeel());
+			D3ArmoryControler.getInstance().setProperty("look",lookAndFeel);
 		} catch (Exception e) {
 			logger.error(e.getStackTrace());
 		}
@@ -2128,7 +2124,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				String[] parser = selected_row.split("#");
 				try {
 					
-					D3ArmoryControler.getInstance().loadLocal();
+					D3ArmoryControler.getInstance().getProperty("local", "en_EN");
 					Profile p = D3ArmoryControler.getInstance().getProfil(parser[2]+".battle.net", parser[0], Long.parseLong(parser[1]));
 					D3ArmoryControler.getInstance().setProfile(p);
 					getListeHeros().removeAll();
