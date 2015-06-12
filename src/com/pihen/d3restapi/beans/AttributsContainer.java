@@ -9,10 +9,6 @@ public class AttributsContainer  implements Serializable {
 	private List<DisplayableItemAttributs> secondary;
 	private List<DisplayableItemAttributs> passive;
 	
-	
-	
-
-
 	public List<DisplayableItemAttributs> getPrimary() {
 		return primary;
 	}

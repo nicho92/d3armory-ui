@@ -362,16 +362,28 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 									txtMin.addKeyListener(new KeyAdapter() {
 										public void keyReleased(KeyEvent evt) {
 											//TODO bugfix for native physical damage X1
-											ELEMENTS e = getItem().getEnchantedWeapon();
 											
+											ELEMENTS elem = getItem().getEnchantedWeapon();
+										
 											double bonus = 0;
 											if(getItem().getAttributesRaw().get("Damage_Weapon_Percent_All")!=null)
 												bonus = getItem().getAttributesRaw().get("Damage_Weapon_Percent_All").getMoyenne();
 											
-											Double val = Double.parseDouble(txtMin.getText())/(1+bonus)-getItem().getAttributesRaw().get("Damage_Weapon_Min#Physical").getMoyenne();
-									
-											getItem().getAttributesRaw().put("Damage_Weapon_Min#"+e, new MinMaxBonus(val.intValue()));
+											Double val=0.0;
 											
+											if(elem!=null)
+											{
+												val = Double.parseDouble(txtMin.getText())/(1+bonus)-getItem().getAttributesRaw().get("Damage_Weapon_Min#Physical").getMoyenne();
+												getItem().getAttributesRaw().put("Damage_Weapon_Min#"+elem, new MinMaxBonus(val.intValue()));
+											
+											}
+											else
+											{
+												//getItem().getAttributesRaw().get("Damage_Weapon_Min#Physical").getMoyenne()
+												val = Double.parseDouble(txtMin.getText())/(1+bonus)-(getItem().getAttributesRaw().get("Damage_Weapon_Bonus_Min_X1#Physical").getMoyenne());
+												getItem().getAttributesRaw().put("Damage_Weapon_Bonus_Min_X1#Physical", new MinMaxBonus(val.intValue()));
+											}
+												
 											refreshItem();
 										}
 										
@@ -389,7 +401,15 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 									txtMax.addKeyListener(new KeyAdapter() {
 										public void keyReleased(KeyEvent evt) {
 											
-											ELEMENTS e = getItem().getEnchantedWeapon();
+											ELEMENTS elem = getItem().getEnchantedWeapon();
+											
+											String e="";
+											if(elem==null)
+											{
+												e="_X1";
+												elem=ELEMENTS.Physical;
+											}
+												
 											double bonus = 0;
 											if(getItem().getAttributesRaw().get("Damage_Weapon_Percent_All")!=null)
 												bonus = getItem().getAttributesRaw().get("Damage_Weapon_Percent_All").getMoyenne();
@@ -397,14 +417,14 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 											Double max = Double.parseDouble(txtMax.getText());
 																																	
 											double minP = getItem().getAttributesRaw().get("Damage_Weapon_Min#Physical").getMoyenne();
-											double minE = getItem().getAttributesRaw().get("Damage_Weapon_Min#"+e).getMoyenne();
+											double minE = getItem().getAttributesRaw().get("Damage_Weapon_Min"+e +"#"+elem).getMoyenne();
 											
 											double deltaP = getItem().getAttributesRaw().get("Damage_Weapon_Delta#Physical").getMoyenne();
 											
 											Double val = max/(1+bonus)-(minP+minE)-deltaP;
 											
 											
-											getItem().getAttributesRaw().put("Damage_Weapon_Delta#"+e, new MinMaxBonus(val));
+											getItem().getAttributesRaw().put("Damage_Weapon_Delta"+e +"#"+elem, new MinMaxBonus(val.intValue()));
 									
 											
 											refreshItem();

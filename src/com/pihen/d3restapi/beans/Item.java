@@ -149,7 +149,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		if(!isWeapon())
 			return 0;
 		
-		boolean isCross= (getAttributesRaw().get("Damage_Weapon_Bonus_Min_X1#Physical")!=null);
+		boolean isphysical= (getAttributesRaw().get("Damage_Weapon_Bonus_Min_X1#Physical")!=null);
 		double multiplicateur=1;
 		mindmg=0;
 		ELEMENTS element = getEnchantedWeapon();
@@ -166,7 +166,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		if(asRubySocket)
 			mindmg=getGems().get(0).getAttributesRaw().get("Damage_Weapon_Bonus_Flat#Physical").getMoyenne();
 		
-		if(isCross)
+		if(isphysical)
 		{
 			double bowbonus=0;
 			if(getAttributesRaw().get("Damage_Weapon_Bonus_Min_X1#Physical")!=null)
@@ -184,7 +184,6 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 			if(element!=null)
 				mindmg += getAttributesRaw().get("Damage_Weapon_Min#"+element).getMoyenne()*multiplicateur;
 		}
-		
 		
 		return mindmg;
 	}
