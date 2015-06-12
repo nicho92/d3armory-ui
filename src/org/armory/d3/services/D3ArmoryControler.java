@@ -461,10 +461,14 @@ public class D3ArmoryControler {
 			InputStreamReader ipsr=new InputStreamReader(ips);
 			Properties p = new Properties();
 			p.load(ipsr);
-			local = p.getProperty(k);
+			String local = p.getProperty(k);
 			logger.debug("Get "+k+" =" + local);
+			
+			if(local==null)
+				return defaut;
+			
 			return local;
-		} catch (IOException e) {
+		} catch (Exception e) {
 			logger.error(e.getStackTrace());
 			return defaut;
 		}
@@ -487,13 +491,13 @@ public class D3ArmoryControler {
 	
 	public D3ObjectRecorder getRecorder()
 	{
+		D3ObjectRecorder rec=null;
 		try {
-			D3ObjectRecorder rec = (D3ObjectRecorder)Class.forName(getProperty("recorder", "org.armory.d3.services.impl.SerializableRecorder")).newInstance();
+			rec = (D3ObjectRecorder)Class.forName(getProperty("recorder", "org.armory.d3.services.impl.SerializableRecorder")).newInstance();
 			logger.debug("loading recorder ="+ rec);
 			return rec;
-		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException e) {
-			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.ERROR_MESSAGE);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Recorder loading impossible " + rec, "Erreur",JOptionPane.ERROR_MESSAGE);
 			return null;
 		}
 	}

@@ -566,6 +566,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
 			  logger.error(e.getStackTrace());
+			  e.printStackTrace();
 		}
 	}
 	
