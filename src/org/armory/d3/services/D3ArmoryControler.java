@@ -349,7 +349,6 @@ public class D3ArmoryControler {
 		Item torso = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getTorso());
 		hero.getItems().setTorso(torso);
 		
-		
 		Map<EnumerationStuff,Item>stuffs = new HashMap<EnumerationStuff, Item>();
 								  stuffs.put(EnumerationStuff.HEAD, head);
 								  stuffs.put(EnumerationStuff.SHOULDERS, shoulders);

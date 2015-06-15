@@ -44,7 +44,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	private String damageRange;
 	private String[] setItemsEquipped;
 	private Item transmogItem;
-	
+	private Dye dyeColor;
 	
 	private String description;
 	
@@ -59,6 +59,16 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	double mindmg;
 	
 	
+	
+	
+	public Dye getDyeColor() {
+		return dyeColor;
+	}
+
+	public void setDyeColor(Dye dyeColor) {
+		this.dyeColor = dyeColor;
+	}
+
 	public String[] getSetItemsEquipped() {
 		return setItemsEquipped;
 	}

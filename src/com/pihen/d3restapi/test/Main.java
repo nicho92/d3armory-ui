@@ -47,11 +47,14 @@ public class Main {
 						D3ArmoryControler.getInstance().initStuffHero(hero);
 						D3ArmoryControler.getInstance().initCalculator(hero.getItems().getItemsMap());
 						
-						Item i = hero.getItems().get(EnumerationStuff.MAIN_HAND);
-			    	  	ItemCreatorFrame f = new ItemCreatorFrame(i, EnumerationStuff.MAIN_HAND);
-			    	  	f.setVisible(true);
+						Item i = hero.getItems().get(EnumerationStuff.TORSO);
+						
+						
+			    	  /*	ItemCreatorFrame f = new ItemCreatorFrame(i, EnumerationStuff.MAIN_HAND);
+			    	  	f.setVisible(true);*/
 			    	  	
-			    	  }catch(Exception e)
+			    	  }
+			    	  catch(Exception e)
 			    	  {
 			    		  e.printStackTrace();
 			    	  }

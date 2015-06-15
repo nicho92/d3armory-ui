@@ -382,7 +382,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 											//	val = Double.parseDouble(txtMin.getText())/(1+bonus)-getItem().getAttributesRaw().get("Damage_Weapon_Min#Physical").getMoyenne();
 												getItem().getAttributesRaw().put("Damage_Weapon_Bonus_Min_X1#Physical", new MinMaxBonus(val.intValue()));
 											}
-												
+											
 											refreshItem();
 										}
 										
@@ -603,8 +603,12 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 	
 	protected void refreshItem() {
 		
+			getItem().setDps(new MinMaxBonus(getItem().getRealDPS()));
+			getItem().setMinDamage(new MinMaxBonus(getItem().getRealMin()));
+			getItem().setMaxDamage(new MinMaxBonus(getItem().getRealMax()));
+		
 			getItem().generateDisplayableAttributs();
-
+			
 			
 			StuffCalculator a = D3ArmoryControler.getInstance().getCalculator();
 			b = a.compareStuffWithItem(gear, getItem());
