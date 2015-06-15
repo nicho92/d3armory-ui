@@ -248,7 +248,7 @@ public class ItemPanelDetails extends JPanel {
 					
 			
 			getLblDetailWeapon().init();
-			getLblDetailWeapon().addText(new DecimalFormat("#0").format(mindmg)+" - "+new DecimalFormat("#0").format(maxdmg)+" points de degats<br/> "+new DecimalFormat("#0.00").format(item.getRealAttacksPerSecond())+" attack speed","gray","white");
+			getLblDetailWeapon().addText(new DecimalFormat("#0").format(mindmg)+" - "+new DecimalFormat("#0").format(maxdmg)+" Damage<br/> "+new DecimalFormat("#0.00").format(item.getRealAttacksPerSecond())+" Attacks per Second","gray","white");
 			getLblDetailWeapon().applyText();
 		}
 		else
