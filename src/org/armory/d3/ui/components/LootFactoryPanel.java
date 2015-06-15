@@ -2,9 +2,9 @@ package org.armory.d3.ui.components;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.RGBImageFilter;
 import java.net.URL;
 
 import javax.swing.GrayFilter;
@@ -14,13 +14,10 @@ import javax.swing.JPanel;
 
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.ItemCreatorFrame;
-import org.armory.d3.ui.SwingMainFrame;
 
 import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.LootFactory;
-
-import java.awt.GridLayout;
 
 public class LootFactoryPanel extends JPanel {
 	 Item lootedItem ;

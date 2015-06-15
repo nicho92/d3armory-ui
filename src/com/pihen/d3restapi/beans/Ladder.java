@@ -1,6 +1,5 @@
 package com.pihen.d3restapi.beans;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 public class Ladder {

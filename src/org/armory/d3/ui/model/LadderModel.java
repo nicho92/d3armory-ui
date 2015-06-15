@@ -1,13 +1,8 @@
 package org.armory.d3.ui.model;
 
-import java.awt.Component;
 import java.io.IOException;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import org.armory.d3.services.BNetLadderRetriever;

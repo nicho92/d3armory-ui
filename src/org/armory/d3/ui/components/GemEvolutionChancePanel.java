@@ -17,7 +17,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.pihen.d3restapi.service.util.LegendaryGemEvolutionChance;
-import java.awt.Dimension;
 
 public class GemEvolutionChancePanel extends JPanel {
 	private JTable evolChangeTab;

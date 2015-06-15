@@ -478,11 +478,11 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 									panneauGems.add(cboGem3);
 									txtAS.addKeyListener(new KeyAdapter() {
 										public void keyReleased(KeyEvent evt) {
-											getItem().setAttacksPerSecond(new MinMaxBonus(Double.valueOf(txtAS.getText())));
-											getItem().setDps(new MinMaxBonus(calcWeaponDPS(Double.valueOf(txtMin.getText()),Double.valueOf(txtMax.getText()),Double.valueOf(txtAS.getText()))));
+											double bonus = 1;
+											if(getItem().getAttributesRaw().get("Attacks_Per_Second_Item_Percent")!=null)
+												bonus = 1+getItem().getAttributesRaw().get("Attacks_Per_Second_Item_Percent").getMoyenne();
 											
-											getItem().addAttributesRaw("Damage_Weapon_Delta#Physical", new MinMaxBonus(Double.valueOf(txtMax.getText())-Double.valueOf(txtMin.getText())));
-											getItem().addAttributesRaw("Attacks_Per_Second_Item_Bonus",new MinMaxBonus(getItem().getAttacksPerSecond().getMoyenne()-getItem().getAttributesRaw().get("Attacks_Per_Second_Item").getMoyenne()));
+											getItem().addAttributesRaw("Attacks_Per_Second_Item",new MinMaxBonus(Double.valueOf(txtAS.getText())/bonus));
 											refreshItem();
 										}
 									});

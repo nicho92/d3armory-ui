@@ -4,7 +4,6 @@ import java.util.Map;
 
 import javax.swing.table.DefaultTableModel;
 
-import com.pihen.d3restapi.beans.Gem;
 import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.MinMaxBonus;
 

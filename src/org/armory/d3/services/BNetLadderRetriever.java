@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import javax.swing.GrayFilter;
 import javax.swing.ImageIcon;
 
 import org.jsoup.Jsoup;

@@ -7,15 +7,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.DefaultRowSorter;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -25,12 +23,8 @@ import org.armory.d3.ui.model.ItemsDetailModel;
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.service.configuration.Configuration;
-import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.HeroComparator;
 import com.pihen.d3restapi.service.util.StuffCalculator;
-
-import javax.swing.JLabel;
-import javax.swing.JSplitPane;
 
 public class HeroComparatorPanel extends JPanel {
 	private JTable tableStatComparator;

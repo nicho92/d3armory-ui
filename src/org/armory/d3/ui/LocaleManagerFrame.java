@@ -2,7 +2,6 @@ package org.armory.d3.ui;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;

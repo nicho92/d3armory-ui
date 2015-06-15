@@ -1,8 +1,5 @@
 package org.armory.d3.ui.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.DefaultComboBoxModel;
 
 import com.pihen.d3restapi.beans.Gem;

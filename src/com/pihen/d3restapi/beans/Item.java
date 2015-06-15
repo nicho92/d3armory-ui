@@ -13,7 +13,6 @@ import com.pihen.d3restapi.service.annotation.RemoteConfiguration;
 import com.pihen.d3restapi.service.annotation.RemoteData;
 import com.pihen.d3restapi.service.remote.RemoteEntity;
 import com.pihen.d3restapi.service.util.RawsAttributeFactory;
-import com.pihen.d3restapi.service.util.StuffCalculator;
 import com.pihen.d3restapi.service.util.StuffCalculator.ELEMENTS;
 
 
@@ -323,7 +322,6 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	}
 	
 	public double getRealAttacksPerSecond() {
-		
 		double bonus = 1;
 		if(getAttributesRaw().get("Attacks_Per_Second_Item_Percent")!=null)
 			bonus = 1+getAttributesRaw().get("Attacks_Per_Second_Item_Percent").getMoyenne();

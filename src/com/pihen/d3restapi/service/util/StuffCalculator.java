@@ -10,7 +10,6 @@ import java.util.Set;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.armory.d3.ui.SwingMainFrame;
 
 import com.pihen.d3restapi.beans.Gem;
 import com.pihen.d3restapi.beans.Hero;
@@ -661,11 +660,14 @@ public class StuffCalculator{
 		double armorASBonus = 0;
 		double defaultMHas =0;
 		if(stuffs.get(EnumerationStuff.MAIN_HAND)!=null)
-			defaultMHas = weaponDefaultAS.get(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId()); 
+			defaultMHas = filter(stuffs.get(EnumerationStuff.MAIN_HAND),"Attacks_Per_Second_Item",null);
+			//weaponDefaultAS.get(stuffs.get(EnumerationStuff.MAIN_HAND).getType().getId()); 
 
 		double defaultOHas = 0;
 		if(countweapon==2)
-			defaultOHas=weaponDefaultAS.get(stuffs.get(EnumerationStuff.OFF_HAND).getType().getId());;
+			defaultOHas=filter(stuffs.get(EnumerationStuff.OFF_HAND),"Attacks_Per_Second_Item",null);
+			
+			//weaponDefaultAS.get(stuffs.get(EnumerationStuff.OFF_HAND).getType().getId());;
 		
 		double bonusMHas = 1 + filter(stuffs.get(EnumerationStuff.MAIN_HAND), "Attacks_Per_Second_Item_Percent", null);
 		double bonusOHas = 1;

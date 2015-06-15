@@ -6,10 +6,7 @@ import org.armory.d3.services.D3ArmoryControler;
 
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.Item;
-import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.service.configuration.Configuration;
-import com.pihen.d3restapi.service.remote.RemoteService;
-import com.pihen.d3restapi.service.remote.SpringRemoteService;
 import com.pihen.d3restapi.service.remote.exception.D3ServerCommunicationException;
 
 public class HeroComparator {

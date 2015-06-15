@@ -1,18 +1,15 @@
 package org.armory.d3.ui.components;
 
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-
 import java.awt.Color;
-import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import com.pihen.d3restapi.beans.Gem;
-
-import java.awt.Insets;
 
 public class GemCalculatorPanel extends JPanel {
 

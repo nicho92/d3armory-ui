@@ -1,7 +1,6 @@
 package com.pihen.d3restapi.beans;
 
 import java.io.Serializable;
-import java.io.ObjectInputStream.GetField;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -31,6 +30,7 @@ public class Season implements Serializable{
 	
 	public SeasonalProfile getSeason(int season) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException
 	{
+		
     	Method m = this.getClass().getMethod("getSeason"+season, new Class[] {});
     	logger.debug("Call dynamic season method" + m);	
     	Object ret = m.invoke(D3ArmoryControler.getInstance().getCurrentProfil().getSeasonalProfiles());

@@ -6,10 +6,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import com.pihen.d3restapi.beans.Hero;
-import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.service.configuration.Configuration;
-import com.pihen.d3restapi.service.remote.RemoteService;
-import com.pihen.d3restapi.service.remote.SpringRemoteService;
 
 public class D3ProgressLeaderBoard 
 {

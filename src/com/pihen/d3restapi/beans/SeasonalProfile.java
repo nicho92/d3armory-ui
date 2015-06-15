@@ -1,9 +1,6 @@
 package com.pihen.d3restapi.beans;
 
 import java.io.Serializable;
-import java.util.List;
-
-import org.armory.d3.ui.components.ParangonPanel;
 
 
 public class SeasonalProfile implements Serializable {

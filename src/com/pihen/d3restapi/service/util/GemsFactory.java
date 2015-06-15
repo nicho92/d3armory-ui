@@ -3,7 +3,6 @@ package com.pihen.d3restapi.service.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.pihen.d3restapi.beans.AttributsContainer;
 import com.pihen.d3restapi.beans.Gem;
 import com.pihen.d3restapi.beans.Item;
 
