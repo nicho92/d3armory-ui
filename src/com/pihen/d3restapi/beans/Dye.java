@@ -1,6 +1,6 @@
 package com.pihen.d3restapi.beans;
 
-public class Dye extends Item {
+public class Dye {
 
 	private Item item;
 
