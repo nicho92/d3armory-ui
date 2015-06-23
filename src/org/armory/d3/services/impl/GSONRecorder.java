@@ -28,6 +28,7 @@ public class GSONRecorder implements D3ObjectRecorder {
 		Gson GSON = new Gson();
 		FileWriter fw = new FileWriter(f.getAbsoluteFile());
 		BufferedWriter bw = new BufferedWriter(fw);
+		logger.debug(GSON.toJson(i));
 		bw.write(GSON.toJson(i));
 		bw.close();
 
