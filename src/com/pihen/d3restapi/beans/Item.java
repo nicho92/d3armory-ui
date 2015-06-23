@@ -155,7 +155,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	
 	public double getRealMin()
 	{
-		if(!isWeapon())
+		if(isArmor())
 			return 0;
 		
 		boolean isphysical= (getAttributesRaw().get("Damage_Weapon_Bonus_Min_X1#Physical")!=null);
@@ -199,7 +199,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	
 	public double getRealMax()
 	{
-		if(!isWeapon())
+		if(isArmor())
 			return 0;
 		
 		boolean isCross= (getAttributesRaw().get("Damage_Weapon_Bonus_Min_X1#Physical")!=null);
@@ -332,6 +332,10 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	}
 	
 	public double getRealAttacksPerSecond() {
+		
+		if(isArmor())
+			return 0;
+		
 		double bonus = 1;
 		if(getAttributesRaw().get("Attacks_Per_Second_Item_Percent")!=null)
 			bonus = 1+getAttributesRaw().get("Attacks_Per_Second_Item_Percent").getMoyenne();

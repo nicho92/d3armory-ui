@@ -27,7 +27,13 @@ public class D3ProgressLeaderBoard
 	
 	public String getWorldParangonLevel()
 	{
-		return doc.select("tbody").select("td").select("table").select("td").get(1).text();	
+		try{
+		return doc.select("tbody").select("td").select("table").select("td").get(1).text();
+		}
+		catch(Exception e)
+		{
+			return "";
+		}
 	}
 	
 	public String getRegionalParangonLevel()

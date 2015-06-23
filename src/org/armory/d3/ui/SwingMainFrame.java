@@ -1241,7 +1241,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		}
 		catch(Exception e)
 		{
-			logger.error(e.getStackTrace());
+			logger.error(e.getMessage());
+			e.printStackTrace();
 		}
 		return temp.toString();
 	}
@@ -1615,7 +1616,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		return splitTagsHeroes;
 	}
 	
-	private ListeTagTree getListeTagTree() {
+	public ListeTagTree getListeTagTree() {
 		if(tagsTree ==null)
 			tagsTree =new ListeTagTree();
 			tagsTree.addTreeSelectionListener(new TreeSelectionListener() {
@@ -1635,6 +1636,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 							D3ArmoryControler.getInstance().getProperty("local", "en_EN");
 							Profile p = D3ArmoryControler.getInstance().getProfil(parser[2]+".battle.net", parser[0], Long.parseLong(parser[1]));
 							D3ArmoryControler.getInstance().setProfile(p);
+							
+							
+							
 							getSeasonPanel().init(p.getSeasonalProfiles());
 							
 							getListeHeros().removeAll();
