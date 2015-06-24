@@ -24,7 +24,6 @@ public class Profile extends RemoteEntity {
 	private Number highestHardcoreLevel;
 	private Season seasonalProfiles;
 	
-	
 	public Number getHighestDifficulty() {
 		return highestDifficulty;
 	}

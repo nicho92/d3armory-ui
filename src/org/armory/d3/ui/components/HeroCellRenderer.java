@@ -11,6 +11,8 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.LineBorder;
 
+import org.armory.d3.services.D3ArmoryControler;
+
 import com.pihen.d3restapi.beans.Hero;
 
 
@@ -52,7 +54,9 @@ public class HeroCellRenderer implements ListCellRenderer
 				levels=levels+ "<font color='#A591C2'>(" + hero.getParagonLevel()+")</font>";
 			
 		}
-		lab.setText("<html>"+ hero.getName() + " " + levels);
+		
+		
+		lab.setText("<html>"+ hero.getName() + " " + levels );
 		lab.setOpaque(true);
 		lab.setBackground(Color.black);
 		lab.setForeground(Color.white);

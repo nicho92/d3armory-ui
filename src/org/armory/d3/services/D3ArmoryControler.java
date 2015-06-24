@@ -118,6 +118,18 @@ public class D3ArmoryControler {
 		return instance;
 	}
 	
+	public Hero getLastHeroPlayed()
+	{
+			try {
+				return getHeroDetails(profil.getLastHeroPlayed().longValue());
+			} catch (D3ServerCommunicationException e) {
+				e.printStackTrace();
+				return null;
+			}
+			
+	}
+	
+	
 	public Configuration getConf() {
 		return conf;
 	}

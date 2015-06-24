@@ -164,7 +164,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 										}
 										else
 										{
-											getItem().setDps(new MinMaxBonus(0));
+											//getItem().setDps(new MinMaxBonus(0));
 											getItem().addAttributesRaw("Attacks_Per_Second_Item", new MinMaxBonus(Item.getWeaponDefaultAS().get(((JComboBox)evt.getSource()).getSelectedItem().toString())));
 										}
 										refreshItem();
@@ -433,6 +433,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 								}
 								{
 									try {
+										
 										txtAS = new JTextField(String.valueOf(new DecimalFormat("#0.00").format(getItem().getRealAttacksPerSecond())));
 									} catch (Exception e1) {
 										txtAS = new JTextField("");
@@ -603,7 +604,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 	
 	protected void refreshItem() {
 		
-			getItem().setDps(new MinMaxBonus(getItem().getRealDPS()));
+		//	getItem().setDps(new MinMaxBonus(getItem().getRealDPS()));
 			getItem().setMinDamage(new MinMaxBonus(getItem().getRealMin()));
 			getItem().setMaxDamage(new MinMaxBonus(getItem().getRealMax()));
 		
