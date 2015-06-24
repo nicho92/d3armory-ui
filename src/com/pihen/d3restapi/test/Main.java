@@ -21,7 +21,7 @@ public class Main {
 					
 					for(Tag tag : tags)
 					{
-						System.out.println(tag);
+						
 					}
 					
 				}

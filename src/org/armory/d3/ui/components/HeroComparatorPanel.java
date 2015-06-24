@@ -22,6 +22,7 @@ import org.armory.d3.ui.model.ItemsDetailModel;
 
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.Profile;
+import com.pihen.d3restapi.beans.Tag;
 import com.pihen.d3restapi.service.configuration.Configuration;
 import com.pihen.d3restapi.service.util.HeroComparator;
 import com.pihen.d3restapi.service.util.StuffCalculator;
@@ -70,16 +71,18 @@ public class HeroComparatorPanel extends JPanel {
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.NORTH);
 		
-		JComboBox cboListTag = new JComboBox(D3ArmoryControler.getInstance().getListTags().toArray());
+		JComboBox<Tag> cboListTag = new JComboBox<Tag>(D3ArmoryControler.getInstance().getListTags().toArray(new Tag[D3ArmoryControler.getInstance().getListTags().size()]));
+		
+		
 		cboListTag.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				
-				String tag[] = ((String)((JComboBox)evt.getSource()).getSelectedItem()).split("#");
+				Tag t = ((Tag)((JComboBox)evt.getSource()).getSelectedItem());
 				try {
-					conf = D3ArmoryControler.getInstance().getConfiguration(tag[2]+".battle.net", tag[0], Long.parseLong(tag[1]));
+					conf = D3ArmoryControler.getInstance().getConfiguration(t);
 					c = new D3ArmoryControler();
 					c.setConf(conf);
-					Profile p = c.getProfil(tag[2]+".battle.net", tag[0], Long.parseLong(tag[1]));
+					Profile p = c.getProfil(t);
 					cboListHero.removeAll();
 					for(Hero h : p.getHeroes())
 					{

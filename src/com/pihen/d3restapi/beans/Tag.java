@@ -4,7 +4,7 @@ public class Tag {
 
 	String region;
 	String name;
-	Integer number;
+	Long number;
 	
 	
 	/**
@@ -16,7 +16,7 @@ public class Tag {
 		String values[] = ligne.split("#");
 		setRegion(values[2]);
 		setName(values[0]);
-		setNumber(Integer.parseInt(values[1]));
+		setNumber(Long.parseLong(values[1]));
 	}
 	
 	public String toString()
@@ -24,11 +24,17 @@ public class Tag {
 		return getName()+"#"+getNumber();
 	}
 	
-	public Tag(String region,String name,int number)
+	public Tag(String region,String name,Long number)
 	{
 		this.region=region;
 		this.name=name;
 		this.number=number;
+	}
+	
+	
+	public String getHost()
+	{
+		return getRegion()+".battle.net";
 	}
 	
 	
@@ -44,10 +50,10 @@ public class Tag {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Integer getNumber() {
+	public Long getNumber() {
 		return number;
 	}
-	public void setNumber(Integer number) {
+	public void setNumber(Long number) {
 		this.number = number;
 	}
 	

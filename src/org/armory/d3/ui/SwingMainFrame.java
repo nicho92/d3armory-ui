@@ -90,6 +90,7 @@ import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.Ladder;
 import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.beans.SkillRune;
+import com.pihen.d3restapi.beans.Tag;
 import com.pihen.d3restapi.beans.TimePlayed;
 import com.pihen.d3restapi.service.remote.exception.D3ServerCommunicationException;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
@@ -1634,7 +1635,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						try {
 							
 							D3ArmoryControler.getInstance().getProperty("local", "en_EN");
-							Profile p = D3ArmoryControler.getInstance().getProfil(parser[2]+".battle.net", parser[0], Long.parseLong(parser[1]));
+							Profile p = D3ArmoryControler.getInstance().getProfil(new Tag(parser[2], parser[0], Long.parseLong(parser[1])));
 							D3ArmoryControler.getInstance().setProfile(p);
 							
 							
@@ -2129,7 +2130,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				try {
 					
 					D3ArmoryControler.getInstance().getProperty("local", "en_EN");
-					Profile p = D3ArmoryControler.getInstance().getProfil(parser[2]+".battle.net", parser[0], Long.parseLong(parser[1]));
+					Profile p = D3ArmoryControler.getInstance().getProfil(new Tag(parser[2], parser[0], Long.parseLong(parser[1])));
 					D3ArmoryControler.getInstance().setProfile(p);
 					getListeHeros().removeAll();
 					for(Hero h : p.getHeroes())

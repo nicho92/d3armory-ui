@@ -144,19 +144,19 @@ public class D3ArmoryControler {
 		//todo global update ui component with new calcul
 	}
 	
-	public Profile getProfil(String profile) throws D3ServerCommunicationException
-	{
-		String[] val = profile.split("#");
-		return getProfil(val[2], val[0], Long.parseLong(val[1]));
-	}
+//	public Profile getProfil(String profile) throws D3ServerCommunicationException
+//	{
+//		String[] val = profile.split("#");
+//		return getProfil(val[2], val[0], Long.parseLong(val[1]));
+//	}
 	
 	
-	public Configuration getConfiguration(String host, String tagName,Long tagID)
+	public Configuration getConfiguration(Tag t)
 	{
 		Configuration conf = new Configuration();
-		  conf.setBattleTag(tagName);
-		  conf.setBattleTagCode(tagID);
-		  conf.setHost(host);
+		  conf.setBattleTag(t.getName());
+		  conf.setBattleTagCode(t.getNumber());
+		  conf.setHost(t.getHost());
 		  conf.setLocal(local);
 		  if(local==null)
 			  conf.setLocal("en_US");
@@ -246,12 +246,13 @@ public class D3ArmoryControler {
 		 }
 	}
 	
-	public Profile getProfil(String host, String tagName,Long tagID) throws D3ServerCommunicationException
+	
+	public Profile getProfil(Tag t) throws D3ServerCommunicationException
 	{
 		  conf = new Configuration();
-		  conf.setBattleTag(tagName);
-		  conf.setBattleTagCode(tagID);
-		  conf.setHost(host);
+		  conf.setBattleTag(t.getName());
+		  conf.setBattleTagCode(t.getNumber());
+		  conf.setHost(t.getHost());
 		  conf.setLocal(local);
 		  if(local==null)
 			  conf.setLocal("en_US");
