@@ -558,31 +558,6 @@ public class D3ArmoryControler {
 
 	
 	
-	public void saveItem(Item item) throws Exception {
-		getRecorder().saveItem(item);
-	}
-
-
-	public void saveBuild(HeroSkillContainer hsc) throws Exception {
-		getRecorder().saveBuild(hsc);
-	}
-
-	public void saveHero(Hero hero) throws Exception {
-		getRecorder().saveHero(hero);
-	}
-
-
-	public Item loadItem(File f) throws Exception {
-			return getRecorder().loadItem(f);
-	}
-
-
-	public File[] getListeFileItem() {
-		return getRecorder().getListeFileItem();
-	}
-
-	
-
 	
 	
 }

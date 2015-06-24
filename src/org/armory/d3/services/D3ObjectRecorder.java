@@ -30,7 +30,9 @@ public interface D3ObjectRecorder {
 	public Hero loadHero(Number number) throws Exception;
 	public void saveHero(Hero i)throws Exception;
 	
-	public File[] getListeFileItem();
+	public List<Item> listSavedItems();
+	public List<Hero> listSavedHeroes();
+	
 	
 	public String getRecorderName();
 }

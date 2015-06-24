@@ -328,7 +328,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 								hsc.setNameBuild(name);
 								hsc.setClassBuild(D3ArmoryControler.getInstance().getSelectedHero(false).getClazz());
 								try {
-									D3ArmoryControler.getInstance().saveBuild(hsc);
+									D3ArmoryControler.getInstance().getRecorder().saveBuild(hsc);
 								} catch (Exception e) {
 									JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
 								}
@@ -552,7 +552,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			
 			 logger.debug("No cache : Loading from Battle.Net");
 			 initHeroItems(false);
-			 D3ArmoryControler.getInstance().saveHero(hero);
+			 D3ArmoryControler.getInstance().getRecorder().saveHero(hero);
 			 
 			
 			 

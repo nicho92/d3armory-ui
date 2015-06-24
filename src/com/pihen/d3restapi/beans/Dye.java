@@ -1,7 +1,13 @@
 package com.pihen.d3restapi.beans;
 
-public class Dye {
+import java.io.Serializable;
 
+public class Dye implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6533006462440901207L;
 	private Item item;
 
 	public Item getItem() {

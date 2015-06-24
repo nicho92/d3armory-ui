@@ -91,17 +91,54 @@ public class SerializableRecorder implements D3ObjectRecorder {
 			oos.close();
 	}
 
-	public File[] getListeFileItem()
+	public List<Item> listSavedItems()
 	{
 		File f = new File(SERIALISATION_ITEM_DIR);
-		return f.listFiles(new FileFilter() {
-			public boolean accept(File pathname) {
-				return pathname.getName().endsWith(".d3item");
+		List<Item> items = new ArrayList<Item>();
+		
+		for(File fItems : f.listFiles(new FileFilter() {
+											public boolean accept(File pathname) {
+													return pathname.getName().endsWith(".d3item");
+											}
+									})
+			)
+		{
+			try{
+				items.add(loadItem(fItems));
 			}
-		});
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		return items;
 	}
 	
 	public String getRecorderName() {
 		return "Serializer Recorder";
+	}
+
+	public List<Hero> listSavedHeroes() {
+		File f = new File(SERIALISATION_HERO_DIR);
+		List<Hero> heroes = new ArrayList<Hero>();
+		
+		for(File fHero : f.listFiles(new FileFilter() {
+											public boolean accept(File pathname) {
+													return pathname.getName().endsWith(".d3heroG");
+											}
+									})
+			)
+		{
+			try{
+				heroes.add(loadHero(Long.parseLong(fHero.getName().substring(0, fHero.getName().indexOf(".d3hero")))));
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		return heroes;
 	}
 }

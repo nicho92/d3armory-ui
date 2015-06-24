@@ -296,7 +296,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 						try {
 							String name = JOptionPane.showInputDialog("Name for item ?",item.getName());
 							item.setName(name);
-							D3ArmoryControler.getInstance().saveItem(item);
+							D3ArmoryControler.getInstance().getRecorder().saveItem(item);
 						} catch (Exception e1) {
 							JOptionPane.showMessageDialog(null, e1,"ERREUR",JOptionPane.ERROR_MESSAGE);
 						}
@@ -311,7 +311,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 					public void actionPerformed(ActionEvent e) {
 
 						try {
-							D3ArmoryControler.getInstance().saveItem(item);
+							D3ArmoryControler.getInstance().getRecorder().saveItem(item);
 						} catch (Exception e1) {
 							JOptionPane.showMessageDialog(null, e1,"ERREUR",JOptionPane.ERROR_MESSAGE);
 						}
@@ -321,7 +321,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 				
 				
 			  popupMenu.add(itNewItem);
-			  popupMenu.add(createMenu(D3ArmoryControler.getInstance().getListeFileItem()));
+			  popupMenu.add(createMenu(D3ArmoryControler.getInstance().getRecorder().listSavedItems()));
 			  popupMenu.add(new JSeparator());
 			  popupMenu.add(itSaveItem);
 			  popupMenu.add(itSaveAsItem);
@@ -336,18 +336,16 @@ public class ItemLabel extends JLabel implements MouseListener {
 		
 	}
 
-	private JMenu createMenu(File[] listeFileItem) {
+	private JMenu createMenu(List<Item> listeFileItem) {
 		 JMenu m = new JMenu("Saved Item");
-		  for(final File f:listeFileItem)
+		  for(final Item f:listeFileItem)
 		  {	 
-			  JMenuItem a = new JMenuItem(f.getName().substring(0, f.getName().lastIndexOf(".")));
+			  JMenuItem a = new JMenuItem(f.getName());
 			    m.add(a);
 		  		a.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					Item i;
 					try {
-						i = D3ArmoryControler.getInstance().loadItem(f);
-						initWindowBuilder(i,gear);
+						initWindowBuilder(f,gear);
 					} catch (Exception e1) {
 						JOptionPane.showMessageDialog(null, e1,"ERREUR",JOptionPane.ERROR_MESSAGE);
 					}
@@ -357,16 +355,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 		  return m;
 	}
 
-	public JMenu createMenu(List<String> listeTag){
-		  JMenu m = new JMenu("Profile");
-		  for(String tag:listeTag)
-		  {
-			  m.add(new JMenuItem(tag));
-			 
-		  }
-		  
-		  return m;
-	}
+	
 
 	 	
 }

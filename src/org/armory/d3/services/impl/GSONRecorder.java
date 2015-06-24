@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.services.D3ObjectRecorder;
 
 import com.google.gson.Gson;
@@ -75,21 +76,59 @@ public class GSONRecorder implements D3ObjectRecorder {
 			
 			@Override
 			public boolean accept(File pathname) {
-				return pathname.getName().endsWith(".d3buildGG");
+				return pathname.getName().endsWith(".d3buildG");
 			}
 		}))
-			skills.add(loadBuild(new File(fb.getAbsolutePath().substring(0, fb.getAbsolutePath().indexOf(".d3buildGG")))));
+			skills.add(loadBuild(new File(fb.getAbsolutePath().substring(0, fb.getAbsolutePath().indexOf(".d3buildG")))));
 		
 			return skills;
 	}
 
-	public File[] getListeFileItem() {
+	public List<Item> listSavedItems() {
 		File f = new File(SERIALISATION_ITEM_DIR);
-		return f.listFiles(new FileFilter() {
-			public boolean accept(File pathname) {
-				return pathname.getName().endsWith(".d3itemG");
+		List<Item> items = new ArrayList<Item>();
+		
+		for(File fItems : f.listFiles(new FileFilter() {
+											public boolean accept(File pathname) {
+													return pathname.getName().endsWith(".d3itemG");
+											}
+									})
+			)
+		{
+			try{
+				items.add(loadItem(fItems));
 			}
-		});
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		return items;
+	}
+	
+	
+	public List<Hero> listSavedHeroes() {
+		File f = new File(SERIALISATION_HERO_DIR);
+		List<Hero> heroes = new ArrayList<Hero>();
+		
+		for(File fHero : f.listFiles(new FileFilter() {
+											public boolean accept(File pathname) {
+													return pathname.getName().endsWith(".d3heroG");
+											}
+									})
+			)
+		{
+			try{
+				heroes.add(loadHero(Long.parseLong(fHero.getName().substring(0, fHero.getName().indexOf(".d3heroG")))));
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		return heroes;
 	}
 	
 

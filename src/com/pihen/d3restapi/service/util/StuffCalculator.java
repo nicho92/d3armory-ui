@@ -389,11 +389,6 @@ public class StuffCalculator{
 			}
 		}
 		calculeBuff();
-		
-	
-				
-		
-		
 	}
 	
 	private void calculeBuff()
