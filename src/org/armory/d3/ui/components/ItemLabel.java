@@ -34,6 +34,7 @@ import org.armory.d3.ui.ItemCreatorFrame;
 import org.armory.d3.ui.SwingMainFrame;
 
 import com.pihen.d3restapi.beans.Item;
+import com.pihen.d3restapi.beans.Tag;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 
 
@@ -260,7 +261,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 	public void mousePressed(MouseEvent e) {
 		if(SwingUtilities.isRightMouseButton(e))
 		{
-			List<String> listeTag= D3ArmoryControler.getInstance().getListTags();
+			List<Tag> listeTag= D3ArmoryControler.getInstance().getListTags();
 			JPopupMenu popupMenu = new JPopupMenu();
 			
 			if(item==null)

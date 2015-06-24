@@ -26,6 +26,7 @@ import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.HeroSkillContainer;
 import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.Profile;
+import com.pihen.d3restapi.beans.Tag;
 import com.pihen.d3restapi.beans.XP;
 import com.pihen.d3restapi.service.configuration.Configuration;
 import com.pihen.d3restapi.service.remote.RemoteService;
@@ -372,16 +373,16 @@ public class D3ArmoryControler {
 		return stuffs;
 	}
 	
-	public List<String> getListTags()
+	public List<Tag> getListTags()
 	{
 		return getListTags(null);
 	}
 	
 	
-	public List<String> getListTags(String region)
+	public List<Tag> getListTags(String region)
 	{
 		
-		List<String> liste = new ArrayList<String>();
+		List<Tag> liste = new ArrayList<Tag>();
 				try{
 					InputStream ips=new FileInputStream(TAG_FILE); 
 					InputStreamReader ipsr=new InputStreamReader(ips);
@@ -392,19 +393,20 @@ public class D3ArmoryControler {
 						{	
 							if(region==null)
 							{
-								liste.add(ligne);
+								liste.add(new Tag(ligne));
 							}
 							else
 							{
 								if(ligne.endsWith(region))
-									liste.add(ligne);
+									liste.add(new Tag(ligne));
 							}
 						}
 					}
 					br.close(); 
 				}		
 				catch (Exception e){
-					logger.error(e.getStackTrace());
+					e.printStackTrace();
+					logger.error(e);
 				}
 				return liste;
 	}

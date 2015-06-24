@@ -1,17 +1,10 @@
 package com.pihen.d3restapi.test;
 
-import javax.swing.SwingUtilities;
+import java.util.List;
 
 import org.armory.d3.services.D3ArmoryControler;
-import org.armory.d3.ui.ItemCreatorFrame;
 
-import com.pihen.d3restapi.beans.Hero;
-import com.pihen.d3restapi.beans.Item;
-import com.pihen.d3restapi.beans.Profile;
-import com.pihen.d3restapi.service.configuration.Configuration;
-import com.pihen.d3restapi.service.remote.RemoteService;
-import com.pihen.d3restapi.service.remote.SpringRemoteService;
-import com.pihen.d3restapi.service.util.EnumerationStuff;
+import com.pihen.d3restapi.beans.Tag;
 
 
 public class Main {
@@ -20,7 +13,20 @@ public class Main {
  
 	
 			
-			
+			new Thread(new Runnable() {
+				
+				public void run() {
+					List<Tag> tags = D3ArmoryControler.getInstance().getListTags();
+					
+					
+					for(Tag tag : tags)
+					{
+						System.out.println(tag);
+					}
+					
+				}
+			}).start();
+			/*
 			SwingUtilities.invokeLater(new Runnable() {
 			      public void run() {
 
@@ -48,11 +54,7 @@ public class Main {
 						D3ArmoryControler.getInstance().initCalculator(hero.getItems().getItemsMap());
 						
 						Item i = hero.getItems().get(EnumerationStuff.TORSO);
-						
-						
-			    	  /*	ItemCreatorFrame f = new ItemCreatorFrame(i, EnumerationStuff.MAIN_HAND);
-			    	  	f.setVisible(true);*/
-			    	  	
+		
 			    	  }
 			    	  catch(Exception e)
 			    	  {
