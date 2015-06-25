@@ -23,7 +23,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.pihen.d3restapi.beans.Hero;
-import com.pihen.d3restapi.beans.HeroSkillContainer;
 import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.beans.Tag;
@@ -144,25 +143,7 @@ public class D3ArmoryControler {
 		//todo global update ui component with new calcul
 	}
 	
-//	public Profile getProfil(String profile) throws D3ServerCommunicationException
-//	{
-//		String[] val = profile.split("#");
-//		return getProfil(val[2], val[0], Long.parseLong(val[1]));
-//	}
 	
-	
-	public Configuration getConfiguration(Tag t)
-	{
-		Configuration conf = new Configuration();
-		  conf.setBattleTag(t.getName());
-		  conf.setBattleTagCode(t.getNumber());
-		  conf.setHost(t.getHost());
-		  conf.setLocal(local);
-		  if(local==null)
-			  conf.setLocal("en_US");
-		  
-		  return conf;
-	}
 	
 	public XP getEndSeasonParangonLevelHC(int i) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
 		XPCalculator xpc = new XPCalculator();
@@ -226,7 +207,6 @@ public class D3ArmoryControler {
 	
 	public boolean hasUpdateVersionApp()
 	{
-		
 		try{
 		
 			double actualversion = getActualVersion();
@@ -246,6 +226,18 @@ public class D3ArmoryControler {
 		 }
 	}
 	
+	public Configuration getConfiguration(Tag t)
+	{
+		Configuration conf = new Configuration();
+		  conf.setBattleTag(t.getName());
+		  conf.setBattleTagCode(t.getNumber());
+		  conf.setHost(t.getHost());
+		  conf.setLocal(local);
+		  if(local==null)
+			  conf.setLocal("en_US");
+		  
+		  return conf;
+	}
 	
 	public Profile getProfil(Tag t) throws D3ServerCommunicationException
 	{

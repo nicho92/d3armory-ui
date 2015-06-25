@@ -1,8 +1,13 @@
 package com.pihen.d3restapi.test;
 
+import java.util.List;
+
 import org.armory.d3.services.D3ArmoryControler;
 
+import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.Item;
+import com.pihen.d3restapi.beans.Profile;
+import com.pihen.d3restapi.beans.Tag;
 
 
 public class Main {
@@ -13,15 +18,7 @@ public class Main {
 				
 				public void run() {
 					
-					
-				
-					for(Item i:  D3ArmoryControler.getInstance().getRecorder().listSavedItems())
-					{
-						System.out.println(i);
-					}
-				
-				
-				/*	List<Tag> tags = D3ArmoryControler.getInstance().getListTags();
+				List<Tag> tags = D3ArmoryControler.getInstance().getListTags();
 					
 					
 					for(Tag tag : tags)
@@ -33,17 +30,19 @@ public class Main {
 							for(Hero h: heroes)
 							{
 								h = D3ArmoryControler.getInstance().getHeroDetails(h);
-								D3ArmoryControler.getInstance().initCalculator(h.getItems().getItemsMap());
+								D3ArmoryControler.getInstance().initStuffHero(h);
+								for(Item i : h.getItems().getItemsMap().values())
+								{
+									D3ArmoryControler.getInstance().getRecorder().saveItem(i);
+								}
 								
 								
-								System.out.println(h + " " + D3ArmoryControler.getInstance().getCalculator().calculate().get(StuffCalculator.KEY.DPS_ELITE));
 								
 							}
-						} catch (D3ServerCommunicationException e) {
-							e.printStackTrace();
+						} catch (Exception e) {
+							//e.printStackTrace();
 						}
 					}
-				*/	
 				}
 			}).start();
 	}
