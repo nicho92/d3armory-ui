@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
 import javax.swing.DefaultRowSorter;
 import javax.swing.JComboBox;
@@ -130,11 +132,12 @@ public class HeroComparatorPanel extends JPanel {
 					tableStuffComparator2.setModel(mod2);
 					tableStuffComparator2.setBackground(Color.BLACK);
 					tableStuffComparator2.setForeground(Color.WHITE);
-					
+				
 //					//DefaultRowSorter sorter3 = new TableRowSorter(tableStuffComparator2.getModel());
 //					//sorter3.toggleSortOrder(0);
 //					tableStuffComparator2.setRowSorter(sorter2);
 					
+									
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, e1,"ERROR",JOptionPane.ERROR_MESSAGE);
 				}
