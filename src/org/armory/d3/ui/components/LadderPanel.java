@@ -25,8 +25,8 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.TableRowSorter;
 
-import org.armory.d3.services.BNetLadderRetriever;
 import org.armory.d3.services.D3ArmoryControler;
+import org.armory.d3.services.impl.BNetLadderRetriever;
 import org.armory.d3.ui.model.LadderModel;
 
 public class LadderPanel extends JPanel {

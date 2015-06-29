@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
-import org.armory.d3.services.BNetLadderRetriever;
+import org.armory.d3.services.impl.BNetLadderRetriever;
 
 import com.pihen.d3restapi.beans.Ladder;
 

@@ -1,4 +1,4 @@
-package org.armory.d3.services;
+package org.armory.d3.services.impl;
 
 import java.io.IOException;
 import java.net.URL;
