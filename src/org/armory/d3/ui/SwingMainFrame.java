@@ -242,8 +242,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			tabHeroes = new JTabbedPane();
 				
 			tabHeroes.addTab("",getSplitPanneauTableauHero());
-			tabHeroes.addTab("",new JPanel());
-			
 			
 			splitPanneauFicheHero.add(tabHeroes, JSplitPane.LEFT);
 			scrollFicheHeros.setViewportView(getPanelItemDetails());
@@ -304,7 +302,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 								hsc.setClassBuild(D3ArmoryControler.getInstance().getSelectedHero(false).getClazz());
 								try {
 									D3ArmoryControler.getInstance().getRecorder().saveBuild(hsc);
-								} catch (Exception e) {
+								}
+								catch (Exception e) 
+								{
 									JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
 								}
 								saveBuildMenuItem.setEnabled(false);
@@ -392,8 +392,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				
 			if (SystemTray.isSupported()) {
 				tray.add(trayIcon);
-				
-				
+
 				if(D3ArmoryControler.getInstance().hasUpdateVersionApp())
 					msgUpdate = "New Version Available !!";
 				
@@ -408,6 +407,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					}
 				});
 			}
+			
 			jmnuUpdate = new JMenu(msgUpdate);
 			dlUpdateAppMenuItem = new JMenuItem("Download new Version");
 			jmnuUpdate.add(dlUpdateAppMenuItem);
@@ -489,7 +489,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			    		  chargementHero();
 			    		  getPanneauDessinHero().setHero(hero);
 				    	
-			    		  tabHeroes.setTitleAt(0, hero.getName());
+			    		  tabHeroes.setTitleAt(tabHeroes.getSelectedIndex(), hero.getName());
 			    		  
 			    		  getPanneauDessinHero().getLblLoader().setIcon(null);
 			    		  panelItemDetails.setCalculator(D3ArmoryControler.getInstance().getCalculator());
