@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.SplashScreen;
@@ -26,7 +25,6 @@ import java.util.Map;
 import javax.swing.DefaultRowSorter;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -56,42 +54,11 @@ import org.apache.log4j.Logger;
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.services.D3ObjectRecorder;
 import org.armory.d3.services.D3ProgressLeaderBoard;
-import org.armory.d3.ui.components.EHPPanel;
-import org.armory.d3.ui.components.FollowersPanel;
-import org.armory.d3.ui.components.FormatedJLabel;
-import org.armory.d3.ui.components.GemCalculatorPanel;
-import org.armory.d3.ui.components.GemEvolutionChancePanel;
-import org.armory.d3.ui.components.HeroCellRenderer;
-import org.armory.d3.ui.components.HeroComparatorPanel;
-import org.armory.d3.ui.components.HeroPanel;
-import org.armory.d3.ui.components.ItemLabel;
-import org.armory.d3.ui.components.ItemPanelDetails;
-import org.armory.d3.ui.components.LadderPanel;
-import org.armory.d3.ui.components.ListeTagTree;
-import org.armory.d3.ui.components.LootFactoryPanel;
-import org.armory.d3.ui.components.ParangonPanel;
-import org.armory.d3.ui.components.SeasonPanel;
-import org.armory.d3.ui.components.SkillLabel;
-import org.armory.d3.ui.components.SocketLabel;
-import org.armory.d3.ui.model.CalculatorModel;
-import org.armory.d3.ui.model.EHPCalculatorModel;
-import org.armory.d3.ui.model.ItemsDetailModel;
-import org.armory.d3.ui.model.LadderModel;
-import org.armory.d3.ui.model.ListeHeroModel;
-import org.armory.d3.ui.model.LootXlsTableModel;
-import org.armory.d3.ui.model.TableauExpertModel;
+import org.armory.d3.ui.components.*;
+import org.armory.d3.ui.model.*;
 import org.jdesktop.application.Application;
 
-import com.pihen.d3restapi.beans.Follower;
-import com.pihen.d3restapi.beans.FollowersList;
-import com.pihen.d3restapi.beans.Hero;
-import com.pihen.d3restapi.beans.HeroSkillContainer;
-import com.pihen.d3restapi.beans.Item;
-import com.pihen.d3restapi.beans.Ladder;
-import com.pihen.d3restapi.beans.Profile;
-import com.pihen.d3restapi.beans.SkillRune;
-import com.pihen.d3restapi.beans.Tag;
-import com.pihen.d3restapi.beans.TimePlayed;
+import com.pihen.d3restapi.beans.*;
 import com.pihen.d3restapi.service.remote.exception.D3ServerCommunicationException;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 import com.pihen.d3restapi.service.util.StuffCalculator;
@@ -106,12 +73,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JList<Hero> listeHeros;
 	private JScrollPane scrollHeros;
 	private JSplitPane splitPanneauFicheHero;
-	private ItemLabel lblTorso;
-	private SocketLabel lblSocketMainHand;
 	private JProgressBar progressBar;
 	private JPanel stateBar;
-	private JLabel lblLife;
-	private JLabel lblLastUpdate;
 	private JPanel panneauInfoHero;
 	private JTabbedPane ongletPane;
 	private JTextField txtFiltrage;
@@ -119,38 +82,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JTable tableauExpert;
 	private JScrollPane scrollTableau;
 	private JSplitPane splitPanneauTableauHero;
-	private JLabel lblLoader;
 	private ItemPanelDetails panelItemDetails;
 	private JSplitPane splitTagsHeroes;
-	private SocketLabel lblSocketMainHand2;
-	private SocketLabel lblSocketLegs2;
-	private SocketLabel lblSocketLegs1;
-	private SocketLabel lblSocketTorso3;
-	private SocketLabel lblSocketTorso2;
-	private SocketLabel lblSocketTorso1;
-	private SocketLabel lblSocketOffHand;
-	private SocketLabel lblSocketRightRing;
-	private SocketLabel lblSocketLeftRing;
-	private SocketLabel lblSocketNeck;
-	private SocketLabel lblSocketGants;
-	private SocketLabel lblSocketBoot;
-	private SocketLabel lblSocketHead;
-	private ItemLabel lblHarcore;
-	private ItemLabel lblHead;
-	private ItemLabel lblOffHand;
-	private ItemLabel lblMainHand;
-	private ItemLabel lblFoot;
-	private ItemLabel lblLegs;
-	private ItemLabel lblbelt;
-	private ItemLabel lblRingLeft;
-	private ItemLabel lblRingRight;
-	private ItemLabel lblBracers;
-	private ItemLabel lblNeck;
-	private ItemLabel lblGants;
-	private ItemLabel lblShoulders;
-	private ItemLabel lblParangonLevel;
-	private ItemLabel lblInformationClasseNiveau;
-	private ItemLabel lblNom;
+
 	private JScrollPane scrollTags;
 	private JSplitPane jSplitPane1;
 	private JMenuItem exitMenuItem;
@@ -166,19 +100,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private ListeHeroModel listeHerosModel;
 	private TableauExpertModel tableaudetailModel;
 	private JMenuItem jmiLocal;
-	private SkillLabel labSkilL1;
-	private SkillLabel labSkilL2;
-	private SkillLabel labSkilL3;
-	private SkillLabel labSkilL4;
-	private SkillLabel labSkilL5;
-	private SkillLabel labSkilL6;
-	private SkillLabel labSkilL7;
-	private SkillLabel labSkilL8;
-	private SkillLabel labSkilL9;
-	private SkillLabel labSkilL10;
+
 	private Hero hero;
 	private Map<EnumerationStuff,Item> stuffs;
-	private JLabel lblRessources;
 	private FollowersPanel panelFollowers;
 	private JScrollPane panneauTableauDescription;
 	private JTable tableauDescriptionItems;
@@ -194,6 +118,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private LootFactoryPanel lootFactoryPanel;
 	private String msgUpdate="";
 	private SeasonPanel seasonPanel;
+	private JTabbedPane tabHeroes;
+	
 	
 	static SwingMainFrame inst ;
 	
@@ -265,11 +191,17 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				{
 					splitPanneauFicheHero = new JSplitPane();
 					jSplitPane1.add(getSplitTagsHeroes(), JSplitPane.LEFT);
-					jSplitPane1.add(getJSplitPane2(), JSplitPane.RIGHT);
+					jSplitPane1.add(getSplitPanneauFicheHero(), JSplitPane.RIGHT);
 					{
 						scrollFicheHeros = new JScrollPane();
 						splitPanneauFicheHero.add(scrollFicheHeros, JSplitPane.RIGHT);
-						splitPanneauFicheHero.add(getSplitPanneauTableauHero(), JSplitPane.LEFT);
+						
+						tabHeroes = new JTabbedPane();
+						
+						
+						tabHeroes.addTab("",getSplitPanneauTableauHero());
+						
+						splitPanneauFicheHero.add(tabHeroes, JSplitPane.LEFT);
 						scrollFicheHeros.setViewportView(getPanelItemDetails());
 					}
 				}
@@ -455,6 +387,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			
 		} catch (Exception e) {
 			logger.error(e.getStackTrace());
+			e.printStackTrace();
 		}
 	}
 	
@@ -464,6 +397,10 @@ public class SwingMainFrame extends javax.swing.JFrame {
 
 
 	public HeroPanel getPanneauDessinHero() {
+		if(panneauDessinHero==null)
+			{
+				panneauDessinHero=new HeroPanel();
+			}
 		return panneauDessinHero;
 	}
 
@@ -472,7 +409,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		return scrollTags;
 	}
 	
-	public JSplitPane getJSplitPane2() {
+	public JSplitPane getSplitPanneauFicheHero() {
 		return splitPanneauFicheHero;
 	}
 	
@@ -506,10 +443,14 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			new Thread(new Runnable() {
 			      public void run() {
 			    	  try {	
-			    		  getLblLoader().setIcon(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/loading.gif")));
+			    		  getPanneauDessinHero().getLblLoader().setIcon(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/loading.gif")));
 			    		  
 			    		  chargementHero();
-			    		  getLblLoader().setIcon(null);
+			    		  getPanneauDessinHero().setHero(hero);
+				    	
+			    		  tabHeroes.setTitleAt(0, hero.getName());
+			    		  
+			    		  getPanneauDessinHero().getLblLoader().setIcon(null);
 			    		  panelItemDetails.setCalculator(D3ArmoryControler.getInstance().getCalculator());
 			    		  lootFactoryPanel.init(getPanelItemDetails());
 			    		  
@@ -527,7 +468,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			      }
 			  }).start();
 	}
-	
 	public synchronized void chargementHero(){
 		 try {
 			 logger.debug("Chargement du hero " + hero);
@@ -553,10 +493,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			 logger.debug("No cache : Loading from Battle.Net");
 			 initHeroItems(false);
 			 D3ArmoryControler.getInstance().getRecorder().saveHero(hero);
-			 
-			
-			 
-			//D3ArmoryControler.getInstance().saveHero(hero);
 			getTableauDescriptionItems().setModel(new ItemsDetailModel());
 			getPanneauEHP().getTable().setModel(new EHPCalculatorModel(D3ArmoryControler.getInstance().getCalculator()));
 			
@@ -573,6 +509,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	public void loadFollowers() throws D3ServerCommunicationException
 	{
+		getLblstatbar().setValue(0);
+		
+		
 		FollowersList liste = hero.getFollowers();
 		
 		Follower templar = liste.getTemplar();
@@ -629,6 +568,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			
 		}
 	
+		getLblstatbar().setValue(4);
+		
 		Follower scoundrel = liste.getScoundrel();
 		if(scoundrel!=null)
 		{
@@ -699,6 +640,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			
 		}
 		
+		getLblstatbar().setValue(8);
 		
 		Follower echanteress = liste.getEnchantress();
 		if(echanteress!=null)
@@ -769,7 +711,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				getFollowersPanel().getLblEnchanteressSkill4().setSkillRune(r);
 			}
 		}
+		getLblstatbar().setValue(13);
+		
 		getFollowersPanel().repaint();
+		
+		getLblstatbar().setValue(0);
 		
 	}
 	
@@ -777,7 +723,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	{
 		int val=1;
 		
-		progressBar.setValue(val);
+		getLblstatbar().setValue(val);
 		logger.debug("Chargement des items cache = " + iscache);
 		
 		hero=D3ArmoryControler.getInstance().getHeroDetails(hero);
@@ -790,11 +736,10 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		else
 			head = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHead());
 	
-		lblHead.setItem(head,EnumerationStuff.HEAD);
+		getPanneauDessinHero().getLblHead().setItem(head,EnumerationStuff.HEAD);
 		hero.getItems().setHead(head);
-		lblSocketHead.setItem(head,0);
-	//	progressBar.setString(String.valueOf(head));
-		progressBar.setValue(val++);
+		getPanneauDessinHero().getLblSocketHead().setItem(head,0);
+		getLblstatbar().setValue(val++);
 				
 		Item foot;
 		if(iscache)
@@ -802,11 +747,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		else
 			foot= D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getFeet());
 		
-		lblFoot.setItem(foot,EnumerationStuff.FEET);
-		lblSocketBoot.setItem(foot,0);
+		getPanneauDessinHero().getLblFoot().setItem(foot,EnumerationStuff.FEET);
+		getPanneauDessinHero().getLblSocketBoot().setItem(foot,0);
 		hero.getItems().setFeet(foot);
-		//	progressBar.setString(String.valueOf(foot));
-		progressBar.setValue(val++);
+		//	getLblstatbar().setString(String.valueOf(foot));
+		getLblstatbar().setValue(val++);
 		
 		Item gants ;
 		if(iscache)
@@ -814,11 +759,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		else
 			gants= D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getHands());
 		
-		lblGants.setItem(gants,EnumerationStuff.GANT);
-		lblSocketGants.setItem(gants,0);
+		getPanneauDessinHero().getLblGants().setItem(gants,EnumerationStuff.GANT);
+		getPanneauDessinHero().getLblSocketGants().setItem(gants,0);
 		hero.getItems().setHands(gants);
-		//	progressBar.setString(String.valueOf(gants));
-		progressBar.setValue(val++);
+		//	getLblstatbar().setString(String.valueOf(gants));
+		getLblstatbar().setValue(val++);
 		
 		Item neck;
 		if(iscache)
@@ -826,11 +771,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		else
 			neck= D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getNeck());
 		
-		lblNeck.setItem(neck,EnumerationStuff.NECK);
-		lblSocketNeck.setItem(neck,0);
+		getPanneauDessinHero().getLblNeck().setItem(neck,EnumerationStuff.NECK);
+		getPanneauDessinHero().getLblSocketNeck().setItem(neck,0);
 		hero.getItems().setNeck(neck);
-	//	progressBar.setString(String.valueOf(neck));
-		progressBar.setValue(val++);
+	//	getLblstatbar().setString(String.valueOf(neck));
+		getLblstatbar().setValue(val++);
 		
 		
 		Item ringleft;
@@ -838,11 +783,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			ringleft=hero.getItems().getLeftFinger();
 		else
 			ringleft = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getLeftFinger());
-		lblRingLeft.setItem(ringleft,EnumerationStuff.RING_LEFT);
-		lblSocketLeftRing.setItem(ringleft,0);
+		getPanneauDessinHero().getLblRingLeft().setItem(ringleft,EnumerationStuff.RING_LEFT);
+		getPanneauDessinHero().getLblSocketLeftRing().setItem(ringleft,0);
 		hero.getItems().setLeftFinger(ringleft);
-	//	progressBar.setString(String.valueOf(ringleft));
-		progressBar.setValue(val++);
+	//	getLblstatbar().setString(String.valueOf(ringleft));
+		getLblstatbar().setValue(val++);
 		
 		
 		Item ringright;
@@ -850,11 +795,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			ringright=hero.getItems().getRightFinger();
 		else
 			ringright= D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getRightFinger());
-		lblRingRight.setItem(ringright,EnumerationStuff.RING_RIGHT);
-		lblSocketRightRing.setItem(ringright,0);
+		getPanneauDessinHero().getLblRingRight().setItem(ringright,EnumerationStuff.RING_RIGHT);
+		getPanneauDessinHero().getLblSocketRightRing().setItem(ringright,0);
 		hero.getItems().setRightFinger(ringright);
-	//	progressBar.setString(String.valueOf(ringright));
-		progressBar.setValue(val++);
+	//	getLblstatbar().setString(String.valueOf(ringright));
+		getLblstatbar().setValue(val++);
 		
 		Item mainHand;
 		if(iscache) //TODO WHY getType is null ???
@@ -862,8 +807,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		else	
 			mainHand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getMainHand());
 		
-	//	progressBar.setString(String.valueOf(mainHand));
-		progressBar.setValue(val++);
+	//	getLblstatbar().setString(String.valueOf(mainHand));
+		getLblstatbar().setValue(val++);
 		
 		Item offhand ;
 		if(iscache)
@@ -871,39 +816,39 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		else
 			offhand = D3ArmoryControler.getInstance().getInstance().getItemDetails(hero.getItems().getOffHand());
 		
-		lblMainHand.setItem(mainHand,EnumerationStuff.MAIN_HAND);
-		lblSocketMainHand.setItem(mainHand,0);
+		getPanneauDessinHero().getLblMainHand().setItem(mainHand,EnumerationStuff.MAIN_HAND);
+		getPanneauDessinHero().getLblSocketMainHand().setItem(mainHand,0);
 		
 		hero.getItems().setMainHand(mainHand);
 		hero.getItems().setOffHand(offhand);
 		
-	//	progressBar.setString(String.valueOf(offhand));
-		progressBar.setValue(val++);
+	//	getLblstatbar().setString(String.valueOf(offhand));
+		getLblstatbar().setValue(val++);
 		
-		lblOffHand.setDisabled(false);
+		getPanneauDessinHero().getLblOffHand().setDisabled(false);
 		if(mainHand!=null)
 		{
 			if(mainHand.nbSockets()==2)
-				lblSocketMainHand2.setItem(mainHand,1);
+				getPanneauDessinHero().getLblSocketMainHand2().setItem(mainHand,1);
 			else
-				lblSocketMainHand2.setItem(null,1);
+				getPanneauDessinHero().getLblSocketMainHand2().setItem(null,1);
 			
 			if(mainHand.getType().getTwoHanded() && hero.getItems().getOffHand()==null)
 			{
-				lblOffHand.setItem(hero.getItems().getMainHand(),EnumerationStuff.OFF_HAND);
-				lblOffHand.setDisabled(true);
+				getPanneauDessinHero().getLblOffHand().setItem(hero.getItems().getMainHand(),EnumerationStuff.OFF_HAND);
+				getPanneauDessinHero().getLblOffHand().setDisabled(true);
 			}
 			else
 			{	
-				lblOffHand.setItem(offhand,EnumerationStuff.OFF_HAND);
-				lblSocketOffHand.setItem(offhand,0);
+				getPanneauDessinHero().getLblOffHand().setItem(offhand,EnumerationStuff.OFF_HAND);
+				getPanneauDessinHero().getLblSocketOffHand().setItem(offhand,0);
 			}
 		}	
 		
 		if(offhand!=null)
 		{
-			lblOffHand.setItem(offhand,EnumerationStuff.OFF_HAND);
-			lblSocketOffHand.setItem(offhand,0);
+			getPanneauDessinHero().getLblOffHand().setItem(offhand,EnumerationStuff.OFF_HAND);
+			getPanneauDessinHero().getLblSocketOffHand().setItem(offhand,0);
 		}
 
 		Item torso;
@@ -911,49 +856,48 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			torso=hero.getItems().getTorso();
 		else
 			torso = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getTorso());
-		lblTorso.setItem(torso,EnumerationStuff.TORSO);
+		getPanneauDessinHero().getLblTorso().setItem(torso,EnumerationStuff.TORSO);
 		hero.getItems().setTorso(torso);
 		
 		if(torso!=null)
 		{
 			if(torso.nbSockets()==0)
 			{
-				lblSocketTorso1.setItem(torso,0);
-				lblSocketTorso2.setItem(torso,0);
-				lblSocketTorso3.setItem(torso,0);
+				getPanneauDessinHero().getLblSocketTorso1().setItem(torso,0);
+				getPanneauDessinHero().getLblSocketTorso2().setItem(torso,0);
+				getPanneauDessinHero().getLblSocketTorso3().setItem(torso,0);
 			}
 			
 			if(torso.nbSockets()==1)
 			{
-				lblSocketTorso1.setItem(torso,0);
-				lblSocketTorso2.setItem(null,0);
-				lblSocketTorso3.setItem(null,0);
+				getPanneauDessinHero().getLblSocketTorso1().setItem(torso,0);
+				getPanneauDessinHero().getLblSocketTorso2().setItem(null,0);
+				getPanneauDessinHero().getLblSocketTorso3().setItem(null,0);
 			}
 			
 			
 			if(torso.nbSockets()==2)
 			{
-				lblSocketTorso1.setItem(torso,0);
-				lblSocketTorso2.setItem(torso,1);
-				lblSocketTorso3.setItem(null,0);
+				getPanneauDessinHero().getLblSocketTorso1().setItem(torso,0);
+				getPanneauDessinHero().getLblSocketTorso2().setItem(torso,1);
+				getPanneauDessinHero().getLblSocketTorso3().setItem(null,0);
 			}
 			
 			if(torso.nbSockets()>2)
 			{
-				lblSocketTorso1.setItem(torso,0);
-				
-				lblSocketTorso2.setItem(torso,1);
-				lblSocketTorso3.setItem(torso,2);
+				getPanneauDessinHero().getLblSocketTorso1().setItem(torso,0);
+				getPanneauDessinHero().getLblSocketTorso2().setItem(torso,1);
+				getPanneauDessinHero().getLblSocketTorso3().setItem(torso,2);
 			}
 		}
 		else
 		{
-			lblSocketTorso1.setItem(null,0);
-			lblSocketTorso2.setItem(null,0);
-			lblSocketTorso3.setItem(null,0);
+			getPanneauDessinHero().getLblSocketTorso1().setItem(null,0);
+			getPanneauDessinHero().getLblSocketTorso2().setItem(null,0);
+			getPanneauDessinHero().getLblSocketTorso3().setItem(null,0);
 		}
-	//	progressBar.setString(String.valueOf(torso));
-		progressBar.setValue(val++);
+	//	getLblstatbar().setString(String.valueOf(torso));
+		getLblstatbar().setValue(val++);
 		
 		
 		Item legs ;
@@ -961,46 +905,46 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			legs=hero.getItems().getLegs();
 		else
 			legs = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getLegs());
-		lblLegs.setItem(legs,EnumerationStuff.LEGS);
+		getPanneauDessinHero().getLblLegs().setItem(legs,EnumerationStuff.LEGS);
 		hero.getItems().setLegs(legs);
 		
 		if(legs!=null)
 		{
 			if(legs.nbSockets()==0)
 			{
-				lblSocketLegs1.setItem(legs,0);
-				lblSocketLegs2.setItem(legs,0);
+				getPanneauDessinHero().getLblSocketLegs1().setItem(legs,0);
+				getPanneauDessinHero().getLblSocketLegs2().setItem(legs,0);
 			}
 			if(legs.nbSockets()==1)
 			{
-				lblSocketLegs1.setItem(legs,0);
-				lblSocketLegs2.setItem(null,0);
+				getPanneauDessinHero().getLblSocketLegs1().setItem(legs,0);
+				getPanneauDessinHero().getLblSocketLegs2().setItem(null,0);
 			}
 			
 			if(legs.nbSockets()==2)
 			{
-				lblSocketLegs1.setItem(legs,0);
-				lblSocketLegs2.setItem(legs,1);
+				getPanneauDessinHero().getLblSocketLegs1().setItem(legs,0);
+				getPanneauDessinHero().getLblSocketLegs2().setItem(legs,1);
 			}
 		}
 		else
 		{
-			lblSocketLegs1.setItem(null,0);
-			lblSocketLegs2.setItem(null,0);
+			getPanneauDessinHero().getLblSocketLegs1().setItem(null,0);
+			getPanneauDessinHero().getLblSocketLegs2().setItem(null,0);
 		}
 		
-	//	progressBar.setString(String.valueOf(legs));
-		progressBar.setValue(val++);
+	//	getLblstatbar().setString(String.valueOf(legs));
+		getLblstatbar().setValue(val++);
 		
 		Item shoulders;
 		if(iscache)
 			shoulders = hero.getItems().getShoulders();
 		else
 			shoulders= D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getShoulders());
-		lblShoulders.setItem(shoulders,EnumerationStuff.SHOULDERS);
+		getPanneauDessinHero().getLblShoulders().setItem(shoulders,EnumerationStuff.SHOULDERS);
 		hero.getItems().setShoulders(shoulders);
-	//	progressBar.setString(String.valueOf(shoulders));
-		progressBar.setValue(val++);
+	//	getLblstatbar().setString(String.valueOf(shoulders));
+		getLblstatbar().setValue(val++);
 		
 		
 		Item bracers ;
@@ -1008,20 +952,20 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			bracers = hero.getItems().getBracers();
 		else
 			bracers = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getBracers());
-		lblBracers.setItem(bracers,EnumerationStuff.BRACER);
+		getPanneauDessinHero().getLblBracers().setItem(bracers,EnumerationStuff.BRACER);
 		hero.getItems().setBracers(bracers);
-	//	progressBar.setString(String.valueOf(bracers));
-		progressBar.setValue(val++);
+	//	getLblstatbar().setString(String.valueOf(bracers));
+		getLblstatbar().setValue(val++);
 		
 		Item belt;
 		if(iscache)
 			belt = hero.getItems().getWaist();
 		else
 			belt = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getWaist());
-		lblbelt.setItem(belt,EnumerationStuff.BELT);
+		getPanneauDessinHero().getLblbelt().setItem(belt,EnumerationStuff.BELT);
 		hero.getItems().setWaist(belt);
-	//	progressBar.setString(String.valueOf(belt));
-		progressBar.setValue(val++);
+	//	getLblstatbar().setString(String.valueOf(belt));
+		getLblstatbar().setValue(val++);
 		
 		stuffs = new HashMap<EnumerationStuff, Item>();
 		  stuffs.put(EnumerationStuff.HEAD, head);
@@ -1046,29 +990,29 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		((TableauExpertModel)getTableauExpert().getModel()).fireTableDataChanged();
 		
 		if(hero.isHardcore())
-			lblHarcore.setText("Hardcore");
+			getPanneauDessinHero().getLblHarcore().setText("Hardcore");
 		else
-			lblHarcore.setText("");
+			getPanneauDessinHero().getLblHarcore().setText("");
 		
 		
-		getLblLife().setText(formatRessourceVisibleValue(hero.getStats().getLife()));
+		getPanneauDessinHero().getLblLife().setText(formatRessourceVisibleValue(hero.getStats().getLife()));
 		
 		if(hero.getClazz().equals("demon-hunter"))
-			getLblRessources().setText("<html>"+hero.getStats().getPrimaryResource()+"<br/>"+hero.getStats().getSecondaryResource()+"<html>");
+			getPanneauDessinHero().getLblRessources().setText("<html>"+hero.getStats().getPrimaryResource()+"<br/>"+hero.getStats().getSecondaryResource()+"<html>");
 		else
-			getLblRessources().setText(""+hero.getStats().getPrimaryResource());
+			getPanneauDessinHero().getLblRessources().setText(""+hero.getStats().getPrimaryResource());
 		
 		String cachedMsg;
 		if(iscache)
 			cachedMsg="(cached)";
 		else
 			cachedMsg="";
-		getLblLastUpdate().setText(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(hero.getLastUpdatedDate())  + " " + cachedMsg);
+		getPanneauDessinHero().getLblLastUpdate().setText(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(hero.getLastUpdatedDate())  + " " + cachedMsg);
 		
 		initHeroInfoPanel();
-		panneauDessinHero.repaint();
+		getPanneauDessinHero().repaint();
 		
-		progressBar.setValue(0);
+		getLblstatbar().setValue(0);
 		
 		logger.debug("Fin de chargement des items");
 	}
@@ -1077,12 +1021,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private void initHeroInfoPanel()
 	{
 		logger.debug("Init panel");
-		lblNom.setText(hero.getName());
 		getPanneauInfoHero().removeAll();
-		lblInformationClasseNiveau.setText(hero.getClazz() +" Level : " + hero.getLevel());
-		lblParangonLevel.setText("("+hero.getParagonLevel()+")");
-		lblParangonLevel.setBounds(749, 20, 51, 16);
-		lblParangonLevel.setForeground(new Color(165,145,194));
+		
 		
 		FormatedJLabel lbl1 = new FormatedJLabel();
 		lbl1.addText(getDetailHero(0), "white","#BDA6CD");
@@ -1119,39 +1059,39 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		lbl6.applyText();
 		getPanneauInfoHero().add(lbl6);
 	
-		getLblSkill1().setSkillRune(hero.getSkills().getActive().get(0));
-		getLblSkill2().setSkillRune(hero.getSkills().getActive().get(1));
+		getPanneauDessinHero().getLblSkill1().setSkillRune(hero.getSkills().getActive().get(0));
+		getPanneauDessinHero().getLblSkill2().setSkillRune(hero.getSkills().getActive().get(1));
 				
-		getLblSkill3().setSkillRune(hero.getSkills().getActive().get(2));
-		getLblSkill4().setSkillRune(hero.getSkills().getActive().get(3));
-		getLblSkill5().setSkillRune(hero.getSkills().getActive().get(4));
-		getLblSkill6().setSkillRune(hero.getSkills().getActive().get(5));
+		getPanneauDessinHero().getLblSkill3().setSkillRune(hero.getSkills().getActive().get(2));
+		getPanneauDessinHero().getLblSkill4().setSkillRune(hero.getSkills().getActive().get(3));
+		getPanneauDessinHero().getLblSkill5().setSkillRune(hero.getSkills().getActive().get(4));
+		getPanneauDessinHero().getLblSkill6().setSkillRune(hero.getSkills().getActive().get(5));
 		
 		int nbpassif =hero.getSkills().getPassive().size();
 		
 		if(hero.getSkills().getPassive().get(0)!=null)
 		{
-			getLblSkill7().setSkillRune(hero.getSkills().getPassive().get(0));
-			getLblSkill7().initRightClick(0);
+			getPanneauDessinHero().getLblSkill7().setSkillRune(hero.getSkills().getPassive().get(0));
+			getPanneauDessinHero().getLblSkill7().initRightClick(0);
 		}
 		
 		if(hero.getSkills().getPassive().get(1)!=null)
 		{
-			getLblSkill8().setSkillRune(hero.getSkills().getPassive().get(1));
-			getLblSkill8().initRightClick(1);
+			getPanneauDessinHero().getLblSkill8().setSkillRune(hero.getSkills().getPassive().get(1));
+			getPanneauDessinHero().getLblSkill8().initRightClick(1);
 		}
 		
 		if(hero.getSkills().getPassive().get(2)!=null)
 		{
-			getLblSkill9().setSkillRune(hero.getSkills().getPassive().get(2));
-			getLblSkill9().initRightClick(2);
+			getPanneauDessinHero().getLblSkill9().setSkillRune(hero.getSkills().getPassive().get(2));
+			getPanneauDessinHero().getLblSkill9().initRightClick(2);
 		}
 		
 		if(nbpassif>3)
 			if(hero.getSkills().getPassive().get(3)!=null)
 			{
-				getLblSkill10().setSkillRune(hero.getSkills().getPassive().get(3));
-				getLblSkill10().initRightClick(3);
+				getPanneauDessinHero().getLblSkill10().setSkillRune(hero.getSkills().getPassive().get(3));
+				getPanneauDessinHero().getLblSkill10().initRightClick(3);
 			}
 		logger.debug("Fin d'initialisation du panel");
 	}
@@ -1248,339 +1188,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		return temp.toString();
 	}
 
-	private JLabel getLblLoader()
-	{
-		if(lblLoader==null){
-			lblLoader = new JLabel();
-			lblLoader.setBounds(0, 0, 128, 128);
-		}
-		return lblLoader;
-	}
 	
-	
-	private SkillLabel getLblSkill1()
-	{
-		if(labSkilL1==null){
-			labSkilL1 = new SkillLabel(false);
-			labSkilL1.setBounds(42, 395, 64, 64);
-		}
-		return labSkilL1;
-	}
-	private SkillLabel getLblSkill2()
-	{
-		if(labSkilL2==null){
-			labSkilL2 = new SkillLabel(false);
-			labSkilL2.setBounds(108, 395, 64, 64);
-		}
-		return labSkilL2;
-	}
-	private SkillLabel getLblSkill3()
-	{
-		if(labSkilL3==null){
-			labSkilL3 = new SkillLabel(false);
-			labSkilL3.setBounds(42, 462, 64, 64);
-		}
-		return labSkilL3;
-	}
-	private SkillLabel getLblSkill4()
-	{
-		if(labSkilL4==null){
-			labSkilL4 = new SkillLabel(false);
-			labSkilL4.setBounds(108, 462, 64, 64);
-		}
-		return labSkilL4;
-	}
-	private SkillLabel getLblSkill5()
-	{
-		if(labSkilL5==null){
-			labSkilL5 = new SkillLabel(false);
-			labSkilL5.setBounds(174, 462, 64, 64);
-		}
-		return labSkilL5;
-	}
-	private SkillLabel getLblSkill6()
-	{
-		if(labSkilL6==null){
-			labSkilL6 = new SkillLabel(false);
-			labSkilL6.setBounds(240, 462, 64, 64);
-		}
-		return labSkilL6;
-	}
-	private SkillLabel getLblSkill7()
-	{
-		if(labSkilL7==null){
-			labSkilL7 = new SkillLabel(true);
-			labSkilL7.setBounds(42, 528, 64, 64);
-		}
-		return labSkilL7;
-	}
-	private SkillLabel getLblSkill8()
-	{
-		if(labSkilL8==null){
-			labSkilL8 = new SkillLabel(true);
-			labSkilL8.setBounds(108, 528, 64, 64);
-		}
-		return labSkilL8;
-	}
-	private SkillLabel getLblSkill9()
-	{
-		if(labSkilL9==null){
-			labSkilL9 = new SkillLabel(true);
-			labSkilL9.setBounds(174, 528, 64, 64);
-		}
-		return labSkilL9;
-	}
-	private SkillLabel getLblSkill10()
-	{
-		if(labSkilL10==null){
-			labSkilL10 = new SkillLabel(true);
-			labSkilL10.setBounds(240, 528, 64, 64);
-		}
-		return labSkilL10;
-	}
-	
-	
-	private ItemLabel getLblShoulders() {
-		if(lblShoulders == null) {
-			lblShoulders = new ItemLabel();
-			lblShoulders.setBounds(502, 179, 75, 89);
-		}
-		return lblShoulders;
-	}
-	
-	private ItemLabel getLblGants() {
-		if(lblGants == null) {
-			lblGants = new ItemLabel();
-			lblGants.setBounds(490, 274, 61, 98);
-			lblGants.add(getLblSocketGants());
-		}
-		return lblGants;
-	}
-	
-	private ItemLabel getLblNeck() {
-		if(lblNeck == null) {
-			lblNeck = new ItemLabel();
-			lblNeck.setBounds(679, 206, 56, 50);
-			lblNeck.add(getLblSocketNeck());
-		}
-		return lblNeck;
-	}
-	
-	private ItemLabel getLblBracers() {
-		if(lblBracers == null) {
-			lblBracers = new ItemLabel();
-			lblBracers.setBounds(702, 282, 66, 90);
-		}
-		return lblBracers;
-	}
-	
-	private ItemLabel getLblTorso() {
-		if(lblTorso == null) {
-			lblTorso = new ItemLabel();
-			lblTorso.setBounds(589, 229, 78, 113);
-			lblTorso.add(getLblSocketTorso1());
-			lblTorso.add(getLblSocketTorso2());
-			lblTorso.add(getLblSocketTorso3());
-		}
-		return lblTorso;
-	}
-	
-	private ItemLabel getLblRingRight() {
-		if(lblRingRight == null) {
-			lblRingRight = new ItemLabel();
-			lblRingRight.setBounds(502, 385, 37, 37);
-			lblRingRight.add(getLblSocketRightRing());
-		}
-		return lblRingRight;
-	}
-	
-	private ItemLabel getLblRingLeft() {
-		if(lblRingLeft == null) {
-			lblRingLeft = new ItemLabel();
-			lblRingLeft.setBounds(719, 381, 38, 41);
-			lblRingLeft.add(getLblSocketLeftRing());
-		}
-		return lblRingLeft;
-	}
-	
-	private ItemLabel getLblbelt() {
-		if(lblbelt == null) {
-			lblbelt = new ItemLabel();
-			lblbelt.setBounds(589, 347, 78, 32);
-		}
-		return lblbelt;
-	}
-	
-	private ItemLabel getLblLegs() {
-		if(lblLegs == null) {
-			lblLegs = new ItemLabel();
-			lblLegs.setBounds(589, 391, 78, 84);
-			lblLegs.add(getLblSocketLegs1());
-			lblLegs.add(getLblSocketLegs2());
-		}
-		return lblLegs;
-	}
-	
-	private ItemLabel getLblFoot() {
-		if(lblFoot == null) {
-			lblFoot = new ItemLabel();
-			lblFoot.setBounds(589, 481, 78, 89);
-			lblFoot.add(getLblSocketBoot());
-		}
-		return lblFoot;
-	}
-	
-	private ItemLabel getLblMainHand() {
-		if(lblMainHand == null) {
-			lblMainHand = new ItemLabel();
-			lblMainHand.setBounds(490, 434, 67, 136);
-			lblMainHand.add(getLblSocketMainHand());
-			lblMainHand.add(getLblSocketMainHand2());
-		}
-		return lblMainHand;
-	}
-	
-	private ItemLabel getLblOffHand() {
-		if(lblOffHand == null) {
-			lblOffHand = new ItemLabel();
-			lblOffHand.setBounds(702, 434, 73, 133);
-			lblOffHand.add(getLblSocketOffHand());
-		}
-		return lblOffHand;
-	}
-	
-	private ItemLabel getLblHead() {
-		if(lblHead == null) {
-			lblHead = new ItemLabel();
-			lblHead.setBounds(594, 148, 67, 77);
-			lblHead.add(getLblSocketHead());
-		}
-		return lblHead;
-	}
-	
-	private ItemLabel getLblHarcore() {
-		if(lblHarcore == null) {
-			lblHarcore = new ItemLabel();
-			lblHarcore.setText("");
-			lblHarcore.setBounds(539, 42, 180, 18);
-			lblHarcore.setName("lblHarcore");
-		}
-		return lblHarcore;
-	}
-	
-	private SocketLabel getLblSocketHead() {
-		if(lblSocketHead == null) {
-			lblSocketHead = new SocketLabel();
-			lblSocketHead.setBounds(0, 0, getLblHead().getWidth(), getLblHead().getHeight());
-			lblSocketHead.setName("lblSocketHead");
-		}
-		return lblSocketHead;
-	}
-	
-	private SocketLabel getLblSocketBoot() {
-		if(lblSocketBoot == null) {
-			lblSocketBoot = new SocketLabel();
-			lblSocketBoot.setBounds(0, 0, getLblFoot().getWidth(), getLblFoot().getHeight());
-			lblSocketBoot.setName("lblSocketBoot");
-		}
-		return lblSocketBoot;
-	}
-	
-	private SocketLabel getLblSocketGants() {
-		if(lblSocketGants == null) {
-			lblSocketGants = new SocketLabel();
-			lblSocketGants.setBounds(0, 0, getLblGants().getWidth(), getLblGants().getHeight());
-		}
-		return lblSocketGants;
-	}
-	
-	private SocketLabel getLblSocketNeck() {
-		if(lblSocketNeck == null) {
-			lblSocketNeck = new SocketLabel();
-			lblSocketNeck.setBounds(0, 0,  getLblNeck().getWidth(), getLblNeck().getHeight());
-		}
-		return lblSocketNeck;
-	}
-	
-	private SocketLabel getLblSocketLeftRing() {
-		if(lblSocketLeftRing == null) {
-			lblSocketLeftRing = new SocketLabel();
-			lblSocketLeftRing.setBounds(0, 0,  getLblRingLeft().getWidth(), getLblRingLeft().getHeight());
-		}
-		return lblSocketLeftRing;
-	}
-	
-	private SocketLabel getLblSocketRightRing() {
-		if(lblSocketRightRing == null) {
-			lblSocketRightRing = new SocketLabel();
-			lblSocketRightRing.setBounds(0,0,  getLblRingRight().getWidth(), getLblRingRight().getHeight());
-		}
-		return lblSocketRightRing;
-	}
-	
-	private SocketLabel getLblSocketMainHand() {
-		if(lblSocketMainHand == null) {
-			lblSocketMainHand = new SocketLabel();
-			lblSocketMainHand.setBounds(0, 40, getLblMainHand().getWidth(), 38);
-		}
-		return lblSocketMainHand;
-	}
-	
-	private SocketLabel getLblSocketMainHand2() {
-		if(lblSocketMainHand2 == null) {
-			lblSocketMainHand2 = new SocketLabel();
-			lblSocketMainHand2.setBounds(0, 80, getLblMainHand().getWidth(), 38);
-		}
-		return lblSocketMainHand2;
-	}
-	private SocketLabel getLblSocketOffHand() {
-		if(lblSocketOffHand == null) {
-			lblSocketOffHand = new SocketLabel();
-			lblSocketOffHand.setBounds(0, 0, getLblOffHand().getWidth(), getLblOffHand().getHeight());
-		}
-		return lblSocketOffHand;
-	}
-	
-	private SocketLabel getLblSocketTorso1() {
-		if(lblSocketTorso1 == null) {
-			lblSocketTorso1 = new SocketLabel();
-			lblSocketTorso1.setBounds(0, 0, getLblTorso().getWidth(), 38);
-		}
-		return lblSocketTorso1;
-	}
-	
-	private SocketLabel getLblSocketTorso2() {
-		if(lblSocketTorso2 == null) {
-			lblSocketTorso2 = new SocketLabel();
-			lblSocketTorso2.setBounds(0, 37, getLblTorso().getWidth(), 38);
-		}
-		return lblSocketTorso2;
-	}
-	
-	private SocketLabel getLblSocketTorso3() {
-		if(lblSocketTorso3 == null) {
-			lblSocketTorso3 = new SocketLabel();
-			lblSocketTorso3.setBounds(0, 74, getLblTorso().getWidth(), 38);
-		}
-		return lblSocketTorso3;
-	}
-	
-	private SocketLabel getLblSocketLegs1() {
-		if(lblSocketLegs1 == null) {
-			lblSocketLegs1 = new SocketLabel();
-			lblSocketLegs1.setBounds(0, 10, getLblLegs().getWidth(), 35);
-
-		}
-		return lblSocketLegs1;
-	}
-	
-	private SocketLabel getLblSocketLegs2() {
-		if(lblSocketLegs2 == null) {
-			lblSocketLegs2 = new SocketLabel();
-			lblSocketLegs2.setBounds(0, 45, getLblLegs().getWidth(), 28);
-		}
-		return lblSocketLegs2;
-	}
 	
 	private void newFileMenuItemActionPerformed(ActionEvent evt) {
 		TagsManagerFrame f = new TagsManagerFrame(getListeTagTree());
@@ -1674,75 +1282,12 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JSplitPane getSplitPanneauTableauHero() {
 		if(splitPanneauTableauHero == null) {
 			splitPanneauTableauHero = new JSplitPane();
-			{
-				panneauDessinHero = new HeroPanel();
-				splitPanneauTableauHero.setOrientation(JSplitPane.VERTICAL_SPLIT);
-				splitPanneauTableauHero.add(panneauDessinHero, JSplitPane.TOP);
-				splitPanneauTableauHero.add(getOngletPane(), JSplitPane.BOTTOM);
+			
+			splitPanneauTableauHero.setOrientation(JSplitPane.VERTICAL_SPLIT);
+			splitPanneauTableauHero.add(getPanneauDessinHero(), JSplitPane.TOP);
+			splitPanneauTableauHero.add(getOngletPane(), JSplitPane.BOTTOM);
 
-				panneauDessinHero.setLayout(null);
-				panneauDessinHero.setName("panneauDessinHero");
-				panneauDessinHero.setPreferredSize(new java.awt.Dimension(1000, 645));
-				panneauDessinHero.add(getLblHead());
-				panneauDessinHero.add(getLblShoulders());
-				panneauDessinHero.add(getLblNeck());
-				panneauDessinHero.add(getLblGants());
-				panneauDessinHero.add(getLblTorso());
-				panneauDessinHero.add(getLblBracers());
-				panneauDessinHero.add(getLblbelt());
-				panneauDessinHero.add(getLblLegs());
-				panneauDessinHero.add(getLblFoot());
-				panneauDessinHero.add(getLblRingLeft());
-				panneauDessinHero.add(getLblRingRight());
-				panneauDessinHero.add(getLblMainHand());
-				panneauDessinHero.add(getLblOffHand());
-				//click
-				panneauDessinHero.add(getLblSkill1());
-				panneauDessinHero.add(getLblSkill2());
 				
-				//actif
-				panneauDessinHero.add(getLblSkill3());
-				panneauDessinHero.add(getLblSkill4());
-				panneauDessinHero.add(getLblSkill5());
-				panneauDessinHero.add(getLblSkill6());
-				
-				
-				//passif
-				panneauDessinHero.add(getLblSkill7());
-				panneauDessinHero.add(getLblSkill8());
-				panneauDessinHero.add(getLblSkill9());
-				panneauDessinHero.add(getLblSkill10());
-				
-				
-				panneauDessinHero.add(getLblLoader());
-				{
-					lblNom = new ItemLabel();
-					lblNom.setForeground(new Color(255, 255, 255));
-					Font ft = new Font("Palatino Linotype",Font.BOLD,36);
-					lblNom.setFont(ft);
-					
-					panneauDessinHero.add(lblNom);
-					lblNom.setBounds(466, 80, 314, 43);
-					lblNom.setHorizontalAlignment(JLabel.CENTER);
-				}
-				{
-					lblInformationClasseNiveau = new ItemLabel();
-					panneauDessinHero.add(lblInformationClasseNiveau);
-					lblInformationClasseNiveau.setBounds(521, 20, 222, 16);
-					lblInformationClasseNiveau.setName("lblInformationClasseNiveau");
-					lblInformationClasseNiveau.setHorizontalAlignment(JLabel.HORIZONTAL);
-				}
-				{
-					lblParangonLevel = new ItemLabel();
-					panneauDessinHero.add(lblParangonLevel);
-					panneauDessinHero.add(getLblHarcore());
-					panneauDessinHero.add(getLblLastUpdate());
-					panneauDessinHero.add(getLblLife());
-					panneauDessinHero.add(getLblRessources());
-					lblParangonLevel.setBounds(692, 20, 51, 16);
-				}
-				
-			}
 		}
 		return splitPanneauTableauHero;
 	}
@@ -1839,17 +1384,25 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					
 					JTabbedPane sourceTabbedPane = (JTabbedPane) e.getSource();
 					
-					
 					int index=sourceTabbedPane.getSelectedIndex();
 					if(index==5)
-					{		progressBar.setString("Loading Followers");
-						try {
-							loadFollowers();
-						} catch (D3ServerCommunicationException e1) {
-							logger.error(e1);
-						}
-						progressBar.setString("");
-						progressBar.setValue(0);
+					{		
+						
+							new Thread(new Runnable() {
+								
+								@Override
+								public void run() {
+									try {
+									loadFollowers();
+									} catch (D3ServerCommunicationException e1) {
+										logger.error(e1);
+									}
+								
+									
+									
+								}
+							}).start();
+							
 						
 					}	
 					
@@ -2012,55 +1565,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		SwingUtilities.updateComponentTreeUI(this);
 	}
 	
-	private JLabel getLblLastUpdate() {
-		if(lblLastUpdate == null) {
-			lblLastUpdate = new JLabel();
-			lblLastUpdate.setBounds(757, 583, 183, 16);
-			lblLastUpdate.setForeground(Color.GREEN);
-		}
-		return lblLastUpdate;
-	}
+
 	
-	private JLabel getLblLife() {
-		if(lblLife == null) {
-			lblLife = new JLabel() {
-
-				public void paint(Graphics g) {
-					Image bg = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/ressource_life.png")).getImage();
-					if(hero!=null)
-						g.drawImage(bg,0,0,null);
-					super.paintComponent(g);
-				}
-				
-				
-			};
-			lblLife.setForeground(Color.WHITE);
-			lblLife.setHorizontalAlignment(JLabel.CENTER);
-			lblLife.setBounds(320, 540, 50, 50);
-
-		}
-		return lblLife;
-	}
 	
-	private JLabel getLblRessources() {
-		if(lblRessources == null) {
-			lblRessources = new JLabel(){
-
-				public void paint(Graphics g) {
-					if(hero!=null)
-					{
-						Image bg = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/ressource_"+hero.getClazz()+".png")).getImage();
-						g.drawImage(bg,0,0,null);
-					}
-					super.paintComponent(g);
-				}
-			};
-			lblRessources.setBounds(391, 540, 50, 50);
-			lblRessources.setHorizontalAlignment(JLabel.CENTER);
-			lblRessources.setForeground(Color.WHITE);
-		}
-		return lblRessources;
-	}
 	
 	private FollowersPanel getFollowersPanel() {
 		if(panelFollowers == null) {
