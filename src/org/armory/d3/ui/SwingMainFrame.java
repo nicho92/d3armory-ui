@@ -220,8 +220,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.setTitle("Diablo III -ROS- Manager ");
 			this.setIconImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/icone.jpg")).getImage());
-		//	setExtendedState(MAXIMIZED_BOTH);
-			setPreferredSize(new Dimension(1024,768));
+			setExtendedState(MAXIMIZED_BOTH);
 			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
 			
 			UIManager.put("Table.alternateRowColor", Color.decode("#E1E4F2"));
