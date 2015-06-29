@@ -11,7 +11,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.services.D3ObjectRecorder;
 
 import com.google.gson.Gson;

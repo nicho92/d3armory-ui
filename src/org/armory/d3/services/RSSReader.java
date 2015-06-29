@@ -41,7 +41,7 @@ public class RSSReader {
             } //for
             return temp.toString();
         } catch (Exception ex) {
-        	System.out.println(ex);
+        	ex.printStackTrace();
         	return null;
         } 
 		

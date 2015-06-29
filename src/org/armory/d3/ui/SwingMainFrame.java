@@ -45,6 +45,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -97,21 +98,26 @@ import com.pihen.d3restapi.service.util.StuffCalculator;
 @SuppressWarnings("serial")
 public class SwingMainFrame extends javax.swing.JFrame {
 
+	
+	private JMenuBar mnuBar;
+
 	private JMenu jmiItemCreator;
-	private JMenu jMenu3;
+	private JMenu jmnuFile;
+	private JMenu jmnuLook;
+	private JMenu aboutMenu;
+	private JMenu jmnuUpdate;
 	
-	private JMenuBar jMenuBar1;
 	
+	private JMenuItem clearCacheMenuItem;
 	private JMenuItem helpMenuItem;
 	private JMenuItem exitMenuItem;
-	private JMenuItem mnuSaveBuild;
+	private JMenuItem saveBuildMenuItem;
 	private JMenuItem newFileMenuItem;
-	private JMenuItem jmiLocal;
-
-	private JSeparator jSeparator2;
-
+	private JMenuItem changeLocalMenuItem;
+	private JMenuItem reportBugMenuItem;
+	private JMenuItem dlUpdateAppMenuItem ;
 	
-	private JMenu jMenu5;
+	
 	
 	private JList<Hero> listeHeros;
 	private JProgressBar progressBar;
@@ -130,7 +136,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JScrollPane panneauTableauDescription;
 	
 	
-	private JSplitPane jSplitPane1;
+	private JSplitPane tagHerosSplitPane;
 	private JSplitPane splitTagsHeroes;
 	private JSplitPane splitPanneauTableauHero;
 	private JSplitPane splitPanneauFicheHero;
@@ -145,7 +151,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private EHPPanel ehpPanel;
 	private FollowersPanel panelFollowers;
 	private SeasonPanel seasonPanel;
-	
 	private JPanel lootPanel;
 	
 	private JTable tableauDescriptionItems;
@@ -154,13 +159,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 
 	private ListeTagTree tagsTree;
 	
-	
 	private LootXlsTableModel mod ;
 	private ListeHeroModel listeHerosModel;
 	private TableauExpertModel tableaudetailModel;
-
-	TrayIcon trayIcon = new TrayIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/org/armory/d3/ui/resources/tab/herocomp.png")));
-	final SystemTray tray = SystemTray.getSystemTray();
 
 	private String msgUpdate="";
 	private DefaultRowSorter sorter;
@@ -169,6 +170,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	static SwingMainFrame inst ;
 	static final Logger logger = LogManager.getLogger(SwingMainFrame.class.getName());
 	
+	TrayIcon trayIcon = new TrayIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/org/armory/d3/ui/resources/tab/herocomp.png")));
+	final SystemTray tray = SystemTray.getSystemTray();
+
 	
 	private Hero hero;
 	
@@ -194,7 +198,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			public void run() {
 				inst = new SwingMainFrame();
 				inst.setLookAndFeel(D3ArmoryControler.getInstance().getProperty("look", UIManager.getSystemLookAndFeelClassName()));
-						
 				inst.setLocationRelativeTo(null);
 				inst.setVisible(true);
 				inst.toFront();
@@ -212,52 +215,53 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	
 	private void initGUI() {
 		
-		
-		
 		try {
 			logger.debug("Lancement de l'application");
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.setTitle("Diablo III -ROS- Manager ");
 			this.setIconImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/icone.jpg")).getImage());
-			setExtendedState(MAXIMIZED_BOTH);
+		//	setExtendedState(MAXIMIZED_BOTH);
+			setPreferredSize(new Dimension(1024,768));
+			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
 			
 			UIManager.put("Table.alternateRowColor", Color.decode("#E1E4F2"));
 			BorderLayout thisLayout = new BorderLayout();
 			getContentPane().setLayout(thisLayout);
-			{
+			
 				
-				jSplitPane1 = new JSplitPane();
-				getContentPane().add(jSplitPane1, BorderLayout.CENTER);
-				getContentPane().add(getProgressBar(), BorderLayout.SOUTH);
-				{
-					splitPanneauFicheHero = new JSplitPane();
-					jSplitPane1.add(getSplitTagsHeroes(), JSplitPane.LEFT);
-					jSplitPane1.add(getSplitPanneauFicheHero(), JSplitPane.RIGHT);
-					{
-						scrollFicheHeros = new JScrollPane();
-						splitPanneauFicheHero.add(scrollFicheHeros, JSplitPane.RIGHT);
-						
-						tabHeroes = new JTabbedPane();
-						
-						
-						tabHeroes.addTab("",getSplitPanneauTableauHero());
-						
-						splitPanneauFicheHero.add(tabHeroes, JSplitPane.LEFT);
-						scrollFicheHeros.setViewportView(getPanelItemDetails());
-					}
-				}
-			}
+			tagHerosSplitPane = new JSplitPane();
+			getContentPane().add(tagHerosSplitPane, BorderLayout.CENTER);
+			getContentPane().add(getProgressBar(), BorderLayout.SOUTH);
+				
+			splitPanneauFicheHero = new JSplitPane();
+			tagHerosSplitPane.add(getSplitTagsHeroes(), JSplitPane.LEFT);
+			tagHerosSplitPane.add(getSplitPanneauFicheHero(), JSplitPane.RIGHT);
+					
+			scrollFicheHeros = new JScrollPane();
+			splitPanneauFicheHero.add(scrollFicheHeros, JSplitPane.RIGHT);
+
+			tabHeroes = new JTabbedPane();
+				
+			tabHeroes.addTab("",getSplitPanneauTableauHero());
+			tabHeroes.addTab("",new JPanel());
+			
+			
+			splitPanneauFicheHero.add(tabHeroes, JSplitPane.LEFT);
+			scrollFicheHeros.setViewportView(getPanelItemDetails());
+					
+				
+			
 			
 			{
-				jMenuBar1 = new JMenuBar();
-				setJMenuBar(jMenuBar1);
+				mnuBar = new JMenuBar();
+				setJMenuBar(mnuBar);
 				{
-					jMenu3 = new JMenu();
-					jMenuBar1.add(jMenu3);
-					jMenu3.setText("File");
+					jmnuFile = new JMenu();
+					mnuBar.add(jmnuFile);
+					jmnuFile.setText("File");
 					{
 						newFileMenuItem = new JMenuItem();
-						jMenu3.add(newFileMenuItem);
+						jmnuFile.add(newFileMenuItem);
 						newFileMenuItem.setText("Tags");
 						newFileMenuItem.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
@@ -265,17 +269,17 @@ public class SwingMainFrame extends javax.swing.JFrame {
 							}
 						});
 						
-						jmiLocal = new JMenuItem();
-						jMenu3.add(jmiLocal);
-						jmiLocal.setText("Local");
-						jmiLocal.addActionListener(new ActionListener() {
+						changeLocalMenuItem = new JMenuItem();
+						jmnuFile.add(changeLocalMenuItem);
+						changeLocalMenuItem.setText("Local");
+						changeLocalMenuItem.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								newLocalActionPerformed(evt);
 							}
 						});
 						
 						jmiItemCreator=new JMenu("Item Creator");
-						jMenu3.add(jmiItemCreator);
+						jmnuFile.add(jmiItemCreator);
 						for(final EnumerationStuff e : EnumerationStuff.values())
 						{
 							JMenuItem it = new JMenuItem(e.toString());
@@ -290,13 +294,12 @@ public class SwingMainFrame extends javax.swing.JFrame {
 							jmiItemCreator.add(it);
 
 						}
-						mnuSaveBuild=new JMenuItem("Save Build");
-						mnuSaveBuild.setEnabled(false);
+						saveBuildMenuItem=new JMenuItem("Save Build");
+						saveBuildMenuItem.setEnabled(false);
 						
-						mnuSaveBuild.addActionListener(new ActionListener() {
+						saveBuildMenuItem.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
-								JOptionPane pane = new JOptionPane();
-								String name = pane.showInputDialog("Build name ?");
+								String name = JOptionPane.showInputDialog("Build name ?");
 								HeroSkillContainer hsc = D3ArmoryControler.getInstance().getSelectedHero(false).getSkills();
 								hsc.setNameBuild(name);
 								hsc.setClassBuild(D3ArmoryControler.getInstance().getSelectedHero(false).getClazz());
@@ -305,15 +308,15 @@ public class SwingMainFrame extends javax.swing.JFrame {
 								} catch (Exception e) {
 									JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
 								}
-								mnuSaveBuild.setEnabled(false);
+								saveBuildMenuItem.setEnabled(false);
 						}
 					});
 						
-						jMenu3.add(mnuSaveBuild);	
+						jmnuFile.add(saveBuildMenuItem);	
 						
 						
-						JMenuItem mnuClearCache = new JMenuItem("Clear cache");
-						mnuClearCache.addActionListener(new ActionListener() {
+						clearCacheMenuItem = new JMenuItem("Clear cache");
+						clearCacheMenuItem.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								for(File f : new File(D3ObjectRecorder.SERIALISATION_HERO_DIR).listFiles())
 								{
@@ -323,17 +326,15 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						}
 					});
 						
-						jMenu3.add(mnuClearCache);
+						jmnuFile.add(clearCacheMenuItem);
 						
 						
-					}
-					{
-						jSeparator2 = new JSeparator();
-						jMenu3.add(jSeparator2);
-					}
-					{
+					
+
+						jmnuFile.add(new JSeparator());
+					
 						exitMenuItem = new JMenuItem();
-						jMenu3.add(exitMenuItem);
+						jmnuFile.add(exitMenuItem);
 						exitMenuItem.setText("Exit");
 						exitMenuItem.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
@@ -343,8 +344,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					}
 				
 					
-					JMenu jMenu4 = new JMenu("Look");
-					jMenuBar1.add(jMenu4);
+					jmnuLook = new JMenu("Look");
+					mnuBar.add(jmnuLook);
 					
 					
 					for(LookAndFeelInfo ui : UIManager.getInstalledLookAndFeels())
@@ -356,13 +357,13 @@ public class SwingMainFrame extends javax.swing.JFrame {
 									D3ArmoryControler.getInstance().setProperty("look",it.getText());
 								}
 							});
-						jMenu4.add(it);
+						jmnuLook.add(it);
 					}
-					jMenu5 = new JMenu("?");
-					jMenuBar1.add(jMenu5);
-					jMenu5.setName("jMenu5");
+					aboutMenu = new JMenu("?");
+					mnuBar.add(aboutMenu);
+					aboutMenu.setName("jMenu5");
 						helpMenuItem = new JMenuItem("About");
-						jMenu5.add(helpMenuItem);
+						aboutMenu.add(helpMenuItem);
 						
 						helpMenuItem.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
@@ -372,9 +373,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 							}
 						});
 						
-						JMenuItem report = new JMenuItem("Report Bug");
-						jMenu5.add(report);
-						report.addActionListener(new ActionListener() {
+						reportBugMenuItem = new JMenuItem("Report Bug");
+						aboutMenu.add(reportBugMenuItem);
+						reportBugMenuItem.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								try {
 									Desktop.getDesktop().browse(new URI(D3ArmoryControler.SOURCE_REPOSITORY));
@@ -389,8 +390,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						
 				}
 			}
-			Application.getInstance().getContext().getResourceMap(getClass()).injectComponents(getContentPane());
-			
+				
 			if (SystemTray.isSupported()) {
 				tray.add(trayIcon);
 				
@@ -409,10 +409,10 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					}
 				});
 			}
-			JMenu mnuUpdate = new JMenu(msgUpdate);
-			JMenuItem mnuDlUpdate = new JMenuItem("Download new Version");
-			mnuUpdate.add(mnuDlUpdate);
-			mnuDlUpdate.addActionListener(new ActionListener() {
+			jmnuUpdate = new JMenu(msgUpdate);
+			dlUpdateAppMenuItem = new JMenuItem("Download new Version");
+			jmnuUpdate.add(dlUpdateAppMenuItem);
+			dlUpdateAppMenuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent evt) {
 					try {
 						Desktop.getDesktop().browse(new URI(D3ArmoryControler.APP_DOWNLOAD));
@@ -424,7 +424,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				}
 			});
 			
-			jMenuBar1.add(mnuUpdate);	
+			mnuBar.add(jmnuUpdate);	
 			
 		} catch (Exception e) {
 			logger.error(e.getStackTrace());
@@ -433,7 +433,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	}
 	
 	public JMenuItem getMnuSaveBuild() {
-		return mnuSaveBuild;
+		return saveBuildMenuItem;
 	}
 
 
@@ -479,8 +479,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		return scrollFicheHeros;
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void listeHerosMouseClicked(MouseEvent evt)  {
-		hero = (Hero)((JList) evt.getSource()).getSelectedValue();
+		hero = ((JList<Hero>) evt.getSource()).getSelectedValue();
 			new Thread(new Runnable() {
 			      public void run() {
 			    	  try {	
@@ -558,22 +559,22 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		Follower templar = liste.getTemplar();
 		
 		if(templar!=null){
-			Item neck = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getNeck());
+			Item neck = D3ArmoryControler.getInstance().loadItemDetails(templar.getItems().getNeck());
 			getFollowersPanel().getLblTemplarNeck().setItem(neck, EnumerationStuff.NECK);
 			
-			Item special = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getSpecial());
+			Item special = D3ArmoryControler.getInstance().loadItemDetails(templar.getItems().getSpecial());
 			getFollowersPanel().getLblTemplarObject().setItem(special, null);
 			
-			Item mh = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getMainHand());
+			Item mh = D3ArmoryControler.getInstance().loadItemDetails(templar.getItems().getMainHand());
 			getFollowersPanel().getLblTemplarMH().setItem(mh, EnumerationStuff.MAIN_HAND);
 			
-			Item oh = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getOffHand());
+			Item oh = D3ArmoryControler.getInstance().loadItemDetails(templar.getItems().getOffHand());
 			getFollowersPanel().getLblTemplarOH().setItem(oh, EnumerationStuff.OFF_HAND);
 			
-			Item r1 = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getRightFinger());
+			Item r1 = D3ArmoryControler.getInstance().loadItemDetails(templar.getItems().getRightFinger());
 			getFollowersPanel().getLblTemplarRing1().setItem(r1, EnumerationStuff.RING_RIGHT);
 	
-			Item r2 = D3ArmoryControler.getInstance().getItemDetails(templar.getItems().getLeftFinger());
+			Item r2 = D3ArmoryControler.getInstance().loadItemDetails(templar.getItems().getLeftFinger());
 			getFollowersPanel().getLblTemplarRing2().setItem(r2, EnumerationStuff.RING_LEFT);
 			
 			
@@ -614,16 +615,16 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		Follower scoundrel = liste.getScoundrel();
 		if(scoundrel!=null)
 		{
-			Item neckS = D3ArmoryControler.getInstance().getItemDetails(scoundrel.getItems().getNeck());
+			Item neckS = D3ArmoryControler.getInstance().loadItemDetails(scoundrel.getItems().getNeck());
 			getFollowersPanel().getLblScoundrelNeck().setItem(neckS, EnumerationStuff.NECK);
 			
-			Item specialS = D3ArmoryControler.getInstance().getItemDetails(scoundrel.getItems().getSpecial());
+			Item specialS = D3ArmoryControler.getInstance().loadItemDetails(scoundrel.getItems().getSpecial());
 			getFollowersPanel().getLblScoundrelObject().setItem(specialS, null);
 			
-			Item mhS = D3ArmoryControler.getInstance().getItemDetails(scoundrel.getItems().getMainHand());
+			Item mhS = D3ArmoryControler.getInstance().loadItemDetails(scoundrel.getItems().getMainHand());
 			getFollowersPanel().getLblScoundrelMH().setItem(mhS, EnumerationStuff.MAIN_HAND);
 			
-			Item ohS = D3ArmoryControler.getInstance().getItemDetails(scoundrel.getItems().getOffHand());
+			Item ohS = D3ArmoryControler.getInstance().loadItemDetails(scoundrel.getItems().getOffHand());
 			getFollowersPanel().getLblScoundrelOH().setItem(ohS, EnumerationStuff.OFF_HAND);
 			if(mhS!=null)
 			{
@@ -638,10 +639,10 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				}
 			}
 			
-			Item r1S = D3ArmoryControler.getInstance().getItemDetails(scoundrel.getItems().getRightFinger());
+			Item r1S = D3ArmoryControler.getInstance().loadItemDetails(scoundrel.getItems().getRightFinger());
 			getFollowersPanel().getLblScoundrelRing1().setItem(r1S, EnumerationStuff.RING_RIGHT);
 	
-			Item r2S = D3ArmoryControler.getInstance().getItemDetails(scoundrel.getItems().getLeftFinger());
+			Item r2S = D3ArmoryControler.getInstance().loadItemDetails(scoundrel.getItems().getLeftFinger());
 			getFollowersPanel().getLblScoundrelRing2().setItem(r2S, EnumerationStuff.RING_LEFT);
 			
 			
@@ -686,16 +687,16 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		Follower echanteress = liste.getEnchantress();
 		if(echanteress!=null)
 		{
-			Item neckE = D3ArmoryControler.getInstance().getItemDetails(echanteress.getItems().getNeck());
+			Item neckE = D3ArmoryControler.getInstance().loadItemDetails(echanteress.getItems().getNeck());
 			getFollowersPanel().getLblEnchanteressNeck().setItem(neckE, EnumerationStuff.NECK);
 			
-			Item specialE = D3ArmoryControler.getInstance().getItemDetails(echanteress.getItems().getSpecial());
+			Item specialE = D3ArmoryControler.getInstance().loadItemDetails(echanteress.getItems().getSpecial());
 			getFollowersPanel().getLblEnchanteressObject().setItem(specialE, null);
 			
-			Item mhE = D3ArmoryControler.getInstance().getItemDetails(echanteress.getItems().getMainHand());
+			Item mhE = D3ArmoryControler.getInstance().loadItemDetails(echanteress.getItems().getMainHand());
 			getFollowersPanel().getLblEnchanteressMH().setItem(mhE, EnumerationStuff.MAIN_HAND);
 			
-			Item ohE = D3ArmoryControler.getInstance().getItemDetails(echanteress.getItems().getOffHand());
+			Item ohE = D3ArmoryControler.getInstance().loadItemDetails(echanteress.getItems().getOffHand());
 			getFollowersPanel().getLblEnchanteressOH().setItem(ohE, EnumerationStuff.OFF_HAND);
 			
 			if(mhE!=null)
@@ -713,10 +714,10 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			
 			
 			
-			Item r1E = D3ArmoryControler.getInstance().getItemDetails(echanteress.getItems().getRightFinger());
+			Item r1E = D3ArmoryControler.getInstance().loadItemDetails(echanteress.getItems().getRightFinger());
 			getFollowersPanel().getLblEnchanteressRing1().setItem(r1E, EnumerationStuff.RING_RIGHT);
 	
-			Item r2E = D3ArmoryControler.getInstance().getItemDetails(echanteress.getItems().getLeftFinger());
+			Item r2E = D3ArmoryControler.getInstance().loadItemDetails(echanteress.getItems().getLeftFinger());
 			getFollowersPanel().getLblEnchanteressRing2().setItem(r2E, EnumerationStuff.RING_LEFT);
 		
 			
@@ -775,7 +776,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(iscache)
 			head=hero.getItems().getHead();
 		else
-			head = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getHead());
+			head = D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getHead());
 	
 		getPanneauDessinHero().getLblHead().setItem(head,EnumerationStuff.HEAD);
 		hero.getItems().setHead(head);
@@ -786,7 +787,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(iscache)
 			foot=hero.getItems().getFeet();
 		else
-			foot= D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getFeet());
+			foot= D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getFeet());
 		
 		getPanneauDessinHero().getLblFoot().setItem(foot,EnumerationStuff.FEET);
 		getPanneauDessinHero().getLblSocketBoot().setItem(foot,0);
@@ -798,7 +799,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(iscache)
 			gants=hero.getItems().getHands();
 		else
-			gants= D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getHands());
+			gants= D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getHands());
 		
 		getPanneauDessinHero().getLblGants().setItem(gants,EnumerationStuff.GANT);
 		getPanneauDessinHero().getLblSocketGants().setItem(gants,0);
@@ -810,7 +811,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(iscache)
 			neck=hero.getItems().getNeck();
 		else
-			neck= D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getNeck());
+			neck= D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getNeck());
 		
 		getPanneauDessinHero().getLblNeck().setItem(neck,EnumerationStuff.NECK);
 		getPanneauDessinHero().getLblSocketNeck().setItem(neck,0);
@@ -823,7 +824,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(iscache)	
 			ringleft=hero.getItems().getLeftFinger();
 		else
-			ringleft = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getLeftFinger());
+			ringleft = D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getLeftFinger());
 		getPanneauDessinHero().getLblRingLeft().setItem(ringleft,EnumerationStuff.RING_LEFT);
 		getPanneauDessinHero().getLblSocketLeftRing().setItem(ringleft,0);
 		hero.getItems().setLeftFinger(ringleft);
@@ -835,7 +836,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(iscache)	
 			ringright=hero.getItems().getRightFinger();
 		else
-			ringright= D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getRightFinger());
+			ringright= D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getRightFinger());
 		getPanneauDessinHero().getLblRingRight().setItem(ringright,EnumerationStuff.RING_RIGHT);
 		getPanneauDessinHero().getLblSocketRightRing().setItem(ringright,0);
 		hero.getItems().setRightFinger(ringright);
@@ -846,7 +847,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(iscache) //TODO WHY getType is null ???
 			mainHand=hero.getItems().get(EnumerationStuff.MAIN_HAND);
 		else	
-			mainHand = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getMainHand());
+			mainHand = D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getMainHand());
 		
 	//	getLblstatbar().setString(String.valueOf(mainHand));
 		getProgressBar().setValue(val++);
@@ -855,7 +856,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(iscache)
 			offhand=hero.getItems().get(EnumerationStuff.OFF_HAND);
 		else
-			offhand = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getOffHand());
+			offhand = D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getOffHand());
 		
 		getPanneauDessinHero().getLblMainHand().setItem(mainHand,EnumerationStuff.MAIN_HAND);
 		getPanneauDessinHero().getLblSocketMainHand().setItem(mainHand,0);
@@ -896,7 +897,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(iscache)
 			torso=hero.getItems().getTorso();
 		else
-			torso = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getTorso());
+			torso = D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getTorso());
 		getPanneauDessinHero().getLblTorso().setItem(torso,EnumerationStuff.TORSO);
 		hero.getItems().setTorso(torso);
 		
@@ -945,7 +946,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(iscache)
 			legs=hero.getItems().getLegs();
 		else
-			legs = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getLegs());
+			legs = D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getLegs());
 		getPanneauDessinHero().getLblLegs().setItem(legs,EnumerationStuff.LEGS);
 		hero.getItems().setLegs(legs);
 		
@@ -981,7 +982,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(iscache)
 			shoulders = hero.getItems().getShoulders();
 		else
-			shoulders= D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getShoulders());
+			shoulders= D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getShoulders());
 		getPanneauDessinHero().getLblShoulders().setItem(shoulders,EnumerationStuff.SHOULDERS);
 		hero.getItems().setShoulders(shoulders);
 	//	getLblstatbar().setString(String.valueOf(shoulders));
@@ -992,7 +993,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(iscache)
 			bracers = hero.getItems().getBracers();
 		else
-			bracers = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getBracers());
+			bracers = D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getBracers());
 		getPanneauDessinHero().getLblBracers().setItem(bracers,EnumerationStuff.BRACER);
 		hero.getItems().setBracers(bracers);
 	//	getLblstatbar().setString(String.valueOf(bracers));
@@ -1002,7 +1003,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(iscache)
 			belt = hero.getItems().getWaist();
 		else
-			belt = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getWaist());
+			belt = D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getWaist());
 		getPanneauDessinHero().getLblbelt().setItem(belt,EnumerationStuff.BELT);
 		hero.getItems().setWaist(belt);
 	//	getLblstatbar().setString(String.valueOf(belt));
@@ -1344,7 +1345,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JTable getTableauExpert() {
 		if(tableauExpert == null) {
 			tableauExpert = new JTable();
-			sorter = new TableRowSorter(getTableauDetailsModel());
+			sorter = new TableRowSorter<DefaultTableModel>(getTableauDetailsModel());
 			tableauExpert.setRowSorter(sorter);
 			tableauExpert.setModel(getTableauDetailsModel());
 			tableauExpert.setOpaque(true);
@@ -1471,7 +1472,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				}
 			});
 			
-			final TableRowSorter sorter = new TableRowSorter(mod);
+			final TableRowSorter<LootXlsTableModel> sorter = new TableRowSorter<LootXlsTableModel>(mod);
 			final JTextField txtFilter = new JTextField("Filter");
 			 lootTable.setRowSorter(sorter);
 			 
@@ -1510,7 +1511,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						 Item i = new Item();
 						
 						 i.setTooltipParams("item/"+D3ArmoryControler.getInstance().refactorItem(id));
-						 i = D3ArmoryControler.getInstance().getItemDetails(i);
+						 i = D3ArmoryControler.getInstance().loadItemDetails(i);
 						 ItemLabel lab = new ItemLabel();
 					        lab.setItem(i, null);
 					        getPanelItemDetails().getLblIcon().setIcon(lab.getIcon());
@@ -1555,7 +1556,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(tableauCalculator==null)
 		{
 			CalculatorModel mod = new CalculatorModel();
-			sorter = new TableRowSorter(mod);
+			sorter = new TableRowSorter<CalculatorModel>(mod);
 			tableauCalculator=new JTable(mod);
 			tableauCalculator.setRowSorter(sorter);
 			return (tableauCalculator);

@@ -11,17 +11,15 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.LineBorder;
 
-import org.armory.d3.services.D3ArmoryControler;
-
 import com.pihen.d3restapi.beans.Hero;
 
 
-public class HeroCellRenderer implements ListCellRenderer
+public class HeroCellRenderer implements ListCellRenderer<Hero>
 {
 	
 	Hero hero = null;
-	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-		final Hero hero = (Hero)value;
+	public Component getListCellRendererComponent(JList list, final Hero hero, int index, boolean isSelected, boolean cellHasFocus) {
+
 		
 		JLabel lab = new JLabel() {
 			@Override

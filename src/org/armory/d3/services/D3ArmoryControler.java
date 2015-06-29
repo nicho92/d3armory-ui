@@ -289,7 +289,7 @@ public class D3ArmoryControler {
 		return selected;
 	}
 	
-	public Item getItemDetails(Item i)
+	public Item loadItemDetails(Item i)
 	{
 		
 		if(i==null)
@@ -309,43 +309,43 @@ public class D3ArmoryControler {
 	
 	public Map<EnumerationStuff,Item> initStuffHero(Hero hero)
 	{
-		Item head = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getHead());
+		Item head = D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getHead());
 		hero.getItems().setHead(head);
 		
-		Item foot = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getFeet());
+		Item foot = D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getFeet());
 		hero.getItems().setFeet(foot);
 		
-		Item shoulders = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getShoulders());
+		Item shoulders = D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getShoulders());
 		hero.getItems().setShoulders(shoulders);
 			
-		Item gants = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getHands());
+		Item gants = D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getHands());
 		hero.getItems().setHands(gants);
 		
-		Item bracers = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getBracers());
+		Item bracers = D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getBracers());
 		hero.getItems().setBracers(bracers);
 		
-		Item legs = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getLegs());
+		Item legs = D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getLegs());
 		hero.getItems().setLegs(legs);
 		
-		Item neck = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getNeck());
+		Item neck = D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getNeck());
 		hero.getItems().setNeck(neck);
 		
-		Item belt = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getWaist());
+		Item belt = D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getWaist());
 		hero.getItems().setWaist(belt);
 		
-		Item ringright = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getRightFinger());
+		Item ringright = D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getRightFinger());
 		hero.getItems().setRightFinger(ringright);
 		
-		Item ringleft = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getLeftFinger());
+		Item ringleft = D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getLeftFinger());
 		hero.getItems().setLeftFinger(ringleft);
 		
-		Item mainHand = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getMainHand());
+		Item mainHand = D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getMainHand());
 		hero.getItems().setMainHand(mainHand);
 		
-		Item offhand = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getOffHand());
+		Item offhand = D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getOffHand());
 		hero.getItems().setOffHand(offhand);
 		
-		Item torso = D3ArmoryControler.getInstance().getItemDetails(hero.getItems().getTorso());
+		Item torso = D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getTorso());
 		hero.getItems().setTorso(torso);
 		
 		Map<EnumerationStuff,Item>stuffs = new HashMap<EnumerationStuff, Item>();

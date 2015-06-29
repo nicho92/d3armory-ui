@@ -152,7 +152,7 @@ public class LootFactory {
 		tooltip = D3ArmoryControler.getInstance().refactorItem(tooltip);
 		Item i = new Item();
 		i.setTooltipParams("item/"+tooltip);
-		i = D3ArmoryControler.getInstance().getItemDetails(i);	
+		i = D3ArmoryControler.getInstance().loadItemDetails(i);	
 		
 		Number level = D3ArmoryControler.getInstance().getSelectedHero(false).getLevel().intValue();
 		int ancient = new Random().nextInt(100);
