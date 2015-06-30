@@ -23,7 +23,8 @@ public class BNetLadderRetriever {
 	private boolean season;
 	private boolean hardcore;
 	private String era="1";
-		
+	
+	private int max = 500;
 	
 	public BNetLadderRetriever(String region,String clazz,boolean season,boolean hardcore,String era) throws IOException {
 		this.region=region;
@@ -34,7 +35,12 @@ public class BNetLadderRetriever {
 	}
 	
 
-	public void init() throws IOException {
+	public void setMax(int max) {
+		this.max = max;
+	}
+
+
+	public void retrieveLadder() throws IOException {
 		String hc="";
 		String sea="era";
 		
@@ -55,7 +61,7 @@ public class BNetLadderRetriever {
 		ladders = new LinkedHashMap<Integer,Ladder>();
 		int i=0;
 		int rank=1;
-        while(it.hasNext() && i<500)
+        while(it.hasNext() && i<max)
         {
         	Element e = it.next();
         	

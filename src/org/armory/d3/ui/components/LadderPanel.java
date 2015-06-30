@@ -113,7 +113,7 @@ public class LadderPanel extends JPanel {
 				
 				try {
 					ret = new BNetLadderRetriever(cboRegion.getSelectedItem().toString(), cboClazz.getSelectedItem().toString(), boxSeason.isSelected(), boxHc.isSelected(),cboErea.getSelectedItem().toString());
-					ret.init();
+					ret.retrieveLadder();
 					LadderModel d = new LadderModel(ret);
 					
 					ladderTable.setModel(d);
