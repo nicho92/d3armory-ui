@@ -141,8 +141,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JSplitPane splitPanneauTableauHero;
 	private JSplitPane splitPanneauFicheHero;
 
-	private JTabbedPane tabHeroes;
-
 	
 	private HeroPanel panneauDessinHero;
 	private ParangonPanel parangonPanel;
@@ -239,11 +237,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			scrollFicheHeros = new JScrollPane();
 			splitPanneauFicheHero.add(scrollFicheHeros, JSplitPane.RIGHT);
 
-			tabHeroes = new JTabbedPane();
-				
-			tabHeroes.addTab("",getSplitPanneauTableauHero());
 			
-			splitPanneauFicheHero.add(tabHeroes, JSplitPane.LEFT);
+			splitPanneauFicheHero.add(getSplitPanneauTableauHero(), JSplitPane.LEFT);
 			scrollFicheHeros.setViewportView(getPanelItemDetails());
 					
 				
@@ -442,8 +437,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				panneauDessinHero=new HeroPanel();
 			}
 		return panneauDessinHero;
+		
 	}
-
 
 	public JScrollPane getScrollTags() {
 		return scrollTags;
@@ -489,8 +484,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			    		  chargementHero();
 			    		  getPanneauDessinHero().setHero(hero);
 				    	
-			    		  tabHeroes.setTitleAt(tabHeroes.getSelectedIndex(), hero.getName());
-			    		  
+				    		  
 			    		  getPanneauDessinHero().getLblLoader().setIcon(null);
 			    		  panelItemDetails.setCalculator(D3ArmoryControler.getInstance().getCalculator());
 			    		  lootFactoryPanel.init(getPanelItemDetails());
@@ -509,6 +503,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			      }
 			  }).start();
 	}
+	
+	
 	public synchronized void chargementHero(){
 		 try {
 			 logger.debug("Chargement du hero " + hero);
@@ -546,7 +542,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			  e.printStackTrace();
 		}
 	}
-	
 	
 	public void loadFollowers() throws D3ServerCommunicationException
 	{
@@ -1057,7 +1052,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		
 		logger.debug("Fin de chargement des items");
 	}
-
 	
 	private void initHeroInfoPanel()
 	{
@@ -1136,7 +1130,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			}
 		logger.debug("Fin d'initialisation du panel");
 	}
-	
 	
 	public static String formatRessourceVisibleValue(double number) {
 		if(number<1000)
@@ -1229,8 +1222,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		return temp.toString();
 	}
 
-	
-	
 	private void newFileMenuItemActionPerformed(ActionEvent evt) {
 		TagsManagerFrame f = new TagsManagerFrame(getListeTagTree());
 		f.setVisible(true);
@@ -1256,8 +1247,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				splitTagsHeroes.add(scrollHeros, JSplitPane.RIGHT);
 				{
 					listeHerosModel = new ListeHeroModel(); 
-					listeHeros = getListeHeros();
-					scrollHeros.setViewportView(listeHeros);
+					scrollHeros.setViewportView(getListeHeros());
 					listeHeros.setModel(listeHerosModel);
 					
 				}
@@ -1265,6 +1255,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		}
 		return splitTagsHeroes;
 	}
+	
 	
 	public ListeTagTree getListeTagTree() {
 		if(tagsTree ==null)
