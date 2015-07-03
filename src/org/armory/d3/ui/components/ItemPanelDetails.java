@@ -7,9 +7,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Paint;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import javax.swing.GrayFilter;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -23,6 +25,7 @@ import com.pihen.d3restapi.beans.Affixes;
 import com.pihen.d3restapi.beans.AffixesContainer;
 import com.pihen.d3restapi.beans.AttributsContainer;
 import com.pihen.d3restapi.beans.DisplayableItemAttributs;
+import com.pihen.d3restapi.beans.Dye;
 import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.LegendarySet;
 import com.pihen.d3restapi.beans.Ranks;
@@ -47,6 +50,7 @@ public class ItemPanelDetails extends JPanel {
 	private SocketLabel lblSock3;
 	private boolean flavEnable=true;
 	private StuffCalculator calc;
+	private JLabel lblDye;
 	
 	public void setFlavEnable(boolean flavEnable) {
 		this.flavEnable = flavEnable;
@@ -82,7 +86,9 @@ public class ItemPanelDetails extends JPanel {
 		this.add(getLblSock3());
 		this.add(getLblDetailSet());
 		this.add(getLblItemLevel());
+		this.add(getLblDye());
 		this.setBackground(Color.BLACK);
+		
 	}
 	
 	public void paintComponent(Graphics g)
@@ -596,5 +602,44 @@ public class ItemPanelDetails extends JPanel {
 		}
 		return lblItemLevel;
 	}
-
+	
+	public JLabel getLblDye() {
+		if(lblDye == null) {
+			lblDye = new JLabel() {
+				
+				 public Icon getIcon() {
+					 setHorizontalAlignment(JLabel.CENTER);
+						setVerticalAlignment(JLabel.CENTER);
+					 try {
+						 	System.out.println(item.getDyeColor().getIcon());
+							URL url = new URL("http://media.blizzard.com/d3/icons/items/small/"+item.getDyeColor().getIcon()+".png");
+							ImageIcon i = new ImageIcon(url);
+								return i;
+						} catch (Exception e1) {
+							return new ImageIcon();
+						}
+				}
+					
+				 
+				 public Border getBorder() {
+						
+						try{
+						if(item != null)
+							if(item.getDyeColor()!=null)
+								return new LineBorder(Color.white, 1, true);
+						
+						return super.getBorder();
+						}
+						catch(Exception e)
+						{
+							return new LineBorder(Color.white,0,true);
+						}
+					}
+				
+			};
+			
+			lblDye.setBounds(314, 108, 46, 46);
+		}
+		return lblDye;
+	}
 }

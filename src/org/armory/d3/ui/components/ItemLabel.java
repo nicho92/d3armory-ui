@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
@@ -197,6 +198,21 @@ public class ItemLabel extends JLabel implements MouseListener {
 			    		Image i = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/gift.png")).getImage();
 			    		g2d.drawImage(i, this.getWidth()-30, this.getHeight()-30, null);
 					}
+			    	
+			    	if(item.getDyeColor()!=null)
+			    	{
+			    		try {
+							URL url = new URL("http://media.blizzard.com/d3/icons/items/small/"+item.getDyeColor().getIcon()+".png");
+							Image i = new ImageIcon(url).getImage();
+							g2d.drawImage(i, 0, 0,15,15, null);
+						} 
+			    		catch (MalformedURLException e) {
+							
+						}
+			    		
+			    		
+			    	}
+			    	
 						
 			    	
 	  	}

@@ -48,9 +48,9 @@ public class RSSReader {
     }
     
     
-    public String getRss(String rss) {
+    public String getRss(String feedurl) {
         try {
-        	String feedurl=rss;
+        	
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             URL url = new URL(feedurl);
             Document doc = builder.parse(url.openStream());

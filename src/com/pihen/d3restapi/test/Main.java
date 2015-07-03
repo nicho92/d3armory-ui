@@ -3,6 +3,7 @@ package com.pihen.d3restapi.test;
 import java.util.List;
 
 import org.armory.d3.services.D3ArmoryControler;
+import org.armory.d3.services.RSSReader;
 
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.Item;
@@ -14,7 +15,7 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
  
-			new Thread(new Runnable() {
+		/*	new Thread(new Runnable() {
 				
 				public void run() {
 					
@@ -44,7 +45,11 @@ public class Main {
 						}
 					}
 				}
-			}).start();
+			}).start();*/
+		
+	
+		System.out.println(new RSSReader().getRss("http://www.diablofans.com/news.rss"));
+	
 	}
 	
 	
