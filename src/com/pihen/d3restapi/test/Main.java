@@ -1,14 +1,5 @@
 package com.pihen.d3restapi.test;
 
-import java.util.List;
-
-import org.armory.d3.services.D3ArmoryControler;
-import org.armory.d3.services.RSSReader;
-
-import com.pihen.d3restapi.beans.Hero;
-import com.pihen.d3restapi.beans.Item;
-import com.pihen.d3restapi.beans.Profile;
-import com.pihen.d3restapi.beans.Tag;
 
 
 public class Main {
@@ -48,7 +39,7 @@ public class Main {
 			}).start();*/
 		
 	
-		System.out.println(new RSSReader().getRss("http://www.diablofans.com/news.rss"));
+		//System.out.println(new RSSReader().getRss("http://www.diablofans.com/news.rss"));
 	
 	}
 	
