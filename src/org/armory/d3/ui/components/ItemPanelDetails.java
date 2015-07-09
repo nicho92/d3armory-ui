@@ -611,7 +611,6 @@ public class ItemPanelDetails extends JPanel {
 					 setHorizontalAlignment(JLabel.CENTER);
 						setVerticalAlignment(JLabel.CENTER);
 					 try {
-						 	System.out.println(item.getDyeColor().getIcon());
 							URL url = new URL("http://media.blizzard.com/d3/icons/items/small/"+item.getDyeColor().getIcon()+".png");
 							ImageIcon i = new ImageIcon(url);
 								return i;
