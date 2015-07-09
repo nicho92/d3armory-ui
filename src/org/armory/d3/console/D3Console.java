@@ -4,10 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.armory.d3.services.D3ArmoryControler;
+
 
 public class D3Console {
 
-	public static Map<String,Object> env=new HashMap<String, Object>();
+	public static Map<String,Object> ENV=new HashMap<String, Object>();
 	
 	ClassLoader classLoader = D3Console.class.getClassLoader();
 	
@@ -16,36 +21,60 @@ public class D3Console {
 	}
 	
 	public D3Console()  {
+		
+		System.out.print("D3Console :\n$>");
+		Command c = null;
+		while(true)
 		try {
-			
-			System.out.print("D3Console :\n$>");
 			Scanner sc = new Scanner(System.in);
+			CommandLineParser parser = new DefaultParser();
+			
 			while(sc.hasNextLine())
 			{
 				String[] commandeLine = sc.nextLine().split(" ");
-				Command c = commandFactory(commandeLine[0]);
+					
+				c = commandFactory(commandeLine[0]);
 				
-				if(commandeLine.length>1)
-					c.run(new String[]{commandeLine[1]});
-				else
-					c.run(new String[]{null});
-				System.out.print("$>");
+				c.run(commandeLine);
+				c.quit();
+				
+				
+				String prompt = "";
+				if(D3ArmoryControler.getInstance().getCurrentProfil()!=null)
+				{
+					prompt=D3ArmoryControler.getInstance().getCurrentProfil().toString();
+				}
+				if(D3ArmoryControler.getInstance().getSelectedHero(false)!=null)
+				{
+					prompt+="/"+D3ArmoryControler.getInstance().getSelectedHero(false).getName();
+				}
+				
+				System.out.print(prompt+ " $>");
 			}
 			
 			
-	    } catch (ClassNotFoundException | SecurityException | InstantiationException | IllegalAccessException e) {
-	        e.printStackTrace();
-	    }
+	    } catch (Exception e) {
+	    	handleException(e,c);
+
+	    } 
+		
 	}
 	
 	
 	
 	
+	private void handleException(Exception e, Command c) {
+		e.printStackTrace();
+		c.usage();
+		
+	}
+
 	public Command commandFactory(String name) throws ClassNotFoundException, InstantiationException, IllegalAccessException
 	{
-		name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
-		Class myCommand = classLoader.loadClass("org.armory.d3.console.commands."+name);
+		String clazz = Character.toUpperCase(name.charAt(0)) + name.substring(1);
+		Class myCommand = classLoader.loadClass("org.armory.d3.console.commands."+clazz);
         Command c = (Command)myCommand.newInstance();
+        
         return c;
 	}
 	

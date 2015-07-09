@@ -142,6 +142,6 @@ public class Profile extends RemoteEntity {
 	
 	public String toString()
 	{
-		return getBattleTag() + " (" + getParagonLevel()+")"; 
+		return getBattleTag(); 
 	}
 }
