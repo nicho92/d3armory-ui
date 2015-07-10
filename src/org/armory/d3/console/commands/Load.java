@@ -35,10 +35,7 @@ public class Load implements Command {
 			D3ArmoryControler.getInstance().setProperty("local", cl.getOptionValue("l"));
 		}
 		
-		if(cl.hasOption("r"))
-		{
-			D3Console.ENV.put("region", cl.getOptionValue("r"));
-		}
+		
 		
 		if(cl.hasOption("p"))
 		{

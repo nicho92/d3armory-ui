@@ -6,8 +6,7 @@ import org.apache.commons.cli.DefaultParser;
 public interface Command {
 
 	CommandLineParser parser = new DefaultParser();
-	
-	
+
 	public void run(String[] array) throws Exception ;
 	
 	public void usage();
