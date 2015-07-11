@@ -1,6 +1,7 @@
 package org.armory.d3.console.commands;
 
 import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.armory.d3.console.Command;
 import org.armory.d3.console.D3Console;
@@ -36,7 +37,8 @@ public class Save implements Command {
 
 	@Override
 	public void usage() {
-		// TODO Auto-generated method stub
+		HelpFormatter formatter = new HelpFormatter();
+		formatter.printHelp( "save", opts );
 		
 	}
 

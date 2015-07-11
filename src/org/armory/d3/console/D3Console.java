@@ -22,7 +22,8 @@ public class D3Console {
 	
 	public D3Console()  {
 		
-		System.out.print("D3Console :\n$>");
+		System.out.println("Welcome to D3 Console. Type help for commands");
+		System.out.print(getPrompt());
 		Command c = null;
 		while(true)
 		try {
@@ -38,18 +39,7 @@ public class D3Console {
 				c.run(commandeLine);
 				c.quit();
 				
-				
-				String prompt = "";
-				if(D3ArmoryControler.getInstance().getCurrentProfil()!=null)
-				{
-					prompt=D3ArmoryControler.getInstance().getCurrentProfil().toString();
-				}
-				if(D3ArmoryControler.getInstance().getSelectedHero(false)!=null)
-				{
-					prompt+="/"+D3ArmoryControler.getInstance().getSelectedHero(false).getName();
-				}
-				
-				System.out.print(prompt+ " $>");
+				System.out.print(getPrompt());
 			}
 			
 			
@@ -60,7 +50,19 @@ public class D3Console {
 		
 	}
 	
-	
+	private String getPrompt()
+	{
+		String prompt = "";
+		if(D3ArmoryControler.getInstance().getCurrentProfil()!=null)
+		{
+			prompt=D3ArmoryControler.getInstance().getCurrentProfil().toString();
+		}
+		if(D3ArmoryControler.getInstance().getSelectedHero(false)!=null)
+		{
+			prompt+="/"+D3ArmoryControler.getInstance().getSelectedHero(false).getName();
+		}
+		return prompt + " $>";
+	}
 	
 	
 	private void handleException(Exception e, Command c) {
