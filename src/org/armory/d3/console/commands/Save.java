@@ -26,7 +26,6 @@ public class Save implements Command {
 		CommandLine cl = parser.parse(opts, args);
 		if(cl.hasOption("t"))
 		{
-			
 			D3ArmoryControler.getInstance().addTags(cl.getOptionValue("t"), (String)D3Console.ENV.get("region"));
 		}
 		if(cl.hasOption("r"))

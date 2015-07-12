@@ -1,16 +1,15 @@
 package org.armory.d3.console.commands;
 
-import java.util.Enumeration;
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.armory.d3.console.Command;
+import org.armory.d3.console.D3Console;
 import org.armory.d3.services.D3ArmoryControler;
 
 import com.pihen.d3restapi.beans.Hero;
-import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.Stuff;
+import com.pihen.d3restapi.beans.Tag;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 
 public class Show implements Command {
@@ -24,6 +23,8 @@ public class Show implements Command {
 		opts.addOption("hs","heroes",false,"show heroes");
 		opts.addOption("?","help",false,"help for command");
 		opts.addOption("i","items",false,"show item for selected hero");
+		opts.addOption("r","region",false,"show region");
+		opts.addOption("t","tags",false,"show saved tags");
 	}
 	
 	public void run(String[] args) throws Exception {
@@ -54,7 +55,15 @@ public class Show implements Command {
 			}
 			
 		}
-		
+		if(cl.hasOption("r"))
+		{
+			System.out.println(D3Console.ENV.get("region"));
+		}
+		if(cl.hasOption("t"))
+		{
+			for(Tag t:D3ArmoryControler.getInstance().getListTags())
+				System.out.println(t);
+		}
 		if(cl.hasOption("?"))
 		{
 			usage();
