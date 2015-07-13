@@ -5,6 +5,10 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.armory.d3.console.Command;
 import org.armory.d3.console.D3Console;
+import org.armory.d3.console.table.ASCIITable;
+import org.armory.d3.console.table.Test.Employee;
+import org.armory.d3.console.table.impl.CollectionASCIITableAware;
+import org.armory.d3.console.table.spec.IASCIITableAware;
 import org.armory.d3.services.D3ArmoryControler;
 
 import com.pihen.d3restapi.beans.Hero;
@@ -37,15 +41,17 @@ public class Show implements Command {
 		
 		if(cl.hasOption("hs"))
 		{
-			for(Hero h: D3ArmoryControler.getInstance().getCurrentProfil().getHeroes())
-			{
-				System.out.println(h.getId() + " - "+ h.getName() +" " + h.getClazz() );
-			}
+			IASCIITableAware asciiTableAware = new CollectionASCIITableAware<Hero>(D3ArmoryControler.getInstance().getCurrentProfil().getHeroes(), 
+			    			"id","name", "clazz", "level", "hardcore", "seasonal");
+			    ASCIITable.getInstance().printTable(asciiTableAware);
 		}
 		
 		if(cl.hasOption("i"))
 		{
 			Stuff st = D3ArmoryControler.getInstance().getSelectedHero(false).getItems();
+			
+			
+			
 			
 			EnumerationStuff[] gears = EnumerationStuff.values();
 			
