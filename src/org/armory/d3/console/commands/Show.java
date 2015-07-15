@@ -6,7 +6,6 @@ import org.apache.commons.cli.Options;
 import org.armory.d3.console.Command;
 import org.armory.d3.console.D3Console;
 import org.armory.d3.console.table.ASCIITable;
-import org.armory.d3.console.table.Test.Employee;
 import org.armory.d3.console.table.impl.CollectionASCIITableAware;
 import org.armory.d3.console.table.spec.IASCIITableAware;
 import org.armory.d3.services.D3ArmoryControler;
@@ -15,6 +14,7 @@ import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.Stuff;
 import com.pihen.d3restapi.beans.Tag;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
+import com.pihen.d3restapi.test.Test.Employee;
 
 public class Show implements Command {
 
@@ -36,39 +36,37 @@ public class Show implements Command {
 		
 		if(cl.hasOption("p"))
 		{
-			System.out.println(D3ArmoryControler.getInstance().getCurrentProfil());
+			out.println(D3ArmoryControler.getInstance().getCurrentProfil());
 		}
 		
 		if(cl.hasOption("hs"))
 		{
 			IASCIITableAware asciiTableAware = new CollectionASCIITableAware<Hero>(D3ArmoryControler.getInstance().getCurrentProfil().getHeroes(), 
 			    			"id","name", "clazz", "level", "hardcore", "seasonal");
-			    ASCIITable.getInstance().printTable(asciiTableAware);
+			    ASCIITable.getInstance(out).printTable(asciiTableAware);
 		}
 		
 		if(cl.hasOption("i"))
 		{
 			Stuff st = D3ArmoryControler.getInstance().getSelectedHero(false).getItems();
 			
-			
-			
-			
 			EnumerationStuff[] gears = EnumerationStuff.values();
 			
 			for(int i = 0;i<gears.length;i++)
 			{
-				System.out.println(gears[i] + " " + st.get(gears[i]));
+				out.println(gears[i] + " " + st.get(gears[i]));
 			}
 			
 		}
 		if(cl.hasOption("r"))
 		{
-			System.out.println(D3Console.ENV.get("region"));
+			out.println(D3Console.ENV.get("region"));
 		}
 		if(cl.hasOption("t"))
 		{
-			for(Tag t:D3ArmoryControler.getInstance().getListTags())
-				System.out.println(t);
+			IASCIITableAware asciiTableAware = new CollectionASCIITableAware<Tag>(D3ArmoryControler.getInstance().getListTags(), 
+	    			"region","name", "number");
+			ASCIITable.getInstance(out).printTable(asciiTableAware);
 		}
 		if(cl.hasOption("?"))
 		{

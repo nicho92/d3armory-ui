@@ -40,7 +40,7 @@ public class Load implements Command {
 		if(cl.hasOption("p"))
 		{
 			
-			System.out.println("loading " + cl.getOptionValue("p") +"#"+D3Console.ENV.get("region"));
+			out.println("loading " + cl.getOptionValue("p") +"#"+D3Console.ENV.get("region"));
 			Profile p = D3ArmoryControler.getInstance().getProfil(new Tag(cl.getOptionValue("p") +"#"+D3Console.ENV.get("region")));
 			D3ArmoryControler.getInstance().setProfile(p);
 		}
@@ -49,7 +49,7 @@ public class Load implements Command {
 		{
 			Hero h = D3ArmoryControler.getInstance().getHeroDetails(Long.parseLong(cl.getOptionValue("h")));
 			D3ArmoryControler.getInstance().setSelectedHero(h);
-			System.out.println(h + " loaded");
+			out.println(h + " loaded");
 		}
 		
 		if(cl.hasOption("?"))

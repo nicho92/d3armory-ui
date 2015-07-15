@@ -31,6 +31,7 @@ public class Save implements Command {
 		if(cl.hasOption("r"))
 		{
 			D3Console.ENV.put("region", cl.getOptionValue("r"));
+			out.println("set region to " + cl.getOptionValue("r"));
 		}
 	}
 

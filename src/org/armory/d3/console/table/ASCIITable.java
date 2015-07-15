@@ -1,41 +1,23 @@
-/**
- * Copyright (C) 2011 K Venkata Sudhakar <kvenkatasudhakar@gmail.com>
- * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *         http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 package org.armory.d3.console.table;
 
-import org.armory.d3.console.table.impl.AsciiTable;
+import java.io.PrintStream;
+
+import org.armory.d3.console.table.impl.ASCIITableImpl;
 import org.armory.d3.console.table.spec.IASCIITable;
 import org.armory.d3.console.table.spec.IASCIITableAware;
 
-/**
- * The entry point to this framework which acts as a singleton.
- * 
- * @author K Venkata Sudhakar (kvenkatasudhakar@gmail.com)
- * @version 1.0
- *
- */
+
 public class ASCIITable implements IASCIITable {
 
 	private static ASCIITable instance = null;
-	private IASCIITable asciiTable = new AsciiTable();
-	private ASCIITable() {
+	private IASCIITable asciiTable = new ASCIITableImpl(System.out);
+	private ASCIITable(PrintStream out) {
 	}
 	
-	public static synchronized ASCIITable getInstance() {
+	public static synchronized ASCIITable getInstance(PrintStream out) {
 		if (instance == null) {
-			instance = new ASCIITable();
+			instance = new ASCIITable(out);
 		}
 		return instance;
 	}

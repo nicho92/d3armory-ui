@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.armory.d3.console.table;
+package com.pihen.d3restapi.test;
 
 import java.util.Arrays;
 import java.util.List;
 
+import org.armory.d3.console.table.ASCIITable;
 import org.armory.d3.console.table.impl.CollectionASCIITableAware;
 import org.armory.d3.console.table.spec.IASCIITableAware;
 
@@ -47,14 +48,14 @@ public class Test {
 	    IASCIITableAware asciiTableAware = 
 	    	new CollectionASCIITableAware<Employee>(students, 
 	    			"name", "age", "married", "hobby", "salary");  //properties to read
-	    ASCIITable.getInstance().printTable(asciiTableAware);
+	    ASCIITable.getInstance(System.out).printTable(asciiTableAware);
 	    
 	    
 	    asciiTableAware = 
 	    	new CollectionASCIITableAware<Employee>(students, 
 	    			Arrays.asList("name", "age", "married", "hobby", "salary"), //properties to read
 	    			Arrays.asList("STUDENT_NAME", "HIS_AGE")); //custom headers
-	    ASCIITable.getInstance().printTable(asciiTableAware);
+	    ASCIITable.getInstance(System.out).printTable(asciiTableAware);
 	}
 
 	public static class Employee {

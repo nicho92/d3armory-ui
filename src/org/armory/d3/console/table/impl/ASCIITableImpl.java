@@ -15,6 +15,7 @@
  */
 package org.armory.d3.console.table.impl;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -35,10 +36,14 @@ import org.armory.d3.console.table.spec.IASCIITableAware;
  * @version 1.0
  *
  */
-public class AsciiTable implements IASCIITable {
+public class ASCIITableImpl implements IASCIITable {
 
+	PrintStream out;
 	
-	
+	public ASCIITableImpl(PrintStream out) {
+		this.out=out;
+	}
+
 	@Override
 	public void printTable(String[] header, String[][] data) {
 		printTable(header, DEFAULT_HEADER_ALIGN, data, DEFAULT_DATA_ALIGN);
@@ -51,7 +56,7 @@ public class AsciiTable implements IASCIITable {
 
 	@Override
 	public void printTable(String[] header, int headerAlign, String[][] data, int dataAlign) {
-		System.out.println(getTable(header, headerAlign, data, dataAlign));
+		out.println(getTable(header, headerAlign, data, dataAlign));
 	}
 	
 	@Override
@@ -78,7 +83,7 @@ public class AsciiTable implements IASCIITable {
 	}
 	
 	public void printTable(ASCIITableHeader[] headerObjs, String[][] data) {
-		System.out.println(getTable(headerObjs, data));
+		out.println(getTable(headerObjs, data));
 	}
 	
 	@Override
@@ -149,7 +154,7 @@ public class AsciiTable implements IASCIITable {
 
 	@Override
 	public void printTable(IASCIITableAware asciiTableAware) {
-		System.out.println(getTable(asciiTableAware));
+		out.println(getTable(asciiTableAware));
 	}
 	
 	public String getTable(ASCIITableHeader[] headerObjs, String[][] data) {

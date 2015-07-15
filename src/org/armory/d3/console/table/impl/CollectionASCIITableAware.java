@@ -130,13 +130,13 @@ public class CollectionASCIITableAware<T> implements IASCIITableAware {
 
 	@Override
 	public String formatData(ASCIITableHeader header, int row, int col, Object data) {
-		//Format only numbers
+		/*Format only numbers
 		try {
 			BigDecimal bd = new BigDecimal(data.toString());
 			return DecimalFormat.getInstance().format(bd);
 		} catch (Exception e) {
 		}
-
+*/
 		//For non-numbers return null 
 		return null;
 	}
