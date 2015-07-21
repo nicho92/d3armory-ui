@@ -42,7 +42,7 @@ public class Show implements Command {
 		if(cl.hasOption("hs"))
 		{
 			IASCIITableAware asciiTableAware = new CollectionASCIITableAware<Hero>(D3ArmoryControler.getInstance().getCurrentProfil().getHeroes(), 
-			    			"id","name", "clazz", "level", "hardcore", "seasonal");
+			    			"id","name", "clazz", "level", "paragonLevel","hardcore", "seasonal");
 			    ASCIITable.getInstance(out).printTable(asciiTableAware);
 		}
 		

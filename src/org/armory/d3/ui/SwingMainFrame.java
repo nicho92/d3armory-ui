@@ -55,6 +55,7 @@ import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.services.D3ObjectRecorder;
 import org.armory.d3.services.LeaderBord;
 import org.armory.d3.services.impl.D3ProgressLeaderBoard;
+import org.armory.d3.ui.components.ChestPanel;
 import org.armory.d3.ui.components.EHPPanel;
 import org.armory.d3.ui.components.FollowersPanel;
 import org.armory.d3.ui.components.FormatedJLabel;
@@ -1410,6 +1411,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			ongletPane.addTab("Hero Comparator", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/herocomp.png")), new HeroComparatorPanel(),null);
 			ongletPane.addTab("Ladder", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/ranking.png")), getLadderPanel(),null);
 			ongletPane.addTab("Loot Factory", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/kadala.png")), getLootFactoryPanel(),null);
+			ongletPane.addTab("Chest", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/chest.png")), new ChestPanel(),null);
 			
 			ongletPane.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent e) {//on charge les followers lors du clique sur l'onglet

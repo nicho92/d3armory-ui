@@ -17,6 +17,7 @@ import java.util.List;
 import javax.swing.GrayFilter;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -24,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
 import javax.swing.SwingUtilities;
+import javax.swing.TransferHandler;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
@@ -46,13 +48,23 @@ public class ItemLabel extends JLabel implements MouseListener {
     public static String SIZE_LARGE="large";
     public static String SIZE_SMALL="small";
     private String size;
+	private boolean enabledClick=true;
 	static final Logger logger = LogManager.getLogger(ItemLabel.class.getName());
 
 	
-    public ItemLabel()
+    public boolean isEnabledClick() {
+		return enabledClick;
+	}
+
+	public void setEnabledClick(boolean enabledClick) {
+		this.enabledClick = enabledClick;
+	}
+
+	public ItemLabel()
     {
     	size=SIZE_LARGE;
     	addMouseListener(this);
+    	
     }
     
     public ItemLabel(String size)
@@ -252,11 +264,12 @@ public class ItemLabel extends JLabel implements MouseListener {
 		
 	}
 
+	
 	public void mouseEntered(MouseEvent e) {
 		if(item==null)
 			return;
 		
-		logger.debug("show - " + item + " URL -> " + item.getItemID());
+		//logger.debug("show - " + item + " URL -> " + item.getItemID());
 		((SwingMainFrame)this.getTopLevelAncestor()).getPanelItemDetails().showItem(item);
 		((SwingMainFrame)this.getTopLevelAncestor()).getPanelItemDetails().getLblIcon().setIcon(this.getIcon(false,SIZE_LARGE));
 		((SwingMainFrame)this.getTopLevelAncestor()).getPanelItemDetails().repaint();
@@ -274,6 +287,9 @@ public class ItemLabel extends JLabel implements MouseListener {
 		
 	}
 	public void mousePressed(MouseEvent e) {
+		
+		
+		if(enabledClick)
 		if(SwingUtilities.isRightMouseButton(e))
 		{
 			List<Tag> listeTag= D3ArmoryControler.getInstance().getListTags();
