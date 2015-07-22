@@ -5,12 +5,12 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.LayoutManager;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.TransferHandler;
 
@@ -20,65 +20,59 @@ import com.pihen.d3restapi.beans.Item;
 
 public class ChestPanel extends JPanel {
 	
-	public static void main(String[] args) {
-		
-		JFrame f = new JFrame();
-		f.getContentPane().add(new ChestPanel());
-		f.pack();
-		f.setVisible(true);
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-	}
+	LayoutManager  layout ;
+	GridBagConstraints c;
+	int index=0;
 	
-	GridBagLayout  layout ;
 	public ChestPanel() {
 		
 		setBackground(Color.BLACK);
 		
 		layout = new GridBagLayout();
 		
-		GridBagConstraints c = new GridBagConstraints();
+		c = new GridBagConstraints();
 		  c.weightx = 1;
 		  c.weighty = 1;
 		  c.gridx = 0;
 		  c.gridy = 0;
-		  c.ipadx=0;
-		  c.ipady=0;
-		  c.insets = new Insets(1,1,1,1); 
+		  c.insets = new Insets(2,2,2,2); 
 		  c.anchor = GridBagConstraints.NORTHWEST;
 		 // c.fill=GridBagConstraints.BOTH;
-		  
+		 
 		setLayout(layout);
 		
 		
-		int index=0;
 		for(Item i : D3ArmoryControler.getInstance().getRecorder().listSavedItems())
 		{
 			
 			ItemLabel lab = new ItemLabel();
 				
 					  lab.setItem(i,null);
-					 // lab.setEnabledClick(false);
-					  lab.setPreferredSize(new Dimension(64,128));
-					  lab.setMinimumSize(new Dimension(40,72));
-					  lab.setMaximumSize(new Dimension(64,128));
-					  lab.setTransferHandler(new TransferHandler("item"));
-					  MouseListener listener = new DragMouseAdapter();
-					  		lab.addMouseListener(listener);
-			add(lab,c);
+					
+//					  lab.setTransferHandler(new TransferHandler("item"));
+//					  MouseListener listener = new DragMouseAdapter();
+//					  		lab.addMouseListener(listener);
 			
-			c.gridx=c.gridx+1;
-			index++;
-			
-			if(index==10)
-			{
-				c.gridy=c.gridy+1;
-				c.gridx=0;
-				
-				index=0;
-				
-			}
+					  addComponent(lab);
+					 
 		}
+		
+	}
+	
+	public void addComponent(ItemLabel i)
+	{
+		  i.setEnableRightClick(false);
+		  i.setPreferredSize(new Dimension(64,128));
+		if(index==12)
+		{
+			c.gridy=c.gridy+1;
+			c.gridx=0;
+			index=0;
+		}
+		
+		c.gridx=c.gridx+1;
+		add(i,c);
+		index++;
 		
 	}
 	

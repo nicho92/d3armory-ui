@@ -6,25 +6,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Paint;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.dnd.DnDConstants;
-import java.awt.dnd.DragGestureEvent;
-import java.awt.dnd.DragGestureListener;
-import java.awt.dnd.DragSource;
-import java.awt.dnd.DragSourceDragEvent;
-import java.awt.dnd.DragSourceDropEvent;
-import java.awt.dnd.DragSourceEvent;
-import java.awt.dnd.DragSourceListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.GrayFilter;
@@ -51,7 +38,7 @@ import com.pihen.d3restapi.beans.Tag;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 
 
-public class ItemLabel extends JLabel implements MouseListener{
+public class ItemLabel extends JLabel implements MouseListener, Cloneable{
 	
     private Item item;
  	private boolean disabled;
@@ -365,7 +352,9 @@ public class ItemLabel extends JLabel implements MouseListener{
 						try {
 							String name = JOptionPane.showInputDialog("Name for item ?",item.getName());
 							item.setName(name);
-							D3ArmoryControler.getInstance().getRecorder().saveItem(item);
+							saveItem();
+							
+							
 						} catch (Exception e1) {
 							JOptionPane.showMessageDialog(null, e1,"ERREUR",JOptionPane.ERROR_MESSAGE);
 						}
@@ -380,7 +369,7 @@ public class ItemLabel extends JLabel implements MouseListener{
 					public void actionPerformed(ActionEvent e) {
 
 						try {
-							D3ArmoryControler.getInstance().getRecorder().saveItem(item);
+							saveItem();
 						} catch (Exception e1) {
 							JOptionPane.showMessageDialog(null, e1,"ERREUR",JOptionPane.ERROR_MESSAGE);
 						}
@@ -399,6 +388,14 @@ public class ItemLabel extends JLabel implements MouseListener{
 		}
 		
 	}
+	
+	private void saveItem() throws Exception
+	{
+		D3ArmoryControler.getInstance().getRecorder().saveItem(item);
+		((SwingMainFrame)getTopLevelAncestor()).getChestPanel().addComponent((ItemLabel)this.clone());
+		((SwingMainFrame)getTopLevelAncestor()).getChestPanel().repaint();
+	}
+	
 	protected void initWindowBuilder(Item i, EnumerationStuff g) {
 		ItemCreatorFrame itemBuilderFrame = new ItemCreatorFrame(i,g);
 						 itemBuilderFrame.getItemPanelDetails().getLblIcon().setIcon(getIcon(false,SIZE_LARGE));

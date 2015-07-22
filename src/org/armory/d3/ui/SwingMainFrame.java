@@ -135,7 +135,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JScrollPane scrollHeros;
 	private JScrollPane detailsPanel;
 	private JScrollPane panneauTableauDescription;
-	
+	private JScrollPane scrollTabChest;
 	
 	private JSplitPane tagHerosSplitPane;
 	private JSplitPane splitTagsHeroes;
@@ -151,6 +151,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private FollowersPanel panelFollowers;
 	private SeasonPanel seasonPanel;
 	private JPanel lootPanel;
+	private ChestPanel panneauChest;
+	
 	
 	private JTable tableauDescriptionItems;
 	private JTable tableauCalculator;
@@ -174,6 +176,8 @@ public class SwingMainFrame extends javax.swing.JFrame {
 
 	
 	private Hero hero;
+
+	
 	
 	public static void main(String[] args) {
 		
@@ -1411,7 +1415,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			ongletPane.addTab("Hero Comparator", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/herocomp.png")), new HeroComparatorPanel(),null);
 			ongletPane.addTab("Ladder", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/ranking.png")), getLadderPanel(),null);
 			ongletPane.addTab("Loot Factory", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/kadala.png")), getLootFactoryPanel(),null);
-			ongletPane.addTab("Chest", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/chest.png")), new ChestPanel(),null);
+			ongletPane.addTab("Chest", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/chest.png")), new JScrollPane(getChestPanel()),null);
 			
 			ongletPane.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent e) {//on charge les followers lors du clique sur l'onglet
@@ -1636,6 +1640,15 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		}
 		return progressBar;
 	}
+	
+	public ChestPanel getChestPanel(){
+		if(panneauChest ==null){
+			panneauChest = new ChestPanel();
+		}
+		
+		return panneauChest;
+	}
+	
 	private JScrollPane getPanneauTableauDescription() {
 		if (panneauTableauDescription == null) {
 			panneauTableauDescription = new JScrollPane();
