@@ -6,18 +6,30 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Paint;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DragGestureEvent;
+import java.awt.dnd.DragGestureListener;
+import java.awt.dnd.DragSource;
+import java.awt.dnd.DragSourceDragEvent;
+import java.awt.dnd.DragSourceDropEvent;
+import java.awt.dnd.DragSourceEvent;
+import java.awt.dnd.DragSourceListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.GrayFilter;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -25,7 +37,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
 import javax.swing.SwingUtilities;
-import javax.swing.TransferHandler;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
@@ -40,7 +51,7 @@ import com.pihen.d3restapi.beans.Tag;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 
 
-public class ItemLabel extends JLabel implements MouseListener {
+public class ItemLabel extends JLabel implements MouseListener{
 	
     private Item item;
  	private boolean disabled;
@@ -48,16 +59,38 @@ public class ItemLabel extends JLabel implements MouseListener {
     public static String SIZE_LARGE="large";
     public static String SIZE_SMALL="small";
     private String size;
-	private boolean enabledClick=true;
+	private boolean enableRightClick=true;
+	private boolean isDraggable=false;
+	private boolean isDropable=true;
+	
+	
 	static final Logger logger = LogManager.getLogger(ItemLabel.class.getName());
 
 	
-    public boolean isEnabledClick() {
-		return enabledClick;
+	
+	
+    public boolean isDraggable() {
+		return isDraggable;
 	}
 
-	public void setEnabledClick(boolean enabledClick) {
-		this.enabledClick = enabledClick;
+	public void setDraggable(boolean isDraggable) {
+		this.isDraggable = isDraggable;
+	}
+
+	public boolean isDropable() {
+		return isDropable;
+	}
+
+	public void setDropable(boolean isDropable) {
+		this.isDropable = isDropable;
+	}
+
+	public boolean isEnableRightClick() {
+		return enableRightClick;
+	}
+
+	public void setEnableRightClick(boolean enabledClick) {
+		this.enableRightClick = enabledClick;
 	}
 
 	public ItemLabel()
@@ -73,6 +106,11 @@ public class ItemLabel extends JLabel implements MouseListener {
     	addMouseListener(this);
     	
     }
+    
+//    public void setItem(Item i) {
+//		this.item=i;
+//	}
+
     
     public Item getItem() {
 		return item;
@@ -289,7 +327,7 @@ public class ItemLabel extends JLabel implements MouseListener {
 	public void mousePressed(MouseEvent e) {
 		
 		
-		if(enabledClick)
+		if(enableRightClick)
 		if(SwingUtilities.isRightMouseButton(e))
 		{
 			List<Tag> listeTag= D3ArmoryControler.getInstance().getListTags();
@@ -386,7 +424,6 @@ public class ItemLabel extends JLabel implements MouseListener {
 		  return m;
 	}
 
-	
 
 	 	
 }

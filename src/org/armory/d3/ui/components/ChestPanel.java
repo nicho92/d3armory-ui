@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -41,6 +42,10 @@ public class ChestPanel extends JPanel {
 		  c.weighty = 1;
 		  c.gridx = 0;
 		  c.gridy = 0;
+		  c.ipadx=0;
+		  c.ipady=0;
+		  c.insets = new Insets(1,1,1,1); 
+		  c.anchor = GridBagConstraints.NORTHWEST;
 		 // c.fill=GridBagConstraints.BOTH;
 		  
 		setLayout(layout);
