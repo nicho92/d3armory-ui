@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.swing.ImageIcon;
 
+import org.armory.d3.services.D3ArmoryControler;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -24,7 +25,7 @@ public class BNetLadderRetriever {
 	private boolean hardcore;
 	private String era="1";
 	
-	private int max = 500;
+	private int max = Integer.parseInt(D3ArmoryControler.getInstance().getProperty("maxResultLadder", "1000"));
 	
 	public BNetLadderRetriever(String region,String clazz,boolean season,boolean hardcore,String era) throws IOException {
 		this.region=region;

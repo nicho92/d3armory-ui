@@ -75,6 +75,8 @@ public class LadderModel extends DefaultTableModel
 	public Class<?> getColumnClass(int c) {
 		if(c==5)
 			return ImageIcon.class;
+		if(c==0 || c==2)
+			return Integer.class;
 		else
 			return String.class;
 	}

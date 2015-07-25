@@ -94,6 +94,7 @@ public class D3ArmoryControler {
 		    		D3ArmoryControler.getInstance().setProperty("local","en_EN");
 		    		D3ArmoryControler.getInstance().setProperty("recorder","org.armory.d3.services.impl.SerializableRecorder");
 		    		D3ArmoryControler.getInstance().setProperty("cache","false");
+		    		D3ArmoryControler.getInstance().setProperty("maxResultLadder","500");
 		    	}
 		    	
 		    	if(!new File(D3ArmoryControler.TAG_FILE).exists())	
