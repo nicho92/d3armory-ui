@@ -107,8 +107,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JMenu jmnuLook;
 	private JMenu aboutMenu;
 	private JMenu jmnuUpdate;
-	
-	
+		
 	private JMenuItem clearCacheMenuItem;
 	private JMenuItem helpMenuItem;
 	private JMenuItem exitMenuItem;
