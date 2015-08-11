@@ -1,5 +1,6 @@
 package org.armory.d3.console;
 
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -20,32 +21,35 @@ public class D3Console {
 	}
 	
 	public D3Console()  {
-		
-		System.out.println("Welcome to D3 Console. Type help for commands");
-		System.out.print(getPrompt());
+		Console.io.setTitle("D3 Console");
+		Console.io.println("Welcome to D3 Console. Type help for commands",Color.CYAN);
+		Console.io.print(getPrompt());
 		Command c = null;
-		while(true)
-		try {
-			Scanner sc = new Scanner(System.in);
-			CommandLineParser parser = new DefaultParser();
+		String line ="";
+		while(line !="quit")
+		{	
+			try {
+				Console.io.print(getPrompt());
+				line = Console.io.nextLine();
+				CommandLineParser parser = new DefaultParser();
+				String[] commandeLine = line.split(" ");
+					c = commandFactory(commandeLine[0]);
+					c.run(commandeLine);
+					c.quit();
+					Console.io.print(getPrompt());
+					line = Console.io.nextLine();
+		    } catch (Exception e) {
+		    	handleException(e,c);
+		    	line = Console.io.nextLine();
+		    } 
 			
-			while(sc.hasNextLine())
-			{
-				String[] commandeLine = sc.nextLine().split(" ");
-					
-				c = commandFactory(commandeLine[0]);
-				
-				c.run(commandeLine);
-				c.quit();
-				
-				System.out.print(getPrompt());
-			}
+		}
 			
-			
-	    } catch (Exception e) {
-	    	handleException(e,c);
-
-	    } 
+	}
+	
+	private void handleException(Exception e, Command c) {
+		e.printStackTrace();
+		c.usage();
 		
 	}
 	
@@ -64,11 +68,7 @@ public class D3Console {
 	}
 	
 	
-	private void handleException(Exception e, Command c) {
-		e.printStackTrace();
-		c.usage();
-		
-	}
+	
 
 	public Command commandFactory(String name) throws ClassNotFoundException, InstantiationException, IllegalAccessException
 	{

@@ -280,7 +280,7 @@ public class StuffCalculator{
 	}
 
 	public double getThorns() {
-		return (getPrimaryStatUnbuffedValue()*0.25) + filter("Thorns_Fixed",null);
+		return (getPrimaryStatUnbuffedValue()*1) + filter("Thorns_Fixed",null);//patch 2.3 thorns 100% primary damage
 	}
 
 	

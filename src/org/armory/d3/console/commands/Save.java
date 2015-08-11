@@ -27,6 +27,7 @@ public class Save implements Command {
 		if(cl.hasOption("t"))
 		{
 			D3ArmoryControler.getInstance().addTags(cl.getOptionValue("t"), (String)D3Console.ENV.get("region"));
+			out.println("tag " + cl.getOptionValue("t") + " added");
 		}
 		if(cl.hasOption("r"))
 		{

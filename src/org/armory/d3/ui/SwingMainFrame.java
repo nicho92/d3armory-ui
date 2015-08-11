@@ -51,6 +51,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.armory.d3.console.D3Console;
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.services.D3ObjectRecorder;
 import org.armory.d3.services.LeaderBord;
@@ -116,7 +117,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JMenuItem changeLocalMenuItem;
 	private JMenuItem reportBugMenuItem;
 	private JMenuItem dlUpdateAppMenuItem ;
-	
+	private JMenuItem d3ConsoleMenuItem;
 	
 	
 	private JList<Hero> listeHeros;
@@ -330,7 +331,31 @@ public class SwingMainFrame extends javax.swing.JFrame {
 					
 
 						jmnuFile.add(new JSeparator());
-					
+						d3ConsoleMenuItem = new JMenuItem("D3 Console");
+						d3ConsoleMenuItem.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								
+								
+								SwingUtilities.invokeLater(new Runnable() {
+
+					                @Override
+					                public void run() {
+					                	new D3Console();
+					                }
+					                
+					            });
+								
+								
+							}
+						}); 
+						
+						
+						jmnuFile.add(d3ConsoleMenuItem);
+						
+						
+						
+						jmnuFile.add(new JSeparator());
+						
 						exitMenuItem = new JMenuItem();
 						jmnuFile.add(exitMenuItem);
 						exitMenuItem.setText("Exit");

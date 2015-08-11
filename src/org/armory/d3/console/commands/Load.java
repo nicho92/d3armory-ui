@@ -20,7 +20,6 @@ public class Load implements Command {
 		opts = new Options();
 			opts.addOption("p","profil",true,"Loading Profile");
 			opts.addOption("h","hero",true,"Loading Hero");
-			opts.addOption("r","region",true,"set region var");
 			opts.addOption("l","local",true,"set local variable");
 			opts.addOption("?","help",false,"help for command");
 	}
