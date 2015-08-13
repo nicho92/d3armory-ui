@@ -36,7 +36,6 @@ public class D3Console {
 					c = commandFactory(commandeLine[0]);
 					c.run(commandeLine);
 					c.quit();
-					Console.io.print(getPrompt());
 					line = Console.io.nextLine();
 		    } catch (Exception e) {
 		    	handleException(e,c);
@@ -49,7 +48,7 @@ public class D3Console {
 	
 	private void handleException(Exception e, Command c) {
 		e.printStackTrace();
-		c.usage();
+		//c.usage();
 		
 	}
 	

@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -291,25 +292,27 @@ public class ParangonPanel extends JPanel {
 		gbc_lblResistValue.gridy = 11;
 		add(lblResistValue, gbc_lblResistValue);
 		
-		JButton btnAddTo = new JButton("Add 1 to all");
+		JButton btnAddTo = new JButton("Add 10 to all");
 		GridBagConstraints gbc_btnAddTo = new GridBagConstraints();
 		gbc_btnAddTo.insets = new Insets(0, 0, 0, 5);
 		gbc_btnAddTo.gridx = 1;
 		gbc_btnAddTo.gridy = 12;
 		add(btnAddTo, gbc_btnAddTo);
+	
+		
 		
 		btnAddTo.addActionListener(new ActionListener() {
  
             public void actionPerformed(ActionEvent e)
             {
-                spinner.setValue(((Integer)spinner.getValue())+1);
-                spinner_1.setValue(((Integer)spinner_1.getValue())+1);
-                spinner_2.setValue(((Integer)spinner_2.getValue())+1);
-                spinner_3.setValue(((Integer)spinner_3.getValue())+1);
-                spinner_4.setValue(((Integer)spinner_4.getValue())+1);
-                spinner_5.setValue(((Integer)spinner_5.getValue())+1);
-                spinner_6.setValue(((Integer)spinner_6.getValue())+1);
-                spinner_7.setValue(((Integer)spinner_7.getValue())+1);
+                spinner.setValue(((Integer)spinner.getValue())+10);
+                spinner_1.setValue(((Integer)spinner_1.getValue())+10);
+                spinner_2.setValue(((Integer)spinner_2.getValue())+10);
+                spinner_3.setValue(((Integer)spinner_3.getValue())+10);
+                spinner_4.setValue(((Integer)spinner_4.getValue())+10);
+                spinner_5.setValue(((Integer)spinner_5.getValue())+10);
+                spinner_6.setValue(((Integer)spinner_6.getValue())+10);
+                spinner_7.setValue(((Integer)spinner_7.getValue())+10);
             }
         });      
 		

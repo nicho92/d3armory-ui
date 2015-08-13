@@ -1454,8 +1454,7 @@ public final class Console {
                 latch = new CountDownLatch(1);
                 latch.await();
             } catch (Exception ex) {
-                System.err.print("The latch failed:"
-                        + "\n" + ex.getMessage());
+                System.err.print("The latch failed:"+ "\n" + ex.getMessage());
             }
             return input;
         }
