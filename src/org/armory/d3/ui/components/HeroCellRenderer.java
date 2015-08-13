@@ -11,13 +11,14 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.LineBorder;
 
+import org.armory.d3.services.D3ArmoryControler;
+
 import com.pihen.d3restapi.beans.Hero;
 
 
 public class HeroCellRenderer implements ListCellRenderer<Hero>
 {
 	
-	Hero hero = null;
 	public Component getListCellRendererComponent(JList list, final Hero hero, int index, boolean isSelected, boolean cellHasFocus) {
 
 		
@@ -53,8 +54,13 @@ public class HeroCellRenderer implements ListCellRenderer<Hero>
 			
 		}
 		
+		String lastPlayed ="";
 		
-		lab.setText("<html>"+ hero.getName() + " " + levels );
+		if(D3ArmoryControler.getInstance().getLastHeroPlayed().getId().intValue()==(hero.getId().intValue()))
+			lastPlayed="   *";
+		
+		
+		lab.setText("<html>"+ hero.getName() + " " + levels + lastPlayed);
 		lab.setOpaque(true);
 		lab.setBackground(Color.black);
 		lab.setForeground(Color.white);

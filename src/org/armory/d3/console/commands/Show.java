@@ -14,7 +14,6 @@ import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.Stuff;
 import com.pihen.d3restapi.beans.Tag;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
-import com.pihen.d3restapi.test.Test.Employee;
 
 public class Show implements Command {
 

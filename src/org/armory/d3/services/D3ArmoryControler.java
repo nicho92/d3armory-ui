@@ -119,10 +119,14 @@ public class D3ArmoryControler {
 		return instance;
 	}
 	
+	private Hero lastPlayed=null;
 	public Hero getLastHeroPlayed()
 	{
 			try {
-				return getHeroDetails(profil.getLastHeroPlayed().longValue());
+				if(lastPlayed==null)
+					lastPlayed = getHeroDetails(profil.getLastHeroPlayed().longValue());
+				
+				return lastPlayed;
 			} catch (D3ServerCommunicationException e) {
 				e.printStackTrace();
 				return null;
@@ -541,6 +545,7 @@ public class D3ArmoryControler {
 	}
 	
 	public void setProfile(Profile p) {
+		lastPlayed=null;
 		profil=p;
 		
 	}
