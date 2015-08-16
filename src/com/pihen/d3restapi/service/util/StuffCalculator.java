@@ -114,6 +114,12 @@ public class StuffCalculator{
 		init();
 	}
 
+	public double getAreaDamage(int nbMobs)
+	{
+		return (filter("Splash_Damage_Effect_Percent",null)*100)*(nbMobs-1)*0.2;
+	}
+	
+	
 	public Map<String, MinMaxBonus> getStatAttributs()
 	{
 		return statsCalculator;

@@ -25,7 +25,7 @@ public class LegendarySet implements Serializable {
 					if(s.equals(z))
 						nbPiece++;
 				}
-				if(z.getAttributesRaw().get("Attribute_Set_Item_Discount")!=null)
+				if(z.getAttributesRaw().get("Attribute_Set_Item_Discount")!=null)//Unique_Ring_107_x1
 					ringRoyale=z.getAttributesRaw().get("Attribute_Set_Item_Discount").getMoyenne().intValue();
 			}
 		}
