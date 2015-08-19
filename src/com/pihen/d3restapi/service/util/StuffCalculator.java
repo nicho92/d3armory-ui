@@ -308,7 +308,7 @@ public class StuffCalculator{
 		
 	}
 	
-	private void init()
+	public void init()
 	{
 		
 		weaponDefaultAS=Item.getWeaponDefaultAS();//init 

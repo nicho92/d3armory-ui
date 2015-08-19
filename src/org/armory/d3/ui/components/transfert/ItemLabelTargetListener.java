@@ -7,6 +7,7 @@ import java.awt.dnd.DropTargetAdapter;
 import java.awt.dnd.DropTargetDragEvent;
 import java.awt.dnd.DropTargetDropEvent;
 
+import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.ItemCreatorFrame;
 import org.armory.d3.ui.components.ItemLabel;
 
@@ -39,18 +40,18 @@ public class ItemLabelTargetListener extends DropTargetAdapter {
         if (event.isDataFlavorSupported(TransferableItem.itemFlavor)) {
 
           event.acceptDrop(DnDConstants.ACTION_COPY);
-         // this.itlab.setItem(i);
-         // this.itlab.repaint();
+          this.itlab.setItem(i);
+          this.itlab.repaint();
           ItemCreatorFrame itemBuilderFrame = new ItemCreatorFrame(i,itlab.getGear());
           ItemLabel temp = new ItemLabel();
           temp.setItem(i);
+          itemBuilderFrame.getItemPanelDetails().getLblIcon().setIcon(temp.getIcon());
+			 
+          //D3ArmoryControler.getInstance().getCalculator().getStuffs().put(itlab.getGear(), i);
+          //D3ArmoryControler.getInstance().getCalculator().init();
+          D3ArmoryControler.getInstance().getCalculator().calculate();
           
-			 itemBuilderFrame.getItemPanelDetails().getLblIcon().setIcon(temp.getIcon());
-			 
-			 
-			 
-//          D3ArmoryControler.getInstance().getCalculator().getStuffs().put(itlab.getGear(), i);
-//          System.out.println(D3ArmoryControler.getInstance().getCalculator().calculate());
+          
           event.dropComplete(true);
           return;
         }
