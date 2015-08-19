@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import org.armory.d3.services.D3ArmoryControler;
 
 import com.pihen.d3restapi.beans.Hero;
+import com.pihen.d3restapi.service.util.EnumerationStuff;
 
 public class HeroPanel extends JPanel {
 
@@ -338,10 +339,15 @@ public class HeroPanel extends JPanel {
 	}
 	
 	
+	
+	
+	
 	public ItemLabel getLblShoulders() {
 		if(lblShoulders == null) {
 			lblShoulders = new ItemLabel();
 			lblShoulders.setBounds(502, 179, 75, 89);
+			lblShoulders.setGear(EnumerationStuff.SHOULDERS);
+			lblShoulders.enabledDropable(true);
 		}
 		return lblShoulders;
 	}
@@ -351,6 +357,8 @@ public class HeroPanel extends JPanel {
 			lblGants = new ItemLabel();
 			lblGants.setBounds(490, 274, 61, 98);
 			lblGants.add(getLblSocketGants());
+			lblGants.setGear(EnumerationStuff.GANT);
+			lblGants.enabledDropable(true);
 		}
 		return lblGants;
 	}
@@ -360,6 +368,8 @@ public class HeroPanel extends JPanel {
 			lblNeck = new ItemLabel();
 			lblNeck.setBounds(679, 206, 56, 50);
 			lblNeck.add(getLblSocketNeck());
+			lblNeck.setGear(EnumerationStuff.NECK);
+			lblNeck.enabledDropable(true);
 		}
 		return lblNeck;
 	}
@@ -368,6 +378,8 @@ public class HeroPanel extends JPanel {
 		if(lblBracers == null) {
 			lblBracers = new ItemLabel();
 			lblBracers.setBounds(702, 282, 66, 90);
+			lblBracers.setGear(EnumerationStuff.BRACER);
+			lblBracers.enabledDropable(true);
 		}
 		return lblBracers;
 	}
@@ -379,6 +391,8 @@ public class HeroPanel extends JPanel {
 			lblTorso.add(getLblSocketTorso1());
 			lblTorso.add(getLblSocketTorso2());
 			lblTorso.add(getLblSocketTorso3());
+			lblTorso.setGear(EnumerationStuff.TORSO);
+			lblTorso.enabledDropable(true);
 		}
 		return lblTorso;
 	}
@@ -388,6 +402,8 @@ public class HeroPanel extends JPanel {
 			lblRingRight = new ItemLabel();
 			lblRingRight.setBounds(502, 385, 37, 37);
 			lblRingRight.add(getLblSocketRightRing());
+			lblRingRight.setGear(EnumerationStuff.RING_RIGHT);
+			lblRingRight.enabledDropable(true);
 		}
 		return lblRingRight;
 	}
@@ -397,6 +413,8 @@ public class HeroPanel extends JPanel {
 			lblRingLeft = new ItemLabel();
 			lblRingLeft.setBounds(719, 381, 38, 41);
 			lblRingLeft.add(getLblSocketLeftRing());
+			lblRingLeft.setGear(EnumerationStuff.RING_LEFT);
+			lblRingLeft.enabledDropable(true);
 		}
 		return lblRingLeft;
 	}
@@ -405,6 +423,8 @@ public class HeroPanel extends JPanel {
 		if(lblbelt == null) {
 			lblbelt = new ItemLabel();
 			lblbelt.setBounds(589, 347, 78, 32);
+			lblbelt.setGear(EnumerationStuff.BELT);
+			lblbelt.enabledDropable(true);
 		}
 		return lblbelt;
 	}
@@ -415,6 +435,8 @@ public class HeroPanel extends JPanel {
 			lblLegs.setBounds(589, 391, 78, 84);
 			lblLegs.add(getLblSocketLegs1());
 			lblLegs.add(getLblSocketLegs2());
+			lblLegs.setGear(EnumerationStuff.LEGS);
+			lblLegs.enabledDropable(true);
 		}
 		return lblLegs;
 	}
@@ -424,6 +446,8 @@ public class HeroPanel extends JPanel {
 			lblFoot = new ItemLabel();
 			lblFoot.setBounds(589, 481, 78, 89);
 			lblFoot.add(getLblSocketBoot());
+			lblFoot.setGear(EnumerationStuff.FEET);
+			lblFoot.enabledDropable(true);
 		}
 		return lblFoot;
 	}
@@ -434,6 +458,8 @@ public class HeroPanel extends JPanel {
 			lblMainHand.setBounds(490, 434, 67, 136);
 			lblMainHand.add(getLblSocketMainHand());
 			lblMainHand.add(getLblSocketMainHand2());
+			lblMainHand.setGear(EnumerationStuff.MAIN_HAND);
+			lblMainHand.enabledDropable(true);
 		}
 		return lblMainHand;
 	}
@@ -443,6 +469,8 @@ public class HeroPanel extends JPanel {
 			lblOffHand = new ItemLabel();
 			lblOffHand.setBounds(702, 434, 73, 133);
 			lblOffHand.add(getLblSocketOffHand());
+			lblOffHand.setGear(EnumerationStuff.OFF_HAND);
+			lblOffHand.enabledDropable(true);
 		}
 		return lblOffHand;
 	}
@@ -452,6 +480,8 @@ public class HeroPanel extends JPanel {
 			lblHead = new ItemLabel();
 			lblHead.setBounds(594, 148, 67, 77);
 			lblHead.add(getLblSocketHead());
+			lblHead.setGear(EnumerationStuff.HEAD);
+			lblHead.enabledDropable(true);
 		}
 		return lblHead;
 	}

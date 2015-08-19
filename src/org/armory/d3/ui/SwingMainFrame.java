@@ -6,6 +6,7 @@ import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.SplashScreen;
 import java.awt.SystemTray;
@@ -255,11 +256,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				{
 					jmnuFile = new JMenu();
 					mnuBar.add(jmnuFile);
-					jmnuFile.setText("File");
+					jmnuFile.setText("Menu");
 					{
 						newFileMenuItem = new JMenuItem();
 						jmnuFile.add(newFileMenuItem);
-						newFileMenuItem.setText("Tags");
+						newFileMenuItem.setText("Add tag");
 						newFileMenuItem.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								newFileMenuItemActionPerformed(evt);
@@ -1191,7 +1192,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		}
 		if(val==2)
 		{
-			temp.append("Blocage : " + hero.getStats().getBlockChance()*100 +"% <br/>");
+			temp.append("Blocage : " + StuffCalculator.format(hero.getStats().getBlockChance()*100) +"% <br/>");
 			temp.append("Blocage Min : " + hero.getStats().getBlockAmountMin() +" <br/>");
 			temp.append("Blocage Max : " + hero.getStats().getBlockAmountMax() +" <br/>");
 			temp.append("Damage Reduc: " + StuffCalculator.format(hero.getStats().getDamageReduction()*100) +"% <br/>");
@@ -1609,7 +1610,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			};
 			panneauInfoHero.setMinimumSize(new Dimension(0,0));
 			panneauInfoHero.setBackground(Color.black);
-			panneauInfoHero.setLayout(new FlowLayout());
+			panneauInfoHero.setLayout(new GridLayout(1,6));
 			
 			
 		}
@@ -1724,12 +1725,11 @@ public class SwingMainFrame extends javax.swing.JFrame {
 				public void mouseClicked(java.awt.event.MouseEvent evt) {
 			        int row = tableauDescriptionItems.rowAtPoint(evt.getPoint());
 			        Item i = ((ItemsDetailModel)tableauDescriptionItems.getModel()).getItemAt(row);
-			        getPanelItemDetails().showItem(i);
+			        getPanelItemDetails().showItem(i);//TODO a améliorer
 			        ItemLabel lab = new ItemLabel();
 			        lab.setItem(i, null);
 			        getPanelItemDetails().getLblIcon().setIcon(lab.getIcon());
 			        getPanelItemDetails().getLblIcon().repaint();
-			        
 			        getPanelItemDetails().repaint(); 
 			        
 			        

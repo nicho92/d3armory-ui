@@ -1,11 +1,16 @@
 package org.armory.d3.ui.components;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Paint;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DragGestureEvent;
+import java.awt.dnd.DragGestureListener;
+import java.awt.dnd.DragSource;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -32,13 +37,15 @@ import org.apache.log4j.Logger;
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.ItemCreatorFrame;
 import org.armory.d3.ui.SwingMainFrame;
+import org.armory.d3.ui.components.transfert.ItemLabelTargetListener;
+import org.armory.d3.ui.components.transfert.TransferableItem;
 
 import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.Tag;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
 
 
-public class ItemLabel extends JLabel implements MouseListener, Cloneable{
+public class ItemLabel extends JLabel implements MouseListener, Cloneable, DragGestureListener{
 	
     private Item item;
  	private boolean disabled;
@@ -49,27 +56,57 @@ public class ItemLabel extends JLabel implements MouseListener, Cloneable{
 	private boolean enableRightClick=true;
 	private boolean isDraggable=false;
 	private boolean isDropable=true;
-	
+	private boolean isOverDetailed=true;
 	
 	static final Logger logger = LogManager.getLogger(ItemLabel.class.getName());
 
 	
 	
-	
-    public boolean isDraggable() {
+    public boolean isOverDetailed() {
+		return isOverDetailed;
+	}
+
+	public void setOverDetailed(boolean isOverDetailed) {
+		this.isOverDetailed = isOverDetailed;
+	}
+
+	public boolean isDraggable() {
 		return isDraggable;
 	}
 
-	public void setDraggable(boolean isDraggable) {
+	public void enabledDraggable(boolean isDraggable) {
 		this.isDraggable = isDraggable;
+		
+		DragSource ds = new DragSource();
+		   ds.createDefaultDragGestureRecognizer(this,DnDConstants.ACTION_COPY, this);
+		
 	}
+	
+	public void dragGestureRecognized(DragGestureEvent event) 
+    {
+        Cursor cursor = null;
+//        ItemLabel itLab = (ItemLabel) event.getComponent();
+//
+//        Item i = itLab.getItem();
+
+        if (event.getDragAction() == DnDConstants.ACTION_COPY) {
+            cursor = DragSource.DefaultCopyDrop;
+        }
+
+       // event.startDrag(cursor, new TransferableItem(i));
+        event.startDrag(cursor, new TransferableItem(item));
+    }
+	
+	
+	
 
 	public boolean isDropable() {
 		return isDropable;
 	}
 
-	public void setDropable(boolean isDropable) {
+	public void enabledDropable(boolean isDropable) {
 		this.isDropable = isDropable;
+		new ItemLabelTargetListener(this);
 	}
 
 	public boolean isEnableRightClick() {
@@ -94,19 +131,18 @@ public class ItemLabel extends JLabel implements MouseListener, Cloneable{
     	
     }
     
-//    public void setItem(Item i) {
-//		this.item=i;
-//	}
-
-    
     public Item getItem() {
 		return item;
 	}
 
+	public void setItem(Item i)
+	{
+		  this.item=i;
+	}
+    
 	public void setItem(Item i,EnumerationStuff e) {
 		this.item = i;
 		this.gear = e;
-		
 	}
 
 	
@@ -291,6 +327,13 @@ public class ItemLabel extends JLabel implements MouseListener, Cloneable{
 
 	
 	public void mouseEntered(MouseEvent e) {
+		
+		if(isDraggable)
+			this.setCursor(new Cursor(Cursor.MOVE_CURSOR));
+		
+		if(!isOverDetailed)
+			return;
+		
 		if(item==null)
 			return;
 		
@@ -311,7 +354,10 @@ public class ItemLabel extends JLabel implements MouseListener, Cloneable{
 		// TODO Auto-generated method stub
 		
 	}
-	public void mousePressed(MouseEvent e) {
+	
+	
+	public void mousePressed(MouseEvent e) 
+	{
 		
 		
 		if(enableRightClick)
@@ -420,7 +466,4 @@ public class ItemLabel extends JLabel implements MouseListener, Cloneable{
 		  }
 		  return m;
 	}
-
-
-	 	
 }

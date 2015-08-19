@@ -3,7 +3,6 @@ package org.armory.d3.console;
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -36,9 +35,9 @@ public class D3Console {
 					c = commandFactory(commandeLine[0]);
 					c.run(commandeLine);
 					c.quit();
-					line = Console.io.nextLine();
 		    } catch (Exception e) {
 		    	handleException(e,c);
+		    	Console.io.print(getPrompt());
 		    	line = Console.io.nextLine();
 		    } 
 			
@@ -48,7 +47,7 @@ public class D3Console {
 	
 	private void handleException(Exception e, Command c) {
 		e.printStackTrace();
-		//c.usage();
+		c.usage();
 		
 	}
 	

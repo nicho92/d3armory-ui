@@ -11,6 +11,7 @@ import org.armory.d3.console.table.spec.IASCIITableAware;
 import org.armory.d3.services.D3ArmoryControler;
 
 import com.pihen.d3restapi.beans.Hero;
+import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.Stuff;
 import com.pihen.d3restapi.beans.Tag;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
@@ -51,10 +52,10 @@ public class Show implements Command {
 			
 			EnumerationStuff[] gears = EnumerationStuff.values();
 			
-			for(int i = 0;i<gears.length;i++)
-			{
-				out.println(gears[i] + " " + st.get(gears[i]));
-			}
+			IASCIITableAware asciiTableAware = new CollectionASCIITableAware<Item>(st.getItems(), 
+	    			"name", "itemLevel", "typeName");
+			
+			 ASCIITable.getInstance(out).printTable(asciiTableAware);
 			
 		}
 		if(cl.hasOption("r"))

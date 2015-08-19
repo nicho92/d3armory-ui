@@ -47,12 +47,8 @@ public class ChestPanel extends JPanel {
 			
 			ItemLabel lab = new ItemLabel();
 				
-					  lab.setItem(i,null);
-					
-//					  lab.setTransferHandler(new TransferHandler("item"));
-//					  MouseListener listener = new DragMouseAdapter();
-//					  		lab.addMouseListener(listener);
-			
+					  lab.setItem(i);
+					  lab.enabledDraggable(true);
 					  addComponent(lab);
 					 
 		}
