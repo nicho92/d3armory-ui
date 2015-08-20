@@ -1,5 +1,6 @@
 package org.armory.d3.ui.components.transfert;
 
+import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
@@ -27,6 +28,7 @@ public class ItemLabelTargetListener extends DropTargetAdapter {
     public void dragOver(DropTargetDragEvent event) {
     		
     	 Transferable tr = event.getTransferable();
+    	 
     	 if(((ItemLabel)dropTarget.getComponent()).getGear()!=itlab.getGear())
     		 event.rejectDrag();
     }

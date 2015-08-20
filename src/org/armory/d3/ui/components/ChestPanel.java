@@ -71,14 +71,5 @@ public class ChestPanel extends JPanel {
 		index++;
 		
 	}
-	
-	private class DragMouseAdapter extends MouseAdapter {
-	    public void mousePressed(MouseEvent e) {
-	      JComponent c = (JComponent) e.getSource();
-	      TransferHandler handler = c.getTransferHandler();
-	      System.out.println(handler.getCopyAction().getValue("item"));
-	      handler.exportAsDrag(c, e, TransferHandler.COPY);
-	    }
-	  }
 }
 

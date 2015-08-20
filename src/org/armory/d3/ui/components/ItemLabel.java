@@ -85,20 +85,11 @@ public class ItemLabel extends JLabel implements MouseListener, Cloneable, DragG
 	public void dragGestureRecognized(DragGestureEvent event) 
     {
         Cursor cursor = null;
-//        ItemLabel itLab = (ItemLabel) event.getComponent();
-//
-//        Item i = itLab.getItem();
-
         if (event.getDragAction() == DnDConstants.ACTION_COPY) {
             cursor = DragSource.DefaultCopyDrop;
         }
-
-       // event.startDrag(cursor, new TransferableItem(i));
         event.startDrag(cursor, new TransferableItem(item));
     }
-	
-	
-	
 
 	public boolean isDropable() {
 		return isDropable;
@@ -358,8 +349,6 @@ public class ItemLabel extends JLabel implements MouseListener, Cloneable, DragG
 	
 	public void mousePressed(MouseEvent e) 
 	{
-		
-		
 		if(enableRightClick)
 		if(SwingUtilities.isRightMouseButton(e))
 		{
@@ -399,8 +388,6 @@ public class ItemLabel extends JLabel implements MouseListener, Cloneable, DragG
 							String name = JOptionPane.showInputDialog("Name for item ?",item.getName());
 							item.setName(name);
 							saveItem();
-							
-							
 						} catch (Exception e1) {
 							JOptionPane.showMessageDialog(null, e1,"ERREUR",JOptionPane.ERROR_MESSAGE);
 						}
@@ -435,10 +422,13 @@ public class ItemLabel extends JLabel implements MouseListener, Cloneable, DragG
 		
 	}
 	
-	private void saveItem() throws Exception
+	public void saveItem() throws Exception
 	{
 		D3ArmoryControler.getInstance().getRecorder().saveItem(item);
-		((SwingMainFrame)getTopLevelAncestor()).getChestPanel().addComponent((ItemLabel)this.clone());
+		ItemLabel itLab = (ItemLabel)this.clone();
+		itLab.enabledDropable(false);
+		itLab.enabledDraggable(true);
+		((SwingMainFrame)getTopLevelAncestor()).getChestPanel().addComponent(itLab);
 		((SwingMainFrame)getTopLevelAncestor()).getChestPanel().repaint();
 	}
 	

@@ -8,8 +8,7 @@ import com.pihen.d3restapi.beans.Item;
 
 public class TransferableItem implements Transferable {
 	 
-    protected static DataFlavor itemFlavor =
-        new DataFlavor(Item.class, "A item Object");
+    protected static DataFlavor itemFlavor = new DataFlavor(Item.class, "A item");
 
     protected static DataFlavor[] supportedFlavors = {
     	itemFlavor,

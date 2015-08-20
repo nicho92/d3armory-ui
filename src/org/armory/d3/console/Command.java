@@ -17,7 +17,5 @@ public interface Command {
 	
 	public void quit();
 
-	
-
 
 }

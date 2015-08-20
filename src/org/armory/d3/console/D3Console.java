@@ -45,9 +45,17 @@ public class D3Console {
 				line = io.nextLine();
 				CommandLineParser parser = new DefaultParser();
 				String[] commandeLine = line.split(" ");
-					c = commandFactory(commandeLine[0]);
-					c.run(commandeLine);
-					c.quit();
+					
+					if(commandeLine[0].equals("cls")|| commandeLine[0].equals("clear"))
+					{
+						io.clear();
+					}
+					else
+					{	
+						c = commandFactory(commandeLine[0]);
+						c.run(commandeLine);
+						c.quit();
+					}
 		    } catch (Exception e) {
 		    	handleException(e,c);
 		    	io.print(getPrompt());
