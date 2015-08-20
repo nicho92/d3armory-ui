@@ -48,6 +48,7 @@ public class Load implements Command {
 		{
 			Hero h = D3ArmoryControler.getInstance().getHeroDetails(Long.parseLong(cl.getOptionValue("h")));
 			D3ArmoryControler.getInstance().setSelectedHero(h);
+			D3ArmoryControler.getInstance().initStuffHero(h);
 			out.println(h + " loaded");
 		}
 		

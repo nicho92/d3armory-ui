@@ -29,6 +29,7 @@ public class Show implements Command {
 		opts.addOption("i","items",false,"show item for selected hero");
 		opts.addOption("r","region",false,"show region");
 		opts.addOption("t","tags",false,"show saved tags");
+		opts.addOption("c","chest",false,"show saved items");
 	}
 	
 	public void run(String[] args) throws Exception {
@@ -50,8 +51,14 @@ public class Show implements Command {
 		{
 			Stuff st = D3ArmoryControler.getInstance().getSelectedHero(false).getItems();
 			
+			
 			EnumerationStuff[] gears = EnumerationStuff.values();
 			
+			
+			for(Item i : st.getItems())
+				System.out.println(i.getTypeName());
+				
+				
 			IASCIITableAware asciiTableAware = new CollectionASCIITableAware<Item>(st.getItems(), 
 	    			"name", "itemLevel", "typeName");
 			
@@ -68,6 +75,15 @@ public class Show implements Command {
 	    			"region","name", "number");
 			ASCIITable.getInstance(out).printTable(asciiTableAware);
 		}
+		if(cl.hasOption("c"))
+		{
+			IASCIITableAware asciiTableAware = new CollectionASCIITableAware<Item>(D3ArmoryControler.getInstance().getRecorder().listSavedItems(), 
+	    			"name", "itemlevel", "typename");
+			
+			 ASCIITable.getInstance(out).printTable(asciiTableAware);
+		}
+		
+		
 		if(cl.hasOption("?"))
 		{
 			usage();
