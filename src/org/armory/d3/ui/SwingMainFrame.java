@@ -337,14 +337,14 @@ public class SwingMainFrame extends javax.swing.JFrame {
 							public void actionPerformed(ActionEvent evt) {
 								
 								
-								SwingUtilities.invokeLater(new Runnable() {
-
-					                @Override
-					                public void run() {
-					                	new D3Console();
-					                }
-					                
-					            });
+								new Thread(new Runnable() {
+									
+									@Override
+									public void run() {
+										 new D3Console();
+										
+									}
+								}).start();
 								
 								
 							}

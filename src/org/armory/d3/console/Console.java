@@ -1,7 +1,12 @@
 package org.armory.d3.console;
 
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
+import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -11,67 +16,33 @@ import java.io.PrintStream;
 import java.util.concurrent.CountDownLatch;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.*;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
+import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.text.*;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Caret;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
-/**
- * <strong>Please do not attempt to create an instance of this class! 
- * There is no need to. All you have to do is type <code>C.io.*</code> and 
- * everything will be ready to use</strong>.
- * <p>This is a special version of my C class with functionality to create an
- * easy to use Console in a GUI environment.</p>
- * <p>I designed it with multiple use of the SwingUtilities.invokeLater()
- * method. I don't like it this way but I didn't have a choice because I heard
- * using it adds considerable overhead, but then again this could be a myth, 
- * especially on modern JVM.</p>
- * for more info click <a href="http://www.crownlessking.com">here</a>.
- * 
- * @author crownlessking
- * 
- */
-public final class Console {
+
+public final class Console extends JFrame{
     
-    /** Sequence used by operating system to separate lines in text files */
     public final static String newline = System.getProperty("line.separator");
-    
-    /**
-     * This is an object of type GUIConsoleIO which is a inner class. It
-     * is a reference to all methods that can be use to modify the content of
-     * the window, from adding text to getting user input. This was done so that
-     * it is possible to access this object from all classes in the project 
-     * without going through the pain of passing a reference to other classes or
-     * creating multiple instances.
-     * <p>Since this object is a Graphical User Interface (GUI) Window, it is
-     * critical to only have one unique instance running, thus the reason why
-     * the constructor of GUIConsoleIO is private and the instantiation of 
-     * <code>io</code> is unique and final.</p>
-     * <p><strong>Warning!</strong><br/>
-     * This window is not designed for heavy console printouts.</p>
-     */
-    public static final GUIConsoleIO io = new GUIConsoleIO();
-    
-    private Console() {
-    }
-    
-    /**
-     * <strong>Please ignore this!</strong><br />
-     * <p>An instance of this class was already provided. It should be
-     * displayed in the current list as <code>io</code>.</p>
-     */
-    //<editor-fold defaultstate="collapsed" desc="Class GUIConsoleIO Implementation...">
-    public static class GUIConsoleIO {
-        
-        private GUIConsoleIO() {
+
+    public Console () {
             initComponents();
         }
         
-        /**
-         * Contains the default style settings for the window.<br />
-         * <strong>Note:</strong> input and prompt are the same.
-         */
-        private void defaultStyles() {
+       private void defaultStyles() {
             
             // default window style
             defaultFont = "Lucida Console";
@@ -87,14 +58,17 @@ public final class Console {
             StyleConstants.setForeground(promptStyle, Color.WHITE);
         }
         
-        private void initComponents() {
-            frame = new JFrame("crownlessking.com");
+       private void initComponents() {
+           
             pane = new JTextPane();
             doc = pane.getStyledDocument();
+            
             defaultStyles();
             redirectSystemStreams();
-            fontNames = GraphicsEnvironment.getLocalGraphicsEnvironment()
-                    .getAvailableFontFamilyNames();
+           
+            
+            fontNames = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+            
             InputPolicy cp = new InputPolicy();
             pane.addKeyListener(cp);
             pane.setMargin(new Insets(0, 10, 0, 10));
@@ -141,7 +115,7 @@ public final class Console {
                         lastInputEnd = doc.getLength();
                     } catch (BadLocationException ex) {
                         System.err.println(ex.getMessage());
-                        System.exit(1);
+                       // System.exit(1);
                     }
                     editing = false;
                     promptVal = null;
@@ -157,15 +131,9 @@ public final class Console {
             pane.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false), "enter");
             pane.getActionMap().put("enter", enter);
 
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            Dimension frameSize = new Dimension((int) (screenSize.width / 2), 
-                    (int) (screenSize.height / 2));
-            int x = (int) (frameSize.width / 2);
-            int y = (int) (frameSize.height / 2);
-            frame.setBounds(x, y, frameSize.width, frameSize.height);
-            frame.add(new JScrollPane(pane));
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setVisible(true);
+           
+            add(new JScrollPane(pane));
+           
         }
 
         /**
@@ -425,22 +393,6 @@ public final class Console {
             });
         }
 
-        /**
-         * Changes the window title. The window title is located in the 
-         * decoration bar on the same level as the minimize, expand, and exit
-         * buttons.
-         * @param title the text to which the title will change.
-         */
-        public void setTitle(final String title) {
-            SwingUtilities.invokeLater(new Runnable() {
-
-                @Override
-                public void run() {
-                    frame.setTitle(title);
-                }
-                
-            });
-        }
         
         /**
          * Has the same functionality as the method 
@@ -1265,125 +1217,7 @@ public final class Console {
             return prompt();
         }
         
-        /**
-         * Captures user input from the keyboard as a double. Every time 
-         * data is inserted in the text pane, a variable will be updated with 
-         * length of the styled document. This is done so that when a prompt to 
-         * capture user input is initiated, the prompt method will know exactly 
-         * which piece of data to return beginning with the index of the last 
-         * string insertion to the end of the styled document.
-         * 
-         * @return keyboard input from user as a double.
-         */
-        public double nextDouble() {
-            return Double.valueOf(prompt());
-        }
-        
-        /**
-         * Captures user input from the keyboard as a double. Every time 
-         * data is inserted in the text pane, a variable will be updated with 
-         * length of the styled document. This is done so that when a prompt to 
-         * capture user input is initiated, the prompt method will know exactly 
-         * which piece of data to return beginning with the index of the last 
-         * string insertion to the end of the styled document.
-         * 
-         * @param l maximum length of input
-         * @return keyboard input from user as a double.
-         */
-        public double nextDouble(int l) {
-            maxInput = l;
-            return Double.valueOf(prompt());
-        }
-        
-        /**
-         * Captures user input from the keyboard as a float. Every time 
-         * data is inserted in the text pane, a variable will be updated with 
-         * length of the styled document. This is done so that when a prompt to 
-         * capture user input is initiated, the prompt method will know exactly 
-         * which piece of data to return beginning with the index of the last 
-         * string insertion to the end of the styled document.
-         * 
-         * @return keyboard input from user as a <code>float</code>.
-         */
-        public float nextFloat() {
-            return Float.valueOf(prompt());
-        }
-
-        /**
-         * Captures user input from the keyboard as a float. Every time 
-         * data is inserted in the text pane, a variable will be updated with 
-         * length of the styled document. This is done so that when a prompt to 
-         * capture user input is initiated, the prompt method will know exactly 
-         * which piece of data to return beginning with the index of the last 
-         * string insertion to the end of the styled document.
-         * 
-         * @param l maximum length of input
-         * @return keyboard input from user as a <code>float</code>.
-         */
-        public float nextFloat(int l) {
-            maxInput = l;
-            return Float.valueOf(prompt());
-        }
-        
-        /**
-         * Captures user input from the keyboard as a long. Every time 
-         * data is inserted in the text pane, a variable will be updated with 
-         * length of the styled document. This is done so that when a prompt to 
-         * capture user input is initiated, the prompt method will know exactly 
-         * which piece of data to return beginning with the index of the last 
-         * string insertion to the end of the styled document.
-         * 
-         * @return keyboard input from user as a <code>long</code>.
-         */
-        public long nextLong() {
-            return Long.valueOf(prompt());
-        }
-        
-        /**
-         * Captures user input from the keyboard as a long. Every time 
-         * data is inserted in the text pane, a variable will be updated with 
-         * length of the styled document. This is done so that when a prompt to 
-         * capture user input is initiated, the prompt method will know exactly 
-         * which piece of data to return beginning with the index of the last 
-         * string insertion to the end of the styled document.
-         * 
-         * @param l maximum length of input
-         * @return keyboard input from user as a <code>long</code>.
-         */
-        public long nextLong(int l) {
-            maxInput = l;
-            return Long.valueOf(prompt());
-        }
-        
-        /**
-         * Captures user input from the keyboard as an integer. Every time 
-         * data is inserted in the text pane, a variable will be updated with 
-         * length of the styled document. This is done so that when a prompt to 
-         * capture user input is initiated, the prompt method will know exactly 
-         * which piece of data to return beginning with the index of the last 
-         * string insertion to the end of the styled document.
-         * 
-         * @return keyboard input from user as a <code>int</code>.
-         */
-        public int nextInt() {
-            return Integer.valueOf(prompt());
-        }
-        
-        /**
-         * Captures user input from the keyboard as an integer. Every time 
-         * data is inserted in the text pane, a variable will be updated with 
-         * length of the styled document. This is done so that when a prompt to 
-         * capture user input is initiated, the prompt method will know exactly 
-         * which piece of data to return beginning with the index of the last 
-         * string insertion to the end of the styled document.
-         * 
-         * @param l maximum length of input.
-         * @return keyboard input from user as a <code>int</code>.
-         */
-        public int nextInt(int l) {
-            maxInput = l;
-            return Integer.valueOf(prompt());
-        }
+   
 
         private SimpleAttributeSet attr(Color color) {
             SimpleAttributeSet s = new SimpleAttributeSet();
@@ -1497,8 +1331,8 @@ public final class Console {
             try {
                 doc.insertString(doc.getLength(), txt, attr);
             } catch (BadLocationException ex) {
-                Console.io.println("Error occurred in printText");
-                Console.io.println(ex.getMessage());
+                println("Error occurred in printText");
+                println(ex.getMessage());
             }
         }
         
@@ -1532,7 +1366,6 @@ public final class Console {
             System.setErr(new PrintStream(out, true));
         }
         
-        private JFrame frame;
         private JTextPane pane;
         private CountDownLatch latch;
         private StyledDocument doc;
@@ -1549,4 +1382,3 @@ public final class Console {
         private boolean editing;
         private boolean selected;
     } //</editor-fold>
-}

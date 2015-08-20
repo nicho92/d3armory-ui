@@ -16,20 +16,33 @@ public class D3Console {
 	ClassLoader classLoader = D3Console.class.getClassLoader();
 	
 	public static void main(String[] args) {
-		new D3Console();
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				 new D3Console();
+				
+			}
+		}).start();
 	}
 	
 	public D3Console()  {
-		Console.io.setTitle("D3 Console");
-		Console.io.println("Welcome to D3 Console. Type help for commands",Color.CYAN);
-		Console.io.print(getPrompt());
+		
+		Console io = new Console();
+				io.setTitle("D3 Console");
+				io.setSize(1024,500);
+				io.setLocationRelativeTo(null);
+				io.setVisible(true);
+				io.println("Welcome to D3 Console. Type help for commands",Color.CYAN);
+		
+		//Console.io.print(getPrompt());
 		Command c = null;
 		String line ="";
 		while(line !="quit")
 		{	
 			try {
-				Console.io.print(getPrompt());
-				line = Console.io.nextLine();
+				io.print(getPrompt());
+				line = io.nextLine();
 				CommandLineParser parser = new DefaultParser();
 				String[] commandeLine = line.split(" ");
 					c = commandFactory(commandeLine[0]);
@@ -37,8 +50,8 @@ public class D3Console {
 					c.quit();
 		    } catch (Exception e) {
 		    	handleException(e,c);
-		    	Console.io.print(getPrompt());
-		    	line = Console.io.nextLine();
+		    	io.print(getPrompt());
+		    	line = io.nextLine();
 		    } 
 			
 		}
@@ -46,9 +59,11 @@ public class D3Console {
 	}
 	
 	private void handleException(Exception e, Command c) {
-		e.printStackTrace();
-		c.usage();
-		
+		if(c!=null)
+		{
+			e.printStackTrace();
+			c.usage();
+		}
 	}
 	
 	private String getPrompt()
