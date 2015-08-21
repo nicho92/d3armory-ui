@@ -10,19 +10,51 @@ import java.awt.Insets;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import org.armory.d3.services.D3ArmoryControler;
+import org.armory.d3.ui.SwingMainFrame;
 import org.armory.d3.ui.components.transfert.DezItemLabelTargetListener;
 
 import com.pihen.d3restapi.beans.Item;
 
 public class ChestPanel extends JPanel{
 	
-	GridBagConstraints c;
 	int index=0;
+	GridBagConstraints c;
 	JPanel contentChest;
 	JPanel itemDezPanel;
 	ItemLabel lblDezItem;
+	
+	public void init()
+	{
+		index=0;
+		c = new GridBagConstraints();
+		  c.weightx = 1;
+		  c.weighty = 1;
+		  c.gridx = 0;
+		  c.gridy = 0;
+		  c.insets = new Insets(2,2,2,2); 
+		  c.anchor = GridBagConstraints.NORTHWEST;
+		  
+		SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				contentChest.removeAll();
+				for(Item i : D3ArmoryControler.getInstance().getRecorder().listSavedItems())
+				{
+					
+					ItemLabel lab = new ItemLabel();
+							  lab.setItem(i);
+							  lab.enabledDraggable(true);
+							  addComponent(lab);
+							 
+				}
+				repaint();
+			}
+		});
+	}
 	
 	
 	public ChestPanel() {
@@ -45,24 +77,10 @@ public class ChestPanel extends JPanel{
 		fl_itemDezPanel.setAlignment(FlowLayout.LEFT);
 		itemDezPanel.setLayout(fl_itemDezPanel);
 		
-		c = new GridBagConstraints();
-		  c.weightx = 1;
-		  c.weighty = 1;
-		  c.gridx = 0;
-		  c.gridy = 0;
-		  c.insets = new Insets(2,2,2,2); 
-		  c.anchor = GridBagConstraints.NORTHWEST;
 		
 		
-		for(Item i : D3ArmoryControler.getInstance().getRecorder().listSavedItems())
-		{
-			
-			ItemLabel lab = new ItemLabel();
-					  lab.setItem(i);
-					  lab.enabledDraggable(true);
-					  addComponent(lab);
-					 
-		}
+		
+		init();
 		
 		
 		

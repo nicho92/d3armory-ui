@@ -556,6 +556,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 									public void actionPerformed(ActionEvent evt) {
 										try {
 											D3ArmoryControler.getInstance().getRecorder().saveItem(getItem());
+											SwingMainFrame.inst.getChestPanel().init();
 										} catch (Exception e) {
 											JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
 										}

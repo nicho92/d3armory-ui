@@ -11,9 +11,11 @@ import java.awt.dnd.DropTargetDropEvent;
 import java.io.IOException;
 
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.ItemCreatorFrame;
+import org.armory.d3.ui.SwingMainFrame;
 import org.armory.d3.ui.components.ItemLabel;
 
 import com.pihen.d3restapi.beans.Item;
@@ -40,7 +42,8 @@ public class DezItemLabelTargetListener extends DropTargetAdapter {
 			        if(D3ArmoryControler.getInstance().getRecorder().removeItem(i))
 			        {
 			        	JOptionPane.showMessageDialog(null, i.getName()+" deleted");
-			        	
+			        	SwingMainFrame.inst.getChestPanel().init();
+						
 			        }
 			        event.dropComplete(true);
 			        return;

@@ -169,7 +169,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private DefaultRowSorter sorter;
 
 	
-	static SwingMainFrame inst ;
+	public static SwingMainFrame inst ;
 	static final Logger logger = LogManager.getLogger(SwingMainFrame.class.getName());
 	
 	TrayIcon trayIcon = new TrayIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/org/armory/d3/ui/resources/tab/herocomp.png")));
