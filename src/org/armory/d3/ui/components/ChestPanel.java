@@ -94,8 +94,7 @@ public class ChestPanel extends JPanel{
 	
 	public void addComponent(ItemLabel i)
 	{
-		  i.setEnableRightClick(false);
-		  i.setPreferredSize(new Dimension(64,128));
+	    i.setPreferredSize(new Dimension(64,128));
 		if(index==10)
 		{
 			c.gridy=c.gridy+1;

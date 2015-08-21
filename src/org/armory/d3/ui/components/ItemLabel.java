@@ -57,7 +57,6 @@ public class ItemLabel extends JLabel implements MouseListener, Cloneable, DragG
     public static String SIZE_LARGE="large";
     public static String SIZE_SMALL="small";
     private String size;
-	private boolean enableRightClick=true;
 	private boolean isDraggable=false;
 	private boolean isDropable=true;
 	private boolean isOverDetailed=true;
@@ -109,13 +108,7 @@ public class ItemLabel extends JLabel implements MouseListener, Cloneable, DragG
 		new ItemLabelTargetListener(this);
 	}
 
-	public boolean isEnableRightClick() {
-		return enableRightClick;
-	}
-
-	public void setEnableRightClick(boolean enabledClick) {
-		this.enableRightClick = enabledClick;
-	}
+	
 
 	public ItemLabel copy()
 	{
@@ -369,7 +362,9 @@ public class ItemLabel extends JLabel implements MouseListener, Cloneable, DragG
 	
 	public void mousePressed(MouseEvent e) 
 	{
-		if(enableRightClick)
+		if(getGear()==null)
+			return;
+			
 		if(SwingUtilities.isRightMouseButton(e))
 		{
 			List<Tag> listeTag= D3ArmoryControler.getInstance().getListTags();

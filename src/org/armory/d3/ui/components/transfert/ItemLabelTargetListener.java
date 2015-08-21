@@ -101,11 +101,11 @@ public class ItemLabelTargetListener extends DropTargetAdapter {
 					}
 					break;
 				case OFF_HAND:
-				/*	if(!i.isWeapon()||!i.getType().toString().contains("Orb")||!i.getType().toString().contains("Shield")||!i.getType().toString().contains("Mojo"))
+					if(!(i.isWeapon()||i.getType().toString().contains("Orb")||i.getType().toString().contains("Shield")||i.getType().toString().contains("Mojo")||i.getType().toString().contains("Quiver")))
 					{
 						reject();
 						event.rejectDrag();
-					}*/
+					}
 					break;
 				case RING_LEFT:
 						if(!i.getType().toString().contains("Ring"))
@@ -130,7 +130,7 @@ public class ItemLabelTargetListener extends DropTargetAdapter {
 					}
 					break;
 				case TORSO:
-					if(!i.getType().toString().contains("Chest"))
+					if(!(i.getType().toString().contains("Chest")||i.getType().toString().contains("Cloak")))
 					{
 						
 						reject();
