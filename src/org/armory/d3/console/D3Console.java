@@ -1,7 +1,9 @@
 package org.armory.d3.console;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.cli.CommandLineParser;
@@ -12,6 +14,8 @@ import org.armory.d3.services.D3ArmoryControler;
 public class D3Console {
 
 	public static Map<String,Object> ENV=new HashMap<String, Object>();
+	
+	
 	
 	ClassLoader classLoader = D3Console.class.getClassLoader();
 	
@@ -28,13 +32,14 @@ public class D3Console {
 	
 	public D3Console()  {
 		
+		
 		Console io = new Console();
 				io.setTitle("D3 Console");
 				io.setSize(1024,500);
 				io.setLocationRelativeTo(null);
 				io.setVisible(true);
 				io.println("Welcome to D3 Console. Type help for commands",Color.CYAN);
-		
+				
 		//Console.io.print(getPrompt());
 		Command c = null;
 		String line ="";
@@ -56,6 +61,9 @@ public class D3Console {
 						c.run(commandeLine);
 						c.quit();
 					}
+					io.addHistory(line);
+					
+					
 		    } catch (Exception e) {
 		    	handleException(e,c);
 		    	io.print(getPrompt());

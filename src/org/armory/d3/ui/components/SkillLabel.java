@@ -132,10 +132,10 @@ public class SkillLabel extends JLabel implements MouseListener {
 					repaint();
 					D3ArmoryControler.getInstance().getCalculator().addBonus(BuffCalculator.getBuff(skill, D3ArmoryControler.getInstance().getCalculator()));
 					D3ArmoryControler.getInstance().getCalculator().calculate();
-					((SwingMainFrame)getTopLevelAncestor()).getTableauDetailsModel().fireTableDataChanged();
-					((SwingMainFrame)getTopLevelAncestor()).getMnuSaveBuild().setEnabled(true);
-					((CalculatorModel)((SwingMainFrame)getTopLevelAncestor()).getTableauDetailsCalc().getModel()).fireTableDataChanged();
-					((EHPCalculatorModel)((SwingMainFrame)getTopLevelAncestor()).getPanneauEHP().getTable().getModel()).fireTableDataChanged();
+					SwingMainFrame.inst.getTableauDetailsModel().fireTableDataChanged();
+					SwingMainFrame.inst.getMnuSaveBuild().setEnabled(true);
+					((CalculatorModel)SwingMainFrame.inst.getTableauDetailsCalc().getModel()).fireTableDataChanged();
+					((EHPCalculatorModel)SwingMainFrame.inst.getPanneauEHP().getTable().getModel()).fireTableDataChanged();
 				}
 			});
 			
@@ -165,9 +165,9 @@ public class SkillLabel extends JLabel implements MouseListener {
 			D3ArmoryControler.getInstance().getCalculator().removeBonus(BuffCalculator.getBuff(skill, D3ArmoryControler.getInstance().getCalculator()).keySet());
 		
 		D3ArmoryControler.getInstance().getCalculator().calculate();
-		((SwingMainFrame)this.getTopLevelAncestor()).getTableauDetailsModel().fireTableDataChanged();
-		((EHPCalculatorModel)((SwingMainFrame)this.getTopLevelAncestor()).getPanneauEHP().getTable().getModel()).fireTableDataChanged();
-		((CalculatorModel)(((SwingMainFrame)this.getTopLevelAncestor()).getTableauDetailsCalc().getModel())).fireTableDataChanged();
+		SwingMainFrame.inst.getTableauDetailsModel().fireTableDataChanged();
+		((EHPCalculatorModel)SwingMainFrame.inst.getPanneauEHP().getTable().getModel()).fireTableDataChanged();
+		((CalculatorModel)(SwingMainFrame.inst.getTableauDetailsCalc().getModel())).fireTableDataChanged();
 		
 		repaint();
 	}

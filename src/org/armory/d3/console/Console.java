@@ -13,6 +13,8 @@ import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,7 +39,9 @@ import javax.swing.text.StyledDocument;
 public final class Console extends JFrame{
     
     public final static String newline = System.getProperty("line.separator");
-
+    public static int hist=0;
+    
+    
     public Console () {
             initComponents();
         }
@@ -62,6 +66,8 @@ public final class Console extends JFrame{
            
             pane = new JTextPane();
             doc = pane.getStyledDocument();
+            history=new ArrayList<String>();
+            
             
             defaultStyles();
             redirectSystemStreams();
@@ -101,7 +107,40 @@ public final class Console extends JFrame{
             };
             pane.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0, false), "backspace");
             pane.getActionMap().put("backspace", backspace);
-
+            
+            
+            
+            
+            Action upHisto = new AbstractAction() {
+            		
+            	 	public void actionPerformed(ActionEvent e) {
+                    if (!editing) {
+                        return;
+                    }
+                    try {
+						                 
+                    if(hist==0)
+                    	hist=history.size();
+                    
+                    int start = pane.getSelectionStart();
+                    int end = pane.getSelectionEnd();
+                    
+                    printText(history.get(hist),null);
+                    replaceRange("", start, end);
+                    
+                    hist=hist-1;
+                    }
+                    catch (Exception e1) {
+						
+					}
+                    
+                }
+            };
+            pane.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, false), "up");
+            pane.getActionMap().put("up", upHisto);
+            
+            
+            
             Action enter = new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -109,8 +148,7 @@ public final class Console extends JFrame{
                         return;
                     }
                     try {
-                        input = doc.getText(inputStart, 
-                                doc.getLength() - inputStart);
+                        input = doc.getText(inputStart, doc.getLength() - inputStart);
                         lastInputStart = inputStart;
                         lastInputEnd = doc.getLength();
                     } catch (BadLocationException ex) {
@@ -121,6 +159,7 @@ public final class Console extends JFrame{
                     promptVal = null;
                     selected = false;
                     maxInput = -1;
+                    hist=history.size();
                     
                     pane.setEditable(false);
                     caret.setVisible(false);
@@ -316,34 +355,14 @@ public final class Console extends JFrame{
             pane.setText("");
         }
         
-        /**
-         * Changes the color of text at the prompt when getting user 
-         * input. Type "<code>Color.</code>" when entering the argument for 
-         * this method and a default list of colors should appear.
-         * @param color of the text at the prompt. 
-         */
         public void setPromptColor(Color color) {
             StyleConstants.setForeground(promptStyle, color);
         }
 
-        /**
-         * Set the prompt style. You can use the method getAttribute(String 
-         * font, int size, Color color, boolean bold, boolean underline, boolean
-         * italic, boolean strikethrough) to create an object to use with this
-         * method.
-         * @param attr Contains a set a attribute to which text at the prompt 
-         * will be formatted.
-         */
         public void setPromptStyle(SimpleAttributeSet attr) {
             promptStyle = attr;
         }
 
-        /**
-         * Changes the blinking cursor color. Type "<code>Color.</code>" 
-         * when entering the argument for this method and a default list of 
-         * colors should appear.
-         * @param color to which the blinking cursor will change
-         */
         public void setCaretColor(final Color color) {
             SwingUtilities.invokeLater(new Runnable() {
                 
@@ -355,15 +374,6 @@ public final class Console extends JFrame{
             });
         }
 
-        /**
-         * Changes the default printed text color. This is the color in which 
-         * the text printed will be when using any of the {@code print()} or 
-         * {@code println()} method with a single parameter. 
-         * Type "<code>Color.</code>" when entering the argument for this method
-         * and a default list of colors should appear.
-         * @param color to which the text or foreground color of the printed 
-         * text will be.
-         */
         public void setTextColor(final Color color) {
             SwingUtilities.invokeLater(new Runnable() {
 
@@ -375,13 +385,7 @@ public final class Console extends JFrame{
             });
         }
         
-        /**
-         * Changes the window background color. It is the color of the 
-         * background on which the text is displayed. Type 
-         * "<code>Color.</code>" when entering the argument for this method 
-         * and a default list of colors should appear.
-         * @param color to which the background will change
-         */
+      
         public void setBackgroundColor(final Color color) {
             SwingUtilities.invokeLater(new Runnable() {
 
@@ -501,68 +505,6 @@ public final class Console extends JFrame{
             printText(String.valueOf(obj), satt);
         }
         
-        /**
-         * Prints a double value. The string produced by String.valueOf(double) 
-         * is translated into bytes according to the platform's default character 
-         * encoding, and these bytes are inserted into the styled document using
-         * the insertString method.
-         *
-         * @param d
-         *  Value of type double to be printed to the GUI console.
-         */
-        public void print(double d) {
-            printText(String.valueOf(d), null);
-        }
-        
-        /**
-         * Has the same functionality as the method 
-         * <code>print(double d)</code> and gives an additional option 
-         * to change the printout color. Type "<code>Color.</code>" when 
-         * entering the argument for this method and a default list of colors 
-         * should appear.
-         * 
-         * @see print(double d)
-         * @param d The
-         * <code>double</code> to be printed
-         * @param color The color of the printout.
-         */
-        public void print(double d, Color color) {
-            printText(String.valueOf(d), attr(color));
-        }
-        
-        /**
-         * Has the same functionality as the method 
-         * <code>print(double d)</code> and gives an additional option 
-         * to fully customize the printout. <p>You can use the method 
-         * getAttribute(String font, int size, Color color, boolean bold, 
-         * boolean underline, boolean italic, boolean strikethrough) to create 
-         * an object to use with this method.</p>
-         * 
-         * @see print(double d)
-         * @see getAttribute(String font, int 
-         * size, Color color, boolean bold, boolean underline, boolean italic, 
-         * boolean strikethrough)
-         * 
-         * @param d The
-         * <code>double</code> to be printed
-         * @param satt Styles the printout.
-         */
-        public void print(double d, SimpleAttributeSet satt) {
-            printText(String.valueOf(d), satt);
-        }
-        
-        /**
-         * Prints a float value. The string produced by String.valueOf(float) 
-         * is translated into bytes according to the platform's default character 
-         * encoding, and these bytes are inserted into the styled document using
-         * the insertString method.
-         *
-         * @param f
-         *  Value of type float to be printed to the GUI console.
-         */
-        public void print(float f) {
-            printText(String.valueOf(f), null);
-        }
         
         /**
          * Has the same functionality as the method 
@@ -579,57 +521,6 @@ public final class Console extends JFrame{
         public void print(float f, Color color) {
             printText(String.valueOf(f), attr(color));
         }
-        
-        /**
-         * Has the same functionality as the method 
-         * <code>print(float f)</code> and gives an additional option to
-         * fully customize the printout. <p>You can use the method 
-         * getAttribute(String font, int size, Color color, boolean bold, 
-         * boolean underline, boolean italic, boolean strikethrough) to create 
-         * an object to use with this method.</p>
-         * 
-         * @see print(float f)
-         * @see getAttribute(String font, int 
-         * size, Color color, boolean bold, boolean underline, boolean italic, 
-         * boolean strikethrough)
-         * 
-         * @param f The
-         * <code>float</code> to be printed
-         * @param satt Styles the printout.
-         */
-        public void print(float f, SimpleAttributeSet satt) {
-            printText(String.valueOf(f), satt);
-        }
-        
-        /**
-         * Prints a long value. The string produced by String.valueOf(long) 
-         * is translated into bytes according to the platform's default character 
-         * encoding, and these bytes are inserted into the styled document using
-         * the insertString method.
-         *
-         * @param l
-         *  Value of type long to be printed to the GUI console.
-         */
-        public void print(long l) {
-            printText(String.valueOf(l), null);
-        }
-        
-        /**
-         * Has the same functionality as the method 
-         * <code>print(long l)</code> and gives an additional option to 
-         * change the printout color. Type "<code>Color.</code>" when 
-         * entering the second argument for this method and a default list of colors 
-         * should appear.
-         * 
-         * @see print(long l)
-         * @param l The
-         * <code>long</code> to be printed
-         * @param color The color of the printout.
-         */
-        public void print(long l, Color color) {
-            printText(String.valueOf(l), attr(color));
-        }
-        
         /**
          * Has the same functionality as the method 
          * <code>print(long l)</code> and gives an additional option to 
@@ -651,106 +542,7 @@ public final class Console extends JFrame{
             printText(String.valueOf(l), satt);
         }
         
-        /**
-         * Prints a integer value. The string produced by String.valueOf(int) 
-         * is translated into bytes according to the platform's default character 
-         * encoding, and these bytes are inserted into the styled document using
-         * the insertString method.
-         *
-         * @param i
-         *  Value of type int to be printed to the GUI console.
-         */
-        public void print(int i) {
-            printText(String.valueOf(i), null);
-        }
-        
-        /**
-         * Has the same functionality as the method 
-         * <code>print(int i)</code> and gives an additional option to 
-         * change the printout color. Type "<code>Color.</code>" when 
-         * entering the second argument for this method and a default list of colors 
-         * should appear.
-         * 
-         * @see print(int i)
-         * @param i The
-         * <code>int</code> to be printed
-         * @param color The color of the printout.
-         */
-        public void print(int i, Color color) {
-            printText(String.valueOf(i), attr(color));
-        }
-        
-        /**
-         * Has the same functionality as the method 
-         * <code>print(int i)</code> and gives an additional option to 
-         * fully customize the printout. <p>You can use the method 
-         * getAttribute(String font, int size, Color color, boolean bold, 
-         * boolean underline, boolean italic, boolean strikethrough) to create 
-         * an object to use with this method.</p>
-         * 
-         * @see print(int i)
-         * @see getAttribute(String font, int 
-         * size, Color color, boolean bold, boolean underline, boolean italic, 
-         * boolean strikethrough)
-         * 
-         * @param i The
-         * <code>int</code> to be printed
-         * @param satt Styles the printout.
-         */
-        public void print(int i, SimpleAttributeSet satt) {
-            printText(String.valueOf(i), satt);
-        }
-        
-        /**
-         * Prints a Character value. The string produced by String.valueOf(char) 
-         * is translated into bytes according to the platform's default character 
-         * encoding, and these bytes are inserted into the styled document using
-         * the insertString method.
-         *
-         * @param c
-         *  Value of type char to be printed to the GUI console.
-         */
-        public void print(char c) {
-            printText(String.valueOf(c), null);
-        }
-        
-        /**
-         * Has the same functionality as the method 
-         * <code>print(char c)</code> and gives an additional option
-         * to change the printout color. Type "<code>Color.</code>" when 
-         * entering the second argument for this method and a default list of colors 
-         * should appear.
-         *
-         * @see print(char c)
-         * @param c The
-         * <code>char</code> to be printed
-         * @param color The color of the printout.
-         */
-        public void print(char c, Color color) {
-            printText(String.valueOf(c), attr(color));
-        }
-        
-        /**
-         * Has the same functionality as the method 
-         * <code>print(char c)</code> and gives an additional option
-         * to fully customize the printout. <p>You can use the method 
-         * getAttribute(String font, int size, Color color, boolean bold, 
-         * boolean underline, boolean italic, boolean strikethrough) to create 
-         * an object to use with this method.</p>
-         *
-         * @see print(char c)
-         * @see getAttribute(String font, int 
-         * size, Color color, boolean bold, boolean underline, boolean italic, 
-         * boolean strikethrough)
-         * 
-         * @param c The
-         * <code>char</code> to be printed
-         * @param satt Styles the printout.
-         */
-        public void print(char c, SimpleAttributeSet satt) {
-            printText(String.valueOf(c), satt);
-        }
-        
+       
         /* Methods that do terminate lines -----------------------------------*/
         
         /**
@@ -884,247 +676,6 @@ public final class Console extends JFrame{
             printText(String.valueOf(d) + newline, null);
         }
         
-        /**
-         * Has the same functionality as the method 
-         * <code>println(double d)</code> and gives an additional option
-         * to change the printout color. Type "<code>Color.</code>" when 
-         * entering the second argument for this method and a default list of colors 
-         * should appear.
-         * 
-         * @see println(double d)
-         * @param d The
-         * <code>double</code> to be printed
-         * @param color The color of the printout.
-         */
-        public void println(double d, Color color) {
-            printText(String.valueOf(d) + newline, attr(color));
-        }
-        
-        /**
-         * Has the same functionality as the method 
-         * <code>println(double d)</code> and gives an additional option
-         * to fully customize the printout.
-         * <p>You can use the method getAttribute(String 
-         * font, int size, Color color, boolean bold, boolean underline, boolean
-         * italic, boolean strikethrough) to create an object to use with this
-         * method.</p>
-         * 
-         * @see println(double d)
-         * @see getAttribute(String font, int 
-         * size, Color color, boolean bold, boolean underline, boolean italic, 
-         * boolean strikethrough)
-         * 
-         * @param d The
-         * <code>double</code> to be printed
-         * @param satt Styles the printout.
-         */
-        public void println(double d, SimpleAttributeSet satt) {
-            printText(String.valueOf(d) + newline, satt);
-        }
-        
-        /**
-         * Prints a float value and terminates the line. The string 
-         * produced by String.valueOf(float) is translated into bytes according 
-         * to the platform's default character encoding, and these bytes are 
-         * inserted into the styled document using the insertString method.
-         *
-         * @param f
-         *  Value of type <code>float</code> to be printed to the GUI console.
-         */
-        public void println(float f) {
-            printText(String.valueOf(f) + newline, null);
-        }
-        
-        /**
-         * Has the same functionality as the method 
-         * <code>println(float f)</code> and 
-         * gives an additional option to change the printout color.
-         * Type "<code>Color.</code>" when entering the second argument for this 
-         * method and a default list of colors should appear.
-         * 
-         * @see println(float f)
-         * @param f The
-         * <code>float</code> to be printed
-         * @param color The color of the printout.
-         */
-        public void println(float f, Color color) {
-            printText(String.valueOf(f) + newline, attr(color));
-        }
-        
-        /**
-         * Has the same functionality as the method 
-         * <code>println(float f)</code> and 
-         * gives an additional option to fully customize the printout.
-         * <p>You can use the method getAttribute(String 
-         * font, int size, Color color, boolean bold, boolean underline, boolean
-         * italic, boolean strikethrough) to create an object to use with this
-         * method.</p>
-         * 
-         * @see println(float f)
-         * @see getAttribute(String font, int 
-         * size, Color color, boolean bold, boolean underline, boolean italic, 
-         * boolean strikethrough)
-         * 
-         * @param f The
-         * <code>float</code> to be printed
-         * @param satt Styles the printout.
-         */
-        public void println(float f, SimpleAttributeSet satt) {
-            printText(String.valueOf(f) + newline, satt);
-        }
-        
-        /**
-         * Prints a long value and terminates the line. The string produced
-         * by String.valueOf(long) is translated into bytes according to the 
-         * platform's default character encoding, and these bytes are inserted 
-         * into the styled document using the insertString method.
-         *
-         * @param l
-         *  Value of type long to be printed to the GUI console.
-         */
-        public void println(long l) {
-            printText(String.valueOf(l) + newline, null);
-        }
-        
-        /**
-         * Has the same functionality as the method 
-         * <code>println(long l)</code> and gives an additional option 
-         * to change the printout color. Type "<code>Color.</code>" when 
-         * entering the second argument for this method and a default list of colors 
-         * should appear.
-         * 
-         * @see println(long l)
-         * @param l The
-         * <code>long</code> to be printed
-         * @param color The color of the printout.
-         */
-        public void println(long l, Color color) {
-            printText(String.valueOf(l) + newline, attr(color));
-        }
-        
-        /**
-         * Has the same functionality as the method 
-         * <code>println(long l)</code> and gives an additional option 
-         * to fully customize the printout.
-         * <p>You can use the method getAttribute(String 
-         * font, int size, Color color, boolean bold, boolean underline, boolean
-         * italic, boolean strikethrough) to create an object to use with this
-         * method.</p>
-         * 
-         * @see println(long l)
-         * @see getAttribute(String font, int 
-         * size, Color color, boolean bold, boolean underline, boolean italic, 
-         * boolean strikethrough)
-         * 
-         * @param l The
-         * <code>long</code> to be printed
-         * @param satt Styles the printout.
-         */
-        public void println(long l, SimpleAttributeSet satt) {
-            printText(String.valueOf(l) + newline, satt);
-        }
-        
-        /**
-         * Prints a integer value and terminates the line. The string 
-         * produced by String.valueOf(int) is translated into bytes according to
-         * the platform's default character encoding, and these bytes are 
-         * inserted into the styled document using the insertString method.
-         *
-         * @param i
-         *  Value of type int to be printed to the GUI console.
-         */
-        public void println(int i) {
-            printText(String.valueOf(i) + newline, null);
-        }
-        
-        /**
-         * Has the same functionality as the method 
-         * <code>println(int i)</code> and gives an additional option to
-         * change the printout color. Type "<code>Color.</code>" when 
-         * entering the second argument for this method and a default list of colors 
-         * should appear.
-         * 
-         * @see println(int i)
-         * @param i The
-         * <code>int</code> to be printed
-         * @param color The color of the printout.
-         */
-        public void println(int i, Color color) {
-            printText(String.valueOf(i) + newline, attr(color));
-        }
-        
-        /**
-         * Has the same functionality as the method 
-         * <code>println(int i)</code> and gives an additional option to
-         * fully customize the printout.
-         * <p>You can use the method getAttribute(String 
-         * font, int size, Color color, boolean bold, boolean underline, boolean
-         * italic, boolean strikethrough) to create an object to use with this
-         * method.</p>
-         * 
-         * @see println(int i)
-         * @see getAttribute(String font, int 
-         * size, Color color, boolean bold, boolean underline, boolean italic, 
-         * boolean strikethrough)
-         * 
-         * @param i The
-         * <code>int</code> to be printed
-         * @param satt Styles the printout.
-         */
-        public void println(int i, SimpleAttributeSet satt) {
-            printText(String.valueOf(i) + newline, satt);
-        }
-        
-        /**
-         * Prints a Character value and terminates the line. The string 
-         * produced by String.valueOf(char) is translated into bytes according 
-         * to the platform's default character encoding, and these bytes are 
-         * inserted into the styled document using the insertString method.
-         *
-         * @param c
-         *  Value of type char to be printed to the GUI console.
-         */
-        public void println(char c) {
-            printText(String.valueOf(c) + newline, null);
-        }
-        
-        /**
-         * Has the same functionality as the method 
-         * <code>println(char c)</code> and gives an additional option 
-         * to change the printout color. Type "<code>Color.</code>" when 
-         * entering the second argument for this method and a default list of 
-         * colors should appear.
-         *
-         * @see println(char c)
-         * @param c The
-         * <code>char</code> to be printed
-         * @param color The color of the printout.
-         */
-        public void println(char c, Color color) {
-            printText(String.valueOf(c) + newline, attr(color));
-        }
-        
-        /**
-         * Has the same functionality as the method 
-         * <code>println(char c)</code> and gives an additional option 
-         * to fully customize the printout.
-         * <p>You can use the method getAttribute(String 
-         * font, int size, Color color, boolean bold, boolean underline, boolean
-         * italic, boolean strikethrough) to create an object to use with this
-         * method.</p>
-         * 
-         * @see println(char c)
-         * @see getAttribute(String font, int 
-         * size, Color color, boolean bold, boolean underline, boolean italic, 
-         * boolean strikethrough)
-         * 
-         * @param c The
-         * <code>char</code> to be printed
-         * @param satt Styles the printout.
-         */
-        public void println(char c, SimpleAttributeSet satt) {
-            printText(String.valueOf(c) + newline, satt);
-        }
         
         /**
          * Styles your last input located at the last prompt index. This
@@ -1347,6 +898,13 @@ public final class Console extends JFrame{
             });
         }
         
+
+		public void addHistory(String line) {
+			history.add(line);
+			
+		}
+        
+        
         private void redirectSystemStreams() {
             OutputStream out = new OutputStream() {
                 @Override
@@ -1366,6 +924,9 @@ public final class Console extends JFrame{
             System.setErr(new PrintStream(out, true));
         }
         
+        
+        public List<String> history;
+    	
         private JTextPane pane;
         private CountDownLatch latch;
         private StyledDocument doc;
@@ -1381,4 +942,5 @@ public final class Console extends JFrame{
         private int maxInput;
         private boolean editing;
         private boolean selected;
+
     } //</editor-fold>
