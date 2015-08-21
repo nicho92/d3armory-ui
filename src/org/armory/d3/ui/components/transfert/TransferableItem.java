@@ -4,20 +4,25 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 
+import org.armory.d3.ui.components.ItemLabel;
+
 import com.pihen.d3restapi.beans.Item;
 
 public class TransferableItem implements Transferable {
 	 
     protected static DataFlavor itemFlavor = new DataFlavor(Item.class, "A item");
-
+    protected static DataFlavor itemLabelFlavor = new DataFlavor(ItemLabel.class, "Label item");
+    
+    
     protected static DataFlavor[] supportedFlavors = {
     	itemFlavor,
+    	itemLabelFlavor,
         DataFlavor.stringFlavor,
     };
 
-    Item item;
-
-    public TransferableItem(Item i) { this.item = i; }
+    ItemLabel itemLab;
+    
+    public TransferableItem(ItemLabel i) { this.itemLab = i; }
 
     public DataFlavor[] getTransferDataFlavors() { return supportedFlavors; }
 
@@ -30,10 +35,12 @@ public class TransferableItem implements Transferable {
     public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException
     {
       if (flavor.equals(itemFlavor))
-          return item;
+          return itemLab.getItem();
       else if (flavor.equals(DataFlavor.stringFlavor)) 
-          return item.toString();
-      else 
+          return itemLab.toString();
+      else if(flavor.equals(itemLabelFlavor))
+    	  return itemLab;
+      else
           throw new UnsupportedFlavorException(flavor);
     }
  }

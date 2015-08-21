@@ -1,14 +1,16 @@
 package org.armory.d3.ui.components.transfert;
 
-import java.awt.datatransfer.DataFlavor;
+import java.awt.Cursor;
 import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DragSource;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetAdapter;
 import java.awt.dnd.DropTargetDragEvent;
 import java.awt.dnd.DropTargetDropEvent;
+import java.io.IOException;
 
-import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.ItemCreatorFrame;
 import org.armory.d3.ui.components.ItemLabel;
 
@@ -25,12 +27,124 @@ public class ItemLabelTargetListener extends DropTargetAdapter {
   }
 
     
+    
+    public void reject()
+    {
+    	itlab.setCursor(DragSource.DefaultCopyNoDrop);
+    }
+    
     public void dragOver(DropTargetDragEvent event) {
-    		
+    	
     	 Transferable tr = event.getTransferable();
-    	 
-    	 if(((ItemLabel)dropTarget.getComponent()).getGear()!=itlab.getGear())
-    		 event.rejectDrag();
+    	 try {
+			Item i = (Item)tr.getTransferData(TransferableItem.itemFlavor);
+			switch(itlab.getGear())
+			{
+				case BELT:
+						if(!i.getType().toString().contains("Belt"))
+						{
+							reject();
+							event.rejectDrag();
+						}
+						break;
+				case BRACER:
+						if(!i.getType().toString().contains("Bracers"))
+						{
+							
+							reject();
+							event.rejectDrag();
+						}
+						break;
+				case FEET:
+						if(!i.getType().toString().contains("Boots"))
+						{
+							reject();
+							event.rejectDrag();
+						}
+						break;
+				case GANT:
+						if(!i.getType().toString().contains("Gloves"))
+						{
+							
+							reject();
+							event.rejectDrag();
+						}
+						break;
+				case HEAD:
+						if(!i.getType().toString().contains("Helm"))
+						{
+							reject();
+							event.rejectDrag();
+						}
+						break;
+				case LEGS:
+						if(!i.getType().toString().contains("Legs"))
+						{
+							reject();
+							event.rejectDrag();
+						}
+						break;
+				case MAIN_HAND:
+						if(!i.isWeapon())
+						{
+							
+							reject();
+							event.rejectDrag();
+						}
+						break;
+				case NECK:
+					if(!i.getType().toString().contains("Amulet"))
+					{
+						
+						reject();
+						event.rejectDrag();
+					}
+					break;
+				case OFF_HAND:
+				/*	if(!i.isWeapon()||!i.getType().toString().contains("Orb")||!i.getType().toString().contains("Shield")||!i.getType().toString().contains("Mojo"))
+					{
+						reject();
+						event.rejectDrag();
+					}*/
+					break;
+				case RING_LEFT:
+						if(!i.getType().toString().contains("Ring"))
+						{
+							reject();
+							event.rejectDrag();
+						}
+						break;
+				case RING_RIGHT:
+						if(!i.getType().toString().contains("Ring"))
+						{
+							reject();
+							event.rejectDrag();
+						}
+						break;
+				case SHOULDERS:
+					if(!i.getType().toString().contains("Shoulders"))
+					{
+						
+						reject();
+						event.rejectDrag();
+					}
+					break;
+				case TORSO:
+					if(!i.getType().toString().contains("Chest"))
+					{
+						
+						reject();
+						event.rejectDrag();
+					}
+					break;
+				default:
+					break;
+			}
+			
+    	 } 
+    	 catch (UnsupportedFlavorException | IOException e) {
+			//e.printStackTrace();
+		}
     }
     
   public void drop(DropTargetDropEvent event) {
@@ -51,13 +165,17 @@ public class ItemLabelTargetListener extends DropTargetAdapter {
 			 
           //D3ArmoryControler.getInstance().getCalculator().getStuffs().put(itlab.getGear(), i);
           //D3ArmoryControler.getInstance().getCalculator().init();
-          D3ArmoryControler.getInstance().getCalculator().calculate();
+          //D3ArmoryControler.getInstance().getCalculator().calculate();
           
           
           event.dropComplete(true);
           return;
         }
+        
+        
       event.rejectDrop();
+      
+      
     } catch (Exception e) {
       e.printStackTrace();
       event.rejectDrop();

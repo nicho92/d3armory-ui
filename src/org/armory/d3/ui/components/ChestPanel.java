@@ -1,18 +1,16 @@
 package org.armory.d3.ui.components;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-import javax.swing.JComponent;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.TransferHandler;
 
 import org.armory.d3.services.D3ArmoryControler;
 
@@ -20,15 +18,32 @@ import com.pihen.d3restapi.beans.Item;
 
 public class ChestPanel extends JPanel {
 	
-	LayoutManager  layout ;
 	GridBagConstraints c;
 	int index=0;
+	JPanel contentChest;
+	JPanel itemDezPanel;
+	JLabel lblDezItem;
+	
 	
 	public ChestPanel() {
+	
+		contentChest=new JPanel();
+		itemDezPanel=new JPanel();
+		lblDezItem = new JLabel();
 		
-		setBackground(Color.BLACK);
+		lblDezItem.setIcon(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/itemDez.png")));
 		
-		layout = new GridBagLayout();
+		
+		
+		setLayout(new BorderLayout());
+		
+		contentChest.setBackground(Color.BLACK);
+		itemDezPanel.setBackground(Color.BLACK);
+		
+		contentChest.setLayout(new GridBagLayout());
+		FlowLayout fl_itemDezPanel = new FlowLayout();
+		fl_itemDezPanel.setAlignment(FlowLayout.LEFT);
+		itemDezPanel.setLayout(fl_itemDezPanel);
 		
 		c = new GridBagConstraints();
 		  c.weightx = 1;
@@ -37,21 +52,25 @@ public class ChestPanel extends JPanel {
 		  c.gridy = 0;
 		  c.insets = new Insets(2,2,2,2); 
 		  c.anchor = GridBagConstraints.NORTHWEST;
-		 // c.fill=GridBagConstraints.BOTH;
-		 
-		setLayout(layout);
 		
 		
 		for(Item i : D3ArmoryControler.getInstance().getRecorder().listSavedItems())
 		{
 			
 			ItemLabel lab = new ItemLabel();
-				
 					  lab.setItem(i);
 					  lab.enabledDraggable(true);
 					  addComponent(lab);
 					 
 		}
+		
+		
+		
+		add(contentChest,BorderLayout.CENTER);
+		add(itemDezPanel,BorderLayout.EAST);
+		
+		
+		itemDezPanel.add(lblDezItem);
 		
 	}
 	
@@ -59,7 +78,7 @@ public class ChestPanel extends JPanel {
 	{
 		  i.setEnableRightClick(false);
 		  i.setPreferredSize(new Dimension(64,128));
-		if(index==12)
+		if(index==10)
 		{
 			c.gridy=c.gridy+1;
 			c.gridx=0;
@@ -67,7 +86,7 @@ public class ChestPanel extends JPanel {
 		}
 		
 		c.gridx=c.gridx+1;
-		add(i,c);
+		contentChest.add(i,c);
 		index++;
 		
 	}

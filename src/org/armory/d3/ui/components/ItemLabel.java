@@ -11,6 +11,10 @@ import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DragGestureEvent;
 import java.awt.dnd.DragGestureListener;
 import java.awt.dnd.DragSource;
+import java.awt.dnd.DragSourceDragEvent;
+import java.awt.dnd.DragSourceDropEvent;
+import java.awt.dnd.DragSourceEvent;
+import java.awt.dnd.DragSourceListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -79,6 +83,7 @@ public class ItemLabel extends JLabel implements MouseListener, Cloneable, DragG
 		
 		DragSource ds = new DragSource();
 		   ds.createDefaultDragGestureRecognizer(this,DnDConstants.ACTION_COPY, this);
+		  
 		
 	}
 	
@@ -88,8 +93,12 @@ public class ItemLabel extends JLabel implements MouseListener, Cloneable, DragG
         if (event.getDragAction() == DnDConstants.ACTION_COPY) {
             cursor = DragSource.DefaultCopyDrop;
         }
-        event.startDrag(cursor, new TransferableItem(item));
+        event.startDrag(cursor, new TransferableItem(this));
     }
+	
+	
+	
+	
 
 	public boolean isDropable() {
 		return isDropable;
@@ -108,6 +117,17 @@ public class ItemLabel extends JLabel implements MouseListener, Cloneable, DragG
 		this.enableRightClick = enabledClick;
 	}
 
+	public ItemLabel copy()
+	{
+		ItemLabel itLab = new ItemLabel();
+				  itLab.setItem(this.getItem(), this.getGear());
+				  itLab.enabledDropable(false);
+				  itLab.enabledDraggable(true);
+		
+		return itLab;
+	}
+	
+	
 	public ItemLabel()
     {
     	size=SIZE_LARGE;
@@ -195,8 +215,8 @@ public class ItemLabel extends JLabel implements MouseListener, Cloneable, DragG
 		this.disabled = disabled;
 	}
 
+	
 	public Border getBorder() {
-		
 		try{
 			if(item != null)
 			{
@@ -425,10 +445,7 @@ public class ItemLabel extends JLabel implements MouseListener, Cloneable, DragG
 	public void saveItem() throws Exception
 	{
 		D3ArmoryControler.getInstance().getRecorder().saveItem(item);
-		ItemLabel itLab = (ItemLabel)this.clone();
-		itLab.enabledDropable(false);
-		itLab.enabledDraggable(true);
-		((SwingMainFrame)getTopLevelAncestor()).getChestPanel().addComponent(itLab);
+		((SwingMainFrame)getTopLevelAncestor()).getChestPanel().addComponent(this.copy());
 		((SwingMainFrame)getTopLevelAncestor()).getChestPanel().repaint();
 	}
 	
