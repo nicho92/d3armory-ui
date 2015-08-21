@@ -45,7 +45,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	private String[] setItemsEquipped;
 	private Item transmogItem;
 	private Dye dyeColor;
-	
+	private Integer stackSizeMax;
 	private String description;
 	
 	private MinMaxBonus dps;
@@ -61,6 +61,14 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	
 	
 	
+	public Integer getStackSizeMax() {
+		return stackSizeMax;
+	}
+
+	public void setStackSizeMax(Integer stackSizeMax) {
+		this.stackSizeMax = stackSizeMax;
+	}
+
 	public Dye getDyeColor() {
 		return dyeColor;
 	}

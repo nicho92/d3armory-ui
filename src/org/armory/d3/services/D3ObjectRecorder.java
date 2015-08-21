@@ -33,6 +33,7 @@ public interface D3ObjectRecorder {
 	public List<Item> listSavedItems();
 	public List<Hero> listSavedHeroes();
 	
+	public boolean removeItem(Item i);
 	
 	public String getRecorderName();
 }

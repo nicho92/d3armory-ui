@@ -22,6 +22,7 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import com.google.gson.Gson;
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.Profile;
@@ -145,7 +146,7 @@ public class D3ArmoryControler {
 
 	public void updateStatUI()
 	{
-		//todo global update ui component with new calcul
+		
 	}
 	
 	
@@ -554,8 +555,6 @@ public class D3ArmoryControler {
 		return id.replaceAll("-","").replace(",", "").replace("'", "").replaceAll("\\.", "").replaceAll(" ", "-").trim().toLowerCase();
 	}
 
-	
-	
 	
 	
 }

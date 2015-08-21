@@ -1,6 +1,5 @@
 package org.armory.d3.ui.components.transfert;
 
-import java.awt.Cursor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.DnDConstants;
@@ -22,9 +21,9 @@ public class ItemLabelTargetListener extends DropTargetAdapter {
     private ItemLabel itlab;
 
     public ItemLabelTargetListener(ItemLabel il) {
-    	this.itlab = il;
+    	itlab = il;
     	dropTarget = new DropTarget(il, DnDConstants.ACTION_COPY, this, true, null);
-  }
+    }
 
     
     
@@ -32,6 +31,7 @@ public class ItemLabelTargetListener extends DropTargetAdapter {
     {
     	itlab.setCursor(DragSource.DefaultCopyNoDrop);
     }
+    
     
     public void dragOver(DropTargetDragEvent event) {
     	

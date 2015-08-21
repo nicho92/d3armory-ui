@@ -25,11 +25,12 @@ public class Show implements Command {
 		opts = new Options();
 		opts.addOption("p","profil",false,"Show Profil detail");
 		opts.addOption("hs","heroes",false,"show heroes");
-		opts.addOption("?","help",false,"help for command");
 		opts.addOption("i","items",false,"show item for selected hero");
 		opts.addOption("r","region",false,"show region");
 		opts.addOption("t","tags",false,"show saved tags");
 		opts.addOption("c","chest",false,"show saved items");
+		opts.addOption("?","help",false,"help for command");
+		
 	}
 	
 	public void run(String[] args) throws Exception {
@@ -50,17 +51,9 @@ public class Show implements Command {
 		if(cl.hasOption("i"))
 		{
 			Stuff st = D3ArmoryControler.getInstance().getSelectedHero(false).getItems();
-			
-			
-			EnumerationStuff[] gears = EnumerationStuff.values();
-			
-			
-			for(Item i : st.getItems())
-				System.out.println(i.getTypeName());
-				
 				
 			IASCIITableAware asciiTableAware = new CollectionASCIITableAware<Item>(st.getItems(), 
-	    			"name", "itemLevel", "typeName");
+	    			"name", "itemLevel", "type");
 			
 			 ASCIITable.getInstance(out).printTable(asciiTableAware);
 			
@@ -69,16 +62,18 @@ public class Show implements Command {
 		{
 			out.println(D3Console.ENV.get("region"));
 		}
+		
 		if(cl.hasOption("t"))
 		{
 			IASCIITableAware asciiTableAware = new CollectionASCIITableAware<Tag>(D3ArmoryControler.getInstance().getListTags(), 
 	    			"region","name", "number");
 			ASCIITable.getInstance(out).printTable(asciiTableAware);
 		}
+		
 		if(cl.hasOption("c"))
 		{
 			IASCIITableAware asciiTableAware = new CollectionASCIITableAware<Item>(D3ArmoryControler.getInstance().getRecorder().listSavedItems(), 
-	    			"name", "itemlevel", "typename");
+	    			"name", "itemlevel", "type");
 			
 			 ASCIITable.getInstance(out).printTable(asciiTableAware);
 		}

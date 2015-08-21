@@ -125,7 +125,7 @@ public class SerializableRecorder implements D3ObjectRecorder {
 		
 		for(File fHero : f.listFiles(new FileFilter() {
 											public boolean accept(File pathname) {
-													return pathname.getName().endsWith(".d3heroG");
+													return pathname.getName().endsWith(".d3hero");
 											}
 									})
 			)
@@ -140,5 +140,14 @@ public class SerializableRecorder implements D3ObjectRecorder {
 		}
 		
 		return heroes;
+	}
+	
+	@Override
+	public boolean removeItem(Item i) {
+		
+		logger.debug("remove item "+i.getName());
+		File f = new File(SERIALISATION_ITEM_DIR +"/"+i.getName()+".d3item");
+		return f.delete();
+		
 	}
 }

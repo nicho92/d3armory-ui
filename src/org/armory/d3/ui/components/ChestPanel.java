@@ -9,30 +9,30 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.armory.d3.services.D3ArmoryControler;
+import org.armory.d3.ui.components.transfert.DezItemLabelTargetListener;
 
 import com.pihen.d3restapi.beans.Item;
 
-public class ChestPanel extends JPanel {
+public class ChestPanel extends JPanel{
 	
 	GridBagConstraints c;
 	int index=0;
 	JPanel contentChest;
 	JPanel itemDezPanel;
-	JLabel lblDezItem;
+	ItemLabel lblDezItem;
 	
 	
 	public ChestPanel() {
 	
 		contentChest=new JPanel();
 		itemDezPanel=new JPanel();
-		lblDezItem = new JLabel();
+		lblDezItem = new ItemLabel();
 		
 		lblDezItem.setIcon(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/itemDez.png")));
-		
+		new DezItemLabelTargetListener(lblDezItem);
 		
 		
 		setLayout(new BorderLayout());

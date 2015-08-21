@@ -33,6 +33,16 @@ public class GSONRecorder implements D3ObjectRecorder {
 		bw.close();
 
 	}
+	
+	@Override
+	public boolean removeItem(Item i) {
+		
+		logger.debug("remove item "+i.getName());
+		File f = new File(SERIALISATION_ITEM_DIR +"/"+i.getName()+".d3itemG");
+		return f.delete();
+		
+	}
+	
 
 	@Override
 	public Item loadItem(File fi)  throws Exception {
