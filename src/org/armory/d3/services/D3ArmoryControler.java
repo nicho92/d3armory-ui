@@ -387,8 +387,9 @@ public class D3ArmoryControler {
 					InputStreamReader ipsr=new InputStreamReader(ips);
 					BufferedReader br=new BufferedReader(ipsr);
 					String ligne;
-					while ((ligne=br.readLine())!=null){
-						if(ligne!=null)
+					while ((ligne=br.readLine())!=null)
+					{
+						if(ligne!="")
 						{	
 							if(region==null)
 							{
@@ -427,6 +428,7 @@ public class D3ArmoryControler {
 	{
 			addTags("\n"+code+"#"+server+"\n");
 	}
+	
 	
 	public void removeTags(int pos)
 	{
