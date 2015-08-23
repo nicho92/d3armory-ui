@@ -21,6 +21,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -74,6 +75,7 @@ public class CollectionASCIITableAware<T> implements IASCIITableAware {
 			
 		}
 	}
+
 
 	private Object getProperty(Map<String, Method> propertyMethodMap, Class<?> dataClazz, T obj, String property) {
 		Object cellValue = null;
