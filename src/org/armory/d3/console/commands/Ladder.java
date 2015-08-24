@@ -36,7 +36,12 @@ public class Ladder implements Command {
 		boolean season = false;
 		boolean hardcore = false;
 		int era = D3ArmoryControler.getInstance().getSeason();
-		String clazz = D3ArmoryControler.getInstance().getSelectedHero(false).getClazz();
+		
+		
+		String clazz = ""; 
+		
+		if(D3ArmoryControler.getInstance().getSelectedHero(false)!=null)
+			clazz=D3ArmoryControler.getInstance().getSelectedHero(false).getClazz();
 		
 		
 		String region="eu";
@@ -61,16 +66,19 @@ public class Ladder implements Command {
 			clazz=cl.getOptionValue("c");
 		
 		if(cl.hasOption("l"))
-			clazz=cl.getOptionValue("l");
-		
-		if(cl.hasOption("l"))
 			D3ArmoryControler.getInstance().setProperty("maxResultLadder", cl.getOptionValue("l"));
 			
 		BNetLadderRetriever retriver = new BNetLadderRetriever(region, clazz, season, hardcore, String.valueOf(era));
 
+		retriver.retrieveLadder();
+		
 		
 		Map<Integer, com.pihen.d3restapi.beans.Ladder> lad = retriver.getLadders();
-		IASCIITableAware asciiTableAware = new CollectionASCIITableAware<com.pihen.d3restapi.beans.Ladder>(new ArrayList<com.pihen.d3restapi.beans.Ladder>(lad.values()), "rank","levelRift","profile","time","date","name");
+
+		IASCIITableAware asciiTableAware = new CollectionASCIITableAware<com.pihen.d3restapi.beans.Ladder>(new ArrayList<com.pihen.d3restapi.beans.Ladder>(lad.values()), 
+																										   "rank","levelRift","profile","time","date","name");
+		
+		
 		ASCIITable.getInstance(out).printTable(asciiTableAware);
 		
 	}
