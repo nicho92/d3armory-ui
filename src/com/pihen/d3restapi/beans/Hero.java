@@ -27,7 +27,18 @@ public class Hero extends RemoteEntity implements Serializable {
 	private FollowersList followers;
 	private Stats stats;
 	private KillsInfo kills;
+	private Item[] legendaryPowers;
 	
+	
+	public Item[] getLegendaryPowers() {
+		return legendaryPowers;
+	}
+
+
+	public void setLegendaryPowers(Item[] legendaryPowers) {
+		this.legendaryPowers = legendaryPowers;
+	}
+
 	private Progression progression;
 	
 	public Progression getProgression() {
