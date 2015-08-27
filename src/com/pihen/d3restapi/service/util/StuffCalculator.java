@@ -401,18 +401,7 @@ public class StuffCalculator{
 				
 			}
 			
-			//Kanais cube
-			for(Item it : hero.getLegendaryPowers())
-			{
-				if(it!=null)
-				{
-					it = D3ArmoryControler.getInstance().loadItemDetails(it);
-					String k = it.getPassiveKey();
-					statsCalculator.put(k+"_"+it.getName()+"_Kanai", new MinMaxBonus(it.getAttributesRaw().get(k).getMax()));
-				}
-			}
-			
-			
+		
 			
 			
 			//BONUS LEG

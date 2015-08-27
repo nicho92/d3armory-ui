@@ -9,6 +9,12 @@ import javax.swing.JPanel;
 
 public class KanaiPanel extends JPanel {
 
+	private ItemLabel armor;
+	private ItemLabel weapon;
+	private ItemLabel jewel;
+	
+	
+	
 	
 	public KanaiPanel() {
 		this.setBackground(new Color(35,33,29));	
@@ -19,5 +25,31 @@ public class KanaiPanel extends JPanel {
 		Image bg = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/kanai.png")).getImage();
 		g.drawImage(bg,0,0,null);
 		super.paintComponents(g);
-}
+	}
+	
+	public ItemLabel getArmor() {
+    	if(armor == null) {
+    		armor = new ItemLabel(ItemLabel.SIZE_LARGE);
+    		armor.setBounds(444, 113, 39, 39);
+    	}
+    	return armor;
+    }
+	
+	public ItemLabel getWeapon() {
+    	if(weapon == null) {
+    		weapon = new ItemLabel(ItemLabel.SIZE_LARGE);
+    		weapon.setBounds(444, 113, 39, 39);
+    	}
+    	return weapon;
+    }
+	
+	public ItemLabel getJewel() {
+    	if(jewel == null) {
+    		jewel = new ItemLabel(ItemLabel.SIZE_LARGE);
+    		jewel.setBounds(444, 113, 39, 39);
+    	}
+    	return jewel;
+    }
+	
+	
 }

@@ -1035,6 +1035,28 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	//	getLblstatbar().setString(String.valueOf(belt));
 		getProgressBar().setValue(val++);
 		
+		
+		
+		
+		
+		
+		//Kanai
+		Item weapon;
+			weapon = D3ArmoryControler.getInstance().loadItemDetails(hero.getLegendaryPowers()[0]);
+		getKanaiPanel().getWeapon().setItem(weapon);
+		getProgressBar().setValue(val++);
+		
+		Item armor;
+		armor = D3ArmoryControler.getInstance().loadItemDetails(hero.getLegendaryPowers()[1]);
+		getKanaiPanel().getArmor().setItem(armor);
+		getProgressBar().setValue(val++);
+		
+		Item jewel;
+		jewel = D3ArmoryControler.getInstance().loadItemDetails(hero.getLegendaryPowers()[2]);
+		getKanaiPanel().getJewel().setItem(jewel);
+		getProgressBar().setValue(val++);
+		
+		
 		HashMap<EnumerationStuff, Item> stuffs = new HashMap<EnumerationStuff, Item>();
 		  stuffs.put(EnumerationStuff.HEAD, head);
 		  stuffs.put(EnumerationStuff.SHOULDERS, shoulders);
@@ -1670,7 +1692,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		if(progressBar == null) {
 			progressBar = new JProgressBar();
 			progressBar.setMinimum(0);
-			progressBar.setMaximum(13);
+			progressBar.setMaximum(16);
 			progressBar.setStringPainted(true);
 		}
 		return progressBar;
