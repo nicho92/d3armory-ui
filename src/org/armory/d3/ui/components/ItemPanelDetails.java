@@ -285,7 +285,8 @@ public class ItemPanelDetails extends JPanel {
 				else
 					tempset.append("&nbsp;&nbsp;&nbsp;" + i.getName()+"<br/>");
 			}
-			int nbstuff=new LegendarySet().getStuffSetsNbPieces(calc.getAllItems(),item.getSet());
+			
+			int nbstuff=calc.getStuffSetsNbPieces(calc.getAllItems(),item.getSet());
 			
 			for(int z=0;z<item.getSet().getRanks().size();z++ )
 			{

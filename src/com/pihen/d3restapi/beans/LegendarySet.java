@@ -11,30 +11,6 @@ public class LegendarySet implements Serializable {
 	private List<Ranks> ranks;
 	private List<Item> items;
 	
-	private int nbPiece=0;
-	
-	public int getStuffSetsNbPieces(Collection<Item> stuff,LegendarySet set)
-	{
-		int ringRoyale=0;
-		for(Item z : stuff)
-		{
-			if(z!=null)
-			{	
-				for(Item s : set.getItems())
-				{
-					if(s.equals(z))
-						nbPiece++;
-				}
-				if(z.getAttributesRaw().get("Attribute_Set_Item_Discount")!=null)//Unique_Ring_107_x1
-					ringRoyale=z.getAttributesRaw().get("Attribute_Set_Item_Discount").getMoyenne().intValue();
-			}
-		}
-		if(nbPiece>1)
-			nbPiece=nbPiece+ringRoyale;//add one item for ring of royal grandeur
-	
-		return nbPiece;
-	}
-	
 	public List<Ranks> getRanksByPiece(int nbPiece)
 	{
 		nbPiece = nbPiece-1; //1st piece indeed.

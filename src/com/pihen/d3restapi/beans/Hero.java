@@ -21,6 +21,8 @@ public class Hero extends RemoteEntity implements Serializable {
 	private boolean hardcore;
     private boolean seasonal;
     private Number seasonCreated;
+    private Item[] legendaryPowers;
+    
     
 	private HeroSkillContainer skills;
 	@SerializedName("items") private Stuff stuff;
@@ -28,6 +30,19 @@ public class Hero extends RemoteEntity implements Serializable {
 	private Stats stats;
 	private KillsInfo kills;
 	
+	
+	
+	
+	
+	public Item[] getLegendaryPowers() {
+		return legendaryPowers;
+	}
+
+
+	public void setLegendaryPowers(Item[] legendaryPowers) {
+		this.legendaryPowers = legendaryPowers;
+	}
+
 	private Progression progression;
 	
 	public Progression getProgression() {

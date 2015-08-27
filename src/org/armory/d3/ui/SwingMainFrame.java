@@ -68,6 +68,7 @@ import org.armory.d3.ui.components.HeroComparatorPanel;
 import org.armory.d3.ui.components.HeroPanel;
 import org.armory.d3.ui.components.ItemLabel;
 import org.armory.d3.ui.components.ItemPanelDetails;
+import org.armory.d3.ui.components.KanaiPanel;
 import org.armory.d3.ui.components.LadderPanel;
 import org.armory.d3.ui.components.ListeTagTree;
 import org.armory.d3.ui.components.LootFactoryPanel;
@@ -150,6 +151,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private LadderPanel ladderPanel;
 	private EHPPanel ehpPanel;
 	private FollowersPanel panelFollowers;
+	private KanaiPanel panelKanai;
 	private SeasonPanel seasonPanel;
 	private JPanel lootPanel;
 	private ChestPanel panneauChest;
@@ -1432,6 +1434,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			ongletPane.addTab("Season", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/season.png")),getSeasonPanel(),null);
 			ongletPane.addTab("Detailed EHP", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/ehp.png")),getPanneauEHP(),null);
 			ongletPane.addTab("Followers", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/follower.png")), getFollowersPanel(), null);
+			ongletPane.addTab("Kanai's Cube", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/follower.png")), getKanaiPanel(), null);
 			ongletPane.addTab("Parangon", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/parangon.png")),getPanneauParangon(),null);
 			ongletPane.addTab("Expert", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/expert.png")), getPanneauTableau(), null);
 			ongletPane.addTab("Loot Drop Rate", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/loot.png")), getPanneauLoot(), null);
@@ -1629,6 +1632,13 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	}
 	
 
+	private KanaiPanel getKanaiPanel() {
+		if(panelKanai == null) {
+			panelKanai = new KanaiPanel();
+			
+		}
+		return panelKanai;
+	}
 	
 	
 	

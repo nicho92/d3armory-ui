@@ -25,8 +25,7 @@ public interface D3ObjectRecorder {
 	public void saveBuild(HeroSkillContainer i)throws Exception;
 	public HeroSkillContainer loadBuild(File f)throws Exception;
 	public List<HeroSkillContainer> loadBuilds()throws Exception;
-	
-	
+		
 	public Hero loadHero(Number number) throws Exception;
 	public void saveHero(Hero i)throws Exception;
 	

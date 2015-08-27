@@ -1,7 +1,10 @@
 package com.pihen.d3restapi.service.util;
 
+import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -10,6 +13,7 @@ import java.util.Set;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.armory.d3.services.D3ArmoryControler;
 
 import com.pihen.d3restapi.beans.Gem;
 import com.pihen.d3restapi.beans.Hero;
@@ -308,6 +312,51 @@ public class StuffCalculator{
 		
 	}
 	
+	
+	public int getStuffSetsNbPieces(Collection<Item> stuff,LegendarySet set)
+	{
+		int nbPiece=0;
+		int ringRoyale=0;
+		
+		//stuff.addAll(Arrays.asList(hero.getLegendaryPowers()));
+		
+		
+		for(Item z : stuff)
+		{
+			if(z!=null)
+			{	
+				for(Item s : set.getItems())
+				{
+					if(s.equals(z))
+						nbPiece++;
+				}
+				if(z.getAttributesRaw().get("Attribute_Set_Item_Discount")!=null)
+					ringRoyale=z.getAttributesRaw().get("Attribute_Set_Item_Discount").getMoyenne().intValue();
+				
+				if(z.getAttributesRaw().get("Item_Power_Passive#ItemPassive_Unique_Ring_571_x1")!=null)
+					ringRoyale=1;
+				
+			}
+		}
+		
+		for(Item it : hero.getLegendaryPowers())
+		{
+			if(it!=null)
+			{
+				it = D3ArmoryControler.getInstance().loadItemDetails(it);
+				String k = it.getPassiveKey();
+				if(k.startsWith("Item_Power_Passive#ItemPassive_Unique_Ring_571_x1"))
+					nbPiece++;
+			}
+		}
+		
+		if(nbPiece>1)
+			nbPiece=nbPiece+ringRoyale;//add one item for ring of royal grandeur
+	
+		return nbPiece;
+	}
+	
+	
 	public void init()
 	{
 		
@@ -324,7 +373,7 @@ public class StuffCalculator{
 			
 			if(i.isSetObjects())
 			{
-				piecesbyset.put(i.getSet(),new LegendarySet().getStuffSetsNbPieces(stuffs.values(), i.getSet()));
+				piecesbyset.put(i.getSet(),getStuffSetsNbPieces(stuffs.values(), i.getSet()));
 			}
 			
 			
@@ -351,6 +400,19 @@ public class StuffCalculator{
 				statsCalculator.put(cle+"_"+i.getName().replaceAll(" ", "-"), i.getAttributesRaw().get(cle));
 				
 			}
+			
+			//Kanais cube
+			for(Item it : hero.getLegendaryPowers())
+			{
+				if(it!=null)
+				{
+					it = D3ArmoryControler.getInstance().loadItemDetails(it);
+					String k = it.getPassiveKey();
+					statsCalculator.put(k+"_"+it.getName()+"_Kanai", new MinMaxBonus(it.getAttributesRaw().get(k).getMax()));
+				}
+			}
+			
+			
 			
 			
 			//BONUS LEG
@@ -394,6 +456,9 @@ public class StuffCalculator{
 				}
 			}
 		}
+		
+		
+		
 		calculeBuff();
 	}
 	
@@ -777,7 +842,10 @@ public class StuffCalculator{
 		List<Item> items = new ArrayList<Item>();
 		for(EnumerationStuff e :EnumerationStuff.values())
 			items.add(stuffs.get(e));
-
+		
+		
+		
+		
 		return items;
 	}
 	

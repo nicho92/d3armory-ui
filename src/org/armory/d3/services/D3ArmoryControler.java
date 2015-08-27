@@ -291,7 +291,6 @@ public class D3ArmoryControler {
 			} catch (D3ServerCommunicationException e) {
 				logger.error(e.getStackTrace());
 			}
-		
 		return selected;
 	}
 	
@@ -306,7 +305,8 @@ public class D3ArmoryControler {
 		try {
 			return itemService.receiveEntity(conf);
 		} catch (Exception e) {
-			logger.error(e.getStackTrace());
+			e.printStackTrace();
+			logger.error(e.getMessage());
 			JOptionPane.showMessageDialog(null, e,"ERROR",JOptionPane.ERROR_MESSAGE);
 			return null;
 		}

@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+
 import com.pihen.d3restapi.service.annotation.DataType;
 import com.pihen.d3restapi.service.annotation.RemoteConfiguration;
 import com.pihen.d3restapi.service.annotation.RemoteData;
@@ -742,6 +743,16 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		return 0;
 	}
 	
+	
+	public String getPassiveKey()
+	{
+		for(String k : getAttributesRaw().keySet())
+		{
+			if(k.startsWith("Item_Power_Passive"))
+				return k;
+		}
+		return null;
+	}
 	
 	
 }
