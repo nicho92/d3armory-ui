@@ -1030,6 +1030,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			belt = hero.getItems().getWaist();
 		else
 			belt = D3ArmoryControler.getInstance().loadItemDetails(hero.getItems().getWaist());
+	
 		getPanneauDessinHero().getLblbelt().setItem(belt,EnumerationStuff.BELT);
 		hero.getItems().setWaist(belt);
 	//	getLblstatbar().setString(String.valueOf(belt));
@@ -1038,23 +1039,6 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		
 		
 		
-		
-		
-//		//Kanai
-//		Item weapon;
-//			weapon = D3ArmoryControler.getInstance().loadItemDetails(hero.getLegendaryPowers()[0]);
-//		getKanaiPanel().getWeapon().setItem(weapon);
-//		getProgressBar().setValue(val++);
-//		
-//		Item armor;
-//		armor = D3ArmoryControler.getInstance().loadItemDetails(hero.getLegendaryPowers()[1]);
-//		getKanaiPanel().getArmor().setItem(armor);
-//		getProgressBar().setValue(val++);
-//		
-//		Item jewel;
-//		jewel = D3ArmoryControler.getInstance().loadItemDetails(hero.getLegendaryPowers()[2]);
-//		getKanaiPanel().getJewel().setItem(jewel);
-//		getProgressBar().setValue(val++);
 		
 		
 		HashMap<EnumerationStuff, Item> stuffs = new HashMap<EnumerationStuff, Item>();
@@ -1075,6 +1059,24 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		  
 		  logger.debug("Calculate Stats Formulas");
 		  D3ArmoryControler.getInstance().initCalculator(stuffs);
+		
+		  
+		  
+			//Kanai
+		  	Item weapon;
+		  	weapon =  D3ArmoryControler.getInstance().loadItemDetails(D3ArmoryControler.getInstance().getCalculator().getStuffs().get(EnumerationStuff.KANAI_WEAPON));
+			getKanaiPanel().getWeapon().setItem(weapon);
+			
+			Item armor;
+			armor = D3ArmoryControler.getInstance().loadItemDetails(D3ArmoryControler.getInstance().getCalculator().getStuffs().get(EnumerationStuff.KANAI_ARMOR));
+			getKanaiPanel().getArmor().setItem(armor);
+			
+			Item jewel;
+			jewel = D3ArmoryControler.getInstance().loadItemDetails(D3ArmoryControler.getInstance().getCalculator().getStuffs().get(EnumerationStuff.KANAI_JEWEL));
+			getKanaiPanel().getJewel().setItem(jewel);
+			
+		getKanaiPanel().repaint();
+		  
 		  
 		  
 		((TableauExpertModel)getTableauExpert().getModel()).fireTableDataChanged();

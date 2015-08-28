@@ -60,6 +60,7 @@ public class ItemLabel extends JLabel implements MouseListener, Cloneable, DragG
 	private boolean isDraggable=false;
 	private boolean isDropable=true;
 	private boolean isOverDetailed=true;
+	private boolean transparent=false;
 	
 	static final Logger logger = LogManager.getLogger(ItemLabel.class.getName());
 
@@ -210,6 +211,12 @@ public class ItemLabel extends JLabel implements MouseListener, Cloneable, DragG
 
 	
 	public Border getBorder() {
+		
+		if(transparent)
+			return new LineBorder(Color.black,0);
+		
+		
+		
 		try{
 			if(item != null)
 			{
@@ -250,18 +257,23 @@ public class ItemLabel extends JLabel implements MouseListener, Cloneable, DragG
     
 	 public void paint( Graphics g )
 	  {
-		 if(item!=null){
+		 if(item!=null)
+		 {
 			    int width = getWidth();
 			    int height = getHeight();
 		
+			    
+			   
 			    Color end=toColor(item.getDisplayColor()); 
 			    Color start=Color.BLACK;
 			    GradientPaint paint = new GradientPaint( 0, 0, start, width, height, end, true );
 			    Graphics2D g2d = ( Graphics2D )g;
 			    Paint oldPaint = g2d.getPaint();
 			    	g2d.setPaint( paint );
-			    	g2d.fillRect( 0, 0, width, height );
-			    	g2d.setPaint( oldPaint );
+			    	if(!transparent){
+			    		g2d.fillRect( 0, 0, width, height );
+		 			}
+			    		g2d.setPaint( oldPaint );
 			    
 			    	
 			    	if(item.getTransmogItem()!=null)
@@ -467,5 +479,10 @@ public class ItemLabel extends JLabel implements MouseListener, Cloneable, DragG
 			});
 		  }
 		  return m;
+	}
+
+	public void setTransparent(boolean b) {
+		this.transparent=true;
+		
 	}
 }

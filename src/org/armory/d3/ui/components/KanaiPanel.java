@@ -18,6 +18,10 @@ public class KanaiPanel extends JPanel {
 	
 	public KanaiPanel() {
 		this.setBackground(new Color(35,33,29));	
+		setLayout(null);
+		add(getWeapon());
+		add(getArmor());
+		add(getJewel());
 	}
 	
 	
@@ -30,7 +34,8 @@ public class KanaiPanel extends JPanel {
 	public ItemLabel getArmor() {
     	if(armor == null) {
     		armor = new ItemLabel(ItemLabel.SIZE_LARGE);
-    		armor.setBounds(444, 113, 39, 39);
+    		armor.setBounds(157, 25, 93, 161);
+    		armor.setTransparent(true);
     	}
     	return armor;
     }
@@ -38,7 +43,8 @@ public class KanaiPanel extends JPanel {
 	public ItemLabel getWeapon() {
     	if(weapon == null) {
     		weapon = new ItemLabel(ItemLabel.SIZE_LARGE);
-    		weapon.setBounds(444, 113, 39, 39);
+    		weapon.setBounds(22, 25, 93, 161);
+    		weapon.setTransparent(true);
     	}
     	return weapon;
     }
@@ -46,7 +52,8 @@ public class KanaiPanel extends JPanel {
 	public ItemLabel getJewel() {
     	if(jewel == null) {
     		jewel = new ItemLabel(ItemLabel.SIZE_LARGE);
-    		jewel.setBounds(444, 113, 39, 39);
+    		jewel.setBounds(296, 25, 93, 161);
+    		jewel.setTransparent(true);
     	}
     	return jewel;
     }
