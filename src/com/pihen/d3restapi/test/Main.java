@@ -12,6 +12,7 @@ import com.pihen.d3restapi.service.util.KanaiCreator;
 public class Main {
 
 	public static void main(String[] args) throws Exception {
+
  		
 		Profile profile = D3ArmoryControler.getInstance().getProfil(new Tag("eu", "nicho92", new Long(2603)));
 		
@@ -24,10 +25,8 @@ public class Main {
 		D3ArmoryControler.getInstance().initCalculator(h.getItems().getItemsMap());
 		D3ArmoryControler.getInstance().getCalculator().calculate();
 		
-		//System.out.println(new RSSReader().getRss("http://www.diablofans.com/news.rss"));
-	
+
 	}
-	
-	
 }
+
 

@@ -23,7 +23,18 @@ public class Profile extends RemoteEntity {
 	private Number highestDifficulty;
 	private Number highestHardcoreLevel;
 	private Season seasonalProfiles;
+	private String guildName;
 	
+	
+	
+	public String getGuildName() {
+		return guildName;
+	}
+
+	public void setGuildName(String guildName) {
+		this.guildName = guildName;
+	}
+
 	public Number getHighestDifficulty() {
 		return highestDifficulty;
 	}

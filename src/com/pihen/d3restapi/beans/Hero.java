@@ -30,10 +30,6 @@ public class Hero extends RemoteEntity implements Serializable {
 	private Stats stats;
 	private KillsInfo kills;
 	
-	
-	
-	
-	
 	public Item[] getLegendaryPowers() {
 		return legendaryPowers;
 	}
