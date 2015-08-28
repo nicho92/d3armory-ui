@@ -48,7 +48,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	private Dye dyeColor;
 	private Integer stackSizeMax;
 	private String description;
-	
+	private String elementalType;
 	private MinMaxBonus dps;
 	private MinMaxBonus attacksPerSecond;
 	private MinMaxBonus minDamage;
@@ -62,6 +62,14 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	
 	
 	
+	public String getElementalType() {
+		return elementalType;
+	}
+
+	public void setElementalType(String elementalType) {
+		this.elementalType = elementalType;
+	}
+
 	public Integer getStackSizeMax() {
 		return stackSizeMax;
 	}

@@ -339,17 +339,6 @@ public class StuffCalculator{
 			}
 		}
 		
-		for(Item it : hero.getLegendaryPowers())
-		{
-			if(it!=null)
-			{
-				it = D3ArmoryControler.getInstance().loadItemDetails(it);
-				String k = it.getPassiveKey();
-				if(k.startsWith("Item_Power_Passive#ItemPassive_Unique_Ring_571_x1"))
-					nbPiece++;
-			}
-		}
-		
 		if(nbPiece>1)
 			nbPiece=nbPiece+ringRoyale;//add one item for ring of royal grandeur
 	
@@ -365,6 +354,26 @@ public class StuffCalculator{
 		Map<LegendarySet,Integer> piecesbyset=new HashMap<LegendarySet,Integer>();
 		int compteur=0;
 		
+		//add cube kanai
+		if(hero.getLegendaryPowers().length>0)
+		{
+			if(hero.getLegendaryPowers()[0]!=null)
+			{
+				Item i = hero.getLegendaryPowers()[0];
+				stuffs.put(EnumerationStuff.KANAI_WEAPON,  KanaiCreator.createItemKanai(i));
+			}
+			if(hero.getLegendaryPowers()[1]!=null)
+			{
+				Item i = hero.getLegendaryPowers()[1];
+				stuffs.put(EnumerationStuff.KANAI_ARMOR,  KanaiCreator.createItemKanai(i));
+			}
+			
+			if(hero.getLegendaryPowers()[2]!=null)
+			{
+				Item i = hero.getLegendaryPowers()[2];
+				stuffs.put(EnumerationStuff.KANAI_JEWEL,  KanaiCreator.createItemKanai(i));
+			}
+		}
 		
 		for(Item i : stuffs.values())
 		{
@@ -480,7 +489,7 @@ public class StuffCalculator{
 	public Map<KEY,Double> calculate()
 	{
 		double bonusDual=(countweapon==2)?0.15:0;
-	
+
 		double chance_cc=getCritChance();
 		double degat_cc=getCritDamage();
 		double stat_base=getPrimaryStatUnbuffedValue();

@@ -7,6 +7,7 @@ import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.beans.MinMaxBonus;
 import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.beans.Tag;
+import com.pihen.d3restapi.service.util.KanaiCreator;
 
 public class Main {
 
@@ -19,16 +20,10 @@ public class Main {
 //		System.out.println(D3ArmoryControler.getInstance().getLastHeroPlayed());
 //		
 		Hero h = D3ArmoryControler.getInstance().getHeroDetails(profile.getHeroes().get(1));
-
-
-				for(Item it : h.getLegendaryPowers())
-				{
-					it = D3ArmoryControler.getInstance().loadItemDetails(it);
-					String k = it.getPassiveKey();
-					System.out.println(k);
-					System.out.println(k+"_KANAI_"+it.getName()+ " "+ new MinMaxBonus(it.getAttributesRaw().get(k).getMax()));
-				}
-	
+		
+		D3ArmoryControler.getInstance().initCalculator(h.getItems().getItemsMap());
+		D3ArmoryControler.getInstance().getCalculator().calculate();
+		
 		//System.out.println(new RSSReader().getRss("http://www.diablofans.com/news.rss"));
 	
 	}

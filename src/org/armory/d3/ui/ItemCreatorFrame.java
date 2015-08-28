@@ -611,9 +611,10 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 		
 			getItem().generateDisplayableAttributs();
 			
-			
 			StuffCalculator a = D3ArmoryControler.getInstance().getCalculator();
+			
 			b = a.compareStuffWithItem(gear, getItem());
+			
 			itemPanelDetails.setCalculator(b);
 		
 			((StuffComparaisonModel)this.stuffcalcTable.getModel()).setStuffCalc(a,b);
