@@ -1458,7 +1458,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			ongletPane.addTab("Season", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/season.png")),getSeasonPanel(),null);
 			ongletPane.addTab("Detailed EHP", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/ehp.png")),getPanneauEHP(),null);
 			ongletPane.addTab("Followers", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/follower.png")), getFollowersPanel(), null);
-			ongletPane.addTab("Kanai's Cube", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/follower.png")), getKanaiPanel(), null);
+			ongletPane.addTab("Kanai's Cube", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/kanai.png")), getKanaiPanel(), null);
 			ongletPane.addTab("Parangon", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/parangon.png")),getPanneauParangon(),null);
 			ongletPane.addTab("Expert", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/expert.png")), getPanneauTableau(), null);
 			ongletPane.addTab("Loot Drop Rate", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/loot.png")), getPanneauLoot(), null);
