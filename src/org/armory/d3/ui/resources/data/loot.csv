@@ -44,11 +44,11 @@ The Undisputed Champion;Mighty Belt;Belt;FALSE;FALSE;2;0;0;13,33;0;0;0
 Arachyr?s Stride;Boots;Boots;FALSE;TRUE;-1;0;0;0;0;0;12,12
 Blackthorne's Spurs;Boots;Boots;FALSE;FALSE;-1;12,12;12,12;12,9;13,79;12,12;12,12
 Boj Anglers;Boots;Boots;FALSE;FALSE;-1;12,12;12,12;12,9;13,79;12,12;12,12
-Eight-Demon Boots (Raiment of a Thousand Storms);Boots;Boots;FALSE;TRUE;-1;0;12,12;0;0;0;0
+Eight-Demon Boots;Boots;Boots;FALSE;TRUE;-1;0;12,12;0;0;0;0
 Fire Walkers;Boots;Boots;FALSE;FALSE;-1;12,12;12,12;12,9;13,79;12,12;12,12
 Firebird's Tarsi;Boots;Boots;FALSE;TRUE;-1;0;0;0;0;12,12;0
 Foundation of the Light;Boots;Boots;FALSE;TRUE;-1;0;0;0;13,79;0;0
-Hell Walkers (Unhallowed Essence);Boots;Boots;FALSE;TRUE;-1;12,12;0;0;0;0;0
+Hell Walkers;Boots;Boots;FALSE;TRUE;-1;12,12;0;0;0;0;0
 Helltooth Greaves;Boots;Boots;FALSE;TRUE;-1;0;0;0;0;0;12,12
 Ice Climbers;Boots;Boots;FALSE;FALSE;-1;3,03;3,03;3,23;3,45;3,03;3,03
 Immortal King's Stride;Boots;Boots;FALSE;TRUE;-1;0;0;12,9;0;0;0
@@ -63,7 +63,7 @@ Raekor's Striders;Boots;Boots;FALSE;TRUE;-1;0;0;12,9;0;0;0
 Roland's Stride;Boots;Boots;FALSE;TRUE;-1;0;0;0;13,79;0;0
 Sabaton of the Wastes;Boots;Boots;FALSE;TRUE;-1;0;0;12,9;0;0;0
 Sabatons of Akkhan;Boots;Boots;FALSE;TRUE;-1;0;0;0;13,79;0;0
-Striders of Destiny (Delsere's Magnum Opus);Boots;Boots;FALSE;TRUE;-1;0;0;0;0;12,12;0
+Striders of Destiny;Boots;Boots;FALSE;TRUE;-1;0;0;0;0;12,12;0
 The Crudest Boots;Boots;Boots;FALSE;FALSE;-1;0;12,12;0;0;0;0
 The Shadow's Heels;Boots;Boots;FALSE;TRUE;-1;12,12;0;0;0;0;0
 Uliana's Destiny;Boots;Boots;FALSE;TRUE;-1;0;12,12;0;0;0;0
@@ -120,9 +120,9 @@ Cindercoat;Chest Armor;ChestArmor;FALSE;FALSE;-1;5,26;4,76;4,76;4,55;4,35;4,35
 Cuirass of the Wastes;Chest Armor;ChestArmor;FALSE;TRUE;-1;0;0;9,52;0;0;0
 Firebird's Breast;Chest Armor;ChestArmor;FALSE;TRUE;-1;0;0;0;0;8,7;0
 Goldskin;Chest Armor;ChestArmor;FALSE;FALSE;-1;10,53;9,52;9,52;9,09;8,7;8,7
-Harness of Truth (Delsere's Magnum Opus);Chest Armor;ChestArmor;FALSE;TRUE;-1;0;0;0;0;8,7;0
+Harness of Truth;Chest Armor;ChestArmor;FALSE;TRUE;-1;0;0;0;0;8,7;0
 Heart of Iron;Chest Armor;ChestArmor;FALSE;FALSE;-1;10,53;9,52;9,52;9,09;8,7;8,7
-Heart of the Crashing Wave (Raiment of a Thousand Storms);Chest Armor;ChestArmor;FALSE;TRUE;-1;0;9,52;0;0;0;0
+Heart of the Crashing Wave;Chest Armor;ChestArmor;FALSE;TRUE;-1;0;9,52;0;0;0;0
 Heart of the Light;Chest Armor;ChestArmor;FALSE;TRUE;-1;0;0;0;9,09;0;0
 Helltooth Tunic;Chest Armor;ChestArmor;FALSE;TRUE;-1;0;0;0;0;0;8,7
 Immortal King's Eternal Reign;Chest Armor;ChestArmor;FALSE;TRUE;-1;0;0;9,52;0;0;0
@@ -140,7 +140,7 @@ Vyr's Astonishing Aura;Chest Armor;ChestArmor;FALSE;TRUE;-1;0;0;0;0;8,7;0
 Zunimassa's Marrow;Chest Armor;ChestArmor;FALSE;TRUE;-1;0;0;0;0;0;8,7
 Beckon Sail;Cloak;ChestArmor;FALSE;FALSE;-1;16,67;0;0;0;0;0
 Blackfeather;Cloak;ChestArmor;FALSE;FALSE;-1;16,67;0;0;0;0;0
-Cage of the Hellborn (Unhallowed Essence);Cloak;ChestArmor;FALSE;TRUE;-1;16,67;0;0;0;0;0
+Cage of the Hellborn;Cloak;ChestArmor;FALSE;TRUE;-1;16,67;0;0;0;0;0
 Cape of the Dark Night;Cloak;ChestArmor;FALSE;FALSE;-1;16,67;0;0;0;0;0
 Natalya's Embrace;Cloak;ChestArmor;FALSE;TRUE;-1;16,67;0;0;0;0;0
 The Cloak of the Garwulf;Cloak;ChestArmor;FALSE;FALSE;-1;16,67;0;0;0;0;0
@@ -233,10 +233,10 @@ The Witching Hour;Belt;Belt;FALSE;FALSE;-1;1,82;1,96;2,33;1,64;1,82;1,89
 Thundergod's Vigor;Belt;Belt;FALSE;FALSE;-1;7,27;7,84;9,3;6,56;7,27;7,55
 Vigilante Belt;Belt;Belt;FALSE;FALSE;-1;7,27;7,84;9,3;6,56;7,27;7,55
 Arachyr?s Claws;Gloves;Gloves;FALSE;TRUE;-1;0;0;0;0;0;14,29
-Fiendish Grips (Unhallowed Essence);Gloves;Gloves;FALSE;TRUE;-1;14,29;0;0;0;0;0
-Fierce Gauntlets (Delsere's Magnum Opus);Gloves;Gloves;FALSE;TRUE;-1;0;0;0;0;14,29;0
+Fiendish Grips;Gloves;Gloves;FALSE;TRUE;-1;14,29;0;0;0;0;0
+Fierce Gauntlets;Gloves;Gloves;FALSE;TRUE;-1;0;0;0;0;14,29;0
 Firebird's Talons;Gloves;Gloves;FALSE;TRUE;-1;0;0;0;0;14,29;0
-Fists of Thunder (Raiment of a Thousand Storms);Gloves;Gloves;FALSE;TRUE;-1;0;14,29;0;0;0;0
+Fists of Thunder;Gloves;Gloves;FALSE;TRUE;-1;0;14,29;0;0;0;0
 Frostburn;Gloves;Gloves;FALSE;FALSE;-1;3,57;3,57;3,13;0;3,57;3,57
 Gauntlet of the Wastes;Gloves;Gloves;FALSE;TRUE;-1;0;0;12,5;0;0;0
 Gauntlets of Akkhan;Gloves;Gloves;FALSE;TRUE;-1;0;0;0;12,9;0;0
@@ -278,7 +278,7 @@ Bottomless Potion of Rejuvenation;Potion;HealthPotion;FALSE;TRUE;1;14,29;14,29;1
 Bottomless Potion of the Diamond;Potion;HealthPotion;FALSE;TRUE;-1;14,29;14,29;14,29;14,29;14,29;14,29
 Bottomless Potion of the Leech;Potion;HealthPotion;FALSE;TRUE;-1;14,29;14,29;14,29;14,29;14,29;14,29
 Bottomless Potion of the Tower;Potion;HealthPotion;FALSE;TRUE;-1;14,29;14,29;14,29;14,29;14,29;14,29
-Accursed Visage (Unhallowed Essence);Helm;Helm;FALSE;TRUE;-1;12,5;0;0;0;0;0
+Accursed Visage;Helm;Helm;FALSE;TRUE;-1;12,5;0;0;0;0;0
 Andariel's Visage;Helm;Helm;FALSE;FALSE;-1;6,25;6,25;5,26;5,56;5,56;6,25
 Arachyr?s Visage;Helm;Helm;FALSE;TRUE;-1;0;0;0;0;0;12,5
 Blind Faith;Helm;Helm;FALSE;FALSE;-1;12,5;12,5;10,53;11,11;11,11;12,5
@@ -295,12 +295,12 @@ Immortal King's Triumph;Helm;Helm;FALSE;TRUE;-1;0;0;10,53;0;0;0
 Jade Harvester's Wisdom;Helm;Helm;FALSE;TRUE;-1;0;0;0;0;0;12,5
 Leoric's Crown;Helm;Helm;FALSE;FALSE;-1;6,25;6,25;5,26;5,56;5,56;6,25
 Marauder's Visage;Helm;Helm;FALSE;TRUE;-1;12,5;0;0;0;0;0
-Mask of the Searing Sky (Raiment of a Thousand Storms);Helm;Helm;FALSE;TRUE;-1;0;12,5;0;0;0;0
+Mask of the Searing Sky;Helm;Helm;FALSE;TRUE;-1;0;12,5;0;0;0;0
 Mempo of Twilight;Helm;Helm;FALSE;FALSE;-1;12,5;12,5;10,53;11,11;11,11;12,5
 Natalya's Sight;Helm;Helm;FALSE;TRUE;-1;12,5;0;0;0;0;0
 Raekor's Will;Helm;Helm;FALSE;TRUE;-1;0;0;10,53;0;0;0
 Roland's Visage;Helm;Helm;FALSE;TRUE;-1;0;0;0;11,11;0;0
-Shrouded Mask (Delsere's Magnum Opus);Helm;Helm;FALSE;TRUE;-1;0;0;0;0;11,11;0
+Shrouded Mask;Helm;Helm;FALSE;TRUE;-1;0;0;0;0;11,11;0
 Skull of Resonance;Helm;Helm;FALSE;FALSE;-1;0;0;5,26;0;0;0
 Sunwuko's Crown;Helm;Helm;FALSE;TRUE;-1;0;12,5;0;0;0;0
 Tal Rasha's Guise of Wisdom;Helm;Helm;FALSE;TRUE;-1;0;0;0;0;11,11;0
@@ -317,20 +317,20 @@ Hexing Pants of Mr. Yan;Pants;Legs;FALSE;FALSE;-1;3,23;3,7;3,23;3,7;3,7;3,23
 Immortal King's Stature;Pants;Legs;FALSE;TRUE;-1;0;0;12,9;0;0;0
 Inna's Temperance;Pants;Legs;FALSE;TRUE;-1;0;14,81;0;0;0;0
 Jade Harvester's Courage;Pants;Legs;FALSE;TRUE;-1;0;0;0;0;0;12,9
-Leg Guards of Mystery (Delsere's Magnum Opus);Pants;Legs;FALSE;TRUE;-1;0;0;0;0;14,81;0
+Leg Guards of Mystery;Pants;Legs;FALSE;TRUE;-1;0;0;0;0;14,81;0
 Marauder's Encasement;Pants;Legs;FALSE;TRUE;-1;12,9;0;0;0;0;0
 Natalya's Leggings;Pants;Legs;FALSE;TRUE;-1;12,9;0;0;0;0;0
 Pox Faulds;Pants;Legs;FALSE;FALSE;-1;6,45;7,41;6,45;7,41;7,41;6,45
 Raekor's Breeches;Pants;Legs;FALSE;TRUE;-1;0;0;12,9;0;0;0
 Roland's Determination;Pants;Legs;FALSE;TRUE;-1;0;0;0;14,81;0;0
-Scales of the Dancing Serpent (Raiment of a Thousand Storms);Pants;Legs;FALSE;TRUE;-1;0;14,81;0;0;0;0
+Scales of the Dancing Serpent;Pants;Legs;FALSE;TRUE;-1;0;14,81;0;0;0;0
 Swamp Land Waders;Pants;Legs;FALSE;FALSE;-1;0;0;0;0;0;12,9
 Tal Rasha's Stride;Pants;Legs;FALSE;TRUE;-1;0;0;0;0;14,81;0
 Tasset of the Wastes;Pants;Legs;FALSE;TRUE;-1;0;0;12,9;0;0;0
 The Shadow's Coil;Pants;Legs;FALSE;TRUE;-1;12,9;0;0;0;0;0
 Towers of the Light;Pants;Legs;FALSE;TRUE;-1;0;0;0;14,81;0;0
 Uliana's Burden;Pants;Legs;FALSE;TRUE;-1;0;14,81;0;0;0;0
-Unholy Plates (Unhallowed Essence);Pants;Legs;FALSE;TRUE;-1;12,9;0;0;0;0;0
+Unholy Plates;Pants;Legs;FALSE;TRUE;-1;12,9;0;0;0;0;0
 Vyr's Fantastic Finery;Pants;Legs;FALSE;TRUE;-1;0;0;0;0;14,81;0
 Weight of the Earth;Pants;Legs;FALSE;TRUE;-1;0;0;12,9;0;0;0
 Zunimassa's Cloth;Pants;Legs;FALSE;TRUE;-1;0;0;0;0;0;12,9
@@ -439,14 +439,14 @@ Stormshield;Shield;Shield;FALSE;FALSE;-1;0;16,67;16,67;7,69;16,67;16,67
 Vo'Toyias Spiker;Shield;Shield;FALSE;FALSE;-1;0;0;0;15,38;0;0
 Arachyr?s Mantle;Shoulders;Shoulders;FALSE;TRUE;-1;0;0;0;0;0;14,29
 Burden of the Invoker;Shoulders;Shoulders;FALSE;TRUE;-1;0;0;0;12,5;0;0
-Dashing Pauldrons of Despair (Delsere's Magnum Opus);Shoulders;Shoulders;FALSE;TRUE;-1;0;0;0;0;14,29;0
+Dashing Pauldrons of Despair;Shoulders;Shoulders;FALSE;TRUE;-1;0;0;0;0;14,29;0
 Death Watch Mantle;Shoulders;Shoulders;FALSE;FALSE;-1;16,67;14,29;11,76;12,5;14,29;14,29
 Firebird's Pinions;Shoulders;Shoulders;FALSE;TRUE;-1;0;0;0;0;14,29;0
 Fury of the Ancients;Shoulders;Shoulders;FALSE;FALSE;-1;0;0;11,76;0;0;0
 Helltooth Mantle;Shoulders;Shoulders;FALSE;TRUE;-1;0;0;0;0;0;14,29
 Homing Pads;Shoulders;Shoulders;FALSE;FALSE;-1;16,67;14,29;11,76;12,5;14,29;14,29
 Jade Harvester's Joy;Shoulders;Shoulders;FALSE;TRUE;-1;0;0;0;0;0;14,29
-Mantle of the Upside-Down Sinners (Raiment of a Thousand Storms);Shoulders;Shoulders;FALSE;TRUE;-1;0;14,29;0;0;0;0
+Mantle of the Upside-Down Sinners;Shoulders;Shoulders;FALSE;TRUE;-1;0;14,29;0;0;0;0
 Marauder's Spines;Shoulders;Shoulders;FALSE;TRUE;-1;16,67;0;0;0;0;0
 Mountain of the Light;Shoulders;Shoulders;FALSE;TRUE;-1;0;0;0;12,5;0;0
 Pauldrons of Akkhan;Shoulders;Shoulders;FALSE;TRUE;-1;0;0;0;12,5;0;0
@@ -458,7 +458,7 @@ Spaulders of Zakara;Shoulders;Shoulders;FALSE;FALSE;-1;16,67;14,29;11,76;12,5;14
 Spires of the Earth;Shoulders;Shoulders;FALSE;TRUE;-1;0;0;11,76;0;0;0
 Sunwuko's Balance;Shoulders;Shoulders;FALSE;TRUE;-1;0;14,29;0;0;0;0
 Uliana's Strength;Shoulders;Shoulders;FALSE;TRUE;-1;0;14,29;0;0;0;0
-Unsanctified Shoulders (Unhallowed Essence);Shoulders;Shoulders;FALSE;TRUE;-1;16,67;0;0;0;0;0
+Unsanctified Shoulders;Shoulders;Shoulders;FALSE;TRUE;-1;16,67;0;0;0;0;0
 Vile Ward;Shoulders;Shoulders;FALSE;FALSE;-1;0;0;5,88;0;0;0
 Vyr's Proud Pauldrons;Shoulders;Shoulders;FALSE;TRUE;-1;0;0;0;0;14,29;0
 Akanesh, the Herald of Righteousness;Spear;1H;FALSE;FALSE;-1;0;50;0;50;0;0
