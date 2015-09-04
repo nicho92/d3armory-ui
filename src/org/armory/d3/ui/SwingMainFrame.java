@@ -96,6 +96,7 @@ import com.pihen.d3restapi.beans.Tag;
 import com.pihen.d3restapi.beans.TimePlayed;
 import com.pihen.d3restapi.service.remote.exception.D3ServerCommunicationException;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
+import com.pihen.d3restapi.service.util.KanaiCreator;
 import com.pihen.d3restapi.service.util.StuffCalculator;
 
 
@@ -1064,7 +1065,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 		  
 			//Kanai
 		  	Item weapon;
-		  	weapon =  D3ArmoryControler.getInstance().loadItemDetails(D3ArmoryControler.getInstance().getCalculator().getStuffs().get(EnumerationStuff.KANAI_WEAPON));
+		 	weapon =  D3ArmoryControler.getInstance().loadItemDetails(D3ArmoryControler.getInstance().getCalculator().getStuffs().get(EnumerationStuff.KANAI_WEAPON));
 			getKanaiPanel().getWeapon().setItem(weapon);
 			
 			Item armor;
@@ -1075,7 +1076,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			jewel = D3ArmoryControler.getInstance().loadItemDetails(D3ArmoryControler.getInstance().getCalculator().getStuffs().get(EnumerationStuff.KANAI_JEWEL));
 			getKanaiPanel().getJewel().setItem(jewel);
 			
-		getKanaiPanel().repaint();
+			getKanaiPanel().repaint();
 		  
 		  
 		  

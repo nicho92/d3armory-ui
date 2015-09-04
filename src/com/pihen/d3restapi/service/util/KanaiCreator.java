@@ -17,13 +17,14 @@ public class KanaiCreator {
 			 it.setTooltipParams(i.getTooltipParams());
 			 it.setId(i.getId());
 			 it.setType(null);
+			 it.setIcon(i.getIcon());;
 			 it.setDisplayColor(i.getDisplayColor());
 			 it.setTypeName(i.getTypeName());
 			 it.setArmor(null);
 			 it.setAttacksPerSecond(null);
 			 it.setMinDamage(null);
 			 it.setMaxDamage(null);
-			 
+			 it.setRandomAffixes(null); 
 		for(String k : i.getAttributesRaw().keySet())
 		{
 			if(k.startsWith("Item_Power_Passive#"))

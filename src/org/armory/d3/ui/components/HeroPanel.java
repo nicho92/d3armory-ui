@@ -65,7 +65,7 @@ public class HeroPanel extends JPanel {
 	public JLabel lblInformationClasseNiveau;
 	public JLabel lblNom;
 	private JLabel lblLastUpdate;
-	
+	private JLabel lblGuilde;
 	
 	private JLabel lblLoader;
 
@@ -91,6 +91,7 @@ public class HeroPanel extends JPanel {
 		getLblNomHero().setText(hero.getName());
 		getLblInformationClasseNiveau().setText(hero.getClazz() +" Level : " + hero.getLevel());
 		getLblParangonLevel().setText("("+hero.getParagonLevel()+")");
+		getLblGuild().setText("<"+D3ArmoryControler.getInstance().getCurrentProfil().getGuildName()+">");
 	}
 	
 	
@@ -131,7 +132,7 @@ public class HeroPanel extends JPanel {
 		add(getLblHarcore());
 		add(getLblLastUpdate());
 		add(getLblLoader());
-		
+		add(getLblGuild());
 
 		add(getLblLife());
 		add(getLblRessources());
@@ -213,7 +214,17 @@ public class HeroPanel extends JPanel {
 		return lblNom;
 	}
 	
-	
+	public JLabel getLblGuild() {
+		if(lblGuilde == null) {
+			lblGuilde = new JLabel();
+			lblGuilde.setForeground(Color.GREEN);
+			Font ft = new Font("Palatino Linotype",Font.BOLD,20);
+			lblGuilde.setFont(ft);
+			lblGuilde.setBounds(476, 123, 292, 23);
+			lblGuilde.setHorizontalAlignment(JLabel.CENTER);
+		}
+		return lblGuilde;
+	}
 	
 	
 	public JLabel getLblRessources() {

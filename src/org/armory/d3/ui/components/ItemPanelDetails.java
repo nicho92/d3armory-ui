@@ -159,6 +159,8 @@ public class ItemPanelDetails extends JPanel {
 	
 	private void updateItemContent()
 	{
+		getLblDetailItem().removeAll();
+		
 		List<DisplayableItemAttributs> prim = item.getAttributes().getPrimary();
 		List<DisplayableItemAttributs> sec = item.getAttributes().getSecondary();
 		List<DisplayableItemAttributs> pass = item.getAttributes().getPassive();
