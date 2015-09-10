@@ -4,10 +4,11 @@ import org.armory.d3.services.D3ArmoryControler;
 
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.Item;
-import com.pihen.d3restapi.beans.MinMaxBonus;
 import com.pihen.d3restapi.beans.Profile;
 import com.pihen.d3restapi.beans.Tag;
-import com.pihen.d3restapi.service.util.KanaiCreator;
+import com.pihen.d3restapi.service.util.EnumerationStuff;
+import com.pihen.d3restapi.service.util.StuffCalculator;
+import com.pihen.d3restapi.service.util.StuffCalculator.KEY;
 
 public class Main {
 
@@ -20,12 +21,27 @@ public class Main {
 //		
 //		System.out.println(D3ArmoryControler.getInstance().getLastHeroPlayed());
 //		
-		Hero h = D3ArmoryControler.getInstance().getHeroDetails(profile.getHeroes().get(1));
+		Hero h = D3ArmoryControler.getInstance().getHeroDetails(profile.getHeroes().get(0));
+		Hero h2 = D3ArmoryControler.getInstance().getHeroDetails(profile.getHeroes().get(1));
+		
+		
+		D3ArmoryControler.getInstance().initStuffHero(h);
+		
+		Item weapon2 = D3ArmoryControler.getInstance().loadItemDetails(h2.getItems().get(EnumerationStuff.MAIN_HAND));
 		
 		D3ArmoryControler.getInstance().initCalculator(h.getItems().getItemsMap());
-		D3ArmoryControler.getInstance().getCalculator().calculate();
+		for(KEY	 k : D3ArmoryControler.getInstance().getCalculator().calculate().keySet())
+		{
+			System.out.println(k + " = " + D3ArmoryControler.getInstance().getCalculator().getStats().get(k));
+		}
 		
-
+		System.out.println("========================");
+		StuffCalculator c2 = D3ArmoryControler.getInstance().getCalculator().compareStuffWithItem(EnumerationStuff.MAIN_HAND, weapon2);
+		for(KEY	 k : c2.calculate().keySet())
+		{
+			System.out.println(k + " = " + D3ArmoryControler.getInstance().getCalculator().getStats().get(k));
+		}
+		
 	}
 }
 
