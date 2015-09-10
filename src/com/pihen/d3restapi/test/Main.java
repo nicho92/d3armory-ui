@@ -1,6 +1,7 @@
 package com.pihen.d3restapi.test;
 
 import org.armory.d3.services.D3ArmoryControler;
+import org.armory.d3.ui.model.StuffComparaisonModel;
 
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.beans.Item;
@@ -30,17 +31,24 @@ public class Main {
 		Item weapon2 = D3ArmoryControler.getInstance().loadItemDetails(h2.getItems().get(EnumerationStuff.MAIN_HAND));
 		
 		D3ArmoryControler.getInstance().initCalculator(h.getItems().getItemsMap());
-		for(KEY	 k : D3ArmoryControler.getInstance().getCalculator().calculate().keySet())
-		{
-			System.out.println(k + " = " + D3ArmoryControler.getInstance().getCalculator().getStats().get(k));
-		}
+		
 		
 		System.out.println("========================");
 		StuffCalculator c2 = D3ArmoryControler.getInstance().getCalculator().compareStuffWithItem(EnumerationStuff.MAIN_HAND, weapon2);
-		for(KEY	 k : c2.calculate().keySet())
+		
+		
+		StuffComparaisonModel mod = new StuffComparaisonModel();
+		mod.setStuffCalc(D3ArmoryControler.getInstance().getCalculator(), c2);
+		
+		
+		for(int i = 0;i<=mod.getRowCount();i++)
 		{
-			System.out.println(k + " = " + D3ArmoryControler.getInstance().getCalculator().getStats().get(k));
+			System.out.println("\n");
+			for(int j =0;j<=mod.getColumnCount();j++)
+				System.out.print(" " + mod.getValueAt(i, j));
 		}
+			
+		
 		
 	}
 }

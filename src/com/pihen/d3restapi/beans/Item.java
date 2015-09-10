@@ -343,7 +343,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	public void setRandomAffixes(List<AffixesContainer> randomAffixes) {
 		this.randomAffixes = randomAffixes;
 	}
-
+	@Deprecated
 	public MinMaxBonus getAttacksPerSecond() {
 		return attacksPerSecond;
 	}
@@ -359,23 +359,23 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 		
 		return getAttributesRaw().get("Attacks_Per_Second_Item").getMoyenne()*bonus;
 	}
-
+	@Deprecated
 	public void setAttacksPerSecond(MinMaxBonus attacksPerSecond) {
 		this.attacksPerSecond = attacksPerSecond;
 	}
-
+	@Deprecated
 	public MinMaxBonus getMinDamage() {
 		return minDamage;
 	}
-
+	@Deprecated
 	public void setMinDamage(MinMaxBonus minDamage) {
 		this.minDamage = minDamage;
 	}
-
+	@Deprecated
 	public MinMaxBonus getMaxDamage() {
 		return maxDamage;
 	}
-
+	@Deprecated
 	public void setMaxDamage(MinMaxBonus maxDamage) {
 		this.maxDamage = maxDamage;
 	}

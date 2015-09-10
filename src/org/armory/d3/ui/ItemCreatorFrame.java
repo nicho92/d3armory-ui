@@ -615,6 +615,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 			
 			b = a.compareStuffWithItem(gear, getItem());
 			
+			
 			itemPanelDetails.setCalculator(b);
 		
 			((StuffComparaisonModel)this.stuffcalcTable.getModel()).setStuffCalc(a,b);

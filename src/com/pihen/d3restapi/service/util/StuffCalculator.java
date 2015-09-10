@@ -522,23 +522,24 @@ public class StuffCalculator{
 			
 		if(stuffs.get(EnumerationStuff.MAIN_HAND)!=null)
 		{
-			weaponDmgMain=minMaxDmg/2+(stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne()+stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne())/2;
+			weaponDmgMain=minMaxDmg/2+(stuffs.get(EnumerationStuff.MAIN_HAND).getRealMin()+stuffs.get(EnumerationStuff.MAIN_HAND).getRealMax())/2;
 			weaponDmgMain = weaponDmgMain * (1+ filter("Damage_Weapon_Percent_Bonus#Physical",null));
 		}
 		double weaponDmgOff=0;
 		
 		if(countweapon==2)
 		{
-			weaponDmgOff=minMaxDmg/2+(stuffs.get(EnumerationStuff.OFF_HAND).getMinDamage().getMoyenne()+stuffs.get(EnumerationStuff.OFF_HAND).getMaxDamage().getMoyenne())/2;
+			weaponDmgOff=minMaxDmg/2+(stuffs.get(EnumerationStuff.OFF_HAND).getRealMin()+stuffs.get(EnumerationStuff.OFF_HAND).getRealMax())/2;
 			weaponDmgOff = weaponDmgOff * (1+ filter("Damage_Weapon_Percent_Bonus#Physical",null));
 		}
 		
 		double hitDmgMAIN=statDamage*ccDamage*weaponDmgMain;
+		
+		
 		double hitDmgOFF=statDamage*ccDamage*weaponDmgOff;
 		
 		double dps=getDamage(stat_base,chance_cc,degat_cc,1+bonusAsArmor,minMaxDmg,0);
 		double elementdps = getElemDamage(stat_base,chance_cc,degat_cc,1+bonusAsArmor,minMaxDmg,0);
-
 		
 		mapResultat.put(KEY.PRIMARY_STAT,stat_base);
 		mapResultat.put(KEY.BONUS_ATTACK_SPEED,format(bonusAsArmor*100)); 
@@ -635,8 +636,8 @@ public class StuffCalculator{
 	    	
 	    	if(stuffs.get(EnumerationStuff.MAIN_HAND)!=null)
 	    	{
-	    		mainWeaponMinDamage =stuffs.get(EnumerationStuff.MAIN_HAND).getMinDamage().getMoyenne();
-	    		mainWeaponMaxDamage =stuffs.get(EnumerationStuff.MAIN_HAND).getMaxDamage().getMoyenne();
+	    		mainWeaponMinDamage =stuffs.get(EnumerationStuff.MAIN_HAND).getRealMin();
+	    		mainWeaponMaxDamage =stuffs.get(EnumerationStuff.MAIN_HAND).getRealMax();
 	    	}
 			
 			if(countweapon<=1)
@@ -646,8 +647,8 @@ public class StuffCalculator{
 	    	}
 	    	else
 	    	{
-	        	double offHandMinDamage =stuffs.get(EnumerationStuff.OFF_HAND).getMinDamage().getMoyenne();
-				double offHandMaxDamage =stuffs.get(EnumerationStuff.OFF_HAND).getMaxDamage().getMoyenne();
+	        	double offHandMinDamage =stuffs.get(EnumerationStuff.OFF_HAND).getRealMin();
+				double offHandMaxDamage =stuffs.get(EnumerationStuff.OFF_HAND).getRealMax();
 				bonusAS += .15;//dual
 	    		dommageMoyen += elementalDamage * (mainWeaponMinDamage + mainWeaponMaxDamage + offHandMinDamage + offHandMaxDamage + 2 * minMaxDmg) / 2;
 	    		damage = (1 + s) * statBase * (1 + critDamage * chanceCrit) * bonusAS*dommageMoyen / vitesseMoyenne;
@@ -764,14 +765,14 @@ public class StuffCalculator{
 	   Map<EnumerationStuff,Item> stuffs2 = new HashMap<EnumerationStuff,Item>();
 								   stuffs2.putAll(getStuffs());
 								   stuffs2.put(g, i);
-	
+		
 								   
 		if(i.isWeapon())
 		   if(i.getType().getTwoHanded())
 			   if(stuffs2.get(EnumerationStuff.OFF_HAND)!=null)
 				   if(stuffs2.get(EnumerationStuff.OFF_HAND).isWeapon())
 				   		stuffs2.put(EnumerationStuff.OFF_HAND, null);
-				
+		
 		StuffCalculator calc2=new StuffCalculator(stuffs2, hero);
 						calc2.calculate();
 		
