@@ -101,6 +101,7 @@ public class CollectionASCIITableAware<T> implements IASCIITableAware {
 			cellValue = method.invoke(obj, new Object [] {});
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			//System.out.println("Unable to get cell content : " + e);
 		}
 		return cellValue;
@@ -117,7 +118,7 @@ public class CollectionASCIITableAware<T> implements IASCIITableAware {
 	
 	private String capitalize(String property) {
 		return property.length() == 0 ? property : 
-			property.substring(0, 1).toUpperCase() + property.substring(1).toLowerCase();
+			property.substring(0, 1).toUpperCase() + property.substring(1);
 	}
 	
 	@Override

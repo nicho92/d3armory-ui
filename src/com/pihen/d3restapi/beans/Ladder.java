@@ -5,7 +5,7 @@ import javax.swing.ImageIcon;
 public class Ladder {
 
 		private int rank;
-		private int levelRift;
+		private int levelrift;
 		private String profile;
 		private String time;
 		private String date;
@@ -32,11 +32,11 @@ public class Ladder {
 		public void setRank(int rank) {
 			this.rank = rank;
 		}
-		public int getLevelRift() {
-			return levelRift;
+		public int getLevelrift() {
+			return levelrift;
 		}
-		public void setLevelRift(int levelRift) {
-			this.levelRift = levelRift;
+		public void setLevelrift(int levelRift) {
+			this.levelrift = levelRift;
 		}
 		public String getProfile() {
 			return profile;

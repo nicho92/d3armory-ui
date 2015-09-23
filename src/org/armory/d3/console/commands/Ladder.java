@@ -74,7 +74,7 @@ public class Ladder implements Command {
 		
 		
 		Map<Integer, com.pihen.d3restapi.beans.Ladder> lad = retriver.getLadders();
-
+	
 		IASCIITableAware asciiTableAware = new CollectionASCIITableAware<com.pihen.d3restapi.beans.Ladder>(new ArrayList<com.pihen.d3restapi.beans.Ladder>(lad.values()), 
 																										   "rank","levelRift","profile","time","date","name");
 		

@@ -21,9 +21,7 @@ public class KanaiCreator {
 			 it.setDisplayColor(i.getDisplayColor());
 			 it.setTypeName(i.getTypeName());
 			 it.setArmor(null);
-			 it.setAttacksPerSecond(null);
-			 it.setMinDamage(null);
-			 it.setMaxDamage(null);
+			
 			 it.setRandomAffixes(null); 
 		for(String k : i.getAttributesRaw().keySet())
 		{

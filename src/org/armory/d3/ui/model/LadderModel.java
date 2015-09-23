@@ -56,7 +56,7 @@ public class LadderModel extends DefaultTableModel
 		{
 		case 0 : return bNetLadder.getLadders().get(row).getRank();
 		case 1 : return bNetLadder.getLadders().get(row).getProfile();
-		case 2 : return bNetLadder.getLadders().get(row).getLevelRift();
+		case 2 : return bNetLadder.getLadders().get(row).getLevelrift();
 		case 3 : return bNetLadder.getLadders().get(row).getTime();
 		case 4 : return bNetLadder.getLadders().get(row).getDate();
 		case 5 : return bNetLadder.getLadders().get(row).getIcon();

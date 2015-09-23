@@ -89,7 +89,7 @@ public class BNetLadderRetriever {
 	        
 	        String date = e.getElementsByClass("cell-CompletedTime").html().trim();
 	        	Ladder l = new Ladder();
-	        		l.setLevelRift(levelRift);
+	        		l.setLevelrift(levelRift);
 	        		l.setRank(rank);
 	        		l.setTime(time);
 	        		l.setDate(date);
