@@ -1,4 +1,4 @@
-package org.armory.d3.ui.components;
+package org.armory.d3.ui.components.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,6 +14,7 @@ import javax.swing.SwingUtilities;
 
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.SwingMainFrame;
+import org.armory.d3.ui.components.ItemLabel;
 import org.armory.d3.ui.components.transfert.DezItemLabelTargetListener;
 
 import com.pihen.d3restapi.beans.Item;

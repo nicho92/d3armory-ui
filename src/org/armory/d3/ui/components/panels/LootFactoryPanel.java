@@ -1,4 +1,4 @@
-package org.armory.d3.ui.components;
+package org.armory.d3.ui.components.panels;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.ui.ItemCreatorFrame;
+import org.armory.d3.ui.components.ItemLabel;
 
 import com.pihen.d3restapi.beans.Item;
 import com.pihen.d3restapi.service.util.EnumerationStuff;

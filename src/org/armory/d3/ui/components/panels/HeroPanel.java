@@ -1,4 +1,4 @@
-package org.armory.d3.ui.components;
+package org.armory.d3.ui.components.panels;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -13,6 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.armory.d3.services.D3ArmoryControler;
+import org.armory.d3.ui.components.ItemLabel;
+import org.armory.d3.ui.components.SkillLabel;
+import org.armory.d3.ui.components.SocketLabel;
 
 import com.pihen.d3restapi.beans.Hero;
 import com.pihen.d3restapi.service.util.EnumerationStuff;

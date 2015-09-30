@@ -1,4 +1,4 @@
-package org.armory.d3.ui.components;
+package org.armory.d3.ui.components.panels;
 
 import java.awt.Color;
 import java.awt.Dimension;

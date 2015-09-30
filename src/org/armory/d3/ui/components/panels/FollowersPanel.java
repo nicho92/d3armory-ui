@@ -1,4 +1,4 @@
-package org.armory.d3.ui.components;
+package org.armory.d3.ui.components.panels;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -6,6 +6,9 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+
+import org.armory.d3.ui.components.ItemLabel;
+import org.armory.d3.ui.components.SkillLabel;
 
 
 public class FollowersPanel extends JPanel{

@@ -1,4 +1,4 @@
-package org.armory.d3.ui.components;
+package org.armory.d3.ui.components.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 import org.armory.d3.services.D3ArmoryControler;
+import org.armory.d3.ui.components.StuffComparCellRenderer;
 import org.armory.d3.ui.model.ItemsDetailModel;
 
 import com.pihen.d3restapi.beans.Hero;

@@ -101,7 +101,7 @@ public class CollectionASCIITableAware<T> implements IASCIITableAware {
 			cellValue = method.invoke(obj, new Object [] {});
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			//System.out.println("Unable to get cell content : " + e);
 		}
 		return cellValue;

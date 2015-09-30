@@ -11,6 +11,9 @@ import java.awt.Dimension;
 import javax.swing.JToolTip;
 import javax.swing.ToolTipManager;
 
+import org.armory.d3.ui.components.panels.RunePanel;
+import org.armory.d3.ui.components.panels.SkillPanel;
+
  
 public class JPanelToolTip extends JToolTip {
  

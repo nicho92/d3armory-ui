@@ -1,4 +1,4 @@
-package org.armory.d3.ui.components;
+package org.armory.d3.ui.components.panels;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -20,6 +20,10 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+
+import org.armory.d3.ui.components.FormatedJLabel;
+import org.armory.d3.ui.components.ItemLabel;
+import org.armory.d3.ui.components.SocketLabel;
 
 import com.pihen.d3restapi.beans.Affixes;
 import com.pihen.d3restapi.beans.AffixesContainer;

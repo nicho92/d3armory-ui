@@ -33,8 +33,8 @@ import javax.swing.WindowConstants;
 import javax.swing.table.TableRowSorter;
 
 import org.armory.d3.services.D3ArmoryControler;
-import org.armory.d3.ui.components.ItemPanelDetails;
 import org.armory.d3.ui.components.StuffComparCellRenderer;
+import org.armory.d3.ui.components.panels.ItemPanelDetails;
 import org.armory.d3.ui.model.DetailsDPSModel;
 import org.armory.d3.ui.model.ListeGemsModel;
 import org.armory.d3.ui.model.StuffComparaisonModel;

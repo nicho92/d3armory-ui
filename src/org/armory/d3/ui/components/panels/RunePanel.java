@@ -1,10 +1,13 @@
-package org.armory.d3.ui.components;
+package org.armory.d3.ui.components.panels;
 
 import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import org.armory.d3.ui.components.FormatedJLabel;
+import org.armory.d3.ui.components.SkillLabel;
 
 import com.pihen.d3restapi.beans.SkillRune;
 
