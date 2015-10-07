@@ -32,6 +32,11 @@ import org.armory.d3.ui.model.LadderModel;
 public class LadderPanel extends JPanel {
 	private JTable ladderTable;
 	BNetLadderRetriever ret ;
+	JCheckBox boxSeason;
+	JComboBox cboRegion;
+	JComboBox cboClazz; 
+	JComboBox cboErea;
+	JCheckBox boxHc; 
 	
 	
 	public LadderPanel() {
@@ -40,14 +45,14 @@ public class LadderPanel extends JPanel {
 		JPanel panneauHaut = new JPanel();
 		add(panneauHaut, BorderLayout.NORTH);
 		
-		final JComboBox cboRegion = new JComboBox(new DefaultComboBoxModel(new String[] {"us", "eu","ch","kr","tw"}));
+		cboRegion = new JComboBox(new DefaultComboBoxModel(new String[] {"us", "eu","ch","kr","tw"}));
 		panneauHaut.add(cboRegion);
 		
-		final JComboBox cboClazz = new JComboBox();
+		cboClazz = new JComboBox();
 		cboClazz.setModel(new DefaultComboBoxModel(new String[] {"dh", "crusader", "barbarian", "wd", "monk", "wizard","2","3","4"}));
 		panneauHaut.add(cboClazz);
 		
-		final JComboBox cboErea = new JComboBox();
+		cboErea = new JComboBox();
 		
 		
 		List<String> seasons = new ArrayList<String>();
@@ -59,10 +64,10 @@ public class LadderPanel extends JPanel {
 		panneauHaut.add(new JLabel("Era : "));
 		panneauHaut.add(cboErea);
 		
-		final JCheckBox boxSeason = new JCheckBox("Season ?");
+		boxSeason = new JCheckBox("Season ?");
 		panneauHaut.add(boxSeason);
 		
-		final JCheckBox boxHc = new JCheckBox("hardcore ?");
+		boxHc = new JCheckBox("hardcore ?");
 		panneauHaut.add(boxHc);
 		
 		JButton btnGetLadder = new JButton("Ladder !");
@@ -143,6 +148,36 @@ public class LadderPanel extends JPanel {
 	}
 	public void setLadderTable(JTable ladderTable) {
 		this.ladderTable = ladderTable;
+	}
+	public JCheckBox getBoxSeason() {
+		return boxSeason;
+	}
+	public void setBoxSeason(JCheckBox boxSeason) {
+		this.boxSeason = boxSeason;
+	}
+	public JComboBox getCboRegion() {
+		return cboRegion;
+	}
+	public void setCboRegion(JComboBox cboRegion) {
+		this.cboRegion = cboRegion;
+	}
+	public JComboBox getCboClazz() {
+		return cboClazz;
+	}
+	public void setCboClazz(JComboBox cboClazz) {
+		this.cboClazz = cboClazz;
+	}
+	public JComboBox getCboErea() {
+		return cboErea;
+	}
+	public void setCboErea(JComboBox cboErea) {
+		this.cboErea = cboErea;
+	}
+	public JCheckBox getBoxHc() {
+		return boxHc;
+	}
+	public void setBoxHc(JCheckBox boxHc) {
+		this.boxHc = boxHc;
 	}
 
 }

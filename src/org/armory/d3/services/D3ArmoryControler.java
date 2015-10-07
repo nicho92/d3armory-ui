@@ -503,6 +503,7 @@ public class D3ArmoryControler {
 	}
 	
 	private int season=-1;
+	private Tag selectedTag;
 	public int getSeason()
 	{
 		
@@ -557,6 +558,18 @@ public class D3ArmoryControler {
 		return id.replaceAll("-","").replace(",", "").replace("'", "").replaceAll("\\.", "").replaceAll(" ", "-").trim().toLowerCase();
 	}
 
+
+	public void setSelectedTag(Tag selectedTag) {
+		this.selectedTag=selectedTag;
+		
+	}
+
+	
+	public Tag getSelectedTag()
+	{
+		return selectedTag;
+		
+	}
 	
 	
 }

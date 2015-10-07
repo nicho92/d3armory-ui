@@ -563,11 +563,16 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			 logger.debug("No cache : Loading from Battle.Net");
 			 initHeroItems(false);
 			 D3ArmoryControler.getInstance().getRecorder().saveHero(hero);
+		
+			 
+			 
 			getTableauDescriptionItems().setModel(new ItemsDetailModel());
 			getPanneauEHP().getTable().setModel(new EHPCalculatorModel(D3ArmoryControler.getInstance().getCalculator()));
-			
 			getMnuSaveBuild().setEnabled(true);
-			
+			getLadderPanel().getCboClazz().setSelectedItem(hero.getClazz());
+			getLadderPanel().getCboRegion().setSelectedItem(D3ArmoryControler.getInstance().getSelectedTag().getRegion());
+			getLadderPanel().getBoxSeason().setSelected(hero.getSeasonal());
+			getLadderPanel().getBoxHc().setSelected(hero.isHardcore());
 			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
@@ -1332,7 +1337,9 @@ public class SwingMainFrame extends javax.swing.JFrame {
 						try {
 							
 							D3ArmoryControler.getInstance().getProperty("local", "en_EN");
-							Profile p = D3ArmoryControler.getInstance().getProfil(new Tag(parser[2], parser[0], Long.parseLong(parser[1])));
+							Tag selectedTag=new Tag(parser[2], parser[0], Long.parseLong(parser[1]));
+							D3ArmoryControler.getInstance().setSelectedTag(selectedTag);
+							Profile p = D3ArmoryControler.getInstance().getProfil(selectedTag);
 							D3ArmoryControler.getInstance().setProfile(p);
 							
 							
