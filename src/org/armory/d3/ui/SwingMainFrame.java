@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -96,7 +95,6 @@ import com.pihen.d3restapi.beans.Tag;
 import com.pihen.d3restapi.beans.TimePlayed;
 import com.pihen.d3restapi.service.remote.exception.D3ServerCommunicationException;
 import com.pihen.d3restapi.service.util.EnumerationStuff;
-import com.pihen.d3restapi.service.util.KanaiCreator;
 import com.pihen.d3restapi.service.util.StuffCalculator;
 
 
@@ -127,6 +125,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 	private JProgressBar progressBar;
 	private JPanel panneauInfoHero;
 	private JTabbedPane ongletPane;
+	private JTabbedPane ongletHeroPane;
 	private JTextField txtFiltrage;
 	private JPanel panneauTableau;
 	private JTable tableauExpert;
@@ -1382,11 +1381,19 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			splitPanneauTableauHero.setOrientation(JSplitPane.VERTICAL_SPLIT);
 			splitPanneauTableauHero.add(getPanneauDessinHero(), JSplitPane.TOP);
 			splitPanneauTableauHero.add(getOngletPane(), JSplitPane.BOTTOM);
-
-				
 		}
 		return splitPanneauTableauHero;
 	}
+	
+	
+	private JTabbedPane getOngletHeroPane()
+	{
+		if(ongletHeroPane==null)
+			ongletHeroPane = new JTabbedPane();
+		
+		return ongletHeroPane;
+	}
+	
 	
 	private JScrollPane getScrollTableau() {
 		if(scrollTableau == null) {
@@ -1471,7 +1478,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			ongletPane.addTab("Expert", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/expert.png")), getPanneauTableau(), null);
 			ongletPane.addTab("Loot Drop Rate", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/loot.png")), getPanneauLoot(), null);
 			ongletPane.addTab("Legendary Gem Evolution", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/leggem.png")), new GemEvolutionChancePanel(), null);
-			ongletPane.addTab("Gem Calculator", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/gem.png")), new GemCalculatorPanel(), null);
+			//ongletPane.addTab("Gem Calculator", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/gem.png")), new GemCalculatorPanel(), null);
 			ongletPane.addTab("Hero Comparator", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/herocomp.png")), new HeroComparatorPanel(),null);
 			ongletPane.addTab("Ladder", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/ranking.png")), getLadderPanel(),null);
 			ongletPane.addTab("Loot Factory", new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/kadala.png")), getLootFactoryPanel(),null);

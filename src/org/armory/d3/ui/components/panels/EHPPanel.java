@@ -51,7 +51,7 @@ public class EHPPanel extends JPanel {
 		
 		
 		List list = new ArrayList();
-		for(int i=1;i<80;i++)
+		for(int i=1;i<=100;i++)
 			list.add(i);
 			
 			
