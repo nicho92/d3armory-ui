@@ -505,6 +505,7 @@ public class HeroPanel extends JPanel {
 			lblHarcore = new ItemLabel();
 			lblHarcore.setText("");
 			lblHarcore.setBounds(539, 42, 180, 18);
+			lblHarcore.setForeground(Color.RED);
 			lblHarcore.setName("lblHarcore");
 		}
 		return lblHarcore;

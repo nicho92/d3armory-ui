@@ -307,7 +307,7 @@ public class D3ArmoryControler {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(i + " " + e.getMessage());
-			JOptionPane.showMessageDialog(null, e + " "+ i,"ERROR",JOptionPane.ERROR_MESSAGE);
+			//JOptionPane.showMessageDialog(null, e + " "+ i,"ERROR",JOptionPane.ERROR_MESSAGE);
 			return null;
 		}
 	}
