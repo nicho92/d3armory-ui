@@ -1,8 +1,8 @@
 # DIABLO 3 JAVA REST API #
 ## DPS CALCULATOR AND PROFILE MANAGER FOR DIABLO 3 ##
 
-## Update Season 2 ##
-Update Season 2 information
+## Update Season 4 ##
+Update Season 4 information
 
 ## Update 2.1 ##
 Add all new features of 2.1 patch
