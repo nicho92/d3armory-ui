@@ -1,2 +1,5 @@
 /bin/
 *.class
+*.class
+bin/org/armory/d3/ui/SwingMainFrame$1.class
+bin/org/armory/d3/ui/SwingMainFrame.class
