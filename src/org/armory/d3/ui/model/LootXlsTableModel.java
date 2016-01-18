@@ -49,7 +49,7 @@ public class LootXlsTableModel extends DefaultTableModel implements Serializable
 		case 3 : return "demon-hunter";
 		case 4 : return "monk";
 		case 5 : return "barbarian";
-		case 9 : return "crusader";
+		case 6 : return "crusader";
 		case 7 : return "wizard";
 		case 8 : return "witch-doctor";
 		default : return "";
