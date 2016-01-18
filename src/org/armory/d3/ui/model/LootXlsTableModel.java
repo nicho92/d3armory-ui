@@ -46,15 +46,12 @@ public class LootXlsTableModel extends DefaultTableModel implements Serializable
 		case 0 : return "Item";
 		case 1 : return "Type";
 		case 2 : return "Type Kadala";
-		case 3 : return "Harcore Only";
-		case 4 : return "Torment Only";
-		case 5 : return "Season";
-		case 6 : return "demon-hunter";
-		case 7 : return "monk";
-		case 8 : return "barbarian";
+		case 3 : return "demon-hunter";
+		case 4 : return "monk";
+		case 5 : return "barbarian";
 		case 9 : return "crusader";
-		case 10 : return "wizard";
-		case 11 : return "witch-doctor";
+		case 7 : return "wizard";
+		case 8 : return "witch-doctor";
 		default : return "";
 		}
 	}
@@ -76,7 +73,7 @@ public class LootXlsTableModel extends DefaultTableModel implements Serializable
 	
 	@Override
 	public int getColumnCount() {
-		return 12;
+		return 9;
 	}
 
 	
