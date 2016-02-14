@@ -34,7 +34,7 @@ public class Tag {
 	
 	public String getHost()
 	{
-		return getRegion()+".battle.net";
+		return getRegion()+".api.battle.net";
 	}
 	
 	

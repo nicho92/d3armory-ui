@@ -17,7 +17,7 @@ import com.pihen.d3restapi.service.util.RawsAttributeFactory;
 import com.pihen.d3restapi.service.util.StuffCalculator.ELEMENTS;
 
 
-@RemoteConfiguration(url = "http://<host>/api/d3/data/item/<item-id>?locale=<local>")
+@RemoteConfiguration(url = "https://<host>/d3/data/item/<item-id>?locale=<local>&apikey=<apikey>")
 public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	
 	private static final long serialVersionUID = 5279622195128628056L;

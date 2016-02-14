@@ -2,6 +2,8 @@ package com.pihen.d3restapi.service.configuration;
 
 import java.util.LinkedHashMap;
 
+import com.pihen.d3restapi.service.util.StuffCalculator.KEY;
+
 /**
  * Represents a d3 server configuration with character identification.
  * 
@@ -16,6 +18,7 @@ public class Configuration extends LinkedHashMap<String, Object> {
 	public static final String HERO_ID = "<hero-id>";
 	public static final String LOCAL="<local>";
 	public static final String ITEM_ID="<item-id>";
+	public static final String KEYAPI="<apikey>";
 	/**
 	 * Clones the mappings of the underlying map. This is not a deep copy.
 	 * 
@@ -32,6 +35,16 @@ public class Configuration extends LinkedHashMap<String, Object> {
 
 	public void setItemId(String itemID) {
 		put(ITEM_ID,itemID);
+	}
+	
+	public void setApiKEY(String api)
+	{
+		put(KEYAPI,api);
+	}
+	
+	public String getKeyAPI()
+	{
+		return (String)get(KEYAPI);
 	}
 	
 	public String getZone()
@@ -98,6 +111,6 @@ public class Configuration extends LinkedHashMap<String, Object> {
 	
 	public String toString()
 	{
-		return "http://"+getHost()+"/api/d3/profile/"+getBattleTag()+"-"+getBattleTagCode()+"/?locale="+getLocal();
+		return "http://"+getHost()+"/d3/profile/"+getBattleTag()+"-"+getBattleTagCode()+"/?locale="+getLocal()+"&apikey="+getKeyAPI();
 	}
 }

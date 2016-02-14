@@ -96,6 +96,7 @@ public class D3ArmoryControler {
 		    		D3ArmoryControler.getInstance().setProperty("recorder","org.armory.d3.services.impl.SerializableRecorder");
 		    		D3ArmoryControler.getInstance().setProperty("cache","false");
 		    		D3ArmoryControler.getInstance().setProperty("maxResultLadder","500");
+		    		D3ArmoryControler.getInstance().setProperty("APIKEY", "hxprnuwhdy8caszkgj6959rcygghsbm6");
 		    	}
 		    	
 		    	if(!new File(D3ArmoryControler.TAG_FILE).exists())	
@@ -239,6 +240,7 @@ public class D3ArmoryControler {
 		  conf.setBattleTagCode(t.getNumber());
 		  conf.setHost(t.getHost());
 		  conf.setLocal(local);
+		  conf.setApiKEY(getProperty("APIKEY", ""));
 		  if(local==null)
 			  conf.setLocal("en_US");
 		  
@@ -252,6 +254,7 @@ public class D3ArmoryControler {
 		  conf.setBattleTagCode(t.getNumber());
 		  conf.setHost(t.getHost());
 		  conf.setLocal(local);
+		  conf.setApiKEY(getProperty("APIKEY", ""));
 		  if(local==null)
 			  conf.setLocal("en_US");
 		  profileService = new SpringRemoteService(Profile.class);

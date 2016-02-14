@@ -6,7 +6,7 @@ import com.pihen.d3restapi.service.annotation.RemoteConfiguration;
 import com.pihen.d3restapi.service.remote.RemoteEntity;
 
 
-@RemoteConfiguration(url = "http://<host>/api/d3/profile/<battletag-name>-<battletag-code>/?locale=<local>")
+@RemoteConfiguration(url = "https://<host>/d3/profile/<battletag-name>-<battletag-code>/?locale=<local>&apikey=<apikey>")
 public class Profile extends RemoteEntity {
 
 	private List<Hero> heroes;
