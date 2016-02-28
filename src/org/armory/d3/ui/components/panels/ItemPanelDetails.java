@@ -161,16 +161,32 @@ public class ItemPanelDetails extends JPanel {
 		
 	}
 	
+	List<DisplayableItemAttributs> prim;
+	List<DisplayableItemAttributs> sec;
+	List<DisplayableItemAttributs> pass;
+	
 	private void updateItemContent()
 	{
 		getLblDetailItem().removeAll();
-		
-		List<DisplayableItemAttributs> prim = item.getAttributes().getPrimary();
-		List<DisplayableItemAttributs> sec = item.getAttributes().getSecondary();
-		List<DisplayableItemAttributs> pass = item.getAttributes().getPassive();
+		prim = item.getAttributes().getPrimary();
+		sec = item.getAttributes().getSecondary();
+		pass = item.getAttributes().getPassive();
 		getLblDetailItem().init();
 		
+		
+		
+		
 		if(prim !=null){
+			
+			if(item.getAugmentation()!=null)
+			{
+				DisplayableItemAttributs att = new DisplayableItemAttributs();
+					att.setText(item.getAugmentation());
+					att.setColor("blue");
+					prim.add(att);
+			}
+			
+			
 			getLblDetailItem().addText("Primaire ","white","white");
 			for(DisplayableItemAttributs i : prim)
 			{
@@ -181,7 +197,10 @@ public class ItemPanelDetails extends JPanel {
 				
 				getLblDetailItem().addText(roll+ " " +i.getText(), i.getColor(), "#BDA6CD");
 			}
+			
 		}
+		
+		
 		if(sec!=null){
 			getLblDetailItem().addText("Secondaire ","white","white");
 			for(DisplayableItemAttributs i : sec)

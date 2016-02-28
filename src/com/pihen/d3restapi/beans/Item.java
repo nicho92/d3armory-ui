@@ -54,6 +54,7 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	private MinMaxBonus minDamage;
 	private MinMaxBonus maxDamage;
 	private Number seasonRequiredToDrop;
+	private String augmentation;
 	private boolean isSeasonRequiredToDrop;
 	
 	double maxdmg;
@@ -62,6 +63,14 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	
 	
 	
+	public String getAugmentation() {
+		return augmentation;
+	}
+
+	public void setAugmentation(String augmentation) {
+		this.augmentation = augmentation;
+	}
+
 	public String getElementalType() {
 		return elementalType;
 	}
