@@ -455,9 +455,27 @@ public class StuffCalculator{
 		}
 		
 		
-		
+		calculeKaldessan();
 		calculeBuff();
 	}
+	
+	private void calculeKaldessan()
+	{
+			for(Item i : getAllItems())
+			{
+				
+				int type = (int) filter(i,"CubeEnchantedGemType",null);
+				
+				switch(type){
+					case 1 : statsCalculator.put("Vitality_Item_Kaldessan_"+i.getName().replaceAll(" ", "-"), new MinMaxBonus(filter(i,"CubeEnchantedGemRank",null)*5));
+					case 2 : statsCalculator.put("Dexterity_Item_Kaldessan_"+i.getName().replaceAll(" ", "-"), new MinMaxBonus(filter(i,"CubeEnchantedGemRank",null)*5));
+					case 3 : statsCalculator.put("Strength_Item_Kaldessan_"+i.getName().replaceAll(" ", "-"), new MinMaxBonus(filter(i,"CubeEnchantedGemRank",null)*5));
+					case 4 : statsCalculator.put("Intelligence_Item_Kaldessan_"+i.getName().replaceAll(" ", "-"), new MinMaxBonus(filter(i,"CubeEnchantedGemRank",null)*5));
+					case 5 : statsCalculator.put("Resistance_All_Item_Kaldessan_"+i.getName().replaceAll(" ", "-"), new MinMaxBonus(filter(i,"CubeEnchantedGemRank",null)*5));
+				}
+			}
+	}
+	
 	
 	private void calculeBuff()
 	{
@@ -779,7 +797,6 @@ public class StuffCalculator{
 		return calc2;
 	}
 	
-	
 	public static double format(double val)
 	{
 		try{
@@ -925,6 +942,8 @@ public class StuffCalculator{
 		
 		return total;	
 	}
+	
+	
 	
 
 	public double getGemValue(Item i,String stat) { // add gems
