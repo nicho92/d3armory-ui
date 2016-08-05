@@ -1352,6 +1352,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 							}
 							
 						} catch (D3ServerCommunicationException ex) {
+							ex.printStackTrace();
 							JOptionPane.showMessageDialog(null, ex,"ERREUR",JOptionPane.ERROR_MESSAGE);
 						}
 					    } 

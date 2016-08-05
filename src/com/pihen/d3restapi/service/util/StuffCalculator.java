@@ -353,6 +353,8 @@ public class StuffCalculator{
 		Map<LegendarySet,Integer> piecesbyset=new HashMap<LegendarySet,Integer>();
 		int compteur=0;
 		
+		calculeKaldessan();
+		
 		//add cube kanai
 		if(hero.getLegendaryPowers().length>0)
 		{
@@ -455,23 +457,23 @@ public class StuffCalculator{
 		}
 		
 		
-		calculeKaldessan();
+		
 		calculeBuff();
 	}
 	
 	private void calculeKaldessan()
 	{
-			for(Item i : getAllItems())
+			for(Item i :getAllItems() )
 			{
 				
 				int type = (int) filter(i,"CubeEnchantedGemType",null);
 				
 				switch(type){
-					case 1 : statsCalculator.put("Vitality_Item_Kaldessan_"+i.getName().replaceAll(" ", "-"), new MinMaxBonus(filter(i,"CubeEnchantedGemRank",null)*5));
-					case 2 : statsCalculator.put("Dexterity_Item_Kaldessan_"+i.getName().replaceAll(" ", "-"), new MinMaxBonus(filter(i,"CubeEnchantedGemRank",null)*5));
-					case 3 : statsCalculator.put("Strength_Item_Kaldessan_"+i.getName().replaceAll(" ", "-"), new MinMaxBonus(filter(i,"CubeEnchantedGemRank",null)*5));
-					case 4 : statsCalculator.put("Intelligence_Item_Kaldessan_"+i.getName().replaceAll(" ", "-"), new MinMaxBonus(filter(i,"CubeEnchantedGemRank",null)*5));
-					case 5 : statsCalculator.put("Resistance_All_Item_Kaldessan_"+i.getName().replaceAll(" ", "-"), new MinMaxBonus(filter(i,"CubeEnchantedGemRank",null)*5));
+					case 1 : i.getAttributesRaw().put("Vitality_Item_Kaldessan", new MinMaxBonus(filter(i,"CubeEnchantedGemRank",null)*5));break;
+					case 2 :  i.getAttributesRaw().put("Dexterity_Item_Kaldessan", new MinMaxBonus(filter(i,"CubeEnchantedGemRank",null)*5));break;
+					case 3 :  i.getAttributesRaw().put("Strength_Item_Kaldessan", new MinMaxBonus(filter(i,"CubeEnchantedGemRank",null)*5));break;
+					case 4 :  i.getAttributesRaw().put("Intelligence_Item_Kaldessan", new MinMaxBonus(filter(i,"CubeEnchantedGemRank",null)*5));break;
+					case 5 :  i.getAttributesRaw().put("Resistance_All_Item_Kaldessan", new MinMaxBonus(filter(i,"CubeEnchantedGemRank",null)*5));break;
 				}
 			}
 	}
@@ -858,9 +860,6 @@ public class StuffCalculator{
 		List<Item> items = new ArrayList<Item>();
 		for(EnumerationStuff e :EnumerationStuff.values())
 			items.add(stuffs.get(e));
-		
-		
-		
 		
 		return items;
 	}
