@@ -34,8 +34,6 @@ public class Load implements Command {
 			D3ArmoryControler.getInstance().setProperty("local", cl.getOptionValue("l"));
 		}
 		
-		
-		
 		if(cl.hasOption("p"))
 		{
 			
@@ -56,10 +54,7 @@ public class Load implements Command {
 		{
 			usage();
 		}
-		
-		
-
-	}
+	} 
 
 	@Override
 	public void usage() {

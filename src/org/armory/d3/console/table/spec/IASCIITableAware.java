@@ -17,7 +17,7 @@ package org.armory.d3.console.table.spec;
 
 import java.util.List;
 
-import org.armory.d3.console.table.ASCIITableHeader;
+import  org.armory.d3.console.table.ASCIITableHeader;
 
 /**
  * An ASCII table interface for extracting the header, data

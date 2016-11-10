@@ -16,17 +16,14 @@
 package org.armory.d3.console.table.impl;
 
 import java.lang.reflect.Method;
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.armory.d3.console.table.ASCIITableHeader;
 import org.armory.d3.console.table.spec.IASCIITableAware;
+import  org.armory.d3.console.table.ASCIITableHeader;
 
 /**
  * This class is useful to extract the header and row data from

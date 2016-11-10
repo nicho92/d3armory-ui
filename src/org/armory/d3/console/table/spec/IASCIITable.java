@@ -1,7 +1,7 @@
 
 package org.armory.d3.console.table.spec;
 
-import org.armory.d3.console.table.ASCIITableHeader;
+import  org.armory.d3.console.table.ASCIITableHeader;
 
 public interface IASCIITable {
 	

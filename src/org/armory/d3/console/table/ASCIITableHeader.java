@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.armory.d3.console.table;
+package  org.armory.d3.console.table;
 
 import org.armory.d3.console.table.spec.IASCIITable;
 

@@ -7,11 +7,11 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.armory.d3.console.Command;
-import org.armory.d3.console.table.ASCIITable;
 import org.armory.d3.console.table.impl.CollectionASCIITableAware;
 import org.armory.d3.console.table.spec.IASCIITableAware;
 import org.armory.d3.services.D3ArmoryControler;
 import org.armory.d3.services.impl.BNetLadderRetriever;
+import org.armory.d3.console.table.ASCIITable;
 
 public class Ladder implements Command {
 

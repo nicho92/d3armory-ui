@@ -1,5 +1,5 @@
 
-package org.armory.d3.console.table;
+package  org.armory.d3.console.table;
 
 import java.io.PrintStream;
 
@@ -68,5 +68,5 @@ public class ASCIITable implements IASCIITable {
 	public void printTable(IASCIITableAware asciiTableAware) {
 		asciiTable.printTable(asciiTableAware);
 	}
-	
+
 }

@@ -20,9 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-import org.armory.d3.console.table.ASCIITableHeader;
 import org.armory.d3.console.table.spec.IASCIITable;
 import org.armory.d3.console.table.spec.IASCIITableAware;
+import  org.armory.d3.console.table.ASCIITableHeader;
 
 /**
  * This implementation builds the header and data  rows
