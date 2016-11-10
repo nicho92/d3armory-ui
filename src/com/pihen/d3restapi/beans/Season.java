@@ -16,8 +16,48 @@ public class Season implements Serializable{
 	private SeasonalProfile season3;
 	private SeasonalProfile season4;
 	private SeasonalProfile season5;
+	private SeasonalProfile season6;
+	private SeasonalProfile season7;
+	private SeasonalProfile season8;
 	
 	
+	
+	
+	public SeasonalProfile getSeason6() {
+		return season6;
+	}
+
+
+	public void setSeason6(SeasonalProfile season6) {
+		this.season6 = season6;
+	}
+
+
+	public SeasonalProfile getSeason7() {
+		return season7;
+	}
+
+
+	public void setSeason7(SeasonalProfile season7) {
+		this.season7 = season7;
+	}
+
+
+	public SeasonalProfile getSeason8() {
+		return season8;
+	}
+
+
+	public void setSeason8(SeasonalProfile season8) {
+		this.season8 = season8;
+	}
+
+
+	public static Logger getLogger() {
+		return logger;
+	}
+
+
 	public SeasonalProfile getSeason5() {
 		return season5;
 	}
