@@ -223,7 +223,10 @@ public class ItemLabel extends JLabel implements MouseListener, Cloneable, DragG
 					if("orange".equals(item.getDisplayColor()))
 					{
 						if(item.isAncientItem())
-							return new LineBorder(new Color(255,177,124), 1, true);
+							if(item.isAncientPrimalItem())
+								return new LineBorder(Color.RED, 1, true);
+							else
+								return new LineBorder(new Color(255,177,124), 1, true);
 						else
 							return new LineBorder(new Color(223,116,1), 1, true);
 					}

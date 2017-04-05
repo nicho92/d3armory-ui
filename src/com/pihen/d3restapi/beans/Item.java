@@ -161,7 +161,17 @@ public class Item  extends RemoteEntity implements Cloneable,Serializable {
 	public boolean isAncientItem()
 	{
 		
-		return (getAttributesRaw().get("Ancient_Rank")!=null);
+		if(getAttributesRaw().get("Ancient_Rank")!=null)
+			return getAttributesRaw().get("Ancient_Rank").toString().equals("1.0");
+		return false;
+	}
+	
+	public boolean isAncientPrimalItem()
+	{
+		
+		if(getAttributesRaw().get("Ancient_Rank")!=null)
+			return getAttributesRaw().get("Ancient_Rank").toString().equals("2.0");
+		return false;
 	}
 	
 	public boolean isSocketAddedByGift()
