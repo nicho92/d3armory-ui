@@ -18,7 +18,7 @@ public class D3ProgressLeaderBoard implements LeaderBord
 	
 	public D3ProgressLeaderBoard(Configuration conf,Hero h) throws IOException {
 		
-		String html = "http://www.diabloprogress.com/hero/";
+		String html = "https://www.diabloprogress.com/hero/";
 		
     	html= html+conf.getBattleTag()+"-"+conf.getBattleTagCode()+"/"+h.getName()+"/"+h.getId();
     	doc = Jsoup.connect(html).get();
