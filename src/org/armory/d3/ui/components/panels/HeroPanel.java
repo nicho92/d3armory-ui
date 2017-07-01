@@ -637,6 +637,10 @@ public class HeroPanel extends JPanel {
 		if(hero!=null){
 				String classe = hero.getClazz();
 				String sexe = hero.getSexe();
+				
+				if(classe.equals("necromancer"))
+					classe="necro";
+				
 				imagePath="http://eu.battle.net/d3/static/images/profile/hero/paperdoll/"+classe+"-"+sexe+".jpg";
 				Image image = null;
 		
@@ -649,7 +653,8 @@ public class HeroPanel extends JPanel {
 			 	} 
 			 	catch (IOException e) 
 			 	{
-			 	     System.err.println(e);
+			 		System.out.println(imagePath);
+			 	   e.printStackTrace();
 			 	}
 		}
 		else

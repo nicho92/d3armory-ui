@@ -22,9 +22,18 @@ public class SkillsFactory {
 			return witchdoctorFactorySkills();
 		if("demon-hunter".equals(clazz))
 			return demonhunterFactorySkills();
+		if("necromancer".equals(clazz))
+			return necromancerFactorySkills();
 		
 		return null;
 	}
+	
+	private static List<SkillRune> necromancerFactorySkills() {
+		List<SkillRune> skills = new ArrayList<SkillRune>();
+		
+		return skills;
+	}
+	
 	
 	private static List<SkillRune> demonhunterFactorySkills() {
 		List<SkillRune> skills = new ArrayList<SkillRune>();

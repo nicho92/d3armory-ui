@@ -73,9 +73,14 @@ public class HeroCellRenderer implements ListCellRenderer<Hero>
 		{
 			lab.setBackground(Color.DARK_GRAY);
 		}
-		Image i =new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/"+hero.getClazz()+"-"+hero.getSexe()+".png")).getImage();
-		Image newimg = i.getScaledInstance(i.getWidth(null)/2, i.getHeight(null)/2,  java.awt.Image.SCALE_SMOOTH); 
-		lab.setIcon(new ImageIcon(newimg));
+		try{ 
+			Image i =new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/"+hero.getClazz()+"-"+hero.getSexe()+".png")).getImage();
+			Image newimg = i.getScaledInstance(i.getWidth(null)/2, i.getHeight(null)/2,  java.awt.Image.SCALE_SMOOTH); 
+			lab.setIcon(new ImageIcon(newimg));
+		}catch(Exception e)
+		{
+			
+		}
 		
 		
 		

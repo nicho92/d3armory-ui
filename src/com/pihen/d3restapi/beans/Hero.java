@@ -98,6 +98,8 @@ public class Hero extends RemoteEntity implements Serializable {
 				return "Intelligence"; 
 			if("crusader".equals(getClazz()))
 				return "Strength";
+			if("necro".equals(getClazz()))
+				return "Intelligence";
 		
 		return "";
 	}
@@ -254,7 +256,8 @@ public class Hero extends RemoteEntity implements Serializable {
 			return getStats().getIntelligence(); 
 		if("crusader".equals(getClazz()))
 			return getStats().getStrength();
-		
+		if("necro".equals(getClazz()))
+			return getStats().getIntelligence();
 		
 		return 0.0;
 	}
