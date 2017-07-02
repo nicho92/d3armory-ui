@@ -13,10 +13,15 @@ public class Tag {
 	 */
 	public Tag(String ligne)
 	{
+		try{
 		String values[] = ligne.split("#");
 		setRegion(values[2]);
 		setName(values[0]);
 		setNumber(Long.parseLong(values[1]));
+		}catch(Exception e)
+		{
+			//System.err.println("ERREUR " + ligne);
+		}
 	}
 	
 	public String toString()
