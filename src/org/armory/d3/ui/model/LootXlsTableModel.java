@@ -52,6 +52,7 @@ public class LootXlsTableModel extends DefaultTableModel implements Serializable
 		case 6 : return "crusader";
 		case 7 : return "wizard";
 		case 8 : return "witch-doctor";
+		case 9 : return "necromancer";
 		default : return "";
 		}
 	}
@@ -73,7 +74,7 @@ public class LootXlsTableModel extends DefaultTableModel implements Serializable
 	
 	@Override
 	public int getColumnCount() {
-		return 9;
+		return 10;
 	}
 
 	

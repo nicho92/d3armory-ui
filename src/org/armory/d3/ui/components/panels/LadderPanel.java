@@ -49,7 +49,7 @@ public class LadderPanel extends JPanel {
 		panneauHaut.add(cboRegion);
 		
 		cboClazz = new JComboBox();
-		cboClazz.setModel(new DefaultComboBoxModel(new String[] {"dh", "crusader", "barbarian", "wd", "monk", "wizard","2","3","4"}));
+		cboClazz.setModel(new DefaultComboBoxModel(new String[] {"dh", "crusader", "barbarian", "wd", "monk", "wizard","necromancer","2","3","4"}));
 		panneauHaut.add(cboClazz);
 		
 		cboErea = new JComboBox();
