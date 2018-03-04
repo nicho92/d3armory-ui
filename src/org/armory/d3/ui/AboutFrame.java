@@ -31,7 +31,7 @@ public class AboutFrame extends javax.swing.JFrame {
 			{
 				lblImage = new JLabel();
 				getContentPane().add(lblImage, BorderLayout.CENTER);
-				lblImage.setIcon(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/about.png")));
+				lblImage.setIcon(new ImageIcon(getClass().getResource("/org/armory/d3/ui/about.png")));
 				lblImage.setPreferredSize(new java.awt.Dimension(459, 140));
 			}
 			{

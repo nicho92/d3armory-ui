@@ -284,13 +284,13 @@ public class ItemLabel extends JLabel implements MouseListener, Cloneable, DragG
 			    	
 			    	if(item.getTransmogItem()!=null)
 					{
-			    		Image i = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/bg-transmog.gif")).getImage();
+			    		Image i = new ImageIcon(getClass().getResource("/org/armory/d3/ui/bg-transmog.gif")).getImage();
 			    		g2d.drawImage(i, this.getWidth()-13, 0, null);
 					}
 			    	
 			    	if(item.isSocketAddedByGift())
 					{
-			    		Image i = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/gift.png")).getImage();
+			    		Image i = new ImageIcon(getClass().getResource("/org/armory/d3/ui/gift.png")).getImage();
 			    		g2d.drawImage(i, this.getWidth()-30, this.getHeight()-30, null);
 					}
 			    	

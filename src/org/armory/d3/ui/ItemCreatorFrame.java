@@ -103,7 +103,7 @@ public class ItemCreatorFrame extends javax.swing.JDialog {
 			setLocationRelativeTo(null);
 			setTitle("Item Builder");
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			this.setIconImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/icone.jpg")).getImage());
+			this.setIconImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/icone.jpg")).getImage());
 			
 			{
 				{

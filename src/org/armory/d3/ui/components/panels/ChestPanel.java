@@ -63,7 +63,6 @@ public class ChestPanel extends JPanel{
 		contentChest=new JPanel();
 		itemDezPanel=new JPanel();
 		lblDezItem = new ItemLabel();
-		
 		lblDezItem.setIcon(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/itemDez.png")));
 		new DezItemLabelTargetListener(lblDezItem);
 		

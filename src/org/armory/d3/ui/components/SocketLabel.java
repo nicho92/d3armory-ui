@@ -59,7 +59,7 @@ public class SocketLabel extends JLabel {
 		{	
 			try {
 				 Graphics2D g2d = ( Graphics2D )g;
-				 Image i = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/socket.png")).getImage();
+				 Image i = new ImageIcon(getClass().getResource("/org/armory/d3/ui/socket.png")).getImage();
 				 int x = (this.getWidth() - i.getWidth(null)) / 2;
 				 int y = (this.getHeight() - i.getHeight(null)) / 2;
 				 

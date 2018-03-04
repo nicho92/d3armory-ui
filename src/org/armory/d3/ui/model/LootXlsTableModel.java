@@ -1,6 +1,7 @@
 package org.armory.d3.ui.model;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.URL;
@@ -21,8 +22,8 @@ public class LootXlsTableModel extends DefaultTableModel implements Serializable
 	public void init() {
 		      try {
 		    	  
-		    	//  FileReader fr = new FileReader(getClass().getResource("/org/armory/d3/ui/resources/loot.csv").getFile());
-		    	  InputStreamReader fr = new InputStreamReader( new URL("https://raw.githubusercontent.com/nicho92/d3armory-ui/master/src/org/armory/d3/ui/resources/data/loot.csv").openStream(),"ISO-8859-1");
+		    	  FileReader fr = new FileReader(getClass().getResource("/org/armory/d3/ui/resources/data/loot.csv").getFile());
+		    	//  InputStreamReader fr = new InputStreamReader( new URL("https://raw.githubusercontent.com/nicho92/d3armory-ui/master/src/org/armory/d3/ui/data/loot.csv").openStream(),"ISO-8859-1");
 	
 		    	  
 		    	  BufferedReader br = new BufferedReader(fr);

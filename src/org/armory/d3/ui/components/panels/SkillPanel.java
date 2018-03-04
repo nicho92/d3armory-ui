@@ -78,7 +78,7 @@ public class SkillPanel extends JPanel {
 		 super.paintComponent(g);
 		 Graphics2D g2d = (Graphics2D) g;
 		 
-		 Image i = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/item-white.png")).getImage();
+		 Image i = new ImageIcon(getClass().getResource("/org/armory/d3/ui/item-white.png")).getImage();
 			 g2d.drawImage(i, 0, 0, null);
 		
 	}

@@ -16,7 +16,7 @@ public class ListeTagTree extends JTree {
 		getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		
 //		 DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
-//         renderer.setLeafIcon(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/tab/loot.png")));
+//         renderer.setLeafIcon(new ImageIcon(getClass().getResource("/org/armory/d3/ui/tab/loot.png")));
 //         
 //         setCellRenderer(renderer);
 		

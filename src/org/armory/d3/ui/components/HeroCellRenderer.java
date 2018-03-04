@@ -28,12 +28,12 @@ public class HeroCellRenderer implements ListCellRenderer<Hero>
 				super.paint(g);
 				if(hero.isDead())
 				{
-					Image dead =new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/dead.png")).getImage();
+					Image dead =new ImageIcon(getClass().getResource("/org/armory/d3/ui/dead.png")).getImage();
 					g.drawImage(dead, getWidth()-60, 5, null);
 				}
 				if(hero.getSeasonal())
 				{
-					Image season=new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/season.png")).getImage();
+					Image season=new ImageIcon(getClass().getResource("/org/armory/d3/ui/season.png")).getImage();
 					g.drawImage(season, getWidth()-25, 15, null);
 					
 				}
@@ -74,7 +74,7 @@ public class HeroCellRenderer implements ListCellRenderer<Hero>
 			lab.setBackground(Color.DARK_GRAY);
 		}
 		try{ 
-			Image i =new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/"+hero.getClazz()+"-"+hero.getSexe()+".png")).getImage();
+			Image i =new ImageIcon(getClass().getResource("/org/armory/d3/ui/"+hero.getClazz()+"-"+hero.getSexe()+".png")).getImage();
 			Image newimg = i.getScaledInstance(i.getWidth(null)/2, i.getHeight(null)/2,  java.awt.Image.SCALE_SMOOTH); 
 			lab.setIcon(new ImageIcon(newimg));
 		}catch(Exception e)

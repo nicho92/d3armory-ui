@@ -510,7 +510,7 @@ public class SwingMainFrame extends javax.swing.JFrame {
 			new Thread(new Runnable() {
 			      public void run() {
 			    	  try {	
-			    		  getPanneauDessinHero().getLblLoader().setIcon(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/loading.gif")));
+			    		  getPanneauDessinHero().getLblLoader().setIcon(new ImageIcon(getClass().getResource("/org/armory/d3/ui/loading.gif")));
 			    		  
 			    		  chargementHero();
 			    		  getPanneauDessinHero().setHero(hero);

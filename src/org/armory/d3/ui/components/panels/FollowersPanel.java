@@ -91,7 +91,7 @@ public class FollowersPanel extends JPanel{
 	
 
     protected void paintComponent(Graphics g) {
-    		Image bg = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/followers.jpg")).getImage();
+    		Image bg = new ImageIcon(getClass().getResource("/org/armory/d3/ui/followers.jpg")).getImage();
 			g.drawImage(bg,0,0,null);
 			super.paintComponents(g);
 	}

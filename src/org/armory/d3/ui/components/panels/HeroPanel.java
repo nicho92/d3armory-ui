@@ -237,7 +237,7 @@ public class HeroPanel extends JPanel {
 				public void paint(Graphics g) {
 					if(hero!=null)
 					{
-						Image bg = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/ressource_"+hero.getClazz()+".png")).getImage();
+						Image bg = new ImageIcon(getClass().getResource("/org/armory/d3/ui/ressource_"+hero.getClazz()+".png")).getImage();
 						g.drawImage(bg,0,0,null);
 					}
 					super.paintComponent(g);
@@ -663,7 +663,7 @@ public class HeroPanel extends JPanel {
 			g.drawImage(bg,0,0,null);
 		}
 		
-		// g.drawImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/inventory-lines.png")).getImage(),462,167,null);
+		// g.drawImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/inventory-lines.png")).getImage(),462,167,null);
 	}
 
 }

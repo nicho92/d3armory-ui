@@ -103,18 +103,18 @@ public class ItemPanelDetails extends JPanel {
 		 if(item!=null)
 		 {
 
-			 Image i = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/item-"+item.getDisplayColor()+".png")).getImage();
+			 Image i = new ImageIcon(getClass().getResource("/org/armory/d3/ui/item-"+item.getDisplayColor()+".png")).getImage();
 			 g2d.drawImage(i, 0, 7, null);
 			
 			
 			 if(item.isArmor())
 			 {
-				 g2d.drawImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/armor.jpg")).getImage(), 100, 85, null);
+				 g2d.drawImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/armor.jpg")).getImage(), 100, 85, null);
 			 }
 			 else
 			 {
 				 if(!(item.getEnchantedWeapon()==null))
-					 g2d.drawImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/"+item.getEnchantedWeapon().toString().toLowerCase()+".jpg")).getImage(), 40, 85, null);
+					 g2d.drawImage(new ImageIcon(getClass().getResource("/org/armory/d3/ui/"+item.getEnchantedWeapon().toString().toLowerCase()+".jpg")).getImage(), 40, 85, null);
 			 }
 		 }
 	}
