@@ -28,7 +28,7 @@ public class KanaiPanel extends JPanel {
 	
 	
 	protected void paintComponent(Graphics g) {
-		Image bg = new ImageIcon(getClass().getResource("/org/armory/d3/ui/kanai.png")).getImage();
+		Image bg = new ImageIcon(getClass().getResource("/org/armory/d3/ui/resources/kanai.png")).getImage();
 		g.drawImage(bg,0,0,null);
 		super.paintComponents(g);
 	}
